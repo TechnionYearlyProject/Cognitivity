@@ -1,0 +1,11 @@
+Current services:
+
+1. TestManagerService
+2. QuestionService
+3. TestSubjectService
+4. CognitiveTestService
+5. TestAnswerService
+
+
+Thoughts:
+- Maybe add theme styling properties?

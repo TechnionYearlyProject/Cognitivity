@@ -1,0 +1,7 @@
+
+
+# This is a git ignore file for Cognitivity project.
+
+
+*.class
+*.jar
