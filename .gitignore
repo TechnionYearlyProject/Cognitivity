@@ -5,3 +5,13 @@
 
 *.class
 *.jar
+lib/
+bin/
+out/
+target/
+.classpath
+.project
+.settings
+src/main/webapp/META-INF
+.idea
+*.iml
