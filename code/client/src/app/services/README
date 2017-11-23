@@ -1,0 +1,6 @@
+Conventions for creating components:
+
+Create a folder named 'service_name'-service inside services folder (service_name can be database, auth, etc).
+inside the folder create index.ts file which will include the service class, and create service_name.spec.ts file for testing
+
+*If needed* create service_name.guard.ts file inside service_name folder, for preventing navigation for unauthorized users
