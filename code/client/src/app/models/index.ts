@@ -1,0 +1,4 @@
+/* 
+    This file will contain interfaces 
+    which will represent data objects from the DB 
+*/

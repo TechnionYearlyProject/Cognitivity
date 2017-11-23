@@ -1,0 +1,14 @@
+Convention for adding components:
+~Assuming you have angular-cli dependency installed~
+In console, use the following command 'ng g component components/component-name'
+(component-name needs to be short)
+
+The command will generate a folder named 'component-name' and will include 4 files:
+-component-name.html
+-component-name.css
+-component-name.ts
+-component-name.spec.ts
+
+GUI/view-html,css
+Controller-.ts file
+TESTING- spec.ts file
