@@ -2,7 +2,7 @@ package cognitivity.model;
 
 /**
  *
- * Created by ophir on 17/11/17.
+ * The Test Answer persistent (JPA) representation (tables).
  *
  */
 
