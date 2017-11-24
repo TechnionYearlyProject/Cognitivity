@@ -2,7 +2,7 @@ package cognitivity.model;
 
 /**
  *
- * The Cognitive Test persistent representation (tables).
+ * The Cognitive Test persistent (JPA) representation (tables).
  *
  */
 
