@@ -14,3 +14,8 @@ export interface MultipleAnsQuestion {
     answers: MultipleAnswer[];
     correctAnswer: number;
 }
+
+export interface OpenQuestion {
+    questionText: string,
+    answerText: string
+}
