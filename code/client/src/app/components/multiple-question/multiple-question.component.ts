@@ -34,7 +34,8 @@ export class MultipleQuestionComponent implements OnInit {
     }
   }
   
-  onSubmit(){
+  onSubmit(event: Event){
+    event.preventDefault();
     this.isSubmit = true;
     if(this.markedAnswer == this.question.correctAnswer - 1){
       this.correct = true;

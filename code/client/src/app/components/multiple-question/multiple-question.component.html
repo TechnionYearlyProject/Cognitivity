@@ -3,11 +3,11 @@
     {{ question.text }}
   </div>
   <div class="card-block">
-    <form (submit)="onSubmit()">
+    <form (submit)="onSubmit($event)">
       <div class="form-group" *ngFor="let answer of question.answers">
           <input  class="onoffswitch-checkbox" [checked] = "answer.isMarked" name="isMarked" type="checkbox" (change)="markAnswer(answer.answer)" >{{ answer.answer }} 
       </div>
-      <input type="button" class="btn btn-primary" value="Submit Question">
+      <input type="submit" class="btn btn-primary" value="Submit Question">
     </form>
   </div>
   <div *ngIf="isSubmit && correct">
