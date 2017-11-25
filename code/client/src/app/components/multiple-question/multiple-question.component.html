@@ -1,0 +1,18 @@
+<div class="card">
+  <div class="card-header">
+    {{ question.text }}
+  </div>
+  <div class="card-block">
+    <form (submit)="onSubmit()">
+      <div class="form-group" *ngFor="let answer of question.answers">
+          <input  class="onoffswitch-checkbox" [checked] = "answer.isMarked" name="isMarked" type="checkbox" (change)="markAnswer(answer.answer)" >{{ answer.answer }} 
+      </div>
+      <input type="button" class="btn btn-primary" value="Submit Question">
+    </form>
+  </div>
+  <div *ngIf="isSubmit && correct">
+    <h4 class="card-title" style="color:green">You are correct!</h4>
+  </div>
+  <div *ngIf="isSubmit && !correct">
+    <h4 class="card-title" style="color:red">You are Wrong!</h4>
+  </div>

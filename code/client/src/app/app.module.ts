@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 
 /* Services */
 import { TestManagerService, TestAnswerService, TestService, SubjectService, QuestionService } from './services/database-service';
+import { MultipleQuestionComponent } from './components/multiple-question/multiple-question.component';
 
 const PROVIDED_SERVICES = [
   TestManagerService, 
@@ -18,6 +19,7 @@ const PROVIDED_SERVICES = [
 @NgModule({
   declarations: [
     AppComponent,
+    MultipleQuestionComponent,
   ],
   imports: [
     BrowserModule
