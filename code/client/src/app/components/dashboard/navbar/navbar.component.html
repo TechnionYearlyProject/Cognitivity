@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary mb-4">
+  <a class="navbar-brand" href="#">Cognitivity</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li *ngIf="isLoggedIn" class="nav-item">
+        <a class="nav-link" href="#" routerLink="/">Dashboard</a>
+      </li>
+      <li *ngIf="isLoggedIn" class="nav-item">
+        <a class="nav-link" href="#" routerLink="/">Tests</a>
+      </li>
+      <li *ngIf="isLoggedIn" class="nav-item">
+        <a class="nav-link" href="#" routerLink="/">Questions</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li *ngIf="!isLoggedIn && showRegister" class="nav-item">
+        <a class="nav-link" href="#" routerLink="/register">Register</a>
+      </li>
+
+      <li *ngIf="!isLoggedIn && showRegister" class="nav-item">
+        <a class="nav-link" href="#" routerLink="/login">Login</a>
+      </li>
+      <li *ngIf="isLoggedIn" class="nav-item">
+          <a class="nav-link" href="#" >{{loggedInUser}}</a>
+      </li>
+      <li *ngIf="isLoggedIn" class="nav-item">
+          <a class="nav-link" href="#" (click)="onLogoutClick()">Logout</a>
+      </li>
+      <li *ngIf="isLoggedIn" class="nav-item">
+          <a class="nav-link" href="#" routerLink="/settings">Settings</a>
+      </li>
+    </ul>
+  </div>
+</nav>
