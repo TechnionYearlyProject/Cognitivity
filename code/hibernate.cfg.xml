@@ -14,7 +14,7 @@ ml version = "1.0" encoding = "utf-8"?>
 
     <property name = "hibernate.connection.url">
         <!-- TODO: add db address -->
-        <!-- jdbc:mysql:tbd -->
+        jdbc:mysql://0.0.0.0
     </property>
 
     <property name = "hibernate.connection.username">
