@@ -1,0 +1,31 @@
+how to use the docker:
+
+- install docker
+
+- execute command: docker build -t database .
+  this command will build the image of the docker from the Dockerfile
+
+- execute command: docker run --name database -p3306:3306 database
+  this command will run the image, and will redrict port 3306 of the docker to
+  port 3306 of the computer, you can add the flag -d so the docker will run in background
+
+- execute command: docker exec -it database bash
+  using this command you can open bash shell in the docker
+
+- execute command: ./construct_db
+  this command will construct the database by the db_settings file
+  Note:
+    sometimes thee is a need to wait few seconds before this command would run correctly,
+    if there's an error, wait and try again
+
+the docker is ready for use!
+
+at the end:
+
+- execute command: docker stop database
+  this command will stop the instance named database (you can resume it by docker start database)
+- execute command: docker rm database
+  this will erase it so it will be possible reuse the name again
+
+connect to the mysql db directly your computer by using the command:
+- mysql -h 0.0.0.0 -P 3306 -uroot -p"password"

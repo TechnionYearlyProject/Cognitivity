@@ -1,0 +1,7 @@
+div.columns       { width: 900px; }
+
+.centered {
+    margin: 0 auto;
+    text-align: left;
+    width: 800px;
+}

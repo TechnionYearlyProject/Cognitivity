@@ -11,6 +11,7 @@ import { OpenQuestionComponent } from './components/open-question/open-question.
 
 /* Services */
 import { TestManagerService, TestAnswerService, TestService, SubjectService, QuestionService } from './services/database-service';
+import { RateQuestionComponent } from './components/rate-question/rate-question.component';
 
 
 
@@ -27,6 +28,7 @@ const PROVIDED_SERVICES = [
     AppComponent,
     MultipleQuestionComponent,
     OpenQuestionComponent,
+    RateQuestionComponent,
     
   ],
   imports: [
