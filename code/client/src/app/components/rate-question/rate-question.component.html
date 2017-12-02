@@ -1,0 +1,15 @@
+<div>
+    <div class="card-header">
+        {{ question.questionText }}
+    </div>
+    <div class="card-block">
+        <form (submit)="onSubmit($event)">
+          <div class="row centered">
+              <div class="form-group" *ngFor="let answer of answers" class="column" style="margin:3em">
+                  <input  class="onoffswitch-checkbox" [checked] = "answer.isMarked" name="isMarked" type="checkbox" (change)="markAnswer(answer.answer)" style="margin:0.5em">{{ answer.answer }} 
+              </div>
+          </div>
+          <input type="submit" class="btn btn-primary" value="Submit Question">
+        </form>
+    </div>
+</div>

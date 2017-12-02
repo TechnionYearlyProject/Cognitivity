@@ -1,4 +1,5 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Test } from '../../models'
 
 @Injectable()
 export class TestManagerService {
@@ -15,6 +16,23 @@ export class SubjectService {
 @Injectable()
 export class TestService {
     //functions
+    async getTestsForTestManager(managerId: string) {
+        //This is a dummy function that returns hard coded values.
+        /*TODO: Implement proper data fetching */
+        let test: Test = 
+        {
+            id: 1,
+            name: 'test',
+            numberOfQuestions: 3,
+            status: 0,
+            managerId: 2,
+            lastAnswered: new Date().toDateString(),
+            lastModified: new Date().toDateString(),
+            numberOfFiledCopies: 0
+        }
+        let testList = [test];
+        return testList
+    }
     constructor() {}
 }
 

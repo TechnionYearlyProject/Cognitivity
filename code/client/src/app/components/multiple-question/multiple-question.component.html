@@ -4,8 +4,22 @@
   </div>
   <div class="card-block">
     <form (submit)="onSubmit($event)">
-      <div class="form-group" *ngFor="let answer of question.answers">
-          <input  class="onoffswitch-checkbox" [checked] = "answer.isMarked" name="isMarked" type="checkbox" (change)="markAnswer(answer.answer)" >{{ answer.answer }} 
+      <div *ngIf = "isVertical()" class="centered">
+        <div class="form-group" *ngFor="let answer of question.answers" style="margin:5em">
+            <input  class="onoffswitch-checkbox" [checked] = "answer.isMarked" name="isMarked" type="checkbox" (change)="markAnswer(answer.answer)" style="margin:0.5em">{{ answer.answer }} 
+        </div>
+      </div>
+      <div *ngIf = "isHorizontal()" class="row centered">
+          <div class="form-group" *ngFor="let answer of question.answers" class="column" style="margin:3em">
+              <input  class="onoffswitch-checkbox" [checked] = "answer.isMarked" name="isMarked" type="checkbox" (change)="markAnswer(answer.answer)" style="margin:0.5em">{{ answer.answer }} 
+          </div>
+      </div>
+      <div *ngIf = "isMatrix()" class="centered">
+         <div *ngFor="let currRow of matrixAnswers" class="row" style="margin:3em">
+            <div  *ngFor = " let currAns of currRow">
+                <input  class="onoffswitch-checkbox" [checked] = "isMarkedInMatrix(currAns.answer)" name="isMarked" type="checkbox" (change)="markAnswer(currAns.answer)" style="margin:2em">{{ currAns.answer }}
+            </div>
+         </div> 
       </div>
       <input type="submit" class="btn btn-primary" value="Submit Question">
     </form>
