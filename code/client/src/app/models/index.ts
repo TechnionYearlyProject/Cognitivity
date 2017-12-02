@@ -19,3 +19,15 @@ export interface OpenQuestion {
     questionText: string,
     answerText: string
 }
+
+export interface Test {
+    id: number,
+    name: string,
+    numberOfQuestions: number,
+    status: number,
+    managerId: number,
+    lastModified: string,
+    lastAnswered: string,
+    numberOfFiledCopies: number
+
+}

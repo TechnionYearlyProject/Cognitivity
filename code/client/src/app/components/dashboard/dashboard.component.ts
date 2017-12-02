@@ -4,7 +4,9 @@ import {Component} from '@angular/core';
     selector: 'app-dashboard',
     template: `
                 <app-navbar></app-navbar>
-                <router-outlet></router-outlet>
+                <div class="container">
+                    <router-outlet></router-outlet>
+                </div>
     `
 })
 export class DashboardComponent {

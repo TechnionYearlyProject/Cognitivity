@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-md-6">
+        <h2><i class="fa fa-database"></i>Tests</h2>
+    </div>
+</div>
+<table *ngIf="testList?.length > 0; else noTests" class="table table-striped">
+  <thead class="thead-invers">
+    <tr>
+      <th>Name</th>
+      <th>No. Questions</th>
+      <th>Status</th>
+      <th>Last Modified</th>
+      <th>Last Answered</th>
+      <th>No. Filed Copies</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let test of testList">
+      <td>{{ test.name }}</td>
+      <td>{{ test.numberOfQuestions }}</td>
+      <td>{{ test.status }}</td>
+      <td>{{ test.lastModified }}</td>
+      <td>{{ test.lastAnswered }}</td>
+      <td>{{ test.numberOfFiledCopies }}</td>
+      <td><a [routerLink]="['/test/'+test.id]" href="" class="btn btn-secondary btn-sm"><i class="fa fa-arrow-circle-o-right"></i> Edit</a></td>
+    </tr>
+  </tbody>
+</table>
+<ng-template #noTests>
+  <hr>
+  <h5>There are no tests in the system...</h5>
+</ng-template>
