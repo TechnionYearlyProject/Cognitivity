@@ -39,7 +39,6 @@ export interface OpenQuestion {
     answerText: string
 }
 
-<<<<<<< HEAD
 export interface Test {
     id: number,
     name: string,
@@ -51,7 +50,6 @@ export interface Test {
     numberOfFiledCopies: number
 
 }
-=======
 /*
     An interface for the object that describes a rating question
 */
@@ -59,4 +57,3 @@ export interface RateQuestion {
     questionText: string,
     heightOfRate: number
 }
->>>>>>> b77ec5d040d2c97eecb4315376876a8a98d29cd6
