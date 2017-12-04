@@ -10,6 +10,13 @@ import javax.persistence.*;
 @Entity
 @Table(name = "testManager")
 public class TestManager {
+
+	/*
+	* Cool. Maybe we will add stuff later (who knows what Rekefet needs...)
+	* */
+
+
+
     @Id @GeneratedValue
     @Column(name = "id")
     private Integer id;

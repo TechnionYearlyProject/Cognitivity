@@ -20,7 +20,7 @@ public class TestAnswer {
 
     @ManyToOne
     @JoinColumn(name = "id")
-    private TestQuestion question;
+    private TestQuestion question;	//Or maybe just the test id
 
     @ManyToOne
     @JoinColumn(name = "id")
@@ -30,13 +30,13 @@ public class TestAnswer {
     private Integer numberOfClick;
 
     @Column(name = "finalAnswer")
-    private Integer finalAnswer;
+    private Integer finalAnswer;//What is this?
 
     @Column(name = "questionPlacement", nullable = false)
-    private Integer questionPlacement;
+    private Integer questionPlacement;//What is this?
 
     @Column(name = "answerPlacement", nullable = false)
-    private Integer answerPlacement;
+    private Integer answerPlacement;//What is this?
 
     @Column(name = "verbalAnswer")
     private String verbalAnswer;

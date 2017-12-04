@@ -14,14 +14,14 @@ public class TestQuestion {
     private Integer id;
 
     @Column(name = "question", nullable = false)
-    private String question;
+    private String question; //For an open question or for all types?
 
     // TODO: need to talk to peer to see how we do the enums..
     @Column(name = "questionType", nullable = false)
-    private Integer questionType;
+    private Integer questionType; //An Integer? how is that enough? why not a string? how will Rekefet know what this number represents..?
 
     @Column(name = "answer")
-    private Integer answer;
+    private Integer answer; //What is this??
 
     /**
 	* Returns value of id
