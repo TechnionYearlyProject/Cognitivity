@@ -50,6 +50,13 @@ export interface Test {
     numberOfFiledCopies: number
 
 }
+/* Manager properties */
+//TODO: Check with Guy and Peer about the properties of the user.
+export interface Manager {
+    id: number,
+    name: string,
+    userName: string
+}
 /*
     An interface for the object that describes a rating question
 */

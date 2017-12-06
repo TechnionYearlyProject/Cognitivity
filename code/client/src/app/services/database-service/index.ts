@@ -17,6 +17,10 @@ export class SubjectService {
 export class TestService {
     //functions
     async getTestsForTestManager(managerId: string) {
+        if (managerId == 'undefined') {
+            console.log(managerId)
+            return [];
+        }
         //This is a dummy function that returns hard coded values.
         /*TODO: Implement proper data fetching */
         let test: Test = 
@@ -29,7 +33,7 @@ export class TestService {
             lastAnswered: new Date().toDateString(),
             lastModified: new Date().toDateString(),
             numberOfFiledCopies: 0
-        }
+        };
         let testList = [test];
         return testList
     }

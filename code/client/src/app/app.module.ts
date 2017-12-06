@@ -12,6 +12,8 @@ import { OpenQuestionComponent } from './components/open-question/open-question.
 /* Services */
 import { TestManagerService, TestAnswerService, TestService, SubjectService, QuestionService } from './services/database-service';
 import { RateQuestionComponent } from './components/rate-question/rate-question.component';
+import { AuthService } from './services/auth-service';
+import { LocalStorageService } from './services/local-storage';
 
 
 
@@ -20,7 +22,9 @@ const PROVIDED_SERVICES = [
   TestAnswerService, 
   TestService, 
   SubjectService, 
-  QuestionService
+  QuestionService,
+  AuthService,
+  LocalStorageService
 ];
 
 @NgModule({
