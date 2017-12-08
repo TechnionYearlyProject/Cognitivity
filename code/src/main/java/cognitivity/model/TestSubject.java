@@ -9,10 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "testSubject")
-public class TestSubject {
-    @Id @GeneratedValue
-    @Column(name = "id")
-    private Integer id;
+public class TestSubject extends AbstractEntity {
 
     @Column(name = "name")
     private String name;
@@ -22,22 +19,6 @@ public class TestSubject {
 
     @Column(name = "browser")
     private String browser;
-
-	/**
-	* Returns value of id
-	* @return
-	*/
-	public Integer getId() {
-		return id;
-	}
-
-	/**
-	* Sets new value of id
-	* @param
-	*/
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	/**
 	* Returns value of name

@@ -14,13 +14,11 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class CognitiveTestService {
-
-    private final CognitiveTestRepository repository;
+public class CognitiveTestService extends AbstractService<CognitiveTestRepository> {
 
     @Autowired
     public CognitiveTestService(CognitiveTestRepository repository) {
-        this.repository = repository;
+        super(repository);
     }
 
 

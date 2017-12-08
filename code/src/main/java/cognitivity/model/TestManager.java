@@ -9,37 +9,15 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "testManager")
-public class TestManager {
+public class TestManager extends AbstractEntity {
 
 	/*
 	* Cool. Maybe we will add stuff later (who knows what Rekefet needs...)
 	* */
 
 
-
-    @Id @GeneratedValue
-    @Column(name = "id")
-    private Integer id;
-
     @Column(name = "name")
     private String name;
-
-
-	/**
-	* Returns value of id
-	* @return
-	*/
-	public Integer getId() {
-		return id;
-	}
-
-	/**
-	* Sets new value of id
-	* @param
-	*/
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	/**
 	* Returns value of name

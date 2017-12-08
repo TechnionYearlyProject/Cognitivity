@@ -1,5 +1,6 @@
 package cognitivity.services;
 
+import cognitivity.dao.TestManagerRepository;
 import cognitivity.model.TestManager;
 import org.springframework.stereotype.Service;
 
@@ -10,8 +11,12 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class TestManagerService {
+public class TestManagerService extends AbstractService<TestManagerRepository> {
 
+
+    protected TestManagerService(TestManagerRepository repository) {
+        super(repository);
+    }
 
     public void addTestManager(TestManager tm) {
 

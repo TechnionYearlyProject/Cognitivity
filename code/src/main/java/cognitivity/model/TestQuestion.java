@@ -8,11 +8,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "testSubject")
-public class TestQuestion {
-    @Id @GeneratedValue
-    @Column(name = "id")
-    private Integer id;
-
+public class TestQuestion extends AbstractEntity {
     @Column(name = "question", nullable = false)
     private String question; //For an open question or for all types?
 
@@ -22,23 +18,7 @@ public class TestQuestion {
 
     @Column(name = "answer")
     private Integer answer; //What is this??
-
-    /**
-	* Returns value of id
-	* @return
-	*/
-	public Integer getId() {
-		return id;
-	}
-
-	/**
-	* Sets new value of id
-	* @param
-	*/
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
+	
 	/**
 	* Returns value of question
 	* @return

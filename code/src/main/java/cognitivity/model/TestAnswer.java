@@ -9,11 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "testAnswer")
-public class TestAnswer {
-    @Id @GeneratedValue
-    @Column(name = "id")
-    private Integer id;
-
+public class TestAnswer extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "id")
     private TestSubject testSubject;
@@ -56,22 +52,6 @@ public class TestAnswer {
 
     @Column(name = "testeeExit")
     private Boolean testeeExit;
-
-    /**
-	* Returns value of id
-	* @return
-	*/
-	public Integer getId() {
-		return id;
-	}
-
-	/**
-	* Sets new value of id
-	* @param
-	*/
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	/**
 	* Returns value of testSubject

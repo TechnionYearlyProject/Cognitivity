@@ -13,5 +13,5 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public class CognitiveTestRepository {
+public class CognitiveTestRepository extends AbstractRepository {
 }
