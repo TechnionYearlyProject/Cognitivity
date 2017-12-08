@@ -3,7 +3,7 @@ package cognitivity.services;
 import cognitivity.dao.CognitiveTestRepository;
 import cognitivity.dto.CognitiveTestDTO;
 import cognitivity.model.CognitiveTest;
-import cognitivity.model.SearchResult;
+import cognitivity.model.RepositorySearchResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +16,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class CognitiveTestService {
 
-    private final CognitiveTestRepository cognitiveTestRepository;
+    private final CognitiveTestRepository repository;
 
     @Autowired
-    public CognitiveTestService(CognitiveTestRepository cognitiveTestRepository) {
-        this.cognitiveTestRepository = cognitiveTestRepository;
+    public CognitiveTestService(CognitiveTestRepository repository) {
+        this.repository = repository;
     }
 
 
@@ -32,7 +32,7 @@ public class CognitiveTestService {
      *
      * @return - The saved CognitiveTest.
      *
-     * This will use the POST HTTP method.
+     * This will be used in conjunction with the POST HTTP method.
      * */
     public CognitiveTest createTestForTestManager(CognitiveTestDTO t, String testManagerID) {
         return null;
@@ -47,7 +47,7 @@ public class CognitiveTestService {
      *
      * @return - The updated CognitiveTest.
      *
-     * This will use the PUT HTTP method.
+     * This will be used in conjunction with the PUT HTTP method.
      * */
     public CognitiveTest updateTestForTestManager(String testID, CognitiveTestDTO t, String testManagerID) {
         return null;
@@ -59,7 +59,7 @@ public class CognitiveTestService {
      * @param testID - The test id to delete.
      * @param testManagerID (optional - null if none) - The test manager's id.
      *
-     * This will use the DELETE HTTP method.
+     * This will be used in conjunction with the DELETE HTTP method.
      * */
     public void deleteTestForTestManager(String testID, String testManagerID) {
 
@@ -73,7 +73,7 @@ public class CognitiveTestService {
      *
      * @return - All tests the test manager has created.
      * */
-    public SearchResult<CognitiveTest> findTestsForTestManager(String testManagerID) {
+    public RepositorySearchResult<CognitiveTest> findTestsForTestManager(String testManagerID) {
         return null;
     }
 
