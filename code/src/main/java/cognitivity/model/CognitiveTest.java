@@ -11,16 +11,12 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "project")
-public class CognitiveTest {
+public class CognitiveTest extends AbstractEntity {
 
 	/*
 	* This bugs me.. where are all the questions of the tests stored? When we create a test, we assign it blocks and questions,
 	* So how are they connected to each other?
 	* */
-
-    @Id @GeneratedValue
-    @Column(name = "id")
-    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -48,23 +44,6 @@ public class CognitiveTest {
 
     @Column(name = "numberOfQuestions", nullable = false)
     private Integer numberOfQuestions; //Nice! what about number of blocks? seems its important to have this.
-
-
-    /**
-	* Returns value of id
-	* @return
-	*/
-	public Integer getId() {
-		return id;
-	}
-
-	/**
-	* Sets new value of id
-	* @param
-	*/
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	/**
 	* Returns value of name

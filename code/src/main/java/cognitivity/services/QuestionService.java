@@ -1,5 +1,6 @@
 package cognitivity.services;
 
+import cognitivity.dao.TestQuestionRepository;
 import cognitivity.model.TestQuestion;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,11 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class QuestionService {
+public class QuestionService extends AbstractService<TestQuestionRepository> {
+
+    protected QuestionService(TestQuestionRepository repository) {
+        super(repository);
+    }
 
     public void addQuestion(TestQuestion q) {
 

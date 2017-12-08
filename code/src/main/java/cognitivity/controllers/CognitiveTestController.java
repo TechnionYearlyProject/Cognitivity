@@ -2,11 +2,12 @@ package cognitivity.controllers;
 
 import cognitivity.dto.CognitiveTestDTO;
 import cognitivity.model.CognitiveTest;
-import cognitivity.model.SearchResult;
+import cognitivity.model.RepositorySearchResult;
 import cognitivity.services.CognitiveTestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -43,9 +44,9 @@ public class CognitiveTestController {
             @RequestParam(value = "testManagerId") String testManagerId,
             @RequestParam(value = "testId", required = false) String testId) {
 
-        if (testId == null) {
+        if (StringUtils.isEmpty(testId)) {
             // Then return all tests
-            SearchResult<CognitiveTest> result = service.findTestsForTestManager(testManagerId);
+            RepositorySearchResult<CognitiveTest> result = service.findTestsForTestManager(testManagerId);
             return CognitiveTestDTO.mapFromCognitiveTestEntities(result.getResult());
         } else {
             // Then return one test.
@@ -68,7 +69,7 @@ public class CognitiveTestController {
             @RequestParam(value = "testId", required = false) String testId,
             @RequestBody CognitiveTestDTO test) {
 
-        if (testId == null) {
+        if (StringUtils.isEmpty(testId)) {
             service.createTestForTestManager(test, testManagerId);
         } else {
             service.updateTestForTestManager(testId, test, testManagerId);
