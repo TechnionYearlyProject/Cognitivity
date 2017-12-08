@@ -12,6 +12,7 @@ export class MultipleQuestionComponent implements OnInit {
   isSubmit: boolean;
   answerOrganization: TypeMultipleQuestion  = TypeMultipleQuestion.Vertical;
   matrixAnswers? : Array<Array<MultipleAnswer>>
+  range_value: number = 50;
   constructor() {
     this.question = 
     {
@@ -22,6 +23,7 @@ export class MultipleQuestionComponent implements OnInit {
     };
     this.answerOrganization = this.question.typeMultipleQuestion;
     if(this.answerOrganization == TypeMultipleQuestion.Matrix){
+      console.log('hereeee');
       this.constructMatrix();
     }
    }
@@ -42,13 +44,7 @@ export class MultipleQuestionComponent implements OnInit {
   }
   
   onSubmit(event: Event){
-    event.preventDefault();
-    this.isSubmit = true;
-    if(this.markedAnswer == this.question.correctAnswer - 1){
-      this.correct = true;
-    }else{
-      this.correct = false;
-    }
+    console.log('check submit');
   }
 
   isVertical(): boolean{

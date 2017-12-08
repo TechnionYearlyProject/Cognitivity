@@ -5,3 +5,93 @@ div.columns       { width: 900px; }
     text-align: left;
     width: 800px;
 }
+
+.styled-input-single {  /* position of the text  */
+    position: relative; /* Relativity to the container element */
+    padding: 25px 0 20px 40px;
+    text-align: left;
+  }
+  .styled-input-single label { /* switching the icon of mouse to pointer when going over the checkbox */
+    cursor: pointer;
+  }
+  .styled-input-single label:before, .styled-input-single label:after { /* position of the checkbox */
+    content: '';
+    position: absolute;
+    top: 50%;         /* Alignment to the text of the checkbox */
+    border-radius: 50%;   /* Roudness of the checkbox, lower is more squre, higher value doesn't do anything */
+  }
+  .styled-input-single label:before { /* The view of the checkbox itself before pressing it */
+    left: 0;
+    width: 30px;
+    height: 30px;
+    margin: -15px 0 0;
+    background: #f7f7f7;
+    box-shadow: 0 0 1px grey; /* margin of the checkbox */
+  }
+  .styled-input-single label:after { /* The view of the checkbox after pressing it and the way of filling the checkbox */
+    left: 5px;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0;
+    opacity: 0;
+    background: #000000;
+    -webkit-transform: translate3d(0, 0, 0) scale(0.75);
+            transform: translate3d(0, 0, 0) scale(0.75);
+    -webkit-transition: opacity 0.25s ease-in-out, -webkit-transform 0.25s ease-in-out;
+    transition: opacity 0.25s ease-in-out, -webkit-transform 0.25s ease-in-out;
+    transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out;
+    transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out, -webkit-transform 0.25s ease-in-out;
+  }
+  .styled-input-single input[type="checkbox"] {
+    position: absolute;
+    top: 0;
+    left: -9999px;
+    visibility: hidden;
+  }
+  .styled-input-single input[type="checkbox"]:checked + label:after {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+
+  h2, h4  {
+    text-decoration: underline;
+     margin:40px;
+     text-align: center;
+     font-family: cursive;
+     
+  }
+
+  .slider {
+    -webkit-appearance: none;
+    width: 75%;
+    height: 15px;
+    border-radius: 5px;   
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    margin: 0px 185px;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%; 
+    background: rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+
+  
