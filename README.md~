@@ -2,4 +2,4 @@
 [![Build Status](https://travis-ci.org/TechnionYearlyProject/Cognitivity.svg?branch=master)](https://travis-ci.org/TechnionYearlyProject/Cognitivity)
 
 
-[![Codecov](https://img.shields.io/codecov/TechnionYearlyProject/Cognitivity.svg)]()
+[![codecov](https://codecov.io/gh/TechnionYearlyProject/Cognitivity/branch/master/graph/badge.svg)](https://codecov.io/gh/TechnionYearlyProject/Cognitivity)
