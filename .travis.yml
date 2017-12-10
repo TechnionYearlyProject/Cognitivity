@@ -5,4 +5,4 @@ language: java
 sudo: false
 
 after_success:
-- bash <(curl -s https://codecov.io/bash)
+- bash <(curl -s https://codecov.io/bash) -t d43f0ac2-4a19-400c-b826-0efab7e5d342
