@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  */
 public class CognitiveTestDTO {
 
-    private final int id;
+    private final long id;
     private final String name;
     private final TestManagerDTO manager;
     private final int numberOfSubjects;
@@ -23,7 +23,7 @@ public class CognitiveTestDTO {
     private final int numberOfFiledCopies;
     private final int numberOfQuestions;
 
-    private CognitiveTestDTO(int id, String name, TestManagerDTO manager, int numberOfSubjects, int state,
+    private CognitiveTestDTO(long id, String name, TestManagerDTO manager, int numberOfSubjects, int state,
                              Date lastModified, String lastAnswered, int numberOfFiledCopies, int numberOfQuestions) {
         this.id = id;
         this.name = name;

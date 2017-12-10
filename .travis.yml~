@@ -1,0 +1,6 @@
+# Travis CI file configuration for Cognitivity
+
+language: java
+
+sudo: false
+
