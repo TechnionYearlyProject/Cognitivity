@@ -1,0 +1,5 @@
+# Travis CI file configuration for Cognitivity
+
+language: java
+sudo: false
+script: mvn clean verify
