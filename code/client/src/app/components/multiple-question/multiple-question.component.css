@@ -1,7 +1,7 @@
 div.columns       { width: 900px; }
 
 .centered {
-    margin: 0 auto;
+   
     text-align: left;
     width: 800px;
 }
@@ -72,7 +72,7 @@ div.columns       { width: 900px; }
     opacity: 0.7;
     -webkit-transition: .2s;
     transition: opacity .2s;
-    margin: 0px 185px;
+    display: inline-block;
 }
 
 .slider::-webkit-slider-thumb {
