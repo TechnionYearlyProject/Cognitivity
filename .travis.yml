@@ -1,5 +1,9 @@
 # Travis CI file configuration for Cognitivity
 
 language: java
+
+jdk:
+  - oraclejdk8
+
 sudo: false
-script: mvn clean verify
+
