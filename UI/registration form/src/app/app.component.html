@@ -1,0 +1,107 @@
+
+<div class="card bg-info">
+  <div class="card-body">
+    <form novalidate #f="ngForm">
+      <div class="form-group">
+        <!-- start of header msg -->
+        <div class="card text-center">
+          <div class="card-header"></div>
+          <div class="card-body">
+            <h4 class="card-title">Subject Info Registration</h4>
+            <p class="card-text">The following information is for research purposes only and will not be submitted to any third party.</p>
+          </div>
+          <div class="card-footer text-muted"> </div>
+        </div>
+        <!-- end of header msg -->
+        <!-- ROW 1 START -->
+        <div class="row justify-content-around">
+          <!-- defines the row for the last and first name -->
+          <div class="col-lg-4">
+            <!-- defines the left column -->
+            <!-- Here we define the first field (first name) -->
+            <div class="card-body">
+              <label for="firstName" class="fields">First Name</label>
+              <br>
+              <input type="text" class="form-control" name="firstName">
+            </div>
+            <br>
+            <br>
+          </div>
+          <div class="col-lg-4">
+            <!-- defines the right column -->
+            <!-- Here we define the last name field -->
+            <div class="card-body">
+              <label for="lastName" class="fields">Last Name</label>
+              <br>
+              <input type="text" class="form-control" name="lastName">
+            </div>
+            <br>
+            <br>
+          </div>
+        </div>
+        <!-- ROW 1 END -->
+        <!-- ROW 2 START -->
+        <div class="row justify-content-around">
+          <!-- defines the row for the age and date of birth -->
+          <div class="col-lg-4">
+            <!-- defines the left column -->
+            <!-- Here we define the ID field -->
+            <div class="card-body">
+              <label for="ID" class="fields">ID</label>
+              <br>
+              <input type="text" class="form-control" name="ID">
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <!-- defines the right column -->
+            <!-- Here we define the date of birth -->
+            <!-- Form code begins -->
+            <form method="post">
+              <div class="form-group">
+                <!-- Date input -->
+                <div class="card-body">
+                  <label class="fields" for="date">Date of birth</label>
+                  <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text" />
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- ROW 2 END -->
+        <br>
+        <br>
+        <!-- ROW 3 START -->
+        <!-- defines the row for the martial status and job -->
+        <div class="row justify-content-around">
+          <div class="col-lg-4">
+            <!-- defines the left column -->
+            <!-- Here we define the family state field -->
+            <div class="card-body">
+              <label for="martialStatus" class="fields">Martial Status</label>
+              <select class="form-control form-control-md" name="martialStat">
+                <option>Single</option>
+                <option>Married</option>
+                <option>Divorced</option>
+                <option>Widower</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <!-- defines the right column -->
+            <!-- Here we define the current job -->
+            <div class="card-body">
+              <label for="job" class="fields">Current job</label>
+              <input type="text" class="form-control" name="currJob">
+            </div>
+          </div>
+        </div>
+        <!-- ROW 3 END -->
+        <br>
+        <br>
+        <div style="text-align: center;">
+          <input class="btn btn-success" type="button" value="Submit">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
