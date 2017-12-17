@@ -10,17 +10,16 @@ import org.hibernate.SessionFactory;
 import org.hibernate.HibernateException;
 
 
-public class ExecuteQuery() {
+public class ExecuteQuery{
 
     List execute(String query){
         Session session = factory.openSession();
         Transaction tx = null;
-
-        try{
-            tx=session.beginTransaction();
-            SQLQuery query=session.createSQLQuery(query);
+        try {
+            tx = session.beginTransaction();
+            SQLQuery query = session.createSQLQuery( query );
             query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-            List data=query.list();
+            List data = query.list();
         } catch(HibernateException e) {
             if( tx != null)
                 tx.rollback();
