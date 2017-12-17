@@ -1,7 +1,6 @@
-package cognitivity.dao;
+package cognitivity.repositories;
 
-import cognitivity.model.TestManager;
-import cognitivity.model.TestSubject;
+import cognitivity.dao.TestSubject;
 import org.springframework.stereotype.Repository;
 
 /**

@@ -1,5 +1,6 @@
-package cognitivity.dao;
+package cognitivity.repositories;
 
+import cognitivity.dao.CognitiveTest;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,5 +14,5 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public class CognitiveTestRepository extends AbstractRepository {
+public class CognitiveTestRepository extends AbstractRepository<CognitiveTest> {
 }

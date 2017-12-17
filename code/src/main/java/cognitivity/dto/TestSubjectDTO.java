@@ -1,6 +1,6 @@
 package cognitivity.dto;
 
-import cognitivity.model.TestSubject;
+import cognitivity.dao.TestSubject;
 
 import java.util.List;
 import java.util.stream.Collectors;

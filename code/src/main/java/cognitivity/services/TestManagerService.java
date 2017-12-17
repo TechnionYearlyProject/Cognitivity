@@ -1,7 +1,7 @@
 package cognitivity.services;
 
-import cognitivity.dao.TestManagerRepository;
-import cognitivity.model.TestManager;
+import cognitivity.dao.TestManager;
+import cognitivity.repositories.TestManagerRepository;
 import org.springframework.stereotype.Service;
 
 /**

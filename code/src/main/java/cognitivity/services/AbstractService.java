@@ -1,6 +1,6 @@
 package cognitivity.services;
 
-import cognitivity.dao.AbstractRepository;
+import cognitivity.repositories.AbstractRepository;
 
 /**
  * Created by ophir on 08/12/17.

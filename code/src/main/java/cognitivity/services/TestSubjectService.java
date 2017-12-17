@@ -1,8 +1,8 @@
 package cognitivity.services;
 
-import cognitivity.dao.TestSubjectRepository;
+import cognitivity.dao.TestSubject;
+import cognitivity.repositories.TestSubjectRepository;
 import org.springframework.stereotype.Service;
-import cognitivity.model.TestSubject;
 
 /**
  *

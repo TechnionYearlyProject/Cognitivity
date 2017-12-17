@@ -11,12 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("test-subjects")
-public class TestSubjectController {
-
-    private final TestSubjectService mTestSubjectService;
+public class TestSubjectController extends AbstractRestController<TestSubjectService> {
 
     @Autowired
-    public TestSubjectController(TestSubjectService mTestSubjectService) {
-        this.mTestSubjectService = mTestSubjectService;
+    public TestSubjectController(TestSubjectService service) {
+        super(service);
     }
 }

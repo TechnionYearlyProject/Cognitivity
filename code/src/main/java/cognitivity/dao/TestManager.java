@@ -1,6 +1,8 @@
-package cognitivity.model;
+package cognitivity.dao;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 /**
  *
  * The Test Manager persistent (JPA) representation (tables).

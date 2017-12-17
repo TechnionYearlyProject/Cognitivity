@@ -1,13 +1,11 @@
 package cognitivity.controllers;
 
+import cognitivity.dao.CognitiveTest;
+import cognitivity.dao.RepositorySearchResult;
 import cognitivity.dto.CognitiveTestDTO;
-import cognitivity.model.CognitiveTest;
-import cognitivity.model.RepositorySearchResult;
 import cognitivity.services.CognitiveTestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -19,13 +17,11 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("tests")
-public class CognitiveTestController {
-
-    private final CognitiveTestService service;
+public class CognitiveTestController extends AbstractRestController<CognitiveTestService> {
 
     @Autowired
     public CognitiveTestController(CognitiveTestService service) {
-        this.service = service;
+        super(service);
     }
 
 
@@ -41,10 +37,10 @@ public class CognitiveTestController {
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET)
     public List<CognitiveTestDTO> findTestsForTestManager(
-            @RequestParam(value = "testManagerId") String testManagerId,
-            @RequestParam(value = "testId", required = false) String testId) {
+            @RequestParam(value = "testManagerId") long testManagerId,
+            @RequestParam(value = "testId", required = false) Long testId) {
 
-        if (StringUtils.isEmpty(testId)) {
+        if (testId == null) {
             // Then return all tests
             RepositorySearchResult<CognitiveTest> result = service.findTestsForTestManager(testManagerId);
             return CognitiveTestDTO.mapFromCognitiveTestEntities(result.getResult());
@@ -65,11 +61,11 @@ public class CognitiveTestController {
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST)
     public void saveCognitiveTest(
-            @RequestParam(value = "testManagerId") String testManagerId,
-            @RequestParam(value = "testId", required = false) String testId,
+            @RequestParam(value = "testManagerId") long testManagerId,
+            @RequestParam(value = "testId", required = false) Long testId,
             @RequestBody CognitiveTestDTO test) {
 
-        if (StringUtils.isEmpty(testId)) {
+        if (testId == null) {
             service.createTestForTestManager(test, testManagerId);
         } else {
             service.updateTestForTestManager(testId, test, testManagerId);
@@ -85,21 +81,9 @@ public class CognitiveTestController {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.DELETE)
-    public void deleteCognitiveTest(@RequestParam String testID,
-                                    @RequestParam String testManagerID) {
+    public void deleteCognitiveTest(@RequestParam long testID,
+                                    @RequestParam long testManagerID) {
         service.deleteTestForTestManager(testID, testManagerID);
     }
 
-
-    /**
-     * Error handler for backend errors - a 400 status code will be sent back, and the body
-     * of the message contains the exception text.
-     *
-     * @param exc - the exception caught
-     */
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> errorHandler(Exception exc) {
-        return new ResponseEntity<>(exc.getMessage(), HttpStatus.BAD_REQUEST);
-    }
 }

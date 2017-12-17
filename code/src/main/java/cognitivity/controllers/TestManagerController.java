@@ -11,12 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("test-managers")
-public class TestManagerController {
-
-    private final TestManagerService mTestManagerService;
+public class TestManagerController extends AbstractRestController<TestManagerService> {
 
     @Autowired
-    public TestManagerController(TestManagerService mTestManagerService) {
-        this.mTestManagerService = mTestManagerService;
+    public TestManagerController(TestManagerService service) {
+        super(service);
     }
 }
