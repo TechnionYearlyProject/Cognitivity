@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "testAnswer")
 public class TestAnswer extends AbstractEntity {
+
     @ManyToOne
     @JoinColumn(name = "id")
     private TestSubject testSubject;
