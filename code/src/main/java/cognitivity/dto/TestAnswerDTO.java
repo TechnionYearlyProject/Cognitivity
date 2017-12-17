@@ -67,4 +67,56 @@ public class TestAnswerDTO {
                 .map(TestAnswerDTO::mapFromTestAnswerEntity)
                 .collect(Collectors.toList());
     }
+
+    public TestSubjectDTO getTestSubject() {
+        return testSubject;
+    }
+
+    public TestQuestionDTO getQuestion() {
+        return question;
+    }
+
+    public CognitiveTestDTO getCognitiveTest() {
+        return cognitiveTest;
+    }
+
+    public int getNumberOfClick() {
+        return numberOfClick;
+    }
+
+    public int getFinalAnswer() {
+        return finalAnswer;
+    }
+
+    public int getQuestionPlacement() {
+        return questionPlacement;
+    }
+
+    public int getAnswerPlacement() {
+        return answerPlacement;
+    }
+
+    public String getVerbalAnswer() {
+        return verbalAnswer;
+    }
+
+    public boolean isQuestionWithPicture() {
+        return questionWithPicture;
+    }
+
+    public String getTimeToAnswer() {
+        return timeToAnswer;
+    }
+
+    public boolean isTimeMeasured() {
+        return timeMeasured;
+    }
+
+    public boolean isTimeShowed() {
+        return timeShowed;
+    }
+
+    public boolean isTesteeExit() {
+        return testeeExit;
+    }
 }
