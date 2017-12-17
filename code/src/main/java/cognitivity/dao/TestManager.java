@@ -13,11 +13,6 @@ import javax.persistence.Table;
 @Table(name = "testManager")
 public class TestManager extends AbstractEntity {
 
-	/*
-	* Cool. Maybe we will add stuff later (who knows what Rekefet needs...)
-	* */
-
-
     @Column(name = "name")
     private String name;
 
