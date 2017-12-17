@@ -1,5 +1,6 @@
 
    <h2><i class="fa fa-database" style="text-align: center"></i>{{question.text }}</h2>
+   
       <div *ngIf = "isVertical()" class="centered" style="margin:3em">
         <div  *ngFor="let answer of question.answers; let i = index;">
               <div class="styled-input-container">
@@ -20,21 +21,20 @@
                 </div>
           </div>
       </div>
-        <div style="text-align: center;">
-            <div *ngIf = "isMatrix()"  class="row" style="text-align: center;">
-                <div *ngFor="let currRow of matrixAnswers; let i = index"  style="margin:3em" class="column">
-                    <div  *ngFor = " let currAns of currRow; let j = index" style="margin: 1em;" >
+      <div *ngIf = "isMatrix()"  class="row"  style="width:500px; margin:0 auto;">
+            <div *ngFor="let currRow of matrixAnswers; let i = index"  style="margin:1em" class="column">
+                <div  *ngFor = " let currAns of currRow; let j = index" style="margin: 1em;" >
                 
-                        <div class="styled-input-container">
-                                <div class="styled-input-single">
-                                    <input  class="onoffswitch-checkbox" id="check-box-{{currAns.answer}}{{i}}{{j}}" [checked] = "isMarkedInMatrix(i,j)" name="isMarked" type="checkbox" (change)="markAnswerInMatrix(i,j)" style="margin:3em"> 
-                                    <label for="check-box-{{currAns.answer}}{{i}}{{j}}">{{ currAns.answer }}</label>
-                                </div>
+                    <div class="styled-input-container">
+                        <div class="styled-input-single">
+                            <input  class="onoffswitch-checkbox" id="check-box-{{currAns.answer}}{{i}}{{j}}" [checked] = "isMarkedInMatrix(i,j)" name="isMarked" type="checkbox" (change)="markAnswerInMatrix(i,j)" style="margin:3em"> 
+                            <label for="check-box-{{currAns.answer}}{{i}}{{j}}">{{ currAns.answer }}</label>
                         </div>
                     </div>
-                </div> 
-            </div>
-       </div>
+                </div>
+            </div> 
+        </div>
+    <h3 style="position: middle;">{{question.text}}</h3>
       <h4>How confident you feel in your answer, in precentage?</h4>
       <div style="text-align: center;">
             <div id="slidecontainer">

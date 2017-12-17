@@ -19,7 +19,7 @@ export class MultipleQuestionComponent implements OnInit {
       text:'Who directed Inception?',
       answers:[{answer:'Christopher Nolan', isMarked:false}, {answer:'Ridely Scott', isMarked:false}, {answer:'Quantin Tarantino',isMarked:false}, {answer:'Robert Downy Jr.', isMarked:false}, {answer:'Mark Erlich', isMarked:false}, {answer:'Mark Erlich', isMarked:false}, {answer:'Mar Erlich', isMarked:false}, {answer:'Mark Erlich', isMarked:false}, {answer:'Mark Erlich', isMarked:false}],
       correctAnswer:1, 
-      typeMultipleQuestion: TypeMultipleQuestion.Matrix
+      typeMultipleQuestion: TypeMultipleQuestion.Vertical
     };
     this.answerOrganization = this.question.typeMultipleQuestion;
     if(this.answerOrganization == TypeMultipleQuestion.Matrix){
@@ -103,5 +103,5 @@ export class MultipleQuestionComponent implements OnInit {
         return this.question.answers[row * this.matrixAnswers[0].length + col].isMarked;
   }
 }
-
+/*"../node_modules/bootstrap-datepicker3.css"*/
 

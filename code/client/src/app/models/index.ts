@@ -14,6 +14,18 @@ export enum TypeMultipleQuestion {
     Horizontal,
     Matrix
 }
+
+export enum QuestionPosition {
+    UpperRight,
+    UpperMiddle,
+    UpperLeft,
+    MiddleRight,
+    MiddleMiddle,
+    MiddleLeft,
+    ButtomRight,
+    ButtomMiddle,
+    ButtomLeft
+}
 /*
     An interface for the object that describes the answer for multiple choice questions
 */

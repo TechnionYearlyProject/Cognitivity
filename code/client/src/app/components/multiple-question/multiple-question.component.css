@@ -25,8 +25,8 @@ div.columns       { width: 900px; }
     width: 30px;
     height: 30px;
     margin: -15px 0 0;
-    background: #f7f7f7;
-    box-shadow: 0 0 1px grey; /* margin of the checkbox */
+    background: #fcfcfc;
+    box-shadow: 0 0 10px rgb(204, 30, 30); /* margin of the checkbox */
   }
   .styled-input-single label:after { /* The view of the checkbox after pressing it and the way of filling the checkbox */
     left: 5px;
