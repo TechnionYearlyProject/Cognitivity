@@ -34,4 +34,16 @@ public class TestSubjectDTO {
                 .map(TestSubjectDTO::mapFromTestSubjectEntity)
                 .collect(Collectors.toList());
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getIpAddress() {
+        return ipAddress;
+    }
+
+    public String getBrowser() {
+        return browser;
+    }
 }

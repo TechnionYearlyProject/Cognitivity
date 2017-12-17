@@ -17,7 +17,8 @@ public class TestManager extends AbstractEntity {
     @Column(name = "name")
     private String name;
 
-	/**
+
+    /**
 	* Returns value of name
 	* @return
 	*/
