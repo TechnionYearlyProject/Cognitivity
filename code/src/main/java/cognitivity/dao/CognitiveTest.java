@@ -13,6 +13,7 @@ import java.sql.Date;
 @Table(name = "project")
 public class CognitiveTest extends AbstractEntity {
 
+	
 	/*
 	* This bugs me.. where are all the questions of the tests stored? When we create a test, we assign it blocks and questions,
 	* So how are they connected to each other?
