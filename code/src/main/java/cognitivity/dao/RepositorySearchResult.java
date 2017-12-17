@@ -1,4 +1,4 @@
-package cognitivity.model;
+package cognitivity.dao;
 
 import java.util.List;
 

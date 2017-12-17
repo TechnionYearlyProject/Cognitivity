@@ -1,6 +1,6 @@
-package cognitivity.dao;
+package cognitivity.repositories;
 
-import cognitivity.model.AbstractEntity;
+import cognitivity.dao.AbstractEntity;
 
 /**
  * Created by ophir on 08/12/17.

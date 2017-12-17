@@ -1,8 +1,10 @@
 package cognitivity.services;
 
-import cognitivity.dao.TestSubjectRepository;
+import cognitivity.dao.RepositorySearchResult;
+import cognitivity.dao.TestSubject;
+import cognitivity.dto.TestSubjectDTO;
+import cognitivity.repositories.TestSubjectRepository;
 import org.springframework.stereotype.Service;
-import cognitivity.model.TestSubject;
 
 /**
  *
@@ -18,15 +20,62 @@ public class TestSubjectService extends AbstractService<TestSubjectRepository>  
         super(repository);
     }
 
-    public void addSubject(TestSubject s) {
-
-    }
-
-    public TestSubject[] getSubjects() {
-        return new TestSubject[0];
-    }
-
-    public TestSubject getSubject(String id) {
+    /**
+     * Save a TestSubject.
+     *
+     * @param s - The test subject to be saved.
+     * @return - The saved TestSubject.
+     * <p>
+     * This will be used in conjunction with the POST HTTP method.
+     */
+    public TestSubject createTestSubject(TestSubjectDTO s) {
         return null;
     }
+
+    /**
+     * Update a TestSubject.
+     *
+     * @param s - The cognitive test subject to be updated.
+     * @param testSubjectId - The test subject's id.
+     *
+     * @return - The updated TestSubject.
+     *
+     * This will be used in conjunction with the PUT HTTP method.
+     * */
+    public TestSubject updateTestForTestManager(long testSubjectId, TestSubjectDTO s) {
+        return null;
+    }
+
+    /**
+     * Delete a TestSubject.
+     *
+     * @param testSubjectId - The test subject's id to delete.
+     *
+     * This will be used in conjunction with the DELETE HTTP method.
+     * */
+    public void deleteTestSubject(long testSubjectId) {
+
+    }
+
+
+    /**
+     * Find a test subject by its id.
+     *
+     * @param testSubjectId - The test subject's id.
+     * @return - the test subject found.
+     */
+    public TestSubject findTestSubject(long testSubjectId) {
+        return null;
+    }
+
+    /**
+     * Find all test subjects who took a cognitive a test by the test id.
+     *
+     * @param testID - The test id to find all test subjects by.
+     * @return - all test subjects who took a cognitive a test by the test id.
+     */
+    public RepositorySearchResult<TestSubject> findTestSubjectsWhoParticipatedInTest(long testID) {
+        return null;
+    }
+
 }

@@ -1,7 +1,11 @@
 package cognitivity.services;
 
-import cognitivity.dao.TestQuestionRepository;
-import cognitivity.model.TestQuestion;
+import cognitivity.dao.CognitiveTest;
+import cognitivity.dao.RepositorySearchResult;
+import cognitivity.dao.TestQuestion;
+import cognitivity.dto.TestQuestionDTO;
+import cognitivity.repositories.TestQuestionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,19 +17,72 @@ import org.springframework.stereotype.Service;
 @Service
 public class QuestionService extends AbstractService<TestQuestionRepository> {
 
+    @Autowired
     protected QuestionService(TestQuestionRepository repository) {
         super(repository);
     }
 
-    public void addQuestion(TestQuestion q) {
-
-    }
-
-    public TestQuestion[] getQuestions() {
-        return new TestQuestion[0];
-    }
-
-    public TestQuestion getQuestion(String id) {
+    /**
+     * Save a TestQuestion.
+     *
+     * @param q - The cognitive test question to be created.
+     *
+     * @return - The saved TestQuestion.
+     *
+     * This will be used in conjunction with the POST HTTP method.
+     * */
+    public TestQuestion createTestQuestion(TestQuestionDTO q) {
         return null;
     }
+
+    /**
+     * Update a TestQuestion.
+     *
+     * @param questionId - The test question id to update.
+     * @param q - The cognitive test question to be updated.
+     *
+     * @return - The updated TestQuestion.
+     *
+     * This will be used in conjunction with the PUT HTTP method.
+     * */
+    public CognitiveTest updateTestQuestion(long questionId, TestQuestionDTO q) {
+        return null;
+    }
+
+    /**
+     * Delete a TestQuestion.
+     *
+     * @param questionId - The test question id to delete.
+     *
+     * Important Note: This will delete all answers associated with the question! (maybe)
+     *
+     * This will be used in conjunction with the DELETE HTTP method.
+     * */
+    public void deleteTestQuestion(long questionId) {
+
+    }
+
+
+    /**
+     * Find all cognitive test questions in a test.
+     *
+     * @param testId - The test's id.
+     *
+     * @return - All questions the test has.
+     * */
+    public RepositorySearchResult<TestQuestion> getTestQuestionsForTest(long testId) {
+        return null;
+    }
+
+    /**
+     * Find all cognitive test questions that a test manager has created.
+     *
+     * @param testManagerID - The test managers's id.
+     *
+     * @return - All questions the test manager has created.
+     * */
+    public RepositorySearchResult<TestQuestion> findTestQuestionsForTestManagerById(long testManagerID) {
+        return null;
+    }
+
 }

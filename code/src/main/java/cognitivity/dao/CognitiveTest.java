@@ -1,4 +1,4 @@
-package cognitivity.model;
+package cognitivity.dao;
 
 import javax.persistence.*;
 import java.sql.Date;

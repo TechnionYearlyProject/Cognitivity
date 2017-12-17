@@ -1,6 +1,6 @@
 package cognitivity.dto;
 
-import cognitivity.model.TestManager;
+import cognitivity.dao.TestManager;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,8 +14,14 @@ import java.util.stream.Collectors;
 
 public class TestManagerDTO {
 
-    public static TestManagerDTO mapFromTestManagerEntity(TestManager answer) {
-        return new TestManagerDTO();
+    private String name;
+
+    public TestManagerDTO(String name) {
+        this.name = name;
+    }
+
+    public static TestManagerDTO mapFromTestManagerEntity(TestManager testManager) {
+        return new TestManagerDTO(testManager.getName());
     }
 
     public static List<TestManagerDTO> mapFromTestManagerEntities(List<TestManager> managers) {
