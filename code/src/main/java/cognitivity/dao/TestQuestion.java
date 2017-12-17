@@ -9,7 +9,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "testSubject")
+@Table(name = "testQuestion")
 public class TestQuestion extends AbstractEntity {
     @Column(name = "question", nullable = false)
     private String question; //For an open question or for all types?
