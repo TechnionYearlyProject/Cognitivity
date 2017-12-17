@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Test } from '../../../models'
 import {TestService} from '../../../services/database-service'
+import { AuthService } from '../../../services/auth-service';
 
 @Component({
   selector: 'app-test-list',
@@ -11,19 +12,33 @@ import {TestService} from '../../../services/database-service'
 })
 export class TestListComponent implements OnInit {
   testList: Test[];
-  managerId: string;
+  manager;
   constructor(
     private testService: TestService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthService
   ) {}
 
   async ngOnInit() {
-    this.managerId = this.route.snapshot.params['id'];
     try {
-      this.testList = await this.testService.getTestsForTestManager(this.managerId);
+      this.manager = await this.authService.getCurrentManager();
+      this.testList = await this.testService.getTestsForTestManager(this.manager.id);
     } catch(err) {
       console.log(err);
+    }
+  }
+
+  showStatus(statusCode: number) {
+    switch(statusCode) {
+      case 0: return 'Active';
+      case 1: return 'Inactive';
+    }
+  }
+  getColorForStatus(statusCode: number) {
+    switch(statusCode) {
+      case 0: return 'green';
+      case 1: return 'red';
     }
   }
 

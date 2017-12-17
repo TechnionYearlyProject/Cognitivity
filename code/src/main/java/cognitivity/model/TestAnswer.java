@@ -9,18 +9,14 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "testAnswer")
-public class TestAnswer {
-    @Id @GeneratedValue
-    @Column(name = "id")
-    private Integer id;
-
+public class TestAnswer extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "id")
     private TestSubject testSubject;
 
     @ManyToOne
     @JoinColumn(name = "id")
-    private TestQuestion question;
+    private TestQuestion question;	//Or maybe just the test id
 
     @ManyToOne
     @JoinColumn(name = "id")
@@ -30,13 +26,13 @@ public class TestAnswer {
     private Integer numberOfClick;
 
     @Column(name = "finalAnswer")
-    private Integer finalAnswer;
+    private Integer finalAnswer;//What is this?
 
     @Column(name = "questionPlacement", nullable = false)
-    private Integer questionPlacement;
+    private Integer questionPlacement;//What is this?
 
     @Column(name = "answerPlacement", nullable = false)
-    private Integer answerPlacement;
+    private Integer answerPlacement;//What is this?
 
     @Column(name = "verbalAnswer")
     private String verbalAnswer;
@@ -56,22 +52,6 @@ public class TestAnswer {
 
     @Column(name = "testeeExit")
     private Boolean testeeExit;
-
-    /**
-	* Returns value of id
-	* @return
-	*/
-	public Integer getId() {
-		return id;
-	}
-
-	/**
-	* Sets new value of id
-	* @param
-	*/
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	/**
 	* Returns value of testSubject

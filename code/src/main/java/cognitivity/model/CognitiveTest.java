@@ -1,6 +1,8 @@
 package cognitivity.model;
 
 import javax.persistence.*;
+import java.sql.Date;
+
 /**
  *
  * The Cognitive Test persistent (JPA) representation (tables).
@@ -9,10 +11,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "project")
-public class CognitiveTest {
-    @Id @GeneratedValue
-    @Column(name = "id")
-    private Integer id;
+public class CognitiveTest extends AbstractEntity {
+
+	/*
+	* This bugs me.. where are all the questions of the tests stored? When we create a test, we assign it blocks and questions,
+	* So how are they connected to each other?
+	* */
 
     @Column(name = "name")
     private String name;
@@ -22,11 +26,11 @@ public class CognitiveTest {
     private TestManager manager;
 
     @Column(name = "numberOfTestees", nullable = false)
-    private Integer numberOfTestees;
+    private Integer numberOfTestees; //Number of subjects? how does this represent a test? I'm not sure about that.. it is so dynamic, that I think it shouldn't be here..
 
     // TODO: need to talk to peer to see how we do the enums..
     @Column(name = "state", nullable = false)
-    private Integer state;
+    private Integer state; //What is this?
 
     @Column(name = "lastModified", nullable = false)
     private Date lastModified;
@@ -36,27 +40,10 @@ public class CognitiveTest {
     private String lastAnswered;
 
     @Column(name = "numberOfFiledCopies", nullable = false)
-    private Integer numberOfFiledCopies;
+    private Integer numberOfFiledCopies; //What for?
 
     @Column(name = "numberOfQuestions", nullable = false)
-    private Integer numberOfQuestions;
-
-
-    /**
-	* Returns value of id
-	* @return
-	*/
-	public Integer getId() {
-		return id;
-	}
-
-	/**
-	* Sets new value of id
-	* @param
-	*/
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    private Integer numberOfQuestions; //Nice! what about number of blocks? seems its important to have this.
 
 	/**
 	* Returns value of name

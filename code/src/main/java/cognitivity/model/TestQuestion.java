@@ -8,37 +8,17 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "testSubject")
-public class TestQuestion {
-    @Id @GeneratedValue
-    @Column(name = "id")
-    private Integer id;
-
+public class TestQuestion extends AbstractEntity {
     @Column(name = "question", nullable = false)
-    private String question;
+    private String question; //For an open question or for all types?
 
     // TODO: need to talk to peer to see how we do the enums..
     @Column(name = "questionType", nullable = false)
-    private Integer questionType;
+    private Integer questionType; //An Integer? how is that enough? why not a string? how will Rekefet know what this number represents..?
 
     @Column(name = "answer")
-    private Integer answer;
-
-    /**
-	* Returns value of id
-	* @return
-	*/
-	public Integer getId() {
-		return id;
-	}
-
-	/**
-	* Sets new value of id
-	* @param
-	*/
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
+    private Integer answer; //What is this??
+	
 	/**
 	* Returns value of question
 	* @return

@@ -11,7 +11,7 @@ const routes: Routes = [
         component: DashboardComponent,
         children: [
             {
-                path:'test-list/:id',
+                path:'test-list',
                 component: TestListComponent
             }
         ]

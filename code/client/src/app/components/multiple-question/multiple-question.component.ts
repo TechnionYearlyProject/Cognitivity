@@ -12,11 +12,12 @@ export class MultipleQuestionComponent implements OnInit {
   isSubmit: boolean;
   answerOrganization: TypeMultipleQuestion  = TypeMultipleQuestion.Vertical;
   matrixAnswers? : Array<Array<MultipleAnswer>>
+  range_value: number = 50;
   constructor() {
     this.question = 
     {
       text:'Who directed Inception?',
-      answers:[{answer:'Christopher Nolan', isMarked:false}, {answer:'Ridely Scott', isMarked:false}, {answer:'Quantin Tarantino',isMarked:false}, {answer:'Robert Downy Jr.', isMarked:false}, {answer:'Mark Erlich', isMarked:false}],
+      answers:[{answer:'Christopher Nolan', isMarked:false}, {answer:'Ridely Scott', isMarked:false}, {answer:'Quantin Tarantino',isMarked:false}, {answer:'Robert Downy Jr.', isMarked:false}, {answer:'Mark Erlich', isMarked:false}, {answer:'Mark Erlich', isMarked:false}, {answer:'Mar Erlich', isMarked:false}, {answer:'Mark Erlich', isMarked:false}, {answer:'Mark Erlich', isMarked:false}],
       correctAnswer:1, 
       typeMultipleQuestion: TypeMultipleQuestion.Matrix
     };
@@ -29,9 +30,22 @@ export class MultipleQuestionComponent implements OnInit {
   ngOnInit() {
   }
 
-  markAnswer(answerText:string){
+  markAnswerInMatrix(row: number, col: number){
     for(let i = 0; i < this.question.answers.length; i++){   
-      if(this.question.answers[i].answer == answerText){
+      if(i == row * this.matrixAnswers[0].length + col){
+        this.question.answers[i].isMarked = true;
+        this.markedAnswer = i;
+
+      }else{
+        this.question.answers[i].isMarked = false;
+      }
+    }
+    
+  }
+  
+  markAnswer(ansIndex: number){
+    for(let i = 0; i < this.question.answers.length; i++){   
+      if(i == ansIndex){
         this.question.answers[i].isMarked = true;
         this.markedAnswer = i;
 
@@ -42,13 +56,7 @@ export class MultipleQuestionComponent implements OnInit {
   }
   
   onSubmit(event: Event){
-    event.preventDefault();
-    this.isSubmit = true;
-    if(this.markedAnswer == this.question.correctAnswer - 1){
-      this.correct = true;
-    }else{
-      this.correct = false;
-    }
+    console.log('check submit');
   }
 
   isVertical(): boolean{
@@ -91,12 +99,8 @@ export class MultipleQuestionComponent implements OnInit {
     returning the value of the answer when the form of the answers is matrix.
     it's only necessary when the formation of the answers is matrix, due to the construction of the matrix, in all other forms the direct access to the field isMarked is enough
   */
-  isMarkedInMatrix(answer: string): boolean{
-    for(let i = 0; i < this.question.answers.length; i++){
-      if(this.question.answers[i].answer == answer){
-        return this.question.answers[i].isMarked;
-      }
-    }
+  isMarkedInMatrix(row: number, col: number): boolean{
+        return this.question.answers[row * this.matrixAnswers[0].length + col].isMarked;
   }
 }
 
