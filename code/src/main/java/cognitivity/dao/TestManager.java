@@ -1,6 +1,8 @@
-package cognitivity.model;
+package cognitivity.dao;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 /**
  *
  * The Test Manager persistent (JPA) representation (tables).
@@ -11,15 +13,12 @@ import javax.persistence.*;
 @Table(name = "testManager")
 public class TestManager extends AbstractEntity {
 
-	/*
-	* Cool. Maybe we will add stuff later (who knows what Rekefet needs...)
-	* */
-
 
     @Column(name = "name")
     private String name;
 
-	/**
+
+    /**
 	* Returns value of name
 	* @return
 	*/

@@ -1,4 +1,4 @@
-package cognitivity.model;
+package cognitivity.dao;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -12,6 +12,7 @@ import java.sql.Date;
 @Entity
 @Table(name = "project")
 public class CognitiveTest extends AbstractEntity {
+
 
 	/*
 	* This bugs me.. where are all the questions of the tests stored? When we create a test, we assign it blocks and questions,

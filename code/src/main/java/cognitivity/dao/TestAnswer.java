@@ -1,4 +1,4 @@
-package cognitivity.model;
+package cognitivity.dao;
 
 import javax.persistence.*;
 /**
@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "testAnswer")
 public class TestAnswer extends AbstractEntity {
+
     @ManyToOne
     @JoinColumn(name = "id")
     private TestSubject testSubject;

@@ -1,13 +1,15 @@
-package cognitivity.model;
+package cognitivity.dao;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 /**
  *
  * The Test Question persistent (JPA) representation (tables).
  *
  */
 @Entity
-@Table(name = "testSubject")
+@Table(name = "testQuestion")
 public class TestQuestion extends AbstractEntity {
     @Column(name = "question", nullable = false)
     private String question; //For an open question or for all types?

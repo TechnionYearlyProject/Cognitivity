@@ -1,12 +1,11 @@
 package cognitivity.controllers;
 
+import cognitivity.dao.RepositorySearchResult;
+import cognitivity.dao.TestAnswer;
 import cognitivity.dto.TestAnswerDTO;
-import cognitivity.model.RepositorySearchResult;
-import cognitivity.model.TestAnswer;
 import cognitivity.services.TestAnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,13 +17,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("test-answers")
-public class TestAnswerController {
-
-    private final TestAnswerService service;
+public class TestAnswerController extends AbstractRestController<TestAnswerService> {
 
     @Autowired
     public TestAnswerController(TestAnswerService service) {
-        this.service = service;
+        super(service);
     }
 
 
@@ -38,7 +35,7 @@ public class TestAnswerController {
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET)
     public TestAnswerDTO findTestAnswerById(
-            @RequestParam(value = "testAnswerId") String answerId) {
+            @RequestParam(value = "testAnswerId") long answerId) {
         TestAnswer result = service.findTestAnswerById(answerId);
         return TestAnswerDTO.mapFromTestAnswerEntity(result);
     }
@@ -53,7 +50,7 @@ public class TestAnswerController {
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET)
     public List<TestAnswerDTO> findTestAnswersByQuestionId(
-            @RequestParam(value = "testQuestionId") String questionId) {
+            @RequestParam(value = "testQuestionId") long questionId) {
         RepositorySearchResult<TestAnswer> result = service.findTestAnswersByQuestionId(questionId);
         return TestAnswerDTO.mapFromCognitiveTestEntities(result.getResult());
     }
@@ -68,7 +65,7 @@ public class TestAnswerController {
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET)
     public List<TestAnswerDTO> findTestAnswersBySubjectId(
-            @RequestParam(value = "testSubjectId") String subjectId) {
+            @RequestParam(value = "testSubjectId") long subjectId) {
         RepositorySearchResult<TestAnswer> result = service.findTestAnswersBySubjectId(subjectId);
         return TestAnswerDTO.mapFromCognitiveTestEntities(result.getResult());
     }
@@ -83,8 +80,8 @@ public class TestAnswerController {
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST)
     public void saveTestAnswer(
-            @RequestParam(value = "testQuestionId") String questionId,
-            @RequestParam(value = "testAnswerId", required = false) String answerId,
+            @RequestParam(value = "testQuestionId") long questionId,
+            @RequestParam(value = "testAnswerId", required = false) long answerId,
             @RequestBody TestAnswerDTO answerDTO) {
         if (StringUtils.isEmpty(answerId)) {
             // Then create
@@ -107,8 +104,8 @@ public class TestAnswerController {
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.DELETE)
     public void deleteTestAnswer(
-            @RequestParam(value = "testQuestionId") String questionId,
-            @RequestParam(value = "testAnswerId", required = false) String answerId) {
+            @RequestParam(value = "testQuestionId") long questionId,
+            @RequestParam(value = "testAnswerId", required = false) long answerId) {
         if (StringUtils.isEmpty(answerId)) {
             // Then delete all answers
             service.deleteAllTestAnswersForQuestion(questionId);
@@ -118,16 +115,4 @@ public class TestAnswerController {
         }
     }
 
-
-    /**
-     * Error handler for backend errors - a 400 status code will be sent back, and the body
-     * of the message contains the exception text.
-     *
-     * @param exc - the exception caught
-     */
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> errorHandler(Exception exc) {
-        return new ResponseEntity<>(exc.getMessage(), HttpStatus.BAD_REQUEST);
-    }
 }

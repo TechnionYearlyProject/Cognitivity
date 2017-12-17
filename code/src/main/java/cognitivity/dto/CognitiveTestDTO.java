@@ -1,6 +1,6 @@
 package cognitivity.dto;
 
-import cognitivity.model.CognitiveTest;
+import cognitivity.dao.CognitiveTest;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.sql.Date;
@@ -56,4 +56,39 @@ public class CognitiveTestDTO {
                 .collect(Collectors.toList());
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public TestManagerDTO getManager() {
+        return manager;
+    }
+
+    public int getNumberOfSubjects() {
+        return numberOfSubjects;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public Date getLastModified() {
+        return lastModified;
+    }
+
+    public String getLastAnswered() {
+        return lastAnswered;
+    }
+
+    public int getNumberOfFiledCopies() {
+        return numberOfFiledCopies;
+    }
+
+    public int getNumberOfQuestions() {
+        return numberOfQuestions;
+    }
 }

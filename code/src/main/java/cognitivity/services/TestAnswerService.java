@@ -1,9 +1,9 @@
 package cognitivity.services;
 
-import cognitivity.dao.TestAnswerRepository;
+import cognitivity.dao.RepositorySearchResult;
+import cognitivity.dao.TestAnswer;
 import cognitivity.dto.TestAnswerDTO;
-import cognitivity.model.RepositorySearchResult;
-import cognitivity.model.TestAnswer;
+import cognitivity.repositories.TestAnswerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -28,7 +28,7 @@ public class TestAnswerService extends AbstractService<TestAnswerRepository> {
      *
      * This will be used in conjunction with the POST HTTP method.
      * */
-    public TestAnswer addTestAnswerForTestQuestion(String questionId, TestAnswerDTO answerDTO) {
+    public TestAnswer addTestAnswerForTestQuestion(long questionId, TestAnswerDTO answerDTO) {
         return null;
     }
 
@@ -43,7 +43,7 @@ public class TestAnswerService extends AbstractService<TestAnswerRepository> {
      *
      * This will be used in conjunction with the PUT HTTP method.
      * */
-    public TestAnswer updateTestAnswerForQuestion(String questionId, String answerId, TestAnswerDTO answerDTO) {
+    public TestAnswer updateTestAnswerForQuestion(long questionId, long answerId, TestAnswerDTO answerDTO) {
         return null;
     }
 
@@ -55,7 +55,7 @@ public class TestAnswerService extends AbstractService<TestAnswerRepository> {
      *
      * This will be used in conjunction with the DELETE HTTP method.
      * */
-    public void deleteTestAnswerForQuestion(String questionId, String answerId) {
+    public void deleteTestAnswerForQuestion(long questionId, long answerId) {
 
     }
 
@@ -66,7 +66,7 @@ public class TestAnswerService extends AbstractService<TestAnswerRepository> {
      *
      * This will be used in conjunction with the DELETE HTTP method.
      * */
-    public void deleteAllTestAnswersForQuestion(String questionId) {
+    public void deleteAllTestAnswersForQuestion(long questionId) {
 
     }
 
@@ -77,7 +77,7 @@ public class TestAnswerService extends AbstractService<TestAnswerRepository> {
      *
      * @return - Test answer with given id.
      * */
-    public TestAnswer findTestAnswerById(String answerId) {
+    public TestAnswer findTestAnswerById(long answerId) {
         return null;
     }
 
@@ -88,7 +88,7 @@ public class TestAnswerService extends AbstractService<TestAnswerRepository> {
      *
      * @return - All test answers that belong to the question with the given id.
      * */
-    public RepositorySearchResult<TestAnswer> findTestAnswersByQuestionId(String questionId) {
+    public RepositorySearchResult<TestAnswer> findTestAnswersByQuestionId(long questionId) {
         return null;
     }
 
@@ -99,7 +99,7 @@ public class TestAnswerService extends AbstractService<TestAnswerRepository> {
      *
      * @return - All test answers that belong to the subject with the given id.
      * */
-    public RepositorySearchResult<TestAnswer> findTestAnswersBySubjectId(String subjectId) {
+    public RepositorySearchResult<TestAnswer> findTestAnswersBySubjectId(long subjectId) {
         return null;
     }
 
