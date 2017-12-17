@@ -59,7 +59,7 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST)
-    public void saveCognitiveTest(
+    public void saveTestSubject(
             @RequestParam(value = "testSubjectId", required = false) Long testSubjectId,
             @RequestBody TestSubjectDTO testSubject) {
 
