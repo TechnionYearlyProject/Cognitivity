@@ -5,7 +5,7 @@ import cognitivity.repositories.AbstractRepository;
 /**
  * Created by ophir on 08/12/17.
  */
-abstract public class AbstractService<RepoType extends AbstractRepository> {
+public abstract class AbstractService<RepoType extends AbstractRepository> {
 
     protected final RepoType repository;
 

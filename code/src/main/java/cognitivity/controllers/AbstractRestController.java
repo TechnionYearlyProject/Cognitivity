@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 /**
  * Created by ophir on 17/12/17.
  */
-public class AbstractRestController<ServiceType extends AbstractService<? extends AbstractRepository<? extends AbstractEntity>>> {
+public abstract class AbstractRestController<ServiceType extends AbstractService<? extends AbstractRepository<? extends AbstractEntity>>> {
+
     protected final ServiceType service;
 
     public AbstractRestController(ServiceType service) {

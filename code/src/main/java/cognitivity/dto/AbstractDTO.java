@@ -3,7 +3,7 @@ package cognitivity.dto;
 /**
  * Created by ophir on 18/12/17.
  */
-abstract public class AbstractDTO {
+public abstract class AbstractDTO {
     public long getId() {
         return id;
     }

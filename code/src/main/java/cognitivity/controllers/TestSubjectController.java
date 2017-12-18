@@ -56,7 +56,6 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
      * Params are as in TestSubjectService.
      * If testSubjectId is null, then create. otherwise - update.
      */
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST)
     public void saveTestSubject(
@@ -76,7 +75,6 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
      * <p>
      * Params are as in TestSubjectService.
      */
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.DELETE)
     public void deleteTestSubject(@RequestParam long testSubjectId) {

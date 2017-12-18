@@ -50,22 +50,12 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
         }
     }
 
-
-    public TestManager findTestManager(long testManagerId) {
-        return null;
-    }
-
-    public RepositorySearchResult<TestManager> findTestManagerByCreatedTest(long testID) {
-        return null;
-    }
-
     /**
      * Method for saving (update / create) test managers.
      * <p>
      * Params are as in TestManagerService.
      * If testManagerId is null, then create. otherwise - update.
      */
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST)
     public void saveTestManager(
@@ -85,7 +75,6 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
      * <p>
      * Params are as in TestManagerService.
      */
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.DELETE)
     public void deleteTestManager(@RequestParam long testManagerId) {
