@@ -57,7 +57,6 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
      * Params are as in CognitiveTestService.
      * If testId is null, then create. otherwise - update.
      * */
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST)
     public void saveCognitiveTest(
@@ -78,7 +77,6 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
      *
      * Params are as in CognitiveTestService.
      * */
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.DELETE)
     public void deleteCognitiveTest(@RequestParam long testID,

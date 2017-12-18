@@ -32,6 +32,7 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
      *
      * @return - test answer with the given id.
      * */
+    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET)
     public TestAnswerDTO findTestAnswerById(
@@ -47,6 +48,7 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
      *
      * @return - test answer(s) of the question with the given id.
      * */
+    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET)
     public List<TestAnswerDTO> findTestAnswersByQuestionId(
@@ -62,6 +64,7 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
      *
      * @return - test answer(s) of the subject with the given id.
      * */
+    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET)
     public List<TestAnswerDTO> findTestAnswersBySubjectId(
@@ -76,7 +79,6 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
      * Params are as in TestAnswerService.
      * If answerId == null => create.
      * */
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST)
     public void saveTestAnswer(

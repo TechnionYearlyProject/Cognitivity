@@ -54,7 +54,6 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
      * Params are as in TestQuestionService.
      * If questionId is null, then create. otherwise - update.
      * */
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST)
     public void saveCognitiveTestQuestion(
@@ -66,7 +65,6 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
         } else {
             service.updateTestQuestion(questionId, question);
         }
-
     }
 
     /**
@@ -74,7 +72,6 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
      *
      * Params are as in TestQuestionService.
      * */
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.DELETE)
     public void deleteCognitiveTest(@RequestParam long quesstionId) {
