@@ -10,20 +10,23 @@ import java.util.stream.Collectors;
  */
 
 
-public class TestQuestionDTO {
+public class TestQuestionDTO extends AbstractDTO {
+
+    private long id;
 
     private String question;
     private int questionType;
     private int answer;
 
-    private TestQuestionDTO(String questionText, int questionType, int answerIndex) {
+    private TestQuestionDTO(long id, String questionText, int questionType, int answerIndex) {
+        super(id);
         this.question = questionText;
         this.questionType = questionType;
         this.answer = answerIndex;
     }
 
     public static TestQuestionDTO mapFromTestQuestionEntity(TestQuestion question) {
-        return new TestQuestionDTO(question.getQuestion(),
+        return new TestQuestionDTO(question.getId(), question.getQuestion(),
                 question.getQuestionType(),
                 question.getAnswer());
     }
@@ -33,6 +36,7 @@ public class TestQuestionDTO {
                 .map(TestQuestionDTO::mapFromTestQuestionEntity)
                 .collect(Collectors.toList());
     }
+
 
     public String getQuestion() {
         return question;

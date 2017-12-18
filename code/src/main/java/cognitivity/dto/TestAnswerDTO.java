@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
  */
 
 
-public class TestAnswerDTO {
+public class TestAnswerDTO extends AbstractDTO {
 
     private TestSubjectDTO testSubject;
     private TestQuestionDTO question;
@@ -26,10 +26,11 @@ public class TestAnswerDTO {
     private boolean timeShowed;
     private boolean testeeExit;
 
-    public TestAnswerDTO(TestSubjectDTO testSubject, TestQuestionDTO question, CognitiveTestDTO cognitiveTest,
+    public TestAnswerDTO(long id, TestSubjectDTO testSubject, TestQuestionDTO question, CognitiveTestDTO cognitiveTest,
                          int numberOfClick, int finalAnswer, int questionPlacement, int answerPlacement,
                          String verbalAnswer, boolean questionWithPicture, String timeToAnswer, boolean timeMeasured,
                          boolean timeShowed, boolean testeeExit) {
+        super(id);
         this.testSubject = testSubject;
         this.question = question;
         this.cognitiveTest = cognitiveTest;
@@ -47,7 +48,8 @@ public class TestAnswerDTO {
 
 
     public static TestAnswerDTO mapFromTestAnswerEntity(TestAnswer answer) {
-        return new TestAnswerDTO(TestSubjectDTO.mapFromTestSubjectEntity(answer.getTestSubject()),
+        return new TestAnswerDTO(answer.getId(),
+                TestSubjectDTO.mapFromTestSubjectEntity(answer.getTestSubject()),
                 TestQuestionDTO.mapFromTestQuestionEntity(answer.getQuestion()),
                 CognitiveTestDTO.mapFromCognitiveTestEntity(answer.getCognitiveTest()),
                 answer.getNumberOfClick(),
@@ -58,8 +60,7 @@ public class TestAnswerDTO {
                 answer.getQuestionWithPicture(),
                 answer.getTimeToAnswer(),
                 answer.getTimeMeasured(),
-                answer.getTimeShowed(),
-                answer.getTesteeExit());
+                answer.getTimeShowed(), answer.getTesteeExit());
     }
 
     public static List<TestAnswerDTO> mapFromCognitiveTestEntities(List<TestAnswer> answers) {
@@ -119,4 +120,5 @@ public class TestAnswerDTO {
     public boolean isTesteeExit() {
         return testeeExit;
     }
+
 }
