@@ -1,25 +1,30 @@
 package cognitivity.dao;
 
-
+import java.util.*;
 import javax.persistence.*;
 
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.SessionFactory;
-import org.hibernate.HibernateException;
+
+import org.hibernate.*;
+import org.hibernate.query.NativeQuery;
 
 
 public class ExecuteQuery{
-
-    List execute(String query){
+    /**
+     * Sets new value of cognitiveTest
+     * @param stringQuery:
+     *           the sql query that we want to run
+     * @param factory:
+     *               opened SessionFactory that opens when someone wants to read data
+     * @return List of objects that answers the query
+     */
+    public List execute(String stringQuery, SessionFactory factory){
         Session session = factory.openSession();
         Transaction tx = null;
+        List data = null;
         try {
             tx = session.beginTransaction();
-            SQLQuery query = session.createSQLQuery( query );
-            query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-            List data = query.list();
+            NativeQuery query = session.createNativeQuery( stringQuery );
+            data = query.list();
         } catch(HibernateException e) {
             if( tx != null)
                 tx.rollback();
@@ -27,5 +32,6 @@ public class ExecuteQuery{
         } finally {
             session.close();
         }
+        return data;
     }
 }
