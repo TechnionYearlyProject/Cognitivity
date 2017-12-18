@@ -21,7 +21,8 @@
       "styles": [
         "styles.css",
         "../node_modules/bootstrap/dist/css/bootstrap.css",
-        "../node_modules/bootstrap-datepicker3.css"
+        "../node_modules/angular-bootstrap3-datepicker/dist/angular-bootstrap3-datepicker.css",
+        "../node_modules/font-awesome/css/font-awesome.css"
         
       ],
       "scripts": [
