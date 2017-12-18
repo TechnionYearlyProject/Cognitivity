@@ -10,9 +10,8 @@ import java.util.stream.Collectors;
 /**
  * Data Transfer Object [JSON] representing a cognitive test's information.
  */
-public class CognitiveTestDTO {
+public class CognitiveTestDTO extends AbstractDTO {
 
-    private final long id;
     private final String name;
     private final TestManagerDTO manager;
     private final int numberOfSubjects;
@@ -25,7 +24,7 @@ public class CognitiveTestDTO {
 
     private CognitiveTestDTO(long id, String name, TestManagerDTO manager, int numberOfSubjects, int state,
                              Date lastModified, String lastAnswered, int numberOfFiledCopies, int numberOfQuestions) {
-        this.id = id;
+        super(id);
         this.name = name;
         this.manager = manager;
         this.numberOfSubjects = numberOfSubjects;

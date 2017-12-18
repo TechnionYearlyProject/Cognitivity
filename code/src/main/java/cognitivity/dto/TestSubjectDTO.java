@@ -10,13 +10,14 @@ import java.util.stream.Collectors;
  */
 
 
-public class TestSubjectDTO {
+public class TestSubjectDTO extends AbstractDTO {
 
     private String name;
     private int ipAddress;  // should maybe be something else?
     private String browser;
 
-    public TestSubjectDTO(String name, int ipAddress, String browser) {
+    public TestSubjectDTO(long id, String name, int ipAddress, String browser) {
+        super(id);
         this.name = name;
         this.ipAddress = ipAddress;
         this.browser = browser;
@@ -24,7 +25,7 @@ public class TestSubjectDTO {
 
 
     public static TestSubjectDTO mapFromTestSubjectEntity(TestSubject subject) {
-        return new TestSubjectDTO(subject.getName(),
+        return new TestSubjectDTO(subject.getId(), subject.getName(),
                 subject.getIpAddress(),
                 subject.getBrowser());
     }
@@ -46,4 +47,5 @@ public class TestSubjectDTO {
     public String getBrowser() {
         return browser;
     }
+
 }

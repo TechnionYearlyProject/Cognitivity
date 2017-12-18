@@ -1,9 +1,10 @@
 package cognitivity.security;
-import org.springframework.security.web.context.*;
 
-/*
- * initializing spring security configuration, after this class initialized,
- * every http request passes thru spring security
+import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
+
+/**
+ * initializing spring security configuration, after this class is initialized,
+ * every http request passes through spring security.
  *
  */
 public class SecurityWebApplicationInitializer

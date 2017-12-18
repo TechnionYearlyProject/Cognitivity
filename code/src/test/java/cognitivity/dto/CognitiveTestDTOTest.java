@@ -71,6 +71,14 @@ public class CognitiveTestDTOTest implements DTOTest {
         for (int i = 0; i < tests.size(); i++) {
             CognitiveTest test = tests.get(i);
             CognitiveTestDTO testDTO = dtos.get(i);
+            Assert.assertTrue(test.getId().equals(testDTO.getId()));
+            Assert.assertEquals(test.getLastAnswered(), testDTO.getLastAnswered());
+            Assert.assertEquals(test.getLastModified(), testDTO.getLastModified());
+            Assert.assertEquals(TestManagerDTO.mapFromTestManagerEntity(test.getManager()), testDTO.getManager());
+            Assert.assertEquals(test.getName(), testDTO.getName());
+            Assert.assertTrue(test.getNumberOfFiledCopies().equals(testDTO.getNumberOfFiledCopies()));
+            Assert.assertTrue(test.getNumberOfQuestions().equals(testDTO.getNumberOfQuestions()));
+            Assert.assertTrue(test.getNumberOfTestees().equals(testDTO.getNumberOfSubjects()));
         }
     }
 }

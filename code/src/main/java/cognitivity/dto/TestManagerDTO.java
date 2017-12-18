@@ -10,14 +10,13 @@ import java.util.stream.Collectors;
  */
 
 
-public class TestManagerDTO {
+public class TestManagerDTO extends AbstractDTO {
 
     private String name;
-    private long id;
 
     public TestManagerDTO(String name, long id) {
+        super(id);
         this.name = name;
-        this.id = id;
     }
 
     public static TestManagerDTO mapFromTestManagerEntity(TestManager testManager) {
@@ -36,22 +35,4 @@ public class TestManagerDTO {
     }
 
 
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        TestManagerDTO that = (TestManagerDTO) o;
-
-        return getId() != null ? getId().equals(that.getId()) : that.getId() == null;
-    }
-
-    @Override
-    public int hashCode() {
-        return getId() != null ? getId().hashCode() : 0;
-    }
 }
