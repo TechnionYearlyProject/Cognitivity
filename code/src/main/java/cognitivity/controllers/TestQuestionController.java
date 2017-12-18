@@ -65,7 +65,6 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
         } else {
             service.updateTestQuestion(questionId, question);
         }
-
     }
 
     /**
