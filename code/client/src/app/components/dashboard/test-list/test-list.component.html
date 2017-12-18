@@ -15,6 +15,7 @@
       <th>Last Answered</th>
       <th>No. Filed Copies</th>
       <th></th>
+      <th></th>
       <th><a routerLink="/dashboard/add-test" href="#" ><i class="fa fa-plus-circle "></i> Add Test</a></th>
     </tr>
   </thead>
@@ -26,6 +27,7 @@
       <td>{{ test.lastModified }}</td>
       <td>{{ test.lastAnswered }}</td>
       <td>{{ test.numberOfFiledCopies }}</td>
+      <td><a [routerLink]="['/test/'+test.id]" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-window-maximize"></i> Preview</a></td>
       <td><a [routerLink]="['/test/'+test.id]" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-arrow-circle-o-right"></i> Edit</a></td>
       <td><a [routerLink]="['/test/'+test.id]" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-file-powerpoint-o "></i> Copy</a></td>
     </tr>
