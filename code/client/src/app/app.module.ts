@@ -16,6 +16,7 @@ import { RateQuestionComponent } from './components/rate-question/rate-question.
 import { AuthService } from './services/auth-service';
 import { LocalStorageService } from './services/local-storage';
 import { CreateTestComponent } from './components/create-test/create-test.component';
+import { CreateQuestionComponent } from './components/create-question/create-question.component';
 
 
 
@@ -39,6 +40,7 @@ const PROVIDED_SERVICES = [
     RateQuestionComponent,
     LoginPageComponent,
     CreateTestComponent,
+    CreateQuestionComponent,
     
   ],
   imports: [

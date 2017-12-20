@@ -1,0 +1,86 @@
+<div class="card">
+  <div class="card-header row centered">
+    <span class=" fa fa-plus-square"></span>
+    <div style="font-family: Ariel; margin: -0.35em 0.5em; font-size: 20px;">
+        Create new Question for My Test
+    </div>
+  </div>
+  <div class="card-body">
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+          <div class="form-group">
+            <div class="centered">
+              <label for="Question text"><span style="font-family:Ariel; font-size: 20px;">Enter the question:</span></label>
+              <input type="text" class="form-control" placeholder="Question text" style="max-width: 75%;"><br>
+            </div>
+            <br>
+            <div  class="centered">
+                <div class="dropdown">
+                    <button class="dropbtn"><span class="fa fa-chevron-down"> Question Types</span></button>
+                    <div class="dropdown-content">
+                          <button class="btn btn-basic" style="min-width: 250px;">Multiple choice question</button>
+                          <button class="btn btn-basic" style="min-width: 250px;">Open Question</button>
+                          <button class="btn btn-basic" style="min-width: 250px;">Rating Question</button>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="dropbtn" style="margin: 0em 0.5em;"><span class="fa fa-chevron-down"> Question position</span></button>
+                    <div class="dropdown-content">
+                        <button class="btn btn-basic" style="min-width: 250px;">Upper Right</button>
+                        <button class="btn btn-basic" style="min-width: 250px;">Upper Middle</button>
+                        <button class="btn btn-basic" style="min-width: 250px;">Upper Left</button>
+                        <button class="btn btn-basic" style="min-width: 250px;">Middle Right</button>
+                        <button class="btn btn-basic" style="min-width: 250px;">Middle Middle</button>
+                        <button class="btn btn-basic" style="min-width: 250px;">Middle Left</button>
+                        <button class="btn btn-basic" style="min-width: 250px;">Buttom Right</button>
+                        <button class="btn btn-basic" style="min-width: 250px;">Buttom Middle</button>
+                        <button class="btn btn-basic" style="min-width: 250px;">Buttom Left</button>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="dropbtn"><span class="fa fa-chevron-down"> Answer Organization </span></button>
+                    <div class="dropdown-content">
+                        <button class="btn btn-basic" style="min-width: 250px;"> Horizontal</button>
+                        <button class="btn btn-basic" style="min-width: 250px;"> Vertical</button>
+                        <button class="btn btn-basic" style="min-width: 250px;"> Matrix</button>
+                    </div>
+                </div>
+    
+            </div>
+          </div>
+          <div class="centered">
+            <span style="font-family:Ariel; font-size: 20px;">Answers so far:</span>
+            <ul clss="list-group">
+              <li class="list-group-item" style="max-width: 500px;">
+                  <span style="font-family: Ariel; font-size: 20px;">Christopher Nolan</span>
+                  <br>
+                  <button class="btn btn-danger"><span class="fa fa-trash"></span> Delete answer</button>
+                  <button class="btn btn-primary"><span class="fa fa-pencil"></span> Edit answer</button>
+              </li>
+              <li class="list-group-item" style="max-width: 500px;">
+                  <span style="font-family: Ariel; font-size: 20px;">Mark Erlich</span>
+                  <br>
+                  <button class="btn btn-danger"><span class="fa fa-trash"></span> Delete answer</button>
+                  <button class="btn btn-primary"><span class="fa fa-pencil"></span> Edit answer</button>
+              </li>
+            </ul>
+          </div>
+          <div class="form-group">
+            <div class="centered">
+              
+              <label for="Answer text"><span style="font-family:Ariel; font-size: 20px;">Enter an answer for the question:</span></label>
+              <input type="text" class="form-control" placeholder="Answer text" style="max-width: 75%">
+              <button class="btn btn-primary" style="margin:1em 0em;"><span class="fa fa-plus"></span> Add answer</button>
+
+            </div>
+          </div>
+          <div class="centered" style="max-width: 50%;">
+              <input type="submit" value="Submit Question" class="btn btn-primary btn-block">
+          </div>
+          
+      </form>
+  </div>
+
+ 
+    
+</div>
+

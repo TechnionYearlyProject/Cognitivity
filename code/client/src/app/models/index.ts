@@ -15,6 +15,12 @@ export enum TypeMultipleQuestion {
     Matrix
 }
 
+export enum TypeQuestion {
+    MultiplceChoice,
+    RateQuestion,
+    OpenQuestion
+}
+
 export enum QuestionPosition {
     UpperRight,
     UpperMiddle,
