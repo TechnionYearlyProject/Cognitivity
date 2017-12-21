@@ -9,6 +9,7 @@ import { OpenQuestion } from '../../models';
 export class OpenQuestionComponent implements OnInit {
   question: OpenQuestion;
   currentAnswer: string;
+  range_value: number = 50;
   constructor() { 
     this.question = {
       questionText: 'Which one is better, Iphone or Galaxy?',

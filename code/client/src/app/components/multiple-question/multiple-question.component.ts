@@ -17,9 +17,9 @@ export class MultipleQuestionComponent implements OnInit {
     this.question = 
     {
       text:'Who directed Inception?',
-      answers:[{answer:'Christopher Nolan', isMarked:false}, {answer:'Ridely Scott', isMarked:false}, {answer:'Quantin Tarantino',isMarked:false}, {answer:'Robert Downy Jr.', isMarked:false}, {answer:'Mark Erlich', isMarked:false}, {answer:'Mark Erlich', isMarked:false}, {answer:'Mar Erlich', isMarked:false}, {answer:'Mark Erlich', isMarked:false}, {answer:'Mark Erlich', isMarked:false}],
+      answers:[{answer:'Christopher Nolan', isMarked:false}, {answer:'Ridely Scott', isMarked:false}, {answer:'Quantin Tarantino',isMarked:false}, {answer:'Robert Downy Jr.', isMarked:false}],
       correctAnswer:1, 
-      typeMultipleQuestion: TypeMultipleQuestion.Vertical
+      typeMultipleQuestion: TypeMultipleQuestion.Matrix
     };
     this.answerOrganization = this.question.typeMultipleQuestion;
     if(this.answerOrganization == TypeMultipleQuestion.Matrix){
