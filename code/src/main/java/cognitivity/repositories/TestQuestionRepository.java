@@ -1,26 +1,31 @@
-package cognitivity.dao;
+package cognitivity.repositories;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import org.springframework.stereotype.Repository;
+
 /**
  *
- * The Test Question persistent (JPA) representation (tables).
+ * Data Access Object representation of a repository of cognitive test's questions.
+ *
+ * This class will use hibernate to pull and push data from the sql data server.
+ * This data will be a representation of a cognitive test's question.
  *
  */
+
+@Repository
 @Entity
 @Table(name = "testQuestion")
-public class TestQuestion extends AbstractEntity {
+public class TestQuestionRepository extends AbstractRepository {
     @Column(name = "question", nullable = false)
-    private String question; //For an open question or for all types?
+    private String question;
 
-    // TODO: need to talk to peer to see how we do the enums..
     @Column(name = "questionType", nullable = false)
-    private Integer questionType; //An Integer? how is that enough? why not a string? how will Rekefet know what this number represents..?
+    private Integer questionType;
 
     @Column(name = "answer")
-    private Integer answer; //What is this??
-	
+    private Integer answer;
+
 	/**
 	* Returns value of question
 	* @return

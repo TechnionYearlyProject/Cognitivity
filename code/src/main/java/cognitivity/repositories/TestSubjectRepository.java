@@ -1,19 +1,22 @@
-package cognitivity.dao;
+package cognitivity.repositories;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import org.springframework.stereotype.Repository;
+
 /**
  *
- * The Test Subject persistent (JPA) representation (tables).
+ * Data Access Object representation of a repository of cognitive test's subjects.
+ *
+ * This class will use hibernate to pull and push data from the sql data server.
+ * This data will be a representation of a cognitive test's subject.
  *
  */
 
+@Repository
 @Entity
 @Table(name = "testSubject")
-public class TestSubject extends AbstractEntity {
-
-
+public class TestSubjectRepository extends AbstractRepository {
     @Column(name = "name")
     private String name;
 

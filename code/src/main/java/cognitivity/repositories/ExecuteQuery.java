@@ -1,4 +1,4 @@
-package cognitivity.dao;
+package cognitivity.repositories;
 
 import java.util.*;
 import javax.persistence.*;

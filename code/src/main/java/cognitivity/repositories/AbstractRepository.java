@@ -1,17 +1,12 @@
-package cognitivity.dao;
+package cognitivity.repositories;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-/**
- * Created by ophir on 08/12/17.
- */
-
 @MappedSuperclass
-public abstract class AbstractEntity {
-
+public abstract class AbstractRepository {
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -47,4 +42,3 @@ public abstract class AbstractEntity {
     }
 
 }
-
