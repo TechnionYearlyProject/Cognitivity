@@ -17,7 +17,7 @@ import { AuthService } from './services/auth-service';
 import { LocalStorageService } from './services/local-storage';
 import { CreateTestComponent } from './components/create-test/create-test.component';
 import { CreateQuestionComponent } from './components/create-question/create-question.component';
-import { BackComponent } from './components/back/back.component';
+
 
 
 
