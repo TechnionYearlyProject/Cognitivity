@@ -1,6 +1,7 @@
 package cognitivity.repositories;
 
-import cognitivity.dao.TestManager;
+import javax.persistence;
+
 import org.springframework.stereotype.Repository;
 
 /**
@@ -14,5 +15,25 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public class TestManagerRepository extends AbstractRepository<TestManager> {
+@Entity
+@Table(name = "testManager")
+public class TestManagerRepository extends AbstractRepository {
+        @Column(name = "name")
+        private String name;
+
+        /**
+    	* Returns value of name
+    	* @return
+    	*/
+    	public String getName() {
+    		return name;
+    	}
+
+    	/**
+    	* Sets new value of name
+    	* @param
+    	*/
+    	public void setName(String name) {
+    		this.name = name;
+    	}
 }
