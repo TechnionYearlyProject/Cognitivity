@@ -1,16 +1,18 @@
 package cognitivity.controllers;
 
 import cognitivity.dao.AbstractEntity;
-import cognitivity.repositories.AbstractRepository;
 import cognitivity.services.AbstractService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+
+import cognitivity.dao.AbstractEntity;
+
 /**
  * Created by ophir on 17/12/17.
  */
-public abstract class AbstractRestController<ServiceType extends AbstractService<? extends AbstractRepository<? extends AbstractEntity>>> {
+public abstract class AbstractRestController<ServiceType extends AbstractService<? extends AbstractEntity>> {
 
     protected final ServiceType service;
 

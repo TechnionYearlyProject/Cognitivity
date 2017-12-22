@@ -1,11 +1,11 @@
 package cognitivity.services;
 
-import cognitivity.repositories.AbstractRepository;
+import cognitivity.dao.AbstractEntity;
 
 /**
  * Created by ophir on 08/12/17.
  */
-public abstract class AbstractService<RepoType extends AbstractRepository> {
+public abstract class AbstractService<RepoType extends AbstractEntity> {
 
     protected final RepoType repository;
 

@@ -3,7 +3,6 @@ package cognitivity.services;
 import cognitivity.dao.RepositorySearchResult;
 import cognitivity.dao.TestSubject;
 import cognitivity.dto.TestSubjectDTO;
-import cognitivity.repositories.TestSubjectRepository;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,11 +12,11 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class TestSubjectService extends AbstractService<TestSubjectRepository>  {
+public class TestSubjectService extends AbstractService<TestSubject>  {
 
 
-    protected TestSubjectService(TestSubjectRepository repository) {
-        super(repository);
+    protected TestSubjectService(TestSubject subject) {
+        super(subject);
     }
 
     /**

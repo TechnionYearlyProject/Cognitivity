@@ -3,7 +3,6 @@ package cognitivity.services;
 import cognitivity.dao.RepositorySearchResult;
 import cognitivity.dao.TestAnswer;
 import cognitivity.dto.TestAnswerDTO;
-import cognitivity.repositories.TestAnswerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -11,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Business service for answers to test questions related operations.
  *
  */
-public class TestAnswerService extends AbstractService<TestAnswerRepository> {
+public class TestAnswerService extends AbstractService<TestAnswer> {
 
     @Autowired
-    public TestAnswerService(TestAnswerRepository repository) {
+    public TestAnswerService(TestAnswer repository) {
         super(repository);
     }
 

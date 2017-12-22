@@ -3,7 +3,6 @@ package cognitivity.services;
 import cognitivity.dao.CognitiveTest;
 import cognitivity.dao.RepositorySearchResult;
 import cognitivity.dto.CognitiveTestDTO;
-import cognitivity.repositories.CognitiveTestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +13,11 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class CognitiveTestService extends AbstractService<CognitiveTestRepository> {
+public class CognitiveTestService extends AbstractService<CognitiveTest> {
 
     @Autowired
-    public CognitiveTestService(CognitiveTestRepository repository) {
-        super(repository);
+    public CognitiveTestService(CognitiveTest test) {
+        super(test);
     }
 
 

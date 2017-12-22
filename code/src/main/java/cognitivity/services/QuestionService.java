@@ -4,7 +4,6 @@ import cognitivity.dao.CognitiveTest;
 import cognitivity.dao.RepositorySearchResult;
 import cognitivity.dao.TestQuestion;
 import cognitivity.dto.TestQuestionDTO;
-import cognitivity.repositories.TestQuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +14,11 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class QuestionService extends AbstractService<TestQuestionRepository> {
+public class QuestionService extends AbstractService<TestQuestion> {
 
     @Autowired
-    protected QuestionService(TestQuestionRepository repository) {
-        super(repository);
+    protected QuestionService(TestQuestion question) {
+        super(question);
     }
 
     /**
