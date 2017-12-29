@@ -12,6 +12,7 @@ import { LoginPageComponent } from './components/login-page/login-page.component
 import { registrationFormComponent } from './components/registration-form/registration-form.component';
 import { MyDatePickerModule } from 'mydatepicker';
 import { BlockComponent } from './components/block/block.component';
+import { QuestionComponent } from './components/question/question.component';
 /* Services */
 import { TestManagerService, TestAnswerService, TestService, SubjectService, QuestionService } from './services/database-service';
 import { RateQuestionComponent } from './components/rate-question/rate-question.component';
@@ -19,6 +20,7 @@ import { AuthService } from './services/auth-service';
 import { LocalStorageService } from './services/local-storage';
 import { CreateTestComponent } from './components/create-test/create-test.component';
 import { CreateQuestionComponent } from './components/create-question/create-question.component';
+
 
 
 
@@ -46,14 +48,17 @@ const PROVIDED_SERVICES = [
     CreateTestComponent,
     CreateQuestionComponent,
     registrationFormComponent,
-    BlockComponent
+    BlockComponent,
+    QuestionComponent
     
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    MyDatePickerModule
+    MyDatePickerModule,
+
+  
   ],
   providers: [
     ...PROVIDED_SERVICES

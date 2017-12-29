@@ -29,7 +29,12 @@
     "handlebars": "^4.0.11",
     "jquery": "^3.2.1",
     "mydatepicker": "^2.6.1",
+    "ng2-tagsinput": "^0.1.5",
+    "ng4-tag-input": "^1.0.5",
+    "ngx-tags-input": "^1.1.0",
     "popper.js": "^1.12.6",
+    "primeng": "^5.0.2",
+    "react-tagsinput": "^3.19.0",
     "rxjs": "^5.4.1",
     "zone.js": "^0.8.14"
   },
