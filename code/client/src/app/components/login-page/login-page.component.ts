@@ -7,9 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginPageComponent implements OnInit {
 
+  user={
+    name:'',
+    password:'',
+    rememberMe:false
+  }
   constructor() { }
 
   ngOnInit() {
   }
 
+  onSubmit({value,valid}){
+    if(valid){
+      console.log(value);
+    }
+    else{
+      console.log('Not valid');
+    }
+  }
 }

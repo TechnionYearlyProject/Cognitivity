@@ -13,35 +13,39 @@
   <br>
   <br>
   <br>
-  <div class="container">
-    <div class="row">
-      <div class="form-group ">
-        <label for="username">User name:</label>
-        <input type="login" class="form-control" id="username1" placeholder="Enter user name">
+  <form name="form" novalidate #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <div class="col">
+      <label for="username">User name:</label>
+      <input type="text" class="form-control" name="name" [(ngModel)]="user.name" #userName="ngModel" minlength="2" required placeholder="User name">
+      <div *ngIf="userName.errors?.required && userName.touched" class="alert alert-danger">
+        Please enter your user name
+      </div>
+      <div *ngIf="userName.errors?.minlength && userName.touched" class="alert alert-danger">
+        User name must contain at least 2 characters
       </div>
       <br>
-    </div>
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="form-group">
-        <label for="password">Password:</label>
-        <input type="password" class="form-control justify-content-center" id="password1" placeholder="Password">
+      <br>
+      <label for="password">Password:</label>
+      <input type="text" class="form-control" name="password" [(ngModel)]="user.password" #userPassword="ngModel" minlength="4"
+        required placeholder="Password">
+      <div *ngIf="userPassword.errors?.required && userPassword.touched" class="alert alert-danger">
+        Please enter your password
+      </div>
+      <div *ngIf="userPassword.errors?.minlength && userPassword.touched" class="alert alert-danger">
+        Password must contain at least 4 characters
       </div>
     </div>
-  </div>
-  <div class="container">
-    <div class="form-check">
-      <label class="form-check-label">
+    <div class="container">
+      <label class="checkbox-inline">
         <br>
-        <input type="checkbox" class="form-check-input"> Remember me
+        <input type="checkbox" class="form-control" name="rememberMe" [(ngModel)]=user.rememberMe #userRememberMe="ngModel"> Remember me
       </label>
     </div>
-  </div>
-  <div class="container">
-    <br>
-    <button type="login" class="btn btn-primary">Login</button>
-  </div>
+      <br>
+      <div class="container">
+      <input type="submit" class="btn btn-success" value="Login">
+    </div>
+  </form>
   <br>
   <br>
   <br>
