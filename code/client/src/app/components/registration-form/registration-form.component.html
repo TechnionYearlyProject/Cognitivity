@@ -55,29 +55,26 @@
                         <!-- defines the right column -->
                         <!-- Here we define the date of birth -->
                         <!-- Form code begins -->
-                        <form method="post">
-                            <div class="form-group">
-                                <!-- Date input -->
-                                <div class="card-body">
-                                    <label class="fields" for="date">Date of birth</label>
-                                    <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text" />
-                                </div>
-                            </div>
+                        <div class="card-body">
+                                <label for="birthDate" class="fields">Date of birth</label><br>
+                        <form #myForm="ngForm" novalidate>
+                            <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="model" required></my-date-picker>
                         </form>
+                    </div>
                     </div>
                 </div>
                 <!-- ROW 2 END -->
                 <br>
                 <br>
                 <!-- ROW 3 START -->
-                <!-- defines the row for the martial status and job -->
+                <!-- defines the row for the marital status and job -->
                 <div class="row justify-content-around">
                     <div class="col-lg-4">
                         <!-- defines the left column -->
                         <!-- Here we define the family state field -->
                         <div class="card-body">
-                            <label for="martialStatus" class="fields">Martial Status</label>
-                            <select class="form-control form-control-md" name="martialStat">
+                            <label for="maritalStatus" class="fields">Marital Status</label>
+                            <select class="form-control form-control-md" name="maritalStat">
                                 <option>Single</option>
                                 <option>Married</option>
                                 <option>Divorced</option>

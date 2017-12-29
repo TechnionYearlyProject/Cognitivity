@@ -9,7 +9,8 @@ import {DashboardComponent} from './components/dashboard/dashboard.component';
 import { MultipleQuestionComponent } from './components/multiple-question/multiple-question.component';
 import { OpenQuestionComponent } from './components/open-question/open-question.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
-
+import { registrationFormComponent } from './components/registration-form/registration-form.component';
+import { MyDatePickerModule } from 'mydatepicker';
 /* Services */
 import { TestManagerService, TestAnswerService, TestService, SubjectService, QuestionService } from './services/database-service';
 import { RateQuestionComponent } from './components/rate-question/rate-question.component';
@@ -42,13 +43,14 @@ const PROVIDED_SERVICES = [
     LoginPageComponent,
     CreateTestComponent,
     CreateQuestionComponent,
-
+    registrationFormComponent
     
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MyDatePickerModule
   ],
   providers: [
     ...PROVIDED_SERVICES
