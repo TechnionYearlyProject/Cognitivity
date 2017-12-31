@@ -1,15 +1,10 @@
 package cognitivity.controllers;
 
-import cognitivity.entities.CognitiveTest;
-import cognitivity.dao.RepositorySearchResult;
 import cognitivity.dao.CognitiveTestDAO;
 import cognitivity.services.CognitiveTestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Collections;
-import java.util.List;
 
 /**
  * REST service for Cognitive Tests - allows to update, create, search and delete for cognitive tests for a
