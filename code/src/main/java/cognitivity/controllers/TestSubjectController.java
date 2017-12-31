@@ -13,7 +13,6 @@ import java.util.List;
 @RequestMapping("test-subjects")
 public class TestSubjectController extends AbstractRestController<TestSubjectService> {
 
-
     public TestSubjectController() {
         super(new TestSubjectService());
     }
