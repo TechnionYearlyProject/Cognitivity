@@ -1,4 +1,4 @@
-package cognitivity.dao;
+package cognitivity.entities;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -11,10 +11,42 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "project")
-public class CognitiveTest extends AbstractEntity {
+public class CognitiveTest extends AbstractEntity implements Cloneable{
+
+    // for copy constructor
+    private CognitiveTest(){}
+
+    public CognitiveTest(String name, TestManager manager,
+						 Integer numberOfTestees, Integer state,
+						 Date lastModified, String lastAnswered,
+						 Integer numberOfFiledCopies, Integer numberOfQuestions) {
+		this.name = name;
+		this.manager = manager;
+		this.numberOfTestees = numberOfTestees;
+		this.state = state;
+		this.lastModified = lastModified;
+		this.lastAnswered = lastAnswered;
+		this.numberOfFiledCopies = numberOfFiledCopies;
+		this.numberOfQuestions = numberOfQuestions;
+	}
+
+    public void clone(CognitiveTest cognitiveTest){
+        this.name = cognitiveTest.name;
+        this.manager = cognitiveTest.manager;
+        this.numberOfTestees = cognitiveTest.numberOfTestees;
+        this.state = cognitiveTest.state;
+        this.lastModified = cognitiveTest.lastModified;
+        this.lastAnswered = cognitiveTest.lastAnswered;
+        this.numberOfFiledCopies = cognitiveTest.numberOfFiledCopies;
+        this.numberOfQuestions = cognitiveTest.numberOfQuestions;
+    }
+
+	public CognitiveTest(CognitiveTest cognitiveTest){
+        new CognitiveTest().clone(cognitiveTest);
+    }
 
 
-	  @Column(name = "name")
+	@Column(name = "name")
     private String name;
 
     @ManyToOne
@@ -22,10 +54,10 @@ public class CognitiveTest extends AbstractEntity {
     private TestManager manager;
 
     @Column(name = "numberOfTestees", nullable = false)
-    private Integer numberOfTestees; //Number of subjects? how does this represent a test? I'm not sure about that.. it is so dynamic, that I think it shouldn't be here..
+    private Integer numberOfTestees;
 
     @Column(name = "state", nullable = false)
-    private Integer state; //What is this?
+    private Integer state;
 
     @Column(name = "lastModified", nullable = false)
     private Date lastModified;
@@ -35,10 +67,10 @@ public class CognitiveTest extends AbstractEntity {
     private String lastAnswered;
 
     @Column(name = "numberOfFiledCopies", nullable = false)
-    private Integer numberOfFiledCopies; //What for?
+    private Integer numberOfFiledCopies;
 
     @Column(name = "numberOfQuestions", nullable = false)
-    private Integer numberOfQuestions; //Nice! what about number of blocks? seems its important to have this.
+    private Integer numberOfQuestions;
 
 	/**
 	* Returns value of name

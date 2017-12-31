@@ -1,8 +1,8 @@
 package cognitivity.services;
 
 import cognitivity.dao.RepositorySearchResult;
-import cognitivity.dao.TestSubject;
-import cognitivity.dto.TestSubjectDTO;
+import cognitivity.entities.TestSubject;
+import cognitivity.dao.TestSubjectDAO;
 import org.springframework.stereotype.Service;
 
 /**
@@ -27,7 +27,7 @@ public class TestSubjectService extends AbstractService<TestSubject>  {
      * <p>
      * This will be used in conjunction with the POST HTTP method.
      */
-    public TestSubject createTestSubject(TestSubjectDTO s) {
+    public TestSubject createTestSubject(TestSubjectDAO s) {
         return null;
     }
 
@@ -41,7 +41,7 @@ public class TestSubjectService extends AbstractService<TestSubject>  {
      *
      * This will be used in conjunction with the PUT HTTP method.
      * */
-    public TestSubject updateTestForTestManager(long testSubjectId, TestSubjectDTO s) {
+    public TestSubject updateTestForTestManager(long testSubjectId, TestSubjectDAO s) {
         return null;
     }
 

@@ -1,4 +1,4 @@
-package cognitivity.dao;
+package cognitivity.entities;
 
 import javax.persistence.*;
 /**
@@ -17,7 +17,7 @@ public class TestAnswer extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "id")
-    private TestQuestion question;	//Or maybe just the test id
+    private TestQuestion question;
 
     @ManyToOne
     @JoinColumn(name = "id")
@@ -27,13 +27,13 @@ public class TestAnswer extends AbstractEntity {
     private Integer numberOfClick;
 
     @Column(name = "finalAnswer")
-    private Integer finalAnswer;//What is this?
+    private Integer finalAnswer;
 
     @Column(name = "questionPlacement", nullable = false)
-    private Integer questionPlacement;//What is this?
+    private Integer questionPlacement;
 
     @Column(name = "answerPlacement", nullable = false)
-    private Integer answerPlacement;//What is this?
+    private Integer answerPlacement;
 
     @Column(name = "verbalAnswer")
     private String verbalAnswer;

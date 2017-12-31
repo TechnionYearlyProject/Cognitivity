@@ -1,9 +1,9 @@
 package cognitivity.services;
 
-import cognitivity.dao.CognitiveTest;
+import cognitivity.entities.CognitiveTest;
 import cognitivity.dao.RepositorySearchResult;
-import cognitivity.dao.TestQuestion;
-import cognitivity.dto.TestQuestionDTO;
+import cognitivity.entities.TestQuestion;
+import cognitivity.dao.TestQuestionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +30,7 @@ public class QuestionService extends AbstractService<TestQuestion> {
      *
      * This will be used in conjunction with the POST HTTP method.
      * */
-    public TestQuestion createTestQuestion(TestQuestionDTO q) {
+    public TestQuestion createTestQuestion(TestQuestionDAO q) {
         return null;
     }
 
@@ -44,7 +44,7 @@ public class QuestionService extends AbstractService<TestQuestion> {
      *
      * This will be used in conjunction with the PUT HTTP method.
      * */
-    public CognitiveTest updateTestQuestion(long questionId, TestQuestionDTO q) {
+    public CognitiveTest updateTestQuestion(long questionId, TestQuestionDAO q) {
         return null;
     }
 

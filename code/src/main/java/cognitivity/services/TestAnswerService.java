@@ -1,8 +1,8 @@
 package cognitivity.services;
 
 import cognitivity.dao.RepositorySearchResult;
-import cognitivity.dao.TestAnswer;
-import cognitivity.dto.TestAnswerDTO;
+import cognitivity.entities.TestAnswer;
+import cognitivity.dao.TestAnswerDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -27,7 +27,7 @@ public class TestAnswerService extends AbstractService<TestAnswer> {
      *
      * This will be used in conjunction with the POST HTTP method.
      * */
-    public TestAnswer addTestAnswerForTestQuestion(long questionId, TestAnswerDTO answerDTO) {
+    public TestAnswer addTestAnswerForTestQuestion(long questionId, TestAnswerDAO answerDAO) {
         return null;
     }
 
@@ -42,7 +42,7 @@ public class TestAnswerService extends AbstractService<TestAnswer> {
      *
      * This will be used in conjunction with the PUT HTTP method.
      * */
-    public TestAnswer updateTestAnswerForQuestion(long questionId, long answerId, TestAnswerDTO answerDTO) {
+    public TestAnswer updateTestAnswerForQuestion(long questionId, long answerId, TestAnswerDAO answerDAO) {
         return null;
     }
 

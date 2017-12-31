@@ -1,13 +1,12 @@
 package cognitivity.controllers;
 
-import cognitivity.dao.AbstractEntity;
+import cognitivity.entities.AbstractEntity;
 import cognitivity.services.AbstractService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 
-import cognitivity.dao.AbstractEntity;
 
 /**
  * Created by ophir on 17/12/17.

@@ -1,8 +1,8 @@
 package cognitivity.controllers;
 
-import cognitivity.dao.CognitiveTest;
+import cognitivity.entities.CognitiveTest;
 import cognitivity.dao.RepositorySearchResult;
-import cognitivity.dto.CognitiveTestDTO;
+import cognitivity.dao.CognitiveTestDAO;
 import cognitivity.services.CognitiveTestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,23 +33,25 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
      *
      * @return - Cognitive test(s) for the test manager.
      * */
-    @ResponseBody
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET)
-    public List<CognitiveTestDTO> findTestsForTestManager(
-            @RequestParam(value = "testManagerId") long testManagerId,
-            @RequestParam(value = "testId", required = false) Long testId) {
+    //TODO: need to fix!
+//    @ResponseBody
+//    @ResponseStatus(HttpStatus.OK)
+//    @RequestMapping(method = RequestMethod.GET)
+//    public List<CognitiveTestDAO> findTestsForTestManager(
+//            @RequestParam(value = "testManagerId") long testManagerId,
+//            @RequestParam(value = "testId", required = false) Long testId) {
+//
+//        if (testId == null) {
+//            // Then return all tests
+//            RepositorySearchResult<CognitiveTest> result = service.findTestsForTestManager(testManagerId);
+//            return CognitiveTestDAO.mapFromCognitiveTestEntities(result.getResult());
+//        } else {
+//            // Then return one test.
+//            CognitiveTest test = service.findTestForTestManagerById(testId, testManagerId);
+//            return Collections.singletonList(CognitiveTestDAO.mapFromCognitiveTestEntity(test));
+//        }
+//    }
 
-        if (testId == null) {
-            // Then return all tests
-            RepositorySearchResult<CognitiveTest> result = service.findTestsForTestManager(testManagerId);
-            return CognitiveTestDTO.mapFromCognitiveTestEntities(result.getResult());
-        } else {
-            // Then return one test.
-            CognitiveTest test = service.findTestForTestManagerById(testId, testManagerId);
-            return Collections.singletonList(CognitiveTestDTO.mapFromCognitiveTestEntity(test));
-        }
-    }
 
     /**
      * Method for saving (update / create) tests.
@@ -62,7 +64,7 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     public void saveCognitiveTest(
             @RequestParam(value = "testManagerId") long testManagerId,
             @RequestParam(value = "testId", required = false) Long testId,
-            @RequestBody CognitiveTestDTO test) {
+            @RequestBody CognitiveTestDAO test) {
 
         if (testId == null) {
             service.createTestForTestManager(test, testManagerId);

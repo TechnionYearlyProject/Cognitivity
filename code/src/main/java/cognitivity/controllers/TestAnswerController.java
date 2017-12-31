@@ -1,15 +1,11 @@
 package cognitivity.controllers;
 
-import cognitivity.dao.RepositorySearchResult;
-import cognitivity.dao.TestAnswer;
-import cognitivity.dto.TestAnswerDTO;
+import cognitivity.dao.TestAnswerDAO;
 import cognitivity.services.TestAnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * Created by ophir on 23/11/17.
@@ -32,14 +28,15 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
      *
      * @return - test answer with the given id.
      * */
-    @ResponseBody
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET)
-    public TestAnswerDTO findTestAnswerById(
-            @RequestParam(value = "testAnswerId") long answerId) {
-        TestAnswer result = service.findTestAnswerById(answerId);
-        return TestAnswerDTO.mapFromTestAnswerEntity(result);
-    }
+    //TODO: fix!!
+//    @ResponseBody
+//    @ResponseStatus(HttpStatus.OK)
+//    @RequestMapping(method = RequestMethod.GET)
+//    public TestAnswerDAO findTestAnswerById(
+//            @RequestParam(value = "testAnswerId") long answerId) {
+//        TestAnswer result = service.findTestAnswerById(answerId);
+//        return TestAnswerDAO.mapFromTestAnswerEntity(result);
+//    }
 
     /**
      * Method for searching test answers by question id.
@@ -48,14 +45,15 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
      *
      * @return - test answer(s) of the question with the given id.
      * */
-    @ResponseBody
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET)
-    public List<TestAnswerDTO> findTestAnswersByQuestionId(
-            @RequestParam(value = "testQuestionId") long questionId) {
-        RepositorySearchResult<TestAnswer> result = service.findTestAnswersByQuestionId(questionId);
-        return TestAnswerDTO.mapFromCognitiveTestEntities(result.getResult());
-    }
+    //TODO: fix!
+//    @ResponseBody
+//    @ResponseStatus(HttpStatus.OK)
+//    @RequestMapping(method = RequestMethod.GET)
+//    public List<TestAnswerDAO> findTestAnswersByQuestionId(
+//            @RequestParam(value = "testQuestionId") long questionId) {
+//        RepositorySearchResult<TestAnswer> result = service.findTestAnswersByQuestionId(questionId);
+//        return TestAnswerDAO.mapFromCognitiveTestEntities(result.getResult());
+//    }
 
     /**
      * Method for searching test answers for a subject by its id.
@@ -64,14 +62,15 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
      *
      * @return - test answer(s) of the subject with the given id.
      * */
-    @ResponseBody
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET)
-    public List<TestAnswerDTO> findTestAnswersBySubjectId(
-            @RequestParam(value = "testSubjectId") long subjectId) {
-        RepositorySearchResult<TestAnswer> result = service.findTestAnswersBySubjectId(subjectId);
-        return TestAnswerDTO.mapFromCognitiveTestEntities(result.getResult());
-    }
+    //TODO: fix!!
+//    @ResponseBody
+//    @ResponseStatus(HttpStatus.OK)
+//    @RequestMapping(method = RequestMethod.GET)
+//    public List<TestAnswerDAO> findTestAnswersBySubjectId(
+//            @RequestParam(value = "testSubjectId") long subjectId) {
+//        RepositorySearchResult<TestAnswer> result = service.findTestAnswersBySubjectId(subjectId);
+//        return TestAnswerDAO.mapFromCognitiveTestEntities(result.getResult());
+//    }
 
     /**
      * Method for saving (update / create) test answers.
@@ -84,7 +83,7 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     public void saveTestAnswer(
             @RequestParam(value = "testQuestionId") long questionId,
             @RequestParam(value = "testAnswerId", required = false) long answerId,
-            @RequestBody TestAnswerDTO answerDTO) {
+            @RequestBody TestAnswerDAO answerDTO) {
         if (StringUtils.isEmpty(answerId)) {
             // Then create
             service.addTestAnswerForTestQuestion(questionId, answerDTO);

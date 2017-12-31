@@ -1,4 +1,4 @@
-package cognitivity.dao;
+package cognitivity.entities;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class AbstractEntity {
+public abstract class AbstractEntity implements Cloneable {
 
     @Id
     @GeneratedValue

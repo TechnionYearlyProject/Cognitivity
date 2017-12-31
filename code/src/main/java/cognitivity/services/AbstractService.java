@@ -1,6 +1,6 @@
 package cognitivity.services;
 
-import cognitivity.dao.AbstractEntity;
+import cognitivity.entities.AbstractEntity;
 
 /**
  * Created by ophir on 08/12/17.

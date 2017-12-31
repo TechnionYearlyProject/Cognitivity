@@ -1,15 +1,10 @@
 package cognitivity.controllers;
 
-import cognitivity.dao.RepositorySearchResult;
-import cognitivity.dao.TestSubject;
-import cognitivity.dto.TestSubjectDTO;
+import cognitivity.dao.TestSubjectDAO;
 import cognitivity.services.TestSubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Created by ophir on 23/11/17.
@@ -32,23 +27,24 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
      *
      * @return - test subject(s) for the test criteria.
      */
-    @ResponseBody
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET)
-    public List<TestSubjectDTO> findTestSubjectsForTestCriteria(
-            @RequestParam(value = "testSubjectId") long testSubjectId,
-            @RequestParam(value = "testId", required = false) Long testId) {
-
-        if (testId == null) {
-            // Then return test subject with id
-            TestSubject result = service.findTestSubject(testSubjectId);
-            return Collections.singletonList(TestSubjectDTO.mapFromTestSubjectEntity(result));
-        } else {
-            // Then return all test subjects who took the cognitive test.
-            RepositorySearchResult<TestSubject> result = service.findTestSubjectsWhoParticipatedInTest(testId);
-            return TestSubjectDTO.mapFromTestSubjectEntities(result.getResult());
-        }
-    }
+    //TODO: need to fix!
+//    @ResponseBody
+//    @ResponseStatus(HttpStatus.OK)
+//    @RequestMapping(method = RequestMethod.GET)
+//    public List<TestSubjectDAO> findTestSubjectsForTestCriteria(
+//            @RequestParam(value = "testSubjectId") long testSubjectId,
+//            @RequestParam(value = "testId", required = false) Long testId) {
+//
+//        if (testId == null) {
+//            // Then return test subject with id
+//            TestSubject result = service.findTestSubject(testSubjectId);
+//            return Collections.singletonList(TestSubjectDAO.mapFromTestSubjectEntity(result));
+//        } else {
+//            // Then return all test subjects who took the cognitive test.
+//            RepositorySearchResult<TestSubject> result = service.findTestSubjectsWhoParticipatedInTest(testId);
+//            return TestSubjectDAO.mapFromTestSubjectEntities(result.getResult());
+//        }
+//    }
 
     /**
      * Method for saving (update / create) test subjects.
@@ -60,7 +56,7 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
     @RequestMapping(method = RequestMethod.POST)
     public void saveTestSubject(
             @RequestParam(value = "testSubjectId", required = false) Long testSubjectId,
-            @RequestBody TestSubjectDTO testSubject) {
+            @RequestBody TestSubjectDAO testSubject) {
 
         if (testSubjectId == null) {
             service.createTestSubject(testSubject);

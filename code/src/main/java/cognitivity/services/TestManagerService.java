@@ -1,8 +1,8 @@
 package cognitivity.services;
 
 import cognitivity.dao.RepositorySearchResult;
-import cognitivity.dao.TestManager;
-import cognitivity.dto.TestManagerDTO;
+import cognitivity.entities.TestManager;
+import cognitivity.dao.TestManagerDAO;
 import org.springframework.stereotype.Service;
 
 /**
@@ -27,7 +27,7 @@ public class TestManagerService extends AbstractService<TestManager> {
      * <p>
      * This will be used in conjunction with the POST HTTP method.
      */
-    public TestManager createTestManager(TestManagerDTO m) {
+    public TestManager createTestManager(TestManagerDAO m) {
         return null;
     }
 
@@ -40,7 +40,7 @@ public class TestManagerService extends AbstractService<TestManager> {
      * <p>
      * This will be used in conjunction with the PUT HTTP method.
      */
-    public TestManager updateTestManager(long testManagerId, TestManagerDTO m) {
+    public TestManager updateTestManager(long testManagerId, TestManagerDAO m) {
         return null;
     }
 

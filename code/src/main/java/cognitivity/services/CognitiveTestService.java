@@ -1,8 +1,8 @@
 package cognitivity.services;
 
-import cognitivity.dao.CognitiveTest;
+import cognitivity.entities.CognitiveTest;
 import cognitivity.dao.RepositorySearchResult;
-import cognitivity.dto.CognitiveTestDTO;
+import cognitivity.dao.CognitiveTestDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +31,7 @@ public class CognitiveTestService extends AbstractService<CognitiveTest> {
      *
      * This will be used in conjunction with the POST HTTP method.
      * */
-    public CognitiveTest createTestForTestManager(CognitiveTestDTO t, long testManagerID) {
+    public CognitiveTest createTestForTestManager(CognitiveTestDAO t, long testManagerID) {
         return null;
     }
 
@@ -46,7 +46,7 @@ public class CognitiveTestService extends AbstractService<CognitiveTest> {
      *
      * This will be used in conjunction with the PUT HTTP method.
      * */
-    public CognitiveTest updateTestForTestManager(long testID, CognitiveTestDTO t, long testManagerID) {
+    public CognitiveTest updateTestForTestManager(long testID, CognitiveTestDAO t, long testManagerID) {
         return null;
     }
 
