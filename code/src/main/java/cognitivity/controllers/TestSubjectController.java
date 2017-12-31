@@ -1,22 +1,21 @@
 package cognitivity.controllers;
 
-import cognitivity.dao.TestSubjectDAO;
+import cognitivity.entities.TestSubject;
 import cognitivity.services.TestSubjectService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Created by ophir on 23/11/17.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("test-subjects")
 public class TestSubjectController extends AbstractRestController<TestSubjectService> {
 
-    @Autowired
-    public TestSubjectController(TestSubjectService service) {
-        super(service);
+
+    public TestSubjectController() {
+        super(new TestSubjectService());
     }
 
     /**
@@ -27,24 +26,24 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
      *
      * @return - test subject(s) for the test criteria.
      */
-    //TODO: need to fix!
-//    @ResponseBody
-//    @ResponseStatus(HttpStatus.OK)
-//    @RequestMapping(method = RequestMethod.GET)
-//    public List<TestSubjectDAO> findTestSubjectsForTestCriteria(
-//            @RequestParam(value = "testSubjectId") long testSubjectId,
-//            @RequestParam(value = "testId", required = false) Long testId) {
-//
-//        if (testId == null) {
-//            // Then return test subject with id
-//            TestSubject result = service.findTestSubject(testSubjectId);
-//            return Collections.singletonList(TestSubjectDAO.mapFromTestSubjectEntity(result));
-//        } else {
-//            // Then return all test subjects who took the cognitive test.
-//            RepositorySearchResult<TestSubject> result = service.findTestSubjectsWhoParticipatedInTest(testId);
-//            return TestSubjectDAO.mapFromTestSubjectEntities(result.getResult());
-//        }
-//    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.GET)
+    public List<TestSubject> findTestSubjectsForTestCriteria(
+            @RequestParam(value = "testSubjectId") long testSubjectId,
+            @RequestParam(value = "testId", required = false) Long testId) {
+        List<TestSubject> result;
+        if (testId == null) {
+            // Then return test subject with id
+            result = new ArrayList<TestSubject>();
+            result.add(service.findTestSubject(testSubjectId));
+        } else {
+            // Then return all test subjects who took the cognitive test.
+            result = service.findTestSubjectsWhoParticipatedInTest(testId);
+        }
+        return result;
+    }
 
     /**
      * Method for saving (update / create) test subjects.
@@ -56,7 +55,7 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
     @RequestMapping(method = RequestMethod.POST)
     public void saveTestSubject(
             @RequestParam(value = "testSubjectId", required = false) Long testSubjectId,
-            @RequestBody TestSubjectDAO testSubject) {
+            @RequestBody TestSubject testSubject) {
 
         if (testSubjectId == null) {
             service.createTestSubject(testSubject);

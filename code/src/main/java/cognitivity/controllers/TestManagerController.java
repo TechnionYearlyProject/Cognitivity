@@ -1,22 +1,21 @@
 package cognitivity.controllers;
 
 import cognitivity.dao.TestManagerDAO;
+import cognitivity.entities.TestManager;
 import cognitivity.services.TestManagerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Created by ophir on 23/11/17.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("test-managers")
 public class TestManagerController extends AbstractRestController<TestManagerService> {
 
-    @Autowired
-    public TestManagerController(TestManagerService service) {
-        super(service);
+    public TestManagerController() {
+        super(new TestManagerService());
     }
 
     /**
@@ -27,24 +26,23 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
      *
      * @return - test manager(s) for the test criteria.
      */
-    //TODO: fix controller
-//    @ResponseBody
-//    @ResponseStatus(HttpStatus.OK)
-//    @RequestMapping(method = RequestMethod.GET)
-//    public List<TestManagerDAO> findTestManagersForTestCriteria(
-//            @RequestParam(value = "testManagerId") long testManagerId,
-//            @RequestParam(value = "testId", required = false) Long testId) {
-//
-//        if (testId == null) {
-//            // Then return test manager with id
-//            TestManager result = service.findTestManager(testManagerId);
-//            return Collections.singletonList(TestManagerDAO.mapFromTestManagerEntity(result));
-//        } else {
-//            // Then return test manager who created the cognitive test.
-//            RepositorySearchResult<TestManager> result = service.findTestManagerByCreatedTest(testId);
-//            return TestManagerDAO.mapFromTestManagerEntities(result.getResult());
-//        }
-//    }
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.GET)
+    public List<TestManager> findTestManagersForTestCriteria(
+            @RequestParam(value = "testManagerId") long testManagerId,
+            @RequestParam(value = "testId", required = false) Long testId) {
+        List<TestManager> result = new ArrayList<TestManager>();
+        if (testId == null) {
+            // Then return test manager with id
+            result.add(service.findTestManager(testManagerId));
+
+        } else {
+            // Then return test manager who created the cognitive test.
+            result = service.findTestManagerByCreatedTest(testId);
+        }
+        return result;
+    }
 
     /**
      * Method for saving (update / create) test managers.

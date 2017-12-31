@@ -1,22 +1,20 @@
 package cognitivity.controllers;
 
 import cognitivity.dao.TestQuestionDAO;
+import cognitivity.entities.TestQuestion;
 import cognitivity.services.QuestionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Created by ophir on 23/11/17.
- */
+import java.util.List;
+
 
 @RestController
 @RequestMapping("test-questions")
 public class TestQuestionController extends AbstractRestController<QuestionService> {
 
-    @Autowired
-    public TestQuestionController(QuestionService service) {
-        super(service);
+    public TestQuestionController() {
+        super(new QuestionService());
     }
 
     /**
@@ -26,24 +24,22 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
      *
      * @return - Cognitive test(s) for the test manager.
      * */
-    //TODO: fix!
-//    @ResponseBody
-//    @ResponseStatus(HttpStatus.OK)
-//    @RequestMapping(method = RequestMethod.GET)
-//    public List<TestQuestionDAO> findTestQuestionsForTestCriteriaById(
-//            @RequestParam(value = "testManagerId") long testManagerId,
-//            @RequestParam(value = "testId", required = false) Long testId) {
-//
-//        if (testId == null) {
-//            // Then return all questions of test manager
-//            RepositorySearchResult<TestQuestion> result = service.findTestQuestionsForTestManagerById(testManagerId);
-//            return TestQuestionDAO.mapFromTestQuestionEntities(result.getResult());
-//        } else {
-//            // Then return question of that one test.
-//            RepositorySearchResult<TestQuestion> result = service.getTestQuestionsForTest(testId);
-//            return TestQuestionDAO.mapFromTestQuestionEntities(result.getResult());
-//        }
-//    }
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.GET)
+    public List<TestQuestion> findTestQuestionsForTestCriteriaById(
+            @RequestParam(value = "testManagerId") long testManagerId,
+            @RequestParam(value = "testId", required = false) Long testId) {
+        List<TestQuestion> result;
+        if (testId == null) {
+            // Then return all questions of test manager
+            result = service.findTestQuestionsForTestManagerById(testManagerId);
+        } else {
+            // Then return question of that one test.
+            result = service.getTestQuestionsForTest(testId);
+        }
+        return result;
+    }
 
     /**
      * Method for saving (update / create) test questions.

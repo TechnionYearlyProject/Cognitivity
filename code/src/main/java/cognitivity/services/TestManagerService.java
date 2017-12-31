@@ -1,9 +1,10 @@
 package cognitivity.services;
 
-import cognitivity.dao.RepositorySearchResult;
-import cognitivity.entities.TestManager;
 import cognitivity.dao.TestManagerDAO;
+import cognitivity.entities.TestManager;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  *
@@ -12,12 +13,8 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class TestManagerService extends AbstractService<TestManager> {
+public class TestManagerService extends AbstractService {
 
-
-    protected TestManagerService(TestManager manager) {
-        super(manager);
-    }
 
     /**
      * Save a TestManager.
@@ -73,7 +70,7 @@ public class TestManagerService extends AbstractService<TestManager> {
      * @return - the test manager that created the test.
      * # Could return empty search result
      */
-    public RepositorySearchResult<TestManager> findTestManagerByCreatedTest(long testID) {
+    public List<TestManager> findTestManagerByCreatedTest(long testID) {
         return null;
     }
 

@@ -5,23 +5,20 @@ import cognitivity.entities.TestAnswer;
 import cognitivity.dao.TestAnswerDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 /**
  *
  * Business service for answers to test questions related operations.
  *
  */
-public class TestAnswerService extends AbstractService<TestAnswer> {
-
-    @Autowired
-    public TestAnswerService(TestAnswer repository) {
-        super(repository);
-    }
+public class TestAnswerService extends AbstractService {
 
     /**
      * Add a TestAnswer for a test question.
      *
      * @param questionId - The test question the answer belongs to.
-     * @param answerDTO - The test answer to be added.
+     * @param answerDAO - The test answer to be added.
      *
      * @return - The added TestAnswer.
      *
@@ -87,7 +84,7 @@ public class TestAnswerService extends AbstractService<TestAnswer> {
      *
      * @return - All test answers that belong to the question with the given id.
      * */
-    public RepositorySearchResult<TestAnswer> findTestAnswersByQuestionId(long questionId) {
+    public List<TestAnswer> findTestAnswersByQuestionId(long questionId) {
         return null;
     }
 
@@ -98,7 +95,7 @@ public class TestAnswerService extends AbstractService<TestAnswer> {
      *
      * @return - All test answers that belong to the subject with the given id.
      * */
-    public RepositorySearchResult<TestAnswer> findTestAnswersBySubjectId(long subjectId) {
+    public List<TestAnswer> findTestAnswersBySubjectId(long subjectId) {
         return null;
     }
 

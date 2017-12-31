@@ -1,9 +1,9 @@
 package cognitivity.services;
 
-import cognitivity.dao.RepositorySearchResult;
 import cognitivity.entities.TestSubject;
-import cognitivity.dao.TestSubjectDAO;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  *
@@ -12,12 +12,7 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class TestSubjectService extends AbstractService<TestSubject>  {
-
-
-    protected TestSubjectService(TestSubject subject) {
-        super(subject);
-    }
+public class TestSubjectService extends AbstractService {
 
     /**
      * Save a TestSubject.
@@ -27,7 +22,7 @@ public class TestSubjectService extends AbstractService<TestSubject>  {
      * <p>
      * This will be used in conjunction with the POST HTTP method.
      */
-    public TestSubject createTestSubject(TestSubjectDAO s) {
+    public TestSubject createTestSubject(TestSubject s) {
         return null;
     }
 
@@ -41,7 +36,7 @@ public class TestSubjectService extends AbstractService<TestSubject>  {
      *
      * This will be used in conjunction with the PUT HTTP method.
      * */
-    public TestSubject updateTestForTestManager(long testSubjectId, TestSubjectDAO s) {
+    public TestSubject updateTestForTestManager(long testSubjectId, TestSubject s) {
         return null;
     }
 
@@ -73,7 +68,7 @@ public class TestSubjectService extends AbstractService<TestSubject>  {
      * @param testID - The test id to find all test subjects by.
      * @return - all test subjects who took a cognitive a test by the test id.
      */
-    public RepositorySearchResult<TestSubject> findTestSubjectsWhoParticipatedInTest(long testID) {
+    public List<TestSubject> findTestSubjectsWhoParticipatedInTest(long testID) {
         return null;
     }
 

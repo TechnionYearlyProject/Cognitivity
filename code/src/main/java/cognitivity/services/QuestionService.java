@@ -1,11 +1,13 @@
 package cognitivity.services;
 
-import cognitivity.entities.CognitiveTest;
 import cognitivity.dao.RepositorySearchResult;
-import cognitivity.entities.TestQuestion;
 import cognitivity.dao.TestQuestionDAO;
-import org.springframework.beans.factory.annotation.Autowired;
+import cognitivity.entities.CognitiveTest;
+import cognitivity.entities.TestQuestion;
 import org.springframework.stereotype.Service;
+
+import java.util.LinkedHashSet;
+import java.util.List;
 
 /**
  *
@@ -14,12 +16,8 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class QuestionService extends AbstractService<TestQuestion> {
+public class QuestionService extends AbstractService {
 
-    @Autowired
-    protected QuestionService(TestQuestion question) {
-        super(question);
-    }
 
     /**
      * Save a TestQuestion.
@@ -69,7 +67,7 @@ public class QuestionService extends AbstractService<TestQuestion> {
      *
      * @return - All questions the test has.
      * */
-    public RepositorySearchResult<TestQuestion> getTestQuestionsForTest(long testId) {
+    public List<TestQuestion> getTestQuestionsForTest(long testId) {
         return null;
     }
 
@@ -80,7 +78,7 @@ public class QuestionService extends AbstractService<TestQuestion> {
      *
      * @return - All questions the test manager has created.
      * */
-    public RepositorySearchResult<TestQuestion> findTestQuestionsForTestManagerById(long testManagerID) {
+    public List<TestQuestion> findTestQuestionsForTestManagerById(long testManagerID) {
         return null;
     }
 

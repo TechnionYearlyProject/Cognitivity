@@ -1,6 +1,5 @@
 package cognitivity.controllers;
 
-import cognitivity.entities.AbstractEntity;
 import cognitivity.services.AbstractService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,13 +10,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 /**
  * Created by ophir on 17/12/17.
  */
-public abstract class AbstractRestController<ServiceType extends AbstractService<? extends AbstractEntity>> {
+public abstract class AbstractRestController<ServiceType extends AbstractService> {
 
     protected final ServiceType service;
 
-    public AbstractRestController(ServiceType service) {
-        this.service = service;
-    }
+    public AbstractRestController(ServiceType service) { this.service = service; }
 
 
     /**

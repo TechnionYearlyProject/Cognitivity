@@ -1,10 +1,13 @@
 package cognitivity.controllers;
 
 import cognitivity.dao.CognitiveTestDAO;
+import cognitivity.entities.CognitiveTest;
 import cognitivity.services.CognitiveTestService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * REST service for Cognitive Tests - allows to update, create, search and delete for cognitive tests for a
@@ -14,10 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("tests")
 public class CognitiveTestController extends AbstractRestController<CognitiveTestService> {
 
-    @Autowired
-    public CognitiveTestController(CognitiveTestService service) {
-        super(service);
-    }
+    public CognitiveTestController() { super(new CognitiveTestService());}
 
 
     /**
@@ -28,24 +28,22 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
      *
      * @return - Cognitive test(s) for the test manager.
      * */
-    //TODO: need to fix!
-//    @ResponseBody
-//    @ResponseStatus(HttpStatus.OK)
-//    @RequestMapping(method = RequestMethod.GET)
-//    public List<CognitiveTestDAO> findTestsForTestManager(
-//            @RequestParam(value = "testManagerId") long testManagerId,
-//            @RequestParam(value = "testId", required = false) Long testId) {
-//
-//        if (testId == null) {
-//            // Then return all tests
-//            RepositorySearchResult<CognitiveTest> result = service.findTestsForTestManager(testManagerId);
-//            return CognitiveTestDAO.mapFromCognitiveTestEntities(result.getResult());
-//        } else {
-//            // Then return one test.
-//            CognitiveTest test = service.findTestForTestManagerById(testId, testManagerId);
-//            return Collections.singletonList(CognitiveTestDAO.mapFromCognitiveTestEntity(test));
-//        }
-//    }
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.GET)
+    public List<CognitiveTest> findTestsForTestManager(
+            @RequestParam(value = "testId", required = false) Long testId,
+            @RequestParam(value = "testManagerId") long testManagerId) {
+        List<CognitiveTest> result = new ArrayList<CognitiveTest>();
+        if (testId == null) {
+            // Then return all tests
+            result = service.findTestsForTestManager(testManagerId);
+        } else {
+            // Then return one test.
+            result.add(service.findTestForTestManagerById(testId, testManagerId));
+        }
+        return result;
+    }
 
 
     /**

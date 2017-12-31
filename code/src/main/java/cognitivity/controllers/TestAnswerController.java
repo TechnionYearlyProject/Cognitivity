@@ -1,23 +1,21 @@
 package cognitivity.controllers;
 
 import cognitivity.dao.TestAnswerDAO;
+import cognitivity.entities.TestAnswer;
 import cognitivity.services.TestAnswerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Created by ophir on 23/11/17.
- */
+import java.util.List;
+
 
 @RestController
 @RequestMapping("test-answers")
 public class TestAnswerController extends AbstractRestController<TestAnswerService> {
 
-    @Autowired
-    public TestAnswerController(TestAnswerService service) {
-        super(service);
+    public TestAnswerController() {
+        super(new TestAnswerService());
     }
 
 
@@ -28,15 +26,15 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
      *
      * @return - test answer with the given id.
      * */
-    //TODO: fix!!
-//    @ResponseBody
-//    @ResponseStatus(HttpStatus.OK)
-//    @RequestMapping(method = RequestMethod.GET)
-//    public TestAnswerDAO findTestAnswerById(
-//            @RequestParam(value = "testAnswerId") long answerId) {
-//        TestAnswer result = service.findTestAnswerById(answerId);
-//        return TestAnswerDAO.mapFromTestAnswerEntity(result);
-//    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.GET)
+    public TestAnswer findTestAnswerById(
+            @RequestParam(value = "testAnswerId") long answerId) {
+        TestAnswer result = service.findTestAnswerById(answerId);
+        return result;
+    }
 
     /**
      * Method for searching test answers by question id.
@@ -45,15 +43,14 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
      *
      * @return - test answer(s) of the question with the given id.
      * */
-    //TODO: fix!
-//    @ResponseBody
-//    @ResponseStatus(HttpStatus.OK)
-//    @RequestMapping(method = RequestMethod.GET)
-//    public List<TestAnswerDAO> findTestAnswersByQuestionId(
-//            @RequestParam(value = "testQuestionId") long questionId) {
-//        RepositorySearchResult<TestAnswer> result = service.findTestAnswersByQuestionId(questionId);
-//        return TestAnswerDAO.mapFromCognitiveTestEntities(result.getResult());
-//    }
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.GET)
+    public List<TestAnswer> findTestAnswersByQuestionId(
+            @RequestParam(value = "testQuestionId") long questionId) {
+        List<TestAnswer> result = service.findTestAnswersByQuestionId(questionId);
+        return result;
+    }
 
     /**
      * Method for searching test answers for a subject by its id.
@@ -62,15 +59,14 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
      *
      * @return - test answer(s) of the subject with the given id.
      * */
-    //TODO: fix!!
-//    @ResponseBody
-//    @ResponseStatus(HttpStatus.OK)
-//    @RequestMapping(method = RequestMethod.GET)
-//    public List<TestAnswerDAO> findTestAnswersBySubjectId(
-//            @RequestParam(value = "testSubjectId") long subjectId) {
-//        RepositorySearchResult<TestAnswer> result = service.findTestAnswersBySubjectId(subjectId);
-//        return TestAnswerDAO.mapFromCognitiveTestEntities(result.getResult());
-//    }
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.GET)
+    public List<TestAnswer> findTestAnswersBySubjectId(
+            @RequestParam(value = "testSubjectId") long subjectId) {
+        List<TestAnswer> result = service.findTestAnswersBySubjectId(subjectId);
+        return result;
+    }
 
     /**
      * Method for saving (update / create) test answers.

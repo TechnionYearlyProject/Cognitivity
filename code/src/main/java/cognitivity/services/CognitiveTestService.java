@@ -1,10 +1,10 @@
 package cognitivity.services;
 
-import cognitivity.entities.CognitiveTest;
-import cognitivity.dao.RepositorySearchResult;
 import cognitivity.dao.CognitiveTestDAO;
-import org.springframework.beans.factory.annotation.Autowired;
+import cognitivity.entities.CognitiveTest;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  *
@@ -13,12 +13,7 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class CognitiveTestService extends AbstractService<CognitiveTest> {
-
-    @Autowired
-    public CognitiveTestService(CognitiveTest test) {
-        super(test);
-    }
+public class CognitiveTestService extends AbstractService{
 
 
     /**
@@ -70,7 +65,7 @@ public class CognitiveTestService extends AbstractService<CognitiveTest> {
      *
      * @return - All tests the test manager has created.
      * */
-    public RepositorySearchResult<CognitiveTest> findTestsForTestManager(long testManagerID) {
+    public List<CognitiveTest> findTestsForTestManager(long testManagerID) {
         return null;
     }
 
