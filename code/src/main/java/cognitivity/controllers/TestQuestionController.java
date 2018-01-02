@@ -1,6 +1,8 @@
 package cognitivity.controllers;
 
 import cognitivity.dao.TestQuestionDAO;
+import cognitivity.entities.CognitiveTest;
+import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestQuestion;
 import cognitivity.services.QuestionService;
 import org.springframework.http.HttpStatus;
@@ -33,10 +35,10 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
         List<TestQuestion> result;
         if (testId == null) {
             // Then return all questions of test manager
-            result = service.findTestQuestionsForTestManagerById(testManagerId);
+            result = service.findAllTestQuestionsFromManagerId(testManagerId);
         } else {
             // Then return question of that one test.
-            result = service.getTestQuestionsForTest(testId);
+            result = service.findAllTestQuestionsFromTestId(testId);
         }
         return result;
     }
@@ -50,14 +52,29 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST)
     public void saveCognitiveTestQuestion(
-            @RequestParam(value = "questionId", required = false) Long questionId,
-            @RequestBody TestQuestionDAO question) {
+            @RequestParam String question,
+            @RequestParam  Integer questionType,
+            @RequestParam Integer answer,
+            @RequestParam String tag,
+            @RequestParam TestBlock block,
+            @RequestParam CognitiveTest project) {
 
-        if (questionId == null) {
-            service.createTestQuestion(question);
-        } else {
-            service.updateTestQuestion(questionId, question);
-        }
+        service.createTestQuestion(question,questionType,answer,tag,block,project);
+
+    }
+
+
+    /**
+     * Method for updating test questions.
+     *
+     * Params are as in TestQuestionService.
+     * If questionId is null, then create. otherwise - update.
+     * */
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.POST)
+    public void updateCognitiveTestQuestion(
+            @RequestParam TestQuestion question) {
+        service.updateTestQuestion(question);
     }
 
     /**

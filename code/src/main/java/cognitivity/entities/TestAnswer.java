@@ -54,6 +54,26 @@ public class TestAnswer extends AbstractEntity {
     @Column(name = "testeeExit")
     private Boolean testeeExit;
 
+
+	public TestAnswer(TestSubject testSubject, TestQuestion question, CognitiveTest cognitiveTest, Integer numberOfClick,
+					  Integer finalAnswer, Integer questionPlacement, Integer answerPlacement, String verbalAnswer,
+					  Boolean questionWithPicture, String timeToAnswer, Boolean timeMeasured, Boolean timeShowed,
+					  Boolean testeeExit) {
+		this.testSubject = testSubject;
+		this.question = question;
+		this.cognitiveTest = cognitiveTest;
+		this.numberOfClick = numberOfClick;
+		this.finalAnswer = finalAnswer;
+		this.questionPlacement = questionPlacement;
+		this.answerPlacement = answerPlacement;
+		this.verbalAnswer = verbalAnswer;
+		this.questionWithPicture = questionWithPicture;
+		this.timeToAnswer = timeToAnswer;
+		this.timeMeasured = timeMeasured;
+		this.timeShowed = timeShowed;
+		this.testeeExit = testeeExit;
+	}
+
 	/**
 	* Returns value of testSubject
 	* @return

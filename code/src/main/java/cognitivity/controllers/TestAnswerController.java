@@ -1,7 +1,10 @@
 package cognitivity.controllers;
 
 import cognitivity.dao.TestAnswerDAO;
+import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestAnswer;
+import cognitivity.entities.TestQuestion;
+import cognitivity.entities.TestSubject;
 import cognitivity.services.TestAnswerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
@@ -47,8 +50,8 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET)
     public List<TestAnswer> findTestAnswersByQuestionId(
-            @RequestParam(value = "testQuestionId") long questionId) {
-        List<TestAnswer> result = service.findTestAnswersByQuestionId(questionId);
+            @RequestParam TestQuestion question) {
+        List<TestAnswer> result = service.findAllTestAnswerForAQuestion(question);
         return result;
     }
 
@@ -63,30 +66,50 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET)
     public List<TestAnswer> findTestAnswersBySubjectId(
-            @RequestParam(value = "testSubjectId") long subjectId) {
-        List<TestAnswer> result = service.findTestAnswersBySubjectId(subjectId);
+            @RequestParam TestSubject subject) {
+        List<TestAnswer> result = service.findTestAnswersBySubject(subject);
         return result;
     }
 
     /**
-     * Method for saving (update / create) test answers.
+     * Method for saving updating test answers.
      *
      * Params are as in TestAnswerService.
-     * If answerId == null => create.
+     *
+     * */
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.POST)
+    public void updateTestAnswer(
+            @RequestParam TestAnswer answer) {
+        service.updateTestAnswerForQuestion(answer);
+    }
+
+
+
+    /**
+     * Method for saving creating test answers.
+     *
+     * Params are as in TestAnswerService.
+     *
      * */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST)
     public void saveTestAnswer(
-            @RequestParam(value = "testQuestionId") long questionId,
-            @RequestParam(value = "testAnswerId", required = false) long answerId,
-            @RequestBody TestAnswerDAO answerDTO) {
-        if (StringUtils.isEmpty(answerId)) {
-            // Then create
-            service.addTestAnswerForTestQuestion(questionId, answerDTO);
-        } else {
-            // Then update
-            service.updateTestAnswerForQuestion(questionId, answerId, answerDTO);
-        }
+            @RequestParam TestSubject testSubject,
+            @RequestParam TestQuestion question,
+            @RequestParam CognitiveTest cognitiveTest,
+            @RequestParam Integer numberOfClick,
+            @RequestParam Integer finalAnswer,
+            @RequestParam Integer questionPlacement,
+            @RequestParam Integer answerPlacement,
+            @RequestParam String verbalAnswer,
+            @RequestParam Boolean questionWithPicture,
+            @RequestParam String timeToAnswer,
+            @RequestParam Boolean timeMeasured,
+            @RequestParam Boolean timeShowed,
+            @RequestParam Boolean testeeExit) {
+        service.addTestAnswerForTestQuestion(testSubject,question,cognitiveTest,numberOfClick,finalAnswer,
+                questionPlacement,answerPlacement,verbalAnswer,questionWithPicture,timeToAnswer,timeMeasured,timeShowed,testeeExit);
     }
 
     /**
@@ -101,14 +124,14 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.DELETE)
     public void deleteTestAnswer(
-            @RequestParam(value = "testQuestionId") long questionId,
+            @RequestParam TestQuestion question,
             @RequestParam(value = "testAnswerId", required = false) long answerId) {
         if (StringUtils.isEmpty(answerId)) {
             // Then delete all answers
-            service.deleteAllTestAnswersForQuestion(questionId);
+            service.deleteAllTestAnswersForQuestion(question);
         } else {
             // Then delete one answer with the answer id
-            service.deleteTestAnswerForQuestion(questionId, answerId);
+            service.deleteTestAnswerForQuestion(answerId);
         }
     }
 

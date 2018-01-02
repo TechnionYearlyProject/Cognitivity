@@ -22,6 +22,12 @@ public class TestSubject extends AbstractEntity {
     @Column(name = "browser")
     private String browser;
 
+	public TestSubject(String name, Integer ipAddress, String browser) {
+		this.name = name;
+		this.ipAddress = ipAddress;
+		this.browser = browser;
+	}
+
 	/**
 	* Returns value of name
 	* @return

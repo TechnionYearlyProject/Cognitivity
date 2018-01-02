@@ -2,6 +2,8 @@ package cognitivity.entities;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Calendar;
 
 /**
  *
@@ -11,39 +13,18 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "project")
-public class CognitiveTest extends AbstractEntity implements Cloneable{
+public class CognitiveTest extends AbstractEntity {
 
-    // for copy constructor
-    private CognitiveTest(){}
-
-    public CognitiveTest(String name, TestManager manager,
-						 Integer numberOfTestees, Integer state,
-						 Date lastModified, String lastAnswered,
-						 Integer numberOfFiledCopies, Integer numberOfQuestions) {
+    public CognitiveTest(String name, TestManager manager, Integer state, Integer numberOfQuestions) {
 		this.name = name;
 		this.manager = manager;
-		this.numberOfTestees = numberOfTestees;
+		this.numberOfSubjects = 0;
 		this.state = state;
-		this.lastModified = lastModified;
-		this.lastAnswered = lastAnswered;
-		this.numberOfFiledCopies = numberOfFiledCopies;
+		this.lastModified = new Date(Calendar.getInstance().getTimeInMillis()); //TODO:Check for format
+		this.lastAnswered = null;
+		this.numberOfFiledCopies = 0;
 		this.numberOfQuestions = numberOfQuestions;
 	}
-
-    public void clone(CognitiveTest cognitiveTest){
-        this.name = cognitiveTest.name;
-        this.manager = cognitiveTest.manager;
-        this.numberOfTestees = cognitiveTest.numberOfTestees;
-        this.state = cognitiveTest.state;
-        this.lastModified = cognitiveTest.lastModified;
-        this.lastAnswered = cognitiveTest.lastAnswered;
-        this.numberOfFiledCopies = cognitiveTest.numberOfFiledCopies;
-        this.numberOfQuestions = cognitiveTest.numberOfQuestions;
-    }
-
-	public CognitiveTest(CognitiveTest cognitiveTest){
-        new CognitiveTest().clone(cognitiveTest);
-    }
 
 
 	@Column(name = "name")
@@ -53,8 +34,8 @@ public class CognitiveTest extends AbstractEntity implements Cloneable{
     @JoinColumn(name = "id")
     private TestManager manager;
 
-    @Column(name = "numberOfTestees", nullable = false)
-    private Integer numberOfTestees;
+    @Column(name = "numberOfSubjects", nullable = false)
+    private Integer numberOfSubjects;
 
     @Column(name = "state", nullable = false)
     private Integer state;
@@ -108,16 +89,16 @@ public class CognitiveTest extends AbstractEntity implements Cloneable{
 	* Returns value of numberOfTestees
 	* @return
 	*/
-	public Integer getNumberOfTestees() {
-		return numberOfTestees;
+	public Integer getNumberOfSubjects() {
+		return numberOfSubjects;
 	}
 
 	/**
 	* Sets new value of numberOfTestees
 	* @param
 	*/
-	public void setNumberOfTestees(Integer numberOfTestees) {
-		this.numberOfTestees = numberOfTestees;
+	public void setNumberOfSubjects(Integer numberOfSubjects) {
+		this.numberOfSubjects = numberOfSubjects;
 	}
 
 	/**

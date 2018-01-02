@@ -1,12 +1,12 @@
 package cognitivity.services;
 
+import cognitivity.entities.*;
 import cognitivity.dao.RepositorySearchResult;
 import cognitivity.dao.TestQuestionDAO;
-import cognitivity.entities.CognitiveTest;
-import cognitivity.entities.TestQuestion;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedHashSet;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,68 +18,105 @@ import java.util.List;
 @Service
 public class QuestionService extends AbstractService {
 
+    @Autowired
+    public QuestionService(TestQuestion question) {
+    }
+
+    public QuestionService() {
+
+    }
 
     /**
      * Save a TestQuestion.
      *
-     * @param q - The cognitive test question to be created.
-     *
+     * @param question - The question itself.
+     * @param questionType - The type of the created question.
+     * @param answer - The answer to the created question.
+     * @param tag - The question tag.
+     * @param block - The block the question is related to.
+     * @param project - The project the question is related to.
      * @return - The saved TestQuestion.
      *
      * This will be used in conjunction with the POST HTTP method.
      * */
-    public TestQuestion createTestQuestion(TestQuestionDAO q) {
-        return null;
+    public TestQuestion createTestQuestion(String question, Integer questionType,
+                                           Integer answer, String tag, TestBlock block, CognitiveTest project) {
+        TestQuestionDAO dao = new TestQuestionDAO();
+        TestQuestion q = new TestQuestion(question,questionType,answer,tag,block,project);
+        dao.add(q);
+        return q;
     }
 
     /**
      * Update a TestQuestion.
      *
-     * @param questionId - The test question id to update.
      * @param q - The cognitive test question to be updated.
-     *
-     * @return - The updated TestQuestion.
      *
      * This will be used in conjunction with the PUT HTTP method.
      * */
-    public CognitiveTest updateTestQuestion(long questionId, TestQuestionDAO q) {
-        return null;
+    public void updateTestQuestion(TestQuestion q) {
+        TestQuestionDAO dao = new TestQuestionDAO();
+        dao.update(q);
     }
+
 
     /**
      * Delete a TestQuestion.
      *
-     * @param questionId - The test question id to delete.
+     * @param questionId - The test question Id to delete.
      *
      * Important Note: This will delete all answers associated with the question! (maybe)
      *
      * This will be used in conjunction with the DELETE HTTP method.
      * */
+    //TODO: do we want to delete all corresponding test answers as well?
     public void deleteTestQuestion(long questionId) {
-
-    }
-
-
-    /**
-     * Find all cognitive test questions in a test.
-     *
-     * @param testId - The test's id.
-     *
-     * @return - All questions the test has.
-     * */
-    public List<TestQuestion> getTestQuestionsForTest(long testId) {
-        return null;
+        TestQuestionDAO dao = new TestQuestionDAO();
+        dao.delete(questionId);
     }
 
     /**
-     * Find all cognitive test questions that a test manager has created.
+     * find a specific question by its id.
      *
-     * @param testManagerID - The test managers's id.
-     *
-     * @return - All questions the test manager has created.
-     * */
-    public List<TestQuestion> findTestQuestionsForTestManagerById(long testManagerID) {
-        return null;
+     * @param id - the question id.
+     * @return the question corresponding to the given id if it exists, null otherwise
+     */
+    public TestQuestion findQuestionById(long id){
+        TestQuestionDAO dao = new TestQuestionDAO();
+        return dao.get(id);
     }
 
+    /**
+     * Get all answers to a given question
+     *
+     * @param question - The test question we want to get the answer to.
+     *
+     * @return - All the answers to the given question.
+     */
+    public List<TestAnswer> findAllAnswersToQuestion(TestQuestion question){
+        TestQuestionDAO dao = new TestQuestionDAO();
+        return dao.getAllRelevantAnswers(question);
+    }
+
+    /**
+     * Get all test questions from a given test.
+     *
+     * @param testId - The test Id from which we want to get the questions
+     * @return - A list of all test questions in the test
+     */
+    public List<TestQuestion> findAllTestQuestionsFromTestId(long testId){
+        TestQuestionDAO dao = new TestQuestionDAO();
+        return dao.getAllTestQuestionsFromATest(testId);
+    }
+
+    /**
+     * Get all test questions from a given manager.
+     *
+     * @param managerId - The manager Id from which we want to get the questions
+     * @return - A list of all test questions in the test
+     */
+    public List<TestQuestion> findAllTestQuestionsFromManagerId(long managerId){
+        TestQuestionDAO dao = new TestQuestionDAO();
+        return dao.getAllTestQuestionsFromAManager(managerId);
+    }
 }

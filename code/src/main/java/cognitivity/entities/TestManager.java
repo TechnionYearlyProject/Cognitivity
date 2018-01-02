@@ -17,8 +17,15 @@ public class TestManager extends AbstractEntity {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "password")
+	private String password;
 
-    /**
+	public TestManager(String name, String password) {
+		this.name = name;
+		this.password = password;
+	}
+
+	/**
 	* Returns value of name
 	* @return
 	*/
@@ -32,5 +39,13 @@ public class TestManager extends AbstractEntity {
 	*/
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

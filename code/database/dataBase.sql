@@ -7,12 +7,14 @@ Fields:
 @questionType - an ENUM that holds one of 4 values, indicating the type of the question. The type of the question can be one of the following:
 rating question, free text question, multiple choice question, drill down question.
 @answer - this feilds holds the correct answer for the question of the question is a multiple choice question or a drill down question. Otherwise it holds NULL.
+@project
 @block - a reference to the block in which the question is found
 */
 CREATE TABLE testQuestions(id INTEGER PRIMARY KEY AUTO_INCREMENT,
   question text NOT NULL ,
   questionType INT NOT NULL,
   answer INT,
+  FOREIGN KEY (project)REFERENCES (project(id)),
   FOREIGN KEY(block) REFERENCES(questionBlock(id))
 );
 
@@ -48,18 +50,16 @@ project table holds the information about a specific test.
 Fields:
 @id - the main key for the table
 @name - the name of the test.
-@managerId - the id of the testManager who created this test.
 @numberOfSubjects - the number of testees who answered this test.
 @state - the state of the project. Can hold one of 3 values: new, active, finished.
 @lastModified - the date in which the project was last modified.
 @lastAnswered - the date in which the test was last answered.
-@numbeOfFiledCopies - the number of times the test was answered.
+@numberOfFiledCopies - the number of times the test was answered.
 @numberOfQuestions - the number of questions in the test.
 @managerId - a reference to the manager who works on this project
 */
 CREATE TABLE project (id INTEGER PRIMARY KEY AUTO_INCREMENT,
   name text,
-  managerId INTEGER NOT NULL ,
   numberOfSubjects INTEGER NOT NULL ,
   state INT NOT NULL ,
   lastModified DATE NOT NULL ,
@@ -87,8 +87,6 @@ Fields:
 @questionId - a reference to the question that was answered.
 */
 CREATE TABLE testAnswer(id INTEGER PRIMARY KEY AUTO_INCREMENT,
-  questionId INTEGER NOT NULL ,
-  projectId INTEGER NOT NULL ,
   numberOfClick INTEGER NOT NULL ,
   finalAnswer INTEGER,
   questionPlacement INT NOT NULL ,
@@ -111,10 +109,12 @@ Fields:
 @id - the main key for the table.
 @numberOfQuestions - the number of questions in the block.
 @randomize - a boolean that holds true if the questions in the block should be randomized, and false otherwise.
+@tag - a tag attached to the question
 
  */
 CREATE TABLE questionBlock(id INTEGER PRIMARY KEY AUTO_INCREMENT,
   numberOfQuestions INTEGER NOT NULL ,
   randomize BOOLEAN,
+  tag text,
   FOREIGN KEY(projectId) REFERENCES(project(id)),
 );

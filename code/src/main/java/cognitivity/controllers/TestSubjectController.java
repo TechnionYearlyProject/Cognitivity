@@ -44,24 +44,33 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
         return result;
     }
 
+
+
     /**
-     * Method for saving (update / create) test subjects.
+     * Method for creating test subjects.
      * <p>
      * Params are as in TestSubjectService.
-     * If testSubjectId is null, then create. otherwise - update.
      */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST)
     public void saveTestSubject(
-            @RequestParam(value = "testSubjectId", required = false) Long testSubjectId,
-            @RequestBody TestSubject testSubject) {
+            @RequestParam String name,
+            @RequestParam Integer ipAddress,
+            @RequestParam String browser) {
+        service.createTestSubject(name, ipAddress, browser);
 
-        if (testSubjectId == null) {
-            service.createTestSubject(testSubject);
-        } else {
-            service.updateTestForTestManager(testSubjectId, testSubject);
-        }
+    }
 
+    /**
+     * Method for updating test subjects.
+     * <p>
+     * Params are as in TestSubjectService.
+     */
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.POST)
+    public void updateTestSubject(
+            @RequestParam TestSubject subject){
+        service.updateTestSubject(subject);
     }
 
     /**

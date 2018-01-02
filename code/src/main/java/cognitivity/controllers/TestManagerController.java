@@ -45,7 +45,21 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
     }
 
     /**
-     * Method for saving (update / create) test managers.
+     * Method for updating test managers.
+     * <p>
+     * Params are as in TestManagerService.
+     * If testManagerId is null, then create. otherwise - update.
+     */
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.POST)
+    public void updateTestManager(
+            @RequestParam TestManager manager) {
+        service.updateTestManager( manager);
+    }
+
+
+    /**
+     * Method for creating test managers.
      * <p>
      * Params are as in TestManagerService.
      * If testManagerId is null, then create. otherwise - update.
@@ -53,15 +67,9 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST)
     public void saveTestManager(
-            @RequestParam(value = "testManagerId", required = false) Long testManagerId,
-            @RequestBody TestManagerDAO manager) {
-
-        if (testManagerId == null) {
-            service.createTestManager(manager);
-        } else {
-            service.updateTestManager(testManagerId, manager);
-        }
-
+            @RequestParam(value = "name")String name,
+            @RequestParam(value = "password")String password) {
+        service.createTestManager(name, password);
     }
 
     /**

@@ -1,8 +1,7 @@
 package cognitivity.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 /**
  *
  * The Test Question persistent (JPA) representation (tables).
@@ -18,7 +17,28 @@ public class TestQuestion extends AbstractEntity {
     private Integer questionType;
 
     @Column(name = "answer")
-    private Integer answer; 
+    private Integer answer;
+
+    @Column(name = "tag")
+	private String tag;
+
+	@ManyToOne
+	@JoinColumn(name = "id")
+	private TestBlock block;
+
+	@ManyToOne
+	@JoinColumn(name = "id")
+	private CognitiveTest project;
+
+
+	public TestQuestion(String question, Integer questionType, Integer answer, String tag, TestBlock block, CognitiveTest project) {
+		this.question = question;
+		this.questionType = questionType;
+		this.answer = answer;
+		this.tag = tag;
+		this.block = block;
+		this.project = project;
+	}
 
 	/**
 	* Returns value of question
@@ -66,5 +86,29 @@ public class TestQuestion extends AbstractEntity {
 	*/
 	public void setAnswer(Integer answer) {
 		this.answer = answer;
+	}
+
+	public TestBlock getBlock() {
+		return block;
+	}
+
+	public void setBlock(TestBlock block) {
+		this.block = block;
+	}
+
+	public String getTag(){
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+
+	public CognitiveTest getProject() {
+		return project;
+	}
+
+	public void setProject(CognitiveTest project) {
+		this.project = project;
 	}
 }
