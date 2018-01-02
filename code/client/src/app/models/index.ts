@@ -16,7 +16,7 @@ export enum TypeMultipleQuestion {
 }
 
 export enum TypeQuestion {
-    MultiplceChoice,
+    MultipleChoice,
     RateQuestion,
     OpenQuestion
 }
@@ -41,9 +41,17 @@ export interface MultipleAnswer {
 }
 
 /*
+    General question interface that all question types inherit from.
+ */
+export interface Question {
+    questionText?: string;
+    type?: TypeQuestion;
+}
+
+/*
     An interface for the object that describes a multiple choice question
 */
-export interface MultipleAnsQuestion {
+export interface MultipleAnsQuestion extends Question {
     text:string;
     answers: MultipleAnswer[];
     correctAnswer: number;
@@ -52,7 +60,7 @@ export interface MultipleAnsQuestion {
 /*
     An interface for the object that describes an open question
 */
-export interface OpenQuestion {
+export interface OpenQuestion extends Question {
     questionText: string,
     answerText: string
 }
@@ -78,7 +86,7 @@ export interface Manager {
 /*
     An interface for the object that describes a rating question
 */
-export interface RateQuestion {
+export interface RateQuestion extends Question {
     questionText: string,
     heightOfRate: number
 }

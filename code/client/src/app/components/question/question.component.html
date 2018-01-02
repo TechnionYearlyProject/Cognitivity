@@ -21,7 +21,11 @@
       </div>
     </div>
     <div class="card-body collapse multi-collapse " id="questionBody1">
-      <h5 class="card-title">Here well put the actual questions mark did</h5>
+      <app-multiple-question *ngIf="type==0"></app-multiple-question>
+      <app-rate-question *ngIf="type==1"></app-rate-question>
+      <app-open-question *ngIf="type==2"></app-open-question>
+      
+      
     </div>
   </div>
 </div>
