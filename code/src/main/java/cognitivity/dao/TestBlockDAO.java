@@ -1,6 +1,5 @@
 package cognitivity.dao;
 
-import cognitivity.entities.TestAnswer;
 import cognitivity.entities.TestBlock;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,5 @@
 package cognitivity.services;
 
-import cognitivity.dao.RepositorySearchResult;
 import cognitivity.dao.TestQuestionDAO;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestAnswer;
@@ -9,7 +8,6 @@ import cognitivity.dao.TestAnswerDAO;
 import cognitivity.entities.TestSubject;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

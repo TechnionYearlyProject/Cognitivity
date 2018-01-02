@@ -1,13 +1,10 @@
 package cognitivity.services;
 
-import cognitivity.dao.RepositorySearchResult;
 import cognitivity.entities.CognitiveTest;
-import cognitivity.entities.TestAnswer;
 import cognitivity.entities.TestManager;
 import cognitivity.dao.TestManagerDAO;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

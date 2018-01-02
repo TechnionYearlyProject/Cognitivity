@@ -1,6 +1,11 @@
 package cognitivity.dao;
 
-import cognitivity.entities.*;
+import cognitivity.entities.CognitiveTest;
+import cognitivity.entities.TestBlock;
+import cognitivity.entities.TestManager;
+import cognitivity.entities.TestQuestion;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,10 +30,18 @@ public class CognitiveTestDAO extends AbstractDAO<CognitiveTest> {
      *
      * @param test - The cognitive test to which we want to get all questions.
      *
-     * @return- A list containing all the test questions in the test.
+     * @return - A list containing all the test questions in the test.
      */
     public List<TestQuestion> getAllRelevantTestQuestions(CognitiveTest test){
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        // HQL query string, the test parameter will be the id of the given test
+        // this meant for protecting against sql injection
+        // TODO: the error that intellij shows (on the query language) should be
+        // TODO: fixed when the spring configuration file will be correct
+        String queryString = "from TestQuestion  T where T.cognitiveTest = :test";
+        Query<TestQuestion> query = session.createQuery(queryString, TestQuestion.class);
+        query.setParameter("test", test);
+        return query.getResultList();
     }
 
     /**
@@ -39,7 +52,11 @@ public class CognitiveTestDAO extends AbstractDAO<CognitiveTest> {
      * @return- A list containing all the test blocks in the test.
      */
     public List<TestBlock> getAllRelevantTestBlocks(CognitiveTest test){
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        String queryString = "from TestBlock  T where T.cognitiveTest = :test";
+        Query<TestBlock> query = session.createQuery(queryString, TestBlock.class);
+        query.setParameter("test", test);
+        return query.getResultList();
     }
 
     /**
@@ -50,6 +67,11 @@ public class CognitiveTestDAO extends AbstractDAO<CognitiveTest> {
      * @return - A list of all the managers tests.
      */
     public List<CognitiveTest> getAllCognitiveTestOfManager(TestManager manager){
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        String queryString = "from CognitiveTest where id = :managerId";
+        Query<CognitiveTest> query = session.createQuery(queryString, CognitiveTest.class);
+        query.setParameter("managerId", manager.getId());
+
+        return query.getResultList();
     }
 }

@@ -4,6 +4,8 @@ import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestAnswer;
 import cognitivity.entities.TestQuestion;
 import cognitivity.entities.TestSubject;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -30,7 +32,14 @@ public class TestAnswerDAO extends AbstractDAO<TestAnswer> {
      * @return - A list of all the answers by the subject
      */
     public List<TestAnswer> getAllTestSubjectAnswers(TestSubject subject){
-        return null;
+        // TODO: the error that intellij shows (on the query language) should be
+        // TODO: fixed when the spring configuration file will be correct
+        Session session = sessionFactory.getCurrentSession();
+        String queryString = "from TestAnswer T where T.testSubject = :testSubject";
+        Query<TestAnswer> query = session.createQuery(queryString, TestAnswer.class);
+        query.setParameter("testSubject", subject);
+
+        return query.getResultList();
     }
 
     /**
@@ -42,7 +51,13 @@ public class TestAnswerDAO extends AbstractDAO<TestAnswer> {
      * @return - All the relevant answers from the test.
      */
     public List<TestAnswer> getAllTestSubjectAnswersInTest(TestSubject subject, CognitiveTest test){
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        String queryString = "from TestAnswer T "
+        + " where T.testSubject = :testSubject and T.cognitiveTest = :cognitiveTest";
+        Query<TestAnswer> query = session.createQuery(queryString, TestAnswer.class);
+        query.setParameter("testSubject", subject);
+        query.setParameter("cognitiveTest", test);
+        return query.getResultList();
     }
 
     /**
@@ -52,6 +67,10 @@ public class TestAnswerDAO extends AbstractDAO<TestAnswer> {
      * @return - A list of all test answers relating to the given question.
      */
     public List<TestAnswer> getAllTestAnswerForAQuestion(TestQuestion question){
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        String queryString = "from TestAnswer T where T.question = :question";
+        Query<TestAnswer> query = session.createQuery(queryString, TestAnswer.class);
+        query.setParameter("question", question);
+        return query.getResultList();
     }
 }

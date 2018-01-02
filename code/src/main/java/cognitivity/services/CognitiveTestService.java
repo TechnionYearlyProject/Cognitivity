@@ -1,16 +1,12 @@
 package cognitivity.services;
 
-import cognitivity.entities.CognitiveTest;
-import cognitivity.dao.RepositorySearchResult;
 import cognitivity.dao.CognitiveTestDAO;
+import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestManager;
 import cognitivity.entities.TestQuestion;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
