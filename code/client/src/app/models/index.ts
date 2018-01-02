@@ -44,15 +44,15 @@ export interface MultipleAnswer {
     General question interface that all question types inherit from.
  */
 export interface Question {
-    questionText?: string;
-    type?: TypeQuestion;
+    questionText: string;
+    type: TypeQuestion;
+    questionPosition?: QuestionPosition;
 }
 
 /*
     An interface for the object that describes a multiple choice question
 */
 export interface MultipleAnsQuestion extends Question {
-    text:string;
     answers: MultipleAnswer[];
     correctAnswer: number;
     typeMultipleQuestion: TypeMultipleQuestion;
@@ -61,7 +61,6 @@ export interface MultipleAnsQuestion extends Question {
     An interface for the object that describes an open question
 */
 export interface OpenQuestion extends Question {
-    questionText: string,
     answerText: string
 }
 
@@ -87,6 +86,5 @@ export interface Manager {
     An interface for the object that describes a rating question
 */
 export interface RateQuestion extends Question {
-    questionText: string,
     heightOfRate: number
 }

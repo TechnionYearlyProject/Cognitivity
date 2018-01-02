@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MultipleAnsQuestion, TypeMultipleQuestion, MultipleAnswer } from '../../models';
+import { MultipleAnsQuestion, TypeMultipleQuestion, MultipleAnswer, TypeQuestion, QuestionPosition } from '../../models';
 @Component({
   selector: 'app-multiple-question',
   templateUrl: './multiple-question.component.html',
@@ -13,14 +13,38 @@ export class MultipleQuestionComponent implements OnInit {
   answerOrganization: TypeMultipleQuestion  = TypeMultipleQuestion.Vertical;
   matrixAnswers? : Array<Array<MultipleAnswer>>
   range_value: number = 50;
+  positionUp: any;
+  positionButtom: any;
+  positionMiddle: any; 
   constructor() {
+     /*
+    hardcoded question object, when services will be added this piece of code will not be needed
+    */
     this.question = 
     {
-      text:'Who directed Inception?',
+      questionText:'Who directed Inception?',
+      type: TypeQuestion.MultipleChoice,
+      questionPosition: QuestionPosition.MiddleLeft,
       answers:[{answer:'Christopher Nolan', isMarked:false}, {answer:'Ridely Scott', isMarked:false}, {answer:'Quantin Tarantino',isMarked:false}, {answer:'Robert Downy Jr.', isMarked:false}],
       correctAnswer:1, 
       typeMultipleQuestion: TypeMultipleQuestion.Matrix
     };
+    //End of hardcoded question
+    this.positionUp = {
+      'right' : this.isUpperRight(),
+      'middle' : this.isUpperMiddle(),
+      'left' : this.isUpperLeft()
+    }
+    this.positionButtom = {
+      'right' : this.isButtomRight(),
+      'middle' : this.isButtomMiddle(),
+      'left' : this.isButtomLeft()
+    }
+    this.positionMiddle = {
+      'right' : this.isMiddleRight(),
+      'middle' : this.isMiddleMiddle(),
+      'left' : this.isMiddleLeft()
+    }
     this.answerOrganization = this.question.typeMultipleQuestion;
     if(this.answerOrganization == TypeMultipleQuestion.Matrix){
       this.constructMatrix();
@@ -28,6 +52,7 @@ export class MultipleQuestionComponent implements OnInit {
    }
 
   ngOnInit() {
+    
   }
 
   markAnswerInMatrix(row: number, col: number){
@@ -101,6 +126,42 @@ export class MultipleQuestionComponent implements OnInit {
   */
   isMarkedInMatrix(row: number, col: number): boolean{
         return this.question.answers[row * this.matrixAnswers[0].length + col].isMarked;
+  }
+  isUpperMiddle(): boolean{
+    return this.question.questionPosition == QuestionPosition.UpperMiddle;
+  }
+  isUpperRight(): boolean{
+    return this.question.questionPosition == QuestionPosition.UpperRight;
+  }
+  isUpperLeft(): boolean{
+    return this.question.questionPosition == QuestionPosition.UpperLeft;
+  }
+  isButtomRight(): boolean{
+    return this.question.questionPosition == QuestionPosition.ButtomRight;
+  }
+  isButtomMiddle(): boolean{
+    return this.question.questionPosition == QuestionPosition.ButtomMiddle;
+  }
+  isButtomLeft(): boolean{
+    return this.question.questionPosition == QuestionPosition.ButtomLeft;
+  }
+  isMiddleRight(): boolean{
+    return this.question.questionPosition == QuestionPosition.MiddleRight;
+  }
+  isMiddleMiddle(): boolean{
+    return this.question.questionPosition == QuestionPosition.MiddleMiddle;
+  }
+  isMiddleLeft(): boolean{
+    return this.question.questionPosition == QuestionPosition.MiddleLeft;
+  }
+  isUp(): boolean{
+    return this.isUpperMiddle() || this.isUpperRight() || this.isUpperLeft();
+  }
+  isMiddle(): boolean{
+    return this.isMiddleMiddle() || this.isMiddleRight() || this.isMiddleLeft();
+  }
+  isButtom():boolean{
+    return this.isButtomMiddle() || this.isButtomRight() || this.isButtomLeft();
   }
 }
 /*"../node_modules/bootstrap-datepicker3.css"*/
