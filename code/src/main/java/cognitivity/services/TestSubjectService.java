@@ -6,7 +6,6 @@ import cognitivity.entities.TestAnswer;
 import cognitivity.entities.TestSubject;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -81,7 +80,7 @@ public class TestSubjectService extends cognitivity.services.AbstractService {
      */
     public List<TestAnswer> findAllTestSubjectAnswers(TestSubject subject){
         TestSubjectDAO dao = new TestSubjectDAO();
-        return dao.getAllTestSubjectAnswers(subject);
+        return dao.getSubjectAnswers(subject);
     }
     /**
      * Find all test subjects who took a cognitive a test.

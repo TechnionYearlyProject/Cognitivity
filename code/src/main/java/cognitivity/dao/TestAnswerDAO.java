@@ -25,24 +25,6 @@ public class TestAnswerDAO extends AbstractDAO<TestAnswer> {
     }
 
     /**
-     * Get all the test answers a subject has given.
-     *
-     * @param subject - The subject whose answers we are looking for
-     *
-     * @return - A list of all the answers by the subject
-     */
-    public List<TestAnswer> getAllTestSubjectAnswers(TestSubject subject){
-        // TODO: the error that intellij shows (on the query language) should be
-        // TODO: fixed when the spring configuration file will be correct
-        Session session = sessionFactory.getCurrentSession();
-        String queryString = "from TestAnswer T where T.testSubject = :testSubject";
-        Query<TestAnswer> query = session.createQuery(queryString, TestAnswer.class);
-        query.setParameter("testSubject", subject);
-
-        return query.getResultList();
-    }
-
-    /**
      * Get all the test answers of a subject from a specific test.
      *
      * @param subject - The subject whose answers we are looking for.
@@ -50,7 +32,9 @@ public class TestAnswerDAO extends AbstractDAO<TestAnswer> {
      *
      * @return - All the relevant answers from the test.
      */
-    public List<TestAnswer> getAllTestSubjectAnswersInTest(TestSubject subject, CognitiveTest test){
+    public List<TestAnswer> getTestSubjectAnswersInTest(TestSubject subject, CognitiveTest test){
+        // TODO: the error that intellij shows (on the query language) should be
+        // TODO: fixed when the spring configuration file will be correct
         Session session = sessionFactory.getCurrentSession();
         String queryString = "from TestAnswer T "
         + " where T.testSubject = :testSubject and T.cognitiveTest = :cognitiveTest";
@@ -66,7 +50,7 @@ public class TestAnswerDAO extends AbstractDAO<TestAnswer> {
      * @param question - The question whose answers we are looking for.
      * @return - A list of all test answers relating to the given question.
      */
-    public List<TestAnswer> getAllTestAnswerForAQuestion(TestQuestion question){
+    public List<TestAnswer> getTestAnswers(TestQuestion question){
         Session session = sessionFactory.getCurrentSession();
         String queryString = "from TestAnswer T where T.question = :question";
         Query<TestAnswer> query = session.createQuery(queryString, TestAnswer.class);

@@ -1,10 +1,10 @@
 package cognitivity.services;
 
-import cognitivity.dao.TestQuestionDAO;
+import cognitivity.dao.TestAnswerDAO;
+import cognitivity.dao.TestSubjectDAO;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestAnswer;
 import cognitivity.entities.TestQuestion;
-import cognitivity.dao.TestAnswerDAO;
 import cognitivity.entities.TestSubject;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -88,8 +88,8 @@ public class TestAnswerService extends AbstractService {
      * This will be used in conjunction with the DELETE HTTP method.
      * */
     public void deleteAllTestAnswersForQuestion(TestQuestion question) {
-        TestQuestionDAO dao = new TestQuestionDAO();
-        List<TestAnswer> answers = dao.getAllRelevantAnswers(question);
+        TestAnswerDAO dao = new TestAnswerDAO();
+        List<TestAnswer> answers = dao.getTestAnswers(question);
         for (TestAnswer answer : answers){
             dao.delete(answer.getId());
         }
@@ -114,8 +114,8 @@ public class TestAnswerService extends AbstractService {
      * @return - All test answers that belong to the subject with the given id.
      * */
     public List<TestAnswer> findTestAnswersBySubject(TestSubject subject) {
-        TestAnswerDAO dao = new TestAnswerDAO();
-        return dao.getAllTestSubjectAnswers(subject);
+        TestSubjectDAO dao = new TestSubjectDAO();
+        return dao.getSubjectAnswers(subject);
     }
 
     /**
@@ -128,7 +128,7 @@ public class TestAnswerService extends AbstractService {
      * */
     public List<TestAnswer> findTestAnswersBySubjectInTest(TestSubject subject, CognitiveTest test) {
         TestAnswerDAO dao = new TestAnswerDAO();
-        return dao.getAllTestSubjectAnswersInTest(subject, test);
+        return dao.getTestSubjectAnswersInTest(subject, test);
     }
 
     /**
@@ -139,6 +139,6 @@ public class TestAnswerService extends AbstractService {
      */
     public List<TestAnswer> findAllTestAnswerForAQuestion(TestQuestion question){
         TestAnswerDAO dao = new TestAnswerDAO();
-        return dao.getAllTestAnswerForAQuestion(question);
+        return dao.getTestAnswers(question);
     }
 }

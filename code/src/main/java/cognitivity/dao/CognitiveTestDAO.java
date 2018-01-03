@@ -32,7 +32,7 @@ public class CognitiveTestDAO extends AbstractDAO<CognitiveTest> {
      *
      * @return - A list containing all the test questions in the test.
      */
-    public List<TestQuestion> getAllRelevantTestQuestions(CognitiveTest test){
+    public List<TestQuestion> getTestQuestions(CognitiveTest test){
         Session session = sessionFactory.getCurrentSession();
         // HQL query string, the test parameter will be the id of the given test
         // this meant for protecting against sql injection
@@ -51,7 +51,7 @@ public class CognitiveTestDAO extends AbstractDAO<CognitiveTest> {
      *
      * @return- A list containing all the test blocks in the test.
      */
-    public List<TestBlock> getAllRelevantTestBlocks(CognitiveTest test){
+    public List<TestBlock> getTestBlocks(CognitiveTest test){
         Session session = sessionFactory.getCurrentSession();
         String queryString = "from TestBlock  T where T.cognitiveTest = :test";
         Query<TestBlock> query = session.createQuery(queryString, TestBlock.class);
@@ -66,7 +66,7 @@ public class CognitiveTestDAO extends AbstractDAO<CognitiveTest> {
      *
      * @return - A list of all the managers tests.
      */
-    public List<CognitiveTest> getAllCognitiveTestOfManager(TestManager manager){
+    public List<CognitiveTest> getCognitiveTestOfManager(TestManager manager){
         Session session = sessionFactory.getCurrentSession();
         String queryString = "from CognitiveTest where id = :managerId";
         Query<CognitiveTest> query = session.createQuery(queryString, CognitiveTest.class);

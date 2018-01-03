@@ -79,7 +79,7 @@ public class CognitiveTestService extends AbstractService{
      */
     public List<CognitiveTest> findTestsForTestManager(TestManager manager) {
         CognitiveTestDAO dao = new CognitiveTestDAO();
-        return dao.getAllCognitiveTestOfManager(manager);
+        return dao.getCognitiveTestOfManager(manager);
     }
 
 
@@ -91,7 +91,7 @@ public class CognitiveTestService extends AbstractService{
      */
     public List<TestBlock> getTestBlocksForTest(CognitiveTest test) {
         CognitiveTestDAO dao = new CognitiveTestDAO();
-        return dao.getAllRelevantTestBlocks(test);
+        return dao.getTestBlocks(test);
     }
 
     /**
@@ -102,7 +102,7 @@ public class CognitiveTestService extends AbstractService{
      */
     public List<TestQuestion> getTestQuestionsForTest(CognitiveTest test) {
         CognitiveTestDAO dao = new CognitiveTestDAO();
-        return dao.getAllRelevantTestQuestions(test);
+        return dao.getTestQuestions(test);
     }
 
 }

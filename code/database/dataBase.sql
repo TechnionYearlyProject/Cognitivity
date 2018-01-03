@@ -14,6 +14,7 @@ CREATE TABLE testQuestions(id INTEGER PRIMARY KEY AUTO_INCREMENT,
   question text NOT NULL ,
   questionType INT NOT NULL,
   answer INT,
+  FOREIGN KEY (testManager) REFERENCES (testManager(id)),
   FOREIGN KEY (project)REFERENCES (project(id)),
   FOREIGN KEY(block) REFERENCES(questionBlock(id))
 );

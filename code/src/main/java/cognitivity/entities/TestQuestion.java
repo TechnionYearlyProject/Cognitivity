@@ -30,6 +30,17 @@ public class TestQuestion extends AbstractEntity {
 	@JoinColumn(name = "id")
 	private CognitiveTest project;
 
+	public TestManager getTestManager() {
+		return testManager;
+	}
+
+	public void setTestManager(TestManager testManager) {
+		this.testManager = testManager;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "id")
+	private TestManager testManager;
 
 	public TestQuestion(String question, Integer questionType, Integer answer, String tag, TestBlock block, CognitiveTest project) {
 		this.question = question;

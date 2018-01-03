@@ -1,5 +1,8 @@
 package cognitivity.services;
 
+import cognitivity.dao.CognitiveTestDAO;
+import cognitivity.dao.TestAnswerDAO;
+import cognitivity.dao.TestManagerDAO;
 import cognitivity.entities.*;
 import cognitivity.dao.TestQuestionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,9 +94,9 @@ public class QuestionService extends AbstractService {
      *
      * @return - All the answers to the given question.
      */
-    public List<TestAnswer> findAllAnswersToQuestion(TestQuestion question){
-        TestQuestionDAO dao = new TestQuestionDAO();
-        return dao.getAllRelevantAnswers(question);
+    public List<TestAnswer> getTestAnswers(TestQuestion question){
+        TestAnswerDAO dao = new TestAnswerDAO();
+        return dao.getTestAnswers(question);
     }
 
     /**
@@ -103,8 +106,9 @@ public class QuestionService extends AbstractService {
      * @return - A list of all test questions in the test
      */
     public List<TestQuestion> findAllTestQuestionsFromTestId(long testId){
-        TestQuestionDAO dao = new TestQuestionDAO();
-        return dao.getAllTestQuestionsFromATest(testId);
+        CognitiveTestDAO cognitiveDAO = new CognitiveTestDAO();
+        CognitiveTest test = cognitiveDAO.get(testId);
+        return cognitiveDAO.getTestQuestions(test);
     }
 
     /**
@@ -114,7 +118,9 @@ public class QuestionService extends AbstractService {
      * @return - A list of all test questions in the test
      */
     public List<TestQuestion> findAllTestQuestionsFromManagerId(long managerId){
-        TestQuestionDAO dao = new TestQuestionDAO();
-        return dao.getAllTestQuestionsFromAManager(managerId);
+        TestQuestionDAO questionDAO = new TestQuestionDAO();
+        TestManagerDAO testManagerDAO = new TestManagerDAO();
+        TestManager testManager = testManagerDAO.get(managerId);
+        return questionDAO.getTestQuestionsFromAManager(testManager);
     }
 }
