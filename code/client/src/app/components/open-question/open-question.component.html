@@ -1,13 +1,29 @@
-<div class="card">
-  <form (submit)="onSubmit($event)">
-    <div class="card-header">{{ question.questionText }}</div>
-    <div class="card-body">
-      <div class="form-group">
-        <input type="text" name="answer" placeholder="Enter your answer here" [(ngModel)]="currentAnswer" id="#textBox" >
-    
-        <input type="submit" class="btn btn-primary" value="Submit Question">
-      </div>
-    </div>
-  </form>
+
+<br>
+<h2 >{{question.questionText }}</h2>
+<br>
+<br>
+<br>
+<div class="container">
+    <input class="form-control" type="text" name="answer" placeholder="Enter your answer here" [(ngModel)]="currentAnswer" id="#textBox" >
 </div>
+<br>
+<br>
+<div class="container">
+    <h4>How confident you feel in your answer, in precentage?</h4>
+</div>
+    
+<div style="text-align: center;">
+    <div id="slidecontainer">
+        <input type="range" min="0" max="100" value="50" class="slider centered" id="myRange" [(ngModel)] = "range_value">
+    </div>
+    <h6>{{ range_value }}%</h6>
+</div>
+<br>
+<div class="container">
+    <input type="submit" class="btn btn-primary btn-md" value="Submit Question">
+</div>
+      
+        
+
 

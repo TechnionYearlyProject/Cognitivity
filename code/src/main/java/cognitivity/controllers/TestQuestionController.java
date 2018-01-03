@@ -1,26 +1,22 @@
 package cognitivity.controllers;
 
-import cognitivity.dao.RepositorySearchResult;
-import cognitivity.dao.TestQuestion;
-import cognitivity.dto.TestQuestionDTO;
+import cognitivity.dao.TestQuestionDAO;
+import cognitivity.entities.CognitiveTest;
+import cognitivity.entities.TestBlock;
+import cognitivity.entities.TestQuestion;
 import cognitivity.services.QuestionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Created by ophir on 23/11/17.
- */
 
 @RestController
 @RequestMapping("test-questions")
 public class TestQuestionController extends AbstractRestController<QuestionService> {
 
-    @Autowired
-    public TestQuestionController(QuestionService service) {
-        super(service);
+    public TestQuestionController() {
+        super(new QuestionService());
     }
 
     /**
@@ -33,19 +29,18 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET)
-    public List<TestQuestionDTO> findTestQuestionsForTestCriteriaById(
+    public List<TestQuestion> findTestQuestionsForTestCriteriaById(
             @RequestParam(value = "testManagerId") long testManagerId,
             @RequestParam(value = "testId", required = false) Long testId) {
-
+        List<TestQuestion> result;
         if (testId == null) {
             // Then return all questions of test manager
-            RepositorySearchResult<TestQuestion> result = service.findTestQuestionsForTestManagerById(testManagerId);
-            return TestQuestionDTO.mapFromTestQuestionEntities(result.getResult());
+            result = service.findAllTestQuestionsFromManagerId(testManagerId);
         } else {
             // Then return question of that one test.
-            RepositorySearchResult<TestQuestion> result = service.getTestQuestionsForTest(testId);
-            return TestQuestionDTO.mapFromTestQuestionEntities(result.getResult());
+            result = service.findAllTestQuestionsFromTestId(testId);
         }
+        return result;
     }
 
     /**
@@ -57,14 +52,29 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST)
     public void saveCognitiveTestQuestion(
-            @RequestParam(value = "questionId", required = false) Long questionId,
-            @RequestBody TestQuestionDTO question) {
+            @RequestParam String question,
+            @RequestParam  Integer questionType,
+            @RequestParam Integer answer,
+            @RequestParam String tag,
+            @RequestParam TestBlock block,
+            @RequestParam CognitiveTest project) {
 
-        if (questionId == null) {
-            service.createTestQuestion(question);
-        } else {
-            service.updateTestQuestion(questionId, question);
-        }
+        service.createTestQuestion(question,questionType,answer,tag,block,project);
+
+    }
+
+
+    /**
+     * Method for updating test questions.
+     *
+     * Params are as in TestQuestionService.
+     * If questionId is null, then create. otherwise - update.
+     * */
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.POST)
+    public void updateCognitiveTestQuestion(
+            @RequestParam TestQuestion question) {
+        service.updateTestQuestion(question);
     }
 
     /**

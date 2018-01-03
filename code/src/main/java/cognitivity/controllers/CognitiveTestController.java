@@ -1,14 +1,13 @@
 package cognitivity.controllers;
 
-import cognitivity.dao.CognitiveTest;
-import cognitivity.dao.RepositorySearchResult;
-import cognitivity.dto.CognitiveTestDTO;
+import cognitivity.dao.CognitiveTestDAO;
+import cognitivity.entities.CognitiveTest;
+import cognitivity.entities.TestManager;
 import cognitivity.services.CognitiveTestService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,40 +18,28 @@ import java.util.List;
 @RequestMapping("tests")
 public class CognitiveTestController extends AbstractRestController<CognitiveTestService> {
 
-    @Autowired
-    public CognitiveTestController(CognitiveTestService service) {
-        super(service);
-    }
+    public CognitiveTestController() { super(new CognitiveTestService());}
 
 
     /**
-     * Method for searching for a cognitive test.
+     * Method for searching for all cognitive tests of a manager.
      *
      * Params are as in CognitiveTestService.
-     * If testId is null, then return all tests.
      *
      * @return - Cognitive test(s) for the test manager.
      * */
+
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET)
-    public List<CognitiveTestDTO> findTestsForTestManager(
-            @RequestParam(value = "testManagerId") long testManagerId,
-            @RequestParam(value = "testId", required = false) Long testId) {
-
-        if (testId == null) {
-            // Then return all tests
-            RepositorySearchResult<CognitiveTest> result = service.findTestsForTestManager(testManagerId);
-            return CognitiveTestDTO.mapFromCognitiveTestEntities(result.getResult());
-        } else {
-            // Then return one test.
-            CognitiveTest test = service.findTestForTestManagerById(testId, testManagerId);
-            return Collections.singletonList(CognitiveTestDTO.mapFromCognitiveTestEntity(test));
-        }
+    public List<CognitiveTest> findTestsForTestManager(
+            @RequestParam TestManager manager) {
+        return service.findTestsForTestManager(manager);
     }
 
+
     /**
-     * Method for saving (update / create) tests.
+     * Method for saving tests.
      *
      * Params are as in CognitiveTestService.
      * If testId is null, then create. otherwise - update.
@@ -60,15 +47,25 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST)
     public void saveCognitiveTest(
-            @RequestParam(value = "testManagerId") long testManagerId,
-            @RequestParam(value = "testId", required = false) Long testId,
-            @RequestBody CognitiveTestDTO test) {
+            @RequestParam(value = "name") String name,
+            @RequestParam TestManager manager,
+            @RequestParam(value = "state") Integer state,
+            @RequestParam(value = "numberOfQuestion") Integer numberOfQuestions){
+        service.createTestForTestManager(name,manager,state,numberOfQuestions);
 
-        if (testId == null) {
-            service.createTestForTestManager(test, testManagerId);
-        } else {
-            service.updateTestForTestManager(testId, test, testManagerId);
-        }
+    }
+
+    /**
+     * Method for updating tests.
+     *
+     * Params are as in CognitiveTestService.
+     * If testId is null, then create. otherwise - update.
+     * */
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.POST)
+    public void updateCognitiveTest(
+            @RequestParam CognitiveTest test){
+        service.updateTestForTestManager(test);
 
     }
 
@@ -79,9 +76,8 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
      * */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.DELETE)
-    public void deleteCognitiveTest(@RequestParam long testID,
-                                    @RequestParam long testManagerID) {
-        service.deleteTestForTestManager(testID, testManagerID);
+    public void deleteCognitiveTest(@RequestParam CognitiveTest test) {
+        service.deleteTestForTestManager(test);
     }
 
 }

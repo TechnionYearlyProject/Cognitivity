@@ -1,47 +1,63 @@
-
-   <h2><i class="fa fa-database" style="text-align: center"></i>{{question.text }}</h2>
-   
-      <div *ngIf = "isVertical()" class="centered" style="margin:3em">
-        <div  *ngFor="let answer of question.answers; let i = index;">
-              <div class="styled-input-container">
-                  <div class="styled-input-single">
-                    <input  class="onoffswitch-checkbox" id="check-box-{{answer.answer}}{{i}}" [checked] = "answer.isMarked" name="isMarked" type="checkbox" (change)="markAnswer(i)" style="margin:0.5em"> 
-                    <label for="check-box-{{answer.answer}}{{i}}">{{ answer.answer }}</label>
-                  </div>
-              </div>
+<div *ngIf = "isUp()">
+    <h2 [ngClass] = "positionUp">{{question.questionText }}</h2>
+</div>   
+<div *ngIf = "isVertical()" class="centered" style="margin:3em">
+    <div  *ngFor="let answer of question.answers; let i = index;">
+        <div class="styled-input-container">
+            <div class="styled-input-single">
+                <input  class="onoffswitch-checkbox" id="check-box-{{answer.answer}}{{i}}" [checked] = "answer.isMarked" name="isMarked" type="checkbox" (change)="markAnswer(i)" style="margin:0.5em"> 
+                <label for="check-box-{{answer.answer}}{{i}}">{{ answer.answer }}</label>
+            </div>
         </div>
-      </div>
-      <div *ngIf = "isHorizontal()" class="row" style="margin: 10px;">
-          <div  *ngFor="let answer of question.answers; let i = index;" class="column" style="margin:3em">
+    </div>
+</div>
+<div *ngIf = "isHorizontal()" class="row" style="margin: 100px 0px 0px 0px;">
+        <div *ngIf = "isMiddleLeft()" style="margin: 1.5em;">
+                <h2 [ngClass] = "positionMiddle">{{question.questionText }}</h2>
+            </div>
+    <div  *ngFor="let answer of question.answers; let i = index;" class="column" style="margin:3em">
+        <div class="styled-input-container">
+            <div class="styled-input-single">
+                <input  class="onoffswitch-checkbox" id="check-box-{{answer.answer}}{{i}}" [checked] = "answer.isMarked" name="isMarked" type="checkbox" (change)="markAnswer(i)" style="margin:0.5em"> 
+                <label for="check-box-{{answer.answer}}{{i}}">{{ answer.answer }}</label>
+            </div>
+        </div>
+    </div>
+    <div *ngIf = "isMiddleRight()" style="margin: 1.5em;">
+            <h2 [ngClass] = "positionMiddle">{{question.questionText }}</h2>
+        </div>
+</div>    
+<div *ngIf="isMatrix()" class="row" style="margin: 100px 0px 0px 0px;">
+    <div *ngIf = "isMiddleLeft()"  style="margin: 3em;">
+        <h2 [ngClass] = "positionMiddle">{{question.questionText }}</h2>
+    </div>
+    <div *ngIf = "isMatrix()"  class="row"  style="width:500px; margin:0 auto;">
+        <div *ngFor="let currRow of matrixAnswers; let i = index"  style="margin:1em" class="column">
+            <div  *ngFor = " let currAns of currRow; let j = index" style="margin: 1em;" >       
                 <div class="styled-input-container">
                     <div class="styled-input-single">
-                        <input  class="onoffswitch-checkbox" id="check-box-{{answer.answer}}{{i}}" [checked] = "answer.isMarked" name="isMarked" type="checkbox" (change)="markAnswer(i)" style="margin:0.5em"> 
-                        <label for="check-box-{{answer.answer}}{{i}}">{{ answer.answer }}</label>
+                        <input  class="onoffswitch-checkbox" id="check-box-{{currAns.answer}}{{i}}{{j}}" [checked] = "isMarkedInMatrix(i,j)" name="isMarked" type="checkbox" (change)="markAnswerInMatrix(i,j)" style="margin:3em"> 
+                        <label for="check-box-{{currAns.answer}}{{i}}{{j}}">{{ currAns.answer }}</label>
                     </div>
                 </div>
-          </div>
-      </div>
-      <div *ngIf = "isMatrix()"  class="row"  style="width:500px; margin:0 auto;">
-            <div *ngFor="let currRow of matrixAnswers; let i = index"  style="margin:1em" class="column">
-                <div  *ngFor = " let currAns of currRow; let j = index" style="margin: 1em;" >
-                
-                    <div class="styled-input-container">
-                        <div class="styled-input-single">
-                            <input  class="onoffswitch-checkbox" id="check-box-{{currAns.answer}}{{i}}{{j}}" [checked] = "isMarkedInMatrix(i,j)" name="isMarked" type="checkbox" (change)="markAnswerInMatrix(i,j)" style="margin:3em"> 
-                            <label for="check-box-{{currAns.answer}}{{i}}{{j}}">{{ currAns.answer }}</label>
-                        </div>
-                    </div>
-                </div>
-            </div> 
-        </div>
-    <h3 style="position: middle;">{{question.text}}</h3>
-      <h4>How confident you feel in your answer, in precentage?</h4>
-      <div style="text-align: center;">
-            <div id="slidecontainer">
-                <input type="range" min="0" max="100" value="50" class="slider centered" id="myRange" [(ngModel)] = "range_value">
             </div>
-            <h6 style="text-align: center;font-size:20px;" >{{ range_value }}%</h6>
-            <input type="button" class="btn btn-primary" value="Move to the next question"  (click)="onSubmit($event)">
-       </div>
+        </div> 
+    </div>
+    <div *ngIf = "isMiddleRight()"  style="margin: 3em;">
+        <h2 [ngClass] = "positionMiddle">{{question.questionText }}</h2>
+    </div>
+</div>
+
+<div *ngIf = "isButtom()">
+        <h2 [ngClass] = "positionButtom">{{question.questionText }}</h2>
+</div>   
+<h4>How confident you feel in your answer, in precentage?</h4>
+<div style="text-align: center;">
+    <div id="slidecontainer">
+        <input type="range" min="0" max="100" value="50" class="slider centered" id="myRange" [(ngModel)] = "range_value">
+    </div>
+    <h6>{{ range_value }}%</h6>
+    <input type="button" class="btn btn-primary" value="Move to the next question"  (click)="onSubmit($event)">
+</div>
 
 

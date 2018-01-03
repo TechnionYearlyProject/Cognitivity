@@ -1,15 +1,21 @@
-<div>
-    <div class="card-header">
-        {{ question.questionText }}
+<h2><i  style="text-align: center"></i>{{question.questionText }}</h2>
+
+<div class="container">
+    <div  *ngFor="let answer of answers" style="margin:3em">
+        <div class="styled-input-container">
+            <div class="styled-input-single">
+                <input  class="onoffswitch-checkbox" id="check-box-{{answer.answer}}" [checked] = "answer.isMarked" name="isMarked" type="checkbox" (change)="markAnswer(answer.answer)" style="margin:0.5em"> 
+                <label for="check-box-{{answer.answer}}">{{ answer.answer }}</label>
+            </div>
+        </div>
     </div>
-    <div class="card-block">
-        <form (submit)="onSubmit($event)">
-          <div class="row centered">
-              <div class="form-group" *ngFor="let answer of answers" class="column" style="margin:3em">
-                  <input  class="onoffswitch-checkbox" [checked] = "answer.isMarked" name="isMarked" type="checkbox" (change)="markAnswer(answer.answer)" style="margin:0.5em">{{ answer.answer }} 
-              </div>
-          </div>
-          <input type="submit" class="btn btn-primary" value="Submit Question">
-        </form>
+</div>
+
+<h4>How confident you feel in your answer, in precentage?</h4>
+<div style="text-align: center;">
+    <div id="slidecontainer">
+        <input type="range" min="0" max="100" value="50" class="slider container" id="myRange" [(ngModel)] = "range_value">
     </div>
+    <h6 >{{ range_value }}%</h6>
+    <input type="button" class="btn btn-primary" value="Move to the next question"  (click)="onSubmit($event)">
 </div>

@@ -1,27 +1,24 @@
 package cognitivity.controllers;
 
-import cognitivity.dao.RepositorySearchResult;
-import cognitivity.dao.TestAnswer;
-import cognitivity.dto.TestAnswerDTO;
+import cognitivity.dao.TestAnswerDAO;
+import cognitivity.entities.CognitiveTest;
+import cognitivity.entities.TestAnswer;
+import cognitivity.entities.TestQuestion;
+import cognitivity.entities.TestSubject;
 import cognitivity.services.TestAnswerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Created by ophir on 23/11/17.
- */
 
 @RestController
 @RequestMapping("test-answers")
 public class TestAnswerController extends AbstractRestController<TestAnswerService> {
 
-    @Autowired
-    public TestAnswerController(TestAnswerService service) {
-        super(service);
+    public TestAnswerController() {
+        super(new TestAnswerService());
     }
 
 
@@ -32,13 +29,14 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
      *
      * @return - test answer with the given id.
      * */
+
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET)
-    public TestAnswerDTO findTestAnswerById(
+    public TestAnswer findTestAnswerById(
             @RequestParam(value = "testAnswerId") long answerId) {
         TestAnswer result = service.findTestAnswerById(answerId);
-        return TestAnswerDTO.mapFromTestAnswerEntity(result);
+        return result;
     }
 
     /**
@@ -51,10 +49,10 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET)
-    public List<TestAnswerDTO> findTestAnswersByQuestionId(
-            @RequestParam(value = "testQuestionId") long questionId) {
-        RepositorySearchResult<TestAnswer> result = service.findTestAnswersByQuestionId(questionId);
-        return TestAnswerDTO.mapFromCognitiveTestEntities(result.getResult());
+    public List<TestAnswer> findTestAnswersByQuestionId(
+            @RequestParam TestQuestion question) {
+        List<TestAnswer> result = service.findAllTestAnswerForAQuestion(question);
+        return result;
     }
 
     /**
@@ -67,31 +65,51 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET)
-    public List<TestAnswerDTO> findTestAnswersBySubjectId(
-            @RequestParam(value = "testSubjectId") long subjectId) {
-        RepositorySearchResult<TestAnswer> result = service.findTestAnswersBySubjectId(subjectId);
-        return TestAnswerDTO.mapFromCognitiveTestEntities(result.getResult());
+    public List<TestAnswer> findTestAnswersBySubjectId(
+            @RequestParam TestSubject subject) {
+        List<TestAnswer> result = service.findTestAnswersBySubject(subject);
+        return result;
     }
 
     /**
-     * Method for saving (update / create) test answers.
+     * Method for saving updating test answers.
      *
      * Params are as in TestAnswerService.
-     * If answerId == null => create.
+     *
+     * */
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.POST)
+    public void updateTestAnswer(
+            @RequestParam TestAnswer answer) {
+        service.updateTestAnswerForQuestion(answer);
+    }
+
+
+
+    /**
+     * Method for saving creating test answers.
+     *
+     * Params are as in TestAnswerService.
+     *
      * */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST)
     public void saveTestAnswer(
-            @RequestParam(value = "testQuestionId") long questionId,
-            @RequestParam(value = "testAnswerId", required = false) long answerId,
-            @RequestBody TestAnswerDTO answerDTO) {
-        if (StringUtils.isEmpty(answerId)) {
-            // Then create
-            service.addTestAnswerForTestQuestion(questionId, answerDTO);
-        } else {
-            // Then update
-            service.updateTestAnswerForQuestion(questionId, answerId, answerDTO);
-        }
+            @RequestParam TestSubject testSubject,
+            @RequestParam TestQuestion question,
+            @RequestParam CognitiveTest cognitiveTest,
+            @RequestParam Integer numberOfClick,
+            @RequestParam Integer finalAnswer,
+            @RequestParam Integer questionPlacement,
+            @RequestParam Integer answerPlacement,
+            @RequestParam String verbalAnswer,
+            @RequestParam Boolean questionWithPicture,
+            @RequestParam String timeToAnswer,
+            @RequestParam Boolean timeMeasured,
+            @RequestParam Boolean timeShowed,
+            @RequestParam Boolean testeeExit) {
+        service.addTestAnswerForTestQuestion(testSubject,question,cognitiveTest,numberOfClick,finalAnswer,
+                questionPlacement,answerPlacement,verbalAnswer,questionWithPicture,timeToAnswer,timeMeasured,timeShowed,testeeExit);
     }
 
     /**
@@ -106,14 +124,14 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.DELETE)
     public void deleteTestAnswer(
-            @RequestParam(value = "testQuestionId") long questionId,
+            @RequestParam TestQuestion question,
             @RequestParam(value = "testAnswerId", required = false) long answerId) {
         if (StringUtils.isEmpty(answerId)) {
             // Then delete all answers
-            service.deleteAllTestAnswersForQuestion(questionId);
+            service.deleteAllTestAnswersForQuestion(question);
         } else {
             // Then delete one answer with the answer id
-            service.deleteTestAnswerForQuestion(questionId, answerId);
+            service.deleteTestAnswerForQuestion(answerId);
         }
     }
 

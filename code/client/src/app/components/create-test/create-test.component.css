@@ -1,0 +1,68 @@
+.cover {
+    background: url(https://static1.squarespace.com/static/57b21595d482e91442e5e990/t/586d659b197aeaa9095692d3/1483564444304/Fotolia_100000042_Subscription_Monthly_M.jpg?format=1500w) center center no-repeat fixed; 
+    height: 100%;
+    background-size: cover;
+  }
+
+.accordion, .active {
+    border-radius: 10px;
+    box-shadow: 0 0 7px rgb(0, 0, 0);
+    margin: 2em 0em; 
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+.active, .accordion:hover {
+    background-color: #ccc;
+}
+
+.accordion:after {
+    content: '\002B';
+    color: #777;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+.active:after {
+    content: '\2212';
+    color: #777;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 1s ease-out;
+}
+
+.question-box {
+    border-radius: 10px;
+    box-shadow: 0 0 7px rgb(0, 0, 0);
+    margin: 2em 0em; 
+    background-color: rgb(255, 253, 253);
+    color: rgb(0, 0, 0);
+    padding: 50px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+#addButton {
+    color: green;
+}
