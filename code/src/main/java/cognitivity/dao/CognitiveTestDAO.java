@@ -7,6 +7,7 @@ import cognitivity.entities.TestQuestion;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class CognitiveTestDAO extends AbstractDAO<CognitiveTest> {
      *
      * @return - A list containing all the test questions in the test.
      */
+    @Transactional
     public List<TestQuestion> getTestQuestions(CognitiveTest test){
         Session session = sessionFactory.getCurrentSession();
         // HQL query string, the test parameter will be the id of the given test
@@ -51,6 +53,7 @@ public class CognitiveTestDAO extends AbstractDAO<CognitiveTest> {
      *
      * @return- A list containing all the test blocks in the test.
      */
+    @Transactional
     public List<TestBlock> getTestBlocks(CognitiveTest test){
         Session session = sessionFactory.getCurrentSession();
         String queryString = "from TestBlock  T where T.cognitiveTest = :test";
@@ -66,6 +69,7 @@ public class CognitiveTestDAO extends AbstractDAO<CognitiveTest> {
      *
      * @return - A list of all the managers tests.
      */
+    @Transactional
     public List<CognitiveTest> getCognitiveTestOfManager(TestManager manager){
         Session session = sessionFactory.getCurrentSession();
         String queryString = "from CognitiveTest where id = :managerId";

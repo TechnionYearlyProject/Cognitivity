@@ -5,6 +5,7 @@ import cognitivity.entities.TestSubject;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class TestSubjectDAO extends AbstractDAO<TestSubject> {
      * @param subject - the test subject.
      * @return - A list of all the answers the test subject has given.
      */
+    @Transactional
     public List<TestAnswer> getSubjectAnswers(TestSubject subject){
         Session session = sessionFactory.getCurrentSession();
         String queryString = "from TestAnswer T where T.testSubject = :testSubject";
@@ -41,6 +43,7 @@ public class TestSubjectDAO extends AbstractDAO<TestSubject> {
      * @param testId - the test Id of the given test
      * @return - A list of the subjects who participated the test.
      */
+    @Transactional
     public List<TestSubject> getTestSubjectsWhoParticipatedInTest(long testId){
         return null;
     }
