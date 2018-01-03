@@ -5,6 +5,7 @@ import cognitivity.entities.TestQuestion;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class TestQuestionDAO extends AbstractDAO<TestQuestion> {
      * @param manager - The manager from which we want to get the questions
      * @return - A list of all test questions in the test
      */
+    @Transactional
     public List<TestQuestion> getTestQuestionsFromAManager(TestManager manager){
         Session session = sessionFactory.getCurrentSession();
         String queryString = "from TestQuestion where testManager = :manager";
