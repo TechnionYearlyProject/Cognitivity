@@ -14,11 +14,11 @@ import java.util.List;
  */
 @Repository
 public class TestSubjectDAO extends AbstractDAO<TestSubject> {
-    public TestSubject get(Long id){
+    public TestSubject get(Long id) {
         return super.get(id, TestSubject.class);
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         super.delete(id, TestSubject.class);
     }
 
@@ -29,7 +29,7 @@ public class TestSubjectDAO extends AbstractDAO<TestSubject> {
      * @return - A list of all the answers the test subject has given.
      */
     @Transactional
-    public List<TestAnswer> getSubjectAnswers(TestSubject subject){
+    public List<TestAnswer> getSubjectAnswers(TestSubject subject) {
         Session session = sessionFactory.getCurrentSession();
         String queryString = "from TestAnswer T where T.testSubject = :testSubject";
         Query<TestAnswer> query = session.createQuery(queryString, TestAnswer.class);
@@ -44,7 +44,7 @@ public class TestSubjectDAO extends AbstractDAO<TestSubject> {
      * @return - A list of the subjects who participated the test.
      */
     @Transactional
-    public List<TestSubject> getTestSubjectsWhoParticipatedInTest(long testId){
+    public List<TestSubject> getTestSubjectsWhoParticipatedInTest(long testId) {
         return null;
     }
 }

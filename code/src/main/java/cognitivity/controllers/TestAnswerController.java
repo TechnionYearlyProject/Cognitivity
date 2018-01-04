@@ -1,6 +1,5 @@
 package cognitivity.controllers;
 
-import cognitivity.dao.TestAnswerDAO;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestAnswer;
 import cognitivity.entities.TestQuestion;
@@ -14,7 +13,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("test-answers")
+@RequestMapping("/test-answers")
 public class TestAnswerController extends AbstractRestController<TestAnswerService> {
 
     public TestAnswerController() {
@@ -24,15 +23,15 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
 
     /**
      * Method for searching a test answer by its id.
-     *
+     * <p>
      * Params are as in TestAnswerService.
      *
      * @return - test answer with the given id.
-     * */
+     */
 
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value = "/findTestAnswerById")
     public TestAnswer findTestAnswerById(
             @RequestParam(value = "testAnswerId") long answerId) {
         TestAnswer result = service.findTestAnswerById(answerId);
@@ -41,14 +40,14 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
 
     /**
      * Method for searching test answers by question id.
-     *
+     * <p>
      * Params are as in TestAnswerService.
      *
      * @return - test answer(s) of the question with the given id.
-     * */
+     */
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value = "/findTestAnswersByQuestionId")
     public List<TestAnswer> findTestAnswersByQuestionId(
             @RequestParam TestQuestion question) {
         List<TestAnswer> result = service.findAllTestAnswerForAQuestion(question);
@@ -57,14 +56,14 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
 
     /**
      * Method for searching test answers for a subject by its id.
-     *
+     * <p>
      * Params are as in TestAnswerService.
      *
      * @return - test answer(s) of the subject with the given id.
-     * */
+     */
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value = "/findTestAnswersBySubjectId")
     public List<TestAnswer> findTestAnswersBySubjectId(
             @RequestParam TestSubject subject) {
         List<TestAnswer> result = service.findTestAnswersBySubject(subject);
@@ -73,27 +72,24 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
 
     /**
      * Method for saving updating test answers.
-     *
+     * <p>
      * Params are as in TestAnswerService.
-     *
-     * */
+     */
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, value = "/updateTestAnswer")
     public void updateTestAnswer(
             @RequestParam TestAnswer answer) {
         service.updateTestAnswerForQuestion(answer);
     }
 
 
-
     /**
      * Method for saving creating test answers.
-     *
+     * <p>
      * Params are as in TestAnswerService.
-     *
-     * */
+     */
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, value = "/saveTestAnswer")
     public void saveTestAnswer(
             @RequestParam TestSubject testSubject,
             @RequestParam TestQuestion question,
@@ -108,21 +104,21 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
             @RequestParam Boolean timeMeasured,
             @RequestParam Boolean timeShowed,
             @RequestParam Boolean testeeExit) {
-        service.addTestAnswerForTestQuestion(testSubject,question,cognitiveTest,numberOfClick,finalAnswer,
-                questionPlacement,answerPlacement,verbalAnswer,questionWithPicture,timeToAnswer,timeMeasured,timeShowed,testeeExit);
+        service.addTestAnswerForTestQuestion(testSubject, question, cognitiveTest, numberOfClick, finalAnswer,
+                questionPlacement, answerPlacement, verbalAnswer, questionWithPicture, timeToAnswer, timeMeasured, timeShowed, testeeExit);
     }
 
     /**
      * Method for deleting test answers.
-     *
+     * <p>
      * Semantics : this operation does NOT(!) delete the question!
-     *
+     * <p>
      * If answerId == null => delete all answers for questionId.
-     *
+     * <p>
      * Params are as in TestAnswerService.
-     * */
+     */
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.DELETE)
+    @RequestMapping(method = RequestMethod.DELETE, value = "/deleteTestAnswer")
     public void deleteTestAnswer(
             @RequestParam TestQuestion question,
             @RequestParam(value = "testAnswerId", required = false) long answerId) {

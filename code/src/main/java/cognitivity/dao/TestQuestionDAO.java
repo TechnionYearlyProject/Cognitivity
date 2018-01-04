@@ -15,11 +15,11 @@ import java.util.List;
 @Repository
 public class TestQuestionDAO extends AbstractDAO<TestQuestion> {
 
-    public TestQuestion get(Long id){
+    public TestQuestion get(Long id) {
         return super.get(id, TestQuestion.class);
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         super.delete(id, TestQuestion.class);
     }
 
@@ -30,7 +30,7 @@ public class TestQuestionDAO extends AbstractDAO<TestQuestion> {
      * @return - A list of all test questions in the test
      */
     @Transactional
-    public List<TestQuestion> getTestQuestionsFromAManager(TestManager manager){
+    public List<TestQuestion> getTestQuestionsFromAManager(TestManager manager) {
         Session session = sessionFactory.getCurrentSession();
         String queryString = "from TestQuestion where testManager = :manager";
         Query<TestQuestion> query = session.createQuery(queryString, TestQuestion.class);

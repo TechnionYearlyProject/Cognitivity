@@ -51,12 +51,12 @@ public class CognitiveTestDAO extends AbstractDAO<CognitiveTest> {
      *
      * @param test - The cognitive test to which we want to get all blocks.
      *
-     * @return- A list containing all the test blocks in the test.
+     * @return - A list containing all the test blocks in the test.
      */
     @Transactional
     public List<TestBlock> getTestBlocks(CognitiveTest test){
         Session session = sessionFactory.getCurrentSession();
-        String queryString = "from TestBlock  T where T.cognitiveTest = :test";
+        String queryString = "from TestBlock T where T.cognitiveTest = :test";
         Query<TestBlock> query = session.createQuery(queryString, TestBlock.class);
         query.setParameter("test", test);
         return query.getResultList();

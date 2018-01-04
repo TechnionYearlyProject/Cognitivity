@@ -28,6 +28,9 @@ public class TestSubject extends AbstractEntity {
 		this.browser = browser;
 	}
 
+    public TestSubject() {
+    }
+
 	/**
 	* Returns value of name
 	* @return

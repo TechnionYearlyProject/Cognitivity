@@ -1,14 +1,15 @@
 package cognitivity.web.app.config;
 
+import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import javax.persistence.EntityManagerFactory;
 
 
 /**
@@ -18,10 +19,9 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan("cognitivity.web.app")
-public class WebConfig extends WebMvcConfigurerAdapter {
+@ComponentScan("cognitivity")
+public class CognitivityMvcConfiguration {
 
-    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/static/js/**")
                 .addResourceLocations("/resources/static/js/");
@@ -43,8 +43,12 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         return resolver;
     }
 
-    @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
+    public SessionFactory getSessionFactory(EntityManagerFactory entityManagerFactory) {
+        SessionFactory unwrap = entityManagerFactory.unwrap(SessionFactory.class);
+        if (unwrap == null) {
+            throw new NullPointerException("factory is not a hibernate factory");
+        }
+        return unwrap;
     }
+
 }

@@ -15,11 +15,7 @@ import java.util.List;
  */
 
 @Service
-public class TestSubjectService extends cognitivity.services.AbstractService {
-
-    public TestSubjectService() {
-
-    }
+public class TestSubjectService {
 
     /**
      * Save a TestSubject.

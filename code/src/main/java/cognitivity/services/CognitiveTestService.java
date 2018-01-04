@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 @Service
-public class CognitiveTestService extends AbstractService{
+public class CognitiveTestService {
 
 
     /**

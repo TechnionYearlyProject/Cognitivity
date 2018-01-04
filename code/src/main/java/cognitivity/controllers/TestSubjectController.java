@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("test-subjects")
+@RequestMapping("/test-subjects")
 public class TestSubjectController extends AbstractRestController<TestSubjectService> {
 
     public TestSubjectController() {
@@ -28,14 +28,14 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
 
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value = "/findTestSubjectsForTestCriteria")
     public List<TestSubject> findTestSubjectsForTestCriteria(
             @RequestParam(value = "testSubjectId") long testSubjectId,
             @RequestParam(value = "testId", required = false) Long testId) {
         List<TestSubject> result;
         if (testId == null) {
             // Then return test subject with id
-            result = new ArrayList<TestSubject>();
+            result = new ArrayList<>();
             result.add(service.findTestSubject(testSubjectId));
         } else {
             // Then return all test subjects who took the cognitive test.
@@ -52,7 +52,7 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
      * Params are as in TestSubjectService.
      */
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, value = "/saveTestSubject")
     public void saveTestSubject(
             @RequestParam String name,
             @RequestParam Integer ipAddress,
@@ -67,7 +67,7 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
      * Params are as in TestSubjectService.
      */
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, value = "/updateTestSubject")
     public void updateTestSubject(
             @RequestParam TestSubject subject){
         service.updateTestSubject(subject);
@@ -79,7 +79,7 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
      * Params are as in TestSubjectService.
      */
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.DELETE)
+    @RequestMapping(method = RequestMethod.DELETE, value = "/deleteTestSubject")
     public void deleteTestSubject(@RequestParam long testSubjectId) {
         service.deleteTestSubject(testSubjectId);
     }

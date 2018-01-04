@@ -1,6 +1,5 @@
 package cognitivity.controllers;
 
-import cognitivity.dao.TestQuestionDAO;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestQuestion;
@@ -12,7 +11,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("test-questions")
+@RequestMapping("/test-questions")
 public class TestQuestionController extends AbstractRestController<QuestionService> {
 
     public TestQuestionController() {
@@ -28,7 +27,7 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
      * */
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value = "/findTestQuestionsForTestCriteriaById")
     public List<TestQuestion> findTestQuestionsForTestCriteriaById(
             @RequestParam(value = "testManagerId") long testManagerId,
             @RequestParam(value = "testId", required = false) Long testId) {
@@ -50,7 +49,7 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
      * If questionId is null, then create. otherwise - update.
      * */
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, value = "/saveCognitiveTestQuestion")
     public void saveCognitiveTestQuestion(
             @RequestParam String question,
             @RequestParam  Integer questionType,
@@ -71,7 +70,7 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
      * If questionId is null, then create. otherwise - update.
      * */
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, value = "/updateCognitiveTestQuestion")
     public void updateCognitiveTestQuestion(
             @RequestParam TestQuestion question) {
         service.updateTestQuestion(question);
@@ -83,9 +82,9 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
      * Params are as in TestQuestionService.
      * */
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.DELETE)
-    public void deleteCognitiveTest(@RequestParam long quesstionId) {
-        service.deleteTestQuestion(quesstionId);
+    @RequestMapping(method = RequestMethod.DELETE, value = "/deleteCognitiveTest")
+    public void deleteCognitiveTest(@RequestParam long questionId) {
+        service.deleteTestQuestion(questionId);
     }
 
 }

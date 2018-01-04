@@ -1,24 +1,20 @@
 package cognitivity.web.app;
 
-
+import cognitivity.web.app.config.CognitivityMvcConfiguration;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
-@Configuration
-@EnableWebMvc
-@ComponentScan(basePackages = "cognitivity.security")
-public class WebAppInitializer implements WebApplicationInitializer {
+public class CognitivityApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer implements WebApplicationInitializer {
 
     private static final String CONFIG_LOCATION = "cognitivity.web.app.config";
     private static final String SERVLET_MAPPING = "/cognitivity/";
+    private static final Class<?> servletConfigClass = CognitivityMvcConfiguration.class;
 
     public void onStartup(ServletContext servletContext) throws ServletException {
 
@@ -35,5 +31,20 @@ public class WebAppInitializer implements WebApplicationInitializer {
         servlet.addMapping(SERVLET_MAPPING);
         servlet.setAsyncSupported(true);
         servlet.setLoadOnStartup(1);
+    }
+
+    @Override
+    protected String[] getServletMappings() {
+        return new String[]{SERVLET_MAPPING};
+    }
+
+    @Override
+    protected Class<?>[] getRootConfigClasses() {
+        return new Class[0];
+    }
+
+    @Override
+    protected Class<?>[] getServletConfigClasses() {
+        return new Class<?>[]{servletConfigClass};
     }
 }

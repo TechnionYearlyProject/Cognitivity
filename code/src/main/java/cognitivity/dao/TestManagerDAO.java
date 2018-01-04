@@ -9,11 +9,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class TestManagerDAO extends AbstractDAO<TestManager> {
 
-    public TestManager get(Long id){
+    public TestManager get(Long id) {
         return super.get(id, TestManager.class);
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         super.delete(id, TestManager.class);
     }
 }

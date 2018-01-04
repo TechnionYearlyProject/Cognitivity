@@ -3,9 +3,8 @@ package cognitivity.services;
 import cognitivity.dao.CognitiveTestDAO;
 import cognitivity.dao.TestAnswerDAO;
 import cognitivity.dao.TestManagerDAO;
-import cognitivity.entities.*;
 import cognitivity.dao.TestQuestionDAO;
-import org.springframework.beans.factory.annotation.Autowired;
+import cognitivity.entities.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,15 +16,7 @@ import java.util.List;
  */
 
 @Service
-public class QuestionService extends AbstractService {
-
-    @Autowired
-    public QuestionService(TestQuestion question) {
-    }
-
-    public QuestionService() {
-
-    }
+public class QuestionService {
 
     /**
      * Save a TestQuestion.

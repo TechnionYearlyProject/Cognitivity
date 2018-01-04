@@ -6,7 +6,7 @@ import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestAnswer;
 import cognitivity.entities.TestQuestion;
 import cognitivity.entities.TestSubject;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -15,15 +15,8 @@ import java.util.List;
  * Business service for answers to test questions related operations.
  *
  */
-public class TestAnswerService extends AbstractService {
-
-    @Autowired
-    public TestAnswerService(TestAnswer repository) {
-    }
-
-    public TestAnswerService() {
-
-    }
+@Service
+public class TestAnswerService {
 
     /**
      * Create a test answer, and add it to the DB.

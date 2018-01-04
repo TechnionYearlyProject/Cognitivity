@@ -1,13 +1,11 @@
 package cognitivity.controllers;
 
-import cognitivity.dao.CognitiveTestDAO;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
 import cognitivity.services.CognitiveTestService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,23 +13,25 @@ import java.util.List;
  * specific test manager or in general - by test id.
  */
 @RestController
-@RequestMapping("tests")
+@RequestMapping("/tests")
 public class CognitiveTestController extends AbstractRestController<CognitiveTestService> {
 
-    public CognitiveTestController() { super(new CognitiveTestService());}
+    public CognitiveTestController() {
+        super(new CognitiveTestService());
+    }
 
 
     /**
      * Method for searching for all cognitive tests of a manager.
-     *
+     * <p>
      * Params are as in CognitiveTestService.
      *
      * @return - Cognitive test(s) for the test manager.
-     * */
+     */
 
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value = "/findTestsForTestManager")
     public List<CognitiveTest> findTestsForTestManager(
             @RequestParam TestManager manager) {
         return service.findTestsForTestManager(manager);
@@ -40,42 +40,42 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
 
     /**
      * Method for saving tests.
-     *
+     * <p>
      * Params are as in CognitiveTestService.
      * If testId is null, then create. otherwise - update.
-     * */
+     */
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, value = "/saveCognitiveTest")
     public void saveCognitiveTest(
             @RequestParam(value = "name") String name,
             @RequestParam TestManager manager,
             @RequestParam(value = "state") Integer state,
-            @RequestParam(value = "numberOfQuestion") Integer numberOfQuestions){
-        service.createTestForTestManager(name,manager,state,numberOfQuestions);
+            @RequestParam(value = "numberOfQuestion") Integer numberOfQuestions) {
+        service.createTestForTestManager(name, manager, state, numberOfQuestions);
 
     }
 
     /**
      * Method for updating tests.
-     *
+     * <p>
      * Params are as in CognitiveTestService.
      * If testId is null, then create. otherwise - update.
-     * */
+     */
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, value = "/updateCognitiveTest")
     public void updateCognitiveTest(
-            @RequestParam CognitiveTest test){
+            @RequestParam CognitiveTest test) {
         service.updateTestForTestManager(test);
 
     }
 
     /**
      * Method for delete tests.
-     *
+     * <p>
      * Params are as in CognitiveTestService.
-     * */
+     */
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.DELETE)
+    @RequestMapping(method = RequestMethod.DELETE, value = "/deleteCognitiveTest")
     public void deleteCognitiveTest(@RequestParam CognitiveTest test) {
         service.deleteTestForTestManager(test);
     }

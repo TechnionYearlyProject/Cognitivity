@@ -1,6 +1,5 @@
 package cognitivity.controllers;
 
-import cognitivity.dao.TestManagerDAO;
 import cognitivity.entities.TestManager;
 import cognitivity.services.TestManagerService;
 import org.springframework.http.HttpStatus;
@@ -11,7 +10,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("test-managers")
+@RequestMapping("/test-managers")
 public class TestManagerController extends AbstractRestController<TestManagerService> {
 
     public TestManagerController() {
@@ -28,7 +27,7 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
      */
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value = "/findTestManagersForTestCriteria")
     public List<TestManager> findTestManagersForTestCriteria(
             @RequestParam(value = "testManagerId") long testManagerId,
             @RequestParam(value = "testId", required = false) Long testId) {
@@ -51,7 +50,7 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
      * If testManagerId is null, then create. otherwise - update.
      */
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, value = "/updateTestManager")
     public void updateTestManager(
             @RequestParam TestManager manager) {
         service.updateTestManager( manager);
@@ -65,7 +64,7 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
      * If testManagerId is null, then create. otherwise - update.
      */
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, value = "/saveTestManager")
     public void saveTestManager(
             @RequestParam(value = "name")String name,
             @RequestParam(value = "password")String password) {
@@ -78,7 +77,7 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
      * Params are as in TestManagerService.
      */
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.DELETE)
+    @RequestMapping(method = RequestMethod.DELETE, value = "/deleteTestManager")
     public void deleteTestManager(@RequestParam long testManagerId) {
         service.deleteTestManager(testManagerId);
     }

@@ -13,7 +13,6 @@ import javax.persistence.Table;
 @Table(name = "testManager")
 public class TestManager extends AbstractEntity {
 
-
     @Column(name = "name")
     private String name;
 
@@ -23,6 +22,9 @@ public class TestManager extends AbstractEntity {
 	public TestManager(String name, String password) {
 		this.name = name;
 		this.password = password;
+	}
+
+	public TestManager() {
 	}
 
 	/**

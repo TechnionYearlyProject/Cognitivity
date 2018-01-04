@@ -2,7 +2,6 @@ package cognitivity.entities;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.Calendar;
 
 /**
@@ -52,6 +51,9 @@ public class CognitiveTest extends AbstractEntity {
 
     @Column(name = "numberOfQuestions", nullable = false)
     private Integer numberOfQuestions;
+
+    public CognitiveTest() {
+    }
 
 	/**
 	* Returns value of name

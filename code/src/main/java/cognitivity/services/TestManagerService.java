@@ -1,8 +1,8 @@
 package cognitivity.services;
 
+import cognitivity.dao.TestManagerDAO;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
-import cognitivity.dao.TestManagerDAO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,15 +14,7 @@ import java.util.List;
  */
 
 @Service
-public class TestManagerService extends AbstractService {
-
-
-    public TestManagerService(TestManager manager) {
-    }
-
-    public TestManagerService() {
-
-    }
+public class TestManagerService {
 
     /**
      * Save a TestManager.

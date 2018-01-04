@@ -3,7 +3,6 @@ package cognitivity.dao;
 import cognitivity.entities.AbstractEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 
@@ -12,7 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 public abstract class AbstractDAO <DataType extends AbstractEntity> {
     // creates the objects which will be used to create hibernate objects
     // the bean that will be autowired here will be the one with the hibernate setting
-    @Autowired
+
+    //@Autowired
     protected SessionFactory sessionFactory;
 
     /**
@@ -21,8 +21,7 @@ public abstract class AbstractDAO <DataType extends AbstractEntity> {
     @Transactional(readOnly = true)
     protected DataType get(Long id, Class<DataType> DataTypeClass){
         Session session = sessionFactory.getCurrentSession();
-        DataType data = session.get(DataTypeClass, id);
-        return data;
+        return session.get(DataTypeClass, id);
     }
 
     // updates CognitiveTest object
