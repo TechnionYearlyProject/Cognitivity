@@ -1,6 +1,10 @@
 package cognitivity.web.app.config;
 
 import org.hibernate.SessionFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +24,7 @@ import javax.persistence.EntityManagerFactory;
 @EnableWebMvc
 @Configuration
 @ComponentScan("cognitivity")
-public class CognitivityMvcConfiguration {
+public class CognitivityMvcConfiguration implements BeanDefinitionRegistryPostProcessor {
 
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/static/js/**")
@@ -51,4 +55,23 @@ public class CognitivityMvcConfiguration {
         return unwrap;
     }
 
+    @Override
+    public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
+        /*Reflections reflections = new Reflections("cognitivity.controllers");
+        Set<Class<? extends AbstractRestController>> classes = reflections.getSubTypesOf(AbstractRestController.class);
+        for (Class<?> clazz : classes) {
+            if (!clazz.getName().endsWith("Controller")) continue;
+            if (Modifier.isAbstract(clazz.getModifiers())) continue;
+            System.out.println(clazz.getName());
+            BeanDefinition beanDefinition = new RootBeanDefinition(clazz, Autowire.BY_TYPE.value(), true);
+            beanDefinitionRegistry.registerBeanDefinition(clazz.getSimpleName(), beanDefinition);
+        }*/
+        // BeanDefinition cognitiveTestController = new RootBeanDefinition(CognitiveTestController.class, Autowire.BY_TYPE.value(), true);
+        // beanDefinitionRegistry.registerBeanDefinition("cognitiveTestController", cognitiveTestController);
+    }
+
+    @Override
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
+
+    }
 }
