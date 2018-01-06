@@ -4,8 +4,7 @@
       <div class="row">
         <div class="col-4">
           <p>
-            <a class="btn btn-outline-primary btn-lg  " data-toggle="collapse" href="#questionBody1" role="button" aria-expanded="false"
-              aria-controls="questionBody1">{{questionName}}</a>
+            <a class="btn btn-outline-primary btn-lg  " (click)="toggleHidden()">{{questionName}}</a>
           </p>
           <a href="#" class="btn btn-secondary btn-sm">
             <span class="fa fa-cog"></span> Edit question
@@ -20,7 +19,7 @@
         </div>
       </div>
     </div>
-    <div class="card-body collapse multi-collapse " id="questionBody1">
+    <div class="card-body" [hidden]="hidden">
       <app-multiple-question *ngIf="type==0"></app-multiple-question>
       <app-rate-question *ngIf="type==1"></app-rate-question>
       <app-open-question *ngIf="type==2"></app-open-question>
