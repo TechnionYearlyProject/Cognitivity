@@ -30,9 +30,6 @@ public class TestQuestion extends AbstractEntity {
 	@JoinColumn(name = "id")
 	private CognitiveTest project;
 
-    public TestQuestion() {
-    }
-
 	public TestManager getTestManager() {
 		return testManager;
 	}
