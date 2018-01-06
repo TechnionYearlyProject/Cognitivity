@@ -109,10 +109,10 @@ public class CognitiveTestDAOTest {
         cognitiveTestDAO.delete(anotherCognitiveTest.getId());
     }
 
-    
+
     /*
      * checks the getTestQuestions function:
-     *     make sure thest the list that returns is empty
+     *     make sure that the list that returns is empty
      *
      *     note :
      *        add and remove questions will be checked in the testQuestionDAOTests
