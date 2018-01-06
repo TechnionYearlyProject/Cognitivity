@@ -10,8 +10,10 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/test-managers")
+@RequestMapping(TestManagerController.baseMapping)
 public class TestManagerController extends AbstractRestController<TestManagerService> {
+
+    public static final String baseMapping = "/test-managers";
 
     public TestManagerController() {
         super(new TestManagerService());

@@ -13,8 +13,10 @@ import java.util.List;
  * specific test manager or in general - by test id.
  */
 @RestController
-@RequestMapping("/tests")
+@RequestMapping(CognitiveTestController.baseMapping)
 public class CognitiveTestController extends AbstractRestController<CognitiveTestService> {
+
+    public static final String baseMapping = "/tests";
 
     public CognitiveTestController() {
         super(new CognitiveTestService());
