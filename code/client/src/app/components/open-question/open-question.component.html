@@ -1,14 +1,20 @@
 
 <br>
-<h2 >{{question.questionText }}</h2>
+<div *ngIf = "isUp()">
+        <h2 [ngClass] = "positionUp">{{question.questionText }}</h2>
+</div> 
 <br>
 <br>
 <br>
-<div class="container">
-    <input class="form-control" type="text" name="answer" placeholder="Enter your answer here" [(ngModel)]="currentAnswer" id="#textBox" >
+    <div class="container">
+        <input class="form-control" type="text" name="answer" placeholder="Enter your answer here" [(ngModel)]="currentAnswer" id="#textBox">
+    
+    </div>
+<br>
+<br>
+<div *ngIf = "isButtom()">
+        <h2 [ngClass] = "positionButtom">{{question.questionText }}</h2>
 </div>
-<br>
-<br>
 <div class="container">
     <h4>How confident you feel in your answer, in precentage?</h4>
 </div>
