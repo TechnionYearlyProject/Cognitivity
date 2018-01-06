@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { QuestionListComponent } from './question-list/question-list.component';
 
 @Component({
   selector: 'app-block',
@@ -9,10 +10,11 @@ export class BlockComponent implements OnInit {
 
   blockNumber:number;
   
-
+  questionsList:QuestionListComponent;
   constructor() { }
 
   ngOnInit() {
+    this.questionsList=new QuestionListComponent();
   }
 
 }
