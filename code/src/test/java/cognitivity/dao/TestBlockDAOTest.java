@@ -1,6 +1,9 @@
 package cognitivity.dao;
 
+import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
+import cognitivity.entities.TestManager;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -12,6 +15,26 @@ public class TestBlockDAOTest {
     TestBlock testBlock;
 
     /*
+     * the initialization creates (before this class tests runs") the following objects:
+     *
+     *  - testBlockDAO
+     *  - testBlock
+     *
+     */
+    @Before
+    public void initialize(){
+        CognitiveTestDAO cognitiveTestDAO = new CognitiveTestDAO();
+        testBlockDAO = new TestBlockDAO();
+        TestManager testManager =
+                new TestManager("onlyForTests TestManager", "notarealpassword");
+        CognitiveTest cognitiveTest =
+                new CognitiveTest("onlyForTests", testManager, 1, 0);
+        testBlock = new TestBlock(0,false, "testTag", cognitiveTest);
+        cognitiveTestDAO.add(cognitiveTest);
+
+    }
+
+    /*
      * This test will check only the basic CRUD functionality:
      *
      *  - Create : we call the add function and trying to add block to the db
@@ -19,7 +42,7 @@ public class TestBlockDAOTest {
      *  - Read : we call the get function with fue parameters,
      *      once, with id that don't exists, one with id that do exists
      *  - Update : we call the update function and check that the data in the db changed
-     *  - Delete : we call the delete function and delete if the answer steel in the db
+     *  - Delete : we call the delete function and delete if the answer still in the db
      */
     @Test
     void crudTests(){

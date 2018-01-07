@@ -45,7 +45,7 @@ public class CognitiveTestDAOTest {
      *  - Read : we call the get function with feu parameters,
      *      once, with id that don't exists, one with id that do exists
      *  - Update : we call the update function and check that the data in the db changed
-     *  - Delete : we call the delete function and delete if the answer steel in the db
+     *  - Delete : we call the delete function and delete if the answer still in the db
      *
      */
     @Test
