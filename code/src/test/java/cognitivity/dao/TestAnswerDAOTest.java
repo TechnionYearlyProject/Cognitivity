@@ -60,7 +60,7 @@ public class TestAnswerDAOTest {
      *
      *  - Create : we call the add function and trying to add the answer to the db
      *      we check if we succeed by trying to fetch the answer by id
-     *  - Read : we call the get function with feu parameters,
+     *  - Read : we call the get function with fue parameters,
      *      once, with id that don't exists, one with id that do exists
      *  - Update : we call the update function and check that the data in the db changed
      *  - Delete : we call the delete function and delete if the answer steel in the db
@@ -79,9 +79,9 @@ public class TestAnswerDAOTest {
         assertTrue("finalAnswer update incorrect",
                 newFinalAnswer == testAnswerDAO.get(testAnswer.getId()).getFinalAnswer());
         testAnswer.setFinalAnswer(finalAnswer);
+        testAnswerDAO.update(testAnswer);
         assertTrue("finalAnswer incorrect",
                 finalAnswer == testAnswerDAO.get(testAnswer.getId()).getFinalAnswer());
-        testAnswerDAO.update(testAnswer);
         testAnswerDAO.delete(testAnswer.getId());
         assertNull("delete problem", testAnswerDAO.get(testAnswer.getId()));
     }
