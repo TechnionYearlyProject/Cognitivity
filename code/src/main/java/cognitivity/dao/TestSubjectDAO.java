@@ -45,6 +45,14 @@ public class TestSubjectDAO extends AbstractDAO<TestSubject> {
      */
     @Transactional
     public List<TestSubject> getTestSubjectsWhoParticipatedInTest(long testId) {
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        CognitiveTestDAO cognitiveTestDAO = new CognitiveTestDAO();
+        String queryString =
+                "select testSubject " +
+                "from TestSubject testSubject, TestAnswer testAnswer " +
+                "where testSubject.id = testAnswer.id AND testAnswer.CognitiveTest = :cognitiveTest";
+        Query<TestSubject> query = session.createQuery(queryString, TestSubject.class);
+        query.setParameter("cognitiveTest", cognitiveTestDAO.get(testId));
+        return query.getResultList();
     }
 }

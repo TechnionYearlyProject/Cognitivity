@@ -21,7 +21,6 @@ public class TestManagerDAOTest {
      */
     @Before
     public void initialize(){
-        CognitiveTestDAO cognitiveTestDAO = new CognitiveTestDAO();
         testManagerDAO = new TestManagerDAO();
         testManager =
                 new TestManager("BB", "notarealpassword");

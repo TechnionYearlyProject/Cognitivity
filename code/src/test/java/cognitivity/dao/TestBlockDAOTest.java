@@ -23,15 +23,11 @@ public class TestBlockDAOTest {
      */
     @Before
     public void initialize(){
-        CognitiveTestDAO cognitiveTestDAO = new CognitiveTestDAO();
         testBlockDAO = new TestBlockDAO();
         TestManager testManager =
                 new TestManager("onlyForTests TestManager", "notarealpassword");
-        CognitiveTest cognitiveTest =
-                new CognitiveTest("onlyForTests", testManager, 1, 0);
+        CognitiveTest cognitiveTest = new CognitiveTest("onlyForTests", testManager, 0, 1);
         testBlock = new TestBlock(0,false, "testTag", cognitiveTest);
-        cognitiveTestDAO.add(cognitiveTest);
-
     }
 
     /*

@@ -72,9 +72,9 @@ public class CognitiveTestDAO extends AbstractDAO<CognitiveTest> {
     @Transactional
     public List<CognitiveTest> getCognitiveTestOfManager(TestManager manager){
         Session session = sessionFactory.getCurrentSession();
-        String queryString = "from CognitiveTest where id = :managerId";
+        String queryString = "from CognitiveTest where testManager = :manager";
         Query<CognitiveTest> query = session.createQuery(queryString, CognitiveTest.class);
-        query.setParameter("managerId", manager.getId());
+        query.setParameter("manager", manager);
 
         return query.getResultList();
     }

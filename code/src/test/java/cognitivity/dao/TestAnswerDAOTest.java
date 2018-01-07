@@ -40,14 +40,12 @@ public class TestAnswerDAOTest {
     @Before
     public void initialize(){
         testAnswerDAO = new TestAnswerDAO();
-        CognitiveTestDAO cognitiveTestDAO = new CognitiveTestDAO();
         testManager =
                 new TestManager("onlyForTests TestManager", "notarealpassword");
         cognitiveTest =
                 new CognitiveTest("onlyForTests", testManager, 1, 0);
         testBlock = new TestBlock(0,false, "testTag", cognitiveTest);
         testQuestion = new TestQuestion("testQuestion", 0, null, "testTag", testBlock, cognitiveTest);
-        cognitiveTestDAO.add(cognitiveTest);
         testSubject = new TestSubject("testName",-1, "fireFox");
         testAnswer = new TestAnswer(testSubject, testQuestion,
                 cognitiveTest, 0, 0, 0,
