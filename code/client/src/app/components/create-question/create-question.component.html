@@ -13,18 +13,15 @@
           <div class="form-group">
             <div class="centered">
               <label for="Question text"><span style="font-family:Ariel; font-size: 25px; color: white">Enter the question:</span></label>
-              <input [(ngModel)] = "questionText" name = "question2" #question = "ngModel" type="text" class="form-control" placeholder="Question text" style="max-width: 100%;" required pattern="[a-zA-Z0-9]+[?]{1}"><br>
+              <input [(ngModel)] = "questionText" name = "question2" #question = "ngModel" type="text" class="form-control" placeholder="Question text" style="max-width: 100%;" required ><br>
               <div *ngIf = "question.errors?.required && submit" style="color: red;">
                   A question is required
-              </div>
-              <div *ngIf = "question.errors?.pattern && submit" style="color: red;">
-                    Please add a question mark for proper question structure
               </div>
               <br>
             </div>
             <div  class="container">
                 <div class="dropdown">
-                    <button class="dropbtn"><span class="fa fa-chevron-down"> Question Types</span></button>
+                    <button class="dropbtn" [hidden] = "editionMode"><span class="fa fa-chevron-down" > Question Types</span></button>
 
                     <div class="dropdown-content">
                           <button class = "btn btn-basic" *ngIf="!didChoseMultipleQuestion()" style="min-width: 250px;" (click)="setMultipleQuestion()">Multiple choice question</button>
@@ -37,7 +34,7 @@
 
                 </div>
                 <div class="dropdown">
-                    <button class="dropbtn" style="margin: 0em 0.5em;"><span class="fa fa-chevron-down"> Question position</span></button>
+                    <button class="dropbtn" style="margin: 0em 0.5em;" [hidden] = "editionMode"><span class="fa fa-chevron-down"> Question position</span></button>
                     <div class="dropdown-content">
                         <button class="btn btn-basic" *ngIf = "!didChoseUpperRight()" style="min-width: 250px;" (click) = "setUpperRightPosition()">Upper Right</button>
                         <button class="btn btn-primary" *ngIf = "didChoseUpperRight()" style="min-width: 250px;"(click) = "setUpperRightPosition()">Upper Right</button>
@@ -61,7 +58,7 @@
  
                 </div>
                 <div class="dropdown" [hidden]="!didChoseMultipleQuestion()">
-                    <button class="dropbtn"><span class="fa fa-chevron-down"> Answer Organization </span></button>
+                    <button class="dropbtn" [hidden] = "editionMode"><span class="fa fa-chevron-down" > Answer Organization </span></button>
                     <div class="dropdown-content">
                         <button class="btn btn-basic" *ngIf = "!didChoseHorizontalType()" style="min-width: 250px;" (click) = "setHorizontalType()"> Horizontal</button>
                         <button class="btn btn-primary" *ngIf = "didChoseHorizontalType()" style="min-width: 250px;" (click) = "setHorizontalType()"> Horizontal</button>
@@ -72,6 +69,9 @@
                     </div>
 
                 </div>
+                
+            </div>
+            <div class="centered">
                 <br>
                 <div *ngIf = "!didChoseQuestionType() && submit" style = "color: red;">
                         Please chose type for your question
@@ -95,35 +95,62 @@
             </h2>
 
           </div>
-          <!--
-          <div class="centered">
-            <span style="font-family:Ariel; font-size: 25px; color: white">Answers so far:</span>
-            <ul clss="list-group">
-              <li class="list-group-item" style="max-width: 500px;background-color: transparent;">
-                  <span style="font-family: Ariel; font-size: 25px;color: white;">Christopher Nolan</span>
-                  <br>
-                  <button class="btn btn-secondary"><span class="fa fa-trash"></span> Delete answer</button>
-                  <button class="btn btn-primary"><span class="fa fa-pencil"></span> Edit answer</button>
-              </li>
-              <li class="list-group-item" style="max-width: 500px;background-color: transparent;">
-                  <span style="font-family: Ariel; font-size: 25px;color: white">Robert Downey Jr.</span>
-                  <br>
-                  <button class="btn btn-secondary"><span class="fa fa-trash"></span> Delete answer</button>
-                  <button class="btn btn-primary"><span class="fa fa-pencil"></span> Edit answer</button>
-              </li>
-            </ul>
+          <div *ngIf = "didChoseOpenQuestion()" class="centered">
+                <label for="Question text"><span style="font-family:Ariel; font-size: 25px; color: white">Enter the answer:</span></label>
+                <input [(ngModel)] = "answerText" name = "answer" #answer = "ngModel" type="text" class="form-control" placeholder="Answer text" style="max-width: 100%;" required>
+                <br>
+                <div *ngIf = "answer.errors?.required && submit && answer.touched" style="color: red;">
+                       Please add an answer to the question
+                </div>
+                <br>
           </div>
-          <div class="form-group">
-            <div class="centered">
-              
-              <label for="Answer text"><span style="font-family:Ariel; font-size: 25px; color: white">Enter an answer for the question:</span></label>
-              <input type="text" class="form-control" placeholder="Answer text" style="max-width: 100%">
-              <button class="btn btn-primary" style="margin:1em 0em;"><span class="fa fa-plus"></span> Add answer</button>
+          <div *ngIf = "didChoseMultipleQuestion() && (didChoseVerticalType() || didChoseHorizontalType())">
 
+            <div class="form-group">
+                <div class="centered">
+                    <div *ngIf="haveAnswers()">
+                        <span style="font-family:Ariel; font-size: 25px; color: white">Answers so far:</span>
+                        <ul class="list-group">
+                            
+                            <div *ngFor="let answer of answers; let i = index">
+                                <li class="list-group-item" style="max-width: 100%;background-color: transparent;">
+                                    <span style="margin: 10px; font-family: Ariel; font-size: 25px;color: white;">{{answer.answer}}</span>
+                                    <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="goUp(i)" [disabled] = "editionMode"><span class="fa fa-arrow-up"></span></button>
+                                    <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="goDown(i)" [disabled] = "editionMode"><span class="fa fa-arrow-down"></span></button>
+                                    <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="deleteAnswer(i)" [disabled] = "editionMode"><span class="fa fa-trash"></span> Delete answer</button>
+                                    <button class="btn btn-sm btn-primary" (click)="editAnswer(i)" [disabled] = "editionMode"><span class="fa fa-pencil" ></span> Edit answer</button>
+                                </li>
+                            </div>
+
+                        </ul>
+                        
+                    </div>
+                    
+                    <div *ngIf="!editionMode">
+                        <label for="Answer text"><span style="font-family:Ariel; font-size: 25px; color: white">Enter an answer for the question:</span></label>
+                        <input [(ngModel)] = "answerTextForMultiple" name = "answerMutiple" #answerMultiple = "ngModel" type="text" class="form-control" placeholder="Answer text" style="max-width: 100%;">
+                        <button class="btn btn-primary" style="margin:1em 0em;" (click)="addAnswer()"><span class="fa fa-plus"></span> Add answer</button>
+                    </div>
+                    <div *ngIf="editionMode">
+                            <label for="Answer text"><span style="font-family:Ariel; font-size: 25px; color: white">Edit your answer: </span></label>
+                            <input [(ngModel)] = "answerTextForMultiple" name = "answerMutiple" #answerMultiple = "ngModel" type="text" class="form-control" placeholder="Answer text" style="max-width: 100%;">
+                            <button class="btn btn-primary" style="margin:1em 0em;" (click)="applyEdit()"><span class="fa fa-pencil"></span> Apply change</button>
+                            <button class="btn btn-primary" style="margin:1em 0em;" (click)="undo()"><span class="fa fa-undo"></span> Undo change</button>
+                    </div>
+
+                </div>
             </div>
-          </div>-->
+            <div class="centered">
+                <div *ngIf="!haveAnswers() && submit" style="color: red;">
+                        Please enter at least one answer
+                </div>
+            </div>
+            <br>
+  
+          </div>
+
           <div class="container">
-              <input type="submit" value="Submit Question"  (click)="onSubmit(f)" class="btn btn-primary btn-md">
+              <input type="submit" value="Submit Question"  (click)="onSubmit(f)" class="btn btn-primary btn-md" [disabled] = "editionMode">
           </div>
           
       </form>

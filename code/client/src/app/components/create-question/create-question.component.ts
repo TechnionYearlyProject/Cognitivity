@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TypeMultipleQuestion, TypeQuestion, QuestionPosition} from '../../models';
+import { TypeMultipleQuestion, TypeQuestion, QuestionPosition, MultipleAnswer} from '../../models';
 @Component({
   selector: 'app-create-question',
   templateUrl: './create-question.component.html',
@@ -17,6 +17,8 @@ export class CreateQuestionComponent implements OnInit {
     ------------ multiple choice question details -----------
   */
   typeMultipleQuestion?: TypeMultipleQuestion;
+  answers?: Array<MultipleAnswer> = new Array();
+  answerTextForMultiple?: string;
 
   /*
     ------------ rate question details ----------------------
@@ -30,6 +32,8 @@ export class CreateQuestionComponent implements OnInit {
 
 
   submit: boolean = false;
+  editionMode: boolean = false;
+  indexAnswerInEdit: number = -1;
   constructor() { }
 
   ngOnInit() {
@@ -214,5 +218,50 @@ export class CreateQuestionComponent implements OnInit {
   }
   didChoseMultipleChoiceType():boolean {
     return this.didChoseMatrixType() || this.didChoseVerticalType() || this.didChoseHorizontalType();
+  }
+
+  addAnswer(){
+    this.answers.splice(this.answers.length, 0, {isMarked: false, answer: this.answerTextForMultiple});
+    this.answerTextForMultiple = '';
+  }
+
+  haveAnswers(): boolean{
+    return this.answers.length > 0;
+  }
+
+  deleteAnswer(index: number){
+    this.answers.splice(index,1);
+  }
+
+  editAnswer(index: number){
+    this.answerTextForMultiple = this.answers[index].answer;
+    this.editionMode = true;
+    this.indexAnswerInEdit = index;
+  }
+
+  applyEdit(){
+    this.answers.splice(this.indexAnswerInEdit, 1, {isMarked: false, answer: this.answerTextForMultiple})
+    this.editionMode = false;
+    this.indexAnswerInEdit = -1;
+    this.answerTextForMultiple = '';
+  }
+  undo(){
+    this.editionMode = false;
+    this.answerTextForMultiple = '';
+    this.indexAnswerInEdit = -1;
+  }
+
+  goUp(index: number){
+    if(index != 0){
+      let removed = this.answers.splice(index, 1)
+      this.answers.splice(index - 1, 0, removed[0]);
+    } 
+  }
+
+  goDown(index: number){
+    if(index != this.answers.length - 1){
+      let removed = this.answers.splice(index, 1)
+      this.answers.splice(index + 1, 0, removed[0]);
+    }
   }
 }
