@@ -65,11 +65,11 @@ export interface OpenQuestion extends Question {
 }
 
 export interface Test {
-    id: number,
+    id?: number,
     name: string,
     numberOfQuestions: number,
     status: number,
-    managerId: number,
+    managerId: string,
     lastModified: string,
     lastAnswered: string,
     numberOfFiledCopies: number
@@ -78,7 +78,7 @@ export interface Test {
 /* Manager properties */
 //TODO: Check with Guy and Peer about the properties of the user.
 export interface Manager {
-    id: number,
+    id?: number,
     name: string,
     userName: string
 }

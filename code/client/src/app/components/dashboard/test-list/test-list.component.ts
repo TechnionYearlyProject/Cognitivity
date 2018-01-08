@@ -23,7 +23,7 @@ export class TestListComponent implements OnInit {
   async ngOnInit() {
     try {
       this.manager = await this.authService.getCurrentManager();
-      this.testList = await this.testService.getTestsForTestManager(this.manager.id);
+      this.testList = await this.testService.findTestsForTestManager(this.manager.id);
     } catch(err) {
       console.log(err);
     }
