@@ -13,8 +13,10 @@ import java.util.List;
  * specific test manager or in general - by test id.
  */
 @RestController
-@RequestMapping("/tests")
+@RequestMapping(CognitiveTestController.baseMapping)
 public class CognitiveTestController extends AbstractRestController<CognitiveTestService> {
+
+    public static final String baseMapping = "/tests";
 
     public CognitiveTestController() {
         super(new CognitiveTestService());
@@ -33,8 +35,8 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findTestsForTestManager")
     public List<CognitiveTest> findTestsForTestManager(
-            @RequestParam TestManager manager) {
-        return service.findTestsForTestManager(manager);
+            @RequestParam long managerId) {
+        return service.findTestsForTestManager(managerId);
     }
 
 
@@ -76,8 +78,8 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
      */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.DELETE, value = "/deleteCognitiveTest")
-    public void deleteCognitiveTest(@RequestParam CognitiveTest test) {
-        service.deleteTestForTestManager(test);
+    public void deleteCognitiveTest(@RequestParam long testId) {
+        service.deleteTestForTestManager(testId);
     }
 
 }

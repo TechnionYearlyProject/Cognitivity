@@ -13,8 +13,10 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/test-answers")
+@RequestMapping(TestAnswerController.baseMapping)
 public class TestAnswerController extends AbstractRestController<TestAnswerService> {
+
+    public static final String baseMapping = "/test-answers";
 
     public TestAnswerController() {
         super(new TestAnswerService());
@@ -34,8 +36,7 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     @RequestMapping(method = RequestMethod.GET, value = "/findTestAnswerById")
     public TestAnswer findTestAnswerById(
             @RequestParam(value = "testAnswerId") long answerId) {
-        TestAnswer result = service.findTestAnswerById(answerId);
-        return result;
+        return service.findTestAnswerById(answerId);
     }
 
     /**
@@ -49,9 +50,8 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findTestAnswersByQuestionId")
     public List<TestAnswer> findTestAnswersByQuestionId(
-            @RequestParam TestQuestion question) {
-        List<TestAnswer> result = service.findAllTestAnswerForAQuestion(question);
-        return result;
+            @RequestParam long questionId) {
+        return service.findAllTestAnswerForAQuestion(questionId);
     }
 
     /**
@@ -65,9 +65,8 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findTestAnswersBySubjectId")
     public List<TestAnswer> findTestAnswersBySubjectId(
-            @RequestParam TestSubject subject) {
-        List<TestAnswer> result = service.findTestAnswersBySubject(subject);
-        return result;
+            @RequestParam long subjectId) {
+        return service.findTestAnswersBySubject(subjectId);
     }
 
     /**
@@ -120,11 +119,11 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.DELETE, value = "/deleteTestAnswer")
     public void deleteTestAnswer(
-            @RequestParam TestQuestion question,
+            @RequestParam long questionId,
             @RequestParam(value = "testAnswerId", required = false) long answerId) {
         if (StringUtils.isEmpty(answerId)) {
             // Then delete all answers
-            service.deleteAllTestAnswersForQuestion(question);
+            service.deleteAllTestAnswersForQuestion(questionId);
         } else {
             // Then delete one answer with the answer id
             service.deleteTestAnswerForQuestion(answerId);

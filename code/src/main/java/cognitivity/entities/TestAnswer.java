@@ -74,8 +74,6 @@ public class TestAnswer extends AbstractEntity {
 		this.testeeExit = testeeExit;
 	}
 
-    public TestAnswer() {
-    }
 
 	/**
 	* Returns value of testSubject

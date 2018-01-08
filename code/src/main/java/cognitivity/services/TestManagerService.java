@@ -1,5 +1,6 @@
 package cognitivity.services;
 
+import cognitivity.dao.CognitiveTestDAO;
 import cognitivity.dao.TestManagerDAO;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
@@ -75,8 +76,12 @@ public class TestManagerService {
      * @return - the test manager that created the test.
      * # Could return empty search result
      */
-    public List<TestManager> findTestManagerByCreatedTest(long testId) {
-        return null;
+    public TestManager findTestManagerByCreatedTest(long testId) {
+        CognitiveTestDAO dao = new CognitiveTestDAO();
+        CognitiveTest test = dao.get(testId);
+        long managerId = test.getManager().getId();
+        TestManagerDAO managerDAO = new TestManagerDAO();
+        return managerDAO.get(managerId);
     }
 
 
@@ -85,12 +90,12 @@ public class TestManagerService {
     /**
      * Find all cognitive tests that a test manager has created.
      *
-     * @param manager - The test manager.
-     * @param tests   - all the tests in the database.
+     * @param managerId - The test manager Id.
      * @return - All tests the test manager has created.
      */
-    public List<CognitiveTest> findTestsForTestManager(TestManager manager, List<CognitiveTest> tests) {
-        return null;
+    public List<CognitiveTest> findTestsForTestManager(long managerId) {
+        CognitiveTestDAO dao = new CognitiveTestDAO();
+        return dao.getCognitiveTestOfManager(managerId);
     }
 
 

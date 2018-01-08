@@ -10,8 +10,10 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/test-subjects")
+@RequestMapping(TestSubjectController.baseMapping)
 public class TestSubjectController extends AbstractRestController<TestSubjectService> {
+
+    public static final String baseMapping = "/test-subjects";
 
     public TestSubjectController() {
         super(new TestSubjectService());

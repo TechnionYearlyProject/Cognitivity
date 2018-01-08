@@ -9,6 +9,7 @@ import { TypeQuestion } from '../../models';
 })
 export class QuestionComponent implements OnInit {
   questionName="Question 1";
+  indexInBlock: number;
   tags: string[];
   hidden: boolean = true;
   constructor() { }
@@ -19,4 +20,5 @@ export class QuestionComponent implements OnInit {
   toggleHidden() {
     this.hidden = !this.hidden;
   }
+
 }

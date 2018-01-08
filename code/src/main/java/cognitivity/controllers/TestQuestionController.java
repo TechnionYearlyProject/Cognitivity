@@ -11,8 +11,10 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/test-questions")
+@RequestMapping(TestQuestionController.baseMapping)
 public class TestQuestionController extends AbstractRestController<QuestionService> {
+
+    public static final String baseMapping = "/test-questions";
 
     public TestQuestionController() {
         super(new QuestionService());

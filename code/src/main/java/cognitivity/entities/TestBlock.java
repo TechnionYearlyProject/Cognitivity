@@ -31,8 +31,6 @@ public class TestBlock extends AbstractEntity {
         this.test = test;
     }
 
-    public TestBlock() {
-    }
 
     /**
      * Returns the number of questions

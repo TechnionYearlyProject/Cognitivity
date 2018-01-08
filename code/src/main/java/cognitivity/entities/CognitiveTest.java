@@ -52,8 +52,6 @@ public class CognitiveTest extends AbstractEntity {
     @Column(name = "numberOfQuestions", nullable = false)
     private Integer numberOfQuestions;
 
-    public CognitiveTest() {
-    }
 
 	/**
 	* Returns value of name
