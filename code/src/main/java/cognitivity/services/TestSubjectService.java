@@ -71,12 +71,12 @@ public class TestSubjectService {
     /**
      * Find all answers given by a specific test subject
      *
-     * @param subject - the test subject.
+     * @param subjectId - the test subject Id.
      * @return - all the answers the test subject gave.
      */
-    public List<TestAnswer> findAllTestSubjectAnswers(TestSubject subject){
+    public List<TestAnswer> findAllTestSubjectAnswers(long subjectId){
         TestSubjectDAO dao = new TestSubjectDAO();
-        return dao.getSubjectAnswers(subject);
+        return dao.getSubjectAnswers(subjectId);
     }
     /**
      * Find all test subjects who took a cognitive a test.

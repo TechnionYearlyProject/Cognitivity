@@ -81,13 +81,13 @@ public class QuestionService {
     /**
      * Get all answers to a given question
      *
-     * @param question - The test question we want to get the answer to.
+     * @param questionId - The test question we want to get the answer to.
      *
      * @return - All the answers to the given question.
      */
-    public List<TestAnswer> getTestAnswers(TestQuestion question){
+    public List<TestAnswer> getTestAnswers(long questionId){
         TestAnswerDAO dao = new TestAnswerDAO();
-        return dao.getTestAnswers(question);
+        return dao.getTestAnswers(questionId);
     }
 
     /**
@@ -99,7 +99,7 @@ public class QuestionService {
     public List<TestQuestion> findAllTestQuestionsFromTestId(long testId){
         CognitiveTestDAO cognitiveDAO = new CognitiveTestDAO();
         CognitiveTest test = cognitiveDAO.get(testId);
-        return cognitiveDAO.getTestQuestions(test);
+        return cognitiveDAO.getTestQuestions(testId);
     }
 
     /**

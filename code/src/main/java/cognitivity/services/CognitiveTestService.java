@@ -50,13 +50,13 @@ public class CognitiveTestService {
     /**
      * Delete a CognitiveTest for a test manager (admin).
      *
-     * @param test - The test to delete.
+     * @param testID - The test id to delete.
      *               <p>
      *               This will be used in conjunction with the DELETE HTTP method.
      */
-    public void deleteTestForTestManager(CognitiveTest test) {
+    public void deleteTestForTestManager(long testID) {
         CognitiveTestDAO dao = new CognitiveTestDAO();
-        dao.delete(test.getId());
+        dao.delete(testID);
     }
 
 
@@ -74,35 +74,35 @@ public class CognitiveTestService {
     /**
      * Find all cognitive tests that a test manager has created.
      *
-     * @param manager - The manager.
+     * @param managerId - The manager.
      * @return - The test the test manager has created with the given id.
      */
-    public List<CognitiveTest> findTestsForTestManager(TestManager manager) {
+    public List<CognitiveTest> findTestsForTestManager(long managerId) {
         CognitiveTestDAO dao = new CognitiveTestDAO();
-        return dao.getCognitiveTestOfManager(manager);
+        return dao.getCognitiveTestOfManager(managerId);
     }
 
 
     /**
      * Find all the blocks in a given test.
      *
-     * @param test - the given test
+     * @param testId - the given test id
      * @return a list of all of the blocks in the test.
      */
-    public List<TestBlock> getTestBlocksForTest(CognitiveTest test) {
+    public List<TestBlock> getTestBlocksForTest(long testId) {
         CognitiveTestDAO dao = new CognitiveTestDAO();
-        return dao.getTestBlocks(test);
+        return dao.getTestBlocks(testId);
     }
 
     /**
      * Find all cognitive test questions in a test.
      *
-     * @param test    - The test.
+     * @param testId    - The test Id.
      * @return - All questions the test has.
      */
-    public List<TestQuestion> getTestQuestionsForTest(CognitiveTest test) {
+    public List<TestQuestion> getTestQuestionsForTest(long testId) {
         CognitiveTestDAO dao = new CognitiveTestDAO();
-        return dao.getTestQuestions(test);
+        return dao.getTestQuestions(testId);
     }
 
 }

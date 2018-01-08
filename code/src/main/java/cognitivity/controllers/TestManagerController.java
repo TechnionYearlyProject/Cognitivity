@@ -27,6 +27,7 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
      *
      * @return - test manager(s) for the test criteria.
      */
+    //TODO:A single manager is returned in both cases (Since we can only assign a single manager to a project). Why is this a list?
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findTestManagersForTestCriteria")
@@ -40,7 +41,7 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
 
         } else {
             // Then return test manager who created the cognitive test.
-            result = service.findTestManagerByCreatedTest(testId);
+            result.add(service.findTestManagerByCreatedTest(testId));
         }
         return result;
     }

@@ -35,8 +35,8 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findTestsForTestManager")
     public List<CognitiveTest> findTestsForTestManager(
-            @RequestParam TestManager manager) {
-        return service.findTestsForTestManager(manager);
+            @RequestParam long managerId) {
+        return service.findTestsForTestManager(managerId);
     }
 
 
@@ -78,8 +78,8 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
      */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.DELETE, value = "/deleteCognitiveTest")
-    public void deleteCognitiveTest(@RequestParam CognitiveTest test) {
-        service.deleteTestForTestManager(test);
+    public void deleteCognitiveTest(@RequestParam long testId) {
+        service.deleteTestForTestManager(testId);
     }
 
 }

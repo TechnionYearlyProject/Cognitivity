@@ -76,13 +76,13 @@ public class TestAnswerService {
     /**
      * Delete all answers for a question.
      *
-     * @param question Whose answers we want to delete.
+     * @param questionId - the question Id whose answers we want to delete.
      *
      * This will be used in conjunction with the DELETE HTTP method.
      * */
-    public void deleteAllTestAnswersForQuestion(TestQuestion question) {
+    public void deleteAllTestAnswersForQuestion(long questionId) {
         TestAnswerDAO dao = new TestAnswerDAO();
-        List<TestAnswer> answers = dao.getTestAnswers(question);
+        List<TestAnswer> answers = dao.getTestAnswers(questionId);
         for (TestAnswer answer : answers){
             dao.delete(answer.getId());
         }
@@ -102,36 +102,36 @@ public class TestAnswerService {
     /**
      * Find all test answers that a subject answered.
      *
-     * @param subject - The test subject.
+     * @param subjectId - The test subjects Id.
      *
      * @return - All test answers that belong to the subject with the given id.
      * */
-    public List<TestAnswer> findTestAnswersBySubject(TestSubject subject) {
+    public List<TestAnswer> findTestAnswersBySubject(long subjectId) {
         TestSubjectDAO dao = new TestSubjectDAO();
-        return dao.getSubjectAnswers(subject);
+        return dao.getSubjectAnswers(subjectId);
     }
 
     /**
      * Find all test answers that a subject answered.
      *
-     * @param subject - The test subject.
-     * @param test - The test from which we want to get the results.
+     * @param subjectId - The test subject Id.
+     * @param testId - The test Id from which we want to get the results.
      *
      * @return - All test answers that belong to the subject with the given id.
      * */
-    public List<TestAnswer> findTestAnswersBySubjectInTest(TestSubject subject, CognitiveTest test) {
+    public List<TestAnswer> findTestAnswersBySubjectInTest(long subjectId, long testId) {
         TestAnswerDAO dao = new TestAnswerDAO();
-        return dao.getTestSubjectAnswersInTest(subject, test);
+        return dao.getTestSubjectAnswersInTest(subjectId, testId);
     }
 
     /**
      * Get all the answers for a given test question.
      *
-     * @param question - The question whose answers we are looking for.'
+     * @param questionId - The question Id whose answers we are looking for.'
      * @return - A list of all the answers for the question.
      */
-    public List<TestAnswer> findAllTestAnswerForAQuestion(TestQuestion question){
+    public List<TestAnswer> findAllTestAnswerForAQuestion(long questionId){
         TestAnswerDAO dao = new TestAnswerDAO();
-        return dao.getTestAnswers(question);
+        return dao.getTestAnswers(questionId);
     }
 }

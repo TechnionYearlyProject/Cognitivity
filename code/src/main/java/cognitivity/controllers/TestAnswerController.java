@@ -50,8 +50,8 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findTestAnswersByQuestionId")
     public List<TestAnswer> findTestAnswersByQuestionId(
-            @RequestParam TestQuestion question) {
-        return service.findAllTestAnswerForAQuestion(question);
+            @RequestParam long questionId) {
+        return service.findAllTestAnswerForAQuestion(questionId);
     }
 
     /**
@@ -65,8 +65,8 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findTestAnswersBySubjectId")
     public List<TestAnswer> findTestAnswersBySubjectId(
-            @RequestParam TestSubject subject) {
-        return service.findTestAnswersBySubject(subject);
+            @RequestParam long subjectId) {
+        return service.findTestAnswersBySubject(subjectId);
     }
 
     /**
@@ -119,11 +119,11 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.DELETE, value = "/deleteTestAnswer")
     public void deleteTestAnswer(
-            @RequestParam TestQuestion question,
+            @RequestParam long questionId,
             @RequestParam(value = "testAnswerId", required = false) long answerId) {
         if (StringUtils.isEmpty(answerId)) {
             // Then delete all answers
-            service.deleteAllTestAnswersForQuestion(question);
+            service.deleteAllTestAnswersForQuestion(questionId);
         } else {
             // Then delete one answer with the answer id
             service.deleteTestAnswerForQuestion(answerId);
