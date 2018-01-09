@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Test, Manager } from '../../models';
+import { Test, Manager, Question } from '../../models';
 import { Http, Headers } from '@angular/http'
 import { RequestOptionsArgs } from '@angular/http/src/interfaces';
 
@@ -8,7 +8,7 @@ export class TestManagerService {
     //functions
 
     private headers = new Headers({'Content-Type': 'application/json'});
-
+    base_mapping = '/test-managers';
     constructor(private http : Http) {}
 
     private handleError(error: any): Promise<any> {
@@ -17,21 +17,21 @@ export class TestManagerService {
     }
 
     saveTestManager(managerName: string, pass: string): Promise<Manager> {
-        return this.http.post('/test-managers'+'/saveTestManager', JSON.stringify({'name': managerName, 'password': pass}),{headers: this.headers})
+        return this.http.post(`${this.base_mapping}/saveTestManager`, JSON.stringify({'name': managerName, 'password': pass}),{headers: this.headers})
         .toPromise()
         .then(res => res.json() as Manager) //not so sure about this line, may need to change it
         .catch(this.handleError);
     }
 
     updateTestManager(manager: Manager): Promise<Manager> {
-        return this.http.post('test-managers'+'/updateTestManager', JSON.stringify(manager), {headers: this.headers})
+        return this.http.post(`${this.base_mapping}/updateTestManager`, JSON.stringify(manager), {headers: this.headers})
         .toPromise()
         .then(res => res.json() as Manager)
         .catch(this.handleError);
     }
 
     deleteTestManager(id: number): Promise<void> {
-        return this.http.delete('/test-managers'+'/deleteTestManager'+'/${id}',{headers: this.headers})
+        return this.http.delete(`${this.base_mapping}/deleteTestManager`+'/${id}',{headers: this.headers})
         .toPromise()
         .then(() => null)
         .catch(this.handleError);
@@ -48,14 +48,14 @@ export class SubjectService {
 export class TestService {
     //functions
     private headers = new Headers({'Content-Type': 'application/json'});
-
+    base_mapping = '/tests';
     findTestsForTestManager(managerId: string): Promise<Test[]> {
-        return this.http.get('/tests'+'/findTestsForTestManager'+'/${managerId}')
+        return this.http.get(`${this.base_mapping}/findTestsForTestManager?managerId=${managerId}`)
         .toPromise()
         .then(response => response.json() as Test[])
         .catch(this.handleError)
     }
-    saveCognitiveTest(name: string, managerId: string, state: number, numberOfQuestions: number): Promise<Test> {
+    saveCognitiveTest(name: string, managerId: string, state: number, numberOfQuestions: number): Promise<void> {
         var test: Test = {
             name: name,
             numberOfQuestions: numberOfQuestions,
@@ -65,20 +65,20 @@ export class TestService {
             lastAnswered: new Date().toDateString(),
             numberOfFiledCopies: 0
         };
-        return this.http.post('/tests'+'/saveCognitiveTest',JSON.stringify(test),{headers : this.headers})
+        return this.http.post(`${this.base_mapping}/saveCognitiveTest`,JSON.stringify(test),{headers : this.headers})
         .toPromise()
-        .then(res => res.json() as Test)
+        .then(() => null)
         .catch(this.handleError);
     }
 
     deleteCognitiveTest(testId: number): Promise<void> {
-        return this.http.delete('/tests'+'/deleteCognitiveTest'+'/${testId}', {headers: this.headers})
+        return this.http.delete(`${this.base_mapping}/deleteCognitiveTest/${testId}`, {headers: this.headers})
         .toPromise()
         .then(() => null)
         .catch(this.handleError)
     }
     updateCognitiveTest(test: Test): Promise<Test> {
-        return this.http.post('/tests/'+'/updateCognitiveTest', JSON.stringify(test), {headers: this.headers})
+        return this.http.post(`${this.base_mapping}/updateCognitiveTest`, JSON.stringify(test), {headers: this.headers})
         .toPromise()
         .then(res => res.json() as Test)
         .catch(this.handleError)
@@ -93,7 +93,36 @@ export class TestService {
 @Injectable()
 export class QuestionService {
     //functions
-    constructor() {}
+    base_mapping = '/test-questions';
+
+    private headers = new Headers({'Content-Type': 'application/json'});
+
+    private handleError(error: any): Promise<any> {
+        console.error('Error', error); // for demo purposes only
+        return Promise.reject(error.message || error);
+    }
+    constructor(private http: Http) {}
+
+    findTestQuestionsForManager(managerId: number, testId: number = null): Promise<Question[]> {
+        if (testId == null) {
+            return this.http.get(`${this.base_mapping}/findTestQuestionsForTestCriteriaById?managerId=${managerId}`)
+            .toPromise()
+            .then(res => res.json() as Question[])
+            .catch(this.handleError);
+        }
+        return this.http.get(`${this.base_mapping}/findTestQuestionsForTestCriteriaById?managerId=${managerId}&testId=${testId}`)
+            .toPromise()
+            .then(res => res.json() as Question[])
+            .catch(this.handleError);
+    }
+
+    deleteTestQuestion(questionId: number): Promise<void> {
+        return this.http.delete(`${this.base_mapping}/deleteTestQuestion?questionId=${questionId}`, {headers: this.headers})
+        .toPromise()
+        .then(() => null)
+        .catch(this.handleError);
+    }
+
 }
 
 @Injectable()
