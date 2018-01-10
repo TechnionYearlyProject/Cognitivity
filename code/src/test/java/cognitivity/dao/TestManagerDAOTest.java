@@ -9,8 +9,8 @@ import static org.junit.Assert.*;
 
 @Ignore("need to debug")
 public class TestManagerDAOTest {
-    TestManagerDAO testManagerDAO;
-    TestManager testManager;
+    private TestManagerDAO testManagerDAO;
+    private TestManager testManager;
 
     /*
      * the initialization creates (before this class tests runs") the following objects:
@@ -44,16 +44,16 @@ public class TestManagerDAOTest {
         assertNotNull("add testManager problem", testManagerDAO.get(testManager.getId()));
         String testManagerName = testManager.getName();
         assertTrue("name incorrect",
-                testManagerName == testManagerDAO.get(testManager.getId()).getName());
+                testManagerName.equals(testManagerDAO.get(testManager.getId()).getName()));
         String newTestManagerName = "john nash";
         testManager.setName(newTestManagerName);
         testManagerDAO.update(testManager);
         assertTrue("testManager update incorrect",
-                newTestManagerName == testManagerDAO.get(testManager.getId()).getName());
+                newTestManagerName.equals(testManagerDAO.get(testManager.getId()).getName()));
         testManager.setName(testManagerName);
         testManagerDAO.update(testManager);
         assertTrue("name incorrect",
-                testManagerName == testManagerDAO.get(testManager.getId()).getName());
+                testManagerName.equals(testManagerDAO.get(testManager.getId()).getName()));
         testManagerDAO.delete(testManager.getId());
         assertNull("delete problem", testManagerDAO.get(testManager.getId()));
     }

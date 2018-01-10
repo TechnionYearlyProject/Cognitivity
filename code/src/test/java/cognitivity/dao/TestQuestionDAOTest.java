@@ -13,9 +13,9 @@ import static org.junit.Assert.*;
 
 @Ignore("need to debug")
 public class TestQuestionDAOTest {
-    TestQuestionDAO testQuestionDAO;
-    TestQuestion testQuestion;
-    TestManager testManager;
+    private TestQuestionDAO testQuestionDAO;
+    private TestQuestion testQuestion;
+    private TestManager testManager;
 
     /*
      * the initialization creates (before this class tests runs") the following objects:
@@ -24,6 +24,7 @@ public class TestQuestionDAOTest {
      *  - testQuestion
      *
      */
+    //TODO: add check in the add questions test, that the test indeed updates
     @Before
     public void initialize(){
         testQuestionDAO = new TestQuestionDAO();
@@ -38,8 +39,8 @@ public class TestQuestionDAOTest {
     /*
      * This test will check only the basic CRUD functionality:
      *
-     *  - Create : we call the add function and trying to add testManager to the db
-     *      we check if we succeed by trying to fetch the manager by id
+     *  - Create : we call the add function and trying to add testQuestion to the db
+     *      we check if we succeed by trying to fetch the testQuestion by id
      *  - Read : we call the get function with fue parameters,
      *      once, with id that don't exists, one with id that do exists
      *  - Update : we call the update function and check that the data in the db changed
@@ -53,16 +54,16 @@ public class TestQuestionDAOTest {
         assertNotNull("add testQuestion problem", testQuestionDAO.get(testQuestion.getId()));
         String questionTag = testQuestion.getTag();
         assertTrue("Tag incorrect",
-                questionTag == testQuestionDAO.get(testQuestion.getId()).getTag());
+                questionTag.equals(testQuestionDAO.get(testQuestion.getId()).getTag()));
         String newQuestionTag = "bla bla bli";
         testQuestion.setTag(newQuestionTag);
         testQuestionDAO.update(testQuestion);
         assertTrue("tag update incorrect",
-                newQuestionTag == testQuestionDAO.get(testQuestion.getId()).getTag());
+                newQuestionTag.equals(testQuestionDAO.get(testQuestion.getId()).getTag()));
         testQuestion.setTag(questionTag);
         testQuestionDAO.update(testQuestion);
         assertTrue("Tag incorrect",
-                questionTag == testQuestionDAO.get(testQuestion.getId()).getTag());
+                questionTag.equals(testQuestionDAO.get(testQuestion.getId()).getTag()));
         testQuestionDAO.delete(testQuestion.getId());
         assertNull("delete problem", testQuestionDAO.get(testQuestion.getId()));
     }

@@ -11,8 +11,8 @@ import static org.junit.Assert.*;
 
 @Ignore("need to debug")
 public class TestBlockDAOTest {
-    TestBlockDAO testBlockDAO;
-    TestBlock testBlock;
+    private TestBlockDAO testBlockDAO;
+    private TestBlock testBlock;
 
     /*
      * the initialization creates (before this class tests runs") the following objects:

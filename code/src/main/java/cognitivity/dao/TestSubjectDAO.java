@@ -40,6 +40,7 @@ public class TestSubjectDAO extends AbstractDAO<TestSubject> {
 
     /**
      * Get all the test subject who participated in a given test.
+     * subject participate in test if the subject answered at least one question in the test
      *
      * @param testId - the test Id of the given test
      * @return - A list of the subjects who participated the test.

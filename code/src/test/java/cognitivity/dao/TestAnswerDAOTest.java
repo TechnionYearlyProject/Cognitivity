@@ -11,13 +11,13 @@ import static org.junit.Assert.*;
 
 @Ignore("need to debug")
 public class TestAnswerDAOTest {
-    TestAnswerDAO testAnswerDAO;
-    CognitiveTest cognitiveTest;
-    TestManager testManager;
-    TestQuestion testQuestion;
-    TestBlock testBlock;
-    TestSubject testSubject;
-    TestAnswer testAnswer;
+    private TestAnswerDAO testAnswerDAO;
+    private CognitiveTest cognitiveTest;
+    private TestManager testManager;
+    private TestQuestion testQuestion;
+    private TestBlock testBlock;
+    private TestSubject testSubject;
+    private TestAnswer testAnswer;
 
     /*
      * the initialization creates (before this class tests runs") the following objects:

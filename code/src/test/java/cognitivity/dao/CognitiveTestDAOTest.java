@@ -15,9 +15,9 @@ import static org.junit.Assert.assertTrue;
 
 @Ignore("need to debug")
 public class CognitiveTestDAOTest {
-    CognitiveTestDAO cognitiveTestDAO;
-    TestManager testManager;
-    CognitiveTest cognitiveTest;
+    private CognitiveTestDAO cognitiveTestDAO;
+    private TestManager testManager;
+    private CognitiveTest cognitiveTest;
 
     /*
      * the initialization creates (before this class tests runs") the following objects:
