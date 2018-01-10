@@ -23,6 +23,7 @@ import { CreateQuestionComponent } from './components/create-question/create-que
 import { QuestionListComponent } from './components/block/question-list/question-list.component';
 import { MultipleChoiceQuestionComponent } from './components/multiple-choice-question/multiple-choice-question.component';
 import { SessionService } from './services/session-service';
+import { AuthGuard } from './services/auth-service/auth-guard';
 
 
 
@@ -38,6 +39,7 @@ const PROVIDED_SERVICES = [
   SubjectService, 
   QuestionService,
   AuthService,
+  AuthGuard,
   LocalStorageService,
   SessionService
 ];
