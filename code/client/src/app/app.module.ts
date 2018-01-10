@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import { HttpModule } from '@angular/http';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabase, AngularFireDatabaseModule } from 'angularfire2/database';
+import {AngularFireAuthModule } from 'angularfire2/auth'
 
 /* Components */
 import { AppComponent } from './app.component';
@@ -24,6 +27,7 @@ import { QuestionListComponent } from './components/block/question-list/question
 import { MultipleChoiceQuestionComponent } from './components/multiple-choice-question/multiple-choice-question.component';
 import { SessionService } from './services/session-service';
 import { AuthGuard } from './services/auth-service/auth-guard';
+import { environment } from '../environments/environment';
 
 
 
@@ -41,7 +45,9 @@ const PROVIDED_SERVICES = [
   AuthService,
   AuthGuard,
   LocalStorageService,
-  SessionService
+  SessionService,
+  AngularFireDatabase,
+  AngularFireDatabaseModule
 ];
 
 @NgModule({
@@ -65,6 +71,8 @@ const PROVIDED_SERVICES = [
     AppRoutingModule,
     MyDatePickerModule,
     HttpModule,
+    AngularFireAuthModule,
+    AngularFireModule.initializeApp(environment.firebase,'Cognitivity')
   ],
   providers: [
     ...PROVIDED_SERVICES

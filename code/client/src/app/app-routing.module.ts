@@ -5,7 +5,7 @@ import { DashboardModule } from './components/dashboard/dashboard.module';
 const appRoutes: Routes = [
     {
         path: '**',
-        redirectTo: 'dashboard'
+        redirectTo: 'login'
     }
 ];
 
