@@ -15,6 +15,7 @@ import static org.junit.Assert.*;
 public class TestQuestionDAOTest {
     TestQuestionDAO testQuestionDAO;
     TestQuestion testQuestion;
+    TestManager testManager;
 
     /*
      * the initialization creates (before this class tests runs") the following objects:
@@ -26,13 +27,12 @@ public class TestQuestionDAOTest {
     @Before
     public void initialize(){
         testQuestionDAO = new TestQuestionDAO();
-        TestManager testManager =
+        testManager =
                 new TestManager("onlyForTests TestManager", "notarealpassword");
         CognitiveTest cognitiveTest =
                 new CognitiveTest("onlyForTests", testManager, 1, 0);
         TestBlock testBlock = new TestBlock(0,false, "testTag", cognitiveTest);
         testQuestion = new TestQuestion("testQuestion", 0, null, "testTag", testBlock, cognitiveTest);
-
     }
 
     /*
@@ -44,6 +44,7 @@ public class TestQuestionDAOTest {
      *      once, with id that don't exists, one with id that do exists
      *  - Update : we call the update function and check that the data in the db changed
      *  - Delete : we call the delete function and delete if the answer still in the db
+     *
      */
     @Test
     void crudTests(){
@@ -65,9 +66,35 @@ public class TestQuestionDAOTest {
         testQuestionDAO.delete(testQuestion.getId());
         assertNull("delete problem", testQuestionDAO.get(testQuestion.getId()));
     }
-    
+
+
+
+    /*
+     * This test will check getTestQuestionsFromAManager functionality:
+     *
+     *  - we check that the test manager have no questions when the question table is
+     *     empty (before we created any)
+     *  - we check that the test manager have no questions when the question table isn't empty
+     *    (but the test manager don't have any questions yet)
+     *  - we check that the test manager have questions when we update one question to be its question
+     *  - we remove the question from the DB and validating that the manager don't have any questions
+     *
+     */
     @Test
     void getTestQuestionsFromAManager(){
-
+        assertNull("testQuestion table should be empty",
+                testQuestionDAO.getTestQuestionsFromAManager(testManager));
+        testQuestionDAO.add(testQuestion);
+        assertNull("Test manager shouldn't have any questions yet",
+                testQuestionDAO.getTestQuestionsFromAManager(testManager));
+        testQuestion.setTestManager(testManager);
+        testQuestionDAO.update(testQuestion);
+        assertTrue("Test manager should have this question",
+                testQuestionDAO.getTestQuestionsFromAManager(testManager).contains(testQuestion));
+        assertTrue("Test manager should have only one question",
+                testQuestionDAO.getTestQuestionsFromAManager(testManager).size() == 1);
+        testQuestionDAO.delete(testQuestion.getId());
+        assertNull("Test manager shouldn't have any questions yet",
+                testQuestionDAO.getTestQuestionsFromAManager(testManager));
     }
 }

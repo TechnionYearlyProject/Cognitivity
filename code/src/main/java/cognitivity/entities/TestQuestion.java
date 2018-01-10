@@ -42,7 +42,8 @@ public class TestQuestion extends AbstractEntity {
 	@JoinColumn(name = "id")
 	private TestManager testManager;
 
-	public TestQuestion(String question, Integer questionType, Integer answer, String tag, TestBlock block, CognitiveTest project) {
+	public TestQuestion(String question, Integer questionType, Integer answer,
+						String tag, TestBlock block, CognitiveTest project) {
 		this.question = question;
 		this.questionType = questionType;
 		this.answer = answer;
