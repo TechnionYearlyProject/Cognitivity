@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Test, Manager, Question } from '../../models';
+import { Test, Manager, Question, Block } from '../../models';
 import { Http, Headers } from '@angular/http'
 import { RequestOptionsArgs } from '@angular/http/src/interfaces';
 
@@ -55,7 +55,7 @@ export class TestService {
         .then(response => response.json() as Test[])
         .catch(this.handleError)
     }
-    saveCognitiveTest(name: string, managerId: string, state: number, numberOfQuestions: number): Promise<void> {
+    saveCognitiveTest(name: string, managerId: number, state: number, numberOfQuestions: number, blockList: Block[]): Promise<void> {
         var test: Test = {
             name: name,
             numberOfQuestions: numberOfQuestions,
@@ -63,7 +63,8 @@ export class TestService {
             status: state,
             lastModified: new Date().toDateString(),
             lastAnswered: new Date().toDateString(),
-            numberOfFiledCopies: 0
+            numberOfFiledCopies: 0,
+            blockList: blockList
         };
         return this.http.post(`${this.base_mapping}/saveCognitiveTest`,JSON.stringify(test),{headers : this.headers})
         .toPromise()

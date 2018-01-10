@@ -22,6 +22,7 @@ import { CreateTestComponent } from './components/create-test/create-test.compon
 import { CreateQuestionComponent } from './components/create-question/create-question.component';
 import { QuestionListComponent } from './components/block/question-list/question-list.component';
 import { MultipleChoiceQuestionComponent } from './components/multiple-choice-question/multiple-choice-question.component';
+import { SessionService } from './services/session-service';
 
 
 
@@ -37,7 +38,8 @@ const PROVIDED_SERVICES = [
   SubjectService, 
   QuestionService,
   AuthService,
-  LocalStorageService
+  LocalStorageService,
+  SessionService
 ];
 
 @NgModule({

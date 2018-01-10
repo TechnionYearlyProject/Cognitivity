@@ -9,12 +9,16 @@ import { QuestionListComponent } from './question-list/question-list.component';
 export class BlockComponent implements OnInit {
 
   blockNumber:number;
-  
+  hidden: boolean = true;
   questionsList:QuestionListComponent;
   constructor() { }
 
   ngOnInit() {
     this.questionsList=new QuestionListComponent();
+  }
+
+  toggleHidden() {
+    this.hidden = !this.hidden;
   }
 
 }

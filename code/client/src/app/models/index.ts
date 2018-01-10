@@ -38,6 +38,7 @@ export enum QuestionPosition {
     General question interface that all question types inherit from.
  */
 export interface Question {
+    id?: number
     questionText: string;
     type: TypeQuestion;
     questionPosition?: QuestionPosition;
@@ -59,16 +60,26 @@ export interface MultipleChoiceQuestion extends Question {
 export interface OpenQuestion extends Question {
     answerText: string
 }
-
+/*
+    Interface that represents block object that holds a list of questions.    
+*/
+export interface Block {
+    id?: number,
+    questionList: Question[]
+}
+/*
+    Interface that represents test object that holds its list of blocks.
+ */
 export interface Test {
     id?: number,
     name: string,
     numberOfQuestions: number,
     status: number,
-    managerId: string,
+    managerId: number,
     lastModified: string,
     lastAnswered: string,
-    numberOfFiledCopies: number
+    numberOfFiledCopies: number,
+    blockList: Block[]
 
 }
 /* Manager properties */
@@ -84,3 +95,5 @@ export interface Manager {
 export interface RateQuestion extends Question {
     heightOfRate: number
 }
+
+
