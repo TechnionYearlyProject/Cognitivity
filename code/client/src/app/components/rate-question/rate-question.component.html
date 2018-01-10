@@ -6,11 +6,11 @@
     <div *ngIf = "isMiddleLeft()" style="margin: 1.5em;">
             <h2 [ngClass] = "positionMiddle">{{question.questionText }}</h2>
         </div>
-        <div  *ngFor="let answer of answers" style="margin:3em">
+        <div  *ngFor="let answer of answers; let i = index;" style="margin:3em">
             <div class="styled-input-container">
                 <div class="styled-input-single">
-                    <input  class="onoffswitch-checkbox" id="check-box-{{answer.answer}}" [checked] = "answer.isMarked" name="isMarked" type="checkbox" (change)="markAnswer(answer.answer)" style="margin:0.5em"> 
-                    <label for="check-box-{{answer.answer}}">{{ answer.answer }}</label>
+                    <input  class="onoffswitch-checkbox" id="check-box-{{i}}" [checked] = "markedAnswers[i]" name="isMarked" type="checkbox" (change)="markAnswer(i)" style="margin:0.5em"> 
+                    <label for="check-box-{{i}}">{{ i + 1 }}</label>
                 </div>
             </div>
         </div>

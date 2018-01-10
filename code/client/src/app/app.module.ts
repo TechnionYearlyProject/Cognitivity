@@ -7,7 +7,6 @@ import { HttpModule } from '@angular/http';
 /* Components */
 import { AppComponent } from './app.component';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
-import { MultipleQuestionComponent } from './components/multiple-question/multiple-question.component';
 import { OpenQuestionComponent } from './components/open-question/open-question.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { registrationFormComponent } from './components/registration-form/registration-form.component';
@@ -22,6 +21,7 @@ import { LocalStorageService } from './services/local-storage';
 import { CreateTestComponent } from './components/create-test/create-test.component';
 import { CreateQuestionComponent } from './components/create-question/create-question.component';
 import { QuestionListComponent } from './components/block/question-list/question-list.component';
+import { MultipleChoiceQuestionComponent } from './components/multiple-choice-question/multiple-choice-question.component';
 
 
 
@@ -43,7 +43,6 @@ const PROVIDED_SERVICES = [
 @NgModule({
   declarations: [
     AppComponent,
-    MultipleQuestionComponent,
     OpenQuestionComponent,
     RateQuestionComponent,
     LoginPageComponent,
@@ -52,7 +51,8 @@ const PROVIDED_SERVICES = [
     registrationFormComponent,
     BlockComponent,
     QuestionComponent,
-    QuestionListComponent
+    QuestionListComponent,
+    MultipleChoiceQuestionComponent
     
   ],
   imports: [

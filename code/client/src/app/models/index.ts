@@ -32,13 +32,7 @@ export enum QuestionPosition {
     ButtomMiddle,
     ButtomLeft
 }
-/*
-    An interface for the object that describes the answer for multiple choice questions
-*/
-export interface MultipleAnswer {
-    answer: string;
-    isMarked: boolean;
-}
+
 
 /*
     General question interface that all question types inherit from.
@@ -52,8 +46,10 @@ export interface Question {
 /*
     An interface for the object that describes a multiple choice question
 */
-export interface MultipleAnsQuestion extends Question {
-    answers: MultipleAnswer[];
+
+
+export interface MultipleChoiceQuestion extends Question {
+    answers: string[];
     correctAnswer: number;
     typeMultipleQuestion: TypeMultipleQuestion;
 }
