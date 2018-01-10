@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TypeMultipleQuestion, TypeQuestion, QuestionPosition, MultipleAnswer} from '../../models';
+import { TypeMultipleQuestion, TypeQuestion, QuestionPosition} from '../../models';
 @Component({
   selector: 'app-create-question',
   templateUrl: './create-question.component.html',
@@ -17,7 +17,7 @@ export class CreateQuestionComponent implements OnInit {
     ------------ multiple choice question details -----------
   */
   typeMultipleQuestion?: TypeMultipleQuestion;
-  answers?: Array<MultipleAnswer> = new Array();
+  answers?: Array<string> = new Array();
   answerTextForMultiple?: string;
 
   /*
@@ -221,7 +221,7 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   addAnswer(){
-    this.answers.splice(this.answers.length, 0, {isMarked: false, answer: this.answerTextForMultiple});
+    this.answers.splice(this.answers.length, 0, this.answerTextForMultiple);
     this.answerTextForMultiple = '';
   }
 
@@ -234,13 +234,13 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   editAnswer(index: number){
-    this.answerTextForMultiple = this.answers[index].answer;
+    this.answerTextForMultiple = this.answers[index];
     this.editionMode = true;
     this.indexAnswerInEdit = index;
   }
 
   applyEdit(){
-    this.answers.splice(this.indexAnswerInEdit, 1, {isMarked: false, answer: this.answerTextForMultiple})
+    this.answers.splice(this.indexAnswerInEdit, 1,  this.answerTextForMultiple)
     this.editionMode = false;
     this.indexAnswerInEdit = -1;
     this.answerTextForMultiple = '';

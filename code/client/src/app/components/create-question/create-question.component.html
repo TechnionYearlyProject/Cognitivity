@@ -114,7 +114,7 @@
                             
                             <div *ngFor="let answer of answers; let i = index">
                                 <li class="list-group-item" style="max-width: 100%;background-color: transparent;">
-                                    <span style="margin: 10px; font-family: Ariel; font-size: 25px;color: white;">{{answer.answer}}</span>
+                                    <span style="margin: 10px; font-family: Ariel; font-size: 25px;color: white;">{{answer}}</span>
                                     <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="goUp(i)" [disabled] = "editionMode"><span class="fa fa-arrow-up"></span></button>
                                     <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="goDown(i)" [disabled] = "editionMode"><span class="fa fa-arrow-down"></span></button>
                                     <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="deleteAnswer(i)" [disabled] = "editionMode"><span class="fa fa-trash"></span> Delete answer</button>

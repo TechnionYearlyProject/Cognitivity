@@ -1,5 +1,5 @@
 import { Component, OnInit, AnimationStyleMetadata } from '@angular/core';
-import { RateQuestion, MultipleAnswer, TypeQuestion, QuestionPosition } from '../../models';
+import { RateQuestion, TypeQuestion, QuestionPosition } from '../../models';
 import { stringify } from '@angular/core/src/util';
 @Component({
   selector: 'app-rate-question',
@@ -8,7 +8,8 @@ import { stringify } from '@angular/core/src/util';
 })
 export class RateQuestionComponent implements OnInit {
   question: RateQuestion;
-  answers: Array<MultipleAnswer>;
+  answers: Array<null>;
+  markedAnswers: Array<boolean>;
   markedAnswer : number;
   range_value : number = 50;
   positionUp : any;
@@ -26,23 +27,24 @@ export class RateQuestionComponent implements OnInit {
       }
       //End of harcoded question
       this.buildPositionOfQuestion();
-      this.answers = new Array<MultipleAnswer>(this.question.heightOfRate);
+      this.answers = new Array<null>(this.question.heightOfRate);
+      this.markedAnswers = new Array<boolean>(this.question.heightOfRate);
       for(let i = 0; i < this.question.heightOfRate; i++){
-        this.answers[i] = {answer: (i + 1).toString(), isMarked: false};
+        this.markedAnswers[i] = false;
       }
    }
 
   ngOnInit() {
   }
 
-  markAnswer(answerText:string){
+  markAnswer(index: number){
     for(let i = 0; i < this.answers.length; i++){   
-      if(this.answers[i].answer == answerText){
-        this.answers[i].isMarked = true;
+      if(i == index){
+        this.markedAnswers[i] = true;
         this.markedAnswer = i;
 
       }else{
-        this.answers[i].isMarked = false;
+        this.markedAnswers[i] = false;
       }
     }
   }

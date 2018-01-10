@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core'
 
 import {DashboardComponent} from './dashboard.component'
 import {TestListComponent} from './test-list/test-list.component'
+import { AuthGuard } from '../../services/auth-service/auth-guard';
 
 const routes: Routes = [
     {
@@ -14,7 +15,8 @@ const routes: Routes = [
                 path:'test-list',
                 component: TestListComponent
             }
-        ]
+        ],
+        canActivate: [AuthGuard]
     },
 ]
 
