@@ -3,12 +3,11 @@
     <div id="blockBody" data-children=".item">
       <div class="card-header" role="tab" id="headingOne">
         <div class="item">
-          <button type="button" class="btn btn-outline-primary btn-lg  btn-block" data-toggle="collapse" data-parent="#blockBody" href="#blockBody1"
-            role="button" aria-expanded="true" aria-controls="blockBody1">
+          <button type="button" class="btn btn-outline-primary btn-lg  btn-block" (click)="toggleHidden()">
             Block {{blockNumber}}
           </button>
         </div>
-        <div id="blockBody1" class="collapse show" role="tabpanel">
+        <div class="collapse show" role="tabpanel" [hidden]="hidden">
           <app-question-list></app-question-list>
           <div style="text-align: center;">
             <a href="#" class="btn btn-secondary btn-sm">
