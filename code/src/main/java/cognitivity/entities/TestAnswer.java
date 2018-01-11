@@ -12,15 +12,15 @@ import javax.persistence.*;
 public class TestAnswer extends AbstractEntity {
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "testeeId", nullable = false)
     private TestSubject testSubject;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "questionId", nullable = false)
     private TestQuestion question;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "projectId", nullable = false)
     private CognitiveTest cognitiveTest;
 
     @Column(name = "numberOfClick", nullable = false)

@@ -30,7 +30,7 @@ public class CognitiveTest extends AbstractEntity {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "managerId", nullable = false)
     private TestManager manager;
 
     @Column(name = "numberOfSubjects", nullable = false)

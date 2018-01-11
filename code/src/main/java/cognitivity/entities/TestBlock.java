@@ -8,7 +8,7 @@ import javax.persistence.*;
  *
  */
 @Entity
-@Table(name = "questionBlock")
+@Table(name = "testBlock")
 public class TestBlock extends AbstractEntity {
 
     @Column(name = "numberOfQuestions", nullable = false)
@@ -21,7 +21,7 @@ public class TestBlock extends AbstractEntity {
     private String tag;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "projectId", nullable = false)
     private CognitiveTest test;
 
     public TestBlock(Integer numberOfQuestions, Boolean randomize, String tag, CognitiveTest test) {

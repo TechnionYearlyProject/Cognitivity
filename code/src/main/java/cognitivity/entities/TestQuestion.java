@@ -23,11 +23,11 @@ public class TestQuestion extends AbstractEntity {
 	private String tag;
 
 	@ManyToOne
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "testBlockId", nullable = false)
 	private TestBlock block;
 
 	@ManyToOne
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "projectId", nullable = false)
 	private CognitiveTest project;
 
 	public TestManager getTestManager() {
@@ -39,7 +39,7 @@ public class TestQuestion extends AbstractEntity {
 	}
 
 	@ManyToOne
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "testManagerId")
 	private TestManager testManager;
 
 	public TestQuestion(String question, Integer questionType, Integer answer,

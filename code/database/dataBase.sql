@@ -1,26 +1,5 @@
 
 /*
-testQuestions table holds the questions to the test.
-Fields:
-@id - the main key for the table
-@question - the question itself.
-@questionType - an ENUM that holds one of 4 values, indicating the type of the question. The type of the question can be one of the following:
-rating question, free text question, multiple choice question, drill down question.
-@answer - this feilds holds the correct answer for the question of the question is a multiple choice question or a drill down question. Otherwise it holds NULL.
-@project
-@block - a reference to the block in which the question is found
-*/
-CREATE TABLE testQuestions(id INTEGER PRIMARY KEY AUTO_INCREMENT,
-  question text NOT NULL ,
-  questionType INT NOT NULL,
-  answer INT,
-  FOREIGN KEY (testManager) REFERENCES (testManager(id)),
-  FOREIGN KEY (project)REFERENCES (project(id)),
-  FOREIGN KEY(block) REFERENCES(questionBlock(id))
-);
-
-
-/*
 testManager table holds the information about the managers of the test.
 Fields:
 @id - the main key for the table
@@ -66,9 +45,51 @@ CREATE TABLE project (id INTEGER PRIMARY KEY AUTO_INCREMENT,
   lastModified DATE NOT NULL ,
   lastAnswered DATE NOT NULL ,
   numberOfFiledCopies INT NOT NULL ,
-  numberOfQuestions INT NOT NULL
-  FOREIGN KEY(managerId) REFERENCES(testManager(id)),
+  numberOfQuestions INT NOT NULL ,
+  managerId INT NOT NULL,
+  FOREIGN KEY (managerId) REFERENCES testManager(id)
 );
+
+/**
+testBlock table holds the information about each test block.
+Fields:
+@id - the main key for the table.
+@numberOfQuestions - the number of questions in the block.
+@randomize - a boolean that holds true if the questions in the block should be randomized, and false otherwise.
+@tag - a tag attached to the question
+
+ */
+CREATE TABLE testBlock(id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  numberOfQuestions INTEGER NOT NULL ,
+  randomize BOOLEAN,
+  tag text,
+  projectId INT NOT NULL,
+  FOREIGN KEY (projectId) REFERENCES project(id)
+);
+
+/*
+testQuestion table holds the questions to the test.
+Fields:
+@id - the main key for the table
+@question - the question itself.
+@questionType - an ENUM that holds one of 4 values, indicating the type of the question. The type of the question can be one of the following:
+rating question, free text question, multiple choice question, drill down question.
+@answer - this feilds holds the correct answer for the question of the question is a multiple choice question or a drill down question. Otherwise it holds NULL.
+@project
+@block - a reference to the block in which the question is found
+*/
+CREATE TABLE testQuestion(id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  question text NOT NULL ,
+  questionType INT NOT NULL,
+  answer INT,
+  testManagerId INT NOT NULL,
+  projectId INT NOT NULL,
+  testBlockId INT NOT NULL,
+  FOREIGN KEY (testManagerId) REFERENCES testManager(id),
+  FOREIGN KEY (projectId) REFERENCES project(id),
+  FOREIGN KEY (testBlockId) REFERENCES testBlock(id)
+);
+
 
 /*
 testAnswer table holds the information about a specific answer to a question.
@@ -90,32 +111,20 @@ Fields:
 CREATE TABLE testAnswer(id INTEGER PRIMARY KEY AUTO_INCREMENT,
   numberOfClick INTEGER NOT NULL ,
   finalAnswer INTEGER,
-  questionPlacement INT NOT NULL ,
-  answerPlacement INT NOT NULL ,
+  questionPlacement INTEGER NOT NULL ,
+  answerPlacement INTEGER NOT NULL ,
   verbalAnswer text,
   questionWithPicture BOOLEAN NOT NULL ,
   timeToAnswer TIME NOT NULL ,
   timeMeasured BOOLEAN,
   timeShowed BOOLEAN,
   testeeExit BOOLEAN,
-  FOREIGN KEY(testeeId) REFERENCES(testSubject(id)),
-  FOREIGN KEY(questionId) REFERENCES(testQuestions(id)),
-  FOREIGN KEY(projectId) REFERENCES(project(id)),
+  testeeId INTEGER NOT NULL,
+  questionId INTEGER NOT NULL,
+  projectId INTEGER NOT NULL ,
+  FOREIGN KEY (testeeId) REFERENCES testSubject(id),
+  FOREIGN KEY (questionId) REFERENCES testQuestion(id),
+  FOREIGN KEY (projectId) REFERENCES project(id)
 );
 
 
-/**
-questionBlock table holds the information about each test block.
-Fields:
-@id - the main key for the table.
-@numberOfQuestions - the number of questions in the block.
-@randomize - a boolean that holds true if the questions in the block should be randomized, and false otherwise.
-@tag - a tag attached to the question
-
- */
-CREATE TABLE questionBlock(id INTEGER PRIMARY KEY AUTO_INCREMENT,
-  numberOfQuestions INTEGER NOT NULL ,
-  randomize BOOLEAN,
-  tag text,
-  FOREIGN KEY(projectId) REFERENCES(project(id)),
-);
