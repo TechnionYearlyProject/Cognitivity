@@ -1,16 +1,12 @@
 package cognitivity.dao;
 
 import cognitivity.entities.TestBlock;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public class TestBlockDAO extends AbstractDAO<TestBlock> {
+public interface TestBlockDAO {
 
-    public TestBlock get(Long id) {
-        return super.get(id, TestBlock.class);
-    }
+    public TestBlock get(Long id);
+    public void delete(Long id);
+    public void add(TestBlock data);
+    public void update(TestBlock data);
 
-    public void delete(Long id) {
-        super.delete(id, TestBlock.class);
-    }
 }
