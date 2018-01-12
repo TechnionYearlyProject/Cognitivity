@@ -43,7 +43,7 @@ CREATE TABLE project (id INTEGER PRIMARY KEY AUTO_INCREMENT,
   numberOfSubjects INTEGER NOT NULL ,
   state INT NOT NULL ,
   lastModified DATE NOT NULL ,
-  lastAnswered DATE NOT NULL ,
+  lastAnswered DATE ,
   numberOfFiledCopies INT NOT NULL ,
   numberOfQuestions INT NOT NULL ,
   managerId INT NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE project (id INTEGER PRIMARY KEY AUTO_INCREMENT,
 );
 
 /**
-questionBlock table holds the information about each test block.
+testBlock table holds the information about each test block.
 Fields:
 @id - the main key for the table.
 @numberOfQuestions - the number of questions in the block.
@@ -59,7 +59,7 @@ Fields:
 @tag - a tag attached to the question
 
  */
-CREATE TABLE questionBlock(id INTEGER PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE testBlock(id INTEGER PRIMARY KEY AUTO_INCREMENT,
   numberOfQuestions INTEGER NOT NULL ,
   randomize BOOLEAN,
   tag text,
@@ -68,7 +68,7 @@ CREATE TABLE questionBlock(id INTEGER PRIMARY KEY AUTO_INCREMENT,
 );
 
 /*
-testQuestions table holds the questions to the test.
+testQuestion table holds the questions to the test.
 Fields:
 @id - the main key for the table
 @question - the question itself.
@@ -78,16 +78,17 @@ rating question, free text question, multiple choice question, drill down questi
 @project
 @block - a reference to the block in which the question is found
 */
-CREATE TABLE testQuestions(id INTEGER PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE testQuestion(id INTEGER PRIMARY KEY AUTO_INCREMENT,
   question text NOT NULL ,
+  tag text ,
   questionType INT NOT NULL,
   answer INT,
   testManagerId INT NOT NULL,
   projectId INT NOT NULL,
-  blockId INT NOT NULL,
+  testBlockId INT NOT NULL,
   FOREIGN KEY (testManagerId) REFERENCES testManager(id),
   FOREIGN KEY (projectId) REFERENCES project(id),
-  FOREIGN KEY (blockId) REFERENCES questionBlock(id)
+  FOREIGN KEY (testBlockId) REFERENCES testBlock(id)
 );
 
 
@@ -115,7 +116,7 @@ CREATE TABLE testAnswer(id INTEGER PRIMARY KEY AUTO_INCREMENT,
   answerPlacement INTEGER NOT NULL ,
   verbalAnswer text,
   questionWithPicture BOOLEAN NOT NULL ,
-  timeToAnswer TIME NOT NULL ,
+  timeToAnswer INTEGER NOT NULL ,
   timeMeasured BOOLEAN,
   timeShowed BOOLEAN,
   testeeExit BOOLEAN,
@@ -123,8 +124,6 @@ CREATE TABLE testAnswer(id INTEGER PRIMARY KEY AUTO_INCREMENT,
   questionId INTEGER NOT NULL,
   projectId INTEGER NOT NULL ,
   FOREIGN KEY (testeeId) REFERENCES testSubject(id),
-  FOREIGN KEY (questionId) REFERENCES testQuestions(id),
+  FOREIGN KEY (questionId) REFERENCES testQuestion(id),
   FOREIGN KEY (projectId) REFERENCES project(id)
 );
-
-
