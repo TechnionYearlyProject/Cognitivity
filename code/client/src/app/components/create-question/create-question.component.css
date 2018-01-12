@@ -76,3 +76,71 @@ hr {
 .dropdown:hover .dropbtn {
     background-color: #2b06fa;
 }
+
+.styled-input-single {  /* position of the text  */
+    position: relative; /* Relativity to the container element */
+    padding: 25px 0 20px 40px;
+    text-align: left;
+  }
+  .styled-input-single label { /* switching the icon of mouse to pointer when going over the checkbox */
+    cursor: pointer;
+  }
+  .styled-input-single label:before, .styled-input-single label:after { /* position of the checkbox */
+    content: '';
+    position: absolute;
+    top: 50%;         /* Alignment to the text of the checkbox */
+    border-radius: 50%;   /* Roudness of the checkbox, lower is more squre, higher value doesn't do anything */
+  }
+  .styled-input-single label:before { /* The view of the checkbox itself before pressing it */
+    left: 0;
+    width: 30px;
+    height: 30px;
+    margin: -15px 0 0;
+    background: #fcfcfc;
+    box-shadow: 0 0 10px rgb(204, 30, 30); /* margin of the checkbox */
+  }
+  .styled-input-single label:after { /* The view of the checkbox after pressing it and the way of filling the checkbox */
+    left: 5px;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0;
+    opacity: 0;
+    background: #000000;
+    -webkit-transform: translate3d(0, 0, 0) scale(0.75);
+            transform: translate3d(0, 0, 0) scale(0.75);
+    -webkit-transition: opacity 0.25s ease-in-out, -webkit-transform 0.25s ease-in-out;
+    transition: opacity 0.25s ease-in-out, -webkit-transform 0.25s ease-in-out;
+    transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out;
+    transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out, -webkit-transform 0.25s ease-in-out;
+  }
+  .styled-input-single input[type="checkbox"] {
+    position: absolute;
+    top: 0;
+    left: -9999px;
+    visibility: hidden;
+  }
+  .styled-input-single input[type="checkbox"]:checked + label:after {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+
+  .one_col{
+    margin:0% 0% 0% 45%;
+  }
+  
+  .two_col{
+    margin:0% 0% 0% 35%;
+  }
+  
+  .three_col {
+    margin: 0% 0% 0% 25%;
+  }
+  
+  .four_col {
+    margin: 0px 200px 0px 200px;
+  }
+  
+  .higherThanFour{
+    margin: 0% 0% 0% 0% 10%;
+  }
