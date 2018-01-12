@@ -22,15 +22,16 @@ public class TestBlock extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "projectId", nullable = false)
-    private CognitiveTest test;
+    private CognitiveTest cognitiveTest;
 
-    public TestBlock(Integer numberOfQuestions, Boolean randomize, String tag, CognitiveTest test) {
+    public TestBlock(Integer numberOfQuestions, Boolean randomize, String tag, CognitiveTest cognitiveTest) {
         this.numberOfQuestions = numberOfQuestions;
         this.randomize = randomize;
         this.tag = tag;
-        this.test = test;
+        this.cognitiveTest = cognitiveTest;
     }
 
+    public TestBlock() {}
 
     /**
      * Returns the number of questions
@@ -64,12 +65,12 @@ public class TestBlock extends AbstractEntity {
         this.randomize = randomize;
     }
 
-    public CognitiveTest getTest() {
-        return test;
+    public CognitiveTest getCognitiveTest() {
+        return cognitiveTest;
     }
 
-    public void setTest(CognitiveTest test) {
-        this.test = test;
+    public void setCognitiveTest(CognitiveTest test) {
+        this.cognitiveTest = test;
     }
 
     public String getTag() {

@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 
-
 /**
  * Created by ophir on 17/12/17.
  */
@@ -14,7 +13,6 @@ public abstract class AbstractRestController<ServiceType> {
     protected final ServiceType service;
 
     public AbstractRestController(ServiceType service) { this.service = service; }
-
 
     /**
      * Error handler for backend errors - a 400 status code will be sent back, and the body

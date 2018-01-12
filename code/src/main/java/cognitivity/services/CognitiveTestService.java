@@ -1,6 +1,6 @@
 package cognitivity.services;
 
-import cognitivity.dao.CognitiveTestDAO;
+import cognitivity.dao.CognitiveTestDAOimpl;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestManager;
@@ -29,7 +29,7 @@ public class CognitiveTestService {
      * @return
      */
     public CognitiveTest createTestForTestManager(String name, TestManager manager, Integer state, Integer numberOfQuestions) {
-        CognitiveTestDAO dao = new CognitiveTestDAO();
+        CognitiveTestDAOimpl dao = new CognitiveTestDAOimpl();
         CognitiveTest t = new CognitiveTest(name,manager,state,numberOfQuestions);
         dao.add(t);
         return t;
@@ -43,7 +43,7 @@ public class CognitiveTestService {
      * This will be used in conjunction with the PUT HTTP method.
      */
     public void updateTestForTestManager(CognitiveTest test) {
-        CognitiveTestDAO dao = new CognitiveTestDAO();
+        CognitiveTestDAOimpl dao = new CognitiveTestDAOimpl();
         dao.update(test);
     }
 
@@ -55,7 +55,7 @@ public class CognitiveTestService {
      *               This will be used in conjunction with the DELETE HTTP method.
      */
     public void deleteTestForTestManager(long testID) {
-        CognitiveTestDAO dao = new CognitiveTestDAO();
+        CognitiveTestDAOimpl dao = new CognitiveTestDAOimpl();
         dao.delete(testID);
     }
 
@@ -67,7 +67,7 @@ public class CognitiveTestService {
      * @return - The test with the corresponding ID if it exists, null otherwise.
      */
     public CognitiveTest findTestById(long testID) {
-        CognitiveTestDAO dao = new CognitiveTestDAO();
+        CognitiveTestDAOimpl dao = new CognitiveTestDAOimpl();
         return dao.get(testID);
     }
 
@@ -78,7 +78,7 @@ public class CognitiveTestService {
      * @return - The test the test manager has created with the given id.
      */
     public List<CognitiveTest> findTestsForTestManager(long managerId) {
-        CognitiveTestDAO dao = new CognitiveTestDAO();
+        CognitiveTestDAOimpl dao = new CognitiveTestDAOimpl();
         return dao.getCognitiveTestOfManager(managerId);
     }
 
@@ -90,7 +90,7 @@ public class CognitiveTestService {
      * @return a list of all of the blocks in the test.
      */
     public List<TestBlock> getTestBlocksForTest(long testId) {
-        CognitiveTestDAO dao = new CognitiveTestDAO();
+        CognitiveTestDAOimpl dao = new CognitiveTestDAOimpl();
         return dao.getTestBlocks(testId);
     }
 
@@ -101,7 +101,7 @@ public class CognitiveTestService {
      * @return - All questions the test has.
      */
     public List<TestQuestion> getTestQuestionsForTest(long testId) {
-        CognitiveTestDAO dao = new CognitiveTestDAO();
+        CognitiveTestDAOimpl dao = new CognitiveTestDAOimpl();
         return dao.getTestQuestions(testId);
     }
 

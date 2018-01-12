@@ -1,6 +1,6 @@
 package cognitivity.services;
 
-import cognitivity.dao.TestBlockDAO;
+import cognitivity.dao.TestBlockDAOimpl;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class TestBlockService {
      * @return
      */
     public TestBlock createTestBlock(Integer numberOfQuestions, Boolean randomize, String tag, CognitiveTest test){
-        TestBlockDAO dao = new TestBlockDAO();
+        TestBlockDAOimpl dao = new TestBlockDAOimpl();
         TestBlock res = new TestBlock(numberOfQuestions,randomize,tag,test);
         dao.add(res);
         return res;
@@ -36,7 +36,7 @@ public class TestBlockService {
      * @param block - The block that needs to be updated.
      */
     public void updateTestBlock(TestBlock block){
-        TestBlockDAO dao = new TestBlockDAO();
+        TestBlockDAOimpl dao = new TestBlockDAOimpl();
         dao.update(block);
     }
 
@@ -46,7 +46,7 @@ public class TestBlockService {
      * @param blockId - the block Id we want to delete.
      */
     public void deleteTestBlock(long blockId){
-        TestBlockDAO dao = new TestBlockDAO();
+        TestBlockDAOimpl dao = new TestBlockDAOimpl();
         dao.delete(blockId);
     }
 }
