@@ -1,7 +1,7 @@
 package cognitivity.services;
 
-import cognitivity.dao.CognitiveTestDAO;
-import cognitivity.dao.TestManagerDAO;
+import cognitivity.dao.CognitiveTestDAOimpl;
+import cognitivity.dao.TestManagerDAOimpl;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ public class TestManagerService {
      * This will be used in conjunction with the POST HTTP method.
      */
     public TestManager createTestManager(String name, String password) {
-        TestManagerDAO dao = new TestManagerDAO();
+        TestManagerDAOimpl dao = new TestManagerDAOimpl();
         TestManager manager = new TestManager(name,password);
         dao.add(manager);
         return manager;
@@ -41,7 +41,7 @@ public class TestManagerService {
      * This will be used in conjunction with the PUT HTTP method.
      */
     public void updateTestManager(TestManager manager) {
-        TestManagerDAO dao = new TestManagerDAO();
+        TestManagerDAOimpl dao = new TestManagerDAOimpl();
         dao.update(manager);
     }
 
@@ -53,7 +53,7 @@ public class TestManagerService {
      *                      This will be used in conjunction with the DELETE HTTP method.
      */
     public void deleteTestManager(long testManagerId) {
-        TestManagerDAO dao = new TestManagerDAO();
+        TestManagerDAOimpl dao = new TestManagerDAOimpl();
         dao.delete(testManagerId);
     }
 
@@ -65,7 +65,7 @@ public class TestManagerService {
      * @return - the test manager found.
      */
     public TestManager findTestManager(long testManagerId) {
-        TestManagerDAO dao = new TestManagerDAO();
+        TestManagerDAOimpl dao = new TestManagerDAOimpl();
         return dao.get(testManagerId);
     }
 
@@ -77,10 +77,10 @@ public class TestManagerService {
      * # Could return empty search result
      */
     public TestManager findTestManagerByCreatedTest(long testId) {
-        CognitiveTestDAO dao = new CognitiveTestDAO();
+        CognitiveTestDAOimpl dao = new CognitiveTestDAOimpl();
         CognitiveTest test = dao.get(testId);
         long managerId = test.getManager().getId();
-        TestManagerDAO managerDAO = new TestManagerDAO();
+        TestManagerDAOimpl managerDAO = new TestManagerDAOimpl();
         return managerDAO.get(managerId);
     }
 
@@ -94,7 +94,7 @@ public class TestManagerService {
      * @return - All tests the test manager has created.
      */
     public List<CognitiveTest> findTestsForTestManager(long managerId) {
-        CognitiveTestDAO dao = new CognitiveTestDAO();
+        CognitiveTestDAOimpl dao = new CognitiveTestDAOimpl();
         return dao.getCognitiveTestOfManager(managerId);
     }
 

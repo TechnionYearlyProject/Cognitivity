@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Table(name = "testAnswer")
 public class TestAnswer extends AbstractEntity {
 
-    @ManyToOne
+	@ManyToOne
     @JoinColumn(name = "testeeId", nullable = false)
     private TestSubject testSubject;
 
@@ -41,9 +41,8 @@ public class TestAnswer extends AbstractEntity {
     @Column(name = "questionWithPicture", nullable = false)
     private Boolean questionWithPicture;
 
-    @Temporal(TemporalType.TIME)
     @Column(name = "timeToAnswer", nullable = false)
-    private String timeToAnswer;
+    private Integer timeToAnswer;
 
     @Column(name = "timeMeasured")
     private Boolean timeMeasured;
@@ -54,10 +53,9 @@ public class TestAnswer extends AbstractEntity {
     @Column(name = "testeeExit")
     private Boolean testeeExit;
 
-
 	public TestAnswer(TestSubject testSubject, TestQuestion question, CognitiveTest cognitiveTest, Integer numberOfClick,
 					  Integer finalAnswer, Integer questionPlacement, Integer answerPlacement, String verbalAnswer,
-					  Boolean questionWithPicture, String timeToAnswer, Boolean timeMeasured, Boolean timeShowed,
+					  Boolean questionWithPicture, Integer timeToAnswer, Boolean timeMeasured, Boolean timeShowed,
 					  Boolean testeeExit) {
 		this.testSubject = testSubject;
 		this.question = question;
@@ -74,6 +72,7 @@ public class TestAnswer extends AbstractEntity {
 		this.testeeExit = testeeExit;
 	}
 
+	public TestAnswer() {}
 
 	/**
 	* Returns value of testSubject
@@ -223,7 +222,7 @@ public class TestAnswer extends AbstractEntity {
 	* Returns value of timeToAnswer
 	* @return
 	*/
-	public String getTimeToAnswer() {
+	public Integer getTimeToAnswer() {
 		return timeToAnswer;
 	}
 
@@ -231,7 +230,7 @@ public class TestAnswer extends AbstractEntity {
 	* Sets new value of timeToAnswer
 	* @param
 	*/
-	public void setTimeToAnswer(String timeToAnswer) {
+	public void setTimeToAnswer(Integer timeToAnswer) {
 		this.timeToAnswer = timeToAnswer;
 	}
 

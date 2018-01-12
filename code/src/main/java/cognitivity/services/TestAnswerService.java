@@ -1,7 +1,7 @@
 package cognitivity.services;
 
-import cognitivity.dao.TestAnswerDAO;
-import cognitivity.dao.TestSubjectDAO;
+import cognitivity.dao.TestAnswerDAOimpl;
+import cognitivity.dao.TestSubjectDAOimpl;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestAnswer;
 import cognitivity.entities.TestQuestion;
@@ -41,8 +41,8 @@ public class TestAnswerService {
                                                    TestQuestion question, CognitiveTest cognitiveTest,
                                                    Integer numberOfClick, Integer finalAnswer, Integer questionPlacement,
                                                    Integer answerPlacement, String verbalAnswer, Boolean questionWithPicture,
-                                                   String timeToAnswer, Boolean timeMeasured, Boolean timeShowed, Boolean testeeExit) {
-        TestAnswerDAO dao = new TestAnswerDAO();
+                                                   Integer timeToAnswer, Boolean timeMeasured, Boolean timeShowed, Boolean testeeExit) {
+        TestAnswerDAOimpl dao = new TestAnswerDAOimpl();
         TestAnswer answer = new TestAnswer(testSubject,question,cognitiveTest,numberOfClick,finalAnswer,questionPlacement,
                 answerPlacement,verbalAnswer,questionWithPicture,timeToAnswer,timeMeasured,timeShowed, testeeExit);
         dao.add(answer);
@@ -57,7 +57,7 @@ public class TestAnswerService {
      * This will be used in conjunction with the PUT HTTP method.
      * */
     public void updateTestAnswerForQuestion(TestAnswer answer) {
-        TestAnswerDAO dao = new TestAnswerDAO();
+        TestAnswerDAOimpl dao = new TestAnswerDAOimpl();
         dao.update(answer);
     }
 
@@ -69,7 +69,7 @@ public class TestAnswerService {
      * This will be used in conjunction with the DELETE HTTP method.
      * */
     public void deleteTestAnswerForQuestion(long id) {
-        TestAnswerDAO dao = new TestAnswerDAO();
+        TestAnswerDAOimpl dao = new TestAnswerDAOimpl();
         dao.delete(id);
     }
 
@@ -81,7 +81,7 @@ public class TestAnswerService {
      * This will be used in conjunction with the DELETE HTTP method.
      * */
     public void deleteAllTestAnswersForQuestion(long questionId) {
-        TestAnswerDAO dao = new TestAnswerDAO();
+        TestAnswerDAOimpl dao = new TestAnswerDAOimpl();
         List<TestAnswer> answers = dao.getTestAnswers(questionId);
         for (TestAnswer answer : answers){
             dao.delete(answer.getId());
@@ -95,7 +95,7 @@ public class TestAnswerService {
      * @return - Test answer with given id, null if it doesn't exist.
      * */
     public TestAnswer findTestAnswerById(long answerId) {
-        TestAnswerDAO dao = new TestAnswerDAO();
+        TestAnswerDAOimpl dao = new TestAnswerDAOimpl();
         return dao.get(answerId);
     }
 
@@ -107,7 +107,7 @@ public class TestAnswerService {
      * @return - All test answers that belong to the subject with the given id.
      * */
     public List<TestAnswer> findTestAnswersBySubject(long subjectId) {
-        TestSubjectDAO dao = new TestSubjectDAO();
+        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
         return dao.getSubjectAnswers(subjectId);
     }
 
@@ -120,7 +120,7 @@ public class TestAnswerService {
      * @return - All test answers that belong to the subject with the given id.
      * */
     public List<TestAnswer> findTestAnswersBySubjectInTest(long subjectId, long testId) {
-        TestAnswerDAO dao = new TestAnswerDAO();
+        TestAnswerDAOimpl dao = new TestAnswerDAOimpl();
         return dao.getTestSubjectAnswersInTest(subjectId, testId);
     }
 
@@ -131,7 +131,7 @@ public class TestAnswerService {
      * @return - A list of all the answers for the question.
      */
     public List<TestAnswer> findAllTestAnswerForAQuestion(long questionId){
-        TestAnswerDAO dao = new TestAnswerDAO();
+        TestAnswerDAOimpl dao = new TestAnswerDAOimpl();
         return dao.getTestAnswers(questionId);
     }
 }

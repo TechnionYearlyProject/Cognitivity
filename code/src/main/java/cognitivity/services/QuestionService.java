@@ -1,9 +1,9 @@
 package cognitivity.services;
 
-import cognitivity.dao.CognitiveTestDAO;
-import cognitivity.dao.TestAnswerDAO;
-import cognitivity.dao.TestManagerDAO;
-import cognitivity.dao.TestQuestionDAO;
+import cognitivity.dao.CognitiveTestDAOimpl;
+import cognitivity.dao.TestAnswerDAOimpl;
+import cognitivity.dao.TestManagerDAOimpl;
+import cognitivity.dao.TestQuestionDAOimpl;
 import cognitivity.entities.*;
 import org.springframework.stereotype.Service;
 
@@ -32,9 +32,9 @@ public class QuestionService {
      * This will be used in conjunction with the POST HTTP method.
      * */
     public TestQuestion createTestQuestion(String question, Integer questionType,
-                                           Integer answer, String tag, TestBlock block, CognitiveTest project) {
-        TestQuestionDAO dao = new TestQuestionDAO();
-        TestQuestion q = new TestQuestion(question,questionType,answer,tag,block,project);
+                                           Integer answer, String tag, TestBlock block, CognitiveTest project, TestManager manager) {
+        TestQuestionDAOimpl dao = new TestQuestionDAOimpl();
+        TestQuestion q = new TestQuestion(question,questionType,answer,tag,block,project, manager);
         dao.add(q);
         return q;
     }
@@ -47,7 +47,7 @@ public class QuestionService {
      * This will be used in conjunction with the PUT HTTP method.
      * */
     public void updateTestQuestion(TestQuestion q) {
-        TestQuestionDAO dao = new TestQuestionDAO();
+        TestQuestionDAOimpl dao = new TestQuestionDAOimpl();
         dao.update(q);
     }
 
@@ -63,7 +63,7 @@ public class QuestionService {
      * */
     //TODO: do we want to delete all corresponding test answers as well?
     public void deleteTestQuestion(long questionId) {
-        TestQuestionDAO dao = new TestQuestionDAO();
+        TestQuestionDAOimpl dao = new TestQuestionDAOimpl();
         dao.delete(questionId);
     }
 
@@ -74,7 +74,7 @@ public class QuestionService {
      * @return the question corresponding to the given id if it exists, null otherwise
      */
     public TestQuestion findQuestionById(long id){
-        TestQuestionDAO dao = new TestQuestionDAO();
+        TestQuestionDAOimpl dao = new TestQuestionDAOimpl();
         return dao.get(id);
     }
 
@@ -86,7 +86,7 @@ public class QuestionService {
      * @return - All the answers to the given question.
      */
     public List<TestAnswer> getTestAnswers(long questionId){
-        TestAnswerDAO dao = new TestAnswerDAO();
+        TestAnswerDAOimpl dao = new TestAnswerDAOimpl();
         return dao.getTestAnswers(questionId);
     }
 
@@ -97,7 +97,7 @@ public class QuestionService {
      * @return - A list of all test questions in the test
      */
     public List<TestQuestion> findAllTestQuestionsFromTestId(long testId){
-        CognitiveTestDAO cognitiveDAO = new CognitiveTestDAO();
+        CognitiveTestDAOimpl cognitiveDAO = new CognitiveTestDAOimpl();
         CognitiveTest test = cognitiveDAO.get(testId);
         return cognitiveDAO.getTestQuestions(testId);
     }
@@ -109,8 +109,8 @@ public class QuestionService {
      * @return - A list of all test questions in the test
      */
     public List<TestQuestion> findAllTestQuestionsFromManagerId(long managerId){
-        TestQuestionDAO questionDAO = new TestQuestionDAO();
-        TestManagerDAO testManagerDAO = new TestManagerDAO();
+        TestQuestionDAOimpl questionDAO = new TestQuestionDAOimpl();
+        TestManagerDAOimpl testManagerDAO = new TestManagerDAOimpl();
         TestManager testManager = testManagerDAO.get(managerId);
         return questionDAO.getTestQuestionsFromAManager(testManager);
     }

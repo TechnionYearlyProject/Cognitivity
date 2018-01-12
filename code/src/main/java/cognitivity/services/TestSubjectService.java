@@ -1,6 +1,6 @@
 package cognitivity.services;
 
-import cognitivity.dao.TestSubjectDAO;
+import cognitivity.dao.TestSubjectDAOimpl;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestAnswer;
 import cognitivity.entities.TestSubject;
@@ -28,7 +28,7 @@ public class TestSubjectService {
      */
     public void createTestSubject(String name, Integer ipAddress, String browser) {
         TestSubject subject = new TestSubject(name,ipAddress,browser);
-        TestSubjectDAO dao = new TestSubjectDAO();
+        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
         dao.add(subject);
     }
 
@@ -40,7 +40,7 @@ public class TestSubjectService {
      * This will be used in conjunction with the PUT HTTP method.
      * */
     public void updateTestSubject(TestSubject subject) {
-        TestSubjectDAO dao = new TestSubjectDAO();
+        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
         dao.update(subject);
     }
 
@@ -52,7 +52,7 @@ public class TestSubjectService {
      * This will be used in conjunction with the DELETE HTTP method.
      * */
     public void deleteTestSubject(long testSubjectId) {
-        TestSubjectDAO dao = new TestSubjectDAO();
+        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
         dao.delete(testSubjectId);
     }
 
@@ -64,7 +64,7 @@ public class TestSubjectService {
      * @return - the test subject found.
      */
     public TestSubject findTestSubject(long testSubjectId) {
-        TestSubjectDAO dao = new TestSubjectDAO();
+        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
         return dao.get(testSubjectId);
     }
 
@@ -75,7 +75,7 @@ public class TestSubjectService {
      * @return - all the answers the test subject gave.
      */
     public List<TestAnswer> findAllTestSubjectAnswers(long subjectId){
-        TestSubjectDAO dao = new TestSubjectDAO();
+        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
         return dao.getSubjectAnswers(subjectId);
     }
     /**
@@ -95,7 +95,7 @@ public class TestSubjectService {
      * @return - A list of the subjects who participated the test.
      */
     public List<TestSubject> findTestSubjectsWhoParticipatedInTest(long testId){
-        TestSubjectDAO dao = new TestSubjectDAO();
+        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
         return dao.getTestSubjectsWhoParticipatedInTest(testId);
     }
 

@@ -16,7 +16,7 @@ public class CognitiveTest extends AbstractEntity {
 
     public CognitiveTest(String name, TestManager manager, Integer state, Integer numberOfQuestions) {
 		this.name = name;
-		this.manager = manager;
+		this.testManager = manager;
 		this.numberOfSubjects = 0;
 		this.state = state;
 		this.lastModified = new Date(Calendar.getInstance().getTimeInMillis()); //TODO:Check for format
@@ -25,13 +25,14 @@ public class CognitiveTest extends AbstractEntity {
 		this.numberOfQuestions = numberOfQuestions;
 	}
 
+	public CognitiveTest() {}
 
 	@Column(name = "name")
     private String name;
 
     @ManyToOne
     @JoinColumn(name = "managerId", nullable = false)
-    private TestManager manager;
+    private TestManager testManager;
 
     @Column(name = "numberOfSubjects", nullable = false)
     private Integer numberOfSubjects;
@@ -42,9 +43,8 @@ public class CognitiveTest extends AbstractEntity {
     @Column(name = "lastModified", nullable = false)
     private Date lastModified;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "lastAnswered", nullable = false)
-    private String lastAnswered;
+    @Column(name = "lastAnswered")
+    private Date lastAnswered;
 
     @Column(name = "numberOfFiledCopies", nullable = false)
     private Integer numberOfFiledCopies;
@@ -74,7 +74,7 @@ public class CognitiveTest extends AbstractEntity {
 	* @return
 	*/
 	public TestManager getManager() {
-		return manager;
+		return testManager;
 	}
 
 	/**
@@ -82,7 +82,7 @@ public class CognitiveTest extends AbstractEntity {
 	* @param
 	*/
 	public void setManager(TestManager manager) {
-		this.manager = manager;
+		this.testManager = manager;
 	}
 
 	/**
@@ -137,7 +137,7 @@ public class CognitiveTest extends AbstractEntity {
 	* Returns value of lastAnswered
 	* @return
 	*/
-	public String getLastAnswered() {
+	public Date getLastAnswered() {
 		return lastAnswered;
 	}
 
@@ -145,7 +145,7 @@ public class CognitiveTest extends AbstractEntity {
 	* Sets new value of lastAnswered
 	* @param
 	*/
-	public void setLastAnswered(String lastAnswered) {
+	public void setLastAnswered(Date lastAnswered) {
 		this.lastAnswered = lastAnswered;
 	}
 

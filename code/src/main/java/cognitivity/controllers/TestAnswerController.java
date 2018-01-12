@@ -99,7 +99,7 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
             @RequestParam Integer answerPlacement,
             @RequestParam String verbalAnswer,
             @RequestParam Boolean questionWithPicture,
-            @RequestParam String timeToAnswer,
+            @RequestParam Integer timeToAnswer,
             @RequestParam Boolean timeMeasured,
             @RequestParam Boolean timeShowed,
             @RequestParam Boolean testeeExit) {

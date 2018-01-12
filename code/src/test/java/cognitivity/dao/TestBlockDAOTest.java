@@ -3,15 +3,22 @@ package cognitivity.dao;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestManager;
+import cognitivity.web.app.config.CognitivityMvcConfiguration;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.*;
 
-@Ignore("need to debug")
-public class TestBlockDAOTest {
-    private TestBlockDAO testBlockDAO;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = CognitivityMvcConfiguration.class)
+@Ignore("tests passing, but to run them there is a need of db")
+public class TestBlockDAOTest extends AbstractDaoTestClass {
+
     private TestBlock testBlock;
 
     /*
@@ -23,10 +30,11 @@ public class TestBlockDAOTest {
      */
     @Before
     public void initialize(){
-        testBlockDAO = new TestBlockDAO();
         TestManager testManager =
                 new TestManager("onlyForTests TestManager", "notarealpassword");
+        testManagerDAO.add(testManager);
         CognitiveTest cognitiveTest = new CognitiveTest("onlyForTests", testManager, 0, 1);
+        cognitiveTestDAO.add(cognitiveTest);
         testBlock = new TestBlock(0,false, "testTag", cognitiveTest);
     }
 
@@ -41,7 +49,7 @@ public class TestBlockDAOTest {
      *  - Delete : we call the delete function and delete if the answer still in the db
      */
     @Test
-    void crudTests(){
+    public void crudTests(){
         assertNull(testBlockDAO.get(0L));
         testBlockDAO.add(testBlock);
         assertNotNull("add testBlock problem", testBlockDAO.get(testBlock.getId()));

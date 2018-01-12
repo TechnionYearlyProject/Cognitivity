@@ -24,6 +24,8 @@ public class TestManager extends AbstractEntity {
 		this.password = password;
 	}
 
+	public TestManager() {}
+
 	/**
 	* Returns value of name
 	* @return

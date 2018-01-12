@@ -2,20 +2,23 @@ package cognitivity.dao;
 
 
 import cognitivity.entities.*;
+import cognitivity.web.app.config.CognitivityMvcConfiguration;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-@Ignore("need to debug")
-public class TestSubjectDAOTest {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = CognitivityMvcConfiguration.class)
+@Ignore("tests passing, but to run them there is a need of db")
+public class TestSubjectDAOTest extends AbstractDaoTestClass {
+
     private int numOfSubjects = 5;
     private int numOfAnswersPerSubject = 5;
-    private TestSubjectDAO testSubjectDAO;
-    private TestAnswerDAO testAnswerDAO;
     private CognitiveTest cognitiveTest;
     private TestManager testManager;
     private TestSubject testSubject[];
@@ -24,16 +27,18 @@ public class TestSubjectDAOTest {
 
     @Before
     public void initialize(){
-        testAnswerDAO = new TestAnswerDAO();
-        testSubjectDAO = new TestSubjectDAO();
         testSubject = new TestSubject[numOfSubjects];
         testAnswers = new TestAnswer[numOfSubjects][numOfAnswersPerSubject];
         testManager = new TestManager("qertyt", "      ");
+        testManagerDAO.add(testManager);
         cognitiveTest = new CognitiveTest("newTest", testManager,0,0);
+        cognitiveTestDAO.add(cognitiveTest);
         testBlock = new TestBlock(0, true, "tag", cognitiveTest);
+        testBlockDAO.add(testBlock);
 
-        TestQuestion testQuestion = new TestQuestion("bkabalba", 2,2, "thisIsMyTag", testBlock, cognitiveTest);
-
+        TestQuestion testQuestion = new TestQuestion("bkabalba", 2,2,
+                "thisIsMyTag", testBlock, cognitiveTest, testManager);
+        testQuestionDAO.add(testQuestion);
         for(int i = 0; i < numOfSubjects; i++){
             testSubject[i] = new TestSubject("subject", 3 + i, "firefox");
             testSubjectDAO.add(testSubject[i]);
@@ -41,7 +46,7 @@ public class TestSubjectDAOTest {
                 testAnswers[i][j] = new TestAnswer(testSubject[i], testQuestion,
                         cognitiveTest, 1, j,1,
                         1, null, false,
-                        "", false, false, false);
+                        5, false, false, false);
             }
         }
     }
@@ -59,7 +64,7 @@ public class TestSubjectDAOTest {
      *
      */
     @Test
-    void crudTests(){
+    public void crudTests(){
         assertNull(testSubjectDAO.get(0L));
         testSubjectDAO.add(testSubject[0]);
         assertNotNull("add testSubject problem", testSubjectDAO.get(testSubject[0].getId()));
@@ -74,7 +79,7 @@ public class TestSubjectDAOTest {
         testSubject[0].setBrowser(testSubjectBrowser);
         testSubjectDAO.update(testSubject[0]);
         assertTrue("browser incorrect",
-                newTestSubjectBrowser.equals(testSubjectDAO.get(testSubject[0].getId()).getBrowser()));
+                testSubjectBrowser.equals(testSubjectDAO.get(testSubject[0].getId()).getBrowser()));
         testSubjectDAO.delete(testSubject[0].getId());
         assertNull("delete problem", testSubjectDAO.get(testSubject[0].getId()));
     }
@@ -95,7 +100,7 @@ public class TestSubjectDAOTest {
      *
      */
     @Test
-    void getSubjectAnswers(){
+    public void getSubjectAnswers(){
         for(int j = 0; j < numOfSubjects; j++){
             for(int i = 0; i <= numOfAnswersPerSubject; i++){
                 assertTrue("Subject should have " + i + " answers",
@@ -105,17 +110,23 @@ public class TestSubjectDAOTest {
                     assertTrue("Subject don't have the " + i + "-th answer",
                        testSubjectDAO.getSubjectAnswers(testSubject[j].getId()).contains(testAnswers[j][k]));
                 }
-                testAnswerDAO.add(testAnswers[j][i]);
+                // on the last iteration we just want to check that the last answer is fine,
+                // we don't have any more answers to insert
+                if(i < numOfAnswersPerSubject)
+                    testAnswerDAO.add(testAnswers[j][i]);
             }
         }
 
         for(int j = 0; j < numOfSubjects; j++){
-            for(int i = numOfAnswersPerSubject; i >= numOfAnswersPerSubject; i--){
-                assertTrue("Subject shouldn't have any answers",
+            for(int i = numOfAnswersPerSubject; i >= 0; i--){
+                assertTrue("Subject should have " + i +" answers",
                         testSubjectDAO.getSubjectAnswers(testSubject[j].getId()).size() == i);
-                testAnswerDAO.delete(testAnswers[j][i].getId());
+                // on the last iteration we just want to check that there are no more answers to any subject
+                if(i > 0)
+                    testAnswerDAO.delete(testAnswers[j][i - 1].getId());
             }
         }
+
 
         testAnswerDAO.add(testAnswers[0][0]);
         //changing the subject to make sure the subject list updates
@@ -144,8 +155,7 @@ public class TestSubjectDAOTest {
      *  
      */
     @Test
-    void getTestSubjectsWhoParticipatedInTest(){
-        CognitiveTestDAO cognitiveTestDAO = new CognitiveTestDAO();
+    public void getTestSubjectsWhoParticipatedInTest(){
         cognitiveTestDAO.add(cognitiveTest);
         assertTrue("Test should have empty list of participants",
                 testSubjectDAO.getTestSubjectsWhoParticipatedInTest(cognitiveTest.getId()).isEmpty());

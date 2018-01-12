@@ -28,7 +28,7 @@ public class TestQuestion extends AbstractEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "projectId", nullable = false)
-	private CognitiveTest project;
+	private CognitiveTest cognitiveTest;
 
 	public TestManager getTestManager() {
 		return testManager;
@@ -42,15 +42,18 @@ public class TestQuestion extends AbstractEntity {
 	@JoinColumn(name = "testManagerId")
 	private TestManager testManager;
 
-	public TestQuestion(String question, Integer questionType, Integer answer,
-						String tag, TestBlock block, CognitiveTest project) {
+	public TestQuestion(String question, Integer questionType, Integer answer, String tag,
+						TestBlock block, CognitiveTest cognitiveTest, TestManager testManager) {
 		this.question = question;
 		this.questionType = questionType;
 		this.answer = answer;
 		this.tag = tag;
 		this.block = block;
-		this.project = project;
+		this.cognitiveTest = cognitiveTest;
+		this.testManager = testManager;
 	}
+
+	public TestQuestion() {}
 
 	/**
 	* Returns value of question
@@ -116,11 +119,11 @@ public class TestQuestion extends AbstractEntity {
 		this.tag = tag;
 	}
 
-	public CognitiveTest getProject() {
-		return project;
+	public CognitiveTest getCognitiveTest() {
+		return cognitiveTest;
 	}
 
-	public void setProject(CognitiveTest project) {
-		this.project = project;
+	public void setCognitiveTest(CognitiveTest project) {
+		this.cognitiveTest = project;
 	}
 }

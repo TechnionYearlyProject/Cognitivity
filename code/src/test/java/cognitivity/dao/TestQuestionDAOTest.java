@@ -5,15 +5,21 @@ import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestManager;
 import cognitivity.entities.TestQuestion;
+import cognitivity.web.app.config.CognitivityMvcConfiguration;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.*;
 
-@Ignore("need to debug")
-public class TestQuestionDAOTest {
-    private TestQuestionDAO testQuestionDAO;
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = CognitivityMvcConfiguration.class)
+@Ignore("tests passing, but to run them there is a need of db")
+public class TestQuestionDAOTest extends AbstractDaoTestClass {
+
     private TestQuestion testQuestion;
     private TestManager testManager;
 
@@ -27,13 +33,16 @@ public class TestQuestionDAOTest {
     //TODO: add check in the add questions test, that the test indeed updates
     @Before
     public void initialize(){
-        testQuestionDAO = new TestQuestionDAO();
         testManager =
                 new TestManager("onlyForTests TestManager", "notarealpassword");
+        testManagerDAO.add(testManager);
         CognitiveTest cognitiveTest =
                 new CognitiveTest("onlyForTests", testManager, 1, 0);
+        cognitiveTestDAO.add(cognitiveTest);
         TestBlock testBlock = new TestBlock(0,false, "testTag", cognitiveTest);
-        testQuestion = new TestQuestion("testQuestion", 0, null, "testTag", testBlock, cognitiveTest);
+        testBlockDAO.add(testBlock);
+        testQuestion = new TestQuestion("testQuestion", 0,
+                null, "testTag", testBlock, cognitiveTest, testManager);
     }
 
     /*
@@ -48,7 +57,7 @@ public class TestQuestionDAOTest {
      *
      */
     @Test
-    void crudTests(){
+    public void crudTests(){
         assertNull(testQuestionDAO.get(0L));
         testQuestionDAO.add(testQuestion);
         assertNotNull("add testQuestion problem", testQuestionDAO.get(testQuestion.getId()));
@@ -82,12 +91,16 @@ public class TestQuestionDAOTest {
      *
      */
     @Test
-    void getTestQuestionsFromAManager(){
-        assertNull("testQuestion table should be empty",
-                testQuestionDAO.getTestQuestionsFromAManager(testManager));
+    public void getTestQuestionsFromAManager(){
+        assertTrue("testQuestion table should be empty",
+                testQuestionDAO.getTestQuestionsFromAManager(testManager).isEmpty());
+        TestManager otherTestManager
+                = new TestManager("new TestManager", "notarealpassword");
+        testManagerDAO.add(otherTestManager);
+        testQuestion.setTestManager(otherTestManager);
         testQuestionDAO.add(testQuestion);
-        assertNull("Test manager shouldn't have any questions yet",
-                testQuestionDAO.getTestQuestionsFromAManager(testManager));
+        assertTrue("Test manager should have one test",
+                testQuestionDAO.getTestQuestionsFromAManager(testManager).isEmpty());
         testQuestion.setTestManager(testManager);
         testQuestionDAO.update(testQuestion);
         assertTrue("Test manager should have this question",
@@ -95,7 +108,7 @@ public class TestQuestionDAOTest {
         assertTrue("Test manager should have only one question",
                 testQuestionDAO.getTestQuestionsFromAManager(testManager).size() == 1);
         testQuestionDAO.delete(testQuestion.getId());
-        assertNull("Test manager shouldn't have any questions yet",
-                testQuestionDAO.getTestQuestionsFromAManager(testManager));
+        assertTrue("Test manager shouldn't have any questions yet",
+                testQuestionDAO.getTestQuestionsFromAManager(testManager).isEmpty());
     }
 }

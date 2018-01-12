@@ -1,15 +1,22 @@
 package cognitivity.dao;
 
 import cognitivity.entities.TestManager;
+import cognitivity.web.app.config.CognitivityMvcConfiguration;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.*;
 
-@Ignore("need to debug")
-public class TestManagerDAOTest {
-    private TestManagerDAO testManagerDAO;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = CognitivityMvcConfiguration.class)
+@Ignore("tests passing, but to run them there is a need of db")
+public class TestManagerDAOTest extends AbstractDaoTestClass {
+
     private TestManager testManager;
 
     /*
@@ -21,7 +28,6 @@ public class TestManagerDAOTest {
      */
     @Before
     public void initialize(){
-        testManagerDAO = new TestManagerDAO();
         testManager =
                 new TestManager("BB", "notarealpassword");
 
@@ -38,7 +44,7 @@ public class TestManagerDAOTest {
      *  - Delete : we call the delete function and delete if the answer still in the db
      */
     @Test
-    void crudTests(){
+    public void crudTests(){
         assertNull(testManagerDAO.get(0L));
         testManagerDAO.add(testManager);
         assertNotNull("add testManager problem", testManagerDAO.get(testManager.getId()));

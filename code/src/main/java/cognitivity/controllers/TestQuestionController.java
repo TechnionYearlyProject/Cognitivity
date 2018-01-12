@@ -2,6 +2,7 @@ package cognitivity.controllers;
 
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
+import cognitivity.entities.TestManager;
 import cognitivity.entities.TestQuestion;
 import cognitivity.services.QuestionService;
 import org.springframework.http.HttpStatus;
@@ -54,13 +55,14 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
     @RequestMapping(method = RequestMethod.POST, value = "/saveCognitiveTestQuestion")
     public void saveCognitiveTestQuestion(
             @RequestParam String question,
-            @RequestParam  Integer questionType,
+            @RequestParam Integer questionType,
             @RequestParam Integer answer,
             @RequestParam String tag,
             @RequestParam TestBlock block,
-            @RequestParam CognitiveTest project) {
+            @RequestParam CognitiveTest project,
+            @RequestParam TestManager testManager) {
 
-        service.createTestQuestion(question,questionType,answer,tag,block,project);
+        service.createTestQuestion(question,questionType,answer,tag,block,project,testManager);
 
     }
 
