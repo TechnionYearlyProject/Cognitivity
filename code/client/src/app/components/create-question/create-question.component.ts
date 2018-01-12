@@ -19,6 +19,13 @@ export class CreateQuestionComponent implements OnInit {
   typeMultipleQuestion?: TypeMultipleQuestion;
   answers?: Array<string> = new Array();
   answerTextForMultiple?: string;
+  correctAnswer?: number;
+  markedAnswers?: Array<boolean> = new Array();
+  dimSize?: number = 2;
+  markedAnswersMatrix?: Array<Array<boolean>>;
+  matrixAnswers?: Array<Array<string>>;
+  centeringMatrix?: any;
+  iteratorArray?: Array<Array<null>>;
 
   /*
     ------------ rate question details ----------------------
@@ -31,10 +38,16 @@ export class CreateQuestionComponent implements OnInit {
   answerText?: string;
 
 
+
   submit: boolean = false;
   editionMode: boolean = false;
   indexAnswerInEdit: number = -1;
-  constructor() { }
+
+  question_object: any;
+  constructor() {
+    this.constructMatrix();
+ 
+   }
 
   ngOnInit() {
   }
@@ -162,6 +175,7 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   setMatrixType(){
+    this.answers = new Array<string>();
     if(this.typeMultipleQuestion == TypeMultipleQuestion.Matrix){
       this.typeMultipleQuestion = null;
     }else{
@@ -205,9 +219,64 @@ export class CreateQuestionComponent implements OnInit {
 
   onSubmit(f){
     console.log('hi');
+    if(this.didChoseQuestionPosition() && this.didChoseQuestionType()){
+      if(this.didChoseMultipleQuestion()){
+        if(this.didChoseMultipleChoiceType()){
+          if(this.didChoseVerticalType() || this.didChoseHorizontalType()){
+            if(this.haveAnswers()){
+              this.constructMultipleQuestion();
+            }
+          }else if(this.didChoseMatrixType()){
+            if(!this.missingAnswers()){
+              this.constructMatrixQuestion();
+            }
+            
+          }
+        }else if(this.didChoseRateQuestion()){
+          this.constructRateQuestion();
+        }else if(this.didChoseOpenQuestion()){
+          if(this.answerText != ''){
+            this.constructOpenQuestion();
+          }
+        }
+      }
+    }
     this.submit = true;
   }
-
+  constructOpenQuestion(){
+    this.question_object = {
+      questionText: this.questionText,
+      type: this.typeQuestion,
+      questionPosition: this.questionPosition,
+      answerText: this.answerText
+    }
+  }
+  constructRateQuestion(){
+    this.question_object = {
+      questionText: this.questionText,
+      type: this.typeQuestion,
+      questionPosition: this.questionPosition,
+      heightOfRate: this.rateSize
+    }
+  }
+  constructMatrixQuestion(){
+    for(let i = 0; i < this.dimSize; i++){
+      for(let j = 0; j < this.dimSize; j++){
+        this.answers.splice(this.answers.length, 0 ,this.matrixAnswers[j][i]);
+      }
+    }
+    this.constructMultipleQuestion();
+  }
+  constructMultipleQuestion(){
+    this.question_object = {
+      questionText: this.questionText,
+      type: this.typeQuestion,
+      questionPosition: this.questionPosition,
+      answers: this.answers,
+      correctAnswer: this.correctAnswer,
+      typeMultipleQuestion: this.typeMultipleQuestion
+    }
+  }
   didChoseQuestionType():boolean {
     return this.didChoseOpenQuestion() || this.didChoseRateQuestion() || this.didChoseMultipleQuestion(); 
   }
@@ -222,6 +291,7 @@ export class CreateQuestionComponent implements OnInit {
 
   addAnswer(){
     this.answers.splice(this.answers.length, 0, this.answerTextForMultiple);
+    this.markedAnswers.splice(this.markedAnswers.length, 0, false);
     this.answerTextForMultiple = '';
   }
 
@@ -231,6 +301,7 @@ export class CreateQuestionComponent implements OnInit {
 
   deleteAnswer(index: number){
     this.answers.splice(index,1);
+    this.markedAnswers.splice(index, 1);
   }
 
   editAnswer(index: number){
@@ -254,14 +325,85 @@ export class CreateQuestionComponent implements OnInit {
   goUp(index: number){
     if(index != 0){
       let removed = this.answers.splice(index, 1)
+      let removed_marked = this.markedAnswers.splice(index, 1);
       this.answers.splice(index - 1, 0, removed[0]);
+      this.markedAnswers.splice(index - 1, 0, removed_marked[0]);
     } 
   }
 
   goDown(index: number){
     if(index != this.answers.length - 1){
-      let removed = this.answers.splice(index, 1)
+      let removed = this.answers.splice(index, 1);
+      let removed_marked = this.markedAnswers.splice(index, 1);
       this.answers.splice(index + 1, 0, removed[0]);
+      this.markedAnswers.splice(index + 1, 0, removed_marked[0]);
     }
+  }
+  markAnswer(index: number, index_col: number = -1){
+    if(index_col == -1){
+      for(let i = 0; i < this.markedAnswers.length; i++){
+        if(i == index){
+          this.markedAnswers[i] = true;
+          this.correctAnswer = i;
+        }else{
+          this.markedAnswers[i] = false;
+        }
+      }  
+    }else{
+      for(let i = 0; i < this.dimSize; i++){
+        for(let j = 0; j < this.dimSize; j++){
+          if(i == index && j == index_col){
+            this.markedAnswersMatrix[i][j] = true;
+            this.correctAnswer = i + this.dimSize+j;
+          }else{
+            this.markedAnswersMatrix[i][j] = false;
+          }
+        }
+      }
+    }
+  }
+  increaseDim(){
+    if(this.dimSize < 3){
+      this.dimSize++;
+      this.constructMatrix();
+    }
+  }
+  decreaseDim(){
+    if(this.dimSize > 2){
+      this.dimSize--;
+      this.constructMatrix();
+    }
+  }
+
+  constructMatrix(){
+    this.markedAnswersMatrix = new Array<Array<boolean>>(this.dimSize);
+    this.matrixAnswers = new Array<Array<string>>(this.dimSize);
+    this.iteratorArray = new Array<Array<null>>(this.dimSize);
+    for(let i = 0; i < this.dimSize; i++){
+      this.markedAnswersMatrix[i] = new Array<boolean>(this.dimSize);
+      this.matrixAnswers[i] = new Array<string>(this.dimSize);
+      this.iteratorArray[i] = new Array<null>(this.dimSize); 
+      for(let j = 0; j < this.dimSize; j++){
+        this.markedAnswersMatrix[i][j] = false;
+        this.matrixAnswers[i][j] = '';
+      }
+    }
+    this.centeringMatrix = {
+      'two_col' : this.dimSize == 2,
+      'three_col' : this.dimSize == 3,
+      'four_col' : this.dimSize == 4
+    };
+  }
+  missingAnswers():boolean{
+    for(let i = 0; i < this.dimSize; i++){
+      for(let j = 0; j < this.dimSize; j++){
+        console.log(this.matrixAnswers[i][j])
+        if(this.matrixAnswers[i][j] == ''){
+          return true;
+        }
+      }
+    }
+    
+    return false;
   }
 }
