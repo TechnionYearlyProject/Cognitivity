@@ -224,23 +224,30 @@ export class CreateQuestionComponent implements OnInit {
         if(this.didChoseMultipleChoiceType()){
           if(this.didChoseVerticalType() || this.didChoseHorizontalType()){
             if(this.haveAnswers()){
+              this.findCorretAnswer();
               this.constructMultipleQuestion();
+              console.log(this.question_object);
             }
           }else if(this.didChoseMatrixType()){
             if(!this.missingAnswers()){
+              this.findCorretAnswer();
               this.constructMatrixQuestion();
+              console.log(this.question_object);
             }
             
           }
-        }else if(this.didChoseRateQuestion()){
+        }
+      }else if(this.didChoseRateQuestion()){
           this.constructRateQuestion();
-        }else if(this.didChoseOpenQuestion()){
+          console.log(this.question_object);
+      }else if(this.didChoseOpenQuestion()){
           if(this.answerText != ''){
             this.constructOpenQuestion();
+            console.log(this.question_object);
           }
         }
       }
-    }
+    
     this.submit = true;
   }
   constructOpenQuestion(){
@@ -301,6 +308,7 @@ export class CreateQuestionComponent implements OnInit {
 
   deleteAnswer(index: number){
     this.answers.splice(index,1);
+    
     this.markedAnswers.splice(index, 1);
   }
 
@@ -344,7 +352,6 @@ export class CreateQuestionComponent implements OnInit {
       for(let i = 0; i < this.markedAnswers.length; i++){
         if(i == index){
           this.markedAnswers[i] = true;
-          this.correctAnswer = i;
         }else{
           this.markedAnswers[i] = false;
         }
@@ -354,7 +361,6 @@ export class CreateQuestionComponent implements OnInit {
         for(let j = 0; j < this.dimSize; j++){
           if(i == index && j == index_col){
             this.markedAnswersMatrix[i][j] = true;
-            this.correctAnswer = i + this.dimSize+j;
           }else{
             this.markedAnswersMatrix[i][j] = false;
           }
@@ -397,7 +403,6 @@ export class CreateQuestionComponent implements OnInit {
   missingAnswers():boolean{
     for(let i = 0; i < this.dimSize; i++){
       for(let j = 0; j < this.dimSize; j++){
-        console.log(this.matrixAnswers[i][j])
         if(this.matrixAnswers[i][j] == ''){
           return true;
         }
@@ -405,5 +410,25 @@ export class CreateQuestionComponent implements OnInit {
     }
     
     return false;
+  }
+
+  findCorretAnswer(){
+    if(!this.didChoseMatrixType()){
+      for(let i = 0; i < this.markedAnswers.length; i++){
+        if(this.markedAnswers[i] == true){
+          this.correctAnswer = i;
+          break;
+        }
+      }
+    }else{
+      for(let i = 0; i < this.dimSize; i++){
+        for(let j = 0; j < this.dimSize; j++){
+          if(this.markedAnswersMatrix[i][j] == true){
+            this.correctAnswer = j * this.dimSize + i;
+          }
+        }
+      }
+    }
+    
   }
 }
