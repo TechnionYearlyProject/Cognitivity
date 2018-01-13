@@ -31,6 +31,16 @@ public class TestBlockService {
     }
 
     /**
+     * Get a specific test Block by its Id
+     * @param Id - The Id of the test block
+     * @return - The Test block with the given ID.
+     */
+    public TestBlock findBlockById(long Id){
+        TestBlockDAOimpl dao = new TestBlockDAOimpl();
+        return dao.get(Id);
+    }
+
+    /**
      * Update a block in the DB
      *
      * @param block - The block that needs to be updated.
