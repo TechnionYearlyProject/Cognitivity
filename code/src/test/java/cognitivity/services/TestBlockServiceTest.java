@@ -38,6 +38,10 @@ public class TestBlockServiceTest {
 
         service.deleteTestBlock(block.getId());
 
+        managerService.deleteTestManager(manager.getId());
+
+        testService.deleteTestForTestManager(test.getId());
+
     }
 
 

@@ -60,6 +60,11 @@ public class TestManagerServiceTest {
 
         service.deleteTestManager(manager.getId());
 
+        testService.deleteTestForTestManager(test.getId());
+        testService.deleteTestForTestManager(test1.getId());
+        testService.deleteTestForTestManager(test2.getId());
+        testService.deleteTestForTestManager(test3.getId());
+
 
 
     }

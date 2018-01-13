@@ -101,6 +101,23 @@ public class TestSubjectServiceTest {
         service.deleteTestSubject(subject3.getId());
 
 
+        managerService.deleteTestManager(manager.getId());
+
+        testService.deleteTestForTestManager(test.getId());
+
+        blockService.deleteTestBlock(block.getId());
+
+        questionService.deleteTestQuestion(question.getId());
+
+        answerService.deleteAllTestAnswersForQuestion(answer.getId());
+        answerService.deleteAllTestAnswersForQuestion(answer1.getId());
+        answerService.deleteAllTestAnswersForQuestion(answer2.getId());
+        answerService.deleteAllTestAnswersForQuestion(answer3.getId());
+        answerService.deleteAllTestAnswersForQuestion(answer4.getId());
+        answerService.deleteAllTestAnswersForQuestion(answer5.getId());
+        answerService.deleteAllTestAnswersForQuestion(answer6.getId());
+
+
     }
 
 

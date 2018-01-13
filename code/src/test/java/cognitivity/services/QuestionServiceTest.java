@@ -114,18 +114,15 @@ public class QuestionServiceTest {
         service.deleteTestQuestion(question5.getId());
         service.deleteTestQuestion(question6.getId());
 
+        managerService.deleteTestManager(manager.getId());;
+
+        blockService.deleteTestBlock(block.getId());
+
+        testService.deleteTestForTestManager(test.getId());
+
     }
 
 
-
-    @Test
-    public void deleteTestQuestion() throws Exception {
-    }
-
-
-    @Test
-    public void getTestAnswers() throws Exception {
-    }
 
 
 }

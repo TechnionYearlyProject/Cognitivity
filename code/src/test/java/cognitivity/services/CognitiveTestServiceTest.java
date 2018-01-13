@@ -86,6 +86,21 @@ public class CognitiveTestServiceTest {
 
 
         service.deleteTestForTestManager(test.getId());
+        service.deleteTestForTestManager(test1.getId());
+        service.deleteTestForTestManager(test2.getId());
+        service.deleteTestForTestManager(test3.getId());
+        service.deleteTestForTestManager(test4.getId());
+
+        blockService.deleteTestBlock(block1.getId());
+        blockService.deleteTestBlock(block2.getId());
+        blockService.deleteTestBlock(block3.getId());
+        blockService.deleteTestBlock(block4.getId());
+
+        questionService.deleteTestQuestion(question1.getId());
+        questionService.deleteTestQuestion(question2.getId());
+        questionService.deleteTestQuestion(question3.getId());
+
+
     }
 
 

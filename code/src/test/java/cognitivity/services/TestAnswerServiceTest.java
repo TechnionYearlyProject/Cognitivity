@@ -104,6 +104,15 @@ public class TestAnswerServiceTest {
 
         service.deleteAllTestAnswersForQuestion(question1.getId());
         service.deleteAllTestAnswersForQuestion(question.getId());
+
+        managerService.deleteTestManager(manager.getId());
+
+        testService.deleteTestForTestManager(test.getId());
+        testService.deleteTestForTestManager(test2.getId());
+
+        blockService.deleteTestBlock(block.getId());
+
+        subjectService.deleteTestSubject(subject.getId());
     }
 
 
