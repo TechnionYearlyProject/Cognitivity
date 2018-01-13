@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TypeQuestion } from '../../models';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,7 +13,7 @@ export class QuestionComponent implements OnInit {
   indexInBlock: number;
   tags: string[];
   hidden: boolean = true;
-  constructor() { }
+  constructor(private router:Router) { }
   @Input() type: TypeQuestion;
   ngOnInit() {
     //Here we will pull the question from the DB
@@ -21,4 +22,7 @@ export class QuestionComponent implements OnInit {
     this.hidden = !this.hidden;
   }
 
+  connectViewer(){
+    this.router.navigate(['question-viewer'])
+  }
 }
