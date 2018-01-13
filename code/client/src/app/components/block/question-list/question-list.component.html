@@ -2,6 +2,6 @@
   <br>
   <a  class="btn btn-secondary btn-sm fa fa-arrow-up" (click)="moveMeUp(currQuestion.indexInBlock)"></a>
   <a  class="btn btn-secondary btn-sm fa fa-arrow-down" (click)="moveMeDown(currQuestion.indexInBlock)"></a>
-  <app-question [type]='currQuestion.type'></app-question>
+  <app-question [myData]="currQuestion"></app-question>
   <br>
 </div>

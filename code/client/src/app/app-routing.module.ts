@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 import { DashboardModule } from './components/dashboard/dashboard.module';
 import { QuestionComponent } from './components/question/question.component';
 import { QuestionViewerComponent } from './components/question-viewer/question-viewer.component';
+import { QuestionListComponent } from './components/block/question-list/question-list.component';
+import { BlockComponent } from './components/block/block.component';
 
 const appRoutes: Routes = [
     {
         path: '',
-        component:QuestionComponent
+        component:BlockComponent
     },
     {
         path:'question-viewer',

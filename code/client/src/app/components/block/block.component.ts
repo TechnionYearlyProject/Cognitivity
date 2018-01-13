@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { QuestionListComponent } from './question-list/question-list.component';
 import { Router } from '@angular/router';
+import {Question} from '../../models/index'
+import { QuestionComponent } from '../question/question.component';
 @Component({
   selector: 'app-block',
   templateUrl: './block.component.html',
@@ -8,9 +10,11 @@ import { Router } from '@angular/router';
 })
 export class BlockComponent implements OnInit {
 
+
   blockNumber:number;
   hidden: boolean = true;
   questionsList:QuestionListComponent;
+  
   constructor(private router:Router) { }
 
   ngOnInit() {
@@ -20,5 +24,10 @@ export class BlockComponent implements OnInit {
   toggleHidden() {
     this.hidden = !this.hidden;
   }
+
+  createQuestion(){
+      
+  }
+
 
 }

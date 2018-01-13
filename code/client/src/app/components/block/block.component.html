@@ -2,6 +2,9 @@
   <div class="card-body">
     <div id="blockBody" data-children=".item">
       <div class="card-header" role="tab" id="headingOne">
+          <p>
+              <a class="btn btn-secondary btn-sm  " (click)="previewBlock()">previewMe</a>
+            </p>
         <div class="item">
           <button type="button" class="btn btn-outline-primary btn-lg  btn-block" (click)="toggleHidden()">
             Block {{blockNumber}}
@@ -13,7 +16,7 @@
             <a href="#" class="btn btn-secondary btn-sm">
               <span class="fa fa-folder-open"></span> Import questions</a>
             <a href="#" class="btn btn-primary btn-sm">
-              <span class="fa fa-plus"></span> Create new question</a>
+              <span class="fa fa-plus" (click)="createQuestion()"></span> Create new question</a>
           </div>
         </div>
       </div>

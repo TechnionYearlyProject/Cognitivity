@@ -14,13 +14,13 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class SessionService<T> {
-  private data: T = null;
-  setData(data: T): void {
+export class SessionService {
+  private data: any = null;
+  setData(data: any): void {
     this.data = data;
   }
 
-  getData(): T {
+  getData(): any {
     return this.data;
   }
 
