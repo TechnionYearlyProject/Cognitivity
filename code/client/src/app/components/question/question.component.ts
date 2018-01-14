@@ -1,19 +1,25 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TypeQuestion } from '../../models';
-
-
+import { TypeQuestion,QuestionData } from '../../models';
+import {Router} from '@angular/router';
+import {SessionService} from '../../services/session-service'
+import { Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
   styleUrls: ['./question.component.css']
 })
 export class QuestionComponent implements OnInit {
-  questionName="Question 1";
-  indexInBlock: number;
-  tags: string[];
+  
+
   hidden: boolean = true;
-  constructor() { }
-  @Input() type: TypeQuestion;
+
+  
+  @Input() myData:QuestionData;
+  
+  constructor(private router:Router,public questionDataService:SessionService) {
+  }
+  
   ngOnInit() {
     //Here we will pull the question from the DB
   }
@@ -21,4 +27,9 @@ export class QuestionComponent implements OnInit {
     this.hidden = !this.hidden;
   }
 
+  connectViewer(){
+    console.log("sending id: "+this.myData.id);
+    this.questionDataService.setData(this.myData);
+    this.router.navigate(['question-viewer']);
+  }
 }

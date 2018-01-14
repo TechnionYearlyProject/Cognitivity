@@ -26,10 +26,11 @@ public class TestSubjectService {
      * <p>
      * This will be used in conjunction with the POST HTTP method.
      */
-    public void createTestSubject(String name, Integer ipAddress, String browser) {
+    public TestSubject createTestSubject(String name, Integer ipAddress, String browser) {
         TestSubject subject = new TestSubject(name,ipAddress,browser);
         TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
         dao.add(subject);
+        return subject;
     }
 
     /**
@@ -77,15 +78,6 @@ public class TestSubjectService {
     public List<TestAnswer> findAllTestSubjectAnswers(long subjectId){
         TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
         return dao.getSubjectAnswers(subjectId);
-    }
-    /**
-     * Find all test subjects who took a cognitive a test.
-     *
-     * @param test - The test.
-     * @return - all test subjects who took the cognitive test.
-     */
-    public List<TestSubject> findTestSubjectsWhoParticipatedInTest(CognitiveTest test) {
-        return null;
     }
 
     /**

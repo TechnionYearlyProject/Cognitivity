@@ -1,6 +1,6 @@
 package cognitivity.config;
 
-import cognitivity.services.CognitiveTestService;
+import cognitivity.services.*;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,5 +14,25 @@ public class TestContextBeanConfiguration {
     @Bean
     public CognitiveTestService cognitiveTestService() {
         return Mockito.mock(CognitiveTestService.class);
+    }
+
+    @Bean
+    public TestAnswerService testAnswerService() {
+        return Mockito.mock(TestAnswerService.class);
+    }
+
+    @Bean
+    public QuestionService testQuestionService() {
+        return Mockito.mock(QuestionService.class);
+    }
+
+    @Bean
+    public TestManagerService testManagerService() {
+        return Mockito.mock(TestManagerService.class);
+    }
+
+    @Bean
+    public TestSubjectService testSubjectService() {
+        return Mockito.mock(TestSubjectService.class);
     }
 }

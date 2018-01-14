@@ -4,11 +4,14 @@
       <div class="row">
         <div class="col-4">
           <p>
-            <a class="btn btn-outline-primary btn-lg  " (click)="toggleHidden()">{{questionName}}</a>
+            <a class="btn btn-outline-primary btn-lg  " (click)="toggleHidden()">{{myData.indexInBlock}}</a>
           </p>
           <a href="#" class="btn btn-secondary btn-sm">
             <span class="fa fa-cog"></span> Edit question
           </a>
+          <p>
+            <a class="btn btn-secondary btn-sm  " (click)="connectViewer()">previewMe</a>
+          </p>
         </div>
 
         <div class="col-4">
@@ -21,9 +24,9 @@
       </div>
     </div>
     <div class="card-body" [hidden]="hidden">
-      <app-multiple-choice-question *ngIf="type==0"></app-multiple-choice-question>
-      <app-rate-question *ngIf="type==1"></app-rate-question>
-      <app-open-question *ngIf="type==2"></app-open-question>
+      <app-multiple-choice-question *ngIf="myData.type==0"></app-multiple-choice-question>
+      <app-rate-question *ngIf="myData.type==1"></app-rate-question>
+      <app-open-question *ngIf="myData.type==2"></app-open-question>
 
 
     </div>

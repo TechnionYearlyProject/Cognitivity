@@ -1,0 +1,4 @@
+<div>{{this.load()}}
+<app-multiple-choice-question *ngIf="myQuestion.type==0"></app-multiple-choice-question>
+<app-rate-question *ngIf="myQuestion.type==1"></app-rate-question>
+<app-open-question *ngIf="myQuestion.type==2"></app-open-question></div>

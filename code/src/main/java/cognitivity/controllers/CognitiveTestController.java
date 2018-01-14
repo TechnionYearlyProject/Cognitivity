@@ -3,10 +3,9 @@ package cognitivity.controllers;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
 import cognitivity.services.CognitiveTestService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * REST service for Cognitive Tests - allows to update, create, search and delete for cognitive tests for a
@@ -18,8 +17,10 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
 
     public static final String baseMapping = "/tests";
 
-    public CognitiveTestController() {
-        super(new CognitiveTestService());
+
+    @Autowired
+    public CognitiveTestController(CognitiveTestService service) {
+        super(service);
     }
 
 
@@ -33,10 +34,11 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
 
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET, value = "/findTestsForTestManager")
-    public List<CognitiveTest> findTestsForTestManager(
-            @RequestParam long managerId) {
-        return service.findTestsForTestManager(managerId);
+    @RequestMapping(method = RequestMethod.GET, value = "/findTestsForTestManager", produces = "application/json;charset=UTF-8")
+    public /*List<CognitiveTest>*/ String findTestsForTestManager(
+            @RequestParam(value = "managerId") long managerId) {
+        return "Hello Ophir " + managerId;
+        //return service.findTestsForTestManager(managerId);
     }
 
 
@@ -50,11 +52,10 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @RequestMapping(method = RequestMethod.POST, value = "/saveCognitiveTest")
     public void saveCognitiveTest(
             @RequestParam(value = "name") String name,
-            @RequestParam TestManager manager,
             @RequestParam(value = "state") Integer state,
-            @RequestParam(value = "numberOfQuestion") Integer numberOfQuestions) {
+            @RequestParam(value = "numberOfQuestion") Integer numberOfQuestions,
+            @RequestBody TestManager manager) {
         service.createTestForTestManager(name, manager, state, numberOfQuestions);
-
     }
 
     /**
@@ -66,9 +67,8 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/updateCognitiveTest")
     public void updateCognitiveTest(
-            @RequestParam CognitiveTest test) {
+            @RequestBody CognitiveTest test) {
         service.updateTestForTestManager(test);
-
     }
 
     /**
@@ -78,7 +78,7 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
      */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.DELETE, value = "/deleteCognitiveTest")
-    public void deleteCognitiveTest(@RequestParam long testId) {
+    public void deleteCognitiveTest(@RequestParam(value = "testId") long testId) {
         service.deleteTestForTestManager(testId);
     }
 
