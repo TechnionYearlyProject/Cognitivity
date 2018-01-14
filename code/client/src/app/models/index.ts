@@ -1,3 +1,6 @@
+import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
+
+
 /* 
     This file will contain interfaces 
     which will represent data objects from the DB 
@@ -43,6 +46,35 @@ export interface Question {
     type: TypeQuestion;
     questionPosition?: QuestionPosition;
 }
+
+export class QuestionData implements OnInit,Question{
+    id;
+    questionText;
+    questionPosition;
+    type;
+    indexInBlock;
+  constructor(givenIndex) {
+      this.id=Math.random();
+      if(givenIndex%3==0){
+        this.type=TypeQuestion.OpenQuestion;     
+      }
+      if(givenIndex%3==1)
+      {
+        this.type=TypeQuestion.MultipleChoice;
+      }
+      if(givenIndex%3==2)
+      {
+        this.type=TypeQuestion.RateQuestion;
+      }
+      this.indexInBlock=givenIndex;
+   }
+  
+  ngOnInit() {
+
+    }
+
+}
+
 
 /*
     An interface for the object that describes a multiple choice question
