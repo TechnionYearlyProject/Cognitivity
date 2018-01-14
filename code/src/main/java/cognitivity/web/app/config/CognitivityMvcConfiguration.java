@@ -1,11 +1,9 @@
 package cognitivity.web.app.config;
 
 import org.hibernate.SessionFactory;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,11 +12,9 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -28,12 +24,13 @@ import java.util.Properties;
  */
 
 
-@EnableWebMvc
+// @EnableWebMvc
 @Configuration
-@ComponentScan("cognitivity")
+@ComponentScan(value = "cognitivity")
 @EnableTransactionManagement
-public class CognitivityMvcConfiguration implements BeanDefinitionRegistryPostProcessor {
-public void addResourceHandlers(ResourceHandlerRegistry registry) {
+@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
+public class CognitivityMvcConfiguration extends WebMvcConfigurationSupport /* implements BeanDefinitionRegistryPostProcessor */ {
+    /*public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/static/js/**")
                 .addResourceLocations("/resources/static/js/");
         registry.addResourceHandler("/resources/static/css/**")
@@ -44,7 +41,7 @@ public void addResourceHandlers(ResourceHandlerRegistry registry) {
                 .addResourceLocations("/resources/static/");
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("/webjars/");
-    }
+    }*/
 
     @Bean
     public ViewResolver getViewResolver() {
@@ -55,35 +52,26 @@ public void addResourceHandlers(ResourceHandlerRegistry registry) {
     }
 
     //TODO: not working
+    /*
     public SessionFactory getSessionFactory(EntityManagerFactory entityManagerFactory) {
         SessionFactory unwrap = entityManagerFactory.unwrap(SessionFactory.class);
         if (unwrap == null) {
             throw new NullPointerException("factory is not a hibernate factory");
         }
         return unwrap;
-    }
-
+    }*/
+/*
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
-        /*Reflections reflections = new Reflections("cognitivity.controllers");
-        Set<Class<? extends AbstractRestController>> classes = reflections.getSubTypesOf(AbstractRestController.class);
-        for (Class<?> clazz : classes) {
-            if (!clazz.getName().endsWith("Controller")) continue;
-            if (Modifier.isAbstract(clazz.getModifiers())) continue;
-            System.out.println(clazz.getName());
-            BeanDefinition beanDefinition = new RootBeanDefinition(clazz, Autowire.BY_TYPE.value(), true);
-            beanDefinitionRegistry.registerBeanDefinition(clazz.getSimpleName(), beanDefinition);
-        }*/
-        // BeanDefinition cognitiveTestController = new RootBeanDefinition(CognitiveTestController.class, Autowire.BY_TYPE.value(), true);
-        // beanDefinitionRegistry.registerBeanDefinition("cognitiveTestController", cognitiveTestController);
     }
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
 
     }
-
+*/
     /*********************************************  Hibernate Initialization *********************************************/
+
 
     @Bean
     @Autowired
@@ -107,7 +95,7 @@ public void addResourceHandlers(ResourceHandlerRegistry registry) {
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/Cognitivity");
         dataSource.setUsername("root");
         dataSource.setPassword("password");
@@ -119,7 +107,8 @@ public void addResourceHandlers(ResourceHandlerRegistry registry) {
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 
         properties.setProperty("hibernate.show_sql", "true");
-        properties.setProperty("current_session_context_class","thread");
+        properties.setProperty("current_session_context_class", "thread");
         return properties;
     }
+
 }

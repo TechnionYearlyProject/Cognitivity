@@ -5,9 +5,6 @@ import cognitivity.services.TestManagerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 @RestController
 @RequestMapping(TestManagerController.baseMapping)
@@ -23,7 +20,7 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
      * Method for searching for a test manager.
      * <p>
      * Params are as in TestManagerService.
-     * If testId is null, then return just test manager by id.
+     * If testId is -1, then return just test manager by id.
      *
      * @return - test manager(s) for the test criteria.
      */
@@ -31,19 +28,16 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findTestManagersForTestCriteria")
-    public List<TestManager> findTestManagersForTestCriteria(
+    public TestManager findTestManagersForTestCriteria(
             @RequestParam(value = "testManagerId") long testManagerId,
-            @RequestParam(value = "testId", required = false) Long testId) {
-        List<TestManager> result = new ArrayList<TestManager>();
-        if (testId == null) {
+            @RequestParam(value = "testId", required = false) long testId) {
+        if (testId == -1) {
             // Then return test manager with id
-            result.add(service.findTestManager(testManagerId));
-
+            return service.findTestManager(testManagerId);
         } else {
             // Then return test manager who created the cognitive test.
-            result.add(service.findTestManagerByCreatedTest(testId));
+            return service.findTestManagerByCreatedTest(testId);
         }
-        return result;
     }
 
     /**
@@ -55,8 +49,8 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/updateTestManager")
     public void updateTestManager(
-            @RequestParam TestManager manager) {
-        service.updateTestManager( manager);
+            @RequestBody TestManager manager) {
+        service.updateTestManager(manager);
     }
 
 
@@ -69,8 +63,8 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/saveTestManager")
     public void saveTestManager(
-            @RequestParam(value = "name")String name,
-            @RequestParam(value = "password")String password) {
+            @RequestParam(value = "name") String name,
+            @RequestParam(value = "password") String password) {
         service.createTestManager(name, password);
     }
 
@@ -81,7 +75,7 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
      */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.DELETE, value = "/deleteTestManager")
-    public void deleteTestManager(@RequestParam long testManagerId) {
+    public void deleteTestManager(@RequestParam(value = "testManagerId") long testManagerId) {
         service.deleteTestManager(testManagerId);
     }
 
