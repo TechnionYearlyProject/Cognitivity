@@ -2,6 +2,7 @@ package cognitivity.controllers;
 
 import cognitivity.entities.TestSubject;
 import cognitivity.services.TestSubjectService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +16,9 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
 
     public static final String baseMapping = "/test-subjects";
 
-    public TestSubjectController() {
-        super(new TestSubjectService());
+    @Autowired
+    public TestSubjectController(TestSubjectService service) {
+        super(service);
     }
 
     /**

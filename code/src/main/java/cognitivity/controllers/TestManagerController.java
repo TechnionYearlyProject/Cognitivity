@@ -2,6 +2,7 @@ package cognitivity.controllers;
 
 import cognitivity.entities.TestManager;
 import cognitivity.services.TestManagerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,8 +13,9 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
 
     public static final String baseMapping = "/test-managers";
 
-    public TestManagerController() {
-        super(new TestManagerService());
+    @Autowired
+    public TestManagerController(TestManagerService service) {
+        super(service);
     }
 
     /**
