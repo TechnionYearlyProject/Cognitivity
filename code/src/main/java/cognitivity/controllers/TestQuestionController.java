@@ -2,6 +2,7 @@ package cognitivity.controllers;
 
 import cognitivity.entities.TestQuestion;
 import cognitivity.services.QuestionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +15,9 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
 
     public static final String baseMapping = "/test-questions";
 
-    public TestQuestionController() {
-        super(new QuestionService());
+    @Autowired
+    public TestQuestionController(QuestionService service) {
+        super(service);
     }
 
     /**

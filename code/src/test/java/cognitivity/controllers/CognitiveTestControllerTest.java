@@ -11,6 +11,7 @@ import javafx.util.Pair;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Matchers;
@@ -40,7 +41,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(classes = {TestContextBeanConfiguration.class, CognitivityMvcConfiguration.class})
 @WebAppConfiguration
 @SpringBootTest
-// @Ignore
+@Ignore
 public class CognitiveTestControllerTest implements RestControllerTest {
 
     @Autowired
@@ -58,7 +59,7 @@ public class CognitiveTestControllerTest implements RestControllerTest {
     public void setUp() {
         Mockito.reset(cognitiveTestServiceMock);
 
-        mockMvc = MockMvcBuilders.standaloneSetup(new CognitiveTestController()).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
     @Test

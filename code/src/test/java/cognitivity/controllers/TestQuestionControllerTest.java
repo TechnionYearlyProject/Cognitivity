@@ -56,7 +56,7 @@ public class TestQuestionControllerTest implements RestControllerTest {
     public void setUp() {
         Mockito.reset(questionService);
 
-        mockMvc = MockMvcBuilders.standaloneSetup(new TestAnswerController()).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
         testQuestion = mockTestQuestion();
     }
 

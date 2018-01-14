@@ -3,10 +3,9 @@ package cognitivity.controllers;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
 import cognitivity.services.CognitiveTestService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * REST service for Cognitive Tests - allows to update, create, search and delete for cognitive tests for a
@@ -18,8 +17,10 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
 
     public static final String baseMapping = "/tests";
 
-    public CognitiveTestController() {
-        super(new CognitiveTestService());
+
+    @Autowired
+    public CognitiveTestController(CognitiveTestService service) {
+        super(service);
     }
 
 
@@ -33,10 +34,11 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
 
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET, value = "/findTestsForTestManager")
-    public List<CognitiveTest> findTestsForTestManager(
+    @RequestMapping(method = RequestMethod.GET, value = "/findTestsForTestManager", produces = "application/json;charset=UTF-8")
+    public /*List<CognitiveTest>*/ String findTestsForTestManager(
             @RequestParam(value = "managerId") long managerId) {
-        return service.findTestsForTestManager(managerId);
+        return "Hello Ophir " + managerId;
+        //return service.findTestsForTestManager(managerId);
     }
 
 
