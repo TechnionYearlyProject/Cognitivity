@@ -16,15 +16,17 @@ import java.util.List;
  */
 @Repository
 @Transactional
-public class CognitiveTestDAOimpl extends AbstractDAO<CognitiveTest> implements CognitiveTestDAO{
+public class CognitiveTestDAOimpl extends AbstractDAO<CognitiveTest> implements CognitiveTestDAO {
 
-    public CognitiveTest get(Long id){ return super.get(id, CognitiveTest.class); }
+    public CognitiveTest get(Long id) {
+        return super.get(id, CognitiveTest.class);
+    }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         super.delete(id, CognitiveTest.class);
     }
 
-    public List<TestQuestion> getTestQuestions(long testId){
+    public List<TestQuestion> getTestQuestions(long testId) {
         Session session = sessionFactory.getCurrentSession();
         String queryString = "from TestQuestion  T where T.cognitiveTest.id = :testId";
         Query<TestQuestion> query = session.createQuery(queryString, TestQuestion.class);
@@ -33,7 +35,7 @@ public class CognitiveTestDAOimpl extends AbstractDAO<CognitiveTest> implements 
     }
 
     @Transactional(readOnly = true)
-    public List<TestBlock> getTestBlocks(long testId){
+    public List<TestBlock> getTestBlocks(long testId) {
         Session session = sessionFactory.getCurrentSession();
         String queryString = "from TestBlock T where T.cognitiveTest.id = :testId";
         Query<TestBlock> query = session.createQuery(queryString, TestBlock.class);
@@ -43,7 +45,7 @@ public class CognitiveTestDAOimpl extends AbstractDAO<CognitiveTest> implements 
 
 
     @Transactional(readOnly = true)
-    public List<CognitiveTest> getCognitiveTestOfManager(long managerId){
+    public List<CognitiveTest> getCognitiveTestOfManager(long managerId) {
         Session session = sessionFactory.getCurrentSession();
         String queryString = "from CognitiveTest T where T.testManager.id = :managerId";
         Query<CognitiveTest> query = session.createQuery(queryString, CognitiveTest.class);

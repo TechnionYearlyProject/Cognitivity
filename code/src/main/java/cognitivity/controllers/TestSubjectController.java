@@ -5,7 +5,7 @@ import cognitivity.services.TestSubjectService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -23,7 +23,7 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
      * Method for searching for a cognitive test subjects.
      * <p>
      * Params are as in TestSubjectService.
-     * If testId is null, then return just test subject by id.
+     * If testId is -1, then return just test subject by id.
      *
      * @return - test subject(s) for the test criteria.
      */
@@ -33,17 +33,14 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
     @RequestMapping(method = RequestMethod.GET, value = "/findTestSubjectsForTestCriteria")
     public List<TestSubject> findTestSubjectsForTestCriteria(
             @RequestParam(value = "testSubjectId") long testSubjectId,
-            @RequestParam(value = "testId", required = false) Long testId) {
-        List<TestSubject> result;
-        if (testId == null) {
+            @RequestParam(value = "testId", required = false) long testId) {
+        if (testId == -1) {
             // Then return test subject with id
-            result = new ArrayList<>();
-            result.add(service.findTestSubject(testSubjectId));
+            return Collections.singletonList(service.findTestSubject(testSubjectId));
         } else {
             // Then return all test subjects who took the cognitive test.
-            result = service.findTestSubjectsWhoParticipatedInTest(testId);
+            return service.findTestSubjectsWhoParticipatedInTest(testId);
         }
-        return result;
     }
 
 
@@ -56,11 +53,10 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/saveTestSubject")
     public void saveTestSubject(
-            @RequestParam String name,
-            @RequestParam Integer ipAddress,
-            @RequestParam String browser) {
+            @RequestParam(value = "name") String name,
+            @RequestParam(value = "ip") Integer ipAddress,
+            @RequestParam(value = "browser") String browser) {
         service.createTestSubject(name, ipAddress, browser);
-
     }
 
     /**
@@ -71,7 +67,7 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/updateTestSubject")
     public void updateTestSubject(
-            @RequestParam TestSubject subject){
+            @RequestBody TestSubject subject) {
         service.updateTestSubject(subject);
     }
 
@@ -82,7 +78,7 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
      */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.DELETE, value = "/deleteTestSubject")
-    public void deleteTestSubject(@RequestParam long testSubjectId) {
+    public void deleteTestSubject(@RequestParam(value = "testSubjectId") long testSubjectId) {
         service.deleteTestSubject(testSubjectId);
     }
 
