@@ -2,4 +2,4 @@
     ignore:
         - "code/src/main/java/cognitivity/dao/*"
         - "code/src/test/**/*"
-        - "code/web/**/*"
+        - "code/src/main/java/cognitivity/web/app/*"
