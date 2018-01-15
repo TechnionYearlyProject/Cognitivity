@@ -1,11 +1,11 @@
 package cognitivity.controllers;
 
 import cognitivity.TestUtil;
-import cognitivity.config.TestContextBeanConfiguration;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
 import cognitivity.services.CognitiveTestService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import config.TestContextBeanConfiguration;
 import javafx.util.Pair;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;

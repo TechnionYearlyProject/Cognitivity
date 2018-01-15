@@ -8,15 +8,25 @@ import java.util.Calendar;
 import static org.junit.Assert.assertTrue;
 
 public class CognitiveTestTest {
-    @Test
-    public void gettersSettetrsTest(){
-        TestManager testManager = new TestManager("onlyForTests","asafds");
-        Long managerId = new Long(3);
-        Long testId = new Long(10);
+
+    private static Long managerId = 3L;
+    private static Long testId = 10L;
+
+    public static TestManager createTestManager() {
+        return new TestManager("onlyForTests", "asafds");
+    }
+
+    public static CognitiveTest createCognitiveTest() {
+        TestManager testManager = createTestManager();
+
         // in the application, when we push item to the db, hibernate allocats the id
         testManager.setId(managerId);
-        CognitiveTest cognitiveTest =
-                new CognitiveTest("testName", testManager, 3, 10);
+        return new CognitiveTest("testName", testManager, 3, 10);
+    }
+
+    @Test
+    public void gettersSettersTest() {
+        CognitiveTest cognitiveTest = createCognitiveTest();
         // id check
         cognitiveTest.setId(testId);
         assertTrue(cognitiveTest.getId().equals(testId));
@@ -52,7 +62,7 @@ public class CognitiveTestTest {
         // LastModified check
         Date lastModified = new Date(Calendar.getInstance().getTimeInMillis());
         cognitiveTest.setLastModified(lastModified);
-        assertTrue(cognitiveTest.getLastModified()==lastModified);
+        assertTrue(cognitiveTest.getLastModified() == lastModified);
 
         // numberOfFieldCopies should be 0 at start
         assertTrue(cognitiveTest.getNumberOfFiledCopies() == 0);

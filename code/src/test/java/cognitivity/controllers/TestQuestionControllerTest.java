@@ -1,10 +1,10 @@
 package cognitivity.controllers;
 
 import cognitivity.TestUtil;
-import cognitivity.config.TestContextBeanConfiguration;
 import cognitivity.entities.TestQuestion;
 import cognitivity.services.QuestionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import config.TestContextBeanConfiguration;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Before;
