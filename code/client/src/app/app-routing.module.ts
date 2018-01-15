@@ -6,15 +6,29 @@ import { QuestionViewerComponent } from './components/question-viewer/question-v
 import { QuestionListComponent } from './components/block/question-list/question-list.component';
 import { BlockComponent } from './components/block/block.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
+import { EditTestComponent } from './components/edit-test/edit-test.component';
 
 const appRoutes: Routes = [
-    {
-        path: '**',
-        redirectTo: 'login'
-    },
+    
     {
         path: 'login',
         component: LoginPageComponent
+    },
+    {
+        path: 'question-viewer',
+        component:QuestionViewerComponent   
+    },
+    {
+        path: 'block',
+        component:BlockComponent
+    },
+    {
+        path: 'edit-test',
+        component:EditTestComponent
+    },
+    {
+        path: '**',
+        redirectTo: 'login'
     }
 ];
 

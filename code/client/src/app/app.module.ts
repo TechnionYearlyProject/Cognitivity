@@ -32,6 +32,7 @@ import { QuestionViewerComponent } from './components/question-viewer/question-v
 
 import { MatDialog, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { EditTestComponent } from './components/edit-test/edit-test.component';
 
 
 
@@ -66,7 +67,8 @@ const PROVIDED_SERVICES = [
     QuestionComponent,
     QuestionListComponent,
     MultipleChoiceQuestionComponent,
-    QuestionViewerComponent
+    QuestionViewerComponent,
+    EditTestComponent
     
   ],
   imports: [
