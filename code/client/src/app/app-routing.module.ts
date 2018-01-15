@@ -13,7 +13,7 @@ const appRoutes: Routes = [
         redirectTo: 'login'
     },
     {
-        path:'login',
+        path: 'login',
         component: LoginPageComponent
     }
 ];
