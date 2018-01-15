@@ -21,12 +21,8 @@ export class DashboardComponent implements OnInit{
     ) {
 
     }
-    async ngOnInit() {
-        try {
-            this.manager = await this.authService.getCurrentManager()//.toPromise();
-        } catch(err) {
-            console.error(err);
-        }
+    ngOnInit() {
+        this.manager = this.authService.getCurrentManager();
 
     }
 

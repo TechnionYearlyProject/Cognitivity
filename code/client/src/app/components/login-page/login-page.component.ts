@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-login-page',
@@ -12,7 +14,8 @@ export class LoginPageComponent implements OnInit {
     password:'',
     rememberMe:false
   }
-  constructor() { }
+  correctUser = true;
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
   }
@@ -20,6 +23,16 @@ export class LoginPageComponent implements OnInit {
   onSubmit({value,valid}){
     if(valid){
       console.log(value);
+      this.authService.login(value.name, value.password)
+      .then(res => {
+        console.log(this.authService.getCurrentManager());
+        this.router.navigate(['/dashboard']);
+      })
+      .catch((err) => {
+        if (err.code.startsWith('auth/')) {
+          this.correctUser = false;
+        }
+      })
     }
     else{
       console.log('Not valid');

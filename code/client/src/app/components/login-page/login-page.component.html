@@ -1,22 +1,13 @@
-<!doctype html>
-<html>
 
-<body>
-  <br>
-  <br>
-  <br>
-  <br>
   <div class="container">
     <span>Cognitivity.</span>
   </div>
   <br>
   <br>
-  <br>
-  <br>
   <form name="form" novalidate #f="ngForm" (ngSubmit)="onSubmit(f)">
-    <div class="col">
+      <div class="form-group" [style.max-width.px]="400">
       <label for="username">User name:</label>
-      <input type="text" class="form-control" name="name" [(ngModel)]="user.name" #userName="ngModel" minlength="2" required placeholder="User name">
+      <input type="text" class="form-control" name="name" [(ngModel)]="user.name" #userName="ngModel" minlength="2" required placeholder="User name" >
       <div *ngIf="userName.errors?.required && userName.touched" class="alert alert-danger">
         Please enter your user name
       </div>
@@ -25,40 +16,25 @@
       </div>
       <br>
       <br>
+    </div>
+    <br>
+      <div class="form-group" [style.max-width.px]="400">
       <label for="password">Password:</label>
-      <input type="text" class="form-control" name="password" [(ngModel)]="user.password" #userPassword="ngModel" minlength="4"
-        required placeholder="Password">
+      <input type="password" class="form-control" name="password" [(ngModel)]="user.password" #userPassword="ngModel" minlength="4"
+        required placeholder="Password" >
       <div *ngIf="userPassword.errors?.required && userPassword.touched" class="alert alert-danger">
         Please enter your password
       </div>
       <div *ngIf="userPassword.errors?.minlength && userPassword.touched" class="alert alert-danger">
         Password must contain at least 4 characters
       </div>
-    </div>
-    <div class="container">
-      <label class="checkbox-inline">
-        <br>
-        <input type="checkbox" class="form-control" name="rememberMe" [(ngModel)]=user.rememberMe #userRememberMe="ngModel"> Remember me
-      </label>
-    </div>
+      </div>
       <br>
       <div class="container">
       <input type="submit" class="btn btn-success" value="Login">
     </div>
+    <br>
+    <div *ngIf="!correctUser" class="alert alert-danger" [style.max-width.px]="400">
+      Wrong credentials, please check your user name and password
+    </div>
   </form>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-</body>
-
-</html>

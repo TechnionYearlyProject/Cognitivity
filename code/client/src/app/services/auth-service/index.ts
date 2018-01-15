@@ -29,7 +29,7 @@ export class AuthService {
     });
   }
   getCurrentManager() {
-    return this.afAuth.authState.map(manager => manager);
+    return this.afAuth.auth.currentUser;
   }
 
   logout() {
