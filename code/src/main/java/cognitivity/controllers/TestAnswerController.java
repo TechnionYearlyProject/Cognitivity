@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static cognitivity.controllers.AbstractRestController.crossOrigin;
+
 
 @RestController
 @RequestMapping(TestAnswerController.baseMapping)
+@CrossOrigin(origins = crossOrigin)
 public class TestAnswerController extends AbstractRestController<TestAnswerService> {
 
     public static final String baseMapping = "/test-answers";

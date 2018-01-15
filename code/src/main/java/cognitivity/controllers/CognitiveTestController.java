@@ -9,12 +9,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static cognitivity.controllers.AbstractRestController.crossOrigin;
+
 /**
  * REST service for Cognitive Tests - allows to update, create, search and delete for cognitive tests for a
  * specific test manager or in general - by test id.
  */
 @RestController
 @RequestMapping(CognitiveTestController.baseMapping)
+@CrossOrigin(origins = crossOrigin)
 public class CognitiveTestController extends AbstractRestController<CognitiveTestService> {
 
     public static final String baseMapping = "/tests";
