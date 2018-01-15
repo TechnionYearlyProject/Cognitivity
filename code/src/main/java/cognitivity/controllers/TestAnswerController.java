@@ -31,7 +31,7 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
 
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET, value = "/findTestAnswerById")
+    @RequestMapping(method = RequestMethod.GET, value = "/findTestAnswerById", produces = "application/json;charset=UTF-8")
     public TestAnswer findTestAnswerById(
             @RequestParam(value = "testAnswerId") long answerId) {
         return service.findTestAnswerById(answerId);
@@ -46,7 +46,7 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
      */
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET, value = "/findTestAnswersByQuestionId")
+    @RequestMapping(method = RequestMethod.GET, value = "/findTestAnswersByQuestionId", produces = "application/json;charset=UTF-8")
     public List<TestAnswer> findTestAnswersByQuestionId(
             @RequestParam(value = "questionId") long questionId) {
         return service.findAllTestAnswerForAQuestion(questionId);
@@ -61,7 +61,7 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
      */
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET, value = "/findTestAnswersBySubjectId")
+    @RequestMapping(method = RequestMethod.GET, value = "/findTestAnswersBySubjectId", produces = "application/json;charset=UTF-8")
     public List<TestAnswer> findTestAnswersBySubjectId(
             @RequestParam(value = "subjectId") long subjectId) {
         return service.findTestAnswersBySubject(subjectId);
@@ -89,21 +89,6 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     @RequestMapping(method = RequestMethod.POST, value = "/saveTestAnswer")
     public void saveTestAnswer(
             @RequestBody TestAnswer testAnswer) {
-            /*@RequestParam TestSubject testSubject,
-            @RequestParam TestQuestion question,
-            @RequestParam CognitiveTest cognitiveTest,
-            @RequestParam Integer numberOfClick,
-            @RequestParam Integer finalAnswer,
-            @RequestParam Integer questionPlacement,
-            @RequestParam Integer answerPlacement,
-            @RequestParam String verbalAnswer,
-            @RequestParam Boolean questionWithPicture,
-            @RequestParam Integer timeToAnswer,
-            @RequestParam Boolean timeMeasured,
-            @RequestParam Boolean timeShowed,
-            @RequestParam Boolean testeeExit) {*/
-        /*service.addTestAnswerForTestQuestion(testSubject, question, cognitiveTest, numberOfClick, finalAnswer,
-                questionPlacement, answerPlacement, verbalAnswer, questionWithPicture, timeToAnswer, timeMeasured, timeShowed, testeeExit);*/
         // Todo : need to fix this - only pass TestAnswer to service
         service.addTestAnswerForTestQuestion(testAnswer);
     }

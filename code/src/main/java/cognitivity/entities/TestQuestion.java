@@ -1,5 +1,7 @@
 package cognitivity.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -28,7 +30,8 @@ public class TestQuestion extends AbstractEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "projectId", nullable = false)
-	private CognitiveTest cognitiveTest;
+    @JsonIgnore
+    private CognitiveTest cognitiveTest;
 
 	public TestManager getTestManager() {
 		return testManager;

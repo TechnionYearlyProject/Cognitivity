@@ -1,6 +1,7 @@
 package cognitivity.config;
 
 import cognitivity.services.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +11,11 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class TestContextBeanConfiguration {
+
+    @Bean
+    public ObjectMapper getObjectMapper() {
+        return new ObjectMapper();
+    }
 
     @Bean
     public CognitiveTestService cognitiveTestService() {

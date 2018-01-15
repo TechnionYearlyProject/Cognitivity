@@ -4,12 +4,10 @@ import cognitivity.TestUtil;
 import cognitivity.config.TestContextBeanConfiguration;
 import cognitivity.entities.TestQuestion;
 import cognitivity.services.QuestionService;
-import cognitivity.web.app.config.CognitivityMvcConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -34,12 +32,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Created by ophir on 19/12/17.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestContextBeanConfiguration.class, CognitivityMvcConfiguration.class})
+@ContextConfiguration(classes = {TestContextBeanConfiguration.class})
 @WebAppConfiguration
 @SpringBootTest
-@Ignore
+//@Ignore
 public class TestQuestionControllerTest implements RestControllerTest {
-    @Autowired
+
     private TestQuestionController controller;
 
     private MockMvc mockMvc;
@@ -56,6 +54,7 @@ public class TestQuestionControllerTest implements RestControllerTest {
     public void setUp() {
         Mockito.reset(questionService);
 
+        controller = new TestQuestionController(questionService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
         testQuestion = mockTestQuestion();
     }

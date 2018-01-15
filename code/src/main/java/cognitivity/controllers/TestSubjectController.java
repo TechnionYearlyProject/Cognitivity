@@ -32,7 +32,7 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
 
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET, value = "/findTestSubjectsForTestCriteria")
+    @RequestMapping(method = RequestMethod.GET, value = "/findTestSubjectsForTestCriteria", produces = "application/json;charset=UTF-8")
     public List<TestSubject> findTestSubjectsForTestCriteria(
             @RequestParam(value = "testSubjectId") long testSubjectId,
             @RequestParam(value = "testId", required = false) long testId) {

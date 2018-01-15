@@ -4,12 +4,11 @@ import cognitivity.TestUtil;
 import cognitivity.config.TestContextBeanConfiguration;
 import cognitivity.entities.TestManager;
 import cognitivity.services.TestManagerService;
-import cognitivity.web.app.config.CognitivityMvcConfiguration;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -26,18 +25,19 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Created by ophir on 19/12/17.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestContextBeanConfiguration.class, CognitivityMvcConfiguration.class})
+@ContextConfiguration(classes = {TestContextBeanConfiguration.class})
 @WebAppConfiguration
 @SpringBootTest
-@Ignore
+//@Ignore
 public class TestManagerControllerTest implements RestControllerTest {
-    @Autowired
+
     private TestManagerController controller;
 
     private MockMvc mockMvc;
@@ -54,6 +54,7 @@ public class TestManagerControllerTest implements RestControllerTest {
     public void setUp() {
         Mockito.reset(testManagerService);
 
+        controller = new TestManagerController(testManagerService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
         testManager = mockTestManager();
     }
@@ -98,6 +99,7 @@ public class TestManagerControllerTest implements RestControllerTest {
         mockMvc.perform(get("/test-managers/findTestManagersForTestCriteria")
                 .param("testManagerId", "12345")
                 .param("testId", "-1"))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.name", is(testManager.getName())))
@@ -123,6 +125,12 @@ public class TestManagerControllerTest implements RestControllerTest {
     @Test
     public void updateTestManagerCallsServiceWithCorrectParams() throws Exception {
         // updateTestManager is a http POST request
+        try {
+            byte[] bytes = objectMapper.writeValueAsBytes(testManager);
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+            System.out.println();
+        }
         mockMvc.perform(post("/test-managers/updateTestManager")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsBytes(testManager)))

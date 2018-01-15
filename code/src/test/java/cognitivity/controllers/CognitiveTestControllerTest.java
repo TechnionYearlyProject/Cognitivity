@@ -5,13 +5,11 @@ import cognitivity.config.TestContextBeanConfiguration;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
 import cognitivity.services.CognitiveTestService;
-import cognitivity.web.app.config.CognitivityMvcConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.util.Pair;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Matchers;
@@ -38,13 +36,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestContextBeanConfiguration.class, CognitivityMvcConfiguration.class})
+@ContextConfiguration(classes = {TestContextBeanConfiguration.class})
 @WebAppConfiguration
 @SpringBootTest
-@Ignore
+//@Ignore
 public class CognitiveTestControllerTest implements RestControllerTest {
 
-    @Autowired
     private CognitiveTestController controller;
 
     private MockMvc mockMvc;
@@ -59,6 +56,7 @@ public class CognitiveTestControllerTest implements RestControllerTest {
     public void setUp() {
         Mockito.reset(cognitiveTestServiceMock);
 
+        controller = new CognitiveTestController(cognitiveTestServiceMock);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
@@ -87,11 +85,9 @@ public class CognitiveTestControllerTest implements RestControllerTest {
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].name", is("ct1")))
-                .andExpect(jsonPath("$[0].manager", is(cognitiveTest1.getValue())))
                 .andExpect(jsonPath("$[0].state", is(1)))
                 .andExpect(jsonPath("$[0].numberOfQuestions", is(1)))
                 .andExpect(jsonPath("$[1].name", is("ct2")))
-                .andExpect(jsonPath("$[1].manager", is(cognitiveTest2.getValue())))
                 .andExpect(jsonPath("$[1].state", is(2)))
                 .andExpect(jsonPath("$[1].numberOfQuestions", is(2)));
 

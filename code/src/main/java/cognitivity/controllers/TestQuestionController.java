@@ -29,7 +29,7 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
      */
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET, value = "/findTestQuestionsForTestCriteriaById")
+    @RequestMapping(method = RequestMethod.GET, value = "/findTestQuestionsForTestCriteriaById", produces = "application/json;charset=UTF-8")
     public List<TestQuestion> findTestQuestionsForTestCriteriaById(
             @RequestParam(value = "testManagerId") long testManagerId,
             @RequestParam(value = "testId", required = false) long testId) {
@@ -49,18 +49,9 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
      * If questionId is null, then create. otherwise - update.
      */
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.POST, value = "/saveCognitiveTestQuestion")
+    @RequestMapping(method = RequestMethod.POST, value = "/saveCognitiveTestQuestion", produces = "application/json;charset=UTF-8")
     public void saveCognitiveTestQuestion(
-            @RequestBody TestQuestion testQuestion
-            /*@RequestParam String question,
-            @RequestParam Integer questionType,
-            @RequestParam Integer answer,
-            @RequestParam String tag,
-            @RequestParam TestBlock block,
-            @RequestParam CognitiveTest project,
-            @RequestParam TestManager testManager*/) {
-
-        // service.createTestQuestion(question, questionType, answer, tag, block, project, testManager);
+            @RequestBody TestQuestion testQuestion) {
         service.createTestQuestion(testQuestion);
 
     }

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * REST service for Cognitive Tests - allows to update, create, search and delete for cognitive tests for a
  * specific test manager or in general - by test id.
@@ -35,10 +37,9 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findTestsForTestManager", produces = "application/json;charset=UTF-8")
-    public /*List<CognitiveTest>*/ String findTestsForTestManager(
+    public List<CognitiveTest> findTestsForTestManager(
             @RequestParam(value = "managerId") long managerId) {
-        return "Hello Ophir " + managerId;
-        //return service.findTestsForTestManager(managerId);
+        return service.findTestsForTestManager(managerId);
     }
 
 

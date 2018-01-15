@@ -26,10 +26,9 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
      *
      * @return - test manager(s) for the test criteria.
      */
-    //TODO:A single manager is returned in both cases (Since we can only assign a single manager to a project). Why is this a list?
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET, value = "/findTestManagersForTestCriteria")
+    @RequestMapping(method = RequestMethod.GET, value = "/findTestManagersForTestCriteria", produces = "application/json;charset=UTF-8")
     public TestManager findTestManagersForTestCriteria(
             @RequestParam(value = "testManagerId") long testManagerId,
             @RequestParam(value = "testId", required = false) long testId) {
