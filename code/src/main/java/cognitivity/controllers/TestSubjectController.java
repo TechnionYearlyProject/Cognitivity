@@ -9,9 +9,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.List;
 
+import static cognitivity.controllers.AbstractRestController.crossOrigin;
+import static cognitivity.controllers.TestSubjectController.baseMapping;
+
 
 @RestController
-@RequestMapping(TestSubjectController.baseMapping)
+@RequestMapping(value = baseMapping,
+        consumes = "application/json;charset=UTF-8",
+        produces = "application/json;charset=UTF-8")
+@CrossOrigin(origins = crossOrigin)
 public class TestSubjectController extends AbstractRestController<TestSubjectService> {
 
     public static final String baseMapping = "/test-subjects";

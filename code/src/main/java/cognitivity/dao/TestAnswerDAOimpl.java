@@ -2,6 +2,7 @@ package cognitivity.dao;
 
 import cognitivity.entities.TestAnswer;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

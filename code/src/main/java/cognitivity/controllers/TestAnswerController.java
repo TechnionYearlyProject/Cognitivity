@@ -8,9 +8,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static cognitivity.controllers.AbstractRestController.crossOrigin;
+import static cognitivity.controllers.TestAnswerController.baseMapping;
+
 
 @RestController
-@RequestMapping(TestAnswerController.baseMapping)
+@RequestMapping(value = baseMapping,
+        consumes = "application/json;charset=UTF-8",
+        produces = "application/json;charset=UTF-8")
+@CrossOrigin(origins = crossOrigin)
 public class TestAnswerController extends AbstractRestController<TestAnswerService> {
 
     public static final String baseMapping = "/test-answers";
@@ -89,21 +95,6 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     @RequestMapping(method = RequestMethod.POST, value = "/saveTestAnswer")
     public void saveTestAnswer(
             @RequestBody TestAnswer testAnswer) {
-            /*@RequestParam TestSubject testSubject,
-            @RequestParam TestQuestion question,
-            @RequestParam CognitiveTest cognitiveTest,
-            @RequestParam Integer numberOfClick,
-            @RequestParam Integer finalAnswer,
-            @RequestParam Integer questionPlacement,
-            @RequestParam Integer answerPlacement,
-            @RequestParam String verbalAnswer,
-            @RequestParam Boolean questionWithPicture,
-            @RequestParam Integer timeToAnswer,
-            @RequestParam Boolean timeMeasured,
-            @RequestParam Boolean timeShowed,
-            @RequestParam Boolean testeeExit) {*/
-        /*service.addTestAnswerForTestQuestion(testSubject, question, cognitiveTest, numberOfClick, finalAnswer,
-                questionPlacement, answerPlacement, verbalAnswer, questionWithPicture, timeToAnswer, timeMeasured, timeShowed, testeeExit);*/
         // Todo : need to fix this - only pass TestAnswer to service
         service.addTestAnswerForTestQuestion(testAnswer);
     }

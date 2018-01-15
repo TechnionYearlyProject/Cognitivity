@@ -6,9 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import static cognitivity.controllers.AbstractRestController.crossOrigin;
+
 
 @RestController
-@RequestMapping(TestManagerController.baseMapping)
+@RequestMapping(value = TestManagerController.baseMapping,
+        consumes = "application/json;charset=UTF-8",
+        produces = "application/json;charset=UTF-8")
+@CrossOrigin(origins = crossOrigin)
 public class TestManagerController extends AbstractRestController<TestManagerService> {
 
     public static final String baseMapping = "/test-managers";
@@ -26,7 +31,6 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
      *
      * @return - test manager(s) for the test criteria.
      */
-    //TODO:A single manager is returned in both cases (Since we can only assign a single manager to a project). Why is this a list?
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findTestManagersForTestCriteria")

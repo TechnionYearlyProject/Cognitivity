@@ -8,9 +8,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static cognitivity.controllers.AbstractRestController.crossOrigin;
+import static cognitivity.controllers.TestQuestionController.baseMapping;
+
 
 @RestController
-@RequestMapping(TestQuestionController.baseMapping)
+@RequestMapping(value = baseMapping,
+        consumes = "application/json;charset=UTF-8",
+        produces = "application/json;charset=UTF-8")
+@CrossOrigin(origins = crossOrigin)
 public class TestQuestionController extends AbstractRestController<QuestionService> {
 
     public static final String baseMapping = "/test-questions";
@@ -51,16 +57,7 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/saveCognitiveTestQuestion")
     public void saveCognitiveTestQuestion(
-            @RequestBody TestQuestion testQuestion
-            /*@RequestParam String question,
-            @RequestParam Integer questionType,
-            @RequestParam Integer answer,
-            @RequestParam String tag,
-            @RequestParam TestBlock block,
-            @RequestParam CognitiveTest project,
-            @RequestParam TestManager testManager*/) {
-
-        // service.createTestQuestion(question, questionType, answer, tag, block, project, testManager);
+            @RequestBody TestQuestion testQuestion) {
         service.createTestQuestion(testQuestion);
 
     }

@@ -1,6 +1,7 @@
 package cognitivity.dao;
 
 import cognitivity.entities.TestBlock;
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 @Repository

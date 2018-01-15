@@ -17,21 +17,21 @@ export class TestManagerService {
     }
 
     saveTestManager(managerName: string, pass: string): Promise<Manager> {
-        return this.http.post(`${this.base_mapping}/saveTestManager`, JSON.stringify({'name': managerName, 'password': pass}),{headers: this.headers})
+        return this.http.post(`http://localhost:8181${this.base_mapping}/saveTestManager`, JSON.stringify({'name': managerName, 'password': pass}),{headers: this.headers})
         .toPromise()
         .then(res => res.json() as Manager) //not so sure about this line, may need to change it
         .catch(this.handleError);
     }
 
     updateTestManager(manager: Manager): Promise<Manager> {
-        return this.http.post(`${this.base_mapping}/updateTestManager`, JSON.stringify(manager), {headers: this.headers})
+        return this.http.post(`http://localhost:8181${this.base_mapping}/updateTestManager`, JSON.stringify(manager), {headers: this.headers})
         .toPromise()
         .then(res => res.json() as Manager)
         .catch(this.handleError);
     }
 
     deleteTestManager(id: number): Promise<void> {
-        return this.http.delete(`${this.base_mapping}/deleteTestManager`+'/${id}',{headers: this.headers})
+        return this.http.delete(`http://localhost:8181${this.base_mapping}/deleteTestManager`+'/${id}',{headers: this.headers})
         .toPromise()
         .then(() => null)
         .catch(this.handleError);
@@ -50,7 +50,7 @@ export class TestService {
     private headers = new Headers({'Content-Type': 'application/json'});
     base_mapping = '/tests';
     findTestsForTestManager(managerId: string): Promise<Test[]> {
-        return this.http.get(`${this.base_mapping}/findTestsForTestManager?managerId=${managerId}`)
+        return this.http.get(`http://localhost:8181${this.base_mapping}/findTestsForTestManager?managerId=${managerId}`)
         .toPromise()
         .then(response => response.json() as Test[])
         .catch(this.handleError)
@@ -66,20 +66,20 @@ export class TestService {
             numberOfFiledCopies: 0,
             blockList: blockList
         };
-        return this.http.post(`${this.base_mapping}/saveCognitiveTest`,JSON.stringify(test),{headers : this.headers})
+        return this.http.post(`http://localhost:8181${this.base_mapping}/saveCognitiveTest`,JSON.stringify(test),{headers : this.headers})
         .toPromise()
         .then(() => null)
         .catch(this.handleError);
     }
 
     deleteCognitiveTest(testId: number): Promise<void> {
-        return this.http.delete(`${this.base_mapping}/deleteCognitiveTest/${testId}`, {headers: this.headers})
+        return this.http.delete(`http://localhost:8181${this.base_mapping}/deleteCognitiveTest/${testId}`, {headers: this.headers})
         .toPromise()
         .then(() => null)
         .catch(this.handleError)
     }
     updateCognitiveTest(test: Test): Promise<Test> {
-        return this.http.post(`${this.base_mapping}/updateCognitiveTest`, JSON.stringify(test), {headers: this.headers})
+        return this.http.post(`http://localhost:8181${this.base_mapping}/updateCognitiveTest`, JSON.stringify(test), {headers: this.headers})
         .toPromise()
         .then(res => res.json() as Test)
         .catch(this.handleError)
@@ -106,19 +106,19 @@ export class QuestionService {
 
     findTestQuestionsForManager(managerId: number, testId: number = null): Promise<Question[]> {
         if (testId == null) {
-            return this.http.get(`${this.base_mapping}/findTestQuestionsForTestCriteriaById?managerId=${managerId}`)
+            return this.http.get(`http://localhost:8181${this.base_mapping}/findTestQuestionsForTestCriteriaById?managerId=${managerId}`)
             .toPromise()
             .then(res => res.json() as Question[])
             .catch(this.handleError);
         }
-        return this.http.get(`${this.base_mapping}/findTestQuestionsForTestCriteriaById?managerId=${managerId}&testId=${testId}`)
+        return this.http.get(`http://localhost:8181${this.base_mapping}/findTestQuestionsForTestCriteriaById?managerId=${managerId}&testId=${testId}`)
             .toPromise()
             .then(res => res.json() as Question[])
             .catch(this.handleError);
     }
 
     deleteTestQuestion(questionId: number): Promise<void> {
-        return this.http.delete(`${this.base_mapping}/deleteTestQuestion?questionId=${questionId}`, {headers: this.headers})
+        return this.http.delete(`http://localhost:8181${this.base_mapping}/deleteTestQuestion?questionId=${questionId}`, {headers: this.headers})
         .toPromise()
         .then(() => null)
         .catch(this.handleError);
