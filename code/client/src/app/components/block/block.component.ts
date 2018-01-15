@@ -3,8 +3,9 @@ import { QuestionListComponent } from './question-list/question-list.component';
 import {MatDialog} from '@angular/material';
 import {CreateQuestionComponent} from '../create-question/create-question.component';
 import { Router } from '@angular/router';
-import {Question} from '../../models/index'
+import {Question, QuestionData} from '../../models/index'
 import { QuestionComponent } from '../question/question.component';
+import { Input } from '@angular/core/';
 import { SessionService } from '../../services/session-service/index';
 @Component({
   selector: 'app-block',
@@ -14,11 +15,15 @@ import { SessionService } from '../../services/session-service/index';
 export class BlockComponent implements OnInit {
 
 
-  blockNumber:number;
+  @Input() blockNumber:number;
+  @Input() questionsList:QuestionListComponent;
   hidden: boolean = true;
-  questionsList:QuestionListComponent;
   question_object: any;
-  constructor(private dialog: MatDialog,private router:Router, private transferData: SessionService) { }
+  constructor(private dialog: MatDialog,private router:Router, private transferData: SessionService) {
+    this.questionsList=new QuestionListComponent(this.router);
+   }
+  
+
   
 
   openDialog(){
@@ -32,15 +37,23 @@ export class BlockComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.questionsList=new QuestionListComponent(this.router);
+    
   }
 
   toggleHidden() {
     this.hidden = !this.hidden;
   }
 
-  createQuestion(){
-      
+  previewBlock(){
+    let tmp:QuestionData[]=new Array();
+    for(let i=0;i<this.questionsList.questions.length;i++)
+    {
+      tmp[i] = this.questionsList.questions[i];
+    }
+    console.log(tmp);
+    this.transferData.setData(tmp);
+    console.log("sent Data");
+    this.router.navigate(['question-viewer']);
   }
   showQuestion(){
     console.log(this.question_object);

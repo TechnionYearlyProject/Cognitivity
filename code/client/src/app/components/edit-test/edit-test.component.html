@@ -1,0 +1,11 @@
+<div class="cover">
+  <div class="container">
+    <div *ngFor="let currBlock of blockList">
+      <br>
+      <a class="btn btn-secondary btn-sm fa fa-arrow-up" (click)="moveMeUp(currBlock.blockNumber)"></a>
+      <a class="btn btn-secondary btn-sm fa fa-arrow-down" (click)="moveMeDown(currBlock.blockNumber)"></a>
+      <app-block [blockNumber]="currBlock.blockNumber" [questionsList]="currBlock.questionsList"></app-block>
+      <br>
+    </div>
+  </div>
+</div>

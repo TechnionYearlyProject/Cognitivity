@@ -5,15 +5,30 @@ import { QuestionComponent } from './components/question/question.component';
 import { QuestionViewerComponent } from './components/question-viewer/question-viewer.component';
 import { QuestionListComponent } from './components/block/question-list/question-list.component';
 import { BlockComponent } from './components/block/block.component';
+import { LoginPageComponent } from './components/login-page/login-page.component';
+import { EditTestComponent } from './components/edit-test/edit-test.component';
 
 const appRoutes: Routes = [
+    
     {
-        path: '',
+        path: 'login',
+        component: LoginPageComponent
+    },
+    {
+        path: 'question-viewer',
+        component:QuestionViewerComponent   
+    },
+    {
+        path: 'block',
         component:BlockComponent
     },
     {
-        path:'question-viewer',
-        component:QuestionViewerComponent
+        path: 'edit-test',
+        component:EditTestComponent
+    },
+    {
+        path: '**',
+        redirectTo: 'login'
     }
 ];
 
