@@ -8,9 +8,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static cognitivity.controllers.AbstractRestController.crossOrigin;
+import static cognitivity.controllers.TestAnswerController.baseMapping;
+
 
 @RestController
-@RequestMapping(TestAnswerController.baseMapping)
+@RequestMapping(value = baseMapping,
+        consumes = "application/json;charset=UTF-8",
+        produces = "application/json;charset=UTF-8")
+@CrossOrigin(origins = crossOrigin)
 public class TestAnswerController extends AbstractRestController<TestAnswerService> {
 
     public static final String baseMapping = "/test-answers";
@@ -31,7 +37,7 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
 
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET, value = "/findTestAnswerById", produces = "application/json;charset=UTF-8")
+    @RequestMapping(method = RequestMethod.GET, value = "/findTestAnswerById")
     public TestAnswer findTestAnswerById(
             @RequestParam(value = "testAnswerId") long answerId) {
         return service.findTestAnswerById(answerId);
@@ -46,7 +52,7 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
      */
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET, value = "/findTestAnswersByQuestionId", produces = "application/json;charset=UTF-8")
+    @RequestMapping(method = RequestMethod.GET, value = "/findTestAnswersByQuestionId")
     public List<TestAnswer> findTestAnswersByQuestionId(
             @RequestParam(value = "questionId") long questionId) {
         return service.findAllTestAnswerForAQuestion(questionId);
@@ -61,7 +67,7 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
      */
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET, value = "/findTestAnswersBySubjectId", produces = "application/json;charset=UTF-8")
+    @RequestMapping(method = RequestMethod.GET, value = "/findTestAnswersBySubjectId")
     public List<TestAnswer> findTestAnswersBySubjectId(
             @RequestParam(value = "subjectId") long subjectId) {
         return service.findTestAnswersBySubject(subjectId);
