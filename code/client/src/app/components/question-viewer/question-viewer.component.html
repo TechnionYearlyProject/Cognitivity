@@ -1,4 +1,8 @@
-<div>{{this.load()}}
-<app-multiple-choice-question *ngIf="myQuestion.type==0"></app-multiple-choice-question>
-<app-rate-question *ngIf="myQuestion.type==1"></app-rate-question>
-<app-open-question *ngIf="myQuestion.type==2"></app-open-question></div>
+<div>
+    <div *ngFor="let currQ of myQuestions; let i=index">
+        <app-multiple-choice-question *ngIf="myQuestions[i].type==0" [hidden]="hide(i)"></app-multiple-choice-question>
+        <app-rate-question *ngIf="myQuestions[i].type==1" [hidden]="hide(i)"></app-rate-question>
+        <app-open-question *ngIf="myQuestions[i].type==2" [hidden]="hide(i)"></app-open-question>
+     
+    </div>
+</div>

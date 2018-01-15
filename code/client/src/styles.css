@@ -5,3 +5,7 @@ body {
   
   background-size: cover;
 }
+.mat-dialog-container{
+    background: transparent;
+    border-radius: 10px;
+}

@@ -97,11 +97,8 @@
           </div>
           <div *ngIf = "didChoseOpenQuestion()" class="centered">
                 <label for="Question text"><span style="font-family:Ariel; font-size: 25px; color: white">Enter the answer:</span></label>
-                <input [(ngModel)] = "answerText" name = "answer" #answer = "ngModel" type="text" class="form-control" placeholder="Answer text" style="max-width: 100%;" required>
+                <input [(ngModel)] = "answerText" name = "answer" #answer = "ngModel" type="text" class="form-control" placeholder="Answer text" style="max-width: 100%;">
                 <br>
-                <div *ngIf = "answer.errors?.required && submit && answer.touched" style="color: red;">
-                       Please add an answer to the question
-                </div>
                 <br>
           </div>
           <div *ngIf = "didChoseMultipleQuestion() && (didChoseVerticalType() || didChoseHorizontalType())">
@@ -176,8 +173,9 @@
 
           </div>
 
-          <div class="container">
+          <div class="container row">
               <input type="submit" value="Submit Question"  (click)="onSubmit(f)" class="btn btn-primary btn-md" [disabled] = "editionMode">
+              <input type="submit" value="Cancel"  (click)="cancelDialog()" class="btn btn-danger btn-md" style="margin: 0px 0px 0px 10px;">
           </div>
           
       </form>

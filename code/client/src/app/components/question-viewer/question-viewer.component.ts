@@ -8,22 +8,31 @@ import {QuestionData } from '../../models'
 })
 export class QuestionViewerComponent implements OnInit {
   
- 
-  myQuestion:QuestionData;
+  hidden: boolean = true;
+  myQuestions:QuestionData[];
+  myCurrIndex:number=0;
 
   constructor(public questionDataService:SessionService) { 
     console.log("im alive");
-    this.myQuestion=new QuestionData(0);
+    this.myQuestions = new Array();
   }
 
   ngOnInit() {
-
+    this.load();
   }
 
   load(){
-    console.log("im called");
-    this.myQuestion=this.questionDataService.getData();  
-    console.log("got id: "+this.myQuestion.id);
+    this.myQuestions = this.questionDataService.getData();
+    console.log("-------------------------------------------");
+    console.log(this.myQuestions);
+    this.myCurrIndex=0;
   }
 
+  hide(loopIndex){
+    return loopIndex!=this.myCurrIndex;
+  }
+
+  inc(){
+    this.myCurrIndex++;
+  }
 }
