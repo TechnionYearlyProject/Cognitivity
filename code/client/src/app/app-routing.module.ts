@@ -12,6 +12,10 @@ const appRoutes: Routes = [
         path: '**',
         redirectTo: 'login'
     },
+    {
+        path:'login',
+        component: LoginPageComponent
+    }
 ];
 
 @NgModule({

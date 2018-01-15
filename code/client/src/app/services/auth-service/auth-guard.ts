@@ -10,7 +10,7 @@ export class AuthGuard implements CanActivate {
     private router: Router
   ) {}
   async canActivate() {
-    let user = await this.authService.getCurrentManager()//.toPromise();
+    let user = await this.authService.getCurrentManager().toPromise();
     if (user) {
       return true;
     }
