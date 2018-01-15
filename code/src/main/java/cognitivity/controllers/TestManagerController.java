@@ -10,7 +10,9 @@ import static cognitivity.controllers.AbstractRestController.crossOrigin;
 
 
 @RestController
-@RequestMapping(TestManagerController.baseMapping)
+@RequestMapping(value = TestManagerController.baseMapping,
+        consumes = "application/json;charset=UTF-8",
+        produces = "application/json;charset=UTF-8")
 @CrossOrigin(origins = crossOrigin)
 public class TestManagerController extends AbstractRestController<TestManagerService> {
 
@@ -31,7 +33,7 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
      */
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET, value = "/findTestManagersForTestCriteria", produces = "application/json;charset=UTF-8")
+    @RequestMapping(method = RequestMethod.GET, value = "/findTestManagersForTestCriteria")
     public TestManager findTestManagersForTestCriteria(
             @RequestParam(value = "testManagerId") long testManagerId,
             @RequestParam(value = "testId", required = false) long testId) {

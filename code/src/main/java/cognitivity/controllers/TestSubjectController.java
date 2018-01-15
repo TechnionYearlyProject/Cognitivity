@@ -10,10 +10,13 @@ import java.util.Collections;
 import java.util.List;
 
 import static cognitivity.controllers.AbstractRestController.crossOrigin;
+import static cognitivity.controllers.TestSubjectController.baseMapping;
 
 
 @RestController
-@RequestMapping(TestSubjectController.baseMapping)
+@RequestMapping(value = baseMapping,
+        consumes = "application/json;charset=UTF-8",
+        produces = "application/json;charset=UTF-8")
 @CrossOrigin(origins = crossOrigin)
 public class TestSubjectController extends AbstractRestController<TestSubjectService> {
 
@@ -35,7 +38,7 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
 
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET, value = "/findTestSubjectsForTestCriteria", produces = "application/json;charset=UTF-8")
+    @RequestMapping(method = RequestMethod.GET, value = "/findTestSubjectsForTestCriteria")
     public List<TestSubject> findTestSubjectsForTestCriteria(
             @RequestParam(value = "testSubjectId") long testSubjectId,
             @RequestParam(value = "testId", required = false) long testId) {

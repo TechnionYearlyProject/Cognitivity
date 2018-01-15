@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static cognitivity.controllers.AbstractRestController.crossOrigin;
+import static cognitivity.controllers.TestQuestionController.baseMapping;
 
 
 @RestController
-@RequestMapping(TestQuestionController.baseMapping)
+@RequestMapping(value = baseMapping,
+        consumes = "application/json;charset=UTF-8",
+        produces = "application/json;charset=UTF-8")
 @CrossOrigin(origins = crossOrigin)
 public class TestQuestionController extends AbstractRestController<QuestionService> {
 
@@ -32,7 +35,7 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
      */
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET, value = "/findTestQuestionsForTestCriteriaById", produces = "application/json;charset=UTF-8")
+    @RequestMapping(method = RequestMethod.GET, value = "/findTestQuestionsForTestCriteriaById")
     public List<TestQuestion> findTestQuestionsForTestCriteriaById(
             @RequestParam(value = "testManagerId") long testManagerId,
             @RequestParam(value = "testId", required = false) long testId) {
@@ -52,7 +55,7 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
      * If questionId is null, then create. otherwise - update.
      */
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.POST, value = "/saveCognitiveTestQuestion", produces = "application/json;charset=UTF-8")
+    @RequestMapping(method = RequestMethod.POST, value = "/saveCognitiveTestQuestion")
     public void saveCognitiveTestQuestion(
             @RequestBody TestQuestion testQuestion) {
         service.createTestQuestion(testQuestion);
