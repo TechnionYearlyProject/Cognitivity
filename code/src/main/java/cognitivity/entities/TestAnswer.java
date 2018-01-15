@@ -1,6 +1,7 @@
 package cognitivity.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 /**
@@ -11,6 +12,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "testAnswer")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class TestAnswer extends AbstractEntity {
 
 	@ManyToOne

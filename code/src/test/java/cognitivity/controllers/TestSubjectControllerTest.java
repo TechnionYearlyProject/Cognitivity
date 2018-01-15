@@ -23,8 +23,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.Collections;
 
 import static org.hamcrest.Matchers.is;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -35,7 +35,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(classes = {TestContextBeanConfiguration.class})
 @WebAppConfiguration
 @SpringBootTest
-//@Ignore
 public class TestSubjectControllerTest implements RestControllerTest {
 
     private TestSubjectController controller;
@@ -66,25 +65,34 @@ public class TestSubjectControllerTest implements RestControllerTest {
     }
 
     private TestSubject mockTestSubject() {
-        TestSubject testSubject = Mockito.mock(TestSubject.class);
+        return new TestSubject() {
+            @Override
+            public String getName() {
+                return "name";
+            }
 
-        when(testSubject.getName()).thenReturn("name");
-        when(testSubject.getBrowser()).thenReturn("firefox");
-        when(testSubject.getIpAddress()).thenReturn(123);
+            @Override
+            public String getBrowser() {
+                return "firefox";
+            }
 
-        return testSubject;
+            @Override
+            public Integer getIpAddress() {
+                return 123;
+            }
+        };
     }
 
     @Test
     public void findTestSubjectsForTestCriteriaReturnsMockedTestAnswerByTestId() throws Exception {
-        Mockito.when(testSubjectService.findTestSubjectsWhoParticipatedInTest(12345)).thenReturn(Collections.singletonList(testSubject));
+        Mockito.when(testSubjectService.findTestSubjectsWhoParticipatedInTest(1234)).thenReturn(Collections.singletonList(testSubject));
 
         // findTestSubjectsForTestCriteria is a http GET request
         mockMvc.perform(get("/test-subjects/findTestSubjectsForTestCriteria")
                 .param("testSubjectId", "12345")
                 .param("testId", "1234"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentTypeCompatibleWith(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$[0].name", is(testSubject.getName())))
                 .andExpect(jsonPath("$[0].browser", is(testSubject.getBrowser())))
                 .andExpect(jsonPath("$[0].ipAddress", is(testSubject.getIpAddress())));
@@ -134,7 +142,7 @@ public class TestSubjectControllerTest implements RestControllerTest {
                 .andExpect(status().isOk());
 
         // todo : this will probably fail because the jackson factory will build a new object. Should maybe update equal methods?
-        Mockito.verify(testSubjectService, times(1)).updateTestSubject(testSubject);
+        Mockito.verify(testSubjectService, times(1)).updateTestSubject(any(TestSubject.class));
         Mockito.verifyNoMoreInteractions(testSubjectService);
     }
 

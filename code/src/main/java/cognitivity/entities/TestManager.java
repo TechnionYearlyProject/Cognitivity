@@ -49,4 +49,12 @@ public class TestManager extends AbstractEntity {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof TestManager)) return false;
+        TestManager testManager = (TestManager) o;
+        return testManager.name.equals(name) &&
+                testManager.password.equals(password);
+    }
 }
