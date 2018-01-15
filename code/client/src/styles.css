@@ -1,10 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-body {
-  background: url(https://static1.squarespace.com/static/57b21595d482e91442e5e990/t/586d659b197aeaa9095692d3/1483564444304/Fotolia_100000042_Subscription_Monthly_M.jpg?format=1500w) no-repeat fixed;
-  
-  background-size: cover;
-}
+
 .mat-dialog-container{
     background: transparent;
     border-radius: 10px;
