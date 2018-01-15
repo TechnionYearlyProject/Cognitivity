@@ -5,16 +5,13 @@ import { QuestionComponent } from './components/question/question.component';
 import { QuestionViewerComponent } from './components/question-viewer/question-viewer.component';
 import { QuestionListComponent } from './components/block/question-list/question-list.component';
 import { BlockComponent } from './components/block/block.component';
+import { LoginPageComponent } from './components/login-page/login-page.component';
 
 const appRoutes: Routes = [
     {
-        path: '',
-        component:BlockComponent
+        path: '**',
+        redirectTo: 'login'
     },
-    {
-        path:'question-viewer',
-        component:QuestionViewerComponent
-    }
 ];
 
 @NgModule({

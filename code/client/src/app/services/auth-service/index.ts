@@ -28,8 +28,9 @@ export class AuthService {
         err => reject(err));
     });
   }
-  getCurrentManager() {
-    return this.afAuth.authState.map(manager => manager);
+  async getCurrentManager() {
+    return null;
+    //return this.afAuth.authState.map(manager => manager);
   }
 
   logout() {
