@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TypeMultipleQuestion, TypeQuestion, QuestionPosition} from '../../models';
+import {MatDialogRef} from '@angular/material';
+import {SessionService} from '../../services/session-service';
 @Component({
   selector: 'app-create-question',
   templateUrl: './create-question.component.html',
@@ -44,10 +46,11 @@ export class CreateQuestionComponent implements OnInit {
   indexAnswerInEdit: number = -1;
 
   question_object: any;
-  constructor() {
-    this.constructMatrix();
- 
+  constructor(public dialogRef: MatDialogRef<CreateQuestionComponent>, private transferQuestion: SessionService) {
    }
+  closeDialog(){
+    this.dialogRef.close();
+  }
 
   ngOnInit() {
   }
@@ -176,6 +179,8 @@ export class CreateQuestionComponent implements OnInit {
 
   setMatrixType(){
     this.answers = new Array<string>();
+    this.markedAnswers = new Array<boolean>();
+    this.constructMatrix();
     if(this.typeMultipleQuestion == TypeMultipleQuestion.Matrix){
       this.typeMultipleQuestion = null;
     }else{
@@ -219,34 +224,48 @@ export class CreateQuestionComponent implements OnInit {
 
   onSubmit(f){
     console.log('hi');
-    if(this.didChoseQuestionPosition() && this.didChoseQuestionType()){
-      if(this.didChoseMultipleQuestion()){
-        if(this.didChoseMultipleChoiceType()){
-          if(this.didChoseVerticalType() || this.didChoseHorizontalType()){
-            if(this.haveAnswers()){
-              this.findCorretAnswer();
-              this.constructMultipleQuestion();
-              console.log(this.question_object);
+    if(this.questionText != null){
+     if(this.questionText != ''){
+      if(this.didChoseQuestionPosition() && this.didChoseQuestionType()){
+        if(this.didChoseMultipleQuestion()){
+          if(this.didChoseMultipleChoiceType()){
+            if(this.didChoseVerticalType() || this.didChoseHorizontalType()){
+              if(this.haveAnswers()){
+                this.findCorretAnswer();
+                this.constructMultipleQuestion();
+                console.log(this.question_object);
+                this.transferQuestion.setData(this.question_object);
+                this.closeDialog();
+              }
+            }else if(this.didChoseMatrixType()){
+              if(!this.missingAnswers()){
+                this.findCorretAnswer();
+                this.constructMatrixQuestion();
+                this.transferQuestion.setData(this.question_object);
+                console.log(this.question_object);
+                this.closeDialog();
+              }
+              
             }
-          }else if(this.didChoseMatrixType()){
-            if(!this.missingAnswers()){
-              this.findCorretAnswer();
-              this.constructMatrixQuestion();
-              console.log(this.question_object);
-            }
-            
           }
-        }
-      }else if(this.didChoseRateQuestion()){
-          this.constructRateQuestion();
-          console.log(this.question_object);
-      }else if(this.didChoseOpenQuestion()){
-          if(this.answerText != ''){
-            this.constructOpenQuestion();
+        }else if(this.didChoseRateQuestion()){
+            this.constructRateQuestion();
+            this.transferQuestion.setData(this.question_object);
             console.log(this.question_object);
+            this.closeDialog();
+        }else if(this.didChoseOpenQuestion()){
+            if(this.answerText != ''){
+  
+              this.constructOpenQuestion();
+              console.log(this.question_object);
+              this.transferQuestion.setData(this.question_object);
+              this.closeDialog();
+            }
           }
         }
-      }
+  
+     } 
+    }
     
     this.submit = true;
   }
@@ -275,6 +294,9 @@ export class CreateQuestionComponent implements OnInit {
     this.constructMultipleQuestion();
   }
   constructMultipleQuestion(){
+    if(this.correctAnswer == null){
+      this.correctAnswer = -1;
+    }
     this.question_object = {
       questionText: this.questionText,
       type: this.typeQuestion,
@@ -347,11 +369,15 @@ export class CreateQuestionComponent implements OnInit {
       this.markedAnswers.splice(index + 1, 0, removed_marked[0]);
     }
   }
+  print(){
+    console.log('hi');
+  }
   markAnswer(index: number, index_col: number = -1){
     if(index_col == -1){
+
       for(let i = 0; i < this.markedAnswers.length; i++){
         if(i == index){
-          this.markedAnswers[i] = true;
+          this.markedAnswers[i] = !this.markedAnswers[i];
         }else{
           this.markedAnswers[i] = false;
         }
@@ -360,7 +386,7 @@ export class CreateQuestionComponent implements OnInit {
       for(let i = 0; i < this.dimSize; i++){
         for(let j = 0; j < this.dimSize; j++){
           if(i == index && j == index_col){
-            this.markedAnswersMatrix[i][j] = true;
+            this.markedAnswersMatrix[i][j] = !this.markedAnswersMatrix[i][j];
           }else{
             this.markedAnswersMatrix[i][j] = false;
           }

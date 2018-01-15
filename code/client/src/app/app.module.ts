@@ -30,7 +30,8 @@ import { AuthGuard } from './services/auth-service/auth-guard';
 import { environment } from '../environments/environment';
 import { QuestionViewerComponent } from './components/question-viewer/question-viewer.component';
 
-
+import { MatDialog, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 
@@ -48,7 +49,8 @@ const PROVIDED_SERVICES = [
   LocalStorageService,
   SessionService,
   AngularFireDatabase,
-  AngularFireDatabaseModule
+  AngularFireDatabaseModule,
+  MatDialog
 ];
 
 @NgModule({
@@ -74,11 +76,15 @@ const PROVIDED_SERVICES = [
     MyDatePickerModule,
     HttpModule,
     AngularFireAuthModule,
-    AngularFireModule.initializeApp(environment.firebase,'Cognitivity')
+    AngularFireModule.initializeApp(environment.firebase,'Cognitivity'),
+    MatDialogModule,
+    BrowserAnimationsModule
+
   ],
   providers: [
     ...PROVIDED_SERVICES
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [CreateQuestionComponent]
 })
 export class AppModule { }

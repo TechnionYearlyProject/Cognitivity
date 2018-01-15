@@ -114,13 +114,9 @@
                             
                             <div *ngFor="let answer of answers; let i = index">
                                 <li class="list-group-item" style="max-width: 100%;background-color: transparent;">
-                                    <div class="styled-input-container">
-                                        <div class="styled-input-single">
-                                            <input  class="onoffswitch-checkbox" id="check-box-{{i}}" [checked] = "markedAnswers[i]" name="isMarked" type="checkbox" (change)="markAnswer(i)" [disabled] = "editionMode" style="margin:0.5em"> 
-                                            <label for="check-box-{{i}}"></label>
-                                        </div>
-                                    </div>
                                     <span style="margin: 10px; font-family: Ariel; font-size: 25px;color: white;">{{answer}}</span>
+                                    <button *ngIf="markedAnswers[i]" class="btn btn-sm btn-success"style="color:white;"(click)="markAnswer(i)">Correct Answer</button>
+                                    <button *ngIf="!markedAnswers[i]" class="btn btn-sm btn-danger"style="color:white;"(click)="markAnswer(i)">Unmarked answer</button>
                                     <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="goUp(i)" [disabled] = "editionMode"><span class="fa fa-arrow-up"></span></button>
                                     <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="goDown(i)" [disabled] = "editionMode"><span class="fa fa-arrow-down"></span></button>
                                     <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="deleteAnswer(i)" [disabled] = "editionMode"><span class="fa fa-trash"></span> Delete answer</button>
@@ -164,15 +160,10 @@
             <div class="row" [ngClass] = "centeringMatrix">
                 <div *ngFor = "let answerRow of iteratorArray; let i = index;" style="margin: 1em;" class="column">
                     <div *ngFor = "let answer of answerRow; let j = index;" style="margin: 1em;">
-                        <div class="row">
-                            <div class="styled-input-container">
-                                <div class="styled-input-single">
-                                    <input  class="onoffswitch-checkbox" id="check-box-{{i}}{{j}}" [checked] = "markedAnswersMatrix[i][j]" name="isMarked" type="checkbox" (change)="markAnswer(i,j)" style="margin:3em"> 
-                                    <label for="check-box-{{i}}{{j}}"></label>
-                                </div>
-                            </div>
+                            <button *ngIf="markedAnswersMatrix[i][j]" class="btn btn-sm btn-success"style="color:white; margin: 0px 0px 3px 0px;"(click)="markAnswer(i,j)">Correct Answer</button>
+                            <button *ngIf="!markedAnswersMatrix[i][j]" class="btn btn-sm btn-danger"style="color:white;margin: 0px 0px 3px 0px;"(click)="markAnswer(i,j)">Unmarked answer</button>
+                            <br>
                             <input [(ngModel)] = "matrixAnswers[i][j]" name = "answerMutiple" #answerMultiple = "ngModel" type="text" class="form-control" placeholder="Answer text" style="max-width: 100%;">
-                        </div>
                     </div>
                 </div>
             </div>
