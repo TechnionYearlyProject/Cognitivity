@@ -45,8 +45,10 @@ export class CreateQuestionComponent implements OnInit {
   editionMode: boolean = false;
   indexAnswerInEdit: number = -1;
 
+  
   question_object: any;
   constructor(public dialogRef: MatDialogRef<CreateQuestionComponent>, private transferQuestion: SessionService) {
+    this.dialogRef.updatePosition({ top: '50px', left: '100px' });
    }
   closeDialog(){
     this.dialogRef.close();
@@ -254,13 +256,10 @@ export class CreateQuestionComponent implements OnInit {
             console.log(this.question_object);
             this.closeDialog();
         }else if(this.didChoseOpenQuestion()){
-            if(this.answerText != ''){
-  
               this.constructOpenQuestion();
               console.log(this.question_object);
               this.transferQuestion.setData(this.question_object);
               this.closeDialog();
-            }
           }
         }
   
@@ -270,6 +269,9 @@ export class CreateQuestionComponent implements OnInit {
     this.submit = true;
   }
   constructOpenQuestion(){
+    if(this.answerText == null){
+      this.answerText = '';
+    }
     this.question_object = {
       questionText: this.questionText,
       type: this.typeQuestion,
@@ -456,5 +458,10 @@ export class CreateQuestionComponent implements OnInit {
       }
     }
     
+  }
+
+  cancelDialog(){
+    this.transferQuestion.clearData();
+    this.closeDialog();
   }
 }
