@@ -9,3 +9,7 @@ script:
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)
+
+ignore:
+        - "code/src/main/java/cognitivity/dao/*"
+        - "code/src/test/**/*"
