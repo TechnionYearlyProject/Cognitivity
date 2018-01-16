@@ -7,6 +7,7 @@ import { QuestionListComponent } from './components/block/question-list/question
 import { BlockComponent } from './components/block/block.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { EditTestComponent } from './components/edit-test/edit-test.component';
+import { TestPreviewComponent } from './components/test-preview/test-preview.component';
 
 const appRoutes: Routes = [
     
@@ -25,6 +26,10 @@ const appRoutes: Routes = [
     {
         path: 'edit-test',
         component:EditTestComponent
+    },
+    {
+        path:'test-preview/:testId',
+        component: TestPreviewComponent
     },
     {
         path: '**',

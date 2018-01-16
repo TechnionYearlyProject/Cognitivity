@@ -14,7 +14,7 @@ import { TestListComponent } from './test-list/test-list.component';
     declarations: [
         DashboardComponent,
         NavbarComponent,
-        TestListComponent
+        TestListComponent,
     ] 
 })
 export class DashboardModule {}

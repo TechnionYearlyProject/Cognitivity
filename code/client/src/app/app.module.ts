@@ -33,6 +33,10 @@ import { QuestionViewerComponent } from './components/question-viewer/question-v
 import { MatDialog, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { EditTestComponent } from './components/edit-test/edit-test.component';
+import { QuestionPreviewComponent } from './components/question-preview/question-preview.component';
+import { BlockPreviewComponent } from './components/block-preview/block-preview.component';
+import { TestPreviewComponent } from './components/test-preview/test-preview.component';
+
 
 
 
@@ -68,7 +72,10 @@ const PROVIDED_SERVICES = [
     QuestionListComponent,
     MultipleChoiceQuestionComponent,
     QuestionViewerComponent,
-    EditTestComponent
+    EditTestComponent,
+    QuestionPreviewComponent,
+    BlockPreviewComponent,
+    TestPreviewComponent
     
   ],
   imports: [

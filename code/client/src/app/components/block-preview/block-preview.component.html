@@ -1,0 +1,7 @@
+<div class=" mr-auto">
+<div *ngFor="let question of block.questionList; let i=index">
+  <app-question-preview *ngIf="showQuestion(i)" [question]="question"></app-question-preview>
+</div>
+
+<input *ngIf="currIndex < block.questionList.length" type="submit" class="btn btn-primary" (click)="currIndex=currIndex+1" value="Next Question">
+</div>
