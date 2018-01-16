@@ -6,6 +6,14 @@
   background-size: cover;
 }
 
+.alert {
+  color: red;
+}
+
+.form {
+  background-color: transparent;
+}
+
 
 
 body {
@@ -17,7 +25,7 @@ body {
 
 
 label{
-  font-family: "Sans-serif";
+  font-family: "Arial";
   font-size: 17px;
   color: white;
 }

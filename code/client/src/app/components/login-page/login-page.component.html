@@ -1,41 +1,32 @@
-<body>
-  <div class="container">
-    <span>Cognitivity.</span>
+<div class="row">
+  <div class="col-md6 mx-auto">
+    <div class="card form">
+      <div class="card-body">
+          <span>Cognitivity</span>
+          <form name="form" novalidate #f="ngForm" (ngSubmit)="onSubmit(f)">
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="email" class="form-control" [(ngModel)]="user.email" #email="ngModel" name="email" required>
+              <div *ngIf="email.errors?.required && email.touched" class="alert">
+                  Please enter your email!
+              </div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" [(ngModel)]="user.password" #password="ngModel" name="password" required minlength="8">
+                <div *ngIf="password.errors?.required && password.touched" class="alert">
+                    Please enter your password!
+                </div>
+                <div *ngIf="password.errors?.minlength && password.touched" class="alert">
+                    Password must contain at least 8 characters
+                </div>
+              </div>
+              <input type="submit" class="btn btn-block btn-success" value="Login">
+              <div *ngIf="!correctUser" class="alert">
+                  Wrong credentials, please check your email and password
+                </div>
+          </form>
+      </div>
+    </div>
   </div>
-  <br>
-  <br>
-  <form name="form" novalidate #f="ngForm" (ngSubmit)="onSubmit(f)">
-      <div class="form-group" [style.max-width.px]="400">
-      <label for="username">User name:</label>
-      <input type="text" class="form-control" name="name" [(ngModel)]="user.name" #userName="ngModel" minlength="2" required placeholder="User name" >
-      <div *ngIf="userName.errors?.required && userName.touched" class="alert alert-danger">
-        Please enter your user name
-      </div>
-      <div *ngIf="userName.errors?.minlength && userName.touched" class="alert alert-danger">
-        User name must contain at least 2 characters
-      </div>
-      <br>
-      <br>
-    </div>
-    <br>
-      <div class="form-group" [style.max-width.px]="400">
-      <label for="password">Password:</label>
-      <input type="password" class="form-control" name="password" [(ngModel)]="user.password" #userPassword="ngModel" minlength="4"
-        required placeholder="Password" >
-      <div *ngIf="userPassword.errors?.required && userPassword.touched" class="alert alert-danger">
-        Please enter your password
-      </div>
-      <div *ngIf="userPassword.errors?.minlength && userPassword.touched" class="alert alert-danger">
-        Password must contain at least 4 characters
-      </div>
-      </div>
-      <br>
-      <div class="container">
-      <input type="submit" class="btn btn-success" value="Login">
-    </div>
-    <br>
-    <div *ngIf="!correctUser" class="alert alert-danger" [style.max-width.px]="400">
-      Wrong credentials, please check your user name and password
-    </div>
-  </form>
-</body>
+</div>

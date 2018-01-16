@@ -10,7 +10,7 @@ import { AuthService } from '../../services/auth-service';
 export class LoginPageComponent implements OnInit {
 
   user={
-    name:'',
+    email:'',
     password:'',
     rememberMe:false
   }
@@ -22,10 +22,8 @@ export class LoginPageComponent implements OnInit {
 
   onSubmit({value,valid}){
     if(valid){
-      console.log(value);
-      this.authService.login(value.name, value.password)
+      this.authService.login(value.email, value.password)
       .then(res => {
-        console.log(this.authService.getCurrentManager());
         this.router.navigate(['/dashboard']);
       })
       .catch((err) => {
