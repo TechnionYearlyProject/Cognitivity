@@ -34,6 +34,10 @@ public class TestAnswerTest {
         // For abstract entity
         testAnswer.equals(null);
         testAnswer.equals(1);
+        testAnswer.equals(testAnswer);
         testAnswer.hashCode();
+        testAnswer.setId(1L);
+        testAnswer.hashCode();
+        testAnswer.equals(testAnswer);
     }
 }
