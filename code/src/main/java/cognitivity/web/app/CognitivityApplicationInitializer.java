@@ -1,6 +1,7 @@
 package cognitivity.web.app;
 
 import cognitivity.web.app.config.CognitivityMvcConfiguration;
+import cognitivity.web.app.config.HibernateBeanConfiguration;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
@@ -14,7 +15,6 @@ public class CognitivityApplicationInitializer extends AbstractAnnotationConfigD
 
     private static final String CONFIG_LOCATION = "cognitivity.web.app.config";
     private static final String SERVLET_MAPPING = "/cognitivity/";
-    private static final Class<?> servletConfigClass = CognitivityMvcConfiguration.class;
 
     public void onStartup(ServletContext servletContext) throws ServletException {
 
@@ -45,6 +45,9 @@ public class CognitivityApplicationInitializer extends AbstractAnnotationConfigD
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[]{servletConfigClass};
+        return new Class<?>[]{
+                CognitivityMvcConfiguration.class,
+                HibernateBeanConfiguration.class
+        };
     }
 }
