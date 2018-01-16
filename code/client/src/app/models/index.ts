@@ -108,13 +108,13 @@ export interface Block {
  */
 export interface Test {
     id?: number,
-    name: string,
-    numberOfQuestions: number,
-    status: number,
-    managerId: number,
-    lastModified: string,
-    lastAnswered: string,
-    numberOfFiledCopies: number,
+    name?: string,
+    numberOfQuestions?: number,
+    status?: number,
+    managerId?: number,
+    lastModified?: string,
+    lastAnswered?: string,
+    numberOfFiledCopies?: number,
     blockList: Block[]
 
 }

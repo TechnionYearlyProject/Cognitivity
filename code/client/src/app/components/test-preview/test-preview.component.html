@@ -1,0 +1,4 @@
+<div *ngFor="let block of test.blockList; let i=index">
+<app-block-preview *ngIf="showBlock(i)" [block]="block"></app-block-preview>
+</div>
+<input type="submit" class="btn btn-primary" (click)="currIndex=currIndex+1" value="Next Block">
