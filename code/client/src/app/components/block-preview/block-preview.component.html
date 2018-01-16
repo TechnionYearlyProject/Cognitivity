@@ -1,7 +1,9 @@
-<div class=" mr-auto">
-<div *ngFor="let question of block.questionList; let i=index">
+<div class=" container" >
+<div *ngFor="let question of block.questionList; let i=index" class="form-group"  style="background-color:white;">
   <app-question-preview *ngIf="showQuestion(i)" [question]="question"></app-question-preview>
 </div>
-
-<input *ngIf="currIndex < block.questionList.length-1" type="submit" class="btn btn-primary" (click)="nextQuestion()" value="Next Question">
+<br>
+<div  style="text-align:right;">
+  <input *ngIf="!finish" type="submit" class="btn btn-primary ml-auto" (click)="nextQuestion()" [value]=" currIndex == block.questionList.length - 1 ? 'Finish Block' : 'Next Question'">
+</div>
 </div>

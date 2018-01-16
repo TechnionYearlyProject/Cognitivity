@@ -8,6 +8,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 export class BlockPreviewComponent implements OnInit {
   @Input() block:any;
   @Output() finished: EventEmitter<any> = new EventEmitter();
+  finish: boolean = false;
   constructor() { }
   
   currIndex: number;
@@ -22,6 +23,7 @@ export class BlockPreviewComponent implements OnInit {
   nextQuestion() {
     this.currIndex++;
     if (this.currIndex == this.block.questionList.length) {
+      this.finish = true;
       this.finished.emit(true);
     } else {
       this.finished.emit(false);

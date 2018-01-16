@@ -1,4 +1,4 @@
-<div class="card w-75">
+<div class="card w-75" style="background-color:transparent">
   <div class="card-body">
     <div id="blockBody" data-children=".item">
       <div class="card-header" role="tab" id="headingOne">
@@ -23,12 +23,15 @@
               <app-question [myData]="currQuestion"></app-question>
               <br>
         </div>
-          <div style="text-align: center;">
-            <a href="#" class="btn btn-secondary btn-sm">
-              <span class="fa fa-folder-open"></span> Import questions</a>
-            <button class="btn btn-primary btn-sm" (click)="openDialog()">
-              <span class="fa fa-plus"></span> Create new question</button>
-          </div>
+        <br>
+        <div style="text-align: center;">
+          <a href="#" class="btn btn-secondary btn-sm">
+            <span class="fa fa-folder-open"></span> Import questions
+          </a>
+          <button class="btn btn-primary btn-sm" (click)="openDialog()">
+            <span class="fa fa-plus"></span> Create new question
+          </button>
+        </div>
         </div>
       </div>
       <div class="item">
