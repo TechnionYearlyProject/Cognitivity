@@ -16,8 +16,9 @@
 
               <a  class="btn btn-secondary btn-sm fa fa-arrow-up" (click)="moveMeUp(currQuestion.indexInBlock)"></a>
               <a  class="btn btn-secondary btn-sm fa fa-arrow-down" (click)="moveMeDown(currQuestion.indexInBlock)"></a>
-              <!--app-rate-question [question] = "currQeustion.question"></app-rate-question-->
+              
               <button class="btn btn-sm btn-secondary" (click)="editQuestion(i)"><span class="fa fa-cog"></span>Edit question</button>
+              <button class="btn btn-sm btn-secondary" (click)="deleteQuestion(i)"><span class="fa fa-trash"></span>Delete question</button>
               <br>
               <app-question [myData]="currQuestion"></app-question>
               <br>

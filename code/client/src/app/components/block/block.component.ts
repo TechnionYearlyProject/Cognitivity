@@ -16,7 +16,6 @@ export class BlockComponent implements OnInit {
 
 
   @Input() blockNumber:number;
-  @Input() questionsList: any;
   hidden: boolean = true;
   questionList: Array<QuestionInBlock> = new Array<QuestionInBlock>();
   constructor(private dialog: MatDialog,private router:Router, private transferData: SessionService) {
@@ -110,6 +109,10 @@ export class BlockComponent implements OnInit {
       }
       
     });
+  }
+
+  deleteQuestion(index: number){
+    this.questionList.splice(index,1);
   }
 
 }
