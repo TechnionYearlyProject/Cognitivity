@@ -4,7 +4,7 @@
 
     <div class="container">
         
-        <div style="font-family: Ariel; margin: 0em 1em; font-size: 30px; color: white">
+        <div style="font-family: Arial; margin: 0em 1em; font-size: 30px; color: white">
                 <span class=" fa fa-plus-square" style="color: white; margin: 1em;"></span>Create new question for My Test
         </div>
     </div>
@@ -12,7 +12,7 @@
       <form #f="ngForm" >
           <div class="form-group">
             <div class="centered">
-              <label for="Question text"><span style="font-family:Ariel; font-size: 25px; color: white">Enter the question:</span></label>
+              <label for="Question text"><span style="font-family:Arial; font-size: 25px; color: white">Enter the question:</span></label>
               <input [(ngModel)] = "questionText" name = "question2" #question = "ngModel" type="text" class="form-control" placeholder="Question text" style="max-width: 100%;" required ><br>
               <div *ngIf = "question.errors?.required && submit" style="color: red;">
                   A question is required
@@ -87,7 +87,7 @@
             </div>
           </div>
           <div *ngIf = "didChoseRateQuestion()" style = "height:100px;"class="centered">
-            <h2 style="font-family:Ariel; font-size: 25px; color: white">
+            <h2 style="font-family:Arial; font-size: 25px; color: white">
                 Enter the highest limit of the rate, when the rate starts at 1: 
                 <span style="border: 1px; border-style:solid; border-color: white; margin: 0px 10px 0px 0px;"> <span style="margin: 0px 3px 0px 3px;">{{rateSize}}</span></span>
                 <button class="btn btn-sm btn-basic" (click) = "increaseRate()"><span class = "fa fa-plus"></span></button>
@@ -96,7 +96,7 @@
 
           </div>
           <div *ngIf = "didChoseOpenQuestion()" class="centered">
-                <label for="Question text"><span style="font-family:Ariel; font-size: 25px; color: white">Enter the answer:</span></label>
+                <label for="Question text"><span style="font-family:Arial; font-size: 25px; color: white">Enter the answer:</span></label>
                 <input [(ngModel)] = "answerText" name = "answer" #answer = "ngModel" type="text" class="form-control" placeholder="Answer text" style="max-width: 100%;">
                 <br>
                 <br>
@@ -106,12 +106,12 @@
             <div class="form-group">
                 <div class="centered">
                     <div *ngIf="haveAnswers()">
-                        <span style="font-family:Ariel; font-size: 25px; color: white">Answers so far, and please mark the correct answer:</span>
+                        <span style="font-family:Arial; font-size: 25px; color: white">Answers so far, and please mark the correct answer:</span>
                         <ul class="list-group">
                             
                             <div *ngFor="let answer of answers; let i = index">
                                 <li class="list-group-item" style="max-width: 100%;background-color: transparent;">
-                                    <span style="margin: 10px; font-family: Ariel; font-size: 25px;color: white;">{{answer}}</span>
+                                    <span style="margin: 10px; font-family: Arial; font-size: 25px;color: white;">{{answer}}</span>
                                     <button *ngIf="markedAnswers[i]" class="btn btn-sm btn-success"style="color:white;"(click)="markAnswer(i)">Correct Answer</button>
                                     <button *ngIf="!markedAnswers[i]" class="btn btn-sm btn-danger"style="color:white;"(click)="markAnswer(i)">Unmarked answer</button>
                                     <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="goUp(i)" [disabled] = "editionMode"><span class="fa fa-arrow-up"></span></button>
@@ -126,12 +126,12 @@
                     </div>
                     
                     <div *ngIf="!editionMode">
-                        <label for="Answer text"><span style="font-family:Ariel; font-size: 25px; color: white">Enter an answer for the question:</span></label>
+                        <label for="Answer text"><span style="font-family:Arial; font-size: 25px; color: white">Enter an answer for the question:</span></label>
                         <input [(ngModel)] = "answerTextForMultiple" name = "answerMutiple" #answerMultiple = "ngModel" type="text" class="form-control" placeholder="Answer text" style="max-width: 100%;">
                         <button class="btn btn-primary" style="margin:1em 0em;" (click)="addAnswer()"><span class="fa fa-plus"></span> Add answer</button>
                     </div>
                     <div *ngIf="editionMode">
-                            <label for="Answer text"><span style="font-family:Ariel; font-size: 25px; color: white">Edit your answer: </span></label>
+                            <label for="Answer text"><span style="font-family:Arial; font-size: 25px; color: white">Edit your answer: </span></label>
                             <input [(ngModel)] = "answerTextForMultiple" name = "answerMutiple" #answerMultiple = "ngModel" type="text" class="form-control" placeholder="Answer text" style="max-width: 100%;">
                             <button class="btn btn-primary" style="margin:1em 0em;" (click)="applyEdit()"><span class="fa fa-pencil"></span> Apply change</button>
                             <button class="btn btn-primary" style="margin:1em 0em;" (click)="undo()"><span class="fa fa-undo"></span> Undo change</button>
@@ -148,7 +148,7 @@
   
           </div>
           <div *ngIf = "didChoseMultipleQuestion() && didChoseMatrixType()">
-            <h2 style="font-family:Ariel; font-size: 25px; color: white" class="centered">
+            <h2 style="font-family:Arial; font-size: 25px; color: white" class="centered">
                     Enter dimension of the matrix, 2 or 3, and mark the correct answer:
                     <span style="border: 1px; border-style:solid; border-color: white; margin: 0px 10px 0px 0px;"> <span style="margin: 0px 3px 0px 3px;">{{dimSize}}</span></span>
                     <button class="btn btn-sm btn-basic" (click) = "increaseDim()"><span class = "fa fa-plus"></span></button>
@@ -160,7 +160,7 @@
                             <button *ngIf="markedAnswersMatrix[i][j]" class="btn btn-sm btn-success"style="color:white; margin: 0px 0px 3px 0px;"(click)="markAnswer(i,j)">Correct Answer</button>
                             <button *ngIf="!markedAnswersMatrix[i][j]" class="btn btn-sm btn-danger"style="color:white;margin: 0px 0px 3px 0px;"(click)="markAnswer(i,j)">Unmarked answer</button>
                             <br>
-                            <input [(ngModel)] = "matrixAnswers[i][j]" name = "answerMutiple" #answerMultiple = "ngModel" type="text" class="form-control" placeholder="Answer text" style="max-width: 100%;">
+                            <input [(ngModel)] = "matrixAnswers[i][j]" name = "answerMutiple{{i}}{{j}}" #answerMultiple{{i}}{{j}} = "ngModel" type="text" class="form-control" placeholder="Answer text" style="max-width: 100%;">
                     </div>
                 </div>
             </div>
@@ -173,7 +173,7 @@
 
           </div>
 
-          <div class="container row">
+          <div class=" centered row">
               <input type="submit" value="Submit Question"  (click)="onSubmit()" class="btn btn-primary btn-md" [disabled] = "editionMode">
               <input type="submit" value="Cancel"  (click)="cancelDialog()" class="btn btn-danger btn-md" style="margin: 0px 0px 0px 10px;">
           </div>

@@ -57,13 +57,20 @@ export class CreateQuestionComponent implements OnInit {
     transferData - Injected service for transfering the object that describes the
                    question that the user has created to the block component. 
   */
-  constructor(public dialogRef: MatDialogRef<CreateQuestionComponent>, private transferQuestion: SessionService) {
+  constructor(public dialogRef: MatDialogRef<CreateQuestionComponent>, private transferData: SessionService) {
+    console.log('hi there');
+    console.log(this.transferData.getData());
+    if(this.transferData.getData().editMode == true){//Which mean we are in edition mode of the question
+      this.editQuestion(this.transferData.getData().value)
+    }
+    this.transferData.clearData();
    }
 
 
   
 
   ngOnInit() {
+
   }
 
 
@@ -336,14 +343,14 @@ export class CreateQuestionComponent implements OnInit {
                 this.findCorretAnswer();
                 this.constructMultipleQuestion();
                 console.log(this.question_object);//FOR DEBUGGING
-                this.transferQuestion.setData(this.question_object);
+                this.transferData.setData(this.question_object);
                 this.closeDialog();
               }
             }else if(this.didChoseMatrixType()){
               if(!this.missingAnswers()){
                 this.findCorretAnswer();
                 this.constructMatrixQuestion();
-                this.transferQuestion.setData(this.question_object);
+                this.transferData.setData(this.question_object);
                 console.log(this.question_object);//FOR DEBUGGING
                 this.closeDialog();
               }
@@ -352,13 +359,13 @@ export class CreateQuestionComponent implements OnInit {
           }
         }else if(this.didChoseRateQuestion()){
             this.constructRateQuestion();
-            this.transferQuestion.setData(this.question_object);
+            this.transferData.setData(this.question_object);
             console.log(this.question_object);//FOR DEBUGGING
             this.closeDialog();
         }else if(this.didChoseOpenQuestion()){
               this.constructOpenQuestion();
               console.log(this.question_object);//FOR DEBUGGING
-              this.transferQuestion.setData(this.question_object);
+              this.transferData.setData(this.question_object);
               this.closeDialog();
           }
         }
@@ -600,6 +607,34 @@ export class CreateQuestionComponent implements OnInit {
     };
   }
 
+  constructMatrixInEdit(question_to_edit: any){
+    console.log(question_to_edit.answers);
+    this.markedAnswersMatrix = new Array<Array<boolean>>(this.dimSize);
+    this.matrixAnswers = new Array<Array<string>>(this.dimSize);
+    this.iteratorArray = new Array<Array<null>>(this.dimSize);
+    for(let i = 0; i < this.dimSize; i++){
+      this.markedAnswersMatrix[i] = new Array<boolean>(this.dimSize);
+      this.matrixAnswers[i] = new Array<string>(this.dimSize);
+      this.iteratorArray[i] = new Array<null>(this.dimSize); 
+      for(let j = 0; j < this.dimSize; j++){
+        if(question_to_edit.correctAnswer == this.dimSize*j + i){
+          this.markedAnswersMatrix[i][j] = true;
+        }else{
+          this.markedAnswersMatrix[i][j] = false;
+        }
+        console.log('i: ' + i + ' j: ' + j + ' answer is: ' + question_to_edit.answers[j*this.dimSize + i]);  
+        this.matrixAnswers[i][j] = question_to_edit.answers[j*this.dimSize + i];
+      }
+    }
+    console.log(this.matrixAnswers);
+    this.centeringMatrix = {
+      'two_col' : this.dimSize == 2,
+      'three_col' : this.dimSize == 3,
+      'four_col' : this.dimSize == 4
+    };
+    
+  }
+
   /*
     Control flow function which returns TRUE if there are missing answers in the matrix and FALSE other wise.
   */
@@ -642,7 +677,35 @@ export class CreateQuestionComponent implements OnInit {
     When not competing to fill all information. No data is being transfered
   */
   cancelDialog(){
-    this.transferQuestion.clearData();
+    this.transferData.clearData();
     this.closeDialog();
+  }
+
+  editQuestion(question: any){
+    this.questionText = question.questionText;
+    this.typeQuestion = question.type;
+    this.questionPosition = question.questionPosition;
+    if(this.typeQuestion == TypeQuestion.OpenQuestion){
+      this.answerText = question.answerText;
+    }else if(this.typeQuestion == TypeQuestion.RateQuestion){
+      this.rateSize = question.heightOfRate;
+    }else if(this.typeQuestion == TypeQuestion.MultipleChoice){
+      this.typeMultipleQuestion = question.typeMultipleQuestion;
+      if(this.typeMultipleQuestion == TypeMultipleQuestion.Horizontal || this.typeMultipleQuestion == TypeMultipleQuestion.Vertical){
+        for(let i = 0; i < question.answers.length; i++){
+          this.answers.splice(this.answers.length, 0, question.answers[i]);
+          if(i == question.correctAnswer){
+            this.markedAnswers.splice(this.markedAnswers.length, 0, true);
+          }else{
+            this.markedAnswers.splice(this.markedAnswers.length, 0, false);
+          }
+          
+        }
+      }else if(this.typeMultipleQuestion == TypeMultipleQuestion.Matrix){
+        this.dimSize = Math.sqrt(question.answers.length);
+        this.constructMatrixInEdit(question);
+      }
+    }
+
   }
 }
