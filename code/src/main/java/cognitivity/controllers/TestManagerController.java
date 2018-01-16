@@ -7,11 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import static cognitivity.controllers.AbstractRestController.crossOrigin;
+import static cognitivity.controllers.TestManagerController.baseMapping;
 
 
 @RestController
-@RequestMapping(value = TestManagerController.baseMapping,
-        consumes = "application/json;charset=UTF-8",
+@RequestMapping(value = baseMapping,
         produces = "application/json;charset=UTF-8")
 @CrossOrigin(origins = crossOrigin)
 public class TestManagerController extends AbstractRestController<TestManagerService> {

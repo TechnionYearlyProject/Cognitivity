@@ -49,4 +49,5 @@ public class TestManager extends AbstractEntity {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 }

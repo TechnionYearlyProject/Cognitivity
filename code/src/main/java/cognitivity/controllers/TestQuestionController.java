@@ -14,7 +14,6 @@ import static cognitivity.controllers.TestQuestionController.baseMapping;
 
 @RestController
 @RequestMapping(value = baseMapping,
-        consumes = "application/json;charset=UTF-8",
         produces = "application/json;charset=UTF-8")
 @CrossOrigin(origins = crossOrigin)
 public class TestQuestionController extends AbstractRestController<QuestionService> {
