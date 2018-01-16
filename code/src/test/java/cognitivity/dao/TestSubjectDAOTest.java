@@ -2,7 +2,7 @@ package cognitivity.dao;
 
 
 import cognitivity.entities.*;
-import cognitivity.web.app.config.CognitivityMvcConfiguration;
+import cognitivity.web.app.config.HibernateBeanConfiguration;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = CognitivityMvcConfiguration.class)
+@ContextConfiguration(classes = HibernateBeanConfiguration.class)
 @Ignore("tests passing, but to run them there is a need of db")
 public class TestSubjectDAOTest extends AbstractDaoTestClass {
 
