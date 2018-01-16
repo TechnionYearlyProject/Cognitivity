@@ -1,34 +1,18 @@
-<div class="container">
-  <div class="card w-75">
-    <div class="card-header">
-      <div class="row">
-        <div class="col-4">
-          <p>
-            <a class="btn btn-outline-primary btn-lg  " (click)="toggleHidden()">tmp</a>
-          </p>
-          <a href="#" class="btn btn-secondary btn-sm">
-            <span class="fa fa-cog"></span> Edit question
-          </a>
-          <p>
-            <a class="btn btn-secondary btn-sm  " (click)="connectViewer()">previewMe</a>
-          </p>
-        </div>
 
-        <div class="col-4">
-          <div class="card-body">
-            <h3 class="first">Add a tag...</h3>
-
-          </div>
-
+  <div class="card w-100">
+      <div class="card-header">
+        <div class="row">
+            <a *ngIf = "!hidden"class="btn btn-outline-primary btn-lg  " (click)="toggleHidden()"><span class=" fa  fa-caret-square-o-up
+              "></span>  Press to close</a>
+              <a *ngIf="hidden" class="btn btn-outline-primary btn-lg  " (click)="toggleHidden()"><span class=" fa fa-caret-square-o-down"></span>  Press to view question</a>
+              <div style="text-align: center; font-family: Ariel; font-size: 40px; margin: 0% 0% 0% 15%;">Question number {{myData.indexInBlock + 1}}</div>
         </div>
       </div>
-    </div>
-    <div class="card-body" [hidden]="hidden">
-      <app-multiple-choice-question *ngIf="myData != null && myData.type==0" [question] = "myData"></app-multiple-choice-question>
-      <app-rate-question *ngIf="myData != null && myData.type==1" [question] = "myData"></app-rate-question>
-      <app-open-question *ngIf="myData != null && myData.type==2" [question] = "myData"></app-open-question>
+      <div class="card-body" [hidden]="hidden">
+        <app-multiple-choice-question *ngIf="myData.question.type==0" [question] = "myData.question"></app-multiple-choice-question>
+        <app-rate-question *ngIf="myData.question.type==1" [question] = "myData.question"></app-rate-question>
+        <app-open-question *ngIf="myData.question.type==2" [question] = "myData.question"></app-open-question>
 
 
-    </div>
+      </div>
   </div>
-</div>

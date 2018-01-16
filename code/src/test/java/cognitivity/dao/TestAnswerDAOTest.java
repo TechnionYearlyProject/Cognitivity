@@ -1,7 +1,7 @@
 package cognitivity.dao;
 
 import cognitivity.entities.*;
-import cognitivity.web.app.config.CognitivityMvcConfiguration;
+import cognitivity.web.app.config.HibernateBeanConfiguration;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -14,7 +14,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { CognitivityMvcConfiguration.class})
+@ContextConfiguration(classes = {HibernateBeanConfiguration.class})
 @Ignore("tests passing, but to run them there is a need of db")
 public class TestAnswerDAOTest extends AbstractDaoTestClass {
 
@@ -44,19 +44,19 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
      *
      */
     @Before
-    public void initialize(){
+    public void initialize() {
         testManager =
                 new TestManager("onlyForTests TestManager", "notarealpassword");
         testManagerDAO.add(testManager);
         cognitiveTest =
                 new CognitiveTest("onlyForTests", testManager, 1, 0);
         cognitiveTestDAO.add(cognitiveTest);
-        testBlock = new TestBlock(0,false, "testTag", cognitiveTest);
+        testBlock = new TestBlock(0, false, "testTag", cognitiveTest);
         testBlockDAO.add(testBlock);
         testQuestion = new TestQuestion("testQuestion", 0,
                 null, "testTag", testBlock, cognitiveTest, testManager);
         testQuestionDAO.add(testQuestion);
-        testSubject = new TestSubject("testName",-1, "fireFox");
+        testSubject = new TestSubject("testName", -1, "fireFox");
         testSubjectDAO.add(testSubject);
         testAnswer = new TestAnswer(testSubject, testQuestion,
                 cognitiveTest, 0, 0, 0,
@@ -75,7 +75,7 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
      *  - Delete : we call the delete function and delete if the answer still in the db
      */
     @Test
-    public void crudTests(){
+    public void crudTests() {
         assertNull(testAnswerDAO.get(0L));
         testAnswerDAO.add(testAnswer);
         assertNotNull("add testAnswer problem", testAnswerDAO.get(testAnswer.getId()));
@@ -106,7 +106,7 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
      *
      */
     @Test
-    public void getTestSubjectAnswersInTest(){
+    public void getTestSubjectAnswersInTest() {
         List<TestAnswer> answers = testAnswerDAO.getTestSubjectAnswersInTest(testSubject.getId(), cognitiveTest.getId());
         assertTrue("problem with getting testAnswers for subject", answers.isEmpty());
         testAnswerDAO.add(testAnswer);
@@ -114,7 +114,7 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
         assertTrue("problem with getting testAnswers for subject", answers.contains(testAnswer));
         assertTrue("problem with getting testAnswers for subject", answers.size() == 1);
 
-        TestSubject newTestSubject = new TestSubject("anotherName",-1, "fireFox");
+        TestSubject newTestSubject = new TestSubject("anotherName", -1, "fireFox");
         testSubjectDAO.add(newTestSubject);
         testAnswer.setTestSubject(newTestSubject);
         testAnswer.setId(testAnswer.getId() + 1);
@@ -151,7 +151,7 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
      *
      */
     @Test
-    public void getTestAnswers(){
+    public void getTestAnswers() {
         List<TestAnswer> answers = testAnswerDAO.getTestAnswers(testQuestion.getId());
         assertTrue(answers.isEmpty());
 
@@ -160,7 +160,7 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
         assertTrue(answers.contains(testAnswer));
         assertTrue(answers.size() == 1);
 
-        TestSubject newTestSubject = new TestSubject("anotherName",-1, "fireFox");
+        TestSubject newTestSubject = new TestSubject("anotherName", -1, "fireFox");
         testSubjectDAO.add(newTestSubject);
         testAnswer.setTestSubject(newTestSubject);
         testAnswer.setId(testAnswer.getId() + 1);

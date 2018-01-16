@@ -29,7 +29,7 @@ export class QuestionComponent implements OnInit {
   }
 
   connectViewer(){
-    console.log("sending id: "+this.myData.id);
+    //console.log("sending id: "+this.myData.id);
     this.questionDataService.setData(this.myData);
     this.router.navigate(['question-viewer']);
   }

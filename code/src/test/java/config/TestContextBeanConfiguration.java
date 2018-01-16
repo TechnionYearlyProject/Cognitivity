@@ -41,4 +41,9 @@ public class TestContextBeanConfiguration {
     public TestSubjectService testSubjectService() {
         return Mockito.mock(TestSubjectService.class);
     }
+
+    @Bean
+    public EmailRegistrationService emailRegistrationService() {
+        return Mockito.mock(EmailRegistrationService.class);
+    }
 }

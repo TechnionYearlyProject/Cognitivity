@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {SessionService} from '../../services/session-service/index'
-import {QuestionData } from '../../models'
+import {QuestionData ,Question} from '../../models'
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-question-viewer',
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class QuestionViewerComponent implements OnInit {
   
   hidden: boolean = true;
-  myQuestions:QuestionData[];
+  myQuestions:Question[];
   myCurrIndex:number=0;
 
   constructor(public questionDataService:SessionService,private router:Router) { 

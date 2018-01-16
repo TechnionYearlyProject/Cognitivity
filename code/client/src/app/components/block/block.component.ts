@@ -26,6 +26,7 @@ export class BlockComponent implements OnInit {
 
 
   openDialog(){
+    this.transferData.setData({editMode: false, value: null});
     let dialogRef = this.dialog.open(CreateQuestionComponent, {
       height: '90%',
       width:'80%',
@@ -33,7 +34,10 @@ export class BlockComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       let question_object = this.transferData.getData();
-      this.questionList.splice(this.questionList.length, 0,{question: question_object, indexInBlock: this.questionList.length, id:''});
+      if(question_object != null){
+        this.questionList.splice(this.questionList.length, 0,{question: question_object, indexInBlock: this.questionList.length, id:''});  
+      }
+      
     });
   }
   ngOnInit() {
@@ -92,5 +96,20 @@ export class BlockComponent implements OnInit {
     this.questionList[currentIndex] = tmpHolder;
   }
 
+  editQuestion(index: number){
+    this.transferData.setData({editMode: true, value: this.questionList[index].question});
+    let dialogRef = this.dialog.open(CreateQuestionComponent, {
+      height: '90%',
+      width:'80%',
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      let question_object = this.transferData.getData();
+      if(question_object != null){
+        this.questionList.splice(index, 1,{question: question_object, indexInBlock: index, id:''});  
+      }
+      
+    });
+  }
 
 }

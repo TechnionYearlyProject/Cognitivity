@@ -3,7 +3,7 @@
     <div id="blockBody" data-children=".item">
       <div class="card-header" role="tab" id="headingOne">
         <p>
-          <a class="btn btn-secondary btn-sm  " (click)="previewBlock()">previewMe</a>
+          <a class="btn btn-secondary btn-sm  " (click)="previewBlock()">preview block</a>
         </p>
         <div class="item">
           <button type="button" class="btn btn-outline-primary btn-lg  btn-block" (click)="toggleHidden()">
@@ -11,16 +11,16 @@
           </button>
         </div>
         <div class="collapse show" role="tabpanel" [hidden]="hidden">
-          <div *ngFor = "let currQuestion of questionList">
-            <div *ngIf="currQuestion != null">
+          <div *ngFor = "let currQuestion of questionList; let i = index;">
               <br>
 
               <a  class="btn btn-secondary btn-sm fa fa-arrow-up" (click)="moveMeUp(currQuestion.indexInBlock)"></a>
               <a  class="btn btn-secondary btn-sm fa fa-arrow-down" (click)="moveMeDown(currQuestion.indexInBlock)"></a>
               <!--app-rate-question [question] = "currQeustion.question"></app-rate-question-->
-              <app-question [myData]="currQuestion.question"></app-question>
+              <button class="btn btn-sm btn-secondary" (click)="editQuestion(i)"><span class="fa fa-cog"></span>Edit question</button>
               <br>
-            </div>
+              <app-question [myData]="currQuestion"></app-question>
+              <br>
         </div>
           <div style="text-align: center;">
             <a href="#" class="btn btn-secondary btn-sm">
