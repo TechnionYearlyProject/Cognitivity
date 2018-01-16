@@ -3,5 +3,5 @@
   <app-question-preview *ngIf="showQuestion(i)" [question]="question"></app-question-preview>
 </div>
 
-<input *ngIf="currIndex < block.questionList.length" type="submit" class="btn btn-primary" (click)="currIndex=currIndex+1" value="Next Question">
+<input *ngIf="currIndex < block.questionList.length-1" type="submit" class="btn btn-primary" (click)="nextQuestion()" value="Next Question">
 </div>

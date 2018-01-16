@@ -21,12 +21,14 @@ export class TestPreviewComponent implements OnInit {
   test: Test;
   testId: number;
   currIndex: number;
+  hideNextButton: boolean = true;
+
   ngOnInit() {
     var question: OpenQuestion = {
       questionText: 'hello friend?',
       type: TypeQuestion.OpenQuestion,
       answerText: 'hello',
-      questionPosition: QuestionPosition.MiddleMiddle
+      questionPosition: QuestionPosition.ButtomLeft
     }
 
     var block : Block = {
@@ -42,6 +44,10 @@ export class TestPreviewComponent implements OnInit {
 
   showBlock(index) {
     return index == this.currIndex;
+  }
+
+  isFinished(e) {
+    this.hideNextButton = !e;
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-block-preview',
@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class BlockPreviewComponent implements OnInit {
   @Input() block:any;
+  @Output() finished: EventEmitter<any> = new EventEmitter();
   constructor() { }
   
   currIndex: number;
@@ -16,6 +17,15 @@ export class BlockPreviewComponent implements OnInit {
 
   showQuestion(index) {
     return index == this.currIndex;
+  }
+
+  nextQuestion() {
+    this.currIndex++;
+    if (this.currIndex == this.block.questionList.length) {
+      this.finished.emit(true);
+    } else {
+      this.finished.emit(false);
+    }
   }
 
 }
