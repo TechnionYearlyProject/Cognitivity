@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MultipleChoiceQuestion, TypeMultipleQuestion, TypeQuestion, QuestionPosition } from '../../models';
+import { Input } from '@angular/core';
 @Component({
   selector: 'app-multiple-choice-question',
   templateUrl: './multiple-choice-question.component.html',
   styleUrls: ['./multiple-choice-question.component.css']
 })
 export class MultipleChoiceQuestionComponent implements OnInit {
-  question: MultipleChoiceQuestion;
+  @Input() question: any;
   markedAnswers?: Array<boolean>;
   //Objects that detemines the style of the question text itself
   positionUp: any;
@@ -27,14 +28,14 @@ export class MultipleChoiceQuestionComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.question = {
+    /*this.question = {
       questionText:'Who directed Inception?',
       type: TypeQuestion.MultipleChoice,
       questionPosition: QuestionPosition.UpperMiddle,
       answers:['Christopher Nolan', 'Ridely Scott', 'Quantin Tarantino', 'Robert Downy Jr.'],
       correctAnswer:1, 
       typeMultipleQuestion: TypeMultipleQuestion.Matrix
-    }
+    }*/
     this.answerOrganization = this.question.typeMultipleQuestion;
     this.constructMarking();
     this.buildPositionOfQuestion();

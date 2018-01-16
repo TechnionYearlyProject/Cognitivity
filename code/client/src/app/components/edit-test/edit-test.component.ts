@@ -19,9 +19,20 @@ export class EditTestComponent implements OnInit {
   constructor(private router:Router,private dialog:MatDialog,public questionDataService:SessionService) { 
     this.blockList[0]=new BlockComponent(this.dialog,this.router,this.questionDataService);
     this.blockList[0].blockNumber=0;
+
+    this.blockList[1]=new BlockComponent(this.dialog,this.router,this.questionDataService);
+    this.blockList[1].blockNumber=1;
   }
 
   ngOnInit() {
+  }
+
+  addBlock(){
+    console.log(this.blockList);
+    let newIndex=this.blockList.length;
+    this.blockList[newIndex]=new BlockComponent(this.dialog,this.router,this.questionDataService);
+    this.router.navigate(['edit-test']);
+    console.log(this.blockList);  
   }
 
   moveMeUp(currentIndex) {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {SessionService} from '../../services/session-service/index'
 import {QuestionData } from '../../models'
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-question-viewer',
   templateUrl: './question-viewer.component.html',
@@ -12,7 +13,7 @@ export class QuestionViewerComponent implements OnInit {
   myQuestions:QuestionData[];
   myCurrIndex:number=0;
 
-  constructor(public questionDataService:SessionService) { 
+  constructor(public questionDataService:SessionService,private router:Router) { 
     console.log("im alive");
     this.myQuestions = new Array();
   }
@@ -32,7 +33,12 @@ export class QuestionViewerComponent implements OnInit {
     return loopIndex!=this.myCurrIndex;
   }
 
-  inc(){
+
+  nextquestion(){
     this.myCurrIndex++;
+    if(this.myCurrIndex==this.myQuestions.length-1)
+    {
+      this.router.navigate(['edit-test']);
+    }
   }
 }

@@ -18,7 +18,6 @@ import static cognitivity.controllers.CognitiveTestController.baseMapping;
  */
 @RestController
 @RequestMapping(value = baseMapping,
-        consumes = "application/json;charset=UTF-8",
         produces = "application/json;charset=UTF-8")
 @CrossOrigin(origins = crossOrigin)
 public class CognitiveTestController extends AbstractRestController<CognitiveTestService> {
@@ -60,7 +59,7 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     public void saveCognitiveTest(
             @RequestParam(value = "name") String name,
             @RequestParam(value = "state") Integer state,
-            @RequestParam(value = "numberOfQuestion") Integer numberOfQuestions,
+            @RequestParam(value = "numberOfQuestions") Integer numberOfQuestions,
             @RequestBody TestManager manager) {
         service.createTestForTestManager(name, manager, state, numberOfQuestions);
     }

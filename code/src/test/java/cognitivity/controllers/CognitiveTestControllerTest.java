@@ -1,11 +1,11 @@
 package cognitivity.controllers;
 
 import cognitivity.TestUtil;
-import cognitivity.config.TestContextBeanConfiguration;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
 import cognitivity.services.CognitiveTestService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import config.TestContextBeanConfiguration;
 import javafx.util.Pair;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
@@ -29,6 +29,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -39,7 +40,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(classes = {TestContextBeanConfiguration.class})
 @WebAppConfiguration
 @SpringBootTest
-//@Ignore
 public class CognitiveTestControllerTest implements RestControllerTest {
 
     private CognitiveTestController controller;
@@ -81,6 +81,7 @@ public class CognitiveTestControllerTest implements RestControllerTest {
         // findTestsForTestManager is a http GET request
         mockMvc.perform(get("/tests/findTestsForTestManager")
                 .param("managerId", "12345"))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$", hasSize(2)))

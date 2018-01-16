@@ -12,18 +12,23 @@ export class QuestionListComponent implements OnInit {
   questions: QuestionData[] = new Array();
 
   constructor(private router:Router) { 
-    this.questions[0] = new QuestionData(0);
+    /*this.questions[0] = new QuestionData(0);
     this.questions[1] = new QuestionData(1);
     this.questions[2] = new QuestionData(2);
     this.questions[3] = new QuestionData(3);
     this.questions[4] = new QuestionData(4);
-    this.questions[5] = new QuestionData(5);
+    this.questions[5] = new QuestionData(5);*/
   }
 
   ngOnInit() {
     
   }
-
+  insertQuestion(question: QuestionData){
+    console.log('inserting');
+    console.log(question);
+    this.questions.splice(this.questions.length,0, question);
+    console.log(this.questions);
+  }
   moveMeUp(currentIndex) {
     let arrayLastIndex = this.questions.length - 1;
     if (currentIndex == 0) {
