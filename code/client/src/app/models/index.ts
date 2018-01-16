@@ -46,7 +46,11 @@ export interface Question {
     type: TypeQuestion;
     questionPosition?: QuestionPosition;
 }
-
+export class QuestionInBlock {
+    question: Question;
+    indexInBlock: number;
+    id?: string;
+}
 export class QuestionData implements OnInit,Question{
     id;
     questionText;

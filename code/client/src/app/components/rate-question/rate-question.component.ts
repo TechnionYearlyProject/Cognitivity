@@ -1,13 +1,14 @@
 import { Component, OnInit, AnimationStyleMetadata } from '@angular/core';
 import { RateQuestion, TypeQuestion, QuestionPosition } from '../../models';
 import { stringify } from '@angular/core/src/util';
+import { Input } from '@angular/core';
 @Component({
   selector: 'app-rate-question',
   templateUrl: './rate-question.component.html',
   styleUrls: ['./rate-question.component.css']
 })
 export class RateQuestionComponent implements OnInit {
-  question: RateQuestion;
+  @Input() question: any;
   answers: Array<null>;
   markedAnswers: Array<boolean>;
   markedAnswer : number;
@@ -19,22 +20,24 @@ export class RateQuestionComponent implements OnInit {
     /*
     hardcoded question object, when services will be added this piece of code will not be needed
     */ 
-      this.question = {
+      /*this.question = {
         questionText: 'How is your social life?',
         questionPosition: QuestionPosition.UpperMiddle,
         type: TypeQuestion.RateQuestion,
         heightOfRate: 5
-      }
+      }*/
       //End of harcoded question
-      this.buildPositionOfQuestion();
-      this.answers = new Array<null>(this.question.heightOfRate);
-      this.markedAnswers = new Array<boolean>(this.question.heightOfRate);
-      for(let i = 0; i < this.question.heightOfRate; i++){
-        this.markedAnswers[i] = false;
-      }
+
    }
 
   ngOnInit() {
+
+    this.buildPositionOfQuestion();
+    this.answers = new Array<null>(this.question.heightOfRate);
+    this.markedAnswers = new Array<boolean>(this.question.heightOfRate);
+    for(let i = 0; i < this.question.heightOfRate; i++){
+      this.markedAnswers[i] = false;
+    }
   }
 
   markAnswer(index: number){

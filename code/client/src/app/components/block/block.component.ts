@@ -3,7 +3,7 @@ import { QuestionListComponent } from './question-list/question-list.component';
 import {MatDialog} from '@angular/material';
 import {CreateQuestionComponent} from '../create-question/create-question.component';
 import { Router } from '@angular/router';
-import {Question, QuestionData} from '../../models/index'
+import {Question, QuestionData, QuestionInBlock} from '../../models'
 import { QuestionComponent } from '../question/question.component';
 import { Input } from '@angular/core/';
 import { SessionService } from '../../services/session-service/index';
@@ -16,15 +16,14 @@ export class BlockComponent implements OnInit {
 
 
   @Input() blockNumber:number;
-  @Input() questionsList:QuestionListComponent;
+  @Input() questionsList: any;
   hidden: boolean = true;
-  question_object: any;
+  questionList: Array<QuestionInBlock> = new Array<QuestionInBlock>();
   constructor(private dialog: MatDialog,private router:Router, private transferData: SessionService) {
-    this.questionsList=new QuestionListComponent(this.router);
+    //this.questionsList=new QuestionListComponent(this.router);
    }
   
 
-  
 
   openDialog(){
     let dialogRef = this.dialog.open(CreateQuestionComponent, {
@@ -33,7 +32,8 @@ export class BlockComponent implements OnInit {
       disableClose: true
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.question_object = this.transferData.getData();
+      let question_object = this.transferData.getData();
+      this.questionList.splice(this.questionList.length, 0,{question: question_object, indexInBlock: this.questionList.length, id:''});
     });
   }
   ngOnInit() {
@@ -45,18 +45,52 @@ export class BlockComponent implements OnInit {
   }
 
   previewBlock(){
-    let tmp:QuestionData[]=new Array();
-    for(let i=0;i<this.questionsList.questions.length;i++)
+    let tmp:QuestionInBlock[]=new Array();
+    for(let i=0;i<this.questionList.length;i++)
     {
-      tmp[i] = this.questionsList.questions[i];
+      tmp[i] = this.questionList[i];
     }
     console.log(tmp);
     this.transferData.setData(tmp);
     console.log("sent Data");
     this.router.navigate(['question-viewer']);
   }
-  showQuestion(){
-    console.log(this.question_object);
+
+  moveMeUp(currentIndex) {
+    let arrayLastIndex = this.questionList.length - 1;
+    if (currentIndex == 0) {
+      let tmpMe = this.questionList.shift();
+      for (let num = 0; num < arrayLastIndex; num++) {
+        this.questionList[num].indexInBlock--;
+      }
+      this.questionList.push(tmpMe);
+      tmpMe.indexInBlock = arrayLastIndex;
+    }
+    let tmpHolder = this.questionList[currentIndex - 1];
+    let mememe = this.questionList[currentIndex];
+    mememe.indexInBlock--;
+    tmpHolder.indexInBlock++;
+    this.questionList[currentIndex - 1] = mememe;
+    this.questionList[currentIndex] = tmpHolder;
   }
+
+  moveMeDown(currentIndex) {
+    let arrayLastIndex = this.questionList.length - 1;
+    if (currentIndex == arrayLastIndex) {
+      let tmpMe = this.questionList.pop();
+      for (let num = arrayLastIndex-1; num > 0; num--) {
+        this.questionList[num].indexInBlock++;
+      }
+      this.questionList.unshift(tmpMe);
+      tmpMe.indexInBlock = 0;
+    }
+    let tmpHolder = this.questionList[currentIndex + 1];
+    let mememe = this.questionList[currentIndex];
+    mememe.indexInBlock++;
+    tmpHolder.indexInBlock--;
+    this.questionList[currentIndex + 1] = mememe;
+    this.questionList[currentIndex] = tmpHolder;
+  }
+
 
 }

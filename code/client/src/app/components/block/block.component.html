@@ -11,7 +11,17 @@
           </button>
         </div>
         <div class="collapse show" role="tabpanel" [hidden]="hidden">
-          <app-question-list></app-question-list>
+          <div *ngFor = "let currQuestion of questionList">
+            <div *ngIf="currQuestion != null">
+              <br>
+
+              <a  class="btn btn-secondary btn-sm fa fa-arrow-up" (click)="moveMeUp(currQuestion.indexInBlock)"></a>
+              <a  class="btn btn-secondary btn-sm fa fa-arrow-down" (click)="moveMeDown(currQuestion.indexInBlock)"></a>
+              <!--app-rate-question [question] = "currQeustion.question"></app-rate-question-->
+              <app-question [myData]="currQuestion.question"></app-question>
+              <br>
+            </div>
+        </div>
           <div style="text-align: center;">
             <a href="#" class="btn btn-secondary btn-sm">
               <span class="fa fa-folder-open"></span> Import questions</a>

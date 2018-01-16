@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TypeQuestion,QuestionData } from '../../models';
+import { TypeQuestion,QuestionData,Question, OpenQuestion, RateQuestion,MultipleChoiceQuestion } from '../../models';
 import {Router} from '@angular/router';
 import {SessionService} from '../../services/session-service'
 import { Output } from '@angular/core';
@@ -15,9 +15,10 @@ export class QuestionComponent implements OnInit {
   hidden: boolean = true;
 
   
-  @Input() myData:QuestionData;
+  @Input() myData:any;
   
   constructor(private router:Router,public questionDataService:SessionService) {
+    
   }
   
   ngOnInit() {

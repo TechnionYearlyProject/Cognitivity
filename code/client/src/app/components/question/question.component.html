@@ -24,9 +24,9 @@
       </div>
     </div>
     <div class="card-body" [hidden]="hidden">
-      <app-multiple-choice-question *ngIf="myData.type==0"></app-multiple-choice-question>
-      <app-rate-question *ngIf="myData.type==1"></app-rate-question>
-      <app-open-question *ngIf="myData.type==2"></app-open-question>
+      <app-multiple-choice-question *ngIf="myData != null && myData.type==0" [question] = "myData"></app-multiple-choice-question>
+      <app-rate-question *ngIf="myData != null && myData.type==1" [question] = "myData"></app-rate-question>
+      <app-open-question *ngIf="myData != null && myData.type==2" [question] = "myData"></app-open-question>
 
 
     </div>

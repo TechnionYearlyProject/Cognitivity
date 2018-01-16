@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { OpenQuestion, TypeQuestion, QuestionPosition } from '../../models';
-
+import { Input } from '@angular/core';
 @Component({
   selector: 'app-open-question',
   templateUrl: './open-question.component.html',
   styleUrls: ['./open-question.component.css']
 })
 export class OpenQuestionComponent implements OnInit {
-  question: OpenQuestion;
+  @Input() question: any;
   currentAnswer: string;
   range_value: number = 50;
   positionUp : any;
@@ -17,17 +17,18 @@ export class OpenQuestionComponent implements OnInit {
     /*
     hardcoded question object, when services will be added this piece of code will not be needed
     */ 
-    this.question = {
+    /*this.question = {
       questionText: 'Which one is better, Iphone or Galaxy?',
       questionPosition : QuestionPosition.UpperMiddle,
       type: TypeQuestion.OpenQuestion,
       answerText: 'Iphone'
-    };
-    this.buildPositionOfQuestion();
+    };*/
+
     //End of hardcoded question
   }
 
   ngOnInit() {
+    this.buildPositionOfQuestion();
   }
 
   onSubmit(event: Event){
