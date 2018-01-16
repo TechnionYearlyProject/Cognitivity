@@ -31,7 +31,8 @@ export class EditTestComponent implements OnInit {
     console.log(this.blockList);
     let newIndex=this.blockList.length;
     this.blockList[newIndex]=new BlockComponent(this.dialog,this.router,this.questionDataService);
-    this.router.navigate(['edit-test']);
+    this.blockList[newIndex].blockNumber=newIndex;
+    //this.router.navigate(['edit-test']);
     console.log(this.blockList);  
   }
 
