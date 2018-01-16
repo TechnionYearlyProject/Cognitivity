@@ -1,0 +1,39 @@
+<h2>{{ question.questionText }}</h2>
+<div class="container">
+    <div class="dropdown">
+        <button class="dropbtn" ><span class="fa fa-chevron-down" > {{ markedAnswerMain }}</span></button>
+
+        <div class="dropdown-content">
+          <div *ngFor="let answer of question.answersForMain; let i = index;">
+            <button [ngStyle] = " { 'min-width': generateHighestBox(question.answersForMain), 'font-size': '20px'} "  class = "btn btn-basic" *ngIf="!markedAnswersMain[i]"  (click)="markAnswerForMain(i)">{{ answer }}</button>
+            <button [ngStyle] = " { 'min-width': generateHighestBox(question.answersForMain), 'font-size': '20px'} "  class = "btn btn-primary" *ngIf="markedAnswersMain[i]"  (click)="markAnswerForMain(i)">{{ answer }}</button>
+          </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<div *ngIf="secondaryQuestionMode">
+    <h2>{{ secondaryQuestion }}</h2>
+    <div class="container">
+        <div class="dropdown">
+            <button class="dropbtn"><span class="fa fa-chevron-down" > {{ markedAnswerSecondery }}</span></button>
+    
+            <div class="dropdown-content">
+              <div *ngFor="let answer of currentSecondaryAnswers; let i = index;">
+                <button [ngStyle] = " { 'min-width': generateHighestBox(currentSecondaryAnswers), 'font-size': '20px'} "  class = "btn btn-basic" *ngIf="!markedAnswersSecondary[i]"  (click)="markAnswerForSecondary(i)">{{ answer }}</button>
+                <button [ngStyle] = " { 'min-width': generateHighestBox(currentSecondaryAnswers), 'font-size': '20px'} "  class = "btn btn-primary" *ngIf="markedAnswersSecondary[i]"  (click)="markAnswerForSecondary(i)">{{ answer }}</button>
+              </div>
+            </div>
+        </div>
+    </div>     
+</div>
+<h4>How confident you feel in your answer, in precentage?</h4>
+<div style="text-align: center;">
+    <div id="slidecontainer">
+        <input type="range" min="0" max="100" value="50" class="slider container" id="myRange" [(ngModel)] = "range_value">
+    </div>
+    <h6 >{{ range_value }}%</h6>
+</div>
+
+

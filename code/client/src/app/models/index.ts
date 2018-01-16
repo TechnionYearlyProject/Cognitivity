@@ -21,7 +21,8 @@ export enum TypeMultipleQuestion {
 export enum TypeQuestion {
     MultipleChoice,
     RateQuestion,
-    OpenQuestion
+    OpenQuestion,
+    DrillDownQuestion
 }
 
 export enum QuestionPosition {
@@ -130,6 +131,19 @@ export interface Manager {
 */
 export interface RateQuestion extends Question {
     heightOfRate: number
+}
+
+/*
+    An interface for the dril down questions
+    we are adding the option for optional secnodary questions after one question
+*/
+
+export interface DrillDownQuestion extends Question {
+    answersForMain: Array<string>;
+    correctMainQuestion: number;
+    secondaryQuestionsText: Array<string>;
+    answersForSecondary: Array<Array<string>>;
+    correctAnswerSecondary: Array<number>;
 }
 
 

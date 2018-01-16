@@ -40,8 +40,24 @@ export class CreateQuestionComponent implements OnInit {
   */
   answerText?: string;
 
+  /*
+    --------------- drill down question details ---------------
+  */
+  currentMainAnswer?: string;
+  markedMainAnswer?: string = 'Main answers';
+  showMainAnswer: boolean;
+  indexOfMainanswerToShow: number = -1;
+  mainAnswers?: Array<string> = new Array();
+  markedMainAnswers?: Array<boolean> = new Array();
+  markedMainCorrectAnswer?: Array<boolean> = new Array();
+  correctMainAnswers?: Array<boolean> = new Array();
+  secondaryQuestions?: Array<string> = new Array();
+  secondaryAnswers?: Array<Array<string>>;
+  markedSeconderyAnswers?: Array<Array<boolean>>;
+  editionModeMain?: boolean;
+  seconderyAnswerMode?: boolean = false;
 
-
+  indexAnswerInEditMain: number = -1;
   submit: boolean = false;
   editionMode: boolean = false;
   indexAnswerInEdit: number = -1;
@@ -119,6 +135,16 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   /*
+    Setting the type of the created question, to drill down question
+  */
+  setDrillDownQuestion(){
+    if(this.typeQuestion == TypeQuestion.DrillDownQuestion){
+      this.typeQuestion = null;
+    }else{
+      this.typeQuestion = TypeQuestion.DrillDownQuestion;
+    }
+  }
+  /*
     Getters for the type of the question
   */
   didChoseMultipleQuestion() : boolean{
@@ -129,6 +155,9 @@ export class CreateQuestionComponent implements OnInit {
   }
   didChoseOpenQuestion() : boolean{
     return this.typeQuestion == TypeQuestion.OpenQuestion;
+  }
+  didChoseDrillDownQuestion() : boolean{
+    return this.typeQuestion == TypeQuestion.DrillDownQuestion;
   }
 
   /*
@@ -707,5 +736,113 @@ export class CreateQuestionComponent implements OnInit {
       }
     }
 
+  }
+
+  addMainAnswer(){
+    this.mainAnswers.splice(this.mainAnswers.length, 0, this.currentMainAnswer);
+    this.markedMainAnswers.splice(this.markedMainAnswers.length, 0, false);
+    this.markedMainCorrectAnswer.splice(this.markedMainCorrectAnswer.length, 0, false);
+    this.currentMainAnswer = '';
+  }
+
+  hasMainAnswers(): boolean {
+    return this.mainAnswers.length >= 1;
+  }
+
+  markMainAnswer(index: number){
+    for(let i = 0; i < this.markedMainAnswers.length; i++){
+      if(i == index){
+        this.markedMainAnswers[i] = !this.markedMainAnswers[i];
+        if(this.markedMainAnswers[i]){
+          this.showMainAnswer = true;
+          this.indexOfMainanswerToShow = index;
+          console.log(this.indexOfMainanswerToShow);
+        }else{
+          this.showMainAnswer = false;
+        }
+      }else{
+        this.markedMainAnswers[i] = false;
+      }
+    }  
+  }
+  markCorretMainAnswer(index:number){
+    for(let i = 0; i < this.markedMainCorrectAnswer.length; i++){
+      if(i == index){
+        this.markedMainCorrectAnswer[i] = !this.markedMainCorrectAnswer[i];
+      }else{
+        this.markedMainCorrectAnswer[i] = false;
+      }
+    } 
+  }
+  /*
+    Deletes an answer to the question
+  */
+  deleteMainAnswer(index: number){
+    this.mainAnswers.splice(index,1);
+    this.markedMainAnswers.splice(index, 1);
+    this.markedMainCorrectAnswer.splice(index, 1);
+  }
+
+  editMainAnswer(index: number){
+    this.currentMainAnswer = this.mainAnswers[index];
+    this.editionModeMain = true;
+    this.indexAnswerInEditMain = index;
+  }
+
+  undoEditMain(){
+    this.editionModeMain = false;
+    this.currentMainAnswer = '';
+    this.indexAnswerInEditMain = -1;
+  }
+
+  applyEditMain(){
+    this.mainAnswers.splice(this.indexAnswerInEditMain, 1,  this.currentMainAnswer)
+    this.editionModeMain = false;
+    this.indexAnswerInEditMain = -1;
+    this.currentMainAnswer = '';
+  }
+
+  goMainUp(index: number){
+    if(index != 0){
+      let removed = this.mainAnswers.splice(index, 1)
+      let removed_marked = this.markedMainAnswers.splice(index, 1);
+      let removed_marked_correct = this.markedMainCorrectAnswer.splice(index,1);
+      this.mainAnswers.splice(index - 1, 0, removed[0]);
+      this.markedMainAnswers.splice(index - 1, 0, removed_marked[0]);
+      this.markedMainCorrectAnswer.splice(index - 1, 0, removed_marked_correct[0]);
+      
+    } 
+  }
+
+  goMainDown(index: number){
+    if(index != this.mainAnswers.length - 1){
+      let removed = this.mainAnswers.splice(index, 1);
+      let removed_marked = this.markedMainAnswers.splice(index, 1);
+      let removed_marked_correct = this.markedMainCorrectAnswer.splice(index, 1);
+      this.mainAnswers.splice(index + 1, 0, removed[0]);
+      this.markedMainAnswers.splice(index + 1, 0, removed_marked[0]);
+      this.markedMainCorrectAnswer.splice(index + 1, 0, removed_marked_correct[0]);
+      
+    }
+  }
+
+  generateHighestBox(answers: Array<string>): string{
+    let max: number = -1;
+    for(let i = 0; i < answers.length; i++){
+      if(answers[i].length > max){
+        max = answers[i].length;
+      }
+    }
+    let size = Math.max((max * 20), 300);
+    
+    let returnedSize: string = (size.toString()) + 'px';
+    return returnedSize;
+  }
+
+  addSeconderyQuestion(index: number){
+    this.seconderyAnswerMode = true;
+  }
+  whatToShow(index: number):boolean{
+    return index == this.indexOfMainanswerToShow;
   }
 }
