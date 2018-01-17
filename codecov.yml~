@@ -1,0 +1,6 @@
+
+    ignore:
+        - "code/src/main/java/cognitivity/dao/*"
+        - "code/src/main/java/cognitivity/services/*"
+        - "code/src/test/**/*"
+        - "code/src/main/java/cognitivity/web/app/*"
