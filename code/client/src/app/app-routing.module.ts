@@ -8,12 +8,14 @@ import { BlockComponent } from './components/block/block.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { EditTestComponent } from './components/edit-test/edit-test.component';
 import { TestPreviewComponent } from './components/test-preview/test-preview.component';
+import { LoginGuard } from './services/auth-service/auth-guard';
 
 const appRoutes: Routes = [
     
     {
         path: 'login',
-        component: LoginPageComponent
+        component: LoginPageComponent,
+        canActivate: [LoginGuard]
     },
     {
         path: 'question-viewer',

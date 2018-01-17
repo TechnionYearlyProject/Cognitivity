@@ -26,7 +26,7 @@ import { CreateQuestionComponent } from './components/create-question/create-que
 import { QuestionListComponent } from './components/block/question-list/question-list.component';
 import { MultipleChoiceQuestionComponent } from './components/multiple-choice-question/multiple-choice-question.component';
 import { SessionService } from './services/session-service';
-import { AuthGuard } from './services/auth-service/auth-guard';
+import { AuthGuard, LoginGuard } from './services/auth-service/auth-guard';
 import { environment } from '../environments/environment';
 import { QuestionViewerComponent } from './components/question-viewer/question-viewer.component';
 
@@ -52,6 +52,7 @@ const PROVIDED_SERVICES = [
   QuestionService,
   AuthService,
   AuthGuard,
+  LoginGuard,
   LocalStorageService,
   SessionService,
   AngularFireDatabase,
