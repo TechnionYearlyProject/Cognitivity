@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public abstract class AbstractDAO <DataType extends AbstractEntity> {
     // creates the objects which will be used to create hibernate objects
     // the bean that will be autowired here will be the one with the hibernate setting
-
+    @Autowired
     protected SessionFactory sessionFactory;
 
     /**

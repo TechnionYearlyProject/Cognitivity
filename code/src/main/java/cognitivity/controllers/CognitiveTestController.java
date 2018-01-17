@@ -44,6 +44,7 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @RequestMapping(method = RequestMethod.GET, value = "/findTestsForTestManager")
     public List<CognitiveTest> findTestsForTestManager(
             @RequestParam(value = "managerId") long managerId) {
+        System.out.println(managerId);
         return service.findTestsForTestManager(managerId);
     }
 

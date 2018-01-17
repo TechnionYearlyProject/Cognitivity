@@ -85,6 +85,7 @@ public class CognitiveTestService {
      */
     public List<CognitiveTest> findTestsForTestManager(long managerId) {
         //CognitiveTestDAOimpl dao = new CognitiveTestDAOimpl();
+        System.out.println("got here bitch is dao null? " + (dao == null));
         return dao.getCognitiveTestOfManager(managerId);
     }
 
