@@ -16,7 +16,7 @@ export class QuestionComponent implements OnInit {
 
   
   @Input() myData:any;
-  
+  @Input() index: any;
   constructor(private router:Router,public questionDataService:SessionService) {
     
   }

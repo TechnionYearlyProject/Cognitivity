@@ -1,60 +1,34 @@
-<div class="cover">
-    <div class="col-md-10" style="margin: 2em 2em;">
-
-        <h2 style="color: white;">
-            <i class="fa fa-database"></i> My Test</h2>
-        <div style="text-align: right;">
-            <a href="#" class="btn btn-primary btn-sm">
-                <span class="fa fa-plus"></span> Add block</a>
-        </div>
-
-        <div class="">
-            <button [ngClass]="styles" (click)="onClick()">Block 1</button>
-            <div style="text-align: center;">
-                <a href="#" class="btn btn-secondary btn-sm" [hidden]="isHidden">
-                    <span class="fa fa-folder-open"></span> Import questions from</a>
-                <a href="#" class="btn btn-primary btn-sm" [hidden]="isHidden">
-                    <span class="fa fa-plus"></span> Create new question</a>
-            </div>
-
-            <div class="question-box row" [hidden]="isHidden" #questions>
-                <div>
-                    <div class="row">
-                        <div style="margin: 1em; font-size: 20px;font-family: Ariel">Q1</div>
-                    </div>
-                    <br>
-                    <a href="#" class="btn btn-secondary btn-sm">
-                        <span class="fa fa-cog"></span> Edit question</a>
-                    <br>
-                    <br>
-                    <a href="#" class="btn btn-primary btn-sm" [hidden]="isHidden">
-                        <span class="fa fa-plus"></span> Add a tag</a>
-                </div>
-                <div style="    border-left:  solid rgb(0, 0, 0);
-              height: 200px; margin: 0em 3em">
-
-                </div>
-                <div class="column">
-                    <div style="font-family: Ariel; font-size:30px;">
-                        Who directed Inception?
-                    </div>
-                    <br>
-                    <br>
-                    <div class="row">
-                        <input class="onoffswitch-checkbox" type="checkbox" style="margin:1em;">
-                        <div style="margin: 0.2em; font-size: 20px;font-family: Ariel">Christopher nolan</div>
-                        <input class="onoffswitch-checkbox" type="checkbox" style="margin:1em;">
-                        <div style="margin: 0.2em; font-size: 20px;font-family: Ariel">Ridely Scott</div>
-                        <input class="onoffswitch-checkbox" type="checkbox" style="margin:1em;">
-                        <div style="margin: 0.2em; font-size: 20px;font-family: Ariel">Quantin Tarantino</div>
-                        <input class="onoffswitch-checkbox" type="checkbox" style="margin:1em;">
-                        <div style="margin: 0.2em; font-size: 20px;font-family: Ariel">Robert Downy Jr.</div>
-                    </div>
-                </div>
-            </div>
-            <button class="accordion" (click)="onClick()">Block 2</button>
-        </div>
+<div class="form-group">
+    <div class="centered">
+        <h2><span class="fa fa-sticky-note-o"></span> Create New Test</h2>
+        <br>
+        <h4>Enter title for the test: </h4>
+        <input [(ngModel)] = "titleTest" name = "title" #title = "ngModel" type="text" class="form-control" placeholder="Title of the test" style="max-width: 100%;">
+        <br>
+        <button class="btn btn-primary btn-sm" (click)="addBlock()">
+        <span class="fa fa-plus"></span> Create new block</button>
     </div>
 
-
+        <div class="centered">
+            <div class="column">
+                
+                <div *ngFor="let it of iterator; let i = index;">
+                        <br>
+                        <div class="row" style="margin:0px 0px 0px 1px;">
+                            <a class="btn btn-secondary btn-sm fa fa-arrow-up" (click)="moveMeUp(i)"></a>
+                            <a class="btn btn-secondary btn-sm fa fa-arrow-down" (click)="moveMeDown(i)" style="margin: 0px 0px 0px 5px"></a>        
+                        </div>
+        
+                        <app-block [blockNumber] = "i" style="margin:1px;"></app-block>
+                        <button class="btn btn-danger btn-sm" (click) = "deleteBlock(i)"><span class = "fa fa-trash"></span> Delete block</button>
+                        <br>
+        
+                </div>      
+            </div>
+        </div>
+        <br>
+        <div class="centered">
+                <button class="btn btn-md btn-primary"(click)="saveTest()" style="width: 100%;">Save Test</button>
+        </div>
+        
 </div>

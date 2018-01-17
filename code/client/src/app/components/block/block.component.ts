@@ -47,17 +47,6 @@ export class BlockComponent implements OnInit {
     this.hidden = !this.hidden;
   }
 
-  previewBlock(){
-    let tmp:QuestionInBlock[]=new Array();
-    for(let i=0;i<this.questionList.length;i++)
-    {
-      tmp[i] = this.questionList[i];
-    }
-    console.log(tmp);
-    this.transferData.setData(tmp);
-    console.log("sent Data");
-    this.router.navigate(['question-viewer']);
-  }
 
   moveMeUp(currentIndex) {
     let arrayLastIndex = this.questionList.length - 1;
@@ -115,4 +104,8 @@ export class BlockComponent implements OnInit {
     this.questionList.splice(index,1);
   }
 
+
+  getQuestions(): Array<QuestionInBlock>{
+    return this.questionList;
+  }
 }

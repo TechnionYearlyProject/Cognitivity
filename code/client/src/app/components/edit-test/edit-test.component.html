@@ -1,10 +1,11 @@
 <div class="cover">
   <div class="container">
-    <div *ngFor="let currBlock of blockList">
+    <div *ngFor="let it of iterator; let i = index;">
       <br>
       <a class="btn btn-secondary btn-sm fa fa-arrow-up" (click)="moveMeUp(currBlock.blockNumber)"></a>
       <a class="btn btn-secondary btn-sm fa fa-arrow-down" (click)="moveMeDown(currBlock.blockNumber)"></a>
-      <app-block [blockNumber]="currBlock.blockNumber" ></app-block>
+      <app-block [blockNumber] = "i" ></app-block>
+      <button class="btn btn-secondary btn-sm" (click) = "getQuestions(i)">Show me questions</button>
       <br>
     </div>
   </div>

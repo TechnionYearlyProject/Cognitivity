@@ -8,6 +8,8 @@ import { BlockComponent } from './components/block/block.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { EditTestComponent } from './components/edit-test/edit-test.component';
 import { TestPreviewComponent } from './components/test-preview/test-preview.component';
+import { CreateTestComponent } from './components/create-test/create-test.component';
+import { CreateQuestionComponent } from './components/create-question/create-question.component';
 
 const appRoutes: Routes = [
     
@@ -30,6 +32,10 @@ const appRoutes: Routes = [
     {
         path:'test-preview/:testId',
         component: TestPreviewComponent
+    },
+    {
+        path: 'create-test',
+        component: CreateTestComponent
     },
     {
         path: '**',

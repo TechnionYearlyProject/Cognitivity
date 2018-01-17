@@ -13,7 +13,8 @@ import static org.junit.Assert.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = HibernateBeanConfiguration.class)
+@ContextConfiguration(classes = HibernateBeanConfiguration.class,
+        locations = {"classpath:testApplicationContext.xml", "classpath:test-dispatcher-servlet.xml"})
 @Ignore("tests passing, but to run them there is a need of db")
 public class TestManagerDAOTest extends AbstractDaoTestClass {
 
