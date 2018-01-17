@@ -1,8 +1,6 @@
 package config;
 
 import cognitivity.dao.*;
-import cognitivity.entities.CognitiveTest;
-import cognitivity.entities.TestManager;
 import cognitivity.services.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mockito.Mockito;
@@ -51,39 +49,33 @@ public class TestContextBeanConfiguration {
     }
 
     @Bean
-    public CognitiveTestDAOimpl cognitiveTestDAOimpl() {
-        CognitiveTestDAOimpl mock = Mockito.mock(CognitiveTestDAOimpl.class);
-        return mock;
+    public CognitiveTestDAO cognitiveTestDAO() {
+        return Mockito.mock(CognitiveTestDAO.class);
     }
 
     @Bean
-    public TestQuestionDAOimpl testQuestionDAOimpl() {
-        TestQuestionDAOimpl mock = Mockito.mock(TestQuestionDAOimpl.class);
-        return mock;
+    public TestQuestionDAO testQuestionDAO() {
+        return Mockito.mock(TestQuestionDAO.class);
     }
 
     @Bean
-    public TestAnswerDAOimpl testAnswerDAOimpl() {
-        TestAnswerDAOimpl mock = Mockito.mock(TestAnswerDAOimpl.class);
-        return mock;
+    public TestAnswerDAO testAnswerDAO() {
+        return Mockito.mock(TestAnswerDAO.class);
     }
 
     @Bean
-    public TestBlockDAOimpl testBlockDAOimpl() {
-        TestBlockDAOimpl mock = Mockito.mock(TestBlockDAOimpl.class);
-        return mock;
+    public TestBlockDAO testBlockDAO() {
+        return Mockito.mock(TestBlockDAO.class);
     }
 
     @Bean
-    public TestManagerDAOimpl testManagerDAOimpl() {
-        TestManagerDAOimpl mock = Mockito.mock(TestManagerDAOimpl.class);
-        return mock;
+    public TestManagerDAO testManagerDAO() {
+        return Mockito.mock(TestManagerDAO.class);
     }
 
     @Bean
-    public TestSubjectDAOimpl testSubjectDAOimpl() {
-        TestSubjectDAOimpl mock = Mockito.mock(TestSubjectDAOimpl.class);
-        return mock;
+    public TestSubjectDAO testSubjectDAO() {
+        return Mockito.mock(TestSubjectDAO.class);
     }
 
 }
