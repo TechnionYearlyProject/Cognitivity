@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { TestManagerService } from '../../../services/database-service/index';
+import { AuthService } from '../../../services/auth-service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -13,12 +14,17 @@ export class NavbarComponent implements OnInit {
   loggedInUser;
   constructor(
     private router: Router,
-    private tmService: TestManagerService
+    private tmService: TestManagerService,
+    private authService: AuthService
   ) { }
 
   async ngOnInit() {
-    console.log(await this.tmService.getTestManager(2))
-    this.loggedInUser = (await this.tmService.getTestManager(1)).name;
+    this.loggedInUser = this.authService.getCurrentManager().email;
+  }
+
+  onLogOut() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
 
