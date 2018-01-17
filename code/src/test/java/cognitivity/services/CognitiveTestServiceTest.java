@@ -1,7 +1,12 @@
 package cognitivity.services;
 
 import cognitivity.dao.*;
-import cognitivity.entities.*;
+import cognitivity.dto.BlockWrapper;
+import cognitivity.dto.TestWrapper;
+import cognitivity.entities.CognitiveTest;
+import cognitivity.entities.TestBlock;
+import cognitivity.entities.TestManager;
+import cognitivity.entities.TestQuestion;
 import cognitivity.web.app.config.HibernateBeanConfiguration;
 import config.TestContextBeanConfiguration;
 import org.junit.Before;

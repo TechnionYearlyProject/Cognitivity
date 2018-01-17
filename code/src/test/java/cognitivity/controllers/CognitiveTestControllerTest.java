@@ -111,16 +111,16 @@ public class CognitiveTestControllerTest implements RestControllerTest {
 
     @Test
     public void updateCognitiveTestCallsServiceWithCorrectParams() throws Exception {
-        TestWrapper cognitiveTest = new TestWrapper(buildTest("test", "email", 12, 41));
+        CognitiveTest test = buildTest("test", "email", 12, 41);
 
         // updateCognitiveTest is a http POST request
         mockMvc.perform(post("/tests/updateCognitiveTest")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(cognitiveTest)))
+                .content(objectMapper.writeValueAsBytes(test)))
                 .andExpect(status().isOk());
 
         // todo : this will probably fail because the jackson factory will build a new object. Should maybe update equal methods?
-        Mockito.verify(cognitiveTestServiceMock, times(1)).updateTestForTestManager(cognitiveTest);
+        Mockito.verify(cognitiveTestServiceMock, times(1)).updateTestForTestManager(test);
         Mockito.verifyNoMoreInteractions(cognitiveTestServiceMock);
     }
 
