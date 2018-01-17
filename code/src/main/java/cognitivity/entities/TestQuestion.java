@@ -19,7 +19,7 @@ public class TestQuestion extends AbstractEntity {
     private Integer questionType;
 
     @Column(name = "answer")
-    private Integer answer;
+    private String answer;
 
     @Column(name = "tag")
 	private String tag;
@@ -45,20 +45,42 @@ public class TestQuestion extends AbstractEntity {
 	@JoinColumn(name = "testManagerId")
 	private TestManager testManager;
 
-	public TestQuestion(String question, Integer questionType, Integer answer, String tag,
-						TestBlock block, CognitiveTest cognitiveTest, TestManager testManager) {
-		this.question = question;
-		this.questionType = questionType;
-		this.answer = answer;
-		this.tag = tag;
-		this.block = block;
-		this.cognitiveTest = cognitiveTest;
-		this.testManager = testManager;
-	}
+	@Column(name = "questionPosition")
+	private Integer questionPosition;
 
-	public TestQuestion() {}
+    public TestQuestion(String question, Integer questionType,
+                        String answer, String tag, TestBlock block,
+                        CognitiveTest cognitiveTest, TestManager testManager,
+                        Integer questionPosition) {
+        this.question = question;
+        this.questionType = questionType;
+        this.answer = answer;
+        this.tag = tag;
+        this.block = block;
+        this.cognitiveTest = cognitiveTest;
+        this.testManager = testManager;
+        this.questionPosition = questionPosition;
+    }
 
-	/**
+    public TestQuestion() {}
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public Integer getQuestionPosition() {
+        return questionPosition;
+    }
+
+    public void setQuestionPosition(Integer questionPosition) {
+        this.questionPosition = questionPosition;
+    }
+
+    /**
 	* Returns value of question
 	* @return
 	*/
@@ -88,22 +110,6 @@ public class TestQuestion extends AbstractEntity {
 	*/
 	public void setQuestionType(Integer questionType) {
 		this.questionType = questionType;
-	}
-
-	/**
-	* Returns value of answer
-	* @return
-	*/
-	public Integer getAnswer() {
-		return answer;
-	}
-
-	/**
-	* Sets new value of answer
-	* @param
-	*/
-	public void setAnswer(Integer answer) {
-		this.answer = answer;
 	}
 
 	public TestBlock getBlock() {

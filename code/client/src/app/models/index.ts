@@ -52,6 +52,7 @@ export class QuestionInBlock {
     indexInBlock: number;
     id?: string;
 }
+
 export class QuestionData implements OnInit,Question{
     id;
     questionText;
@@ -102,7 +103,7 @@ export interface OpenQuestion extends Question {
 */
 export interface Block {
     id?: number,
-    questionList: Question[]
+    questionList: Array<Question>
 }
 /*
     Interface that represents test object that holds its list of blocks.
@@ -139,7 +140,7 @@ export interface RateQuestion extends Question {
 */
 
 export interface DrillDownQuestion extends Question {
-    answersForMain: Array<string>;
+    answersForMain: Array<string>;    
     correctMainQuestion: number;
     secondaryQuestionsText: Array<string>;
     answersForSecondary: Array<Array<string>>;

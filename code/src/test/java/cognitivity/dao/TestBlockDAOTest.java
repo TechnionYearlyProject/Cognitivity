@@ -15,7 +15,8 @@ import static org.junit.Assert.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = HibernateBeanConfiguration.class)
+@ContextConfiguration(classes = HibernateBeanConfiguration.class,
+        locations = {"classpath:spring/test-context.xml", "classpath:spring/test-dispatcher-servlet.xml"})
 @Ignore("tests passing, but to run them there is a need of db")
 public class TestBlockDAOTest extends AbstractDaoTestClass {
 
@@ -31,7 +32,7 @@ public class TestBlockDAOTest extends AbstractDaoTestClass {
     @Before
     public void initialize(){
         TestManager testManager =
-                new TestManager("onlyForTests TestManager", "notarealpassword");
+                new TestManager("onlyForTests TestManager");
         testManagerDAO.add(testManager);
         CognitiveTest cognitiveTest = new CognitiveTest("onlyForTests", testManager, 0, 1);
         cognitiveTestDAO.add(cognitiveTest);

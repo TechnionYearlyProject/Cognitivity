@@ -20,7 +20,8 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.doReturn;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class})
+@ContextConfiguration(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class},
+        locations = {"classpath:spring/test-context.xml", "classpath:spring/test-dispatcher-servlet.xml"})
 @SpringBootTest
 public class TestSubjectServiceTest {
 
@@ -95,7 +96,7 @@ public class TestSubjectServiceTest {
         CognitiveTest test = new CognitiveTest("test", manager, 1, 0);
         TestBlock block = blockService.createTestBlock(2,false,"teag", test);
         TestQuestion question = new TestQuestion("When will the Shibutzim arrive?",1,99999,"Questions that remain unasnwered",
-                block, test, manager);
+                block, test, manager, 0);
         questionService.createTestQuestion(question);
 
         TestSubject subject1 = service.createTestSubject(new TestSubject("Timon", 789, "Hakuna"));
