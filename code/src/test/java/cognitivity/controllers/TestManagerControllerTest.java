@@ -21,11 +21,11 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Created by ophir on 19/12/17.
@@ -64,17 +64,8 @@ public class TestManagerControllerTest implements RestControllerTest {
 
     private TestManager mockTestManager() {
         return new TestManager() {
-            @Override
-            public String getName() {
-                return "name";
-            }
 
             @Override
-            public String getPassword() {
-                return "pass";
-            }
-
-            //@Override
             public String getEmail() {
                 return "email";
             }
@@ -90,8 +81,8 @@ public class TestManagerControllerTest implements RestControllerTest {
                 .param("testManagerId", "12345")
                 .param("testId", "1234"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(TestUtil.APPLICATION_JSON_UTF8));
-        //.andExpect(jsonPath("$.email", is(testManager.getEmail())));
+                .andExpect(content().contentTypeCompatibleWith(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.email", is(testManager.getEmail())));
 
         Mockito.verify(testManagerService, times(1)).findTestManagerByCreatedTest(1234);
         Mockito.verifyNoMoreInteractions(testManagerService);
@@ -106,8 +97,8 @@ public class TestManagerControllerTest implements RestControllerTest {
                 .param("testManagerId", "12345")
                 .param("testId", "-1"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8));
-        //.andExpect(jsonPath("$.email", is(testManager.getEmail())));
+                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.email", is(testManager.getEmail())));
 
         Mockito.verify(testManagerService, times(1)).findTestManager(12345);
         Mockito.verifyNoMoreInteractions(testManagerService);
@@ -115,7 +106,7 @@ public class TestManagerControllerTest implements RestControllerTest {
 
     @Test
     public void saveTestManagerCallsServiceWithCorrectParams() throws Exception {
-        TestManager tm = new TestManager("email", "pass");
+        TestManager tm = new TestManager("email");
         // saveTestManager is a http POST request
         mockMvc.perform(post("/test-managers/saveTestManager")
                 .contentType(MediaType.APPLICATION_JSON)

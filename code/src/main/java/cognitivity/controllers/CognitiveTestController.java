@@ -1,7 +1,7 @@
 package cognitivity.controllers;
 
+import cognitivity.dto.TestWrapper;
 import cognitivity.entities.CognitiveTest;
-import cognitivity.entities.TestWrapper;
 import cognitivity.services.CognitiveTestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

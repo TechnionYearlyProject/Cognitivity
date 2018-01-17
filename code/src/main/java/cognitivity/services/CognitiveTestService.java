@@ -2,7 +2,11 @@ package cognitivity.services;
 
 import cognitivity.dao.CognitiveTestDAO;
 import cognitivity.dao.TestBlockDAO;
-import cognitivity.entities.*;
+import cognitivity.dto.BlockWrapper;
+import cognitivity.dto.TestWrapper;
+import cognitivity.entities.CognitiveTest;
+import cognitivity.entities.TestBlock;
+import cognitivity.entities.TestQuestion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

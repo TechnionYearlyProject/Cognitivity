@@ -30,10 +30,13 @@ public class IntegrationTestContextConfiguration {
     @Autowired
     private TestSubjectDAO testSubjectDAO;
 
+    @Autowired
+    private TestBlockDAO testBlockDAO;
+
 
     @Bean
     public CognitiveTestController cognitiveTestController() {
-        return new CognitiveTestController(new CognitiveTestService(cognitiveTestDAO));
+        return new CognitiveTestController(new CognitiveTestService(cognitiveTestDAO, testBlockDAO));
     }
 
     @Bean

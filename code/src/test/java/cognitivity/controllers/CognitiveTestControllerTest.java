@@ -1,9 +1,9 @@
 package cognitivity.controllers;
 
 import cognitivity.TestUtil;
+import cognitivity.dto.TestWrapper;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
-import cognitivity.entities.TestWrapper;
 import cognitivity.services.CognitiveTestService;
 import cognitivity.web.app.config.HibernateBeanConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;

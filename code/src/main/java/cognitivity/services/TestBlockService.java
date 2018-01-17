@@ -1,7 +1,7 @@
 package cognitivity.services;
 
 import cognitivity.dao.TestBlockDAO;
-import cognitivity.entities.BlockWrapper;
+import cognitivity.dto.BlockWrapper;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestQuestion;

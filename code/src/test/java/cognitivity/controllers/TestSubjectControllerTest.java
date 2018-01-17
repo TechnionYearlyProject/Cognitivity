@@ -76,8 +76,8 @@ public class TestSubjectControllerTest implements RestControllerTest {
             }
 
             @Override
-            public Integer getIpAddress() {
-                return 123;
+            public String getIpAddress() {
+                return "123";
             }
         };
     }
@@ -120,7 +120,7 @@ public class TestSubjectControllerTest implements RestControllerTest {
 
     @Test
     public void saveTestSubjectCallsServiceWithCorrectParams() throws Exception {
-        TestSubject testSubject = new TestSubject("name", 123, "firefox");
+        TestSubject testSubject = new TestSubject("name", "123", "firefox");
         // saveTestSubject is a http POST request
         mockMvc.perform(post("/test-subjects/saveTestSubject")
                 .contentType(MediaType.APPLICATION_JSON)

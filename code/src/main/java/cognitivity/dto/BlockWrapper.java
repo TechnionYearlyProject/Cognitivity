@@ -1,4 +1,8 @@
-package cognitivity.entities;
+package cognitivity.dto;
+
+import cognitivity.entities.CognitiveTest;
+import cognitivity.entities.TestBlock;
+import cognitivity.entities.TestQuestion;
 
 import java.util.List;
 

@@ -1,5 +1,7 @@
-package cognitivity.entities;
+package cognitivity.dto;
 
+
+import cognitivity.entities.CognitiveTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,20 +14,6 @@ import java.util.List;
 public class TestWrapper extends CognitiveTest {
     private List<BlockWrapper>  blocks;
 
-
-
-    public TestWrapper(CognitiveTest test){
-        super.setId(test.getId());
-        super.setLastAnswered(test.getLastAnswered());
-        super.setLastModified(test.getLastModified());
-        super.setManager(test.getManager());
-        super.setName(test.getName());
-        super.setNumberOfFiledCopies(test.getNumberOfFiledCopies());
-        super.setNumberOfQuestions(test.getNumberOfQuestions());
-        super.setNumberOfSubjects(test.getNumberOfSubjects());
-        super.setState(test.getState());
-
-    }
 
     public TestWrapper(CognitiveTest test, List<BlockWrapper>  blocks){
         super.setId(test.getId());
