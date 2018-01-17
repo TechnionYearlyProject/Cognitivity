@@ -16,8 +16,7 @@ public class TestWrapper extends CognitiveTest {
     private List<BlockWrapper>  blocks;
 
 
-    @Autowired
-    public TestWrapper(CognitiveTest test, CognitiveTestDAO dao, TestBlockDAO blockDAO){
+    public TestWrapper(CognitiveTest test, List<BlockWrapper>  blocks){
         super.setId(test.getId());
         super.setLastAnswered(test.getLastAnswered());
         super.setLastModified(test.getLastModified());
@@ -28,10 +27,7 @@ public class TestWrapper extends CognitiveTest {
         super.setNumberOfSubjects(test.getNumberOfSubjects());
         super.setState(test.getState());
 
-        List<TestBlock> preWrapped = dao.getTestBlocks(this.getId());
-        for (TestBlock block : preWrapped) {
-            blocks.add(new BlockWrapper(blockDAO,block));
-        }
+        this.blocks = blocks;
     }
 
     public List<BlockWrapper> getBlocks(){
