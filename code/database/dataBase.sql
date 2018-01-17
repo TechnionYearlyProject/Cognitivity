@@ -17,7 +17,6 @@ Fields:
 @ipAddress - the ip address of the computer from which the test was answered.
 @browser - the type of the browser from which the test was answered.
 */
-//TODO: changed ipAdress to text, notice!
 CREATE TABLE testSubject(id INTEGER PRIMARY KEY AUTO_INCREMENT,
   name text,
   ipAddress text,
