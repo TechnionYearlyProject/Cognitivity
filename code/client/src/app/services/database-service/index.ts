@@ -43,6 +43,12 @@ export class TestManagerService {
         .then(() => null)
         .catch(this.handleError);
     }
+
+    getTestManager(managerId: number): Promise<any> {
+        return this.http.get(`http://localhost:8181${this.base_mapping}/findTestManagersForTestCriteria?testManagerId=${managerId}&testId=-1`)
+        .toPromise()
+        .then(res => { if (res.text() == '') return null; return res.json()})
+    }
 }
 
 @Injectable()
@@ -62,17 +68,7 @@ export class TestService {
         .then(response => response.json() as Test[])
         .catch(() => null)
     }
-    saveCognitiveTest(name: string, managerId: number, state: number, numberOfQuestions: number, blockList: Block[]): Promise<void> {
-        var test: Test = {
-            name: name,
-            numberOfQuestions: numberOfQuestions,
-            managerId: managerId,
-            status: state,
-            lastModified: new Date().toDateString(),
-            lastAnswered: new Date().toDateString(),
-            numberOfFiledCopies: 0,
-            blockList: blockList
-        };
+    saveCognitiveTest(test: Test): Promise<void> {
         return this.http.post(`http://localhost:8181${this.base_mapping}/saveCognitiveTest`,JSON.stringify(test),{headers : this.headers})
         .toPromise()
         .then(() => null)

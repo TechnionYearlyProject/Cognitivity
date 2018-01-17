@@ -2,7 +2,7 @@ package cognitivity.services;
 
 import cognitivity.dao.*;
 import cognitivity.entities.*;
-import cognitivity.services.*;
+import cognitivity.web.app.config.HibernateBeanConfiguration;
 import config.TestContextBeanConfiguration;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,42 +18,42 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestContextBeanConfiguration.class})
+@ContextConfiguration(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class},
+        locations = {"classpath:testApplicationContext.xml", "classpath:test-dispatcher-servlet.xml"})
 @SpringBootTest
 public class QuestionServiceTest {
 
     @Autowired
-    private TestQuestionDAOimpl dao;
+    private TestQuestionDAO testQuestionDAO;
 
     @Autowired
-    private CognitiveTestDAOimpl tdao;
+    private CognitiveTestDAO cognitiveTestDAO;
 
     @Autowired
-    private TestManagerDAOimpl mdao;
+    private TestManagerDAO testManagerDAO;
 
     @Autowired
-    private TestAnswerDAOimpl adao;
+    private TestAnswerDAO answerDao;
 
     @Autowired
-    private TestSubjectDAOimpl sdao;
+    private TestSubjectDAO testSubjectDAO;
 
 
     @Autowired
-    private TestBlockDAOimpl bdao;
+    private TestBlockDAO testBlockDAO;
 
     @Before
     public void setup() {
 
-        Mockito.reset(dao);
-        Mockito.reset(sdao);
-        Mockito.reset(adao);
-        Mockito.reset(tdao);
-        Mockito.reset(bdao);
-        Mockito.reset(mdao);
+        Mockito.reset(testQuestionDAO);
+        Mockito.reset(testSubjectDAO);
+        Mockito.reset(answerDao);
+        Mockito.reset(cognitiveTestDAO);
+        Mockito.reset(testBlockDAO);
+        Mockito.reset(testManagerDAO);
 
     }
 
@@ -68,44 +68,45 @@ public class QuestionServiceTest {
      * Testing all functionalities Question service
      */
     @Test
-    public void fullTest(){
-        QuestionService service = new QuestionService(dao,adao,tdao,mdao);
-        TestBlockService blockService = new TestBlockService(bdao);
-        CognitiveTestService testService = new CognitiveTestService(tdao);
-        TestManagerService managerService = new TestManagerService(mdao,tdao);
+    public void fullTest() {
+        QuestionService service = new QuestionService(testQuestionDAO, answerDao, cognitiveTestDAO, testManagerDAO);
+        TestBlockService blockService = new TestBlockService(testBlockDAO);
+        CognitiveTestService testService = new CognitiveTestService(cognitiveTestDAO);
+        TestManagerService managerService = new TestManagerService(testManagerDAO, cognitiveTestDAO);
 
-        TestManager manager = managerService.createTestManager("The bossy boss boss","Admin Admin");
-        CognitiveTest test = testService.createTestForTestManager("teee",manager, 1, 100);
-        TestBlock block = blockService.createTestBlock(5,true,"Taggy tag",test);
+        TestManager manager = new TestManager("ophir", "pass");
+        CognitiveTest cognitiveTest = new CognitiveTest("test1", manager, 1, 100);
+        CognitiveTest test = testService.createTestForTestManager(cognitiveTest);
+        TestBlock block = blockService.createTestBlock(5, true, "Taggy tag", test);
 
 
-        TestQuestion start = new TestQuestion("What is the meaning of life?", 1, 42, "Unanswered questions",block, test,manager);
+        TestQuestion start = new TestQuestion("What is the meaning of life?", 1, 42, "Unanswered questions", block, test, manager);
         TestQuestion question = service.createTestQuestion(start);
 
         assertNotNull("Problem with creating a test question", question);
 
-        doReturn(question).when(dao).get(Long.valueOf(1));
+        doReturn(question).when(testQuestionDAO).get(1L);
         TestQuestion result = service.findQuestionById(1);
 
-        assertEquals("Problem with getting a test question by ID", question,result);
+        assertEquals("Problem with getting a test question by ID", question, result);
 
         question.setAnswer(43);
 
         service.updateTestQuestion(question);
 
         result = service.findQuestionById(1);
-        int numericAnswer  = result.getAnswer();
+        int numericAnswer = result.getAnswer();
 
         assertEquals("Problem with updating the question", 43, numericAnswer);
 
 
-        TestBlock block2 = blockService.createTestBlock(2,true,"Togos",test);
+        TestBlock block2 = blockService.createTestBlock(2, true, "Togos", test);
 
-        TestQuestion question1 = new TestQuestion("Who moved my cheese?", 5, 52, "Critical for life",block, test,manager);
+        TestQuestion question1 = new TestQuestion("Who moved my cheese?", 5, 52, "Critical for life", block, test, manager);
         service.createTestQuestion(question1);
-        TestQuestion question2 = new TestQuestion("Who framed Roger Rabbit?", 1, 54, "Movie questions",block2, test,manager);
+        TestQuestion question2 = new TestQuestion("Who framed Roger Rabbit?", 1, 54, "Movie questions", block2, test, manager);
         service.createTestQuestion(question2);
-        TestQuestion question3 = new TestQuestion("Question! Question?", 1, 42, "What?! Who?!",block2, test,manager);
+        TestQuestion question3 = new TestQuestion("Question! Question?", 1, 42, "What?! Who?!", block2, test, manager);
         service.createTestQuestion(question3);
 
         List<TestQuestion> questions = new ArrayList<>();
@@ -114,51 +115,53 @@ public class QuestionServiceTest {
         questions.add(question2);
         questions.add(question3);
 
-        doReturn(questions).when(tdao).getTestQuestions(2);
+        doReturn(questions).when(cognitiveTestDAO).getTestQuestions(2);
         List<TestQuestion> questions1 = service.findAllTestQuestionsFromTestId(2);
-        for (TestQuestion t : questions1){
-            assertTrue("Getting unrelated results while trying to get all test questions",questions.contains(t));
+        for (TestQuestion t : questions1) {
+            assertTrue("Getting unrelated results while trying to get all test questions", questions.contains(t));
         }
-        for (TestQuestion t : questions){
-            assertTrue("Didn't get all the questions from the test",questions1.contains(t));
+        for (TestQuestion t : questions) {
+            assertTrue("Didn't get all the questions from the test", questions1.contains(t));
         }
 
-        CognitiveTest test2 = testService.createTestForTestManager("Cognitivity2. Coming to the nearest theater",manager, 1, 100);
+        CognitiveTest cognitiveTest1 = new CognitiveTest("test1", manager, 1, 100);
+        CognitiveTest test2 = testService.createTestForTestManager(cognitiveTest1);
 
-        TestQuestion question4 = new TestQuestion("Who moved my cheese?", 5, 52, "Critical for life",block, test2,manager);
+        TestQuestion question4 = new TestQuestion("Who moved my cheese?", 5, 52, "Critical for life", block, test2, manager);
         service.createTestQuestion(question4);
-        TestQuestion question5 = new TestQuestion("Who framed Roger Rabbit?", 1, 54, "Movie questions",block2, test2,manager);
+        TestQuestion question5 = new TestQuestion("Who framed Roger Rabbit?", 1, 54, "Movie questions", block2, test2, manager);
         service.createTestQuestion(question5);
-        TestQuestion question6 = new TestQuestion("Question! Question?", 1, 42, "What?! Who?!",block2, test2,manager);
+        TestQuestion question6 = new TestQuestion("Question! Question?", 1, 42, "What?! Who?!", block2, test2, manager);
         service.createTestQuestion(question6);
         questions.add(question4);
         questions.add(question5);
         questions.add(question6);
 
-        doReturn(questions).when(dao).getTestQuestionsFromAManager(any());
+        doReturn(questions).when(testQuestionDAO).getTestQuestionsFromAManager(any());
         questions1 = service.findAllTestQuestionsFromManagerId(3);
-        for (TestQuestion t : questions1){
-            assertTrue("Getting unrelated results while trying to get all test questions from all tests",questions.contains(t));
+        for (TestQuestion t : questions1) {
+            assertTrue("Getting unrelated results while trying to get all test questions from all tests", questions.contains(t));
         }
-        for (TestQuestion t : questions){
-            assertTrue("Didn't get all the questions from all the tests",questions1.contains(t));
+        for (TestQuestion t : questions) {
+            assertTrue("Didn't get all the questions from all the tests", questions1.contains(t));
         }
 
-        TestAnswerService answerService = new TestAnswerService(adao,sdao);
-        TestSubjectService subjectService = new TestSubjectService(sdao);
-        TestSubject subject = subjectService.createTestSubject("Timothy k miller",111,"Safchrome");
+        TestAnswerService answerService = new TestAnswerService(answerDao, testSubjectDAO);
+        TestSubjectService subjectService = new TestSubjectService(testSubjectDAO);
+        TestSubject testSubject = new TestSubject("Timothy k miller", 111, "Safchrome");
+        TestSubject subject = subjectService.createTestSubject(testSubject);
 
-        TestAnswer answer = new TestAnswer(subject,question,test,52,43,2,3,"Bla is bla",true,52,
-                false,false,true);
+        TestAnswer answer = new TestAnswer(subject, question, test, 52, 43, 2, 3, "Bla is bla", true, 52,
+                false, false, true);
         answerService.addTestAnswerForTestQuestion(answer);
-        TestAnswer answer1 = new TestAnswer(subject,question,test,52,43,2,3,"Bla is bla",true,52,
-                false,false,true);
+        TestAnswer answer1 = new TestAnswer(subject, question, test, 52, 43, 2, 3, "Bla is bla", true, 52,
+                false, false, true);
         answerService.addTestAnswerForTestQuestion(answer1);
-        TestAnswer answer2 = new TestAnswer(subject,question,test,52,43,2,3,"Bla is bla",true,52,
-                false,false,true);
+        TestAnswer answer2 = new TestAnswer(subject, question, test, 52, 43, 2, 3, "Bla is bla", true, 52,
+                false, false, true);
         answerService.addTestAnswerForTestQuestion(answer2);
-        TestAnswer answer3 = new TestAnswer(subject,question,test,52,43,2,3,"Bla is bla",true,52,
-                false,false,true);
+        TestAnswer answer3 = new TestAnswer(subject, question, test, 52, 43, 2, 3, "Bla is bla", true, 52,
+                false, false, true);
         answerService.addTestAnswerForTestQuestion(answer3);
 
         List<TestAnswer> answers = new ArrayList<TestAnswer>();
@@ -167,13 +170,13 @@ public class QuestionServiceTest {
         answers.add(answer2);
         answers.add(answer3);
 
-        doReturn(answers).when(adao).getTestAnswers(1);
+        doReturn(answers).when(answerDao).getTestAnswers(1);
         List<TestAnswer> res = service.getTestAnswers(1);
-        for (TestAnswer t : res){
-            assertTrue("Getting unrelated results while trying to get all the answers to the question",answers.contains(t));
+        for (TestAnswer t : res) {
+            assertTrue("Getting unrelated results while trying to get all the answers to the question", answers.contains(t));
         }
-        for (TestAnswer t : answers){
-            assertTrue("Didn't get all the question answers",res.contains(t));
+        for (TestAnswer t : answers) {
+            assertTrue("Didn't get all the question answers", res.contains(t));
         }
 
         service.deleteTestQuestion(1);
@@ -191,8 +194,6 @@ public class QuestionServiceTest {
         testService.deleteTestForTestManager(10);
 
     }
-
-
 
 
 }

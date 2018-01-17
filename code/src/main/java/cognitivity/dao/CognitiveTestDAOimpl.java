@@ -46,11 +46,13 @@ public class CognitiveTestDAOimpl extends AbstractDAO<CognitiveTest> implements 
 
     @Transactional(readOnly = true)
     public List<CognitiveTest> getCognitiveTestOfManager(long managerId) {
+        System.out.println("ddddd");
         Session session = sessionFactory.getCurrentSession();
         String queryString = "from CognitiveTest T where T.testManager.id = :managerId";
         Query<CognitiveTest> query = session.createQuery(queryString, CognitiveTest.class);
         query.setParameter("managerId", managerId);
-
-        return query.getResultList();
+        List<CognitiveTest> res = query.getResultList();
+        System.out.println(res.size());
+        return res;
     }
 }

@@ -2,6 +2,7 @@ package cognitivity.services;
 
 import cognitivity.dao.*;
 import cognitivity.entities.*;
+import cognitivity.web.app.config.HibernateBeanConfiguration;
 import config.TestContextBeanConfiguration;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,34 +17,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestContextBeanConfiguration.class})
+@ContextConfiguration(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class},
+        locations = {"classpath:testApplicationContext.xml", "classpath:test-dispatcher-servlet.xml"})
 @SpringBootTest
 public class TestSubjectServiceTest {
 
     @Autowired
-    private TestBlockDAOimpl bdao;
+    private TestBlockDAO bdao;
 
     @Autowired
-    private TestSubjectDAOimpl sdao;
+    private TestSubjectDAO sdao;
 
     @Autowired
-    private TestQuestionDAOimpl qdao;
+    private TestQuestionDAO qdao;
 
     @Autowired
-    private CognitiveTestDAOimpl tdao;
+    private CognitiveTestDAO tdao;
 
     @Autowired
-    private TestManagerDAOimpl mdao;
+    private TestManagerDAO mdao;
 
     @Autowired
-    private TestAnswerDAOimpl adao;
+    private TestAnswerDAO adao;
 
     @Autowired
-    private TestSubjectDAOimpl dao;
+    private TestSubjectDAO dao;
 
 
     @Before
@@ -75,11 +76,11 @@ public class TestSubjectServiceTest {
         QuestionService questionService = new QuestionService(qdao,adao,tdao,mdao);
         TestBlockService blockService = new TestBlockService(bdao);
 
-
-        TestSubject subject = service.createTestSubject("Simha Gora",45645,"Queue");
+        TestSubject testSubject = new TestSubject("Simha Gora", 45645, "Queue");
+        TestSubject subject = service.createTestSubject(testSubject);
         assertNotNull("Problem with creating a test subject",subject);
 
-        doReturn(subject).when(dao).get(Long.valueOf(1));
+        doReturn(subject).when(dao).get(1L);
         TestSubject result = service.findTestSubject(1);
 
         assertEquals("Problem with getting a test subject",result,subject);
@@ -91,16 +92,16 @@ public class TestSubjectServiceTest {
 
         assertEquals("Problem with updating a test subject", "Tor",result.getBrowser());
 
-        TestManager manager = managerService.createTestManager("Ein li Rayon Leod Shem","Maeshu kal");
-        CognitiveTest test = testService.createTestForTestManager("test",manager, 1, 0);
+        TestManager manager = new TestManager("Ein li Rayon Leod Shem", "Maeshu kal");
+        CognitiveTest test = new CognitiveTest("test", manager, 1, 0);
         TestBlock block = blockService.createTestBlock(2,false,"teag", test);
         TestQuestion question = new TestQuestion("When will the Shibutzim arrive?",1,99999,"Questions that remain unasnwered",
                 block, test, manager);
         questionService.createTestQuestion(question);
 
-        TestSubject subject1 = service.createTestSubject("Timon",789,"Hakuna");
-        TestSubject subject2 = service.createTestSubject("Pumba",654,"Matata");
-        TestSubject subject3 = service.createTestSubject("Simba",12,"Safari");
+        TestSubject subject1 = service.createTestSubject(new TestSubject("Timon", 789, "Hakuna"));
+        TestSubject subject2 = service.createTestSubject(new TestSubject("Pumba", 654, "Matata"));
+        TestSubject subject3 = service.createTestSubject(new TestSubject("Simba", 12, "Safari"));
 
         TestAnswer answer = new TestAnswer(subject,question, test, 5 , 5,
                 4, 2, "To have no worries", false, 5, false,

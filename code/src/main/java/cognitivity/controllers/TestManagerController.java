@@ -66,12 +66,11 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
      * Params are as in TestManagerService.
      * If testManagerId is null, then create. otherwise - update.
      */
+    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/saveTestManager")
-    public void saveTestManager(
-            @RequestParam(value = "name") String name,
-            @RequestParam(value = "password") String password) {
-        service.createTestManager(name, password);
+    public TestManager saveTestManager(@RequestBody TestManager testManager) {
+        return service.createTestManager(testManager);
     }
 
     /**

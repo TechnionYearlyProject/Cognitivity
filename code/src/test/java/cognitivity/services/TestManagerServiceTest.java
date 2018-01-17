@@ -1,13 +1,10 @@
 package cognitivity.services;
 
-import cognitivity.dao.CognitiveTestDAOimpl;
-import cognitivity.dao.TestBlockDAOimpl;
-import cognitivity.dao.TestManagerDAOimpl;
+import cognitivity.dao.CognitiveTestDAO;
+import cognitivity.dao.TestManagerDAO;
 import cognitivity.entities.CognitiveTest;
-import cognitivity.entities.TestAnswer;
 import cognitivity.entities.TestManager;
-import cognitivity.services.CognitiveTestService;
-import cognitivity.services.TestManagerService;
+import cognitivity.web.app.config.HibernateBeanConfiguration;
 import config.TestContextBeanConfiguration;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,23 +19,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyLong;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestContextBeanConfiguration.class})
+@ContextConfiguration(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class},
+        locations = {"classpath:testApplicationContext.xml", "classpath:test-dispatcher-servlet.xml"})
 @SpringBootTest
 public class TestManagerServiceTest {
 
     @Autowired
-    private TestManagerDAOimpl dao;
+    private TestManagerDAO dao;
 
 
     @Autowired
-    private CognitiveTestDAOimpl tdao;
+    private CognitiveTestDAO tdao;
 
     @Autowired
 
@@ -62,9 +57,9 @@ public class TestManagerServiceTest {
         TestManagerService service = new TestManagerService(dao,tdao);
         CognitiveTestService testService = new CognitiveTestService(tdao);
 
-        TestManager manager = service.createTestManager("Moty Luchim", "123456");
+        TestManager manager = new TestManager("Moty Luchim", "123456");
 
-        CognitiveTest test = testService.createTestForTestManager("test1",manager,1,0);
+        CognitiveTest test = new CognitiveTest("test1", manager, 1, 0);
 
         assertNotNull("Problem with creating a test manager", manager);
 
@@ -85,9 +80,9 @@ public class TestManagerServiceTest {
 //        assertEquals("Problem with finding a manager by a test", result,manager);
 
 
-        CognitiveTest test1 = testService.createTestForTestManager("test13",manager,1,0);
-        CognitiveTest test2 = testService.createTestForTestManager("test14",manager,1,0);
-        CognitiveTest test3 = testService.createTestForTestManager("test13",manager,1,0);
+        CognitiveTest test1 = new CognitiveTest("test13", manager, 1, 0);
+        CognitiveTest test2 = new CognitiveTest("test14", manager, 1, 0);
+        CognitiveTest test3 = new CognitiveTest("test13", manager, 1, 0);
 
         List<CognitiveTest> tests = new ArrayList<CognitiveTest>();
         tests.add(test);

@@ -1,7 +1,6 @@
 package cognitivity.controllers;
 
 import cognitivity.entities.CognitiveTest;
-import cognitivity.entities.TestManager;
 import cognitivity.services.CognitiveTestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,6 +43,7 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @RequestMapping(method = RequestMethod.GET, value = "/findTestsForTestManager")
     public List<CognitiveTest> findTestsForTestManager(
             @RequestParam(value = "managerId") long managerId) {
+        System.out.println(managerId);
         return service.findTestsForTestManager(managerId);
     }
 
@@ -56,12 +56,9 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
      */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/saveCognitiveTest")
-    public void saveCognitiveTest(
-            @RequestParam(value = "name") String name,
-            @RequestParam(value = "state") Integer state,
-            @RequestParam(value = "numberOfQuestions") Integer numberOfQuestions,
-            @RequestBody TestManager manager) {
-        service.createTestForTestManager(name, manager, state, numberOfQuestions);
+    public CognitiveTest saveCognitiveTest(
+            @RequestBody CognitiveTest cognitiveTest) {
+        return service.createTestForTestManager(cognitiveTest);
     }
 
     /**
@@ -70,6 +67,7 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
      * Params are as in CognitiveTestService.
      * If testId is null, then create. otherwise - update.
      */
+    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/updateCognitiveTest")
     public void updateCognitiveTest(

@@ -30,17 +30,14 @@ public class TestManagerService {
     /**
      * Save a TestManager.
      *
-     * @param name - The name of the test manager.
-     * @param password - The password of the test manager.
+     * @param  - The testManager to save.
      * @return - The saved TestManager.
      * <p>
      * This will be used in conjunction with the POST HTTP method.
      */
-    public TestManager createTestManager(String name, String password) {
-//        TestManagerDAOimpl dao = new TestManagerDAOimpl();
-        TestManager manager = new TestManager(name,password);
-        dao.add(manager);
-        return manager;
+    public TestManager createTestManager(TestManager testManager) {
+        dao.add(testManager);
+        return testManager;
     }
 
     /**
@@ -51,7 +48,6 @@ public class TestManagerService {
      * This will be used in conjunction with the PUT HTTP method.
      */
     public void updateTestManager(TestManager manager) {
-//        TestManagerDAOimpl dao = new TestManagerDAOimpl();
         dao.update(manager);
     }
 
@@ -63,7 +59,6 @@ public class TestManagerService {
      *                      This will be used in conjunction with the DELETE HTTP method.
      */
     public void deleteTestManager(long testManagerId) {
-//        TestManagerDAOimpl dao = new TestManagerDAOimpl();
         dao.delete(testManagerId);
     }
 
@@ -75,7 +70,6 @@ public class TestManagerService {
      * @return - the test manager found.
      */
     public TestManager findTestManager(long testManagerId) {
-//        TestManagerDAOimpl dao = new TestManagerDAOimpl();
         return dao.get(testManagerId);
     }
 
@@ -87,10 +81,8 @@ public class TestManagerService {
      * # Could return empty search result
      */
     public TestManager findTestManagerByCreatedTest(long testId) {
-//        CognitiveTestDAOimpl dao = new CognitiveTestDAOimpl();
         CognitiveTest test = testDao.get(testId);
         long managerId = test.getManager().getId();
-//        TestManagerDAOimpl managerDAO = new TestManagerDAOimpl();
         return dao.get(managerId);
     }
 
@@ -104,7 +96,6 @@ public class TestManagerService {
      * @return - All tests the test manager has created.
      */
     public List<CognitiveTest> findTestsForTestManager(long managerId) {
-//        CognitiveTestDAOimpl dao = new CognitiveTestDAOimpl();
         return testDao.getCognitiveTestOfManager(managerId);
     }
 

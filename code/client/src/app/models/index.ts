@@ -117,7 +117,7 @@ export interface Test {
     lastModified?: string,
     lastAnswered?: string,
     numberOfFiledCopies?: number,
-    blockList: Block[]
+    blockList?: Block[]
 
 }
 /* Manager properties */
