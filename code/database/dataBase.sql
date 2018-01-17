@@ -5,7 +5,6 @@ Fields:
 @id - the main key for the table
 @email - the name of the test manager.
 */
-//TODO: changed testManager to text, notice!
 CREATE TABLE testManager(id INTEGER PRIMARY KEY AUTO_INCREMENT,
   email text NOT NULL
 );
@@ -78,7 +77,6 @@ rating question, free text question, multiple choice question, drill down questi
 @project
 @block - a reference to the block in which the question is found
 */
-//TODO: changed answer to text, notice!
 CREATE TABLE testQuestion(id INTEGER PRIMARY KEY AUTO_INCREMENT,
   question text NOT NULL ,
   tag text ,

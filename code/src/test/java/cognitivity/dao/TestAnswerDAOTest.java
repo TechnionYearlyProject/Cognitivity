@@ -47,7 +47,7 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
     @Before
     public void initialize() {
         testManager =
-                new TestManager("onlyForTests TestManager", "notarealpassword");
+                new TestManager("onlyForTests TestManager notarealpassword");
         testManagerDAO.add(testManager);
         cognitiveTest =
                 new CognitiveTest("onlyForTests", testManager, 1, 0);
@@ -57,7 +57,7 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
         testQuestion = new TestQuestion("testQuestion", 0,
                 null, "testTag", testBlock, cognitiveTest, testManager, 0);
         testQuestionDAO.add(testQuestion);
-        testSubject = new TestSubject("testName", -1, "fireFox");
+        testSubject = new TestSubject("testName", "-1", "fireFox");
         testSubjectDAO.add(testSubject);
         testAnswer = new TestAnswer(testSubject, testQuestion,
                 cognitiveTest, 0, 0, 0,
@@ -115,7 +115,7 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
         assertTrue("problem with getting testAnswers for subject", answers.contains(testAnswer));
         assertTrue("problem with getting testAnswers for subject", answers.size() == 1);
 
-        TestSubject newTestSubject = new TestSubject("anotherName", -1, "fireFox");
+        TestSubject newTestSubject = new TestSubject("anotherName", "-1", "fireFox");
         testSubjectDAO.add(newTestSubject);
         testAnswer.setTestSubject(newTestSubject);
         testAnswer.setId(testAnswer.getId() + 1);
@@ -161,7 +161,7 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
         assertTrue(answers.contains(testAnswer));
         assertTrue(answers.size() == 1);
 
-        TestSubject newTestSubject = new TestSubject("anotherName", -1, "fireFox");
+        TestSubject newTestSubject = new TestSubject("anotherName", "-1", "fireFox");
         testSubjectDAO.add(newTestSubject);
         testAnswer.setTestSubject(newTestSubject);
         testAnswer.setId(testAnswer.getId() + 1);

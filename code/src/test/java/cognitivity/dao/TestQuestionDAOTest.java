@@ -35,7 +35,7 @@ public class TestQuestionDAOTest extends AbstractDaoTestClass {
     @Before
     public void initialize(){
         testManager =
-                new TestManager("onlyForTests TestManager", "notarealpassword");
+                new TestManager("onlyForTests TestManagernotarealpassword");
         testManagerDAO.add(testManager);
         CognitiveTest cognitiveTest =
                 new CognitiveTest("onlyForTests", testManager, 1, 0);
@@ -96,7 +96,7 @@ public class TestQuestionDAOTest extends AbstractDaoTestClass {
         assertTrue("testQuestion table should be empty",
                 testQuestionDAO.getTestQuestionsFromAManager(testManager).isEmpty());
         TestManager otherTestManager
-                = new TestManager("new TestManager", "notarealpassword");
+                = new TestManager("new TestManager notarealpassword");
         testManagerDAO.add(otherTestManager);
         testQuestion.setTestManager(otherTestManager);
         testQuestionDAO.add(testQuestion);

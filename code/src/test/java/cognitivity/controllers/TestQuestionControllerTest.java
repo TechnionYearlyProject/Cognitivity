@@ -69,8 +69,8 @@ public class TestQuestionControllerTest implements RestControllerTest {
     private TestQuestion mockTestQuestion() {
         return new TestQuestion() {
             @Override
-            public Integer getAnswer() {
-                return 1;
+            public String getAnswer() {
+                return "hey ophir";
             }
 
             @Override

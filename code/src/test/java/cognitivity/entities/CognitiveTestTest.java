@@ -13,7 +13,7 @@ public class CognitiveTestTest {
     private static Long testId = 10L;
 
     public static TestManager createTestManager() {
-        return new TestManager("onlyForTests", "asafds");
+        return new TestManager("onlyForTestsasafds");
     }
 
     public static CognitiveTest createCognitiveTest() {
@@ -38,7 +38,7 @@ public class CognitiveTestTest {
         // manager check
         assertTrue(cognitiveTest.getName().equals("newName"));
         assertTrue(cognitiveTest.getManager().getId().equals(managerId));
-        TestManager newTestManager = new TestManager("testStealer", "crackme");
+        TestManager newTestManager = new TestManager("testStealercrackme");
         newTestManager.setId(managerId + 1);
         cognitiveTest.setManager(newTestManager);
         assertTrue(cognitiveTest.getManager().getId().equals(managerId + 1));

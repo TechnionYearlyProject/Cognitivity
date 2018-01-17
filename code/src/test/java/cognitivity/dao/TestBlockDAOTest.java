@@ -32,7 +32,7 @@ public class TestBlockDAOTest extends AbstractDaoTestClass {
     @Before
     public void initialize(){
         TestManager testManager =
-                new TestManager("onlyForTests TestManager", "notarealpassword");
+                new TestManager("onlyForTests TestManager");
         testManagerDAO.add(testManager);
         CognitiveTest cognitiveTest = new CognitiveTest("onlyForTests", testManager, 0, 1);
         cognitiveTestDAO.add(cognitiveTest);

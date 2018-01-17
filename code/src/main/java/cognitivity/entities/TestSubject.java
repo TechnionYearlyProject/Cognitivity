@@ -17,12 +17,12 @@ public class TestSubject extends AbstractEntity {
     private String name;
 
     @Column(name = "ipAddress")
-    private Integer ipAddress;
+    private String ipAddress;
 
     @Column(name = "browser")
     private String browser;
 
-	public TestSubject(String name, Integer ipAddress, String browser) {
+	public TestSubject(String name, String ipAddress, String browser) {
 		this.name = name;
 		this.ipAddress = ipAddress;
 		this.browser = browser;
@@ -46,19 +46,11 @@ public class TestSubject extends AbstractEntity {
 		this.name = name;
 	}
 
-	/**
-	* Returns value of ipAddress
-	* @return
-	*/
-	public Integer getIpAddress() {
+	public String getIpAddress() {
 		return ipAddress;
 	}
 
-	/**
-	* Sets new value of ipAddress
-	* @param
-	*/
-	public void setIpAddress(Integer ipAddress) {
+	public void setIpAddress(String ipAddress) {
 		this.ipAddress = ipAddress;
 	}
 

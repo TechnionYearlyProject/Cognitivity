@@ -30,18 +30,18 @@ public class TestSubjectDAOTest extends AbstractDaoTestClass {
     public void initialize(){
         testSubject = new TestSubject[numOfSubjects];
         testAnswers = new TestAnswer[numOfSubjects][numOfAnswersPerSubject];
-        testManager = new TestManager("qertyt", "      ");
+        testManager = new TestManager("qertyt      ");
         testManagerDAO.add(testManager);
         cognitiveTest = new CognitiveTest("newTest", testManager,0,0);
         cognitiveTestDAO.add(cognitiveTest);
         testBlock = new TestBlock(0, true, "tag", cognitiveTest);
         testBlockDAO.add(testBlock);
 
-        TestQuestion testQuestion = new TestQuestion("bkabalba", 2,2,
+        TestQuestion testQuestion = new TestQuestion("bkabalba", 2,"5",
                 "thisIsMyTag", testBlock, cognitiveTest, testManager, 0);
         testQuestionDAO.add(testQuestion);
         for(int i = 0; i < numOfSubjects; i++){
-            testSubject[i] = new TestSubject("subject", 3 + i, "firefox");
+            testSubject[i] = new TestSubject("subject", "3 " + i, "firefox");
             testSubjectDAO.add(testSubject[i]);
             for(int j = 0; j < numOfAnswersPerSubject; j++){
                 testAnswers[i][j] = new TestAnswer(testSubject[i], testQuestion,
