@@ -21,7 +21,7 @@ import static org.mockito.Mockito.doReturn;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class},
-        locations = {"classpath:testApplicationContext.xml", "classpath:test-dispatcher-servlet.xml"})
+        locations = {"classpath:spring/test-context.xml", "classpath:spring/test-dispatcher-servlet.xml"})
 @SpringBootTest
 public class TestAnswerServiceTest {
 
@@ -84,10 +84,10 @@ public class TestAnswerServiceTest {
         TestBlock block = blockService.createTestBlock(1, false, "tagiity tag", test);
         TestSubject subject = new TestSubject("Rick", 12321, "Ahla dafdefan");
         TestQuestion question = new TestQuestion("Who the f&$# builds a stonehenge?", 4, 5,
-                "Questions we will never answer", block, test, manager);
+                "Questions we will never answer", block, test, manager, 0);
         questionService.createTestQuestion(question);
         TestQuestion question1 = new TestQuestion("Who ate my sandwich?", 4, 5,
-                "Questions we will never answer", block, test2, manager);
+                "Questions we will never answer", block, test2, manager, 0);
         questionService.createTestQuestion(question1);
 
         TestAnswer answer = new TestAnswer(subject, question, test, 2, 1, 1, 2,

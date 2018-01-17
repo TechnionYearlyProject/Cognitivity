@@ -47,6 +47,21 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
     }
 
     /**
+     * Method for finding id by email.
+     * <p>
+     * Params are as in TestManagerService.
+     *
+     * @return - test manager's id for the email received.
+     */
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.GET, value = "/findTestManagerIdByEmail")
+    public TestManager findTestManagerIdByEmail(
+            @RequestParam(value = "email") String email) {
+        return null;
+    }
+
+    /**
      * Method for updating test managers.
      * <p>
      * Params are as in TestManagerService.

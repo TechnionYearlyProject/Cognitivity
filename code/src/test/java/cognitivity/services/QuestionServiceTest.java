@@ -22,7 +22,7 @@ import static org.mockito.Mockito.doReturn;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class},
-        locations = {"classpath:testApplicationContext.xml", "classpath:test-dispatcher-servlet.xml"})
+        locations = {"classpath:spring/test-context.xml", "classpath:spring/test-dispatcher-servlet.xml"})
 @SpringBootTest
 public class QuestionServiceTest {
 
@@ -80,7 +80,7 @@ public class QuestionServiceTest {
         TestBlock block = blockService.createTestBlock(5, true, "Taggy tag", test);
 
 
-        TestQuestion start = new TestQuestion("What is the meaning of life?", 1, 42, "Unanswered questions", block, test, manager);
+        TestQuestion start = new TestQuestion("What is the meaning of life?", 1, 42, "Unanswered questions", block, test, manager, 0);
         TestQuestion question = service.createTestQuestion(start);
 
         assertNotNull("Problem with creating a test question", question);
@@ -102,11 +102,11 @@ public class QuestionServiceTest {
 
         TestBlock block2 = blockService.createTestBlock(2, true, "Togos", test);
 
-        TestQuestion question1 = new TestQuestion("Who moved my cheese?", 5, 52, "Critical for life", block, test, manager);
+        TestQuestion question1 = new TestQuestion("Who moved my cheese?", 5, 52, "Critical for life", block, test, manager, 0);
         service.createTestQuestion(question1);
-        TestQuestion question2 = new TestQuestion("Who framed Roger Rabbit?", 1, 54, "Movie questions", block2, test, manager);
+        TestQuestion question2 = new TestQuestion("Who framed Roger Rabbit?", 1, 54, "Movie questions", block2, test, manager, 0);
         service.createTestQuestion(question2);
-        TestQuestion question3 = new TestQuestion("Question! Question?", 1, 42, "What?! Who?!", block2, test, manager);
+        TestQuestion question3 = new TestQuestion("Question! Question?", 1, 42, "What?! Who?!", block2, test, manager, 0);
         service.createTestQuestion(question3);
 
         List<TestQuestion> questions = new ArrayList<>();
@@ -127,11 +127,11 @@ public class QuestionServiceTest {
         CognitiveTest cognitiveTest1 = new CognitiveTest("test1", manager, 1, 100);
         CognitiveTest test2 = testService.createTestForTestManager(cognitiveTest1);
 
-        TestQuestion question4 = new TestQuestion("Who moved my cheese?", 5, 52, "Critical for life", block, test2, manager);
+        TestQuestion question4 = new TestQuestion("Who moved my cheese?", 5, 52, "Critical for life", block, test2, manager, 0);
         service.createTestQuestion(question4);
-        TestQuestion question5 = new TestQuestion("Who framed Roger Rabbit?", 1, 54, "Movie questions", block2, test2, manager);
+        TestQuestion question5 = new TestQuestion("Who framed Roger Rabbit?", 1, 54, "Movie questions", block2, test2, manager, 0);
         service.createTestQuestion(question5);
-        TestQuestion question6 = new TestQuestion("Question! Question?", 1, 42, "What?! Who?!", block2, test2, manager);
+        TestQuestion question6 = new TestQuestion("Question! Question?", 1, 42, "What?! Who?!", block2, test2, manager, 0);
         service.createTestQuestion(question6);
         questions.add(question4);
         questions.add(question5);

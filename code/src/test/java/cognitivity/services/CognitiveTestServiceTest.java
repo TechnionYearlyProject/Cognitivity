@@ -26,7 +26,7 @@ import static org.mockito.Mockito.doReturn;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class},
-        locations = {"classpath:testApplicationContext.xml", "classpath:test-dispatcher-servlet.xml"})
+        locations = {"classpath:spring/test-context.xml", "classpath:spring/test-dispatcher-servlet.xml"})
 @SpringBootTest
 public class CognitiveTestServiceTest {
 
@@ -141,11 +141,11 @@ public class CognitiveTestServiceTest {
 
         QuestionService questionService = new QuestionService(qdao,adao,dao,mdao);
 
-        TestQuestion question1 = new TestQuestion("question1", 1, 5, "bla", block1, test, manager);
+        TestQuestion question1 = new TestQuestion("question1", 1, 5, "bla", block1, test, manager, 0);
         questionService.createTestQuestion(question1);
-        TestQuestion question2 = new TestQuestion("question2", 1, 5, "bla2", block2, test, manager);
+        TestQuestion question2 = new TestQuestion("question2", 1, 5, "bla2", block2, test, manager, 0);
         questionService.createTestQuestion(question2);
-        TestQuestion question3 = new TestQuestion("question3", 1, 5, "bla3", block3, test, manager);
+        TestQuestion question3 = new TestQuestion("question3", 1, 5, "bla3", block3, test, manager, 0);
         questionService.createTestQuestion(question3);
 
         List<TestQuestion> questions = new ArrayList<TestQuestion>();
