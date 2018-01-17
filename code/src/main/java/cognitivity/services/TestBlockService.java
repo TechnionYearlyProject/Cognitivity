@@ -46,7 +46,9 @@ public class TestBlockService {
      * @return - The Test block with the given ID.
      */
     public BlockWrapper findBlockById(long Id){
-        return new BlockWrapper(dao, dao.get(Id));
+
+        List<TestQuestion> questions = dao.getAllBlockQuestions(Id);
+        return new BlockWrapper(questions, dao.get(Id));
     }
 
     /**

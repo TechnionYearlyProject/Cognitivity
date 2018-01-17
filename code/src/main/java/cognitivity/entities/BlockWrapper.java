@@ -23,6 +23,14 @@ public class BlockWrapper extends TestBlock {
         super.setId(block.getId());
     }
 
+    public BlockWrapper(TestBlock block) {
+        super.setCognitiveTest(block.getCognitiveTest());
+        super.setNumberOfQuestions(block.getNumberOfQuestions());
+        super.setRandomize(block.getRandomize());
+        super.setTag(block.getTag());
+        super.setId(block.getId());
+    }
+
     public List<TestQuestion> getQuestions() {
         return questions;
     }

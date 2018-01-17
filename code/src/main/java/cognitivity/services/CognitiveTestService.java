@@ -35,7 +35,7 @@ public class CognitiveTestService {
      */
     public TestWrapper createTestForTestManager(CognitiveTest cognitiveTest) {
         dao.add(cognitiveTest);
-        return new TestWrapper(cognitiveTest,dao, blockDAO);
+        return new TestWrapper(cognitiveTest);
     }
 
     /**
@@ -68,7 +68,13 @@ public class CognitiveTestService {
      * @return - The test with the corresponding ID if it exists, null otherwise.
      */
     public TestWrapper findTestById(long testID) {
-        return new TestWrapper(dao.get(testID), dao, blockDAO);
+        List<BlockWrapper> blocks = new ArrayList<BlockWrapper>();
+        List<TestBlock> preWrapped = dao.getTestBlocks(testID);
+        for ( TestBlock block: preWrapped) {
+
+            blocks.add(new BlockWrapper(blockDAO.getAllBlockQuestions(block.getId()),block));
+        }
+        return new TestWrapper(dao.get(testID), blocks);
     }
 
     /**
@@ -81,7 +87,7 @@ public class CognitiveTestService {
         List<TestWrapper> tests = new ArrayList<TestWrapper>();
         List<CognitiveTest> preWrapped = dao.getCognitiveTestOfManager(managerId);
         for (CognitiveTest test : preWrapped){
-            tests.add(new TestWrapper(test,dao,blockDAO));
+            tests.add(findTestById(test.getId()));
         }
         return tests;
     }
@@ -97,7 +103,7 @@ public class CognitiveTestService {
         List<TestBlock> preWrapped = dao.getTestBlocks(testId);
         List<BlockWrapper> blocks = new ArrayList<BlockWrapper>();
         for (TestBlock block : preWrapped){
-            blocks.add(new BlockWrapper(blockDAO,block));
+            blocks.add(new BlockWrapper(blockDAO.getAllBlockQuestions(block.getId()),block));
         }
         return blocks;
     }
