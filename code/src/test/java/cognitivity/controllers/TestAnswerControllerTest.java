@@ -26,7 +26,6 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -169,7 +168,6 @@ public class TestAnswerControllerTest implements RestControllerTest {
         // findTestsForTestManager is a http GET request
         mockMvc.perform(get("/test-answers/findTestAnswersBySubjectId")
                 .param("subjectId", "12345"))
-                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$[0].numberOfClick", is(testAnswer.getNumberOfClick())))

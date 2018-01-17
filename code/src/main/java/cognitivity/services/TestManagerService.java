@@ -1,8 +1,7 @@
 package cognitivity.services;
 
-import cognitivity.dao.CognitiveTestDAOimpl;
-import cognitivity.dao.TestBlockDAOimpl;
-import cognitivity.dao.TestManagerDAOimpl;
+import cognitivity.dao.CognitiveTestDAO;
+import cognitivity.dao.TestManagerDAO;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +18,11 @@ import java.util.List;
 @Service
 public class TestManagerService {
 
-    private TestManagerDAOimpl dao;
-    private CognitiveTestDAOimpl testDao;
+    private TestManagerDAO dao;
+    private CognitiveTestDAO testDao;
 
     @Autowired
-    public TestManagerService(TestManagerDAOimpl dao, CognitiveTestDAOimpl testDao) {
+    public TestManagerService(TestManagerDAO dao, CognitiveTestDAO testDao) {
         this.dao = dao;
         this.testDao = testDao;
     }

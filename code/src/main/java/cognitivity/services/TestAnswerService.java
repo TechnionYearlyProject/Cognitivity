@@ -1,8 +1,7 @@
 package cognitivity.services;
 
-import cognitivity.dao.TestAnswerDAOimpl;
-import cognitivity.dao.TestQuestionDAOimpl;
-import cognitivity.dao.TestSubjectDAOimpl;
+import cognitivity.dao.TestAnswerDAO;
+import cognitivity.dao.TestSubjectDAO;
 import cognitivity.entities.TestAnswer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,11 +15,11 @@ import java.util.List;
 public class TestAnswerService {
 
 
-    private TestAnswerDAOimpl dao;
-    private TestSubjectDAOimpl subjectDao;
+    private TestAnswerDAO dao;
+    private TestSubjectDAO subjectDao;
 
     @Autowired
-    public TestAnswerService(TestAnswerDAOimpl dao, TestSubjectDAOimpl subjectDao) {
+    public TestAnswerService(TestAnswerDAO dao, TestSubjectDAO subjectDao) {
         this.dao = dao;
         this.subjectDao = subjectDao;
     }

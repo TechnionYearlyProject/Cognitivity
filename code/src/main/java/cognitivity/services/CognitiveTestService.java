@@ -1,6 +1,6 @@
 package cognitivity.services;
 
-import cognitivity.dao.CognitiveTestDAOimpl;
+import cognitivity.dao.CognitiveTestDAO;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestManager;
@@ -17,10 +17,10 @@ import java.util.List;
 @Service
 public class CognitiveTestService {
 
-    private CognitiveTestDAOimpl dao;
+    private CognitiveTestDAO dao;
 
     @Autowired
-    public CognitiveTestService(CognitiveTestDAOimpl dao) {
+    public CognitiveTestService(CognitiveTestDAO dao) {
         this.dao = dao;
     }
 
