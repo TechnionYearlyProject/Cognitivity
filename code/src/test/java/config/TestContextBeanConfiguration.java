@@ -44,11 +44,6 @@ public class TestContextBeanConfiguration {
     }
 
     @Bean
-    public EmailRegistrationService emailRegistrationService() {
-        return Mockito.mock(EmailRegistrationService.class);
-    }
-
-    @Bean
     public CognitiveTestDAO cognitiveTestDAO() {
         return Mockito.mock(CognitiveTestDAO.class);
     }
