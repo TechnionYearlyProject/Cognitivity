@@ -85,4 +85,5 @@ public class TestContextBeanConfiguration {
         TestSubjectDAOimpl mock = Mockito.mock(TestSubjectDAOimpl.class);
         return mock;
     }
+
 }

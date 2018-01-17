@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailRegistrationService{
 
-
     public Long findEmailId(String email) {
         return null;
     }
