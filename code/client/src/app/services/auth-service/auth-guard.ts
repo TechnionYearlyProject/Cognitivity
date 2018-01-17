@@ -34,9 +34,7 @@ export class LoginGuard implements CanActivate {
   ) {}
   canActivate() {
     return this.afAuth.authState.map(auth => {
-      if (!auth) {
-        this.authService.logout();
-      }
+      this.authService.logout();
       return true;
     })
   }
