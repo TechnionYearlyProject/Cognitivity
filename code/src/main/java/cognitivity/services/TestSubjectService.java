@@ -1,9 +1,12 @@
 package cognitivity.services;
 
+import cognitivity.dao.TestManagerDAOimpl;
+import cognitivity.dao.TestSubjectDAO;
 import cognitivity.dao.TestSubjectDAOimpl;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestAnswer;
 import cognitivity.entities.TestSubject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +20,13 @@ import java.util.List;
 @Service
 public class TestSubjectService {
 
+
+    private TestSubjectDAOimpl dao;
+
+    @Autowired
+    public TestSubjectService(TestSubjectDAOimpl dao) {
+        this.dao = dao;
+    }
     /**
      * Save a TestSubject.
      *
@@ -28,7 +38,7 @@ public class TestSubjectService {
      */
     public TestSubject createTestSubject(String name, Integer ipAddress, String browser) {
         TestSubject subject = new TestSubject(name,ipAddress,browser);
-        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
+//        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
         dao.add(subject);
         return subject;
     }
@@ -41,7 +51,7 @@ public class TestSubjectService {
      * This will be used in conjunction with the PUT HTTP method.
      * */
     public void updateTestSubject(TestSubject subject) {
-        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
+//        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
         dao.update(subject);
     }
 
@@ -53,7 +63,7 @@ public class TestSubjectService {
      * This will be used in conjunction with the DELETE HTTP method.
      * */
     public void deleteTestSubject(long testSubjectId) {
-        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
+//        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
         dao.delete(testSubjectId);
     }
 
@@ -65,7 +75,7 @@ public class TestSubjectService {
      * @return - the test subject found.
      */
     public TestSubject findTestSubject(long testSubjectId) {
-        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
+//        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
         return dao.get(testSubjectId);
     }
 
@@ -76,7 +86,7 @@ public class TestSubjectService {
      * @return - all the answers the test subject gave.
      */
     public List<TestAnswer> findAllTestSubjectAnswers(long subjectId){
-        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
+//        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
         return dao.getSubjectAnswers(subjectId);
     }
 
@@ -87,7 +97,7 @@ public class TestSubjectService {
      * @return - A list of the subjects who participated the test.
      */
     public List<TestSubject> findTestSubjectsWhoParticipatedInTest(long testId){
-        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
+//        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
         return dao.getTestSubjectsWhoParticipatedInTest(testId);
     }
 

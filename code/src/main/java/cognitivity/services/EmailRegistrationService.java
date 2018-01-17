@@ -6,7 +6,8 @@ import org.springframework.stereotype.Service;
  * Created by ophir on 16/01/18.
  */
 @Service
-public class EmailRegistrationService {
+public class EmailRegistrationService{
+
     public Long findEmailId(String email) {
         return null;
     }

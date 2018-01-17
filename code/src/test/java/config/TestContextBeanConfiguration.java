@@ -1,5 +1,8 @@
 package config;
 
+import cognitivity.dao.*;
+import cognitivity.entities.CognitiveTest;
+import cognitivity.entities.TestManager;
 import cognitivity.services.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mockito.Mockito;
@@ -45,5 +48,41 @@ public class TestContextBeanConfiguration {
     @Bean
     public EmailRegistrationService emailRegistrationService() {
         return Mockito.mock(EmailRegistrationService.class);
+    }
+
+    @Bean
+    public CognitiveTestDAOimpl cognitiveTestDAOimpl() {
+        CognitiveTestDAOimpl mock = Mockito.mock(CognitiveTestDAOimpl.class);
+        return mock;
+    }
+
+    @Bean
+    public TestQuestionDAOimpl testQuestionDAOimpl() {
+        TestQuestionDAOimpl mock = Mockito.mock(TestQuestionDAOimpl.class);
+        return mock;
+    }
+
+    @Bean
+    public TestAnswerDAOimpl testAnswerDAOimpl() {
+        TestAnswerDAOimpl mock = Mockito.mock(TestAnswerDAOimpl.class);
+        return mock;
+    }
+
+    @Bean
+    public TestBlockDAOimpl testBlockDAOimpl() {
+        TestBlockDAOimpl mock = Mockito.mock(TestBlockDAOimpl.class);
+        return mock;
+    }
+
+    @Bean
+    public TestManagerDAOimpl testManagerDAOimpl() {
+        TestManagerDAOimpl mock = Mockito.mock(TestManagerDAOimpl.class);
+        return mock;
+    }
+
+    @Bean
+    public TestSubjectDAOimpl testSubjectDAOimpl() {
+        TestSubjectDAOimpl mock = Mockito.mock(TestSubjectDAOimpl.class);
+        return mock;
     }
 }

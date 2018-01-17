@@ -1,25 +1,78 @@
 package cognitivity.services;
 
+import cognitivity.dao.*;
 import cognitivity.entities.*;
 import cognitivity.services.*;
+import config.TestContextBeanConfiguration;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {TestContextBeanConfiguration.class})
+@SpringBootTest
 public class QuestionServiceTest {
+
+    @Autowired
+    private TestQuestionDAOimpl dao;
+
+    @Autowired
+    private CognitiveTestDAOimpl tdao;
+
+    @Autowired
+    private TestManagerDAOimpl mdao;
+
+    @Autowired
+    private TestAnswerDAOimpl adao;
+
+    @Autowired
+    private TestSubjectDAOimpl sdao;
+
+
+    @Autowired
+    private TestBlockDAOimpl bdao;
+
+    @Before
+    public void setup() {
+
+        Mockito.reset(dao);
+        Mockito.reset(sdao);
+        Mockito.reset(adao);
+        Mockito.reset(tdao);
+        Mockito.reset(bdao);
+        Mockito.reset(mdao);
+
+    }
+
+    /*
+    For the sake of mocking:
+    question id - 1
+    test id - 2
+    manager id - 3
+     */
 
     /**
      * Testing all functionalities Question service
      */
     @Test
     public void fullTest(){
-        QuestionService service = new QuestionService();
-        TestBlockService blockService = new TestBlockService();
-        CognitiveTestService testService = new CognitiveTestService();
-        TestManagerService managerService = new TestManagerService();
+        QuestionService service = new QuestionService(dao,adao,tdao,mdao);
+        TestBlockService blockService = new TestBlockService(bdao);
+        CognitiveTestService testService = new CognitiveTestService(tdao);
+        TestManagerService managerService = new TestManagerService(mdao,tdao);
 
         TestManager manager = managerService.createTestManager("The bossy boss boss","Admin Admin");
         CognitiveTest test = testService.createTestForTestManager("teee",manager, 1, 100);
@@ -31,7 +84,8 @@ public class QuestionServiceTest {
 
         assertNotNull("Problem with creating a test question", question);
 
-        TestQuestion result = service.findQuestionById(question.getId());
+        doReturn(question).when(dao).get(Long.valueOf(1));
+        TestQuestion result = service.findQuestionById(1);
 
         assertEquals("Problem with getting a test question by ID", question,result);
 
@@ -39,7 +93,7 @@ public class QuestionServiceTest {
 
         service.updateTestQuestion(question);
 
-        result = service.findQuestionById(question.getId());
+        result = service.findQuestionById(1);
         int numericAnswer  = result.getAnswer();
 
         assertEquals("Problem with updating the question", 43, numericAnswer);
@@ -60,7 +114,8 @@ public class QuestionServiceTest {
         questions.add(question2);
         questions.add(question3);
 
-        List<TestQuestion> questions1 = service.findAllTestQuestionsFromTestId(test.getId());
+        doReturn(questions).when(tdao).getTestQuestions(2);
+        List<TestQuestion> questions1 = service.findAllTestQuestionsFromTestId(2);
         for (TestQuestion t : questions1){
             assertTrue("Getting unrelated results while trying to get all test questions",questions.contains(t));
         }
@@ -80,7 +135,8 @@ public class QuestionServiceTest {
         questions.add(question5);
         questions.add(question6);
 
-        questions1 = service.findAllTestQuestionsFromManagerId(manager.getId());
+        doReturn(questions).when(dao).getTestQuestionsFromAManager(any());
+        questions1 = service.findAllTestQuestionsFromManagerId(3);
         for (TestQuestion t : questions1){
             assertTrue("Getting unrelated results while trying to get all test questions from all tests",questions.contains(t));
         }
@@ -88,8 +144,8 @@ public class QuestionServiceTest {
             assertTrue("Didn't get all the questions from all the tests",questions1.contains(t));
         }
 
-        TestAnswerService answerService = new TestAnswerService();
-        TestSubjectService subjectService = new TestSubjectService();
+        TestAnswerService answerService = new TestAnswerService(adao,sdao);
+        TestSubjectService subjectService = new TestSubjectService(sdao);
         TestSubject subject = subjectService.createTestSubject("Timothy k miller",111,"Safchrome");
 
         TestAnswer answer = new TestAnswer(subject,question,test,52,43,2,3,"Bla is bla",true,52,
@@ -111,7 +167,8 @@ public class QuestionServiceTest {
         answers.add(answer2);
         answers.add(answer3);
 
-        List<TestAnswer> res = service.getTestAnswers(question.getId());
+        doReturn(answers).when(adao).getTestAnswers(1);
+        List<TestAnswer> res = service.getTestAnswers(1);
         for (TestAnswer t : res){
             assertTrue("Getting unrelated results while trying to get all the answers to the question",answers.contains(t));
         }
@@ -119,19 +176,19 @@ public class QuestionServiceTest {
             assertTrue("Didn't get all the question answers",res.contains(t));
         }
 
-        service.deleteTestQuestion(question.getId());
-        service.deleteTestQuestion(question1.getId());
-        service.deleteTestQuestion(question2.getId());
-        service.deleteTestQuestion(question3.getId());
-        service.deleteTestQuestion(question4.getId());
-        service.deleteTestQuestion(question5.getId());
-        service.deleteTestQuestion(question6.getId());
+        service.deleteTestQuestion(1);
+        service.deleteTestQuestion(4);
+        service.deleteTestQuestion(5);
+        service.deleteTestQuestion(6);
+        service.deleteTestQuestion(7);
+        service.deleteTestQuestion(8);
+        service.deleteTestQuestion(9);
 
-        managerService.deleteTestManager(manager.getId());;
+        managerService.deleteTestManager(2);
 
-        blockService.deleteTestBlock(block.getId());
+        blockService.deleteTestBlock(3);
 
-        testService.deleteTestForTestManager(test.getId());
+        testService.deleteTestForTestManager(10);
 
     }
 

@@ -1,8 +1,10 @@
 package cognitivity.services;
 
 import cognitivity.dao.TestAnswerDAOimpl;
+import cognitivity.dao.TestQuestionDAOimpl;
 import cognitivity.dao.TestSubjectDAOimpl;
 import cognitivity.entities.TestAnswer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +15,15 @@ import java.util.List;
 @Service
 public class TestAnswerService {
 
+
+    private TestAnswerDAOimpl dao;
+    private TestSubjectDAOimpl subjectDao;
+
+    @Autowired
+    public TestAnswerService(TestAnswerDAOimpl dao, TestSubjectDAOimpl subjectDao) {
+        this.dao = dao;
+        this.subjectDao = subjectDao;
+    }
 
     /*
     * @param testSubject         - The test subject who answered the test.
@@ -42,7 +53,7 @@ public class TestAnswerService {
                                                    Integer answerPlacement, String verbalAnswer, Boolean questionWithPicture,
                                                    Integer timeToAnswer, Boolean timeMeasured, Boolean timeShowed, Boolean testeeExit*/
                                                    TestAnswer answer) {
-        TestAnswerDAOimpl dao = new TestAnswerDAOimpl();
+//        TestAnswerDAOimpl dao = new TestAnswerDAOimpl();
         /*TestAnswer answer = new TestAnswer(testSubject, question, cognitiveTest, numberOfClick, finalAnswer, questionPlacement,
                 answerPlacement, verbalAnswer, questionWithPicture, timeToAnswer, timeMeasured, timeShowed, testeeExit);*/
         dao.add(answer);
@@ -57,7 +68,7 @@ public class TestAnswerService {
      *               This will be used in conjunction with the PUT HTTP method.
      */
     public void updateTestAnswerForQuestion(TestAnswer answer) {
-        TestAnswerDAOimpl dao = new TestAnswerDAOimpl();
+//        TestAnswerDAOimpl dao = new TestAnswerDAOimpl();
         dao.update(answer);
     }
 
@@ -69,7 +80,7 @@ public class TestAnswerService {
      *           This will be used in conjunction with the DELETE HTTP method.
      */
     public void deleteTestAnswerForQuestion(long id) {
-        TestAnswerDAOimpl dao = new TestAnswerDAOimpl();
+//        TestAnswerDAOimpl dao = new TestAnswerDAOimpl();
         dao.delete(id);
     }
 
@@ -81,7 +92,7 @@ public class TestAnswerService {
      *                   This will be used in conjunction with the DELETE HTTP method.
      */
     public void deleteAllTestAnswersForQuestion(long questionId) {
-        TestAnswerDAOimpl dao = new TestAnswerDAOimpl();
+//        TestAnswerDAOimpl dao = new TestAnswerDAOimpl();
         List<TestAnswer> answers = dao.getTestAnswers(questionId);
         for (TestAnswer answer : answers) {
             dao.delete(answer.getId());
@@ -95,7 +106,7 @@ public class TestAnswerService {
      * @return - Test answer with given id, null if it doesn't exist.
      */
     public TestAnswer findTestAnswerById(long answerId) {
-        TestAnswerDAOimpl dao = new TestAnswerDAOimpl();
+//        TestAnswerDAOimpl dao = new TestAnswerDAOimpl();
         return dao.get(answerId);
     }
 
@@ -106,8 +117,8 @@ public class TestAnswerService {
      * @return - All test answers that belong to the subject with the given id.
      */
     public List<TestAnswer> findTestAnswersBySubject(long subjectId) {
-        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
-        return dao.getSubjectAnswers(subjectId);
+//        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
+        return subjectDao.getSubjectAnswers(subjectId);
     }
 
     /**
@@ -118,7 +129,7 @@ public class TestAnswerService {
      * @return - All test answers that belong to the subject with the given id.
      */
     public List<TestAnswer> findTestAnswersBySubjectInTest(long subjectId, long testId) {
-        TestAnswerDAOimpl dao = new TestAnswerDAOimpl();
+//        TestAnswerDAOimpl dao = new TestAnswerDAOimpl();
         return dao.getTestSubjectAnswersInTest(subjectId, testId);
     }
 
@@ -129,7 +140,7 @@ public class TestAnswerService {
      * @return - A list of all the answers for the question.
      */
     public List<TestAnswer> findAllTestAnswerForAQuestion(long questionId) {
-        TestAnswerDAOimpl dao = new TestAnswerDAOimpl();
+//        TestAnswerDAOimpl dao = new TestAnswerDAOimpl();
         return dao.getTestAnswers(questionId);
     }
 }

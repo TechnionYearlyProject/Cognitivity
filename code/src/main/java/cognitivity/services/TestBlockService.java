@@ -1,8 +1,10 @@
 package cognitivity.services;
 
+import cognitivity.dao.TestAnswerDAOimpl;
 import cognitivity.dao.TestBlockDAOimpl;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,6 +16,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class TestBlockService {
 
+    private TestBlockDAOimpl dao;
+
+    @Autowired
+    public TestBlockService(TestBlockDAOimpl dao) {
+        this.dao = dao;
+    }
     /**
      * Build a test block, and add it to the DB.
      *
@@ -24,7 +32,7 @@ public class TestBlockService {
      * @return
      */
     public TestBlock createTestBlock(Integer numberOfQuestions, Boolean randomize, String tag, CognitiveTest test){
-        TestBlockDAOimpl dao = new TestBlockDAOimpl();
+//        TestBlockDAOimpl dao = new TestBlockDAOimpl();
         TestBlock res = new TestBlock(numberOfQuestions,randomize,tag,test);
         dao.add(res);
         return res;
@@ -36,7 +44,7 @@ public class TestBlockService {
      * @return - The Test block with the given ID.
      */
     public TestBlock findBlockById(long Id){
-        TestBlockDAOimpl dao = new TestBlockDAOimpl();
+//        TestBlockDAOimpl dao = new TestBlockDAOimpl();
         return dao.get(Id);
     }
 
@@ -46,7 +54,7 @@ public class TestBlockService {
      * @param block - The block that needs to be updated.
      */
     public void updateTestBlock(TestBlock block){
-        TestBlockDAOimpl dao = new TestBlockDAOimpl();
+//        TestBlockDAOimpl dao = new TestBlockDAOimpl();
         dao.update(block);
     }
 
@@ -56,7 +64,7 @@ public class TestBlockService {
      * @param blockId - the block Id we want to delete.
      */
     public void deleteTestBlock(long blockId){
-        TestBlockDAOimpl dao = new TestBlockDAOimpl();
+//        TestBlockDAOimpl dao = new TestBlockDAOimpl();
         dao.delete(blockId);
     }
 }

@@ -1,27 +1,81 @@
 package cognitivity.services;
 
+import cognitivity.dao.*;
 import cognitivity.entities.*;
+import config.TestContextBeanConfiguration;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {TestContextBeanConfiguration.class})
+@SpringBootTest
 public class TestAnswerServiceTest {
+
+    @Autowired
+    private TestAnswerDAOimpl dao;
+
+    @Autowired
+    private TestBlockDAOimpl bdao;
+
+    @Autowired
+    private TestQuestionDAOimpl qdao;
+
+    @Autowired
+    private CognitiveTestDAOimpl tdao;
+
+    @Autowired
+    private TestManagerDAOimpl mdao;
+
+    @Autowired
+    private TestAnswerDAOimpl adao;
+
+    @Autowired
+    private TestSubjectDAOimpl sdao;
+
+
+    @Before
+    public void setup() {
+
+        Mockito.reset(dao);
+        Mockito.reset(bdao);
+        Mockito.reset(sdao);
+        Mockito.reset(adao);
+        Mockito.reset(tdao);
+        Mockito.reset(qdao);
+        Mockito.reset(mdao);
+
+    }
 
     /**
      * Testing all functionalities of TestAnswerService
      */
+    /*
+    For the sake of mocking:
+    answerd id - 1
+    subject - 2
+    test - 3
+     */
     @Test
     public void FullTest() {
-        QuestionService questionService = new QuestionService();
-        TestBlockService blockService = new TestBlockService();
-        CognitiveTestService testService = new CognitiveTestService();
-        TestManagerService managerService = new TestManagerService();
-        TestSubjectService subjectService = new TestSubjectService();
-        TestAnswerService service = new TestAnswerService();
+        QuestionService questionService = new QuestionService(qdao,dao,tdao,mdao);
+        TestBlockService blockService = new TestBlockService(bdao);
+        CognitiveTestService testService = new CognitiveTestService(tdao);
+        TestManagerService managerService = new TestManagerService(mdao,tdao);
+        TestSubjectService subjectService = new TestSubjectService(sdao);
+        TestAnswerService service = new TestAnswerService(dao,sdao);
 
         TestManager manager = managerService.createTestManager("Bohen Ben Mivhan", "Paswordd");
         CognitiveTest test = testService.createTestForTestManager("Sifratiyot", manager, 2, 1);
@@ -41,14 +95,15 @@ public class TestAnswerServiceTest {
 
         assertNotNull("Problem with creating a test answer", answer);
 
-        TestAnswer result = service.findTestAnswerById(answer.getId());
+        doReturn(answer).when(dao).get(Long.valueOf(1));
+        TestAnswer result = service.findTestAnswerById(1);
 
         assertEquals("Problem with getting an answer by Id", result, answer);
 
         answer.setNumberOfClick(5);
         service.updateTestAnswerForQuestion(answer);
 
-        result = service.findTestAnswerById(answer.getId());
+        result = service.findTestAnswerById(1);
         int numericResult = result.getNumberOfClick();
         assertEquals("Problem with updating a question", 5, numericResult);
 
@@ -69,7 +124,8 @@ public class TestAnswerServiceTest {
         answers.add(answer2);
         answers.add(answer1);
 
-        List<TestAnswer> answerList = service.findAllTestAnswerForAQuestion(question.getId());
+        doReturn(answers).when(dao).getTestAnswers(1);
+        List<TestAnswer> answerList = service.findAllTestAnswerForAQuestion(1);
         for (TestAnswer t : answerList) {
             assertTrue("Getting unrelated answers while trying to get all answers for a specific question", answers.contains(t));
         }
@@ -88,7 +144,8 @@ public class TestAnswerServiceTest {
         service.addTestAnswerForTestQuestion(answer6);
 
 
-        answerList = service.findTestAnswersBySubjectInTest(subject.getId(), test.getId());
+        doReturn(answers).when(dao).getTestSubjectAnswersInTest(2,3);
+        answerList = service.findTestAnswersBySubjectInTest(2, 3);
         for (TestAnswer t : answerList) {
             assertTrue("Getting unrelated answers while trying to get all answers for a specific test", answers.contains(t));
         }
@@ -99,7 +156,8 @@ public class TestAnswerServiceTest {
         answers.add(answer5);
         answers.add(answer6);
 
-        answerList = service.findTestAnswersBySubject(subject.getId());
+        doReturn(answers).when(sdao).getSubjectAnswers(2);
+        answerList = service.findTestAnswersBySubject(2);
         for (TestAnswer t : answerList) {
             assertTrue("Getting unrelated answers while trying to get all answers from a certain subject", answers.contains(t));
         }
@@ -107,18 +165,20 @@ public class TestAnswerServiceTest {
             assertTrue("Didn't get all the answers for a specific subject", answerList.contains(t));
         }
 
+        service.deleteTestAnswerForQuestion(1);
 
-        service.deleteAllTestAnswersForQuestion(question1.getId());
-        service.deleteAllTestAnswersForQuestion(question.getId());
+        service.deleteAllTestAnswersForQuestion(1);
+        service.deleteAllTestAnswersForQuestion(4);
+        service.deleteAllTestAnswersForQuestion(5);
 
-        managerService.deleteTestManager(manager.getId());
+        managerService.deleteTestManager(6);
 
-        testService.deleteTestForTestManager(test.getId());
-        testService.deleteTestForTestManager(test2.getId());
+        testService.deleteTestForTestManager(7);
+        testService.deleteTestForTestManager(8);
 
-        blockService.deleteTestBlock(block.getId());
+        blockService.deleteTestBlock(9);
 
-        subjectService.deleteTestSubject(subject.getId());
+        subjectService.deleteTestSubject(2);
     }
 
 
