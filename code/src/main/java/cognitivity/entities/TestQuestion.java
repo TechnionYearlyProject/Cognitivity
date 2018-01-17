@@ -112,25 +112,6 @@ public class TestQuestion extends AbstractEntity {
 		this.questionType = questionType;
 	}
 
-<<<<<<< HEAD
-=======
-	/**
-	* Returns value of answer
-	* @return
-	*/
-	public String getAnswer() {
-		return answer;
-	}
-
-	/**
-	* Sets new value of answer
-	* @param
-	*/
-	public void setAnswer(String answer) {
-		this.answer = answer;
-	}
-
->>>>>>> 95da11194543c5cc4b0bd0a4a00f599b3939cc23
 	public TestBlock getBlock() {
 		return block;
 	}
