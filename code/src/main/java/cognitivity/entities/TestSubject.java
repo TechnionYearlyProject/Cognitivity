@@ -46,10 +46,24 @@ public class TestSubject extends AbstractEntity {
 		this.name = name;
 	}
 
+<<<<<<< HEAD
+=======
+	/**
+	* Returns value of ipAddress
+	* @return
+	*/
+>>>>>>> 95da11194543c5cc4b0bd0a4a00f599b3939cc23
 	public String getIpAddress() {
 		return ipAddress;
 	}
 
+<<<<<<< HEAD
+=======
+	/**
+	* Sets new value of ipAddress
+	* @param
+	*/
+>>>>>>> 95da11194543c5cc4b0bd0a4a00f599b3939cc23
 	public void setIpAddress(String ipAddress) {
 		this.ipAddress = ipAddress;
 	}
