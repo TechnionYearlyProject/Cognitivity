@@ -1,6 +1,5 @@
 package cognitivity.entities;
 
-import cognitivity.dao.CognitiveTestDAO;
 import cognitivity.dao.TestBlockDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,12 +13,12 @@ public class BlockWrapper extends TestBlock {
 
     private List<TestQuestion> questions;
 
-    public BlockWrapper(Integer numberOfQuestions, Boolean randomize, String tag, CognitiveTest test){
+    public BlockWrapper(Integer numberOfQuestions, Boolean randomize, String tag, CognitiveTest test) {
         super(numberOfQuestions, randomize, tag, test);
     }
 
     @Autowired
-    public BlockWrapper(TestBlockDAO dao, TestBlock block){
+    public BlockWrapper(TestBlockDAO dao, TestBlock block) {
         questions = dao.getAllBlockQuestions(this.getId());
         super.setCognitiveTest(block.getCognitiveTest());
         super.setNumberOfQuestions(block.getNumberOfQuestions());
