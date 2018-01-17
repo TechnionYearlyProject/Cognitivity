@@ -17,9 +17,8 @@ public class BlockWrapper extends TestBlock {
         super(numberOfQuestions, randomize, tag, test);
     }
 
-    @Autowired
-    public BlockWrapper(TestBlockDAO dao, TestBlock block) {
-        questions = dao.getAllBlockQuestions(this.getId());
+    public BlockWrapper(List<TestQuestion> questions, TestBlock block) {
+        this.questions = questions;
         super.setCognitiveTest(block.getCognitiveTest());
         super.setNumberOfQuestions(block.getNumberOfQuestions());
         super.setRandomize(block.getRandomize());
