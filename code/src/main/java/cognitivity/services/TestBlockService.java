@@ -1,7 +1,6 @@
 package cognitivity.services;
 
-import cognitivity.dao.TestAnswerDAOimpl;
-import cognitivity.dao.TestBlockDAOimpl;
+import cognitivity.dao.TestBlockDAO;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +15,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class TestBlockService {
 
-    private TestBlockDAOimpl dao;
+    private TestBlockDAO dao;
 
     @Autowired
-    public TestBlockService(TestBlockDAOimpl dao) {
+    public TestBlockService(TestBlockDAO dao) {
         this.dao = dao;
     }
     /**

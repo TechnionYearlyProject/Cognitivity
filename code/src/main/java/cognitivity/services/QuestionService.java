@@ -1,10 +1,9 @@
 package cognitivity.services;
 
-import cognitivity.dao.CognitiveTestDAOimpl;
-import cognitivity.dao.TestAnswerDAOimpl;
-import cognitivity.dao.TestManagerDAOimpl;
-import cognitivity.dao.TestQuestionDAOimpl;
-import cognitivity.entities.CognitiveTest;
+import cognitivity.dao.CognitiveTestDAO;
+import cognitivity.dao.TestAnswerDAO;
+import cognitivity.dao.TestManagerDAO;
+import cognitivity.dao.TestQuestionDAO;
 import cognitivity.entities.TestAnswer;
 import cognitivity.entities.TestManager;
 import cognitivity.entities.TestQuestion;
@@ -19,13 +18,13 @@ import java.util.List;
 
 @Service
 public class QuestionService {
-    private TestQuestionDAOimpl dao;
-    private TestAnswerDAOimpl answerDao;
-    private CognitiveTestDAOimpl testDao;
-    private TestManagerDAOimpl managerDao;
+    private TestQuestionDAO dao;
+    private TestAnswerDAO answerDao;
+    private CognitiveTestDAO testDao;
+    private TestManagerDAO managerDao;
 
     @Autowired
-    public QuestionService(TestQuestionDAOimpl dao, TestAnswerDAOimpl answerDao, CognitiveTestDAOimpl testDao, TestManagerDAOimpl managerDao) {
+    public QuestionService(TestQuestionDAO dao, TestAnswerDAO answerDao, CognitiveTestDAO testDao, TestManagerDAO managerDao) {
         this.dao = dao;
         this.answerDao = answerDao;
         this.testDao = testDao;
@@ -43,7 +42,6 @@ public class QuestionService {
 
     /**
      * Save a TestQuestion.
-     *
      *
      * @param q - the question to be saved
      * @return - The saved TestQuestion.

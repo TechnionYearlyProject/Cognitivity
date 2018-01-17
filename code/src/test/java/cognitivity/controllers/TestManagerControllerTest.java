@@ -24,7 +24,6 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -86,7 +85,6 @@ public class TestManagerControllerTest implements RestControllerTest {
                 .param("testManagerId", "12345")
                 .param("testId", "1234"))
                 .andExpect(status().isOk())
-                .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.name", is(testManager.getName())))
                 .andExpect(jsonPath("$.password", is(testManager.getPassword())));
@@ -103,7 +101,6 @@ public class TestManagerControllerTest implements RestControllerTest {
         mockMvc.perform(get("/test-managers/findTestManagersForTestCriteria")
                 .param("testManagerId", "12345")
                 .param("testId", "-1"))
-                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.name", is(testManager.getName())))
