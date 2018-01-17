@@ -1,10 +1,10 @@
-<div class="card w-75" style="background-color:transparent">
-  <div class="card-body">
+<div class="card w-100" style="width: 100%;">
+  <div class="card-body" style="background-color:transparent">
     <div id="blockBody" data-children=".item">
       <div class="card-header" role="tab" id="headingOne">
         <div class="item">
           <button type="button" class="btn btn-outline-primary btn-lg  btn-block" (click)="toggleHidden()">
-            Block {{blockNumber}}
+            Block {{blockNumber + 1 }}
           </button>
         </div>
         <div class="collapse show" role="tabpanel" [hidden]="hidden">
@@ -17,7 +17,7 @@
               <button class="btn btn-sm btn-secondary" (click)="editQuestion(i)"><span class="fa fa-cog"></span>Edit question</button>
               <button class="btn btn-sm btn-secondary" (click)="deleteQuestion(i)"><span class="fa fa-trash"></span>Delete question</button>
               <br>
-              <app-question [myData]="currQuestion"></app-question>
+              <app-question [myData]="currQuestion" [index] = "i"></app-question>
               <br>
         </div>
         <br>
@@ -35,3 +35,4 @@
       </div>
     </div>
   </div>
+</div>
