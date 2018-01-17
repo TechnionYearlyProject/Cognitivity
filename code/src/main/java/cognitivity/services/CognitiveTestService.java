@@ -75,7 +75,6 @@ public class CognitiveTestService {
         List<BlockWrapper> blocks = new ArrayList<BlockWrapper>();
         List<TestBlock> preWrapped = dao.getTestBlocks(testID);
         for ( TestBlock block: preWrapped) {
-
             blocks.add(new BlockWrapper(blockDAO.getAllBlockQuestions(block.getId()),block));
         }
         return new TestWrapper(dao.get(testID), blocks);

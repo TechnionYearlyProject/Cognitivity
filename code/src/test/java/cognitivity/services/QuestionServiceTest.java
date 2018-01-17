@@ -94,7 +94,7 @@ public class QuestionServiceTest {
         result = service.findQuestionById(1);
         String numericAnswer = result.getAnswer();
 
-        assertEquals("Problem with updating the question", 43, numericAnswer);
+        assertEquals("Problem with updating the question", "Now there is!", numericAnswer);
 
 
         TestBlock block2 = blockService.createTestBlock(2, true, "Togos", test);

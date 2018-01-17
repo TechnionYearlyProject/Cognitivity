@@ -50,33 +50,42 @@ public class TestManagerServiceTest {
     For the sake of mocking:
     manager Id -1
     test Id - 2
+    mockManager - 4
+    mockTest - 5
      */
     @Test
     public void FullTest(){
         TestManagerService service = new TestManagerService(dao,tdao);
         CognitiveTestService testService = new CognitiveTestService(tdao, bdao);
 
-        TestManager manager = new TestManager("Safafafa");
-
-        CognitiveTest test = new CognitiveTest("test1", manager, 1, 0);
+        TestManager m = new TestManager("Safafafa");
+        TestManager manager = service.createTestManager(m);
 
         assertNotNull("Problem with creating a test manager", manager);
+
+        CognitiveTest test = new CognitiveTest("test1", manager, 1, 0);
 
         doReturn(manager).when(dao).get(Long.valueOf(1));
         TestManager result = service.findTestManager(1);
 
         assertEquals("Problem with finding a test manager", result,manager);
 
-//        manager.setName("Avrasha Masait");
+        manager.setEmail("Avrasha Masait");
 
         service.updateTestManager(manager);
             result = service.findTestManager(1);
 
-//        assertEquals("Problem with updating a test manager", "Avrasha Masait",result.getName());
+        assertEquals("Problem with updating a test manager", "Avrasha Masait",result.getEmail());
 
-//        doReturn(manager).when(dao).get(any());
-//        result = service.findTestManagerByCreatedTest(2);
-//        assertEquals("Problem with finding a manager by a test", result,manager);
+        TestManager mockManager = new TestManager("Mi Micha");
+        mockManager.setId(4L);
+        CognitiveTest mockTest = new CognitiveTest();
+        mockTest.setManager(mockManager);
+        mockTest.setId(5L);
+        doReturn(mockTest).when(tdao).get(2L);
+        doReturn(manager).when(dao).get(4L);
+        result = service.findTestManagerByCreatedTest(2);
+        assertEquals("Problem with finding a manager by a test", result,manager);
 
 
         CognitiveTest test1 = new CognitiveTest("test13", manager, 1, 0);
