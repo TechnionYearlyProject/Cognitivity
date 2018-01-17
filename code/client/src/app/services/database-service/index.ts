@@ -16,10 +16,10 @@ export class TestManagerService {
         return Promise.reject(error.message || error);
     }
 
-    saveTestManager(managerName: string, pass: string): Promise<Manager> {
-        return this.http.post(`http://localhost:8181${this.base_mapping}/saveTestManager`, JSON.stringify({'name': managerName, 'password': pass}),{headers: this.headers})
+    saveTestManager(email: string): Promise<void> {
+        return this.http.post(`http://localhost:8181${this.base_mapping}/saveTestManager`, JSON.stringify({'email': email}),{headers: this.headers})
         .toPromise()
-        .then(res => res.json() as Manager) //not so sure about this line, may need to change it
+        .then(() => null) //not so sure about this line, may need to change it
         .catch(this.handleError);
     }
 
@@ -28,6 +28,13 @@ export class TestManagerService {
         .toPromise()
         .then(res => res.json() as Manager)
         .catch(this.handleError);
+    }
+
+    getManagerId(email: string): Promise<string> {
+        return this.http.get(`http://localhost:8181${this.base_mapping}/getManagerId?email=${email}`)
+        .toPromise()
+        .then(res => res.json().id)
+        .catch(this.handleError)
     }
 
     deleteTestManager(id: number): Promise<void> {
@@ -53,7 +60,7 @@ export class TestService {
         return this.http.get(`http://localhost:8181${this.base_mapping}/findTestsForTestManager?managerId=${managerId}`)
         .toPromise()
         .then(response => response.json() as Test[])
-        .catch(this.handleError)
+        .catch(() => null)
     }
     saveCognitiveTest(name: string, managerId: number, state: number, numberOfQuestions: number, blockList: Block[]): Promise<void> {
         var test: Test = {
@@ -83,6 +90,19 @@ export class TestService {
         .toPromise()
         .then(res => res.json() as Test)
         .catch(this.handleError)
+    }
+
+    async findTestForManagerAndTestId(managerId: string, testId: number): Promise<Test> {
+        let tests = await this.findTestsForTestManager(managerId);
+        if (tests == null) {
+            return null;
+        }
+        for (let test of tests) {
+            if (test.id == testId) {
+                return test;
+            }
+        }
+        return null;
     }
     private handleError(error: any): Promise<any> {
         console.error('Error', error); // for demo purposes only

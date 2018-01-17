@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Block } from '../../models/index';
+import { Block, Test } from '../../models/index';
 import { BlockComponent } from '../block/block.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { QuestionListComponent } from '../block/question-list/question-list.component';
 import { SessionService } from '../../services/session-service/index';
+import { TestService, TestManagerService } from '../../services/database-service/index';
+import { AuthService } from '../../services/auth-service/index';
 @Component({
   selector: 'app-edit-test',
   templateUrl: './edit-test.component.html',
@@ -13,10 +15,19 @@ import { SessionService } from '../../services/session-service/index';
 export class EditTestComponent implements OnInit {
 
   blockList:BlockComponent[]=new Array();
+  test: Test;
 
 
 
-  constructor(private router:Router,private dialog:MatDialog,public questionDataService:SessionService) { 
+  constructor(
+    private router:Router,
+    private route: ActivatedRoute,
+    private dialog:MatDialog,
+    public questionDataService:SessionService,
+    private testService: TestService, 
+    private authService: AuthService,
+    private managerService: TestManagerService
+  ) { 
     this.blockList[0]=new BlockComponent(this.dialog,this.router,this.questionDataService);
     this.blockList[0].blockNumber=0;
 
@@ -24,15 +35,20 @@ export class EditTestComponent implements OnInit {
     this.blockList[1].blockNumber=1;
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    let user = this.authService.getCurrentManager();
+    let managerId = await this.managerService.getManagerId(user.email);
+    managerId = '1';
+    let testId = this.route.snapshot.params['testId'];
+    this.test = await this.testService.findTestForManagerAndTestId(managerId,parseInt(testId));
+    console.log(this.test);
   }
 
   addBlock(){
     console.log(this.blockList);
     let newIndex=this.blockList.length;
     this.blockList[newIndex]=new BlockComponent(this.dialog,this.router,this.questionDataService);
-    this.blockList[newIndex].blockNumber=newIndex;
-    //this.router.navigate(['edit-test']);
+    this.router.navigate(['edit-test']);
     console.log(this.blockList);  
   }
 
