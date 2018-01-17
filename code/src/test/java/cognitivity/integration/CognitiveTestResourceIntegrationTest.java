@@ -3,6 +3,7 @@ package cognitivity.integration;
 import cognitivity.controllers.CognitiveTestController;
 import config.IntegrationTestContextConfiguration;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,7 +33,15 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
                 .baseUrl(baseUrl)
                 .build();
 
-        System.out.println("----------------------");
+    }
+
+    @Test
+    public void testSaveCognitiveTest() {
+        /*CognitiveTest cognitiveTest = createCognitiveTest();
+                client.post().uri("tests/saveCognitiveTest")
+                .body()
+                .contentType(APPLICATION_JSON_UTF8)
+                .conte*/
     }
 
 }

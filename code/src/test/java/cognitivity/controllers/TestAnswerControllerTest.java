@@ -32,7 +32,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Created by ophir on 19/12/17.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestContextBeanConfiguration.class})
+@ContextConfiguration(classes = {TestContextBeanConfiguration.class},
+        locations = {"classpath:applicationContext.xml", "classpath:dispatcher-servlet.xml"})
 @WebAppConfiguration
 @SpringBootTest
 public class TestAnswerControllerTest implements RestControllerTest {

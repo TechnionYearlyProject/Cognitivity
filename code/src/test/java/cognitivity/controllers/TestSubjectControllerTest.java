@@ -32,7 +32,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Created by ophir on 19/12/17.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestContextBeanConfiguration.class})
+@ContextConfiguration(classes = {TestContextBeanConfiguration.class},
+        locations = {"classpath:applicationContext.xml", "classpath:dispatcher-servlet.xml"})
 @WebAppConfiguration
 @SpringBootTest
 public class TestSubjectControllerTest implements RestControllerTest {
@@ -121,15 +122,15 @@ public class TestSubjectControllerTest implements RestControllerTest {
 
     @Test
     public void saveTestSubjectCallsServiceWithCorrectParams() throws Exception {
+        TestSubject testSubject = new TestSubject("name", 123, "firefox");
         // saveTestSubject is a http POST request
         mockMvc.perform(post("/test-subjects/saveTestSubject")
-                .param("name", "name")
-                .param("ip", "123")
-                .param("browser", "firefox"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsBytes(testSubject)))
                 .andExpect(status().isOk());
 
         // todo : this will probably fail because the jackson factory will build a new object. Should maybe update equal methods?
-        Mockito.verify(testSubjectService, times(1)).createTestSubject("name", 123, "firefox");
+        Mockito.verify(testSubjectService, times(1)).createTestSubject(testSubject);
         Mockito.verifyNoMoreInteractions(testSubjectService);
     }
 

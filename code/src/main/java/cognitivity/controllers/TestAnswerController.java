@@ -90,12 +90,12 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
      * <p>
      * Params are as in TestAnswerService.
      */
+    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/saveTestAnswer")
-    public void saveTestAnswer(
+    public TestAnswer saveTestAnswer(
             @RequestBody TestAnswer testAnswer) {
-        // Todo : need to fix this - only pass TestAnswer to service
-        service.addTestAnswerForTestQuestion(testAnswer);
+        return service.addTestAnswerForTestQuestion(testAnswer);
     }
 
     /**

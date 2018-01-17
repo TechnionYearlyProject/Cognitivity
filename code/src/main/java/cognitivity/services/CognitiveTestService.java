@@ -3,7 +3,6 @@ package cognitivity.services;
 import cognitivity.dao.CognitiveTestDAO;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
-import cognitivity.entities.TestManager;
 import cognitivity.entities.TestQuestion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,17 +27,12 @@ public class CognitiveTestService {
     /**
      * Create a cognitive test, and save it in the DB.
      *
-     * @param name              - The name of the test.
-     * @param manager           - The manager of the test.
-     * @param state             - The state of the test.
-     * @param numberOfQuestions - The number of questions in the test.
+     * @param cognitiveTest     - The cognitive test to be created
      * @return
      */
-    public CognitiveTest createTestForTestManager(String name, TestManager manager, Integer state, Integer numberOfQuestions) {
-        //CognitiveTestDAOimpl dao = new CognitiveTestDAOimpl();
-        CognitiveTest t = new CognitiveTest(name, manager, state, numberOfQuestions);
-        dao.add(t);
-        return t;
+    public CognitiveTest createTestForTestManager(CognitiveTest cognitiveTest) {
+        dao.add(cognitiveTest);
+        return cognitiveTest;
     }
 
     /**
@@ -49,7 +43,6 @@ public class CognitiveTestService {
      *             This will be used in conjunction with the PUT HTTP method.
      */
     public void updateTestForTestManager(CognitiveTest test) {
-        //CognitiveTestDAOimpl dao = new CognitiveTestDAOimpl();
         dao.update(test);
     }
 
@@ -61,7 +54,6 @@ public class CognitiveTestService {
      *               This will be used in conjunction with the DELETE HTTP method.
      */
     public void deleteTestForTestManager(long testID) {
-       // CognitiveTestDAOimpl dao = new CognitiveTestDAOimpl();
         dao.delete(testID);
     }
 
@@ -73,7 +65,6 @@ public class CognitiveTestService {
      * @return - The test with the corresponding ID if it exists, null otherwise.
      */
     public CognitiveTest findTestById(long testID) {
-        //CognitiveTestDAOimpl dao = new CognitiveTestDAOimpl();
         return dao.get(testID);
     }
 
@@ -84,8 +75,6 @@ public class CognitiveTestService {
      * @return - The test the test manager has created with the given id.
      */
     public List<CognitiveTest> findTestsForTestManager(long managerId) {
-        //CognitiveTestDAOimpl dao = new CognitiveTestDAOimpl();
-        System.out.println("got here bitch is dao null? " + (dao == null));
         return dao.getCognitiveTestOfManager(managerId);
     }
 
@@ -97,7 +86,6 @@ public class CognitiveTestService {
      * @return a list of all of the blocks in the test.
      */
     public List<TestBlock> getTestBlocksForTest(long testId) {
-        //CognitiveTestDAOimpl dao = new CognitiveTestDAOimpl();
         return dao.getTestBlocks(testId);
     }
 
@@ -108,7 +96,6 @@ public class CognitiveTestService {
      * @return - All questions the test has.
      */
     public List<TestQuestion> getTestQuestionsForTest(long testId) {
-        //CognitiveTestDAOimpl dao = new CognitiveTestDAOimpl();
         return dao.getTestQuestions(testId);
     }
 
