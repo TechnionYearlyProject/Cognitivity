@@ -45,20 +45,34 @@ public class TestQuestion extends AbstractEntity {
 	@JoinColumn(name = "testManagerId")
 	private TestManager testManager;
 
-	public TestQuestion(String question, Integer questionType, Integer answer, String tag,
-						TestBlock block, CognitiveTest cognitiveTest, TestManager testManager) {
-		this.question = question;
-		this.questionType = questionType;
-		this.answer = answer;
-		this.tag = tag;
-		this.block = block;
-		this.cognitiveTest = cognitiveTest;
-		this.testManager = testManager;
-	}
+	@Column(name = "questionPosition")
+	private Integer questionPosition;
 
-	public TestQuestion() {}
+    public TestQuestion(String question, Integer questionType,
+                        Integer answer, String tag, TestBlock block,
+                        CognitiveTest cognitiveTest, TestManager testManager,
+                        Integer questionPosition) {
+        this.question = question;
+        this.questionType = questionType;
+        this.answer = answer;
+        this.tag = tag;
+        this.block = block;
+        this.cognitiveTest = cognitiveTest;
+        this.testManager = testManager;
+        this.questionPosition = questionPosition;
+    }
 
-	/**
+    public TestQuestion() {}
+
+    public Integer getQuestionPosition() {
+        return questionPosition;
+    }
+
+    public void setQuestionPosition(Integer questionPosition) {
+        this.questionPosition = questionPosition;
+    }
+
+    /**
 	* Returns value of question
 	* @return
 	*/
