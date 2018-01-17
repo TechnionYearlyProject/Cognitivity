@@ -17,7 +17,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 @Configuration
 @ComponentScan(value = "cognitivity")
+
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
+
 @Import(value = HibernateBeanConfiguration.class)
 public class CognitivityMvcConfiguration/* extends WebMvcConfigurationSupport *//* implements BeanDefinitionRegistryPostProcessor */ {
 
