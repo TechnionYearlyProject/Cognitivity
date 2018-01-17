@@ -13,7 +13,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
@@ -24,9 +23,7 @@ import static org.mockito.Mockito.doReturn;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class},
-        locations = {"classpath:spring/test-context.xml", "classpath:spring/test-dispatcher-servlet.xml"})
-@SpringBootTest
+@SpringBootTest(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class})
 public class TestManagerServiceTest {
 
     @Autowired
