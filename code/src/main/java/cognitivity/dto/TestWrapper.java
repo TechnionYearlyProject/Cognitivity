@@ -29,7 +29,7 @@ public class TestWrapper extends CognitiveTest {
         this.blocks = blocks;
     }
 
-    public TestWrapper(CognitiveTest test) {
+    public TestWrapper(CognitiveTest test){
         super.setId(test.getId());
         super.setLastAnswered(test.getLastAnswered());
         super.setLastModified(test.getLastModified());
@@ -40,8 +40,8 @@ public class TestWrapper extends CognitiveTest {
         super.setNumberOfSubjects(test.getNumberOfSubjects());
         super.setState(test.getState());
 
-        this.blocks = new ArrayList<>();
     }
+
 
 
     public List<BlockWrapper> getBlocks(){

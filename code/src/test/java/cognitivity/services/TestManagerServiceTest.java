@@ -1,6 +1,7 @@
 package cognitivity.services;
 
 import cognitivity.dao.CognitiveTestDAO;
+import cognitivity.dao.TestBlockDAO;
 import cognitivity.dao.TestManagerDAO;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
@@ -36,7 +37,7 @@ public class TestManagerServiceTest {
     private CognitiveTestDAO tdao;
 
     @Autowired
-
+    private TestBlockDAO bdao;
 
 
     @Before
@@ -44,6 +45,7 @@ public class TestManagerServiceTest {
 
         Mockito.reset(dao);
         Mockito.reset(tdao);
+        Mockito.reset(bdao);
 
     }
 
@@ -55,9 +57,9 @@ public class TestManagerServiceTest {
     @Test
     public void FullTest(){
         TestManagerService service = new TestManagerService(dao,tdao);
-        CognitiveTestService testService = new CognitiveTestService(tdao);
+        CognitiveTestService testService = new CognitiveTestService(tdao, bdao);
 
-        TestManager manager = new TestManager("Moty Luchim", "123456");
+        TestManager manager = new TestManager("Safafafa");
 
         CognitiveTest test = new CognitiveTest("test1", manager, 1, 0);
 
@@ -68,12 +70,12 @@ public class TestManagerServiceTest {
 
         assertEquals("Problem with finding a test manager", result,manager);
 
-        manager.setName("Avrasha Masait");
+//        manager.setName("Avrasha Masait");
 
         service.updateTestManager(manager);
             result = service.findTestManager(1);
 
-        assertEquals("Problem with updating a test manager", "Avrasha Masait",result.getName());
+//        assertEquals("Problem with updating a test manager", "Avrasha Masait",result.getName());
 
 //        doReturn(manager).when(dao).get(any());
 //        result = service.findTestManagerByCreatedTest(2);

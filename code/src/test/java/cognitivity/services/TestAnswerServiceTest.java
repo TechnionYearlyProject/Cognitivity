@@ -73,20 +73,20 @@ public class TestAnswerServiceTest {
     public void FullTest() {
         QuestionService questionService = new QuestionService(qdao,dao,tdao,mdao);
         TestBlockService blockService = new TestBlockService(bdao);
-        CognitiveTestService testService = new CognitiveTestService(tdao);
+        CognitiveTestService testService = new CognitiveTestService(tdao,bdao);
         TestManagerService managerService = new TestManagerService(mdao,tdao);
         TestSubjectService subjectService = new TestSubjectService(sdao);
         TestAnswerService service = new TestAnswerService(dao,sdao);
 
-        TestManager manager = new TestManager("Bohen Ben Mivhan", "Paswordd");
+        TestManager manager = new TestManager("mail");
         CognitiveTest test = new CognitiveTest("Sifratiyot", manager, 2, 1);
         CognitiveTest test2 = new CognitiveTest("jhfkasjhfkajdfak", manager, 2, 1);
         TestBlock block = blockService.createTestBlock(1, false, "tagiity tag", test);
-        TestSubject subject = new TestSubject("Rick", 12321, "Ahla dafdefan");
-        TestQuestion question = new TestQuestion("Who the f&$# builds a stonehenge?", 4, 5,
+        TestSubject subject = new TestSubject("Rick", "ip", "Ahla dafdefan");
+        TestQuestion question = new TestQuestion("Who the f&$# builds a stonehenge?", 4, "No one knows",
                 "Questions we will never answer", block, test, manager, 0);
         questionService.createTestQuestion(question);
-        TestQuestion question1 = new TestQuestion("Who ate my sandwich?", 4, 5,
+        TestQuestion question1 = new TestQuestion("Who ate my sandwich?", 4, "Joey",
                 "Questions we will never answer", block, test2, manager, 0);
         questionService.createTestQuestion(question1);
 

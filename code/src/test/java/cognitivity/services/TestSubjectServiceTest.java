@@ -70,13 +70,13 @@ public class TestSubjectServiceTest {
     @Test
     public void FullTest(){
         TestSubjectService service = new TestSubjectService(dao);
-        CognitiveTestService testService = new CognitiveTestService(tdao);
+        CognitiveTestService testService = new CognitiveTestService(tdao,bdao);
         TestManagerService managerService = new TestManagerService(mdao,tdao);
         TestAnswerService answerService = new TestAnswerService(adao,sdao);
         QuestionService questionService = new QuestionService(qdao,adao,tdao,mdao);
         TestBlockService blockService = new TestBlockService(bdao);
 
-        TestSubject testSubject = new TestSubject("Simha Gora", 45645, "Queue");
+        TestSubject testSubject = new TestSubject("Simha Gora", "pipipp", "Queue");
         TestSubject subject = service.createTestSubject(testSubject);
         assertNotNull("Problem with creating a test subject",subject);
 
@@ -92,16 +92,16 @@ public class TestSubjectServiceTest {
 
         assertEquals("Problem with updating a test subject", "Tor",result.getBrowser());
 
-        TestManager manager = new TestManager("Ein li Rayon Leod Shem", "Maeshu kal");
+        TestManager manager = new TestManager("Yo!!!!!!!!!!!!1");
         CognitiveTest test = new CognitiveTest("test", manager, 1, 0);
         TestBlock block = blockService.createTestBlock(2,false,"teag", test);
-        TestQuestion question = new TestQuestion("When will the Shibutzim arrive?",1,99999,"Questions that remain unasnwered",
+        TestQuestion question = new TestQuestion("When will the Shibutzim arrive?",1,"Never!","Questions that remain unasnwered",
                 block, test, manager, 0);
         questionService.createTestQuestion(question);
 
-        TestSubject subject1 = service.createTestSubject(new TestSubject("Timon", 789, "Hakuna"));
-        TestSubject subject2 = service.createTestSubject(new TestSubject("Pumba", 654, "Matata"));
-        TestSubject subject3 = service.createTestSubject(new TestSubject("Simba", 12, "Safari"));
+        TestSubject subject1 = service.createTestSubject(new TestSubject("Timon", "Cow", "Hakuna"));
+        TestSubject subject2 = service.createTestSubject(new TestSubject("Pumba", "pig", "Matata"));
+        TestSubject subject3 = service.createTestSubject(new TestSubject("Simba", "Lion", "Safari"));
 
         TestAnswer answer = new TestAnswer(subject,question, test, 5 , 5,
                 4, 2, "To have no worries", false, 5, false,

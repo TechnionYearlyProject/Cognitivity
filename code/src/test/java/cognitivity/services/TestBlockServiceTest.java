@@ -54,10 +54,10 @@ public class TestBlockServiceTest {
     @Test
     public void FullTest(){
         TestBlockService service = new TestBlockService(dao);
-        CognitiveTestService testService = new CognitiveTestService(tdao);
+        CognitiveTestService testService = new CognitiveTestService(tdao,dao);
         TestManagerService managerService = new TestManagerService(mdao,tdao);
 
-        TestManager manager = new TestManager("Asaf Lotz", "Ze masirah");
+        TestManager manager = new TestManager("Mail e mail");
         CognitiveTest test = new CognitiveTest("YYY Eize Ra'ash. Shiyo", manager, 2, 1);
         TestBlock block = service.createTestBlock(1,true,"EZ",test);
 

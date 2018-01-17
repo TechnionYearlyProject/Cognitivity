@@ -1,10 +1,7 @@
 package cognitivity.services;
 
 import cognitivity.dao.*;
-import cognitivity.entities.CognitiveTest;
-import cognitivity.entities.TestBlock;
-import cognitivity.entities.TestManager;
-import cognitivity.entities.TestQuestion;
+import cognitivity.entities.*;
 import cognitivity.web.app.config.HibernateBeanConfiguration;
 import config.TestContextBeanConfiguration;
 import org.junit.Before;
@@ -81,7 +78,7 @@ public class CognitiveTestServiceTest {
 
         TestManager manager = new TestManager();
 
-        CognitiveTestService service = new CognitiveTestService(dao);
+        CognitiveTestService service = new CognitiveTestService(dao,bdao);
 
         CognitiveTest cognitiveTest = new CognitiveTest("test1", manager, 1, 2);
         CognitiveTest test = service.createTestForTestManager(cognitiveTest);
@@ -114,7 +111,7 @@ public class CognitiveTestServiceTest {
         tests.add(test3);
         tests.add(test4);
         doReturn(tests).when(dao).getCognitiveTestOfManager(9);
-        List<CognitiveTest> result = service.findTestsForTestManager(9);
+        List<TestWrapper> result = service.findTestsForTestManager(9);
         for (CognitiveTest t : result) {
             assertTrue("Getting unrelated results while trying to get all managers tests", tests.contains(t));
         }
@@ -130,7 +127,7 @@ public class CognitiveTestServiceTest {
         blocks.add(block4);
 
         doReturn(blocks).when(dao).getTestBlocks(7);
-        List<TestBlock> blockResult = service.getTestBlocksForTest(7);
+        List<BlockWrapper> blockResult = service.getTestBlocksForTest(7);
         for (TestBlock t : blockResult) {
             assertTrue("Getting unrelated results while trying to get all test blocks", blocks.contains(t));
         }
