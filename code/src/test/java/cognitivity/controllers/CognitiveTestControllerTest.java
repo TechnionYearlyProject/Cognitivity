@@ -3,11 +3,11 @@ package cognitivity.controllers;
 import cognitivity.TestUtil;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
+import cognitivity.entities.TestWrapper;
 import cognitivity.services.CognitiveTestService;
 import cognitivity.web.app.config.HibernateBeanConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import config.TestContextBeanConfiguration;
-import javafx.util.Pair;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Before;
@@ -64,17 +64,17 @@ public class CognitiveTestControllerTest implements RestControllerTest {
         Assert.assertThat(controller, CoreMatchers.notNullValue());
     }
 
-    private static Pair<CognitiveTest, TestManager> buildTest(String ct, String tmn, String pass, int s, int nq) {
-        TestManager tm = new TestManager(tmn, pass);
-        return new Pair<>(new CognitiveTest(ct, tm, s, nq), tm);
+    private static CognitiveTest buildTest(String ct, String email, int s, int nq) {
+        TestManager tm = new TestManager(email);
+        return new CognitiveTest(ct, tm, s, nq);
     }
 
     @Test
     public void findTestsForTestManagerReturnsListOfTests() throws Exception {
-        Pair<CognitiveTest, TestManager> cognitiveTest1 = buildTest("ct1", "tm1", "p1", 1, 1);
-        Pair<CognitiveTest, TestManager> cognitiveTest2 = buildTest("ct2", "tm2", "p2", 2, 2);
+        TestWrapper cognitiveTest1 = new TestWrapper(buildTest("ct1", "em1", 1, 1));
+        TestWrapper cognitiveTest2 = new TestWrapper(buildTest("ct2", "em2", 2, 2));
 
-        Mockito.when(cognitiveTestServiceMock.findTestsForTestManager(Matchers.anyLong())).thenReturn(Arrays.asList(cognitiveTest1.getKey(), cognitiveTest2.getKey()));
+        Mockito.when(cognitiveTestServiceMock.findTestsForTestManager(Matchers.anyLong())).thenReturn(Arrays.asList(cognitiveTest1, cognitiveTest2));
 
         // findTestsForTestManager is a http GET request
         mockMvc.perform(get("/tests/findTestsForTestManager")
@@ -95,7 +95,7 @@ public class CognitiveTestControllerTest implements RestControllerTest {
 
     @Test
     public void saveCognitiveTestCallsServiceWithCorrectParams() throws Exception {
-        TestManager tm = new TestManager("tmn", "pass");
+        TestManager tm = new TestManager("email");
         CognitiveTest cognitiveTest = new CognitiveTest("test", tm, 11, 30);
 
         // createTestForTestManager is a http POST request
@@ -111,16 +111,16 @@ public class CognitiveTestControllerTest implements RestControllerTest {
 
     @Test
     public void updateCognitiveTestCallsServiceWithCorrectParams() throws Exception {
-        Pair<CognitiveTest, TestManager> cognitiveTest = buildTest("test", "tmn", "pass", 12, 41);
+        TestWrapper cognitiveTest = new TestWrapper(buildTest("test", "email", 12, 41));
 
         // updateCognitiveTest is a http POST request
         mockMvc.perform(post("/tests/updateCognitiveTest")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(cognitiveTest.getKey())))
+                .content(objectMapper.writeValueAsBytes(cognitiveTest)))
                 .andExpect(status().isOk());
 
         // todo : this will probably fail because the jackson factory will build a new object. Should maybe update equal methods?
-        Mockito.verify(cognitiveTestServiceMock, times(1)).updateTestForTestManager(cognitiveTest.getKey());
+        Mockito.verify(cognitiveTestServiceMock, times(1)).updateTestForTestManager(cognitiveTest);
         Mockito.verifyNoMoreInteractions(cognitiveTestServiceMock);
     }
 

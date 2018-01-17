@@ -1,8 +1,5 @@
 package cognitivity.entities;
 
-import cognitivity.dao.TestBlockDAO;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.List;
 
 /**
