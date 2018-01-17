@@ -13,41 +13,20 @@ import javax.persistence.Table;
 @Table(name = "testManager")
 public class TestManager extends AbstractEntity {
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "email")
+    private String email;
 
-    @Column(name = "password")
-	private String password;
-
-	public TestManager(String name, String password) {
-		this.name = name;
-		this.password = password;
+	public TestManager(String email) {
+		this.email = email;
 	}
 
 	public TestManager() {}
 
-	/**
-	* Returns value of name
-	* @return
-	*/
-	public String getName() {
-		return name;
+	public String getEmail() {
+		return email;
 	}
 
-	/**
-	* Sets new value of name
-	* @param
-	*/
-	public void setName(String name) {
-		this.name = name;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 }

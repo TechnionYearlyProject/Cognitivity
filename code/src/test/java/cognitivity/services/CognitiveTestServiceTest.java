@@ -57,7 +57,6 @@ public class CognitiveTestServiceTest {
         Mockito.reset(qdao);
         Mockito.reset(bdao);
 
-//        Mockito.reset(dao);
         doNothing().when(dao).add(any());
         doNothing().when(qdao).add(any());
         doNothing().when(bdao).add(any());

@@ -19,7 +19,7 @@ public class TestQuestion extends AbstractEntity {
     private Integer questionType;
 
     @Column(name = "answer")
-    private Integer answer;
+    private String answer;
 
     @Column(name = "tag")
 	private String tag;
@@ -49,7 +49,7 @@ public class TestQuestion extends AbstractEntity {
 	private Integer questionPosition;
 
     public TestQuestion(String question, Integer questionType,
-                        Integer answer, String tag, TestBlock block,
+                        String answer, String tag, TestBlock block,
                         CognitiveTest cognitiveTest, TestManager testManager,
                         Integer questionPosition) {
         this.question = question;
@@ -108,7 +108,7 @@ public class TestQuestion extends AbstractEntity {
 	* Returns value of answer
 	* @return
 	*/
-	public Integer getAnswer() {
+	public String getAnswer() {
 		return answer;
 	}
 
@@ -116,7 +116,7 @@ public class TestQuestion extends AbstractEntity {
 	* Sets new value of answer
 	* @param
 	*/
-	public void setAnswer(Integer answer) {
+	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
 
