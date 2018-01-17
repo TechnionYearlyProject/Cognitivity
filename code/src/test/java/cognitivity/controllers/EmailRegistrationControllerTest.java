@@ -2,6 +2,7 @@ package cognitivity.controllers;
 
 import cognitivity.TestUtil;
 import cognitivity.services.EmailRegistrationService;
+import cognitivity.web.app.config.HibernateBeanConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import config.TestContextBeanConfiguration;
 import org.hamcrest.CoreMatchers;
@@ -27,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Created by ophir on 16/01/18.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestContextBeanConfiguration.class},
+@ContextConfiguration(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class},
         locations = {"classpath:applicationContext.xml", "classpath:dispatcher-servlet.xml"})
 @WebAppConfiguration
 @SpringBootTest

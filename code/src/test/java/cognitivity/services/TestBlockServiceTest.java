@@ -1,12 +1,12 @@
 package cognitivity.services;
 
-import cognitivity.dao.*;
+import cognitivity.dao.CognitiveTestDAO;
+import cognitivity.dao.TestBlockDAO;
+import cognitivity.dao.TestManagerDAO;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestManager;
-import cognitivity.services.CognitiveTestService;
-import cognitivity.services.TestBlockService;
-import cognitivity.services.TestManagerService;
+import cognitivity.web.app.config.HibernateBeanConfiguration;
 import config.TestContextBeanConfiguration;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,23 +17,23 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.doNothing;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.doReturn;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestContextBeanConfiguration.class})
+@ContextConfiguration(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class})
 @SpringBootTest
 public class TestBlockServiceTest {
     @Autowired
-    private TestBlockDAOimpl dao;
+    private TestBlockDAO dao;
 
 
     @Autowired
-    private CognitiveTestDAOimpl tdao;
+    private CognitiveTestDAO tdao;
 
     @Autowired
-    private TestManagerDAOimpl mdao;
+    private TestManagerDAO mdao;
 
 
 
@@ -56,8 +56,8 @@ public class TestBlockServiceTest {
         CognitiveTestService testService = new CognitiveTestService(tdao);
         TestManagerService managerService = new TestManagerService(mdao,tdao);
 
-        TestManager manager = managerService.createTestManager("Asaf Lotz","Ze masirah");
-        CognitiveTest test =  testService.createTestForTestManager("YYY Eize Ra'ash. Shiyo",manager, 2, 1);
+        TestManager manager = new TestManager("Asaf Lotz", "Ze masirah");
+        CognitiveTest test = new CognitiveTest("YYY Eize Ra'ash. Shiyo", manager, 2, 1);
         TestBlock block = service.createTestBlock(1,true,"EZ",test);
 
         assertNotNull("Problem with creating a test block", block);

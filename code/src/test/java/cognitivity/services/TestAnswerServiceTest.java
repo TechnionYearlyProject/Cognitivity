@@ -2,6 +2,7 @@ package cognitivity.services;
 
 import cognitivity.dao.*;
 import cognitivity.entities.*;
+import cognitivity.web.app.config.HibernateBeanConfiguration;
 import config.TestContextBeanConfiguration;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,34 +17,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestContextBeanConfiguration.class})
+@ContextConfiguration(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class})
 @SpringBootTest
 public class TestAnswerServiceTest {
 
     @Autowired
-    private TestAnswerDAOimpl dao;
+    private TestAnswerDAO dao;
 
     @Autowired
-    private TestBlockDAOimpl bdao;
+    private TestBlockDAO bdao;
 
     @Autowired
-    private TestQuestionDAOimpl qdao;
+    private TestQuestionDAO qdao;
 
     @Autowired
-    private CognitiveTestDAOimpl tdao;
+    private CognitiveTestDAO tdao;
 
     @Autowired
-    private TestManagerDAOimpl mdao;
+    private TestManagerDAO mdao;
 
     @Autowired
-    private TestAnswerDAOimpl adao;
+    private TestAnswerDAO adao;
 
     @Autowired
-    private TestSubjectDAOimpl sdao;
+    private TestSubjectDAO sdao;
 
 
     @Before
@@ -77,11 +77,11 @@ public class TestAnswerServiceTest {
         TestSubjectService subjectService = new TestSubjectService(sdao);
         TestAnswerService service = new TestAnswerService(dao,sdao);
 
-        TestManager manager = managerService.createTestManager("Bohen Ben Mivhan", "Paswordd");
-        CognitiveTest test = testService.createTestForTestManager("Sifratiyot", manager, 2, 1);
-        CognitiveTest test2 = testService.createTestForTestManager("jhfkasjhfkajdfak", manager, 2, 1);
+        TestManager manager = new TestManager("Bohen Ben Mivhan", "Paswordd");
+        CognitiveTest test = new CognitiveTest("Sifratiyot", manager, 2, 1);
+        CognitiveTest test2 = new CognitiveTest("jhfkasjhfkajdfak", manager, 2, 1);
         TestBlock block = blockService.createTestBlock(1, false, "tagiity tag", test);
-        TestSubject subject = subjectService.createTestSubject("Rick", 12321, "Ahla dafdefan");
+        TestSubject subject = new TestSubject("Rick", 12321, "Ahla dafdefan");
         TestQuestion question = new TestQuestion("Who the f&$# builds a stonehenge?", 4, 5,
                 "Questions we will never answer", block, test, manager);
         questionService.createTestQuestion(question);

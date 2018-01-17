@@ -4,6 +4,7 @@ import cognitivity.TestUtil;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
 import cognitivity.services.CognitiveTestService;
+import cognitivity.web.app.config.HibernateBeanConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import config.TestContextBeanConfiguration;
 import javafx.util.Pair;
@@ -36,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestContextBeanConfiguration.class},
+@ContextConfiguration(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class},
         locations = {"classpath:applicationContext.xml", "classpath:dispatcher-servlet.xml"})
 @WebAppConfiguration
 @SpringBootTest
