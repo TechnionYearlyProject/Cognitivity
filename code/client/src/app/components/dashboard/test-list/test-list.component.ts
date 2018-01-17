@@ -23,7 +23,8 @@ export class TestListComponent implements OnInit {
   async ngOnInit() {
     try {
       this.manager = this.authService.getCurrentManager();
-      this.testList = await this.testService.findTestsForTestManager(this.manager.id);
+      this.testList = await this.testService.findTestsForTestManager('1');
+      console.log(this.testList)
     } catch(err) {
       console.log(err);
     }
@@ -40,6 +41,13 @@ export class TestListComponent implements OnInit {
       case 0: return 'green';
       case 1: return 'red';
     }
+  }
+
+ async addTest() {
+   let test = this.testList[0];
+   test.name = "test";
+    this.testService.saveCognitiveTest(test);
+    this.testList = await this.testService.findTestsForTestManager('1');
   }
 
 }

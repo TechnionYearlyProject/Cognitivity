@@ -16,14 +16,14 @@
       <th>No. Filed Copies</th>
       <th></th>
       <th></th>
-      <th><a routerLink="/dashboard/add-test" href="#" ><i class="fa fa-plus-circle "></i> Add Test</a></th>
+      <th><a (click)="addTest()" ><i class="fa fa-plus-circle "></i> Add Test</a></th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let test of testList">
       <td>{{ test.name }}</td>
       <td>{{ test.numberOfQuestions }}</td>
-      <td [style.color]="getColorForStatus(test.status)">{{ showStatus(test.status) }}</td>
+      <td >{{ test.status }}</td>
       <td>{{ test.lastModified }}</td>
       <td>{{ test.lastAnswered }}</td>
       <td>{{ test.numberOfFiledCopies }}</td>
