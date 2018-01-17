@@ -27,17 +27,13 @@ public class TestSubjectService {
     /**
      * Save a TestSubject.
      *
-     * @param name - The test subject name.
-     * @param ipAddress - The ip adress of the test subject.
-     * @param browser - The browser the test subject was using.
+     * @param testSubject - The TestSubject to be saved
      * <p>
      * This will be used in conjunction with the POST HTTP method.
      */
-    public TestSubject createTestSubject(String name, Integer ipAddress, String browser) {
-        TestSubject subject = new TestSubject(name,ipAddress,browser);
-//        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
-        dao.add(subject);
-        return subject;
+    public TestSubject createTestSubject(TestSubject testSubject) {
+        dao.add(testSubject);
+        return testSubject;
     }
 
     /**
@@ -48,7 +44,6 @@ public class TestSubjectService {
      * This will be used in conjunction with the PUT HTTP method.
      * */
     public void updateTestSubject(TestSubject subject) {
-//        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
         dao.update(subject);
     }
 
@@ -60,7 +55,6 @@ public class TestSubjectService {
      * This will be used in conjunction with the DELETE HTTP method.
      * */
     public void deleteTestSubject(long testSubjectId) {
-//        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
         dao.delete(testSubjectId);
     }
 
@@ -72,7 +66,6 @@ public class TestSubjectService {
      * @return - the test subject found.
      */
     public TestSubject findTestSubject(long testSubjectId) {
-//        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
         return dao.get(testSubjectId);
     }
 
@@ -83,7 +76,6 @@ public class TestSubjectService {
      * @return - all the answers the test subject gave.
      */
     public List<TestAnswer> findAllTestSubjectAnswers(long subjectId){
-//        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
         return dao.getSubjectAnswers(subjectId);
     }
 
@@ -95,7 +87,6 @@ public class TestSubjectService {
      * @return - A list of the subjects who participated the test.
      */
     public List<TestSubject> findTestSubjectsWhoParticipatedInTest(long testId){
-//        TestSubjectDAOimpl dao = new TestSubjectDAOimpl();
         return dao.getTestSubjectsWhoParticipatedInTest(testId);
     }
 

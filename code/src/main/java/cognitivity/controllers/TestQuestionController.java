@@ -53,12 +53,12 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
      * Params are as in TestQuestionService.
      * If questionId is null, then create. otherwise - update.
      */
+    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/saveCognitiveTestQuestion")
-    public void saveCognitiveTestQuestion(
+    public TestQuestion saveCognitiveTestQuestion(
             @RequestBody TestQuestion testQuestion) {
-        service.createTestQuestion(testQuestion);
-
+        return service.createTestQuestion(testQuestion);
     }
 
 

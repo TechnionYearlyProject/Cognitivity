@@ -57,13 +57,11 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
      * <p>
      * Params are as in TestSubjectService.
      */
+    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/saveTestSubject")
-    public void saveTestSubject(
-            @RequestParam(value = "name") String name,
-            @RequestParam(value = "ip") Integer ipAddress,
-            @RequestParam(value = "browser") String browser) {
-        service.createTestSubject(name, ipAddress, browser);
+    public TestSubject saveTestSubject(@RequestBody TestSubject testSubject) {
+        return service.createTestSubject(testSubject);
     }
 
     /**

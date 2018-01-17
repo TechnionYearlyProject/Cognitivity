@@ -1,51 +1,49 @@
 package cognitivity.services;
 
 import cognitivity.dao.*;
-import cognitivity.entities.*;
-import cognitivity.services.CognitiveTestService;
-import cognitivity.services.QuestionService;
-import cognitivity.services.TestBlockService;
+import cognitivity.entities.CognitiveTest;
+import cognitivity.entities.TestBlock;
+import cognitivity.entities.TestManager;
+import cognitivity.entities.TestQuestion;
+import cognitivity.web.app.config.HibernateBeanConfiguration;
 import config.TestContextBeanConfiguration;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static jdk.nashorn.internal.objects.Global.print;
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestContextBeanConfiguration.class})
+@ContextConfiguration(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class})
 @SpringBootTest
 public class CognitiveTestServiceTest {
 
 
     @Autowired
-    private CognitiveTestDAOimpl dao;
+    private CognitiveTestDAO dao;
 
     @Autowired
-    private TestManagerDAOimpl mdao;
+    private TestManagerDAO mdao;
 
     @Autowired
-    private TestQuestionDAOimpl qdao;
+    private TestQuestionDAO qdao;
 
     @Autowired
-    private TestAnswerDAOimpl adao;
+    private TestAnswerDAO adao;
 
     @Autowired
-    private TestBlockDAOimpl bdao;
+    private TestBlockDAO bdao;
 
 
 
@@ -85,15 +83,16 @@ public class CognitiveTestServiceTest {
 
         CognitiveTestService service = new CognitiveTestService(dao);
 
-        CognitiveTest test = service.createTestForTestManager("testing12 12 skeedup!", manager, 1, 12);
+        CognitiveTest cognitiveTest = new CognitiveTest("test1", manager, 1, 2);
+        CognitiveTest test = service.createTestForTestManager(cognitiveTest);
 
         doReturn(test).when(dao).get(Long.valueOf(7));
         assertNotNull("Problem in making test", test);
 
-        CognitiveTest test1 = service.createTestForTestManager("Man's not hot", manager, 2, 2);
-        CognitiveTest test2 = service.createTestForTestManager("Two plus two is", manager, 4, 6);
-        CognitiveTest test3 = service.createTestForTestManager("Minus 0ne that's", manager, 3, 10);
-        CognitiveTest test4 = service.createTestForTestManager("Quick maths!", manager, 3, 17);
+        CognitiveTest test1 = new CognitiveTest("Man's not hot", manager, 2, 2);
+        CognitiveTest test2 = new CognitiveTest("Two plus two is", manager, 4, 6);
+        CognitiveTest test3 = new CognitiveTest("Minus 0ne that's", manager, 3, 10);
+        CognitiveTest test4 = new CognitiveTest("Quick maths!", manager, 3, 17);
 
         TestBlockService blockService = new TestBlockService(bdao);
         TestBlock block1 = blockService.createTestBlock(2, true, "tag1", test);

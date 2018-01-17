@@ -4,6 +4,7 @@ import cognitivity.TestUtil;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
 import cognitivity.services.CognitiveTestService;
+import cognitivity.web.app.config.HibernateBeanConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import config.TestContextBeanConfiguration;
 import javafx.util.Pair;
@@ -36,7 +37,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestContextBeanConfiguration.class})
+@ContextConfiguration(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class},
+        locations = {"classpath:applicationContext.xml", "classpath:dispatcher-servlet.xml"})
 @WebAppConfiguration
 @SpringBootTest
 public class CognitiveTestControllerTest implements RestControllerTest {
@@ -97,18 +99,16 @@ public class CognitiveTestControllerTest implements RestControllerTest {
     @Test
     public void saveCognitiveTestCallsServiceWithCorrectParams() throws Exception {
         TestManager tm = new TestManager("tmn", "pass");
+        CognitiveTest cognitiveTest = new CognitiveTest("test", tm, 11, 30);
 
         // createTestForTestManager is a http POST request
         mockMvc.perform(post("/tests/saveCognitiveTest")
-                .param("name", "test")
-                .param("state", "11")
-                .param("numberOfQuestions", "30")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(tm)))
+                .content(objectMapper.writeValueAsBytes(cognitiveTest)))
                 .andExpect(status().isOk());
 
         // todo : this will probably fail because the jackson factory will build a new object. Should maybe update equal methods?
-        Mockito.verify(cognitiveTestServiceMock, times(1)).createTestForTestManager("test", tm, 11, 30);
+        Mockito.verify(cognitiveTestServiceMock, times(1)).createTestForTestManager(Matchers.any(CognitiveTest.class));
         Mockito.verifyNoMoreInteractions(cognitiveTestServiceMock);
     }
 
