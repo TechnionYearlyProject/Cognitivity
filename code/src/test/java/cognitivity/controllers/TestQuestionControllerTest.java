@@ -34,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class},
-        locations = {"classpath:applicationContext.xml", "classpath:dispatcher-servlet.xml"})
+        locations = {"classpath:testApplicationContext.xml", "classpath:test-dispatcher-servlet.xml"})
 @WebAppConfiguration
 @SpringBootTest
 public class TestQuestionControllerTest implements RestControllerTest {
