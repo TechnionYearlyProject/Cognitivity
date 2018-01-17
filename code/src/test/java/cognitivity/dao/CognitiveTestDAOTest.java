@@ -6,7 +6,6 @@ import cognitivity.entities.TestManager;
 import cognitivity.entities.TestQuestion;
 import config.HibernateTestConfiguration;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,7 +17,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {HibernateTestConfiguration.class})
-@Ignore("tests passing, but to run them there is a need of db")
+//@Ignore("tests passing, but to run them there is a need of db")
 public class CognitiveTestDAOTest extends AbstractDaoTestClass {
 
     private TestManager[] testManagers;
