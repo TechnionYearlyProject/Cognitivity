@@ -61,7 +61,9 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <version>1.5.9.RELEASE</version>
             <scope>test</scope>
-        </dependency><!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -111,14 +113,6 @@
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
             <version>0.9.11</version>
-        </dependency>
-
-
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>5.0.2.RELEASE</version>
         </dependency>
 
 
@@ -218,8 +212,6 @@
         </dependency>
 
 
-
-
         <!-- https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-impl -->
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
@@ -234,13 +226,13 @@
             <version>1.1.1</version>
         </dependency>
 
-
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>6.0.6</version>
+            <version>8.0.8-dmr</version>
         </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
         <dependency>

@@ -2,7 +2,6 @@ package cognitivity.dao;
 
 import cognitivity.entities.TestAnswer;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +22,7 @@ public class TestAnswerDAOimpl extends AbstractDAO<TestAnswer> implements TestAn
         super.delete(id, TestAnswer.class);
     }
 
-    @Transactional(readOnly = true)
+   // @Transactional(readOnly = true)
     public List<TestAnswer> getTestSubjectAnswersInTest(long subjectId, long testId) {
         Session session = sessionFactory.getCurrentSession();
         String queryString = "from TestAnswer T "
@@ -31,7 +30,8 @@ public class TestAnswerDAOimpl extends AbstractDAO<TestAnswer> implements TestAn
         Query<TestAnswer> query = session.createQuery(queryString, TestAnswer.class);
         query.setParameter("testSubjectId", subjectId);
         query.setParameter("cognitiveTestId", testId);
-        return query.getResultList();
+        List<TestAnswer> res = query.getResultList();
+        return res;
     }
 
     @Transactional(readOnly = true)
