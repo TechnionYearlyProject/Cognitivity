@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TypeMultipleQuestion, TypeQuestion, QuestionPosition} from '../../models';
 import {MatDialogRef} from '@angular/material';
 import {SessionService} from '../../services/session-service';
+import { SecondaryQuestionObject } from '../../models';
 @Component({
   selector: 'app-create-question',
   templateUrl: './create-question.component.html',
@@ -44,19 +45,23 @@ export class CreateQuestionComponent implements OnInit {
     --------------- drill down question details ---------------
   */
   currentMainAnswer?: string;
-  markedMainAnswer?: string = 'Main answers';
   showMainAnswer: boolean;
   indexOfMainanswerToShow: number = -1;
   mainAnswers?: Array<string> = new Array();
-  markedMainAnswers?: Array<boolean> = new Array();
   markedMainCorrectAnswer?: Array<boolean> = new Array();
-  correctMainAnswers?: Array<boolean> = new Array();
+  secondaryQuestionList? : Array<SecondaryQuestionObject> = new Array();
+  secondaryAnswers?: Array<string> = new Array();
+  submitSecondaryQuestion?: boolean = false;
+  currentSecondaryQuestion?: string = '';
+  currentSecondaryAnswer?: string = '';
   secondaryQuestions?: Array<string> = new Array();
-  secondaryAnswers?: Array<Array<string>>;
-  markedSeconderyAnswers?: Array<Array<boolean>>;
+  editionSecondary?: boolean = false;
+  markedSecondaryCorrectAnswer?: Array<boolean> = new Array();
+  editionModeSecondary: boolean = false;
+  indexAnswerInEditSecondary: number = -1;
+  //secondaryAnswers?: Array<Array<string>>;
   editionModeMain?: boolean;
-  seconderyAnswerMode?: boolean = false;
-
+  secondaryAnswerMode?: boolean = false;
   indexAnswerInEditMain: number = -1;
   submit: boolean = false;
   editionMode: boolean = false;
@@ -739,8 +744,8 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   addMainAnswer(){
+ 
     this.mainAnswers.splice(this.mainAnswers.length, 0, this.currentMainAnswer);
-    this.markedMainAnswers.splice(this.markedMainAnswers.length, 0, false);
     this.markedMainCorrectAnswer.splice(this.markedMainCorrectAnswer.length, 0, false);
     this.currentMainAnswer = '';
   }
@@ -750,21 +755,18 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   markMainAnswer(index: number){
-    for(let i = 0; i < this.markedMainAnswers.length; i++){
-      if(i == index){
-        this.markedMainAnswers[i] = !this.markedMainAnswers[i];
-        if(this.markedMainAnswers[i]){
-          this.showMainAnswer = true;
-          this.indexOfMainanswerToShow = index;
-          console.log(this.indexOfMainanswerToShow);
-        }else{
-          this.showMainAnswer = false;
-        }
-      }else{
-        this.markedMainAnswers[i] = false;
-      }
-    }  
+    this.secondaryAnswerMode = false;
+    if(this.indexOfMainanswerToShow == index){
+      this.showMainAnswer = false;
+
+      this.indexOfMainanswerToShow = -1;
+    }else{
+      this.showMainAnswer = true;
+      this.indexOfMainanswerToShow = index;
+    }
+    
   }
+
   markCorretMainAnswer(index:number){
     for(let i = 0; i < this.markedMainCorrectAnswer.length; i++){
       if(i == index){
@@ -778,8 +780,12 @@ export class CreateQuestionComponent implements OnInit {
     Deletes an answer to the question
   */
   deleteMainAnswer(index: number){
+    if(this.showMainAnswer){
+      this.showMainAnswer = false;
+      this.secondaryAnswerMode = false;
+      this.indexOfMainanswerToShow = -1;
+    }
     this.mainAnswers.splice(index,1);
-    this.markedMainAnswers.splice(index, 1);
     this.markedMainCorrectAnswer.splice(index, 1);
   }
 
@@ -803,12 +809,16 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   goMainUp(index: number){
+    
     if(index != 0){
+      if(this.showMainAnswer){
+        if(this.indexOfMainanswerToShow <= index){
+          this.indexOfMainanswerToShow = index - 1;
+        }
+      }
       let removed = this.mainAnswers.splice(index, 1)
-      let removed_marked = this.markedMainAnswers.splice(index, 1);
       let removed_marked_correct = this.markedMainCorrectAnswer.splice(index,1);
       this.mainAnswers.splice(index - 1, 0, removed[0]);
-      this.markedMainAnswers.splice(index - 1, 0, removed_marked[0]);
       this.markedMainCorrectAnswer.splice(index - 1, 0, removed_marked_correct[0]);
       
     } 
@@ -816,11 +826,14 @@ export class CreateQuestionComponent implements OnInit {
 
   goMainDown(index: number){
     if(index != this.mainAnswers.length - 1){
+      if(this.showMainAnswer){
+        if(this.indexOfMainanswerToShow <= index){
+          this.indexOfMainanswerToShow = index + 1;
+        }
+      }
       let removed = this.mainAnswers.splice(index, 1);
-      let removed_marked = this.markedMainAnswers.splice(index, 1);
       let removed_marked_correct = this.markedMainCorrectAnswer.splice(index, 1);
       this.mainAnswers.splice(index + 1, 0, removed[0]);
-      this.markedMainAnswers.splice(index + 1, 0, removed_marked[0]);
       this.markedMainCorrectAnswer.splice(index + 1, 0, removed_marked_correct[0]);
       
     }
@@ -839,10 +852,113 @@ export class CreateQuestionComponent implements OnInit {
     return returnedSize;
   }
 
-  addSeconderyQuestion(index: number){
-    this.seconderyAnswerMode = true;
+  addSecondaryQuestion(index: number){
+    if(this.secondaryExists()){
+      this.secondaryAnswerMode = !this.secondaryAnswerMode;
+    }else{
+      this.secondaryAnswerMode = true;
+    }
+    
   }
   whatToShow(index: number):boolean{
     return index == this.indexOfMainanswerToShow;
   }
+  undoSecondary(){
+    this.secondaryAnswers = new Array();
+    this.currentSecondaryQuestion = '';
+    this.secondaryAnswerMode = false;
+    for(let i = 0; i < this.secondaryQuestionList.length; i++){
+      if(this.indexOfMainanswerToShow == this.secondaryQuestionList[i].index){
+        this.secondaryQuestionList.splice(i,1);
+      }
+    }
+  }
+  finishSecondaryQuestion(){
+    if(!this.emptySecondary()){
+      this.secondaryQuestionList.splice(this.secondaryQuestionList.length, 0, {
+        index: this.indexOfMainanswerToShow,
+        questionText: this.currentSecondaryQuestion,
+        answers: this.secondaryAnswers
+      });
+      this.secondaryAnswerMode = false;
+    }
+    this.submitSecondaryQuestion = true;
+    
+  }
+
+  secondaryExists(): boolean{
+    for(let i = 0; i < this.secondaryQuestionList.length; i++){
+      if(this.secondaryQuestionList[i].index == this.indexOfMainanswerToShow){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  emptySecondary():boolean{
+    return this.currentSecondaryQuestion == '';
+  }
+  addSecondaryAnswer(){
+    this.secondaryAnswers.splice(this.secondaryAnswers.length, 0, this.currentSecondaryAnswer);
+    this.markedSecondaryCorrectAnswer.splice(this.markedSecondaryCorrectAnswer.length, 0, false);
+    this.currentSecondaryAnswer = '';
+  }
+  hasSecondaryAnswers(): boolean{
+    return this.secondaryAnswers.length >= 1;
+  }
+  markCorretSecondaryAnswer(index: number){
+    for(let i = 0; i < this.markedSecondaryCorrectAnswer.length; i++){
+      if(i == index){
+        this.markedSecondaryCorrectAnswer[i] = !this.markedSecondaryCorrectAnswer[i];
+      }else{
+        this.markedSecondaryCorrectAnswer[i] = false;
+      }
+    } 
+  }
+  goSecondaryUp(index: number){
+    if(index != 0){
+      let removed = this.secondaryAnswers.splice(index, 1)
+      let removed_marked_correct = this.markedSecondaryCorrectAnswer.splice(index,1);
+      this.secondaryAnswers.splice(index - 1, 0, removed[0]);
+      this.markedSecondaryCorrectAnswer.splice(index - 1, 0, removed_marked_correct[0]);
+    }
+  }
+
+  goSecondaryDown(index: number){
+    if(index != this.secondaryAnswers.length - 1){
+      let removed = this.secondaryAnswers.splice(index, 1);
+      let removed_marked_correct = this.markedSecondaryCorrectAnswer.splice(index, 1);
+      this.secondaryAnswers.splice(index + 1, 0, removed[0]);
+      this.markedSecondaryCorrectAnswer.splice(index + 1, 0, removed_marked_correct[0]);
+      
+    }
+  }
+
+  deleteSecondaryAnswer(index: number){
+    this.secondaryAnswers.splice(index,1);
+    this.markedSecondaryCorrectAnswer.splice(index, 1);
+  }
+
+  editSecondaryAnswer(index: number){
+    this.currentSecondaryAnswer = this.secondaryAnswers[index];
+    this.editionModeSecondary = true;
+    this.indexAnswerInEditSecondary = index;
+  }
+
+  applySecondaryEdit(){
+    this.secondaryAnswers.splice(this.indexAnswerInEditSecondary, 1,  this.currentSecondaryAnswer)
+    this.editionModeSecondary = false;
+    this.indexAnswerInEditSecondary = -1;
+    this.currentMainAnswer = '';
+  }
+
+  undoSecondaryEdit(){
+    this.editionModeSecondary = false;
+    this.currentSecondaryAnswer = '';
+    this.indexAnswerInEditSecondary = -1;
+  }
+
+  
+
+  
 }
