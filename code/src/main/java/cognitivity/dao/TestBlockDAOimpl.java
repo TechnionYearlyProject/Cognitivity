@@ -2,8 +2,10 @@ package cognitivity.dao;
 
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestQuestion;
-import org.hibernate.SessionFactory;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,9 +24,15 @@ public class TestBlockDAOimpl extends AbstractDAO<TestBlock> implements TestBloc
      * @param blockID - The Id of the given block.
      * @return - A list of all the questions in the block.
      */
-    //TODO: Implement this function
+    @Transactional(readOnly = true)
     public List<TestQuestion> getAllBlockQuestions(long blockID){
-        return null;
+
+        Session session = sessionFactory.getCurrentSession();
+        String queryString = "from TestQuestion T "
+                + " where T.testBlock.id = :testBlockId";
+        Query<TestQuestion> query = session.createQuery(queryString, TestQuestion.class);
+        query.setParameter("testBlockId", blockID);
+        return query.getResultList();
     }
 
 }

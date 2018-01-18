@@ -1,12 +1,12 @@
 package cognitivity.dao;
 
 import cognitivity.entities.*;
-import cognitivity.web.app.config.HibernateBeanConfiguration;
+import cognitivity.web.app.config.CognitivityMvcConfiguration;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = {HibernateBeanConfiguration.class})
+@ContextConfiguration(classes = {CognitivityMvcConfiguration.class})
 @Ignore("tests passing, but to run them there is a need of db")
 public class TestAnswerDAOTest extends AbstractDaoTestClass {
 
@@ -119,6 +119,7 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
         testAnswer.setTestSubject(newTestSubject);
         testAnswer.setId(testAnswer.getId() + 1);
         testAnswerDAO.add(testAnswer);
+        answers = testAnswerDAO.getTestSubjectAnswersInTest(testSubject.getId(), cognitiveTest.getId());
         assertTrue("problem with adding questions of another subject", !answers.contains(testAnswer));
         assertTrue("problem with adding questions of another subject", answers.size() == 1);
 

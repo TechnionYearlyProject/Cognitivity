@@ -146,5 +146,10 @@ export interface DrillDownQuestion extends Question {
     answersForSecondary: Array<Array<string>>;
     correctAnswerSecondary: Array<number>;
 }
+export class SecondaryQuestionObject{
+    index: number;
+    questionText: string;
+    answers: Array<string>; 
+}
 
 
