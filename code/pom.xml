@@ -198,11 +198,11 @@
 
 
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-autoconfigure -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
-            <version>1.5.9.RELEASE</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-autoconfigure</artifactId>-->
+            <!--<version>1.5.9.RELEASE</version>-->
+        <!--</dependency>-->
 
         <!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
         <dependency>

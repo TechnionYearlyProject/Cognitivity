@@ -22,7 +22,7 @@ public class TestAnswerDAOimpl extends AbstractDAO<TestAnswer> implements TestAn
         super.delete(id, TestAnswer.class);
     }
 
-   // @Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     public List<TestAnswer> getTestSubjectAnswersInTest(long subjectId, long testId) {
         Session session = sessionFactory.getCurrentSession();
         String queryString = "from TestAnswer T "
@@ -30,8 +30,7 @@ public class TestAnswerDAOimpl extends AbstractDAO<TestAnswer> implements TestAn
         Query<TestAnswer> query = session.createQuery(queryString, TestAnswer.class);
         query.setParameter("testSubjectId", subjectId);
         query.setParameter("cognitiveTestId", testId);
-        List<TestAnswer> res = query.getResultList();
-        return res;
+        return query.getResultList();
     }
 
     @Transactional(readOnly = true)

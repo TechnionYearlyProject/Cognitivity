@@ -2,15 +2,13 @@ package cognitivity.web.app.config;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -21,14 +19,15 @@ import java.util.Properties;
  */
 
 
-//@EnableWebMvc
+
 @Configuration
+@EnableWebMvc
 @ComponentScan(value = "cognitivity")
 //@ContextConfiguration(locations = {"classpath:spring/app-context.xml"})
-@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
+//@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 
 //@Import(value = HibernateBeanConfiguration.class)
-public class CognitivityMvcConfiguration/* extends WebMvcConfigurationSupport *//* implements BeanDefinitionRegistryPostProcessor */ {
+public class CognitivityMvcConfiguration /* implements BeanDefinitionRegistryPostProcessor */ {
 
     @Bean
     @Autowired
