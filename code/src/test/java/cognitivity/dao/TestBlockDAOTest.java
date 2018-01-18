@@ -8,15 +8,14 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = HibernateBeanConfiguration.class,
-        locations = {"classpath:testApplicationContext.xml", "classpath:test-dispatcher-servlet.xml"})
+@SpringBootTest(classes = HibernateBeanConfiguration.class)
 @Ignore("tests passing, but to run them there is a need of db")
 public class TestBlockDAOTest extends AbstractDaoTestClass {
 
@@ -32,7 +31,7 @@ public class TestBlockDAOTest extends AbstractDaoTestClass {
     @Before
     public void initialize(){
         TestManager testManager =
-                new TestManager("onlyForTests TestManager", "notarealpassword");
+                new TestManager("onlyForTests TestManager");
         testManagerDAO.add(testManager);
         CognitiveTest cognitiveTest = new CognitiveTest("onlyForTests", testManager, 0, 1);
         cognitiveTestDAO.add(cognitiveTest);

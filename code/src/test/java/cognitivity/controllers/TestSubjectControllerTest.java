@@ -17,7 +17,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -33,10 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Created by ophir on 19/12/17.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class},
-        locations = {"classpath:testApplicationContext.xml", "classpath:test-dispatcher-servlet.xml"})
-@WebAppConfiguration
-@SpringBootTest
+@SpringBootTest(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class})
 public class TestSubjectControllerTest implements RestControllerTest {
 
     private TestSubjectController controller;
@@ -79,8 +75,8 @@ public class TestSubjectControllerTest implements RestControllerTest {
             }
 
             @Override
-            public Integer getIpAddress() {
-                return 123;
+            public String getIpAddress() {
+                return "123";
             }
         };
     }
@@ -123,7 +119,7 @@ public class TestSubjectControllerTest implements RestControllerTest {
 
     @Test
     public void saveTestSubjectCallsServiceWithCorrectParams() throws Exception {
-        TestSubject testSubject = new TestSubject("name", 123, "firefox");
+        TestSubject testSubject = new TestSubject("name", "123", "firefox");
         // saveTestSubject is a http POST request
         mockMvc.perform(post("/test-subjects/saveTestSubject")
                 .contentType(MediaType.APPLICATION_JSON)

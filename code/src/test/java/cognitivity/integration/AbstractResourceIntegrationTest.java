@@ -10,7 +10,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 public class AbstractResourceIntegrationTest {
 
     public static TestManager createTestManager() {
-        return new TestManager("ophir", "pass");
+        return new TestManager("email");
     }
 
     public static CognitiveTest createCognitiveTest() {

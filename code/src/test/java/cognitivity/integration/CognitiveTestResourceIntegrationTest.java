@@ -19,7 +19,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {IntegrationTestContextConfiguration.class},
-        locations = {"classpath:testApplicationContext.xml", "classpath:test-dispatcher-servlet.xml"})
+        locations = {"classpath:spring/test-context.xml", "classpath:spring/test-dispatcher-servlet.xml"})
 @WebAppConfiguration
 @SpringBootTest
 @Ignore

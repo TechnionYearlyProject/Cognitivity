@@ -1,5 +1,6 @@
 package cognitivity.controllers;
 
+import cognitivity.dto.TestWrapper;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.services.CognitiveTestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findTestsForTestManager")
-    public List<CognitiveTest> findTestsForTestManager(
+    public List<TestWrapper> findTestsForTestManager(
             @RequestParam(value = "managerId") long managerId) {
         System.out.println(managerId);
         return service.findTestsForTestManager(managerId);

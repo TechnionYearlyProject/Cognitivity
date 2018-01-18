@@ -6,15 +6,14 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = HibernateBeanConfiguration.class,
-        locations = {"classpath:testApplicationContext.xml", "classpath:test-dispatcher-servlet.xml"})
+@SpringBootTest(classes = HibernateBeanConfiguration.class)
 @Ignore("tests passing, but to run them there is a need of db")
 public class TestManagerDAOTest extends AbstractDaoTestClass {
 
@@ -30,7 +29,7 @@ public class TestManagerDAOTest extends AbstractDaoTestClass {
     @Before
     public void initialize(){
         testManager =
-                new TestManager("BB", "notarealpassword");
+                new TestManager("BB notarealpassword");
 
     }
 
@@ -49,18 +48,18 @@ public class TestManagerDAOTest extends AbstractDaoTestClass {
         assertNull(testManagerDAO.get(0L));
         testManagerDAO.add(testManager);
         assertNotNull("add testManager problem", testManagerDAO.get(testManager.getId()));
-        String testManagerName = testManager.getName();
-        assertTrue("name incorrect",
-                testManagerName.equals(testManagerDAO.get(testManager.getId()).getName()));
+        String testManagerName = testManager.getEmail();
+        assertTrue("email incorrect",
+                testManagerName.equals(testManagerDAO.get(testManager.getId()).getEmail()));
         String newTestManagerName = "john nash";
-        testManager.setName(newTestManagerName);
+        testManager.setEmail(newTestManagerName);
         testManagerDAO.update(testManager);
         assertTrue("testManager update incorrect",
-                newTestManagerName.equals(testManagerDAO.get(testManager.getId()).getName()));
-        testManager.setName(testManagerName);
+                newTestManagerName.equals(testManagerDAO.get(testManager.getId()).getEmail()));
+        testManager.setEmail(testManagerName);
         testManagerDAO.update(testManager);
         assertTrue("name incorrect",
-                testManagerName.equals(testManagerDAO.get(testManager.getId()).getName()));
+                testManagerName.equals(testManagerDAO.get(testManager.getId()).getEmail()));
         testManagerDAO.delete(testManager.getId());
         assertNull("delete problem", testManagerDAO.get(testManager.getId()));
     }

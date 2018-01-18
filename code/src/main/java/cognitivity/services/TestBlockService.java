@@ -1,10 +1,14 @@
 package cognitivity.services;
 
 import cognitivity.dao.TestBlockDAO;
+import cognitivity.dto.BlockWrapper;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
+import cognitivity.entities.TestQuestion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  *
@@ -30,9 +34,8 @@ public class TestBlockService {
      * @param test - The test the block corresponds to.
      * @return
      */
-    public TestBlock createTestBlock(Integer numberOfQuestions, Boolean randomize, String tag, CognitiveTest test){
-//        TestBlockDAOimpl dao = new TestBlockDAOimpl();
-        TestBlock res = new TestBlock(numberOfQuestions,randomize,tag,test);
+    public BlockWrapper createTestBlock(Integer numberOfQuestions, Boolean randomize, String tag, CognitiveTest test){
+        BlockWrapper res = new BlockWrapper(numberOfQuestions, randomize, tag, test);
         dao.add(res);
         return res;
     }
@@ -42,9 +45,10 @@ public class TestBlockService {
      * @param Id - The Id of the test block
      * @return - The Test block with the given ID.
      */
-    public TestBlock findBlockById(long Id){
-//        TestBlockDAOimpl dao = new TestBlockDAOimpl();
-        return dao.get(Id);
+    public BlockWrapper findBlockById(long Id){
+
+        List<TestQuestion> questions = dao.getAllBlockQuestions(Id);
+        return new BlockWrapper(questions, dao.get(Id));
     }
 
     /**
@@ -53,8 +57,16 @@ public class TestBlockService {
      * @param block - The block that needs to be updated.
      */
     public void updateTestBlock(TestBlock block){
-//        TestBlockDAOimpl dao = new TestBlockDAOimpl();
         dao.update(block);
+    }
+
+    /**
+     *
+     * @param blockId
+     * @return
+     */
+    public List<TestQuestion> findAllBlockQuestions(long blockId){
+        return dao.getAllBlockQuestions(blockId);
     }
 
     /**
@@ -63,7 +75,6 @@ public class TestBlockService {
      * @param blockId - the block Id we want to delete.
      */
     public void deleteTestBlock(long blockId){
-//        TestBlockDAOimpl dao = new TestBlockDAOimpl();
         dao.delete(blockId);
     }
 }

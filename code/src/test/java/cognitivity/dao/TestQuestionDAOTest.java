@@ -10,14 +10,13 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = HibernateBeanConfiguration.class,
-        locations = {"classpath:testApplicationContext.xml", "classpath:test-dispatcher-servlet.xml"})
+@SpringBootTest(classes = HibernateBeanConfiguration.class)
 @Ignore("tests passing, but to run them there is a need of db")
 public class TestQuestionDAOTest extends AbstractDaoTestClass {
 
@@ -35,7 +34,7 @@ public class TestQuestionDAOTest extends AbstractDaoTestClass {
     @Before
     public void initialize(){
         testManager =
-                new TestManager("onlyForTests TestManager", "notarealpassword");
+                new TestManager("onlyForTests TestManagernotarealpassword");
         testManagerDAO.add(testManager);
         CognitiveTest cognitiveTest =
                 new CognitiveTest("onlyForTests", testManager, 1, 0);
@@ -43,7 +42,7 @@ public class TestQuestionDAOTest extends AbstractDaoTestClass {
         TestBlock testBlock = new TestBlock(0,false, "testTag", cognitiveTest);
         testBlockDAO.add(testBlock);
         testQuestion = new TestQuestion("testQuestion", 0,
-                null, "testTag", testBlock, cognitiveTest, testManager);
+                null, "testTag", testBlock, cognitiveTest, testManager, 0);
     }
 
     /*
@@ -96,7 +95,7 @@ public class TestQuestionDAOTest extends AbstractDaoTestClass {
         assertTrue("testQuestion table should be empty",
                 testQuestionDAO.getTestQuestionsFromAManager(testManager).isEmpty());
         TestManager otherTestManager
-                = new TestManager("new TestManager", "notarealpassword");
+                = new TestManager("new TestManager notarealpassword");
         testManagerDAO.add(otherTestManager);
         testQuestion.setTestManager(otherTestManager);
         testQuestionDAO.add(testQuestion);

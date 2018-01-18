@@ -3,12 +3,10 @@
 testManager table holds the information about the managers of the test.
 Fields:
 @id - the main key for the table
-@name - the name of the test manager.
-@password - the login password for the manager account.
+@email - the name of the test manager.
 */
 CREATE TABLE testManager(id INTEGER PRIMARY KEY AUTO_INCREMENT,
-  name text,
-  password text
+  email text NOT NULL
 );
 
 /*
@@ -21,7 +19,7 @@ Fields:
 */
 CREATE TABLE testSubject(id INTEGER PRIMARY KEY AUTO_INCREMENT,
   name text,
-  ipAddress INTEGER,
+  ipAddress text,
   browser text
 );
 
@@ -74,7 +72,7 @@ Fields:
 @question - the question itself.
 @questionType - an ENUM that holds one of 4 values, indicating the type of the question. The type of the question can be one of the following:
 rating question, free text question, multiple choice question, drill down question.
-@answer - this feilds holds the correct answer for the question of the question is a multiple choice question or a drill down question. Otherwise it holds NULL.
+@answer - this field holds the correct answer for the question of the question is a multiple choice question or a drill down question. Otherwise it holds NULL.
 @project
 @block - a reference to the block in which the question is found
 */
@@ -82,7 +80,8 @@ CREATE TABLE testQuestion(id INTEGER PRIMARY KEY AUTO_INCREMENT,
   question text NOT NULL ,
   tag text ,
   questionType INT NOT NULL,
-  answer INT,
+  answer text,
+  questionPosition INT,
   testManagerId INT NOT NULL,
   projectId INT NOT NULL,
   testBlockId INT NOT NULL,

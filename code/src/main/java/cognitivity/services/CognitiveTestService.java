@@ -1,12 +1,16 @@
 package cognitivity.services;
 
 import cognitivity.dao.CognitiveTestDAO;
+import cognitivity.dao.TestBlockDAO;
+import cognitivity.dto.BlockWrapper;
+import cognitivity.dto.TestWrapper;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestQuestion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,10 +21,13 @@ import java.util.List;
 public class CognitiveTestService {
 
     private CognitiveTestDAO dao;
+    private TestBlockDAO blockDAO;
 
     @Autowired
-    public CognitiveTestService(CognitiveTestDAO dao) {
+    public CognitiveTestService(CognitiveTestDAO dao, TestBlockDAO blockDAO) {
         this.dao = dao;
+        this.blockDAO = blockDAO;
+
     }
 
 
@@ -30,9 +37,9 @@ public class CognitiveTestService {
      * @param cognitiveTest     - The cognitive test to be created
      * @return
      */
-    public CognitiveTest createTestForTestManager(CognitiveTest cognitiveTest) {
+    public TestWrapper createTestForTestManager(CognitiveTest cognitiveTest) {
         dao.add(cognitiveTest);
-        return cognitiveTest;
+        return new TestWrapper(cognitiveTest);
     }
 
     /**
@@ -64,8 +71,13 @@ public class CognitiveTestService {
      * @param testID - The test id to find.
      * @return - The test with the corresponding ID if it exists, null otherwise.
      */
-    public CognitiveTest findTestById(long testID) {
-        return dao.get(testID);
+    public TestWrapper findTestById(long testID) {
+        List<BlockWrapper> blocks = new ArrayList<BlockWrapper>();
+        List<TestBlock> preWrapped = dao.getTestBlocks(testID);
+        for ( TestBlock block: preWrapped) {
+            blocks.add(new BlockWrapper(blockDAO.getAllBlockQuestions(block.getId()),block));
+        }
+        return new TestWrapper(dao.get(testID), blocks);
     }
 
     /**
@@ -74,8 +86,13 @@ public class CognitiveTestService {
      * @param managerId - The manager.
      * @return - The test the test manager has created with the given id.
      */
-    public List<CognitiveTest> findTestsForTestManager(long managerId) {
-        return dao.getCognitiveTestOfManager(managerId);
+    public List<TestWrapper> findTestsForTestManager(long managerId) {
+        List<TestWrapper> tests = new ArrayList<TestWrapper>();
+        List<CognitiveTest> preWrapped = dao.getCognitiveTestOfManager(managerId);
+        for (CognitiveTest test : preWrapped){
+            tests.add(findTestById(test.getId()));
+        }
+        return tests;
     }
 
 
@@ -85,8 +102,13 @@ public class CognitiveTestService {
      * @param testId - the given test id
      * @return a list of all of the blocks in the test.
      */
-    public List<TestBlock> getTestBlocksForTest(long testId) {
-        return dao.getTestBlocks(testId);
+    public List<BlockWrapper> getTestBlocksForTest(long testId) {
+        List<TestBlock> preWrapped = dao.getTestBlocks(testId);
+        List<BlockWrapper> blocks = new ArrayList<BlockWrapper>();
+        for (TestBlock block : preWrapped){
+            blocks.add(new BlockWrapper(blockDAO.getAllBlockQuestions(block.getId()),block));
+        }
+        return blocks;
     }
 
     /**

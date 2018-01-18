@@ -15,9 +15,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -33,10 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Created by ophir on 19/12/17.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class},
-        locations = {"classpath:testApplicationContext.xml", "classpath:test-dispatcher-servlet.xml"})
-@WebAppConfiguration
-@SpringBootTest
+@SpringBootTest(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class})
 public class TestQuestionControllerTest implements RestControllerTest {
 
     private TestQuestionController controller;
@@ -69,8 +64,8 @@ public class TestQuestionControllerTest implements RestControllerTest {
     private TestQuestion mockTestQuestion() {
         return new TestQuestion() {
             @Override
-            public Integer getAnswer() {
-                return 1;
+            public String getAnswer() {
+                return "hey ophir";
             }
 
             @Override

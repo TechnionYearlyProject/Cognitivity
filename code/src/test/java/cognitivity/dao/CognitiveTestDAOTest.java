@@ -4,12 +4,12 @@ import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestManager;
 import cognitivity.entities.TestQuestion;
-import cognitivity.web.app.config.HibernateBeanConfiguration;
+import config.HibernateTestConfiguration;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
@@ -17,8 +17,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {HibernateBeanConfiguration.class},
-        locations = {"classpath:testApplicationContext.xml", "classpath:test-dispatcher-servlet.xml"})
+@SpringBootTest(classes = {HibernateTestConfiguration.class})
 @Ignore("tests passing, but to run them there is a need of db")
 public class CognitiveTestDAOTest extends AbstractDaoTestClass {
 
@@ -44,7 +43,7 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
         cognitiveTestsPerManager = new CognitiveTest[numOfTestManagers][numOfTestsPerManager];
         //new CognitiveTest("onlyForTests", testManager, 1, 0);
         for (int i = 0; i < numOfTestManagers; i++) {
-            testManagers[i] = new TestManager("TestManager" + i, "notarealpassword" + i);
+            testManagers[i] = new TestManager("TestManager" + i + " @gmail.com");
             testManagerDAO.add(testManagers[i]);
             for (int j = 0; j < numOfTestsPerManager; j++) {
                 cognitiveTestsPerManager[i][j] = new CognitiveTest("Test" + i + j,
@@ -187,8 +186,8 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
                 //as long as we arn't in the last iteration
                 if (j < numOfTestQuestionsPerBlock) {
                     testQuestions[i][j] =
-                            new TestQuestion("to be or not to be", 5, 10, "tag",
-                                    testBlocks[i], cognitiveTestsPerManager[0][i], testManagers[0]);
+                            new TestQuestion("to be or not to be", 5, "10", "tag",
+                                    testBlocks[i], cognitiveTestsPerManager[0][i], testManagers[0], 0);
                     testQuestionDAO.add(testQuestions[i][j]);
                 }
             }

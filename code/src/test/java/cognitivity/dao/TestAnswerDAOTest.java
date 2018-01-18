@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
@@ -14,8 +14,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {HibernateBeanConfiguration.class},
-        locations = {"classpath:testApplicationContext.xml", "classpath:test-dispatcher-servlet.xml"})
+@SpringBootTest(classes = {HibernateBeanConfiguration.class})
 @Ignore("tests passing, but to run them there is a need of db")
 public class TestAnswerDAOTest extends AbstractDaoTestClass {
 
@@ -47,7 +46,7 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
     @Before
     public void initialize() {
         testManager =
-                new TestManager("onlyForTests TestManager", "notarealpassword");
+                new TestManager("onlyForTests TestManager notarealpassword");
         testManagerDAO.add(testManager);
         cognitiveTest =
                 new CognitiveTest("onlyForTests", testManager, 1, 0);
@@ -55,9 +54,9 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
         testBlock = new TestBlock(0, false, "testTag", cognitiveTest);
         testBlockDAO.add(testBlock);
         testQuestion = new TestQuestion("testQuestion", 0,
-                null, "testTag", testBlock, cognitiveTest, testManager);
+                null, "testTag", testBlock, cognitiveTest, testManager, 0);
         testQuestionDAO.add(testQuestion);
-        testSubject = new TestSubject("testName", -1, "fireFox");
+        testSubject = new TestSubject("testName", "-1", "fireFox");
         testSubjectDAO.add(testSubject);
         testAnswer = new TestAnswer(testSubject, testQuestion,
                 cognitiveTest, 0, 0, 0,
@@ -115,7 +114,7 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
         assertTrue("problem with getting testAnswers for subject", answers.contains(testAnswer));
         assertTrue("problem with getting testAnswers for subject", answers.size() == 1);
 
-        TestSubject newTestSubject = new TestSubject("anotherName", -1, "fireFox");
+        TestSubject newTestSubject = new TestSubject("anotherName", "-1", "fireFox");
         testSubjectDAO.add(newTestSubject);
         testAnswer.setTestSubject(newTestSubject);
         testAnswer.setId(testAnswer.getId() + 1);
@@ -161,7 +160,7 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
         assertTrue(answers.contains(testAnswer));
         assertTrue(answers.size() == 1);
 
-        TestSubject newTestSubject = new TestSubject("anotherName", -1, "fireFox");
+        TestSubject newTestSubject = new TestSubject("anotherName", "-1", "fireFox");
         testSubjectDAO.add(newTestSubject);
         testAnswer.setTestSubject(newTestSubject);
         testAnswer.setId(testAnswer.getId() + 1);
