@@ -116,6 +116,14 @@
         </dependency>
 
 
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>5.0.2.RELEASE</version>
+        </dependency>
+
+
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -240,6 +248,16 @@
             <artifactId>spring-jdbc</artifactId>
             <version>5.0.2.RELEASE</version>
         </dependency>
+
+
+
+        <!-- https://mvnrepository.com/artifact/org.jhades/jhades -->
+        <dependency>
+            <groupId>org.jhades</groupId>
+            <artifactId>jhades</artifactId>
+            <version>1.0.4</version>
+        </dependency>
+
 
 
     </dependencies>
