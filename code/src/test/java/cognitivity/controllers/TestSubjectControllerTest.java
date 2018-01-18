@@ -33,7 +33,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class})
-@ContextConfiguration(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class})
 public class TestSubjectControllerTest implements RestControllerTest {
 
     private TestSubjectController controller;
