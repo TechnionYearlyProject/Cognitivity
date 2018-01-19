@@ -1,5 +1,5 @@
 <div class=" container" >
-<div *ngFor="let question of block.questionList; let i=index" class="form-group"  style="background-color:white;">
+<div *ngFor="let question of block.questions; let i=index" class="form-group"  style="background-color:white;">
   <app-question-preview *ngIf="showQuestion(i)" [question]="question"></app-question-preview>
 </div>
 <br>
