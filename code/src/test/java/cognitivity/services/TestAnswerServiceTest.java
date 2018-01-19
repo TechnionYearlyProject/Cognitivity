@@ -1,6 +1,7 @@
 package cognitivity.services;
 
 import cognitivity.dao.*;
+import cognitivity.dto.BlockWrapper;
 import cognitivity.entities.*;
 import cognitivity.web.app.config.HibernateBeanConfiguration;
 import config.TestContextBeanConfiguration;
@@ -70,7 +71,7 @@ public class TestAnswerServiceTest {
     public void FullTest() {
         QuestionService questionService = new QuestionService(qdao,dao,tdao,mdao);
         TestBlockService blockService = new TestBlockService(bdao);
-        CognitiveTestService testService = new CognitiveTestService(tdao,bdao);
+        CognitiveTestService testService = new CognitiveTestService(tdao,bdao, qdao);
         TestManagerService managerService = new TestManagerService(mdao,tdao);
         TestSubjectService subjectService = new TestSubjectService(sdao);
         TestAnswerService service = new TestAnswerService(dao,sdao);
@@ -78,13 +79,13 @@ public class TestAnswerServiceTest {
         TestManager manager = new TestManager("mail");
         CognitiveTest test = new CognitiveTest("Sifratiyot", manager, 2, 1);
         CognitiveTest test2 = new CognitiveTest("jhfkasjhfkajdfak", manager, 2, 1);
-        TestBlock block = blockService.createTestBlock(1, false, "tagiity tag", test);
+        BlockWrapper block = blockService.createTestBlock(1, false, "tagiity tag", test);
         TestSubject subject = new TestSubject("Rick", "ip", "Ahla dafdefan");
         TestQuestion question = new TestQuestion("Who the f&$# builds a stonehenge?", 4, "No one knows",
-                "Questions we will never answer", block, test, manager, 0);
+                "Questions we will never answer", block.innerBlock(), test, manager, 0);
         questionService.createTestQuestion(question);
         TestQuestion question1 = new TestQuestion("Who ate my sandwich?", 4, "Joey",
-                "Questions we will never answer", block, test2, manager, 0);
+                "Questions we will never answer", block.innerBlock(), test2, manager, 0);
         questionService.createTestQuestion(question1);
 
         TestAnswer answer = new TestAnswer(subject, question, test, 2, 1, 1, 2,

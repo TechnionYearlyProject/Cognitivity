@@ -1,5 +1,6 @@
 package cognitivity.dao;
 
+import cognitivity.dto.BlockWrapper;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestQuestion;
 
@@ -9,8 +10,8 @@ public interface TestBlockDAO {
 
     public TestBlock get(Long id);
     public void delete(Long id);
-    public void add(TestBlock data);
-    public void update(TestBlock data);
+    public void add(BlockWrapper data);
+    public void update(BlockWrapper data);
 
     /**
      * Get all the questions for a given block.
