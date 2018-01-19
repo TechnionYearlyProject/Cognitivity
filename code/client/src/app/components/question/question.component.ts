@@ -9,28 +9,31 @@ import { EventEmitter } from '@angular/core';
   templateUrl: './question.component.html',
   styleUrls: ['./question.component.css']
 })
-export class QuestionComponent implements OnInit {
-  
 
+/*
+component to hold the question object and display it.
+this component is actually a "wrapper" that just adds the head of the question info 
+and collapse ability.
+the data of the actual question is passed as input.
+*/
+export class QuestionComponent implements OnInit {
+
+  //to indicate if the question is currently collapsed or not.
   hidden: boolean = true;
 
-  
+  //the question's data itself 
   @Input() myData:any;
+  //the question's index in the list.
   @Input() index: any;
-  constructor(private router:Router,public questionDataService:SessionService) {
-    
-  }
+
+  //default constructor.
+  constructor(private router:Router,public questionDataService:SessionService) {}
   
-  ngOnInit() {
-    //Here we will pull the question from the DB
-  }
+  //default initialization function.
+  ngOnInit() {}
+
+  //called by a click event from the HTML form, changes the collapse status of the question's data.
   toggleHidden() {
     this.hidden = !this.hidden;
-  }
-
-  connectViewer(){
-    //console.log("sending id: "+this.myData.id);
-    this.questionDataService.setData(this.myData);
-    this.router.navigate(['question-viewer']);
   }
 }

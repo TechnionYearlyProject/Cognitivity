@@ -3,12 +3,20 @@ import { Test, Manager, Question, Block } from '../../models';
 import { Http, Headers } from '@angular/http'
 import { RequestOptionsArgs } from '@angular/http/src/interfaces';
 
+/*
+This service connects our front-end components against the DB.
+Each function is described well by is name.
+*/
 @Injectable()
 export class TestManagerService {
-    //functions
 
+    //tuples for representing the way we send data between the front-end and DB. 
     private headers = new Headers({'Content-Type': 'application/json'});
+
+    //the basic route mapping.
     base_mapping = '/test-managers';
+
+    //default constructor, getting the HTTP service.
     constructor(private http : Http) {}
 
     private handleError(error: any): Promise<any> {
@@ -19,7 +27,7 @@ export class TestManagerService {
     saveTestManager(email: string): Promise<void> {
         return this.http.post(`http://localhost:8181${this.base_mapping}/saveTestManager`, JSON.stringify({'email': email}),{headers: this.headers})
         .toPromise()
-        .then(() => null) //not so sure about this line, may need to change it
+        .then(() => null) 
         .catch(this.handleError);
     }
 

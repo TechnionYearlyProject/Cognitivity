@@ -120,6 +120,7 @@ public class TestWrapper {
     }
 
     public TestWrapper(CognitiveTest test, List<BlockWrapper> blocks) {
+        this.id = test.getId();
         this.lastAnswered = test.getLastAnswered();
         this.lastModified = test.getLastModified();
         this.testManager = test.getManager();
@@ -132,7 +133,10 @@ public class TestWrapper {
         this.blocks = blocks;
     }
 
+    //TODO: This might cause a problem, the test wrapper ID MUSt be similar to the test ID/
+    //TODO: However, For a newly created test, there is no Id to fetch.
     public TestWrapper(CognitiveTest test) {
+        this.id = test.getId();
         this.lastAnswered = test.getLastAnswered();
         this.lastModified = test.getLastModified();
         this.testManager = test.getManager();
@@ -147,6 +151,7 @@ public class TestWrapper {
 
     public CognitiveTest innerTest() {
         CognitiveTest cognitiveTest = new CognitiveTest(name, testManager, state, numberOfQuestions);
+        cognitiveTest.setId(id);
         cognitiveTest.setLastAnswered(lastAnswered);
         cognitiveTest.setLastModified(lastModified);
         cognitiveTest.setNumberOfFiledCopies(numberOfFiledCopies);

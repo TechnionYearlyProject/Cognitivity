@@ -5,6 +5,9 @@ import { Observable } from 'rxjs/Observable';
 
 import { AuthService } from './';
 
+/*
+this class allows us to implement the credentials check of the user.
+*/
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
@@ -26,6 +29,9 @@ export class AuthGuard implements CanActivate {
   
 }
 
+/*
+were using the angularFireAuth server 
+*/
 @Injectable()
 export class LoginGuard implements CanActivate {
   constructor(
