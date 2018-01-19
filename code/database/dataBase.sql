@@ -45,7 +45,7 @@ CREATE TABLE project (id INTEGER PRIMARY KEY AUTO_INCREMENT,
   numberOfFiledCopies INT NOT NULL ,
   numberOfQuestions INT NOT NULL ,
   managerId INT NOT NULL,
-  FOREIGN KEY (managerId) REFERENCES testManager(id)
+  FOREIGN KEY (managerId) REFERENCES testManager(id) ON DELETE CASCADE
 );
 
 /**
@@ -62,7 +62,7 @@ CREATE TABLE testBlock(id INTEGER PRIMARY KEY AUTO_INCREMENT,
   randomize BOOLEAN,
   tag text,
   projectId INT NOT NULL,
-  FOREIGN KEY (projectId) REFERENCES project(id)
+  FOREIGN KEY (projectId) REFERENCES project(id) ON DELETE CASCADE
 );
 
 /*
@@ -85,9 +85,9 @@ CREATE TABLE testQuestion(id INTEGER PRIMARY KEY AUTO_INCREMENT,
   testManagerId INT NOT NULL,
   projectId INT NOT NULL,
   testBlockId INT NOT NULL,
-  FOREIGN KEY (testManagerId) REFERENCES testManager(id),
-  FOREIGN KEY (projectId) REFERENCES project(id),
-  FOREIGN KEY (testBlockId) REFERENCES testBlock(id)
+  FOREIGN KEY (testManagerId) REFERENCES testManager(id) ON DELETE CASCADE,
+  FOREIGN KEY (projectId) REFERENCES project(id) ON DELETE CASCADE,
+  FOREIGN KEY (testBlockId) REFERENCES testBlock(id) ON DELETE CASCADE
 );
 
 
@@ -122,9 +122,9 @@ CREATE TABLE testAnswer(id INTEGER PRIMARY KEY AUTO_INCREMENT,
   testeeId INTEGER NOT NULL,
   questionId INTEGER NOT NULL,
   projectId INTEGER NOT NULL ,
-  FOREIGN KEY (testeeId) REFERENCES testSubject(id),
-  FOREIGN KEY (questionId) REFERENCES testQuestion(id),
-  FOREIGN KEY (projectId) REFERENCES project(id)
+  FOREIGN KEY (testeeId) REFERENCES testSubject(id) ON DELETE CASCADE,
+  FOREIGN KEY (questionId) REFERENCES testQuestion(id) ON DELETE CASCADE,
+  FOREIGN KEY (projectId) REFERENCES project(id) ON DELETE CASCADE
 );
 
 
