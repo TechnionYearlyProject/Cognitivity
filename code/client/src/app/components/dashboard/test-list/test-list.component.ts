@@ -66,11 +66,22 @@ export class TestListComponent implements OnInit {
   Input - none. called by a click event from the HTML form.
   Output - adds a new test object to the tests list.
   */
- async addTest() {
+  async addTest() {
    let test = this.testList[0];
    test.name = "test";
     //this.testService.saveCognitiveTest(test);
     this.testList = await this.testService.findTestsForTestManager('1');
   }
+
+  convertToDateString(date: string) {
+    return new Date(date).toLocaleDateString();
+  }
+
+  async deleteTest(id: number) {
+    if (confirm('Are you sure you want to delete the test?')) {
+      console.log('deleted');
+    }
+  }
+
 
 }
