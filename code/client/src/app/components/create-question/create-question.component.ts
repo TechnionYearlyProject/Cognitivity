@@ -824,6 +824,7 @@ export class CreateQuestionComponent implements OnInit {
     this.mainAnswers.splice(this.mainAnswers.length, 0, this.currentMainAnswer);
     this.markedMainCorrectAnswer.splice(this.markedMainCorrectAnswer.length, 0, false);
     this.currentMainAnswer = '';
+    this.submitSecondaryQuestion = false;
   }
 
   haveMainAnswers(): boolean {
@@ -863,7 +864,7 @@ export class CreateQuestionComponent implements OnInit {
     }
     for(let i = 0; i < this.secondaryQuestionList.length; i++){
       if(index == this.secondaryQuestionList[i].index){
-        this.secondaryQuestionList.splice(i,0);
+        this.secondaryQuestionList.splice(i,1);
       }
     }
     this.mainAnswers.splice(index,1);
@@ -893,8 +894,29 @@ export class CreateQuestionComponent implements OnInit {
     
     if(index != 0){
       for(let i = 0; i < this.secondaryQuestionList.length; i++){
-        if(index == this.secondaryQuestionList[i].index){
-          this.secondaryQuestionList[i].index--;
+        if(index - 1 == this.secondaryQuestionList[i].index){
+
+          let tmp = {
+            index: index,
+            questionText: this.secondaryQuestionList[i].questionText,
+            answers: Object.assign([], this.secondaryQuestionList[i].answers),
+            markedAnswer: this.secondaryQuestionList[i].markedAnswer
+          }
+          console.log('tmp is: ');
+          console.log(tmp);
+
+          this.secondaryQuestionList.splice(i,1);
+          this.secondaryQuestionList.splice(0,0,tmp);
+          console.log(this.secondaryQuestionList);
+        }else if(index == this.secondaryQuestionList[i].index){
+          let tmp = {
+            index: index - 1,
+            questionText: this.secondaryQuestionList[i].questionText,
+            answers: Object.assign([], this.secondaryQuestionList[i].answers),
+            markedAnswer: this.secondaryQuestionList[i].markedAnswer
+          }
+          let removed = this.secondaryQuestionList.splice(i,1);
+          this.secondaryQuestionList.splice(0,0,tmp);
         }
       }
       if(this.showMainAnswer){
@@ -906,7 +928,7 @@ export class CreateQuestionComponent implements OnInit {
       let removed_marked_correct = this.markedMainCorrectAnswer.splice(index,1);
       this.mainAnswers.splice(index - 1, 0, removed[0]);
       this.markedMainCorrectAnswer.splice(index - 1, 0, removed_marked_correct[0]);
-      
+
     } 
   }
 
@@ -914,7 +936,24 @@ export class CreateQuestionComponent implements OnInit {
     if(index != this.mainAnswers.length - 1){
       for(let i = 0; i < this.secondaryQuestionList.length; i++){
         if(index == this.secondaryQuestionList[i].index){
-          this.secondaryQuestionList[i].index++;
+          let tmp = {
+            index: index + 1,
+            questionText: this.secondaryQuestionList[i].questionText,
+            answers: Object.assign([], this.secondaryQuestionList[i].answers),
+            markedAnswer: this.secondaryQuestionList[i].markedAnswer
+          }
+          this.secondaryQuestionList.splice(i,1);
+          this.secondaryQuestionList.splice(0,0,tmp);
+        }
+        if(index + 1 == this.secondaryQuestionList[i].index){
+          let tmp = {
+            index: index,
+            questionText: this.secondaryQuestionList[i].questionText,
+            answers: Object.assign([], this.secondaryQuestionList[i].answers),
+            markedAnswer: this.secondaryQuestionList[i].markedAnswer
+          }
+          this.secondaryQuestionList.splice(i,1);
+          this.secondaryQuestionList.splice(0,0,tmp);
         }
       }
       if(this.showMainAnswer){
