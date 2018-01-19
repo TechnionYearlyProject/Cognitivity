@@ -5,9 +5,9 @@ import cognitivity.dto.TestWrapper;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestManager;
-import cognitivity.web.app.config.CognitivityMvcConfiguration;
+import config.ObjectMapperBeanConfiguration;
+import config.TestContextBeanConfiguration;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -17,8 +17,8 @@ import static org.junit.Assert.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {CognitivityMvcConfiguration.class})
-@Ignore("tests passing, but to run them there is a need of db")
+@ContextConfiguration(classes = {TestContextBeanConfiguration.class, ObjectMapperBeanConfiguration.class})
+//@Ignore("tests passing, but to run them there is a need of db")
 public class TestBlockDAOTest extends AbstractDaoTestClass {
 
     private TestBlock testBlock;
