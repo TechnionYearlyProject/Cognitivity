@@ -1,5 +1,6 @@
 package cognitivity.dao;
 
+import cognitivity.dto.TestWrapper;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestQuestion;
@@ -24,6 +25,18 @@ public class CognitiveTestDAOimpl extends AbstractDAO<CognitiveTest> implements 
 
     public void delete(Long id) {
         super.delete(id, CognitiveTest.class);
+    }
+
+    @Override
+    public void add(TestWrapper data) {
+        Session session = sessionFactory.getCurrentSession();
+        session.save(data);
+    }
+
+    @Override
+    public void update(TestWrapper data) {
+        Session session = sessionFactory.getCurrentSession();
+        session.merge(data);
     }
 
     public List<TestQuestion> getTestQuestions(long testId) {
