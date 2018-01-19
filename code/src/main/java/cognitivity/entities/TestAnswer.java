@@ -17,17 +17,14 @@ public class TestAnswer extends AbstractEntity {
 
 	@ManyToOne
     @JoinColumn(name = "testeeId", nullable = false)
-    @JsonIgnore
     private TestSubject testSubject;
 
     @ManyToOne
     @JoinColumn(name = "questionId", nullable = false)
-    @JsonIgnore
     private TestQuestion question;
 
     @ManyToOne
     @JoinColumn(name = "projectId", nullable = false)
-    @JsonIgnore
     private CognitiveTest cognitiveTest;
 
     @Column(name = "numberOfClick", nullable = false)

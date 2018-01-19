@@ -26,7 +26,7 @@ public class TestQuestion extends AbstractEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "testBlockId", nullable = false)
-	private TestBlock block;
+	private TestBlock testBlock;
 
 	@ManyToOne
 	@JoinColumn(name = "projectId", nullable = false)
@@ -49,14 +49,14 @@ public class TestQuestion extends AbstractEntity {
 	private Integer questionPosition;
 
     public TestQuestion(String question, Integer questionType,
-                        String answer, String tag, TestBlock block,
+                        String answer, String tag, TestBlock testBlock,
                         CognitiveTest cognitiveTest, TestManager testManager,
                         Integer questionPosition) {
         this.question = question;
         this.questionType = questionType;
         this.answer = answer;
         this.tag = tag;
-        this.block = block;
+        this.testBlock = testBlock;
         this.cognitiveTest = cognitiveTest;
         this.testManager = testManager;
         this.questionPosition = questionPosition;
@@ -112,12 +112,12 @@ public class TestQuestion extends AbstractEntity {
 		this.questionType = questionType;
 	}
 
-	public TestBlock getBlock() {
-		return block;
+	public TestBlock getTestBlock() {
+		return testBlock;
 	}
 
-	public void setBlock(TestBlock block) {
-		this.block = block;
+	public void setTestBlock(TestBlock block) {
+		this.testBlock = block;
 	}
 
 	public String getTag(){

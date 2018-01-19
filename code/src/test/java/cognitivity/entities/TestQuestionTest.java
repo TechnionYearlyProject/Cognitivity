@@ -19,7 +19,7 @@ public class TestQuestionTest {
     public void gettersSettersTest() {
         TestQuestion testQuestion = createTestQuestion();
         testQuestion.setAnswer(testQuestion.getAnswer());
-        testQuestion.setBlock(testQuestion.getBlock());
+        testQuestion.setTestBlock(testQuestion.getTestBlock());
         testQuestion.setCognitiveTest(testQuestion.getCognitiveTest());
         testQuestion.setQuestion(testQuestion.getQuestion());
         testQuestion.setTag(testQuestion.getTag());

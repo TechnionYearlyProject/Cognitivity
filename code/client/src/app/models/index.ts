@@ -103,7 +103,7 @@ export interface OpenQuestion extends Question {
 */
 export interface Block {
     id?: number,
-    questionList: Array<Question>
+    questions: Question[],
 }
 /*
     Interface that represents test object that holds its list of blocks.
@@ -112,12 +112,13 @@ export interface Test {
     id?: number,
     name?: string,
     numberOfQuestions?: number,
-    status?: number,
+    state?: number,
     managerId?: number,
     lastModified?: string,
     lastAnswered?: string,
     numberOfFiledCopies?: number,
-    blockList?: Block[]
+    blocks?: Block[],
+    numberOfSubjects?: number
 
 }
 /* Manager properties */

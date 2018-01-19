@@ -53,20 +53,20 @@ export class TestPreviewComponent implements OnInit {
     }
 
     var block : Block = {
-      questionList: [question, question2]
+      questions: [question, question2]
     }
 
     var block2: Block = {
-      questionList: [question3]
+      questions: [question3]
     }
 
     var block3: Block = {
-      questionList: [question5]
+      questions: [question5]
     }
     this.testId = this.route.snapshot.params['testId'];
     this.test = this.localStorageService.get('test'+this.testId);
     this.test = {
-      blockList: [block,block2,block3]
+      blocks: [block,block2,block3]
     }
     this.currIndex = 0;
   }
@@ -86,7 +86,7 @@ export class TestPreviewComponent implements OnInit {
   nextBlock() {
     this.currIndex++;
     this.hideNextButton = true;
-    if (this.currIndex == this.test.blockList.length) {
+    if (this.currIndex == this.test.blocks.length) {
       this.finishPreview();
     }
   }
