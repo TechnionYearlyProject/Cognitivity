@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Block, Test } from '../../models/index';
 import { BlockComponent } from '../block/block.component';
 import { Router, ActivatedRoute } from '@angular/router';
-import { QuestionListComponent } from '../block/question-list/question-list.component';
 import { SessionService } from '../../services/session-service/index';
 import { TestService, TestManagerService } from '../../services/database-service/index';
 import { AuthService } from '../../services/auth-service/index';

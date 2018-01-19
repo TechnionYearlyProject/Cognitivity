@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TypeQuestion,QuestionData,Question, OpenQuestion, RateQuestion,MultipleChoiceQuestion } from '../../models';
+import { TypeQuestion,Question, OpenQuestion, RateQuestion,MultipleChoiceQuestion } from '../../models';
 import {Router} from '@angular/router';
 import {SessionService} from '../../services/session-service'
 import { Output } from '@angular/core';
