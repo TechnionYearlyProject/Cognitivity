@@ -29,7 +29,6 @@ public class TestQuestionDAOTest extends AbstractDaoTestClass {
      *  - testQuestion
      *
      */
-    //TODO: add check in the add questions test, that the test indeed updates
     @Before
     public void initialize(){
         testManager =
