@@ -11,7 +11,7 @@ public interface CognitiveTestDAO {
 
     public CognitiveTest get(Long id);
     public void delete(Long id);
-    public void add(TestWrapper data);
+    public long add(TestWrapper data);
     public void update(TestWrapper data);
 
     /**

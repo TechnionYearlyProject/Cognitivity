@@ -41,18 +41,21 @@ public class CognitiveTestService {
      * @return
      */
     public TestWrapper createTestForTestManager(TestWrapper cognitiveTest) {
-        dao.add(cognitiveTest);
+        long testId = dao.add(cognitiveTest);
         List<BlockWrapper> blocks = cognitiveTest.getBlocks();
         if (blocks != null) {
+            CognitiveTest test =cognitiveTest.innerTest();
             for (BlockWrapper block : blocks) {
-                block.setCognitiveTest(cognitiveTest.innerTest());
-                blockDAO.add(block);
+                test.setId(testId);
+                block.setCognitiveTest(test);
+                long blockId = blockDAO.add(block);
+                TestBlock testBlock = block.innerBlock();
+                testBlock.setId(blockId);
                 if (block.getQuestions() != null) {
                     for (TestQuestion question : block.getQuestions()) {
                         question.setTestManager(cognitiveTest.getTestManager());
-                        question.setCognitiveTest(cognitiveTest.innerTest());
-                        System.out.println(cognitiveTest.innerTest());
-                        question.setTestBlock(block.innerBlock());
+                        question.setCognitiveTest(test);
+                        question.setTestBlock(testBlock);
                         questionDAO.add(question);
                     }
                 }

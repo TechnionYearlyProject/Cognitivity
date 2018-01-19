@@ -10,7 +10,7 @@ public interface TestBlockDAO {
 
     public TestBlock get(Long id);
     public void delete(Long id);
-    public void add(BlockWrapper data);
+    public Long add(BlockWrapper data);
     public void update(BlockWrapper data);
 
     /**

@@ -23,10 +23,10 @@ public class TestBlockDAOimpl extends AbstractDAO<TestBlock> implements TestBloc
     }
 
     @Override
-    public void add(BlockWrapper data) {
+    public Long add(BlockWrapper data) {
         Session session = sessionFactory.getCurrentSession();
         TestBlock newData = data.innerBlock();
-        session.save(newData);
+        return (Long) session.save(newData);
     }
 
     @Override
