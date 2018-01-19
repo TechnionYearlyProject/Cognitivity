@@ -16,6 +16,10 @@ import java.util.List;
  */
 public class TestWrapper {
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }

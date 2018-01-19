@@ -1,5 +1,6 @@
 package cognitivity.services;
 
+import cognitivity.Exceptions.DBException;
 import cognitivity.dao.*;
 import cognitivity.dto.BlockWrapper;
 import cognitivity.dto.TestWrapper;
@@ -52,17 +53,18 @@ public class CognitiveTestServiceTest {
         Mockito.reset(qdao);
         Mockito.reset(bdao);
 
-        doNothing().when(dao).add(any());
-        doNothing().when(qdao).add(any());
-        doNothing().when(bdao).add(any());
+        doReturn(7L).when(dao).add(any());
+        doReturn(7L).when(qdao).add(any());
+        doReturn(7L).when(bdao).add(any());
         doNothing().when(dao).delete(any());
         doNothing().when(qdao).delete(any());
         doNothing().when(bdao).delete(any());
+        doNothing().when(mdao).delete(any());
+        doNothing().when(adao).delete(any());
 
 
     }
 
-    //TODO: check if we need to delete the created parameters from the DB at the end of the test.
     @Test
     /*
     For the sake of mocking:
@@ -74,13 +76,19 @@ public class CognitiveTestServiceTest {
 
 
         TestManager manager = new TestManager();
+        manager.setId(9L);
 
         CognitiveTestService service = new CognitiveTestService(dao, bdao, qdao);
 
         CognitiveTest cognitiveTest = new CognitiveTest("test1", manager, 1, 2);
         cognitiveTest.setId(7L);
         TestWrapper testWrapper = new TestWrapper(cognitiveTest);
-        TestWrapper test = service.createTestForTestManager(testWrapper);
+        TestWrapper test = new TestWrapper();
+        try {
+            test = service.createTestForTestManager(testWrapper);
+        }catch (DBException e){
+
+        }
 
         doReturn(test.innerTest()).when(dao).get(7L);
         assertNotNull("Problem in making test", cognitiveTest);
@@ -104,20 +112,25 @@ public class CognitiveTestServiceTest {
         doReturn(test.innerTest()).when(dao).get(7L);
         getting = service.findTestById(7);
         assertEquals("Problem with updating", getting.getName(), test.getName());
-        List<CognitiveTest> tests = new ArrayList<CognitiveTest>();
-        tests.add(cognitiveTest);
-        tests.add(test1);
-        tests.add(test2);
-        tests.add(test3);
-        tests.add(test4);
+        List<TestWrapper> tests = new ArrayList<TestWrapper>();
+        tests.add(new TestWrapper(cognitiveTest));
+        tests.add(new TestWrapper(test1));
+        tests.add(new TestWrapper(test2));
+        tests.add(new TestWrapper(test3));
+        tests.add(new TestWrapper(test4));
         doReturn(tests).when(dao).getCognitiveTestOfManager(9);
-//        List<TestWrapper> result = service.findTestsForTestManager(9);
-//        for (CognitiveTest t : result) {
-//            assertTrue("Getting unrelated results while trying to get all managers tests", tests.contains(t));
-//        }
-//        for (CognitiveTest t : tests) {
-//            assertTrue("Didn't get all the tests from the manager", result.contains(t));
-//        }
+        List<TestWrapper> result = new ArrayList<>();
+        try {
+            result = service.findTestsForTestManager(9);
+        }catch (DBException e){
+
+        }
+        for (TestWrapper t : result) {
+            assertTrue("Getting unrelated results while trying to get all managers tests", tests.contains(t));
+        }
+        for (TestWrapper t : tests) {
+            assertTrue("Didn't get all the tests from the manager", result.contains(t));
+        }
 
 
         List<TestBlock> blocks = new ArrayList<TestBlock>();
@@ -160,10 +173,6 @@ public class CognitiveTestServiceTest {
 
 
         service.deleteTestForTestManager(7);
-        service.deleteTestForTestManager(11);
-        service.deleteTestForTestManager(12);
-        service.deleteTestForTestManager(13);
-        service.deleteTestForTestManager(14);
 
         blockService.deleteTestBlock(15);
         blockService.deleteTestBlock(16);
