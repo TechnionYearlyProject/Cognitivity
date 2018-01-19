@@ -28,7 +28,6 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -65,7 +64,9 @@ public class CognitiveTestControllerTest implements RestControllerTest {
 
     private static CognitiveTest buildTest(String ct, String email, int s, int nq) {
         TestManager tm = new TestManager(email);
-        return new CognitiveTest(ct, tm, s, nq);
+        CognitiveTest cognitiveTest = new CognitiveTest(ct, tm, s, nq);
+        cognitiveTest.setId(1L);
+        return cognitiveTest;
     }
 
     @Test
@@ -96,6 +97,7 @@ public class CognitiveTestControllerTest implements RestControllerTest {
     public void saveCognitiveTestCallsServiceWithCorrectParams() throws Exception {
         TestManager tm = new TestManager("email");
         CognitiveTest cognitiveTest = new CognitiveTest("test", tm, 11, 30);
+        cognitiveTest.setId(1L);
 
         // createTestForTestManager is a http POST request
         mockMvc.perform(post("/tests/saveCognitiveTest")
