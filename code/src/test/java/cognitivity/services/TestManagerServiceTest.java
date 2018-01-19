@@ -114,11 +114,6 @@ public class TestManagerServiceTest {
         service.deleteTestManager(1);
 
         testService.deleteTestForTestManager(2);
-        testService.deleteTestForTestManager(3);
-        testService.deleteTestForTestManager(4);
-        testService.deleteTestForTestManager(5);
-
-
 
     }
 

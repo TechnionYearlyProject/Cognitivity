@@ -106,7 +106,6 @@ public class TestBlockServiceTest {
 
         managerService.deleteTestManager(2);
 
-        testService.deleteTestForTestManager(3);
 
     }
 
