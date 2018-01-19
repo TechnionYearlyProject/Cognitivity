@@ -78,6 +78,7 @@ public class CognitiveTestServiceTest {
         CognitiveTestService service = new CognitiveTestService(dao, bdao, qdao);
 
         CognitiveTest cognitiveTest = new CognitiveTest("test1", manager, 1, 2);
+        cognitiveTest.setId(7L);
         TestWrapper testWrapper = new TestWrapper(cognitiveTest);
         TestWrapper test = service.createTestForTestManager(testWrapper);
 
@@ -101,6 +102,8 @@ public class CognitiveTestServiceTest {
         test.setName("Skum toom toom toom");
         service.updateTestForTestManager(new TestWrapper(cognitiveTest));
         getting = service.findTestById(7);
+        System.out.println("Test get name is "+test.getName());
+        System.out.println("Getting name is "+ getting.getName());
         assertEquals("Problem with updating", getting.getName(), test.getName());
         List<CognitiveTest> tests = new ArrayList<CognitiveTest>();
         tests.add(cognitiveTest);
