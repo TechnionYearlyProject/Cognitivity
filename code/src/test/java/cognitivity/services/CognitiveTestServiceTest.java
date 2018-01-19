@@ -1,10 +1,13 @@
 package cognitivity.services;
 
-import cognitivity.exceptions.DBException;
 import cognitivity.dao.*;
 import cognitivity.dto.BlockWrapper;
 import cognitivity.dto.TestWrapper;
-import cognitivity.entities.*;
+import cognitivity.entities.CognitiveTest;
+import cognitivity.entities.TestBlock;
+import cognitivity.entities.TestManager;
+import cognitivity.entities.TestQuestion;
+import cognitivity.exceptions.DBException;
 import cognitivity.web.app.config.HibernateBeanConfiguration;
 import config.TestContextBeanConfiguration;
 import org.junit.Before;
@@ -134,10 +137,10 @@ public class CognitiveTestServiceTest {
 
 
         List<TestBlock> blocks = new ArrayList<TestBlock>();
-        blocks.add(block1.innerBlock());
-        blocks.add(block2.innerBlock());
-        blocks.add(block3.innerBlock());
-        blocks.add(block4.innerBlock());
+        blocks.add(block1.innerBlock(test.getId()));
+        blocks.add(block2.innerBlock(test.getId()));
+        blocks.add(block3.innerBlock(test.getId()));
+        blocks.add(block4.innerBlock(test.getId()));
 
 //        doReturn(blocks).when(dao).getTestBlocks(7);
 //        List<BlockWrapper> blockResult = service.getTestBlocksForTest(7);
@@ -150,11 +153,11 @@ public class CognitiveTestServiceTest {
 
         QuestionService questionService = new QuestionService(qdao, adao, dao, mdao);
 
-        TestQuestion question1 = new TestQuestion("question1", 1, "5", "bla", block1.innerBlock(), cognitiveTest, manager, 0);
+        TestQuestion question1 = new TestQuestion("question1", 1, "5", "bla", block1.innerBlock(test.getId()), cognitiveTest, manager, 0);
         questionService.createTestQuestion(question1);
-        TestQuestion question2 = new TestQuestion("question2", 1, "5", "bla2", block2.innerBlock(), cognitiveTest, manager, 0);
+        TestQuestion question2 = new TestQuestion("question2", 1, "5", "bla2", block2.innerBlock(test.getId()), cognitiveTest, manager, 0);
         questionService.createTestQuestion(question2);
-        TestQuestion question3 = new TestQuestion("question3", 1, "5", "bla3", block3.innerBlock(), cognitiveTest, manager, 0);
+        TestQuestion question3 = new TestQuestion("question3", 1, "5", "bla3", block3.innerBlock(test.getId()), cognitiveTest, manager, 0);
         questionService.createTestQuestion(question3);
 
         List<TestQuestion> questions = new ArrayList<TestQuestion>();

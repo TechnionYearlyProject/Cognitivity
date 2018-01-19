@@ -108,7 +108,7 @@ public class TestSubjectServiceTest {
             assertTrue("problem with updating subject",false);
         }
         TestQuestion question = new TestQuestion("When will the Shibutzim arrive?",1,"Never!","Questions that remain unasnwered",
-                block.innerBlock(), test, manager, 0);
+                block.innerBlock(test.getId()), test, manager, 0);
         questionService.createTestQuestion(question);
 
         TestSubject subject1 = service.createTestSubject(new TestSubject("Timon", "Cow", "Hakuna"));

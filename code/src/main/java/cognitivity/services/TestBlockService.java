@@ -39,7 +39,7 @@ public class TestBlockService {
     public BlockWrapper createTestBlock(Integer numberOfQuestions, Boolean randomize, String tag, CognitiveTest test) throws DBException{
         try {
             BlockWrapper res = new BlockWrapper(numberOfQuestions, randomize, tag, test);
-            dao.add(res.innerBlock());
+            dao.add(res.innerBlock(test.getId()));
             return res;
         }catch (org.hibernate.HibernateException e){
             throw new DBException(ErrorType.UPDATE);

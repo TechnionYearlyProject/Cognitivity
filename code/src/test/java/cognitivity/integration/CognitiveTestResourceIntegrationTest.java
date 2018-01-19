@@ -63,7 +63,7 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
     private TestWrapper createCognitiveTestWrapper(boolean withQuestions, long id) throws Exception {
         manager = createTestManager(id);
         cognitiveTest = AbstractResourceIntegrationTest.createCognitiveTest(manager);
-        cognitiveTest.setId(5L);
+        cognitiveTest.setId(77L);
         TestBlock block1 = new TestBlock(1, true, "tag1", cognitiveTest);
         block1.setId(1L);
         TestBlock block2 = new TestBlock(2, true, "tag2", cognitiveTest);
@@ -196,7 +196,6 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
         testWrapper.setId(Long.valueOf(testId));
         testWrapper.setName("test2");
         testWrapper.setNumberOfQuestions(55);
-        testWrapper.getBlocks().forEach(b -> b.setCognitiveTest(testWrapper.innerTest()));
 
         // And call to update...
         cognitiveTestMvc.perform((post("/tests/updateCognitiveTest"))
