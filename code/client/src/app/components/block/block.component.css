@@ -70,3 +70,19 @@
 #addButton {
     color: green;
 }
+
+.questionBG{
+ background-color:#66ffcc;   
+}
+
+.editQ{
+    background-color:#c6ff1a;
+}
+
+.removeQ{
+    background-color: #ff1a1a;
+}
+
+.arrowbg{
+    background-color: silver;
+}

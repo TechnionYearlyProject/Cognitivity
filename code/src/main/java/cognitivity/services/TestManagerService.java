@@ -4,6 +4,7 @@ import cognitivity.dao.CognitiveTestDAO;
 import cognitivity.dao.TestManagerDAO;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -84,6 +85,10 @@ public class TestManagerService {
         CognitiveTest test = testDao.get(testId);
         long managerId = test.getManager().getId();
         return dao.get(managerId);
+    }
+
+    public long getManagerIdByEmail(String email) {
+        return dao.getId(email);
     }
 
 

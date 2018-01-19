@@ -99,7 +99,7 @@ export class TestPreviewComponent implements OnInit {
     this.test.numberOfSubjects=3;
     this.test.state=0;
     //this.test.blocks=[];
-    this.test.testManager = {id: '1', email:'aa@aa.com'}
+    this.test.testManager = {id: '13', email:'aa@aa.com'}
     console.log(await this.testService.saveCognitiveTest(this.test));
     this.currIndex = 0;
   }

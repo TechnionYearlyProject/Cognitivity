@@ -1,34 +1,51 @@
+<div class="titleBoi">Cognitivity</div>
+<br>
+<br>
 <div class="form-group">
     <div class="centered">
-        <h2><span class="fa fa-sticky-note-o"></span> Create New Test</h2>
-        <br>
+        <h1>
+            <span class="fa fa-sticky-note-o"></span> Create New Test</h1>
+        <br><br><br>
         <h4>Enter title for the test: </h4>
-        <input [(ngModel)] = "titleTest" name = "title" #title = "ngModel" type="text" class="form-control" placeholder="Title of the test" style="max-width: 100%;">
+        <input [(ngModel)]="titleTest" name="title" #title="ngModel" type="text" class="form-control" placeholder="Title of the test"
+            style="max-width: 100%;">
         <br>
-        <button class="btn btn-primary btn-sm" (click)="addBlock()">
-        <span class="fa fa-plus"></span> Create new block</button>
+        <div style="text-align: center;">
+            <button class="btn btn-primary btn-sm" (click)="addBlock()">
+                <span class="fa fa-plus"></span> Create new block</button>
+        </div>
     </div>
 
-        <div class="centered">
-            <div class="column">
-                
-                <div *ngFor="let it of iterator; let i = index;">
-                        <br>
-                        <div class="row" style="margin:0px 0px 0px 1px;">
-                            <a class="btn btn-secondary btn-sm fa fa-arrow-up" (click)="moveMeUp(i)"></a>
-                            <a class="btn btn-secondary btn-sm fa fa-arrow-down" (click)="moveMeDown(i)" style="margin: 0px 0px 0px 5px"></a>        
+    <div class="centered">
+        <div class="column">
+
+            <div *ngFor="let it of iterator; let i = index;">
+                <br>
+                <div class="card  bg-info border-dark mb-3">
+                    <app-block [blockNumber]="i" style="margin:1px;"> </app-block>
+
+                    <div class="container">
+                        <div class="column">
+                            <button class="btn btn-danger btn-sm" (click)="deleteBlock(i)">
+                                <span class="fa fa-trash"></span> Delete block</button>
+                            <br>
                         </div>
-        
-                        <app-block [blockNumber] = "i" style="margin:1px;"></app-block>
-                        <button class="btn btn-danger btn-sm" (click) = "deleteBlock(i)"><span class = "fa fa-trash"></span> Delete block</button>
-                        <br>
-        
-                </div>      
+                        <div class="row" style="margin:0px 0px 0px 1px;">
+                            <div class="column">
+                                <button class="btn btn-secondary btn-sm fa fa-arrow-up" (click)="moveMeUp(i)"></button>
+                            </div>
+                            <div class="column">
+                                <button class="btn btn-secondary btn-sm fa fa-arrow-down" (click)="moveMeDown(i)" style="margin: 0px 0px 0px 5px"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
         <br>
         <div class="centered">
-                <button class="btn btn-md btn-primary"(click)="saveTest()" style="width: 100%;">Save Test</button>
+            <button class="btn btn-md btn-primary" (click)="saveTest()" style="width: 100%;">Save Test</button>
         </div>
-        
-</div>
+
+    </div>

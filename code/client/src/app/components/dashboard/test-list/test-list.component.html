@@ -23,11 +23,11 @@
       <td>{{ test.name }}</td>
       <td>{{ test.numberOfQuestions }}</td>
       <td>{{ convertToDateString(test.lastModified) }}</td>
-      <td>{{ convertToDateString(test.lastAnswered) }}</td>
+      <td>{{ test.lastAnswered == null ? '' : convertToDateString(test.lastAnswered) }}</td>
       <td><a class="btn btn-secondary btn-sm" (click)="deleteTest(test.id)"><i class="fa fa-times"></i> Delete</a></td>
       <td><a [routerLink]="['/test/'+test.id]" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-window-maximize"></i> Preview</a></td>
       <td><a [routerLink]="['/test/'+test.id]" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-arrow-circle-o-right"></i> Edit</a></td>
-      <td><a [routerLink]="['/test/'+test.id]" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-file-powerpoint-o "></i> Copy</a></td>
+      <td><a (click)="copyTest(test)" class="btn btn-secondary btn-sm"><i class="fa fa-file-powerpoint-o "></i> Copy</a></td>
     </tr>
   </tbody>
 </table>
