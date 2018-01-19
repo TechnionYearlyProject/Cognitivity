@@ -6,7 +6,7 @@ Fields:
 @email - the name of the test manager.
 */
 CREATE TABLE testManager(id INTEGER PRIMARY KEY AUTO_INCREMENT,
-  email text NOT NULL
+  email text NOT NULL UNIQUE
 );
 
 /*

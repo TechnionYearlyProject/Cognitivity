@@ -1,5 +1,6 @@
 package cognitivity.services;
 
+import cognitivity.Exceptions.DBException;
 import cognitivity.dao.CognitiveTestDAO;
 import cognitivity.dao.TestBlockDAO;
 import cognitivity.dao.TestQuestionDAO;
@@ -11,8 +12,11 @@ import cognitivity.entities.TestQuestion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.lang.model.type.ErrorType;
 import java.util.ArrayList;
 import java.util.List;
+
+import static cognitivity.Exceptions.ErrorType.SAVE;
 
 /**
  * Business service for cognitive test related operations.
@@ -40,11 +44,16 @@ public class CognitiveTestService {
      * @param cognitiveTest - The cognitive test to be created
      * @return
      */
-    public TestWrapper createTestForTestManager(TestWrapper cognitiveTest) {
-        long testId = dao.add(cognitiveTest.innerTest());
+    public TestWrapper createTestForTestManager(TestWrapper cognitiveTest) throws DBException {
+        long testId;
+        try {
+            testId = dao.add(cognitiveTest.innerTest());
+        }catch (org.hibernate.HibernateException e){
+            throw new DBException(SAVE);
+        }
         List<BlockWrapper> blocks = cognitiveTest.getBlocks();
         if (blocks != null) {
-            CognitiveTest test =cognitiveTest.innerTest();
+            CognitiveTest test = cognitiveTest.innerTest();
             for (BlockWrapper block : blocks) {
                 test.setId(testId);
                 block.setCognitiveTest(test);
@@ -61,6 +70,7 @@ public class CognitiveTestService {
                 }
             }
         }
+        cognitiveTest.setId(testId);
         return cognitiveTest;
     }
 
@@ -87,12 +97,21 @@ public class CognitiveTestService {
 
     /**
      * Delete a CognitiveTest for a test manager (admin).
+     * This method deletes all the blocks and questions of the test
      *
      * @param testID - The test id to delete.
      *               <p>
      *               This will be used in conjunction with the DELETE HTTP method.
      */
     public void deleteTestForTestManager(long testID) {
+        List<BlockWrapper> blocks = findTestById(testID).getBlocks();
+        for (BlockWrapper block : blocks) {
+            List<TestQuestion> questions = block.getQuestions();
+            for (TestQuestion question: questions) {
+                questionDAO.delete(question.getId());
+            }
+            blockDAO.delete(block.getId());
+        }
         dao.delete(testID);
     }
 
@@ -118,7 +137,7 @@ public class CognitiveTestService {
      * @param managerId - The manager.
      * @return - The test the test manager has created with the given id.
      */
-    public List<TestWrapper> findTestsForTestManager(long managerId) {
+    public List<TestWrapper> findTestsForTestManager(long managerId) throws DBException {
         List<TestWrapper> tests = new ArrayList<TestWrapper>();
         List<CognitiveTest> preWrapped = dao.getCognitiveTestOfManager(managerId);
         for (CognitiveTest test : preWrapped) {
