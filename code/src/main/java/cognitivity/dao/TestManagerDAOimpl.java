@@ -1,7 +1,9 @@
 package cognitivity.dao;
 
 import cognitivity.entities.TestManager;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -16,5 +18,13 @@ public class TestManagerDAOimpl extends AbstractDAO<TestManager> implements Test
 
     public void delete(Long id) {
         super.delete(id, TestManager.class);
+    }
+
+    public long getId(String email) {
+        Session session = sessionFactory.getCurrentSession();
+        String queryString = "select T.id from TestManager T where T.email = :email";
+        Query<Long> integerQuery = session.createQuery(queryString, Long.class);
+        integerQuery.setParameter("email",email);
+        return integerQuery.getSingleResult();
     }
 }

@@ -172,8 +172,6 @@ public class TestAnswerServiceTest {
 
         managerService.deleteTestManager(6);
 
-        testService.deleteTestForTestManager(7);
-        testService.deleteTestForTestManager(8);
 
         blockService.deleteTestBlock(9);
 

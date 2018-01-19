@@ -1,5 +1,6 @@
 package cognitivity.controllers;
 
+import cognitivity.Exceptions.DBException;
 import cognitivity.dto.TestWrapper;
 import cognitivity.services.CognitiveTestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,7 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findTestsForTestManager")
     public List<TestWrapper> findTestsForTestManager(
-            @RequestParam(value = "managerId") long managerId) {
+            @RequestParam(value = "managerId") long managerId) throws DBException {
         return service.findTestsForTestManager(managerId);
     }
 
@@ -56,7 +57,7 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/saveCognitiveTest")
     public TestWrapper saveCognitiveTest(
-            @RequestBody TestWrapper cognitiveTest) {
+            @RequestBody TestWrapper cognitiveTest) throws DBException{
         return service.createTestForTestManager(cognitiveTest);
     }
 

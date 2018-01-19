@@ -20,7 +20,7 @@ public class TestBlock extends AbstractEntity {
     @Column(name = "tag")
     private String tag;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "projectId", nullable = false)
     private CognitiveTest cognitiveTest;
 

@@ -169,7 +169,6 @@ public class TestSubjectServiceTest {
 
         managerService.deleteTestManager(5);
 
-        testService.deleteTestForTestManager(6);
 
         blockService.deleteTestBlock(7);
 

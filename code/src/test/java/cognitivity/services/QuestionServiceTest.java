@@ -1,5 +1,6 @@
 package cognitivity.services;
 
+import cognitivity.Exceptions.DBException;
 import cognitivity.dao.*;
 import cognitivity.dto.BlockWrapper;
 import cognitivity.dto.TestWrapper;
@@ -76,7 +77,12 @@ public class QuestionServiceTest {
         TestManager manager = new TestManager("lkljl");
         CognitiveTest cognitiveTest = new CognitiveTest("test1", manager, 1, 100);
         TestWrapper testWrapper = new TestWrapper(cognitiveTest);
-        TestWrapper test = testService.createTestForTestManager(testWrapper);
+        TestWrapper test = new TestWrapper();
+        try {
+            test = testService.createTestForTestManager(testWrapper);
+        }catch (DBException e ){
+
+        }
         BlockWrapper block = blockService.createTestBlock(5, true, "Taggy tag", cognitiveTest);
 
 
@@ -126,7 +132,12 @@ public class QuestionServiceTest {
 
         CognitiveTest cognitiveTest1 = new CognitiveTest("test1", manager, 1, 100);
         TestWrapper testWrapper1 = new TestWrapper(cognitiveTest1);
-        TestWrapper test2 = testService.createTestForTestManager(testWrapper1);
+        TestWrapper test2 = new TestWrapper();
+        try {
+            test2 = testService.createTestForTestManager(testWrapper1);
+        }catch (DBException e){
+
+        }
 
         TestQuestion question4 = new TestQuestion("Who moved my cheese?", 5, "The cat", "Critical for life", block.innerBlock(), cognitiveTest1, manager, 0);
         service.createTestQuestion(question4);
@@ -192,7 +203,6 @@ public class QuestionServiceTest {
 
         blockService.deleteTestBlock(3);
 
-        testService.deleteTestForTestManager(10);
 
     }
 
