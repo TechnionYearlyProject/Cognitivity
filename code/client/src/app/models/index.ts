@@ -104,6 +104,8 @@ export interface OpenQuestion extends Question {
 export interface Block {
     id?: number,
     questions: Question[],
+    randomize?: boolean,
+    projectId?: number,
 }
 /*
     Interface that represents test object that holds its list of blocks.
@@ -113,12 +115,12 @@ export interface Test {
     name?: string,
     numberOfQuestions?: number,
     state?: number,
-    managerId?: number,
     lastModified?: string,
     lastAnswered?: string,
     numberOfFiledCopies?: number,
     blocks?: Block[],
-    numberOfSubjects?: number
+    numberOfSubjects?: number,
+    testManager?: any
 
 }
 /* Manager properties */

@@ -55,29 +55,30 @@ export class TestPreviewComponent implements OnInit {
     }
 
     var block : Block = {
-      questions: [question, question2]
+      questions: []
     }
 
     var block2: Block = {
-      questions: [question3]
+      questions: []
     }
 
     var block3: Block = {
-      questions: [question5]
+      questions: []
     }
     this.testId = this.route.snapshot.params['testId'];
     this.test = this.localStorageService.get('test'+this.testId);
     this.test = {
       blocks: [block,block2,block3]
     }
-    this.test.name='ff';
+    this.test.name='ffssss';
     this.test.lastAnswered='2018-01-01';
     this.test.lastModified='2018-01-01';
     this.test.numberOfFiledCopies=0;
     this.test.numberOfQuestions=0;
     this.test.numberOfSubjects=0;
     this.test.state=0;
-    this.test.blocks=[];
+    //this.test.blocks=[];
+    this.test.testManager = {id: '1', email:'aa@aa.com'}
     console.log(await this.testService.saveCognitiveTest(this.test));
     this.currIndex = 0;
   }
