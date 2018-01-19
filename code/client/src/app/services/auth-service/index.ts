@@ -64,6 +64,7 @@ export class AuthService {
   simple caller to the auth service logout option.
   */
   logout() {
+    this.localStorageService.set('currEmail', null);
     this.afAuth.auth.signOut();
   }
 
