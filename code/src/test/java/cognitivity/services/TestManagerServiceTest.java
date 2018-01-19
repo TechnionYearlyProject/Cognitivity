@@ -3,6 +3,7 @@ package cognitivity.services;
 import cognitivity.dao.CognitiveTestDAO;
 import cognitivity.dao.TestBlockDAO;
 import cognitivity.dao.TestManagerDAO;
+import cognitivity.dao.TestQuestionDAO;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
 import cognitivity.web.app.config.HibernateBeanConfiguration;
@@ -36,6 +37,9 @@ public class TestManagerServiceTest {
     @Autowired
     private TestBlockDAO bdao;
 
+    @Autowired
+    TestQuestionDAO qdao;
+
 
     @Before
     public void setup() {
@@ -56,7 +60,7 @@ public class TestManagerServiceTest {
     @Test
     public void FullTest(){
         TestManagerService service = new TestManagerService(dao,tdao);
-        CognitiveTestService testService = new CognitiveTestService(tdao, bdao);
+        CognitiveTestService testService = new CognitiveTestService(tdao, bdao, qdao);
 
         TestManager m = new TestManager("Safafafa");
         TestManager manager = service.createTestManager(m);

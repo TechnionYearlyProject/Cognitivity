@@ -1,24 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DrillDownQuestion, TypeQuestion, QuestionPosition } from '../../models';
 @Component({
   selector: 'app-drill-down-question',
   templateUrl: './drill-down-question.component.html',
   styleUrls: ['./drill-down-question.component.css']
 })
+
+/*
+The component for the Drill-down question type.
+*/
 export class DrillDownQuestionComponent implements OnInit {
-  question: DrillDownQuestion;
+  
+  //the object that holds the question.
+  @Input() question: any;
+  //an array to specify the current status of all the question (correct/incorrect)
+  //it serves us as a helper array to keep track on all the user's choices.
   markedAnswersMain: Array<boolean>;
+  //string to display for choosing an answer.
   markedAnswerMain: string = 'Choose an answer';
+  //string for choosing a secondary question's answer.
   markedAnswerSecondery: string = 'Choose an answer';
+  //same array as "markedAnswersMain" just for the sub question.
   markedAnswersSecondary: Array<boolean>;
+  //string for the secondary question's title.
   secondaryQuestion: string;
+  //same array as "markedAnswersMain" just for the sub question answers.
   currentSecondaryAnswers: Array<string>;
+  //slider value
   range_value: number = 50;
+  //to indicate if we're using the secondary question option.
   secondaryQuestionMode: boolean = false;
+
+  //default constructor.
   constructor() { }
 
+  //default initialization function.
   ngOnInit() {
-    this.question = {
+    /*this.question = {
       questionText: 'Who was the first president of the United States of America?',
       type: TypeQuestion.DrillDownQuestion,
       answersForMain: [
@@ -49,7 +67,7 @@ export class DrillDownQuestionComponent implements OnInit {
         3
       ]
 
-    };
+    };*/
     this.markedAnswersMain = new Array<boolean>(this.question.answersForMain.length);
     for(let i = 0; i < this.question.answersForMain.length; i++){
       this.markedAnswersMain[i] = false;

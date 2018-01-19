@@ -1,7 +1,0 @@
-<div *ngFor = "let currQuestion of questions">
-  <br>
-  <a  class="btn btn-secondary btn-sm fa fa-arrow-up" (click)="moveMeUp(currQuestion.indexInBlock)"></a>
-  <a  class="btn btn-secondary btn-sm fa fa-arrow-down" (click)="moveMeDown(currQuestion.indexInBlock)"></a>
-  <app-question [myData]="currQuestion"></app-question>
-  <br>
-</div>

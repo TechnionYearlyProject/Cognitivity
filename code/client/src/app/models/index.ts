@@ -18,6 +18,10 @@ export enum TypeMultipleQuestion {
     Matrix
 }
 
+/*
+enum for the types of the questions.
+we allow - multiple choice , rate , open text , and drilldown types.
+*/
 export enum TypeQuestion {
     MultipleChoice,
     RateQuestion,
@@ -25,6 +29,10 @@ export enum TypeQuestion {
     DrillDownQuestion
 }
 
+/*
+enum for all the different positions in the screen that we allow to choose for the question's
+text/answers.
+*/
 export enum QuestionPosition {
     UpperRight,
     UpperMiddle,
@@ -47,64 +55,45 @@ export interface Question {
     type: TypeQuestion;
     questionPosition?: QuestionPosition;
 }
+
+/*
+class the represent the question as part of a block. 
+in addition the the question object,  we add the index in the block , and the id of the 
+question.
+*/
 export class QuestionInBlock {
     question: Question;
     indexInBlock: number;
     id?: string;
 }
 
-export class QuestionData implements OnInit,Question{
-    id;
-    questionText;
-    questionPosition;
-    type;
-    indexInBlock;
-  constructor(givenIndex) {
-      this.id=Math.random();
-      if(givenIndex%3==0){
-        this.type=TypeQuestion.OpenQuestion;     
-      }
-      if(givenIndex%3==1)
-      {
-        this.type=TypeQuestion.MultipleChoice;
-      }
-      if(givenIndex%3==2)
-      {
-        this.type=TypeQuestion.RateQuestion;
-      }
-      this.indexInBlock=givenIndex;
-   }
-  
-  ngOnInit() {
-
-    }
-
-}
-
-
 /*
     An interface for the object that describes a multiple choice question
 */
-
-
 export interface MultipleChoiceQuestion extends Question {
     answers: string[];
     correctAnswer: number;
     typeMultipleQuestion: TypeMultipleQuestion;
 }
+
 /*
     An interface for the object that describes an open question
 */
 export interface OpenQuestion extends Question {
     answerText: string
 }
+
 /*
     Interface that represents block object that holds a list of questions.    
 */
 export interface Block {
     id?: number,
-    questionList: Array<Question>
+    questions: QuestionInDB[],
+    randomize?: boolean,
+    projectId?: number,
+    numberOfQuestions?: number
 }
+
 /*
     Interface that represents test object that holds its list of blocks.
  */
@@ -112,21 +101,22 @@ export interface Test {
     id?: number,
     name?: string,
     numberOfQuestions?: number,
-    status?: number,
-    managerId?: number,
+    state?: number,
     lastModified?: string,
     lastAnswered?: string,
     numberOfFiledCopies?: number,
-    blockList?: Block[]
+    blocks?: Block[],
+    numberOfSubjects?: number,
+    testManager?: any
 
 }
+
 /* Manager properties */
-//TODO: Check with Guy and Peer about the properties of the user.
 export interface Manager {
     id?: number,
-    name: string,
-    userName: string
+    email: string
 }
+
 /*
     An interface for the object that describes a rating question
 */
@@ -138,7 +128,6 @@ export interface RateQuestion extends Question {
     An interface for the dril down questions
     we are adding the option for optional secnodary questions after one question
 */
-
 export interface DrillDownQuestion extends Question {
     answersForMain: Array<string>;    
     correctMainQuestion: number;
@@ -146,10 +135,25 @@ export interface DrillDownQuestion extends Question {
     answersForSecondary: Array<Array<string>>;
     correctAnswerSecondary: Array<number>;
 }
+
+/*
+class to represent the sub question as part of the drill down question type.
+*/
 export class SecondaryQuestionObject{
     index: number;
     questionText: string;
     answers: Array<string>; 
+    markedAnswer: number = -1;
+}
+
+
+export interface QuestionInDB {
+    id?: number;
+    question?: string;
+    tag?: string;
+    questionType?: number;
+    answer?: string;
+    questionPosition?: number;
 }
 
 

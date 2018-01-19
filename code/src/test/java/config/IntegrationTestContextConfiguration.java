@@ -1,7 +1,6 @@
 package config;
 
 import cognitivity.controllers.*;
-import cognitivity.dao.*;
 import cognitivity.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,47 +15,44 @@ import org.springframework.context.annotation.Configuration;
 public class IntegrationTestContextConfiguration {
 
     @Autowired
-    private CognitiveTestDAO cognitiveTestDAO;
+    private CognitiveTestService cognitiveTestService;
 
     @Autowired
-    private TestAnswerDAO testAnswerDAO;
+    private TestAnswerService testAnswerService;
 
     @Autowired
-    private TestManagerDAO testManagerDAO;
+    private TestManagerService testManagerService;
 
     @Autowired
-    private TestQuestionDAO testQuestionDAO;
+    private QuestionService testQuestionService;
 
     @Autowired
-    private TestSubjectDAO testSubjectDAO;
-
-    @Autowired
-    private TestBlockDAO testBlockDAO;
+    private TestSubjectService testSubjectService;
 
 
     @Bean
     public CognitiveTestController cognitiveTestController() {
-        return new CognitiveTestController(new CognitiveTestService(cognitiveTestDAO, testBlockDAO));
+        return new CognitiveTestController(cognitiveTestService);
     }
 
     @Bean
     public TestAnswerController testAnswerController() {
-        return new TestAnswerController(new TestAnswerService(testAnswerDAO, testSubjectDAO));
+        return new TestAnswerController(testAnswerService);
     }
 
     @Bean
     public TestManagerController testManagerController() {
-        return new TestManagerController(new TestManagerService(testManagerDAO, cognitiveTestDAO));
+        return new TestManagerController(testManagerService);
     }
 
     @Bean
     public TestQuestionController testQuestionController() {
-        return new TestQuestionController(new QuestionService(testQuestionDAO, testAnswerDAO, cognitiveTestDAO, testManagerDAO));
+        return new TestQuestionController(testQuestionService);
     }
 
     @Bean
     public TestSubjectController testSubjectController() {
-        return new TestSubjectController(new TestSubjectService(testSubjectDAO));
+        return new TestSubjectController(testSubjectService);
     }
 
 }

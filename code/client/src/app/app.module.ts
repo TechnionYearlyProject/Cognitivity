@@ -23,16 +23,14 @@ import { AuthService } from './services/auth-service';
 import { LocalStorageService } from './services/local-storage';
 import { CreateTestComponent } from './components/create-test/create-test.component';
 import { CreateQuestionComponent } from './components/create-question/create-question.component';
-import { QuestionListComponent } from './components/block/question-list/question-list.component';
 import { MultipleChoiceQuestionComponent } from './components/multiple-choice-question/multiple-choice-question.component';
 import { SessionService } from './services/session-service';
 import { AuthGuard, LoginGuard } from './services/auth-service/auth-guard';
 import { environment } from '../environments/environment';
-import { QuestionViewerComponent } from './components/question-viewer/question-viewer.component';
+
 
 import { MatDialog, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { EditTestComponent } from './components/edit-test/edit-test.component';
 import { QuestionPreviewComponent } from './components/question-preview/question-preview.component';
 import { BlockPreviewComponent } from './components/block-preview/block-preview.component';
 import { TestPreviewComponent } from './components/test-preview/test-preview.component';
@@ -71,10 +69,7 @@ const PROVIDED_SERVICES = [
     registrationFormComponent,
     BlockComponent,
     QuestionComponent,
-    QuestionListComponent,
     MultipleChoiceQuestionComponent,
-    QuestionViewerComponent,
-    EditTestComponent,
     QuestionPreviewComponent,
     BlockPreviewComponent,
     TestPreviewComponent,

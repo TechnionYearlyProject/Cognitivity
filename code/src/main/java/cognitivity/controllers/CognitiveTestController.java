@@ -57,8 +57,9 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
      */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/saveCognitiveTest")
-    public CognitiveTest saveCognitiveTest(
-            @RequestBody CognitiveTest cognitiveTest) {
+    public TestWrapper saveCognitiveTest(
+            @RequestBody TestWrapper cognitiveTest) {
+        System.out.println("go here?");
         return service.createTestForTestManager(cognitiveTest);
     }
 
@@ -72,7 +73,7 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/updateCognitiveTest")
     public void updateCognitiveTest(
-            @RequestBody CognitiveTest test) {
+            @RequestBody TestWrapper test) {
         service.updateTestForTestManager(test);
     }
 

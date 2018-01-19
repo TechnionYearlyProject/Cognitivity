@@ -1,5 +1,6 @@
 package cognitivity.dao;
 
+import cognitivity.dto.TestWrapper;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestQuestion;
@@ -10,8 +11,8 @@ public interface CognitiveTestDAO {
 
     public CognitiveTest get(Long id);
     public void delete(Long id);
-    public void add(CognitiveTest data);
-    public void update(CognitiveTest data);
+    public long add(TestWrapper data);
+    public void update(TestWrapper data);
 
     /**
      * Return all questions in a given test

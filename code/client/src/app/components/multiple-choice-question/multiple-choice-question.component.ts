@@ -6,15 +6,23 @@ import { Input } from '@angular/core';
   templateUrl: './multiple-choice-question.component.html',
   styleUrls: ['./multiple-choice-question.component.css']
 })
+
+/*
+component for a multiple choice question.
+*/
 export class MultipleChoiceQuestionComponent implements OnInit {
+  //input of the question's data.
   @Input() question: any;
+  //array to indicate what answers are highlighted.
   markedAnswers?: Array<boolean>;
   //Objects that detemines the style of the question text itself
   positionUp: any;
   positionMiddle: any;
   positionButtom: any;
 
+  //slider value
   range_value: number = 50;
+  //the chosen organization of the question's answers 
   answerOrganization: TypeMultipleQuestion;
   /*
     ---------------------- special objects that are ment for multiple question of type matrix
@@ -22,20 +30,14 @@ export class MultipleChoiceQuestionComponent implements OnInit {
   markedAnswersMatrix?: Array<Array<boolean>>;
   dimMatrix?: number;
   matrixAnswers?: Array<Array<string>>;
-  centeringMatrix?: any; //An object that centers the matrix in the web page acocording its size 
-  constructor() {
+  //An object that centers the matrix in the web page acocording its size 
+  centeringMatrix?: any; 
   
-   }
+  //default constructor.
+  constructor(){}
 
+  //default initialization function.
   ngOnInit() {
-    /*this.question = {
-      questionText:'Who directed Inception?',
-      type: TypeQuestion.MultipleChoice,
-      questionPosition: QuestionPosition.UpperMiddle,
-      answers:['Christopher Nolan', 'Ridely Scott', 'Quantin Tarantino', 'Robert Downy Jr.'],
-      correctAnswer:1, 
-      typeMultipleQuestion: TypeMultipleQuestion.Matrix
-    }*/
     this.answerOrganization = this.question.typeMultipleQuestion;
     this.constructMarking();
     this.buildPositionOfQuestion();
@@ -43,6 +45,12 @@ export class MultipleChoiceQuestionComponent implements OnInit {
       this.constructMatrix();
     }
   }
+
+  /*
+  This function builds up the matrix.
+  we need to matrix to use the different locations of the question and 
+  the question's answers on the screen.
+  */
   constructMatrix(){
     this.matrixAnswers = new Array<Array<string>>(this.dimMatrix);
     for(let i = 0; i < this.dimMatrix; i++){
@@ -59,6 +67,7 @@ export class MultipleChoiceQuestionComponent implements OnInit {
       'higherThanFour' : this.higherThanFourColNum()
     }
   }
+
   /*
     preparing the marking objects that will bind to the check boxes at the GUI.
   */
@@ -81,6 +90,7 @@ export class MultipleChoiceQuestionComponent implements OnInit {
     }
     
   }
+
   /*
     chosing the right style according to the position that was chosen
   */
@@ -101,10 +111,10 @@ export class MultipleChoiceQuestionComponent implements OnInit {
       'left' : this.isMiddleLeft()
     }
   }
+
   /*
     A function that marks the answer that the user marked. In case the type of the question is Horizontal or vartical the secondary index isn't needed.
     The index specify which answer was marked. Due to the binding of this property it will affect the GUI.
-
   */
   markAnswer(main_index: number,secondary_index:number = -1){
     if(secondary_index == -1){
@@ -127,7 +137,8 @@ export class MultipleChoiceQuestionComponent implements OnInit {
       }
     }
   }
-   /*
+
+  /*
     ------------- Asking the type of the multiple question ------------------
   */
   isVertical(): boolean{
@@ -141,7 +152,7 @@ export class MultipleChoiceQuestionComponent implements OnInit {
     return this.answerOrganization == TypeMultipleQuestion.Matrix;
   }
 
-    /*
+  /*
     ------------------------------- functions for asking the position of the question text -----------------------
   */
   isUpperMiddle(): boolean{

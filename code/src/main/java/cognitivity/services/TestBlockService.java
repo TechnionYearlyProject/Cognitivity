@@ -45,10 +45,8 @@ public class TestBlockService {
      * @param Id - The Id of the test block
      * @return - The Test block with the given ID.
      */
-    public BlockWrapper findBlockById(long Id){
-
+    public void findBlockById(long Id){
         List<TestQuestion> questions = dao.getAllBlockQuestions(Id);
-        return new BlockWrapper(questions, dao.get(Id));
     }
 
     /**
@@ -57,7 +55,7 @@ public class TestBlockService {
      * @param block - The block that needs to be updated.
      */
     public void updateTestBlock(TestBlock block){
-        dao.update(block);
+        // dao.update(block);
     }
 
     /**

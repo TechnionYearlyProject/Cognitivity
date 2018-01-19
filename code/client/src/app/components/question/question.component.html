@@ -12,6 +12,7 @@
         <app-multiple-choice-question *ngIf="myData.question.type==0" [question] = "myData.question"></app-multiple-choice-question>
         <app-rate-question *ngIf="myData.question.type==1" [question] = "myData.question"></app-rate-question>
         <app-open-question *ngIf="myData.question.type==2" [question] = "myData.question"></app-open-question>
+        <app-drill-down-question *ngIf = "myData.question.type == 3" [question] = "myData.question"></app-drill-down-question>
 
 
       </div>

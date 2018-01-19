@@ -44,6 +44,7 @@ export class CreateQuestionComponent implements OnInit {
   /*
     --------------- drill down question details ---------------
   */
+  
   currentMainAnswer?: string;
   showMainAnswer: boolean;
   indexOfMainanswerToShow: number = -1;
@@ -55,10 +56,13 @@ export class CreateQuestionComponent implements OnInit {
   currentSecondaryQuestion?: string = '';
   currentSecondaryAnswer?: string = '';
   secondaryQuestions?: Array<string> = new Array();
-  editionSecondary?: boolean = false;
+  editionQuestionSecondary?: boolean = false;
   markedSecondaryCorrectAnswer?: Array<boolean> = new Array();
   editionModeSecondary: boolean = false;
   indexAnswerInEditSecondary: number = -1;
+  viewSecondary: boolean = false;
+  viewAnswers: Array<string> = new Array();
+  questionView: string = '';
   //secondaryAnswers?: Array<Array<string>>;
   editionModeMain?: boolean;
   secondaryAnswerMode?: boolean = false;
@@ -367,9 +371,11 @@ export class CreateQuestionComponent implements OnInit {
                         and transfering the question object via the SessionService service. 
   */
   onSubmit(){
+    console.log('asfsdifdfosd;fdsf');
     if(this.questionText != null){
      if(this.questionText != ''){
       if(this.didChoseQuestionPosition() && this.didChoseQuestionType()){
+        console.log('12121');
         if(this.didChoseMultipleQuestion()){
           if(this.didChoseMultipleChoiceType()){
             if(this.didChoseVerticalType() || this.didChoseHorizontalType()){
@@ -402,6 +408,14 @@ export class CreateQuestionComponent implements OnInit {
               this.transferData.setData(this.question_object);
               this.closeDialog();
           }
+        console.log(this.didChoseDrillDownQuestion());
+        }if(this.didChoseDrillDownQuestion()){
+          console.log('hererererer');
+          if(this.haveMainAnswers){
+            this.constructDrillDownQuestion();
+            this.transferData.setData(this.question_object);
+            this.closeDialog();
+          }
         }
   
      } 
@@ -410,6 +424,46 @@ export class CreateQuestionComponent implements OnInit {
     this.submit = true;
   }
 
+
+  constructDrillDownQuestion(){
+    let correct_main_answer = -1;
+    for(let i = 0; i < this.markedMainCorrectAnswer.length; i++){
+      if(this.markedMainCorrectAnswer[i]){
+        correct_main_answer = i;
+      }
+    }
+    let secondary_question_text: Array<string> = new Array(this.mainAnswers.length);
+    let secondary_question_answers: Array<Array<string>> = new Array(this.mainAnswers.length);
+    let secondary_correct_answers: Array<number> = new Array(this.mainAnswers.length);
+    for(let i = 0; i < this.mainAnswers.length; i++){
+      let found_secondary: boolean = false;
+      for(let j = 0; j < this.secondaryQuestionList.length; j++){
+        if(i == this.secondaryQuestionList[j].index){
+          secondary_question_text[i] = this.secondaryQuestionList[j].questionText;
+          secondary_question_answers[i] = Object.assign([], this.secondaryQuestionList[j].answers);
+          secondary_correct_answers[i] = this.secondaryQuestionList[j].markedAnswer;
+          found_secondary = true;
+        }
+      }
+      if(!found_secondary){
+        secondary_question_text[i] = null;
+        secondary_question_answers[i] = null;
+        secondary_correct_answers[i] = -1;
+      }
+    }
+    let answers_main = Object.assign([], this.mainAnswers); 
+    this.question_object = {
+      questionText: this.questionText,
+      type: this.typeQuestion,
+      questionPosition: QuestionPosition.UpperMiddle,
+      answersForMain:  answers_main,    
+      correctMainQuestion: correct_main_answer,
+      secondaryQuestionsText: secondary_question_text,
+      answersForSecondary: secondary_question_answers,
+      correctAnswerSecondary: secondary_correct_answers
+    };
+ 
+  }
   /*
     Construction the diffeerent types of questions after the form completed properly
   */
@@ -475,7 +529,7 @@ export class CreateQuestionComponent implements OnInit {
     Returns TRUE if the user have chosen type for his question, FALSE otherwise.
   */
   didChoseQuestionType():boolean {
-    return this.didChoseOpenQuestion() || this.didChoseRateQuestion() || this.didChoseMultipleQuestion(); 
+    return this.didChoseOpenQuestion() || this.didChoseRateQuestion() || this.didChoseMultipleQuestion() || this.didChoseDrillDownQuestion(); 
   }
   /*
     Returns TRUE if the user have chosen position for his question, FALSE otherwise.
@@ -750,7 +804,7 @@ export class CreateQuestionComponent implements OnInit {
     this.currentMainAnswer = '';
   }
 
-  hasMainAnswers(): boolean {
+  haveMainAnswers(): boolean {
     return this.mainAnswers.length >= 1;
   }
 
@@ -785,6 +839,11 @@ export class CreateQuestionComponent implements OnInit {
       this.secondaryAnswerMode = false;
       this.indexOfMainanswerToShow = -1;
     }
+    for(let i = 0; i < this.secondaryQuestionList.length; i++){
+      if(index == this.secondaryQuestionList[i].index){
+        this.secondaryQuestionList.splice(i,0);
+      }
+    }
     this.mainAnswers.splice(index,1);
     this.markedMainCorrectAnswer.splice(index, 1);
   }
@@ -811,6 +870,11 @@ export class CreateQuestionComponent implements OnInit {
   goMainUp(index: number){
     
     if(index != 0){
+      for(let i = 0; i < this.secondaryQuestionList.length; i++){
+        if(index == this.secondaryQuestionList[i].index){
+          this.secondaryQuestionList[i].index--;
+        }
+      }
       if(this.showMainAnswer){
         if(this.indexOfMainanswerToShow <= index){
           this.indexOfMainanswerToShow = index - 1;
@@ -826,6 +890,11 @@ export class CreateQuestionComponent implements OnInit {
 
   goMainDown(index: number){
     if(index != this.mainAnswers.length - 1){
+      for(let i = 0; i < this.secondaryQuestionList.length; i++){
+        if(index == this.secondaryQuestionList[i].index){
+          this.secondaryQuestionList[i].index++;
+        }
+      }
       if(this.showMainAnswer){
         if(this.indexOfMainanswerToShow <= index){
           this.indexOfMainanswerToShow = index + 1;
@@ -864,6 +933,8 @@ export class CreateQuestionComponent implements OnInit {
     return index == this.indexOfMainanswerToShow;
   }
   undoSecondary(){
+    this.editionQuestionSecondary = false;
+    this.submitSecondaryQuestion = false;
     this.secondaryAnswers = new Array();
     this.currentSecondaryQuestion = '';
     this.secondaryAnswerMode = false;
@@ -874,18 +945,45 @@ export class CreateQuestionComponent implements OnInit {
     }
   }
   finishSecondaryQuestion(){
-    if(!this.emptySecondary()){
+    console.log('hereeee');
+    this.editionQuestionSecondary = false;
+    if(!this.emptySecondary() && this.hasSecondaryAnswer()){
+      for(let i = 0 ; i < this.secondaryQuestionList.length; i++){
+        if(this.secondaryQuestionList[i].index == this.indexOfMainanswerToShow){
+          this.secondaryQuestionList.splice(i, 1);
+        }
+      }
+      let correct_answer = -1;
+      for(let i = 0; i < this.markedSecondaryCorrectAnswer.length; i++){
+        if(this.markedSecondaryCorrectAnswer[i]){
+          correct_answer = i;
+        }
+        
+      }
+
       this.secondaryQuestionList.splice(this.secondaryQuestionList.length, 0, {
         index: this.indexOfMainanswerToShow,
         questionText: this.currentSecondaryQuestion,
-        answers: this.secondaryAnswers
+        answers: this.secondaryAnswers,
+        markedAnswer: correct_answer
       });
+      console.log('correct answer is: ' + correct_answer);
       this.secondaryAnswerMode = false;
+      this.secondaryAnswers = new Array();
+      this.currentSecondaryAnswer = '';
+
+      this.currentSecondaryQuestion = '';
+      this.markedSecondaryCorrectAnswer = new Array();
     }
-    this.submitSecondaryQuestion = true;
     
+    this.submitSecondaryQuestion = true;
+    console.log('Finish');
+    console.log(this.secondaryQuestionList);
   }
 
+  hasSecondaryAnswer(): boolean{
+    return this.secondaryAnswers.length >= 1;
+  }
   secondaryExists(): boolean{
     for(let i = 0; i < this.secondaryQuestionList.length; i++){
       if(this.secondaryQuestionList[i].index == this.indexOfMainanswerToShow){
@@ -950,15 +1048,62 @@ export class CreateQuestionComponent implements OnInit {
     this.editionModeSecondary = false;
     this.indexAnswerInEditSecondary = -1;
     this.currentMainAnswer = '';
+    this.currentSecondaryAnswer = '';
   }
 
   undoSecondaryEdit(){
+    
     this.editionModeSecondary = false;
     this.currentSecondaryAnswer = '';
     this.indexAnswerInEditSecondary = -1;
   }
 
+  viewSecondaryAnswer(){
+    if(this.viewSecondary){
+      this.viewAnswers = new Array();
+      this.viewSecondary = false;
+    }else{
+      this.viewSecondary = true;
+      for(let i = 0; i < this.secondaryQuestionList.length; i++){
+        if(this.secondaryQuestionList[i].index == this.indexOfMainanswerToShow){
+          this.questionView = this.secondaryQuestionList[i].questionText;
+          this.viewAnswers = Object.assign([], this.secondaryQuestionList[i].answers);
+          break;
+        }
+      }
+    }
+  }
+
+  editSecondaryQuestion(){
+    this.viewSecondary = false;
+    this.editionQuestionSecondary = true;
+    let correct_answer_index = -1;
+    for(let i = 0; i < this.secondaryQuestionList.length; i++){
+      if(this.secondaryQuestionList[i].index == this.indexOfMainanswerToShow){
+        this.currentSecondaryQuestion = this.secondaryQuestionList[i].questionText;
+        this.secondaryAnswers = Object.assign([], this.secondaryQuestionList[i].answers);
+        correct_answer_index = this.secondaryQuestionList[i].markedAnswer;
+        break;
+      }
+    }
+    this.markedSecondaryCorrectAnswer = new Array(this.secondaryAnswers.length);
+    for(let i = 0; i < this.markedSecondaryCorrectAnswer.length; i++){
+      if(i == correct_answer_index){
+        this.markedSecondaryCorrectAnswer[i] = true;
+      }else{
+        this.markCorretSecondaryAnswer[i] = false;
+      }
+    }
+  }
+
+  backToView(){
+    this.editionQuestionSecondary = false;
+    this.viewSecondaryAnswer();
+  }
   
+  hasMainAnswres():boolean{
+    return this.mainAnswers.length >= 1;
+  }
 
   
 }

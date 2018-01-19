@@ -64,7 +64,9 @@ public class CognitiveTestControllerTest implements RestControllerTest {
 
     private static CognitiveTest buildTest(String ct, String email, int s, int nq) {
         TestManager tm = new TestManager(email);
-        return new CognitiveTest(ct, tm, s, nq);
+        CognitiveTest cognitiveTest = new CognitiveTest(ct, tm, s, nq);
+        cognitiveTest.setId(1L);
+        return cognitiveTest;
     }
 
     @Test
@@ -95,15 +97,16 @@ public class CognitiveTestControllerTest implements RestControllerTest {
     public void saveCognitiveTestCallsServiceWithCorrectParams() throws Exception {
         TestManager tm = new TestManager("email");
         CognitiveTest cognitiveTest = new CognitiveTest("test", tm, 11, 30);
+        cognitiveTest.setId(1L);
 
         // createTestForTestManager is a http POST request
         mockMvc.perform(post("/tests/saveCognitiveTest")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(cognitiveTest)))
+                .content(objectMapper.writeValueAsBytes(new TestWrapper(cognitiveTest))))
                 .andExpect(status().isOk());
 
         // todo : this will probably fail because the jackson factory will build a new object. Should maybe update equal methods?
-        Mockito.verify(cognitiveTestServiceMock, times(1)).createTestForTestManager(Matchers.any(CognitiveTest.class));
+        Mockito.verify(cognitiveTestServiceMock, times(1)).createTestForTestManager(Matchers.any(TestWrapper.class));
         Mockito.verifyNoMoreInteractions(cognitiveTestServiceMock);
     }
 
@@ -114,11 +117,11 @@ public class CognitiveTestControllerTest implements RestControllerTest {
         // updateCognitiveTest is a http POST request
         mockMvc.perform(post("/tests/updateCognitiveTest")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(test)))
+                .content(objectMapper.writeValueAsBytes(new TestWrapper(test))))
                 .andExpect(status().isOk());
 
         // todo : this will probably fail because the jackson factory will build a new object. Should maybe update equal methods?
-        Mockito.verify(cognitiveTestServiceMock, times(1)).updateTestForTestManager(test);
+        Mockito.verify(cognitiveTestServiceMock, times(1)).updateTestForTestManager(Matchers.any(TestWrapper.class));
         Mockito.verifyNoMoreInteractions(cognitiveTestServiceMock);
     }
 

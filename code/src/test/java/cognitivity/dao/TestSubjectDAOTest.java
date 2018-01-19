@@ -1,6 +1,8 @@
 package cognitivity.dao;
 
 
+import cognitivity.dto.BlockWrapper;
+import cognitivity.dto.TestWrapper;
 import cognitivity.entities.*;
 import cognitivity.web.app.config.CognitivityMvcConfiguration;
 import org.junit.Before;
@@ -32,9 +34,9 @@ public class TestSubjectDAOTest extends AbstractDaoTestClass {
         testManager = new TestManager("qertyt      ");
         testManagerDAO.add(testManager);
         cognitiveTest = new CognitiveTest("newTest", testManager,0,0);
-        cognitiveTestDAO.add(cognitiveTest);
+        cognitiveTestDAO.add(new TestWrapper(cognitiveTest));
         testBlock = new TestBlock(0, true, "tag", cognitiveTest);
-        testBlockDAO.add(testBlock);
+        testBlockDAO.add(new BlockWrapper(testBlock));
 
         TestQuestion testQuestion = new TestQuestion("bkabalba", 2,"5",
                 "thisIsMyTag", testBlock, cognitiveTest, testManager, 0);
@@ -156,7 +158,7 @@ public class TestSubjectDAOTest extends AbstractDaoTestClass {
      */
     @Test
     public void getTestSubjectsWhoParticipatedInTest(){
-        cognitiveTestDAO.add(cognitiveTest);
+        cognitiveTestDAO.add(new TestWrapper(cognitiveTest));
         assertTrue("Test should have empty list of participants",
                 testSubjectDAO.getTestSubjectsWhoParticipatedInTest(cognitiveTest.getId()).isEmpty());
         for(int i = 0; i < numOfAnswersPerSubject; i++){

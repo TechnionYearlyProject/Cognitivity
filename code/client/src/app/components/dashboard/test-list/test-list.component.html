@@ -10,7 +10,6 @@
     <tr>
       <th>Name</th>
       <th>No. Questions</th>
-      <th>Status</th>
       <th>Last Modified</th>
       <th>Last Answered</th>
       <th>No. Filed Copies</th>
@@ -23,7 +22,6 @@
     <tr *ngFor="let test of testList">
       <td>{{ test.name }}</td>
       <td>{{ test.numberOfQuestions }}</td>
-      <td >{{ test.status }}</td>
       <td>{{ test.lastModified }}</td>
       <td>{{ test.lastAnswered }}</td>
       <td>{{ test.numberOfFiledCopies }}</td>

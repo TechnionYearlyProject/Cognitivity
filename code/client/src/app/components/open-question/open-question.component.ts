@@ -6,36 +6,34 @@ import { Input } from '@angular/core';
   templateUrl: './open-question.component.html',
   styleUrls: ['./open-question.component.css']
 })
+/*
+component to represent the open question type.
+*/
 export class OpenQuestionComponent implements OnInit {
+  //the question's data passed as input
   @Input() question: any;
+  //the current answer that the subject fills up.
   currentAnswer: string;
+  //slider value.
   range_value: number = 50;
+  /*
+  different options for CSS styles for the location of the question's text and answer.
+  */
   positionUp : any;
   positionMiddle : any;
   positionButtom : any;
-  constructor() { 
-    /*
-    hardcoded question object, when services will be added this piece of code will not be needed
-    */ 
-    /*this.question = {
-      questionText: 'Which one is better, Iphone or Galaxy?',
-      questionPosition : QuestionPosition.UpperMiddle,
-      type: TypeQuestion.OpenQuestion,
-      answerText: 'Iphone'
-    };*/
 
-    //End of hardcoded question
-  }
+  //default constructor.
+  constructor() {}
 
+  //default initialization function.
   ngOnInit() {
     this.buildPositionOfQuestion();
   }
 
-  onSubmit(event: Event){
-    //this.currentAnswer = answer;
-    console.log('The answer is: ' + this.currentAnswer);
-  }
-
+  /*
+  this function sets the styles for the different positions of the texts and answers
+  */
   buildPositionOfQuestion(){
     this.positionUp = {
       'right' : this.isUpperRight(),

@@ -1,6 +1,7 @@
 package cognitivity.services;
 
 import cognitivity.dao.*;
+import cognitivity.dto.BlockWrapper;
 import cognitivity.entities.*;
 import cognitivity.web.app.config.HibernateBeanConfiguration;
 import config.TestContextBeanConfiguration;
@@ -67,7 +68,7 @@ public class TestSubjectServiceTest {
     @Test
     public void FullTest(){
         TestSubjectService service = new TestSubjectService(dao);
-        CognitiveTestService testService = new CognitiveTestService(tdao,bdao);
+        CognitiveTestService testService = new CognitiveTestService(tdao,bdao, qdao);
         TestManagerService managerService = new TestManagerService(mdao,tdao);
         TestAnswerService answerService = new TestAnswerService(adao,sdao);
         QuestionService questionService = new QuestionService(qdao,adao,tdao,mdao);
@@ -91,9 +92,9 @@ public class TestSubjectServiceTest {
 
         TestManager manager = new TestManager("Yo!!!!!!!!!!!!1");
         CognitiveTest test = new CognitiveTest("test", manager, 1, 0);
-        TestBlock block = blockService.createTestBlock(2,false,"teag", test);
+        BlockWrapper block = blockService.createTestBlock(2,false,"teag", test);
         TestQuestion question = new TestQuestion("When will the Shibutzim arrive?",1,"Never!","Questions that remain unasnwered",
-                block, test, manager, 0);
+                block.innerBlock(), test, manager, 0);
         questionService.createTestQuestion(question);
 
         TestSubject subject1 = service.createTestSubject(new TestSubject("Timon", "Cow", "Hakuna"));
