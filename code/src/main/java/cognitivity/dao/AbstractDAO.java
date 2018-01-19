@@ -34,7 +34,11 @@ public abstract class AbstractDAO<DataType extends AbstractEntity> {
 
     public long add(DataType data) {
         Session session = sessionFactory.getCurrentSession();
-        session.save(data);
+        try {
+            session.save(data);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return data.getId();
     }
 
