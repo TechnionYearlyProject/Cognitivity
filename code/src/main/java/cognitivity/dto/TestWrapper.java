@@ -15,6 +15,8 @@ public class TestWrapper extends CognitiveTest {
     private List<BlockWrapper>  blocks;
 
 
+    public TestWrapper() {}
+
     public TestWrapper(CognitiveTest test, List<BlockWrapper>  blocks){
         super.setId(test.getId());
         super.setLastAnswered(test.getLastAnswered());

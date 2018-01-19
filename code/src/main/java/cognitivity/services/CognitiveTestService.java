@@ -2,6 +2,7 @@ package cognitivity.services;
 
 import cognitivity.dao.CognitiveTestDAO;
 import cognitivity.dao.TestBlockDAO;
+import cognitivity.dao.TestQuestionDAO;
 import cognitivity.dto.BlockWrapper;
 import cognitivity.dto.TestWrapper;
 import cognitivity.entities.CognitiveTest;
@@ -22,11 +23,13 @@ public class CognitiveTestService {
 
     private CognitiveTestDAO dao;
     private TestBlockDAO blockDAO;
+    private TestQuestionDAO questionDAO;
 
     @Autowired
-    public CognitiveTestService(CognitiveTestDAO dao, TestBlockDAO blockDAO) {
+    public CognitiveTestService(CognitiveTestDAO dao, TestBlockDAO blockDAO, TestQuestionDAO questionDAO) {
         this.dao = dao;
         this.blockDAO = blockDAO;
+        this.questionDAO = questionDAO;
 
     }
 
@@ -37,9 +40,20 @@ public class CognitiveTestService {
      * @param cognitiveTest     - The cognitive test to be created
      * @return
      */
-    public TestWrapper createTestForTestManager(CognitiveTest cognitiveTest) {
+    public TestWrapper createTestForTestManager(TestWrapper cognitiveTest) {
         dao.add(cognitiveTest);
-        return new TestWrapper(cognitiveTest);
+        List<BlockWrapper> blocks = cognitiveTest.getBlocks();
+        if (blocks != null) {
+            for (BlockWrapper block : blocks) {
+                blockDAO.add(block);
+                if (blockDAO.getAllBlockQuestions(block.getId()) != null) {
+                    for (TestQuestion question : blockDAO.getAllBlockQuestions(block.getId())) {
+                        questionDAO.add(question);
+                    }
+                }
+            }
+        }
+        return cognitiveTest;
     }
 
     /**
@@ -49,8 +63,18 @@ public class CognitiveTestService {
      *             <p>
      *             This will be used in conjunction with the PUT HTTP method.
      */
-    public void updateTestForTestManager(CognitiveTest test) {
+    public void updateTestForTestManager(TestWrapper test) {
         dao.update(test);
+        if (test.getBlocks() != null) {
+            for (BlockWrapper block : test.getBlocks()) {
+                blockDAO.update(block);
+                if (blockDAO.getAllBlockQuestions(block.getId()) != null) {
+                    for (TestQuestion question : blockDAO.getAllBlockQuestions(block.getId())) {
+                        questionDAO.update(question);
+                    }
+                }
+            }
+        }
     }
 
     /**

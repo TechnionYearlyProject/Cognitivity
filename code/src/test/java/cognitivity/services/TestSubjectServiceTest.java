@@ -67,7 +67,7 @@ public class TestSubjectServiceTest {
     @Test
     public void FullTest(){
         TestSubjectService service = new TestSubjectService(dao);
-        CognitiveTestService testService = new CognitiveTestService(tdao,bdao);
+        CognitiveTestService testService = new CognitiveTestService(tdao,bdao, qdao);
         TestManagerService managerService = new TestManagerService(mdao,tdao);
         TestAnswerService answerService = new TestAnswerService(adao,sdao);
         QuestionService questionService = new QuestionService(qdao,adao,tdao,mdao);

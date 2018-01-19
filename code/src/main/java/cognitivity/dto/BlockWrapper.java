@@ -14,6 +14,7 @@ public class BlockWrapper extends TestBlock {
 
     private List<TestQuestion> questions;
 
+    public BlockWrapper() {}
     public BlockWrapper(Integer numberOfQuestions, Boolean randomize, String tag, CognitiveTest test) {
         super(numberOfQuestions, randomize, tag, test);
     }

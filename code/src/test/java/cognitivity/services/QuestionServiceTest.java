@@ -1,6 +1,7 @@
 package cognitivity.services;
 
 import cognitivity.dao.*;
+import cognitivity.dto.TestWrapper;
 import cognitivity.entities.*;
 import cognitivity.web.app.config.HibernateBeanConfiguration;
 import config.TestContextBeanConfiguration;
@@ -68,12 +69,13 @@ public class QuestionServiceTest {
     public void fullTest() {
         QuestionService service = new QuestionService(testQuestionDAO, answerDao, cognitiveTestDAO, testManagerDAO);
         TestBlockService blockService = new TestBlockService(testBlockDAO);
-        CognitiveTestService testService = new CognitiveTestService(cognitiveTestDAO,testBlockDAO);
+        CognitiveTestService testService = new CognitiveTestService(cognitiveTestDAO,testBlockDAO, testQuestionDAO);
         TestManagerService managerService = new TestManagerService(testManagerDAO, cognitiveTestDAO);
 
         TestManager manager = new TestManager("lkljl");
         CognitiveTest cognitiveTest = new CognitiveTest("test1", manager, 1, 100);
-        CognitiveTest test = testService.createTestForTestManager(cognitiveTest);
+        TestWrapper testWrapper = new TestWrapper(cognitiveTest);
+        CognitiveTest test = testService.createTestForTestManager(testWrapper);
         TestBlock block = blockService.createTestBlock(5, true, "Taggy tag", test);
 
 
@@ -122,7 +124,8 @@ public class QuestionServiceTest {
         }
 
         CognitiveTest cognitiveTest1 = new CognitiveTest("test1", manager, 1, 100);
-        CognitiveTest test2 = testService.createTestForTestManager(cognitiveTest1);
+        TestWrapper testWrapper1 = new TestWrapper(cognitiveTest1);
+        CognitiveTest test2 = testService.createTestForTestManager(testWrapper1);
 
         TestQuestion question4 = new TestQuestion("Who moved my cheese?", 5, "The cat", "Critical for life", block, test2, manager, 0);
         service.createTestQuestion(question4);

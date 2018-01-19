@@ -36,7 +36,7 @@ public class IntegrationTestContextConfiguration {
 
     @Bean
     public CognitiveTestController cognitiveTestController() {
-        return new CognitiveTestController(new CognitiveTestService(cognitiveTestDAO, testBlockDAO));
+        return new CognitiveTestController(new CognitiveTestService(cognitiveTestDAO, testBlockDAO, testQuestionDAO));
     }
 
     @Bean

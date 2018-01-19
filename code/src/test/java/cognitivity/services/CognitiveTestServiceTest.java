@@ -77,10 +77,11 @@ public class CognitiveTestServiceTest {
 
         TestManager manager = new TestManager();
 
-        CognitiveTestService service = new CognitiveTestService(dao,bdao);
+        CognitiveTestService service = new CognitiveTestService(dao,bdao, qdao);
 
         CognitiveTest cognitiveTest = new CognitiveTest("test1", manager, 1, 2);
-        CognitiveTest test = service.createTestForTestManager(cognitiveTest);
+        TestWrapper testWrapper = new TestWrapper(cognitiveTest);
+        CognitiveTest test = service.createTestForTestManager(testWrapper);
 
         doReturn(test).when(dao).get(Long.valueOf(7));
         assertNotNull("Problem in making test", test);
@@ -100,7 +101,7 @@ public class CognitiveTestServiceTest {
         CognitiveTest getting = service.findTestById(7);
         assertNotNull("Problem in finding the test", getting);
         test.setName("Skum toom toom toom");
-        service.updateTestForTestManager(test);
+        service.updateTestForTestManager(new TestWrapper(test));
         getting = service.findTestById(7);
         assertEquals("Problem with updating", getting.getName(), test.getName());
         List<CognitiveTest> tests = new ArrayList<CognitiveTest>();

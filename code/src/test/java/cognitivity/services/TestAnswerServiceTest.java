@@ -70,7 +70,7 @@ public class TestAnswerServiceTest {
     public void FullTest() {
         QuestionService questionService = new QuestionService(qdao,dao,tdao,mdao);
         TestBlockService blockService = new TestBlockService(bdao);
-        CognitiveTestService testService = new CognitiveTestService(tdao,bdao);
+        CognitiveTestService testService = new CognitiveTestService(tdao,bdao, qdao);
         TestManagerService managerService = new TestManagerService(mdao,tdao);
         TestSubjectService subjectService = new TestSubjectService(sdao);
         TestAnswerService service = new TestAnswerService(dao,sdao);
