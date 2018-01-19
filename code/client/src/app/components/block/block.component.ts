@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { QuestionListComponent } from './question-list/question-list.component';
 import {MatDialog} from '@angular/material';
 import {CreateQuestionComponent} from '../create-question/create-question.component';
 import { Router } from '@angular/router';
