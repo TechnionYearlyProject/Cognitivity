@@ -103,7 +103,7 @@ export interface OpenQuestion extends Question {
 */
 export interface Block {
     id?: number,
-    questions: Question[],
+    questions: QuestionInDB[],
     randomize?: boolean,
     projectId?: number,
     numberOfQuestions?: number
@@ -125,11 +125,9 @@ export interface Test {
 
 }
 /* Manager properties */
-//TODO: Check with Guy and Peer about the properties of the user.
 export interface Manager {
     id?: number,
-    name: string,
-    userName: string
+    email: string
 }
 /*
     An interface for the object that describes a rating question
@@ -154,6 +152,16 @@ export class SecondaryQuestionObject{
     index: number;
     questionText: string;
     answers: Array<string>; 
+}
+
+
+export interface QuestionInDB {
+    id?: number;
+    question?: string;
+    tag?: string;
+    questionType?: number;
+    answer?: string;
+    questionPosition?: number;
 }
 
 
