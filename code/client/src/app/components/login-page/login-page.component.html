@@ -1,31 +1,35 @@
+<br>
+<br>
 <div class="row">
   <div class="col-md6 mx-auto">
-    <div class="card form">
+    <div class="container">
       <div class="card-body">
-          <span>Cognitivity</span>
-          <form name="form" novalidate #f="ngForm" (ngSubmit)="onSubmit(f)">
-            <div class="form-group">
-              <label for="email">Email:</label>
-              <input type="email" class="form-control" [(ngModel)]="user.email" #email="ngModel" name="email" required>
-              <div *ngIf="email.errors?.required && email.touched" class="alert">
-                  Please enter your email!
-              </div>
+        <span>Cognitivity</span>
+        <form name="form" novalidate #f="ngForm" (ngSubmit)="onSubmit(f)">
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" [(ngModel)]="user.email" #email="ngModel" name="email" required autocomplete="off">
+            <div *ngIf="email.errors?.required && email.touched" class="alert">
+              Please enter your email!
             </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" class="form-control" [(ngModel)]="user.password" #password="ngModel" name="password" required minlength="8">
-                <div *ngIf="password.errors?.required && password.touched" class="alert">
-                    Please enter your password!
-                </div>
-                <div *ngIf="password.errors?.minlength && password.touched" class="alert">
-                    Password must contain at least 8 characters
-                </div>
-              </div>
-              <input type="submit" class="btn btn-block btn-success" value="Login">
-              <div *ngIf="!correctUser" class="alert">
-                  Wrong credentials, please check your email and password
-                </div>
-          </form>
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" [(ngModel)]="user.password" #password="ngModel" name="password" required minlength="8" autocomplete="off">
+            <div *ngIf="password.errors?.required && password.touched" class="alert">
+              Please enter your password!
+            </div>
+            <div *ngIf="password.errors?.minlength && password.touched" class="alert">
+              Password must contain at least 8 characters
+            </div>
+          </div>
+          <br>
+          <br>
+          <input type="submit" class="btn btn-block btn-success btn-md" value="Login">
+          <div *ngIf="!correctUser" class="alert">
+            Wrong credentials, please check your email and password
+          </div>
+        </form>
       </div>
     </div>
   </div>

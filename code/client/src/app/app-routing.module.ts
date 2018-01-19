@@ -8,6 +8,7 @@ import { TestPreviewComponent } from './components/test-preview/test-preview.com
 import { LoginGuard } from './services/auth-service/auth-guard';
 import { CreateTestComponent } from './components/create-test/create-test.component';
 import { CreateQuestionComponent } from './components/create-question/create-question.component';
+import { DrillDownQuestionComponent } from './components/drill-down-question/drill-down-question.component';
 
 /*
 Here we define the different routes in the application.

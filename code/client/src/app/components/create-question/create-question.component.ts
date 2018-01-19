@@ -411,7 +411,7 @@ export class CreateQuestionComponent implements OnInit {
         console.log(this.didChoseDrillDownQuestion());
         }if(this.didChoseDrillDownQuestion()){
           console.log('hererererer');
-          if(this.haveMainAnswers){
+          if(this.haveMainAnswers()){
             this.constructDrillDownQuestion();
             this.transferData.setData(this.question_object);
             this.closeDialog();
@@ -792,6 +792,28 @@ export class CreateQuestionComponent implements OnInit {
       }else if(this.typeMultipleQuestion == TypeMultipleQuestion.Matrix){
         this.dimSize = Math.sqrt(question.answers.length);
         this.constructMatrixInEdit(question);
+      }
+    }else if(this.typeQuestion == TypeQuestion.DrillDownQuestion){
+      this.mainAnswers = Object.assign([], question.answersForMain);
+      this.markedMainCorrectAnswer = new Array(this.mainAnswers.length);
+      for(let i = 0 ; i < this.markedMainCorrectAnswer.length; i++){
+        if(i == question.correctMainQuestion){
+          this.markedMainCorrectAnswer[i] = true;
+        }else{
+          this.markCorretSecondaryAnswer[i] = false;
+        }
+      }
+      let real_size = 0;
+      let size_to_iterate = question.secondaryQuestionsText.legnth;
+      for(let i = 0; i < size_to_iterate; i++ ){
+        if(question.secondaryQuestionsText[i] != null){
+          let obj_to_insert: SecondaryQuestionObject;
+          obj_to_insert.index = i;
+          obj_to_insert.questionText = question.seconderyQuestionText[i];
+          obj_to_insert.markedAnswer = question.correctAnswerSecondary[i];
+          obj_to_insert.answers = Object.assign([], question.answersForSecondary[i]);
+          this.secondaryQuestionList.splice(this.secondaryQuestionList.length, 0, obj_to_insert);
+        }
       }
     }
 

@@ -73,7 +73,7 @@ export class CreateTestComponent implements OnInit {
   Output - the block is moved down in the list.
   */
   moveMeDown(currentIndex: number) {
-    if(currentIndex != this.blocksList.length){
+    if(currentIndex != this.blocksList.length-1){
       let removed = this.iterator.splice(currentIndex, 1);
       this.iterator.splice(currentIndex + 1, 0, removed[0]);
     }

@@ -1,19 +1,23 @@
-
-  <div class="card w-100">
-      <div class="card-header">
-        <div class="row">
-            <a *ngIf = "!hidden"class="btn btn-outline-primary btn-lg  " (click)="toggleHidden()"><span class=" fa  fa-caret-square-o-up
-              "></span>  Press to close</a>
-              <a *ngIf="hidden" class="btn btn-outline-primary btn-lg  " (click)="toggleHidden()"><span class=" fa fa-caret-square-o-down"></span>  Press to view question</a>
-              <div style="text-align: center; font-family: Ariel; font-size: 40px; margin: 0% 0% 0% 15%;">Question number {{ index + 1 }}</div>
-        </div>
-      </div>
-      <div class="card-body" [hidden]="hidden">
-        <app-multiple-choice-question *ngIf="myData.question.type==0" [question] = "myData.question"></app-multiple-choice-question>
-        <app-rate-question *ngIf="myData.question.type==1" [question] = "myData.question"></app-rate-question>
-        <app-open-question *ngIf="myData.question.type==2" [question] = "myData.question"></app-open-question>
-        <app-drill-down-question *ngIf = "myData.question.type == 3" [question] = "myData.question"></app-drill-down-question>
-
-
-      </div>
+<div class="card border-dark w-100">
+  <div class="card-header questionBG">
+    <div class="row" style="width: 100%;">
+      <p class="text-left font-weight-bold">
+        Question number {{ index + 1 }}
+      </p>
+        <a *ngIf="!hidden" class="btn btn-outline-success btn-lg btn-block " (click)="toggleHidden()">
+        <span class=" fa  fa-caret-square-o-up
+              "></span> Press to close</a>
+      <a *ngIf="hidden" class="btn btn-outline-success btn-lg btn-block " (click)="toggleHidden()">
+        <span class=" fa fa-caret-square-o-down"></span> Press to view question</a>
+      
+    </div>
   </div>
+  <div class="card-body" [hidden]="hidden">
+    <app-multiple-choice-question *ngIf="myData.question.type==0" [question]="myData.question"></app-multiple-choice-question>
+    <app-rate-question *ngIf="myData.question.type==1" [question]="myData.question"></app-rate-question>
+    <app-open-question *ngIf="myData.question.type==2" [question]="myData.question"></app-open-question>
+    <app-drill-down-question *ngIf="myData.question.type == 3" [question]="myData.question"></app-drill-down-question>
+
+
+  </div>
+</div>

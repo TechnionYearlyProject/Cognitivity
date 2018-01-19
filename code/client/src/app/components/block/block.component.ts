@@ -38,6 +38,8 @@ export class BlockComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       let question_object = this.transferData.getData();
+      console.log('data is:::');
+      console.log(question_object);
       if(question_object != null){
         this.questionList.splice(this.questionList.length, 0,{question: question_object, indexInBlock: this.questionList.length, id:''});  
       }

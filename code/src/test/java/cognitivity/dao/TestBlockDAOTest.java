@@ -1,7 +1,5 @@
 package cognitivity.dao;
 
-import cognitivity.dto.BlockWrapper;
-import cognitivity.dto.TestWrapper;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestManager;
@@ -36,7 +34,7 @@ public class TestBlockDAOTest extends AbstractDaoTestClass {
                 new TestManager("onlyForTests TestManager");
         testManagerDAO.add(testManager);
         CognitiveTest cognitiveTest = new CognitiveTest("onlyForTests", testManager, 0, 1);
-        cognitiveTestDAO.add(new TestWrapper(cognitiveTest));
+        cognitiveTestDAO.add(cognitiveTest);
         testBlock = new TestBlock(0,false, "testTag", cognitiveTest);
     }
 
@@ -53,18 +51,18 @@ public class TestBlockDAOTest extends AbstractDaoTestClass {
     @Test
     public void crudTests(){
         assertNull(testBlockDAO.get(0L));
-        testBlockDAO.add(new BlockWrapper(testBlock));
+        testBlockDAO.add(testBlock);
         assertNotNull("add testBlock problem", testBlockDAO.get(testBlock.getId()));
         int numberOfQuestions = testBlock.getNumberOfQuestions();
         assertTrue("numberOfQuestions incorrect",
                 numberOfQuestions == testBlockDAO.get(testBlock.getId()).getNumberOfQuestions());
         int newNumberOfQuestions = 2;
         testBlock.setNumberOfQuestions(newNumberOfQuestions);
-        testBlockDAO.update(new BlockWrapper(testBlock));
+        testBlockDAO.update(testBlock);
         assertTrue("testBlock update incorrect",
                 newNumberOfQuestions == testBlockDAO.get(testBlock.getId()).getNumberOfQuestions());
         testBlock.setNumberOfQuestions(numberOfQuestions);
-        testBlockDAO.update(new BlockWrapper(testBlock));
+        testBlockDAO.update(testBlock);
         assertTrue("finalAnswer incorrect",
                 numberOfQuestions == testBlockDAO.get(testBlock.getId()).getNumberOfQuestions());
         testBlockDAO.delete(testBlock.getId());

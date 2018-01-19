@@ -13,7 +13,7 @@
           <div class="form-group">
             <div class="centered">
               <label for="Question text"><span style="font-family:Arial; font-size: 25px; color: white">Enter the question:</span></label>
-              <input [(ngModel)] = "questionText" name = "question2" #question = "ngModel" type="text" class="form-control" placeholder="Question text" style="max-width: 100%;" required ><br>
+              <input [(ngModel)] = "questionText" name = "question1" #question1 = "ngModel" type="text" class="form-control" placeholder="Question text" style="max-width: 100%;" required ><br>
               <div *ngIf = "(questionText == '' || questionText == null) && submit" style="color: red;">
                   A question is required
               </div>
@@ -186,7 +186,7 @@
                 
                         <div class="dropdown-content">
                             <div *ngFor="let answer of mainAnswers; let i = index;">
-                            <button [disabled] = "editionModeMain || editionQuestionSecondary || editionModeSecondary" [ngStyle] = " { 'min-width': generateHighestBox(mainAnswers), 'font-size': '15px'} "  class = "btn btn-basic"   (click)="markMainAnswer(i)">{{ answer }}</button>
+                            <button [disabled] = "editionModeMain || editionQuestionSecondary || editionModeSecondary || secondaryAnswerMode || viewSecondary" [ngStyle] = " { 'min-width': generateHighestBox(mainAnswers), 'font-size': '15px'} "  class = "btn btn-basic"   (click)="markMainAnswer(i)">{{ answer }}</button>
                             </div>
                         </div>
                     </div>

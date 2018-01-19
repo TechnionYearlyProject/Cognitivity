@@ -10,9 +10,9 @@ import { DrillDownQuestion, TypeQuestion, QuestionPosition } from '../../models'
 The component for the Drill-down question type.
 */
 export class DrillDownQuestionComponent implements OnInit {
-  
-  //the object that holds the question.
   @Input() question: any;
+  //the object that holds the question.
+  //@Input() question1: any;
   //an array to specify the current status of all the question (correct/incorrect)
   //it serves us as a helper array to keep track on all the user's choices.
   markedAnswersMain: Array<boolean>;
@@ -36,6 +36,8 @@ export class DrillDownQuestionComponent implements OnInit {
 
   //default initialization function.
   ngOnInit() {
+
+    
     /*this.question = {
       questionText: 'Who was the first president of the United States of America?',
       type: TypeQuestion.DrillDownQuestion,
@@ -86,11 +88,10 @@ export class DrillDownQuestionComponent implements OnInit {
     let size = Math.max((max * 20), 300);
     
     let returnedSize: string = (size.toString()) + 'px';
-    console.log('returned size is: ' + returnedSize);
     return returnedSize;
   }
   markAnswerForMain(index: number){
-    for(let i = 0; i < this.markedAnswerMain.length; i++){
+    for(let i = 0; i < this.markedAnswersMain.length; i++){
       if(index == i){
         if(this.markedAnswersMain[i]){
           this.markedAnswerMain = 'Choose an answer';
@@ -102,9 +103,9 @@ export class DrillDownQuestionComponent implements OnInit {
             let sizeOfSecondaryanswers = this.question.answersForSecondary[i].length;
             this.markedAnswersSecondary = new Array<boolean>(sizeOfSecondaryanswers);
             this.currentSecondaryAnswers = new Array<string>(sizeOfSecondaryanswers);
-            for(let i = 0; i < this.markedAnswersSecondary.length; i++){
-              this.markedAnswersSecondary[i] = false;
-              this.currentSecondaryAnswers[i] = this.question.answersForSecondary[index][i];
+            for(let j = 0; j < this.markedAnswersSecondary.length; j++){
+              this.markedAnswersSecondary[j] = false;
+              this.currentSecondaryAnswers[j] = this.question.answersForSecondary[index][j];
               this.markedAnswerSecondery = 'Choose an answer';
               this.secondaryQuestionMode = true;
             }
@@ -113,10 +114,13 @@ export class DrillDownQuestionComponent implements OnInit {
             this.secondaryQuestionMode = false;
           }
         }
+        
         this.markedAnswersMain[i] = !this.markedAnswersMain[i];
+
       }else{
         this.markedAnswersMain[i] = false;
       }
+
     }
   }
 
