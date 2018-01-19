@@ -195,15 +195,29 @@
                 <div class="centered">
                     <div *ngIf="showMainAnswer">
                                     <div style="margin: 10px; font-family: Arial; font-size: 25px;color: white;">{{mainAnswers[indexOfMainanswerToShow]}}<br></div>
-                                    <button *ngIf="markedMainCorrectAnswer[indexOfMainanswerToShow]" [ngStyle] = "{ 'width': '150px'}"class="btn btn-sm btn-success"style="color:white;"(click)="markCorretMainAnswer(indexOfMainanswerToShow)" [disabled]="editionModeMain">Correct Answer</button>
-                                    <button *ngIf="!markedMainCorrectAnswer[indexOfMainanswerToShow]" [ngStyle] = "{ 'width': '150px'}"class="btn btn-sm btn-danger"style="color:white;"(click)="markCorretMainAnswer(indexOfMainanswerToShow)" [disabled]="editionModeMain">Unmarked answer</button>
-                                    <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="goMainUp(indexOfMainanswerToShow)" [disabled] = "editionModeMain"><span class="fa fa-arrow-up"></span></button>
-                                    <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="goMainDown(indexOfMainanswerToShow)" [disabled] = "editionModeMain"><span class="fa fa-arrow-down"></span></button>
-                                    <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="deleteMainAnswer(indexOfMainanswerToShow)" [disabled] = "editionModeMain"><span class="fa fa-trash"></span> Delete answer</button>
-                                    <button class="btn btn-sm btn-primary" style="margin: 10px; " (click)="editMainAnswer(indexOfMainanswerToShow)" [disabled] = "editionModeMain"><span class="fa fa-pencil" ></span> Edit answer</button>
-                                    <button class="btn btn-sm btn primary" *ngIf = "!secondaryExists()"(click) = "addSecondaryQuestion(indexOfMainanswerToShow)" [disabled] = "editionModeMain"><span class="fa fa-plus"></span> Add Secondary Question</button>
-                                    <button class="btn btn-sm btn primary" *ngIf = "secondaryExists()"(click) = "addSecondaryQuestion(indexOfMainanswerToShow)" [disabled] = "editionModeMain"><span class="fa fa-arrow-down"></span> View Secondary Question</button>
+                                    <button *ngIf="markedMainCorrectAnswer[indexOfMainanswerToShow]" [ngStyle] = "{ 'width': '150px'}"class="btn btn-sm btn-success"style="color:white;"(click)="markCorretMainAnswer(indexOfMainanswerToShow)" [disabled]="editionModeMain || secondaryAnswerMode">Correct Answer</button>
+                                    <button *ngIf="!markedMainCorrectAnswer[indexOfMainanswerToShow]" [ngStyle] = "{ 'width': '150px'}"class="btn btn-sm btn-danger"style="color:white;"(click)="markCorretMainAnswer(indexOfMainanswerToShow)" [disabled]="editionModeMain || secondaryAnswerMode">Unmarked answer</button>
+                                    <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="goMainUp(indexOfMainanswerToShow)" [disabled] = "editionModeMain || secondaryAnswerMode"><span class="fa fa-arrow-up"></span></button>
+                                    <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="goMainDown(indexOfMainanswerToShow)" [disabled] = "editionModeMain || secondaryAnswerMode"><span class="fa fa-arrow-down"></span></button>
+                                    <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="deleteMainAnswer(indexOfMainanswerToShow)" [disabled] = "editionModeMain || secondaryAnswerMode"><span class="fa fa-trash"></span> Delete answer</button>
+                                    <button class="btn btn-sm btn-primary" style="margin: 10px; " (click)="editMainAnswer(indexOfMainanswerToShow)" [disabled] = "editionModeMain || secondaryAnswerMode"><span class="fa fa-pencil" ></span> Edit answer</button>
+                                    <button class="btn btn-sm btn primary" *ngIf = "!secondaryExists()"(click) = "addSecondaryQuestion(indexOfMainanswerToShow)" [disabled] = "editionModeMain || secondaryAnswerMode"><span class="fa fa-plus"></span> Add Secondary Question</button>
+                                    <button class="btn btn-sm btn primary" *ngIf = "secondaryExists() && !viewSecondary"(click) = "viewSecondaryAnswer()" [disabled] = "editionModeMain"><span class="fa fa-arrow-down"></span> View Secondary Question</button>
+                                    <button class="btn btn-sm btn primary" *ngIf = "secondaryExists() && viewSecondary"(click) = "viewSecondaryAnswer()" [disabled] = "editionModeMain"><span class="fa fa-arrow-up"></span> Unview Secondary Question</button>
 
+                    </div>
+                    <div *ngIf="viewSecondary">
+                        <div class="container">
+                            <div class="dropdown">
+                                <button class="dropbtn"><span class="fa fa-chevron-down" > Secondary Answers </span></button>
+                        
+                                <div class="dropdown-content">
+                                    <div *ngFor="let answer of viewAnswers; let i = index;">
+                                    <button [ngStyle] = " { 'min-width': generateHighestBox(mainAnswers), 'font-size': '15px'} "  class = "btn btn-basic">{{ answer }}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
                     </div>
                     <div *ngIf = "secondaryAnswerMode">
                             <label for="Question text"><span style="font-family:Arial; font-size: 25px; color: white">Enter the secondary question:</span></label>
@@ -235,7 +249,7 @@
     
                   </div>
               </div>
-              <div *ngIf="!editionModeMain && !secondaryAnswerMode">
+              <div *ngIf="!editionModeMain && !secondaryAnswerMode && !viewScondary">
                 <div class="centered">
                         <label for="Question text"><span style="font-family:Arial; font-size: 25px; color: white">Enter an answer for the main question:</span></label>
                         <input [(ngModel)] = "currentMainAnswer" name = "answer" #answer = "ngModel" type="text" class="form-control" placeholder="Answer text" style="max-width: 100%;">
