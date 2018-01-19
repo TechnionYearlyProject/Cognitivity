@@ -2,6 +2,7 @@ package cognitivity.controllers;
 
 import cognitivity.exceptions.DBException;
 import cognitivity.dto.TestWrapper;
+import cognitivity.exceptions.ErrorType;
 import cognitivity.services.CognitiveTestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

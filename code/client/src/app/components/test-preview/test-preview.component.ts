@@ -44,7 +44,7 @@ export class TestPreviewComponent implements OnInit {
   //default initialization function.
   async ngOnInit() {
    
-    let email = this.authService.getCurrentManager().email;
+    let email = this.authService.getCurrentManagerEmail();
     let managerId = await this.tmService.getManagerId(email);
     let testId = this.route.snapshot.params['testId'];
     this.test = await this.testService.findTestForManagerAndTestId(managerId, testId);

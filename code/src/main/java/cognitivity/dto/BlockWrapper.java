@@ -14,13 +14,13 @@ import java.util.List;
  */
 public class BlockWrapper {
 
-    private long id;
+    private Long id;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -69,6 +69,7 @@ public class BlockWrapper {
 
     public BlockWrapper() {}
 
+    //TODO: remove!! hardcoded value!
     public BlockWrapper(Integer numberOfQuestions, Boolean randomize, String tag, CognitiveTest test) {
         this.id = 2L;
         this.numberOfQuestions = numberOfQuestions;
