@@ -4,6 +4,7 @@ import { LocalStorageService } from '../../services/local-storage';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Test, Question, OpenQuestion, TypeQuestion, QuestionPosition, Block } from '../../models';
+import { TestService } from '../../services/database-service/index';
 
 @Component({
   selector: 'app-test-preview',
@@ -16,14 +17,15 @@ export class TestPreviewComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private authService: AuthService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private testService: TestService
   ) { }
   test: Test;
   testId: number;
   currIndex: number;
   hideNextButton: boolean = true;
 
-  ngOnInit() {
+  async ngOnInit() {
     var question: OpenQuestion = {
       questionText: 'hello friend?',
       type: TypeQuestion.OpenQuestion,
@@ -68,6 +70,15 @@ export class TestPreviewComponent implements OnInit {
     this.test = {
       blocks: [block,block2,block3]
     }
+    this.test.name='ff';
+    this.test.lastAnswered='2018-01-01';
+    this.test.lastModified='2018-01-01';
+    this.test.numberOfFiledCopies=0;
+    this.test.numberOfQuestions=0;
+    this.test.numberOfSubjects=0;
+    this.test.state=0;
+    this.test.blocks=[];
+    console.log(await this.testService.saveCognitiveTest(this.test));
     this.currIndex = 0;
   }
 
