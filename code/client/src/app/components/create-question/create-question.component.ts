@@ -24,6 +24,7 @@ export class CreateQuestionComponent implements OnInit {
   answerTextForMultiple?: string;
   correctAnswer?: number;
   markedAnswers?: Array<boolean> = new Array();
+  typedMultipleAnswer: boolean = false;
   //--------- data regarding the matrix type of multiple choice question
   dimSize?: number = 2;
   markedAnswersMatrix?: Array<Array<boolean>>;
@@ -44,7 +45,8 @@ export class CreateQuestionComponent implements OnInit {
   /*
     --------------- drill down question details ---------------
   */
-  
+  typedMainAnswer: boolean = false;
+  typedSecondaryAnswer: boolean = false;
   currentMainAnswer?: string;
   showMainAnswer: boolean;
   indexOfMainanswerToShow: number = -1;
@@ -83,7 +85,6 @@ export class CreateQuestionComponent implements OnInit {
                    question that the user has created to the block component. 
   */
   constructor(public dialogRef: MatDialogRef<CreateQuestionComponent>, private transferData: SessionService) {
-    console.log('hi there');
     console.log(this.transferData.getData());
     if(this.transferData.getData().editMode == true){//Which mean we are in edition mode of the question
       this.editQuestion(this.transferData.getData().value)
@@ -114,6 +115,12 @@ export class CreateQuestionComponent implements OnInit {
     Setting the type of the created question, to multiple choice question
   */
   setMultipleQuestion(){
+    this.submit = false;
+    this.typedMultipleAnswer = false;
+    this.typedSecondaryAnswer = false;
+    this.submitSecondaryQuestion = false;
+    this.submitSecondaryQuestion = false;
+    this.typedMainAnswer = false;
     if(this.typeQuestion == TypeQuestion.MultipleChoice){
       this.typeQuestion = null;
     }else{
@@ -125,6 +132,11 @@ export class CreateQuestionComponent implements OnInit {
     Setting the type of the created question, to rate question
   */
   setRateQuestion(){
+    this.submit = false;
+    this.typedMultipleAnswer = false;
+    this.typedSecondaryAnswer = false;
+    this.submitSecondaryQuestion = false;
+    this.typedMainAnswer = false;
     if(this.typeQuestion == TypeQuestion.RateQuestion){
       this.typeQuestion = null;
     }else{
@@ -136,6 +148,11 @@ export class CreateQuestionComponent implements OnInit {
     Setting the type of the created question, to open question
   */
   setOpenQuestion(){
+    this.submit = false;
+    this.typedMultipleAnswer = false;
+    this.submitSecondaryQuestion = false;
+    this.typedSecondaryAnswer = false;
+    this.typedMainAnswer = false;
     if(this.typeQuestion == TypeQuestion.OpenQuestion){
       this.typeQuestion = null;
     }else{
@@ -147,6 +164,11 @@ export class CreateQuestionComponent implements OnInit {
     Setting the type of the created question, to drill down question
   */
   setDrillDownQuestion(){
+    this.submit = false;
+    this.submitSecondaryQuestion = false;
+    this.typedMultipleAnswer = false;
+    this.typedSecondaryAnswer = false;
+    this.typedMainAnswer = false;
     if(this.typeQuestion == TypeQuestion.DrillDownQuestion){
       this.typeQuestion = null;
     }else{
@@ -308,6 +330,8 @@ export class CreateQuestionComponent implements OnInit {
     Matrix type
   */
   setMatrixType(){
+    this.submit = false;
+    this.typedMultipleAnswer = false;
     this.answers = new Array<string>();
     this.markedAnswers = new Array<boolean>();
     this.constructMatrix();
@@ -325,6 +349,8 @@ export class CreateQuestionComponent implements OnInit {
     Vertical type
   */
   setVerticalType(){
+    this.submit = false;
+    this.typedMultipleAnswer = false;
     if(this.typeMultipleQuestion == TypeMultipleQuestion.Vertical){
       this.typeMultipleQuestion = null;
     }else{
@@ -339,6 +365,8 @@ export class CreateQuestionComponent implements OnInit {
     Horizontal type
   */
   setHorizontalType(){
+    this.submit = false;
+    this.typedMultipleAnswer = false;
     if(this.typeMultipleQuestion == TypeMultipleQuestion.Horizontal){
       this.typeMultipleQuestion = null;
     }else{
@@ -371,13 +399,11 @@ export class CreateQuestionComponent implements OnInit {
                         and transfering the question object via the SessionService service. 
   */
   onSubmit(){
-    console.log('asfsdifdfosd;fdsf');
     if(this.questionText != null){
      if(this.questionText != ''){
-      if(this.didChoseQuestionPosition() && this.didChoseQuestionType()){
-        console.log('12121');
+      if(this.didChoseQuestionType()){
         if(this.didChoseMultipleQuestion()){
-          if(this.didChoseMultipleChoiceType()){
+          if(this.didChoseMultipleChoiceType() && this.didChoseQuestionPosition() ){
             if(this.didChoseVerticalType() || this.didChoseHorizontalType()){
               if(this.haveAnswers()){
                 this.findCorretAnswer();
@@ -397,19 +423,19 @@ export class CreateQuestionComponent implements OnInit {
               
             }
           }
-        }else if(this.didChoseRateQuestion()){
+        }else if(this.didChoseRateQuestion() && this.didChoseQuestionPosition()){
             this.constructRateQuestion();
             this.transferData.setData(this.question_object);
             console.log(this.question_object);//FOR DEBUGGING
             this.closeDialog();
-        }else if(this.didChoseOpenQuestion()){
+        }else if(this.didChoseOpenQuestion() && this.didChoseQuestionPosition()){
               this.constructOpenQuestion();
               console.log(this.question_object);//FOR DEBUGGING
               this.transferData.setData(this.question_object);
               this.closeDialog();
           }
         console.log(this.didChoseDrillDownQuestion());
-        }if(this.didChoseDrillDownQuestion()){
+        }else if(this.didChoseDrillDownQuestion()){
           console.log('hererererer');
           if(this.haveMainAnswers()){
             this.constructDrillDownQuestion();
@@ -555,9 +581,15 @@ export class CreateQuestionComponent implements OnInit {
     Adding an answer for the question
   */
   addAnswer(){
-    this.answers.splice(this.answers.length, 0, this.answerTextForMultiple);
-    this.markedAnswers.splice(this.markedAnswers.length, 0, false);
-    this.answerTextForMultiple = '';
+    if(this.answerTextForMultiple != null && this.answerTextForMultiple.length >= 2){
+      this.typedMultipleAnswer = false;
+      this.answers.splice(this.answers.length, 0, this.answerTextForMultiple);
+      this.markedAnswers.splice(this.markedAnswers.length, 0, false);
+      this.answerTextForMultiple = '';
+  
+    }else{
+      this.typedMultipleAnswer = true;
+    }
   }
 
   /*
@@ -587,10 +619,15 @@ export class CreateQuestionComponent implements OnInit {
     Applies the edition of the answer
   */
   applyEdit(){
-    this.answers.splice(this.indexAnswerInEdit, 1,  this.answerTextForMultiple)
-    this.editionMode = false;
-    this.indexAnswerInEdit = -1;
-    this.answerTextForMultiple = '';
+    if(this.answerTextForMultiple != null && this.answerTextForMultiple.length >= 2){
+      this.answers.splice(this.indexAnswerInEdit, 1,  this.answerTextForMultiple)
+      this.editionMode = false;
+      this.indexAnswerInEdit = -1;
+      this.answerTextForMultiple = '';
+      this.typedMultipleAnswer = false;
+    }else{
+      this.typedMultipleAnswer = true;
+    }
   }
   /*
     Undo the edition that was made
@@ -599,6 +636,7 @@ export class CreateQuestionComponent implements OnInit {
     this.editionMode = false;
     this.answerTextForMultiple = '';
     this.indexAnswerInEdit = -1;
+    this.typedMultipleAnswer = false;
   }
   /*
     Moving the answer up in the answer's organization
@@ -729,7 +767,10 @@ export class CreateQuestionComponent implements OnInit {
   missingAnswers():boolean{
     for(let i = 0; i < this.dimSize; i++){
       for(let j = 0; j < this.dimSize; j++){
-        if(this.matrixAnswers[i][j] == ''){
+        if(this.matrixAnswers[i][j] == null){
+          return true;
+        }
+        if(this.matrixAnswers[i][j].length < 2){
           return true;
         }
       }
@@ -794,6 +835,7 @@ export class CreateQuestionComponent implements OnInit {
         this.constructMatrixInEdit(question);
       }
     }else if(this.typeQuestion == TypeQuestion.DrillDownQuestion){
+      console.log('heerererereererere');
       this.mainAnswers = Object.assign([], question.answersForMain);
       this.markedMainCorrectAnswer = new Array(this.mainAnswers.length);
       for(let i = 0 ; i < this.markedMainCorrectAnswer.length; i++){
@@ -804,14 +846,16 @@ export class CreateQuestionComponent implements OnInit {
         }
       }
       let real_size = 0;
-      let size_to_iterate = question.secondaryQuestionsText.legnth;
+      let size_to_iterate = question.answersForMain.length;
       for(let i = 0; i < size_to_iterate; i++ ){
         if(question.secondaryQuestionsText[i] != null){
-          let obj_to_insert: SecondaryQuestionObject;
-          obj_to_insert.index = i;
-          obj_to_insert.questionText = question.seconderyQuestionText[i];
-          obj_to_insert.markedAnswer = question.correctAnswerSecondary[i];
-          obj_to_insert.answers = Object.assign([], question.answersForSecondary[i]);
+          let obj_to_insert = {
+            index: i,
+            questionText: question.secondaryQuestionsText[i],
+            markedAnswer: question.correctAnswerSecondary[i],
+            answers: Object.assign([], question.answersForSecondary[i])
+          }
+          console.log(obj_to_insert);
           this.secondaryQuestionList.splice(this.secondaryQuestionList.length, 0, obj_to_insert);
         }
       }
@@ -820,11 +864,15 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   addMainAnswer(){
- 
-    this.mainAnswers.splice(this.mainAnswers.length, 0, this.currentMainAnswer);
-    this.markedMainCorrectAnswer.splice(this.markedMainCorrectAnswer.length, 0, false);
-    this.currentMainAnswer = '';
-    this.submitSecondaryQuestion = false;
+    if(this.currentMainAnswer != null && this.currentMainAnswer.length >= 2){
+      this.mainAnswers.splice(this.mainAnswers.length, 0, this.currentMainAnswer);
+      this.markedMainCorrectAnswer.splice(this.markedMainCorrectAnswer.length, 0, false);
+      this.currentMainAnswer = '';
+      this.submitSecondaryQuestion = false;
+      this.typedMainAnswer = false;
+    }else{
+      this.typedMainAnswer = true;
+    }
   }
 
   haveMainAnswers(): boolean {
@@ -881,13 +929,19 @@ export class CreateQuestionComponent implements OnInit {
     this.editionModeMain = false;
     this.currentMainAnswer = '';
     this.indexAnswerInEditMain = -1;
+    this.typedMainAnswer = false;
   }
 
   applyEditMain(){
-    this.mainAnswers.splice(this.indexAnswerInEditMain, 1,  this.currentMainAnswer)
-    this.editionModeMain = false;
-    this.indexAnswerInEditMain = -1;
-    this.currentMainAnswer = '';
+    if(this.currentMainAnswer != null && this.currentMainAnswer.length >= 2){
+      this.mainAnswers.splice(this.indexAnswerInEditMain, 1,  this.currentMainAnswer)
+      this.editionModeMain = false;
+      this.indexAnswerInEditMain = -1;
+      this.currentMainAnswer = '';
+      this.typedMainAnswer = false;
+    }else{
+      this.typedMainAnswer = true;
+    }
   }
 
   goMainUp(index: number){
@@ -902,12 +956,8 @@ export class CreateQuestionComponent implements OnInit {
             answers: Object.assign([], this.secondaryQuestionList[i].answers),
             markedAnswer: this.secondaryQuestionList[i].markedAnswer
           }
-          console.log('tmp is: ');
-          console.log(tmp);
-
           this.secondaryQuestionList.splice(i,1);
           this.secondaryQuestionList.splice(0,0,tmp);
-          console.log(this.secondaryQuestionList);
         }else if(index == this.secondaryQuestionList[i].index){
           let tmp = {
             index: index - 1,
@@ -944,8 +994,7 @@ export class CreateQuestionComponent implements OnInit {
           }
           this.secondaryQuestionList.splice(i,1);
           this.secondaryQuestionList.splice(0,0,tmp);
-        }
-        if(index + 1 == this.secondaryQuestionList[i].index){
+        }else if(index + 1 == this.secondaryQuestionList[i].index){
           let tmp = {
             index: index,
             questionText: this.secondaryQuestionList[i].questionText,
@@ -1006,7 +1055,6 @@ export class CreateQuestionComponent implements OnInit {
     }
   }
   finishSecondaryQuestion(){
-    console.log('hereeee');
     this.editionQuestionSecondary = false;
     if(!this.emptySecondary() && this.hasSecondaryAnswer()){
       for(let i = 0 ; i < this.secondaryQuestionList.length; i++){
@@ -1028,7 +1076,6 @@ export class CreateQuestionComponent implements OnInit {
         answers: this.secondaryAnswers,
         markedAnswer: correct_answer
       });
-      console.log('correct answer is: ' + correct_answer);
       this.secondaryAnswerMode = false;
       this.secondaryAnswers = new Array();
       this.currentSecondaryAnswer = '';
@@ -1038,8 +1085,7 @@ export class CreateQuestionComponent implements OnInit {
     }
     
     this.submitSecondaryQuestion = true;
-    console.log('Finish');
-    console.log(this.secondaryQuestionList);
+
   }
 
   hasSecondaryAnswer(): boolean{
@@ -1055,12 +1101,17 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   emptySecondary():boolean{
-    return this.currentSecondaryQuestion == '';
+    return this.currentSecondaryQuestion == null || this.currentSecondaryQuestion.length < 2;
   }
   addSecondaryAnswer(){
-    this.secondaryAnswers.splice(this.secondaryAnswers.length, 0, this.currentSecondaryAnswer);
-    this.markedSecondaryCorrectAnswer.splice(this.markedSecondaryCorrectAnswer.length, 0, false);
-    this.currentSecondaryAnswer = '';
+    if(this.currentSecondaryAnswer != null && this.currentSecondaryAnswer.length >= 2){
+      this.secondaryAnswers.splice(this.secondaryAnswers.length, 0, this.currentSecondaryAnswer);
+      this.markedSecondaryCorrectAnswer.splice(this.markedSecondaryCorrectAnswer.length, 0, false);
+      this.currentSecondaryAnswer = '';
+      this.typedSecondaryAnswer = false;
+    }else{
+      this.typedSecondaryAnswer = true;
+    }
   }
   hasSecondaryAnswers(): boolean{
     return this.secondaryAnswers.length >= 1;
@@ -1105,15 +1156,20 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   applySecondaryEdit(){
-    this.secondaryAnswers.splice(this.indexAnswerInEditSecondary, 1,  this.currentSecondaryAnswer)
-    this.editionModeSecondary = false;
-    this.indexAnswerInEditSecondary = -1;
-    this.currentMainAnswer = '';
-    this.currentSecondaryAnswer = '';
+    if(this.currentSecondaryAnswer != null && this.currentSecondaryAnswer.length >= 2){
+      this.secondaryAnswers.splice(this.indexAnswerInEditSecondary, 1,  this.currentSecondaryAnswer)
+      this.editionModeSecondary = false;
+      this.indexAnswerInEditSecondary = -1;
+      this.currentMainAnswer = '';
+      this.currentSecondaryAnswer = '';
+      this.typedSecondaryAnswer = false;
+    }else{
+      this.typedSecondaryAnswer = true;
+    }
   }
 
   undoSecondaryEdit(){
-    
+    this.typedSecondaryAnswer = false;
     this.editionModeSecondary = false;
     this.currentSecondaryAnswer = '';
     this.indexAnswerInEditSecondary = -1;
