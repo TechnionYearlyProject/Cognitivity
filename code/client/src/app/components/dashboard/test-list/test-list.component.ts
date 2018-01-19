@@ -47,7 +47,7 @@ export class TestListComponent implements OnInit {
  async addTest() {
    let test = this.testList[0];
    test.name = "test";
-    this.testService.saveCognitiveTest(test);
+    //this.testService.saveCognitiveTest(test);
     this.testList = await this.testService.findTestsForTestManager('1');
   }
 

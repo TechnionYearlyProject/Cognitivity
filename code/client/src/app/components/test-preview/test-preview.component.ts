@@ -55,18 +55,20 @@ export class TestPreviewComponent implements OnInit {
     }
 
     var block : Block = {
-      questions: []
+      questions: [],
+      numberOfQuestions: 0
     }
 
     var block2: Block = {
-      questions: []
+      questions: [],
+      numberOfQuestions: 0
     }
 
     var block3: Block = {
-      questions: []
+      questions: [],
+      numberOfQuestions: 0
     }
     this.testId = this.route.snapshot.params['testId'];
-    this.test = this.localStorageService.get('test'+this.testId);
     this.test = {
       blocks: [block,block2,block3]
     }
@@ -79,7 +81,7 @@ export class TestPreviewComponent implements OnInit {
     this.test.state=0;
     //this.test.blocks=[];
     this.test.testManager = {id: '1', email:'aa@aa.com'}
-    console.log(await this.testService.saveCognitiveTest(this.test));
+    //console.log(await this.testService.saveCognitiveTest(this.test));
     this.currIndex = 0;
   }
 

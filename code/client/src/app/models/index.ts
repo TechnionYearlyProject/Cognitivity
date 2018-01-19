@@ -106,6 +106,7 @@ export interface Block {
     questions: Question[],
     randomize?: boolean,
     projectId?: number,
+    numberOfQuestions?: number
 }
 /*
     Interface that represents test object that holds its list of blocks.

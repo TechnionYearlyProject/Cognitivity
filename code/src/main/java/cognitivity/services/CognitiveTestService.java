@@ -45,9 +45,10 @@ public class CognitiveTestService {
         List<BlockWrapper> blocks = cognitiveTest.getBlocks();
         if (blocks != null) {
             for (BlockWrapper block : blocks) {
+                block.setCognitiveTest(cognitiveTest.innerTest());
                 blockDAO.add(block);
-                if (blockDAO.getAllBlockQuestions(block.getId()) != null) {
-                    for (TestQuestion question : blockDAO.getAllBlockQuestions(block.getId())) {
+                if (block.getQuestions() != null) {
+                    for (TestQuestion question : block.getQuestions()) {
                         questionDAO.add(question);
                     }
                 }
