@@ -8,8 +8,8 @@ public interface TestAnswerDAO {
 
     public TestAnswer get(Long id);
     public void delete(Long id);
-    public void add(TestAnswer data);
-    public void update(TestAnswer data);
+    public long add(TestAnswer data);
+    public long update(TestAnswer data);
 
     /**
      * Get all the test answers of a subject from a specific test.

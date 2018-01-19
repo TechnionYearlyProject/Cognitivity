@@ -1,14 +1,12 @@
 package cognitivity.dao;
 
-import cognitivity.dto.BlockWrapper;
-import cognitivity.dto.TestWrapper;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestManager;
 import cognitivity.entities.TestQuestion;
 import cognitivity.web.app.config.CognitivityMvcConfiguration;
+import config.ObjectMapperBeanConfiguration;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -19,8 +17,8 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {CognitivityMvcConfiguration.class})
-@Ignore("tests passing, but to run them there is a need of db")
+@ContextConfiguration(classes = { CognitivityMvcConfiguration.class , ObjectMapperBeanConfiguration.class})
+//@Ignore("tests passing, but to run them there is a need of db")
 public class CognitiveTestDAOTest extends AbstractDaoTestClass {
 
     private TestManager[] testManagers;
@@ -75,7 +73,7 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
         for (int i = 0; i < numOfTestManagers; i++) {
             for (int j = 0; j < numOfTestsPerManager; j++) {
                 CognitiveTest cognitiveTest = cognitiveTestsPerManager[i][j];
-                cognitiveTestDAO.add(new TestWrapper(cognitiveTest));
+                cognitiveTestDAO.add(cognitiveTest);
                 assertNotNull("add cognitiveTest problem",
                         cognitiveTestDAO.get(cognitiveTest.getId()));
                 int state = cognitiveTest.getState();
@@ -83,11 +81,11 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
                         state == cognitiveTestDAO.get(cognitiveTest.getId()).getState());
                 int newState = 2;
                 cognitiveTest.setState(newState);
-                cognitiveTestDAO.update(new TestWrapper(cognitiveTest));
+                cognitiveTestDAO.update(cognitiveTest);
                 assertTrue("state update incorrect",
                         newState == cognitiveTestDAO.get(cognitiveTest.getId()).getState());
                 cognitiveTest.setState(state);
-                cognitiveTestDAO.update(new TestWrapper(cognitiveTest));
+                cognitiveTestDAO.update(cognitiveTest);
                 assertTrue("state update incorrect",
                         state == cognitiveTestDAO.get(cognitiveTest.getId()).getState());
 
@@ -121,7 +119,7 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
                 cognitiveTestDAO.getCognitiveTestOfManager(testManagers[0].getId());
         assertTrue("should return empty list", cognitiveTestList.isEmpty());
 
-        cognitiveTestDAO.add(new TestWrapper(cognitiveTestsPerManager[0][0]));
+        cognitiveTestDAO.add(cognitiveTestsPerManager[0][0]);
         cognitiveTestList = cognitiveTestDAO.getCognitiveTestOfManager(testManagers[0].getId());
         assertTrue("the cognitive test should be on the list",
                 cognitiveTestList.contains(cognitiveTestsPerManager[0][0]));
@@ -135,7 +133,7 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
                 cognitiveTestList = cognitiveTestDAO.getCognitiveTestOfManager(testManagers[j].getId());
                 assertTrue("testManager number " + j + " should had " + i +
                         " tests in his list at this point", cognitiveTestList.size() == i);
-                cognitiveTestDAO.add(new TestWrapper(cognitiveTestsPerManager[j][i]));
+                cognitiveTestDAO.add(cognitiveTestsPerManager[j][i]);
                 cognitiveTestList = cognitiveTestDAO.getCognitiveTestOfManager(testManagers[j].getId());
                 assertTrue("testManager number " + j + " should had " + (i + 1) +
                         " tests in his list at this point", cognitiveTestList.size() == i + 1);
@@ -173,13 +171,13 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
                 new TestQuestion[numOfBlocks][numOfTestQuestionsPerBlock];
         // adding the tests to the db
         for(int i = 0; i < numOfTestsPerManager; i++){
-            cognitiveTestDAO.add(new TestWrapper(cognitiveTestsPerManager[0][i]));
+            cognitiveTestDAO.add(cognitiveTestsPerManager[0][i]);
         }
 
         for (int i = 0; i < numOfBlocks; i++) {
             testBlocks[i] = new TestBlock(numOfTestQuestionsPerBlock, (i % 2) == 1,
                     "tag : blocknum" + i, cognitiveTestsPerManager[0][i]);
-            testBlockDAO.add(new BlockWrapper(testBlocks[i]));
+            testBlockDAO.add(testBlocks[i]);
             for (int j = 0; j <= numOfTestQuestionsPerBlock; j++) {
                 questions = cognitiveTestDAO.
                         getTestQuestions(cognitiveTestsPerManager[0][i].getId());
@@ -210,7 +208,7 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
 
         // removing the tests from the db
         for(int i = 0; i < numOfTestsPerManager; i++){
-            cognitiveTestDAO.add(new TestWrapper(cognitiveTestsPerManager[0][i]));
+            cognitiveTestDAO.add(cognitiveTestsPerManager[0][i]);
         }
     }
 
@@ -228,7 +226,7 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
 
         // adding the tests to the db
         for(int i = 0; i < numOfTestsPerManager; i++){
-            cognitiveTestDAO.add(new TestWrapper(cognitiveTestsPerManager[0][i]));
+            cognitiveTestDAO.add(cognitiveTestsPerManager[0][i]);
         }
 
         int numOfBlocks = 10;
@@ -241,7 +239,7 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
                         blocks.size() == i);
                 testBlocks[j][i] = new TestBlock(0, (i % 2) == 1,
                         "tag : blocknum" + i, cognitiveTestsPerManager[0][j]);
-                testBlockDAO.add(new BlockWrapper(testBlocks[j][i]));
+                testBlockDAO.add(testBlocks[j][i]);
                 blocks = cognitiveTestDAO.getTestBlocks(cognitiveTestsPerManager[0][j].getId());
                 assertTrue("this block should have been in the list", blocks.contains(testBlocks[j][i]));
             }
@@ -256,7 +254,7 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
 
         // removing the tests from the db
         for(int i = 0; i < numOfTestsPerManager; i++){
-            cognitiveTestDAO.add(new TestWrapper(cognitiveTestsPerManager[0][i]));
+            cognitiveTestDAO.add(cognitiveTestsPerManager[0][i]);
         }
     }
 

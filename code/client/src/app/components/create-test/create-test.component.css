@@ -6,7 +6,7 @@
 
 
 
-h2 {
+h1 {
     font-family: Arial;
     color: white;
     text-align: center;  
@@ -29,3 +29,9 @@ h4 {
     align-items: center;
     background-size: cover;
   }
+
+.titleBoi{
+    font-size: 60px;
+    color:silver;
+    font-style: italic;
+  }  

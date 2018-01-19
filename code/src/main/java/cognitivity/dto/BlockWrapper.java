@@ -3,6 +3,7 @@ package cognitivity.dto;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestQuestion;
+import com.sun.istack.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +70,7 @@ public class BlockWrapper {
     public BlockWrapper() {}
 
     public BlockWrapper(Integer numberOfQuestions, Boolean randomize, String tag, CognitiveTest test) {
+        this.id = 2L;
         this.numberOfQuestions = numberOfQuestions;
         this.randomize = randomize;
         this.tag = tag;
@@ -78,6 +80,7 @@ public class BlockWrapper {
     }
 
     public BlockWrapper(List<TestQuestion> questions, Integer numberOfQuestions, Boolean randomize, String tag, CognitiveTest test) {
+        this.id = 2L;
         this.numberOfQuestions = numberOfQuestions;
         this.randomize = randomize;
         this.tag = tag;
@@ -86,18 +89,20 @@ public class BlockWrapper {
         this.questions = questions;
     }
 
-    public BlockWrapper(List<TestQuestion> questions, TestBlock block) {
+    public BlockWrapper(@Nullable List<TestQuestion> questions, TestBlock block) {
         this.id = block.getId();
         this.numberOfQuestions = block.getNumberOfQuestions();
         this.randomize = block.getRandomize();
         this.tag = block.getTag();
         this.cognitiveTest = block.getCognitiveTest();
 
-        this.questions = questions;
+        this.questions = questions != null ? questions : new ArrayList<>();
     }
 
+    // todo : initialize id
     public BlockWrapper(TestBlock block) {
-        this.id = block.getId();
+        // this.id = block.getId();
+        this.id = 2L;
         this.numberOfQuestions = block.getNumberOfQuestions();
         this.randomize = block.getRandomize();
         this.tag = block.getTag();
