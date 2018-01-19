@@ -68,7 +68,7 @@ public class TestAnswerServiceTest {
     test - 3
      */
     @Test
-    public void FullTest() {
+    public void FullTest()throws Exception {
         QuestionService questionService = new QuestionService(qdao,dao,tdao,mdao);
         TestBlockService blockService = new TestBlockService(bdao);
         CognitiveTestService testService = new CognitiveTestService(tdao,bdao, qdao);

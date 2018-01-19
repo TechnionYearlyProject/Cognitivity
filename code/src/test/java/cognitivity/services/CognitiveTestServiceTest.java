@@ -1,6 +1,6 @@
 package cognitivity.services;
 
-import cognitivity.Exceptions.DBException;
+import cognitivity.exceptions.DBException;
 import cognitivity.dao.*;
 import cognitivity.dto.BlockWrapper;
 import cognitivity.dto.TestWrapper;
@@ -72,7 +72,7 @@ public class CognitiveTestServiceTest {
     manager id = 9
 
      */
-    public void FullTest() {
+    public void FullTest() throws Exception{
 
 
         TestManager manager = new TestManager();

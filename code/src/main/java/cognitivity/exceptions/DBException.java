@@ -1,4 +1,4 @@
-package cognitivity.Exceptions;
+package cognitivity.exceptions;
 
 public class DBException extends Exception {
     ErrorType type;

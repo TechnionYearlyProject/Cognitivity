@@ -1,6 +1,7 @@
 package cognitivity.controllers;
 
 import cognitivity.entities.TestManager;
+import cognitivity.exceptions.DBException;
 import cognitivity.services.TestManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -70,7 +71,7 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/updateTestManager")
     public void updateTestManager(
-            @RequestBody TestManager manager) {
+            @RequestBody TestManager manager)throws DBException {
         service.updateTestManager(manager);
     }
 
@@ -84,7 +85,7 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/saveTestManager")
-    public TestManager saveTestManager(@RequestBody TestManager testManager) {
+    public TestManager saveTestManager(@RequestBody TestManager testManager)throws DBException {
         return service.createTestManager(testManager);
     }
 
@@ -95,7 +96,7 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
      */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.DELETE, value = "/deleteTestManager")
-    public void deleteTestManager(@RequestParam(value = "testManagerId") long testManagerId) {
+    public void deleteTestManager(@RequestParam(value = "testManagerId") long testManagerId)throws DBException {
         service.deleteTestManager(testManagerId);
     }
 

@@ -1,6 +1,6 @@
 package cognitivity.services;
 
-import cognitivity.Exceptions.DBException;
+import cognitivity.exceptions.DBException;
 import cognitivity.dao.*;
 import cognitivity.dto.BlockWrapper;
 import cognitivity.dto.TestWrapper;
@@ -68,7 +68,7 @@ public class QuestionServiceTest {
      * Testing all functionalities Question service
      */
     @Test
-    public void fullTest() {
+    public void fullTest()throws Exception {
         QuestionService service = new QuestionService(testQuestionDAO, answerDao, cognitiveTestDAO, testManagerDAO);
         TestBlockService blockService = new TestBlockService(testBlockDAO);
         CognitiveTestService testService = new CognitiveTestService(cognitiveTestDAO,testBlockDAO, testQuestionDAO);

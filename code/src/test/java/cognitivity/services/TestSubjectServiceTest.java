@@ -66,7 +66,7 @@ public class TestSubjectServiceTest {
      */
 
     @Test
-    public void FullTest(){
+    public void FullTest()throws Exception{
         TestSubjectService service = new TestSubjectService(dao);
         CognitiveTestService testService = new CognitiveTestService(tdao,bdao, qdao);
         TestManagerService managerService = new TestManagerService(mdao,tdao);
@@ -75,7 +75,12 @@ public class TestSubjectServiceTest {
         TestBlockService blockService = new TestBlockService(bdao);
 
         TestSubject testSubject = new TestSubject("Simha Gora", "pipipp", "Queue");
-        TestSubject subject = service.createTestSubject(testSubject);
+        TestSubject subject = new TestSubject();
+        try {
+            subject = service.createTestSubject(testSubject);
+        }catch (Exception e){
+            assertTrue("Problem with adding the test",false);
+        }
         assertNotNull("Problem with creating a test subject",subject);
 
         doReturn(subject).when(dao).get(1L);
@@ -84,7 +89,11 @@ public class TestSubjectServiceTest {
         assertEquals("Problem with getting a test subject",result,subject);
 
         subject.setBrowser("Tor");
-        service.updateTestSubject(subject);
+        try {
+            service.updateTestSubject(subject);
+        }catch (Exception e){
+            assertTrue("problem with updating subject",false);
+        }
 
         result = service.findTestSubject(1);
 
@@ -92,7 +101,12 @@ public class TestSubjectServiceTest {
 
         TestManager manager = new TestManager("Yo!!!!!!!!!!!!1");
         CognitiveTest test = new CognitiveTest("test", manager, 1, 0);
-        BlockWrapper block = blockService.createTestBlock(2,false,"teag", test);
+        BlockWrapper block = new BlockWrapper();
+        try {
+            block = blockService.createTestBlock(2,false,"teag", test);
+        }catch (Exception e){
+            assertTrue("problem with updating subject",false);
+        }
         TestQuestion question = new TestQuestion("When will the Shibutzim arrive?",1,"Never!","Questions that remain unasnwered",
                 block.innerBlock(), test, manager, 0);
         questionService.createTestQuestion(question);
@@ -160,27 +174,30 @@ public class TestSubjectServiceTest {
             assertTrue("Didn't get all the answers from a specific subject",answerList.contains(t));
         }
 
-
-        service.deleteTestSubject(1);
-        service.deleteTestSubject(2);
-        service.deleteTestSubject(3);
-        service.deleteTestSubject(4);
-
-
-        managerService.deleteTestManager(5);
+        try {
+            service.deleteTestSubject(1);
+            service.deleteTestSubject(2);
+            service.deleteTestSubject(3);
+            service.deleteTestSubject(4);
 
 
-        blockService.deleteTestBlock(7);
+            managerService.deleteTestManager(5);
 
-        questionService.deleteTestQuestion(8);
 
-        answerService.deleteAllTestAnswersForQuestion(9);
-        answerService.deleteAllTestAnswersForQuestion(10);
-        answerService.deleteAllTestAnswersForQuestion(11);
-        answerService.deleteAllTestAnswersForQuestion(12);
-        answerService.deleteAllTestAnswersForQuestion(13);
-        answerService.deleteAllTestAnswersForQuestion(14);
-        answerService.deleteAllTestAnswersForQuestion(15);
+            blockService.deleteTestBlock(7);
+
+            questionService.deleteTestQuestion(8);
+
+            answerService.deleteAllTestAnswersForQuestion(9);
+            answerService.deleteAllTestAnswersForQuestion(10);
+            answerService.deleteAllTestAnswersForQuestion(11);
+            answerService.deleteAllTestAnswersForQuestion(12);
+            answerService.deleteAllTestAnswersForQuestion(13);
+            answerService.deleteAllTestAnswersForQuestion(14);
+            answerService.deleteAllTestAnswersForQuestion(15);
+        }catch (Exception e){
+            assertTrue("Problem with deleting the tests",false);
+        }
 
 
     }

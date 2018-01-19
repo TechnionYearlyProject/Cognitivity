@@ -1,6 +1,5 @@
 package cognitivity.services;
 
-import cognitivity.Exceptions.DBException;
 import cognitivity.dao.CognitiveTestDAO;
 import cognitivity.dao.TestBlockDAO;
 import cognitivity.dao.TestQuestionDAO;
@@ -9,14 +8,15 @@ import cognitivity.dto.TestWrapper;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestQuestion;
+import cognitivity.exceptions.DBException;
+import cognitivity.exceptions.ErrorType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import cognitivity.exceptions.ErrorType.*;
 
-import javax.lang.model.type.ErrorType;
 import java.util.ArrayList;
 import java.util.List;
 
-import static cognitivity.Exceptions.ErrorType.SAVE;
 
 /**
  * Business service for cognitive test related operations.
@@ -45,33 +45,32 @@ public class CognitiveTestService {
      * @return
      */
     public TestWrapper createTestForTestManager(TestWrapper cognitiveTest) throws DBException {
-        long testId;
         try {
-            testId = dao.add(cognitiveTest.innerTest());
-        }catch (org.hibernate.HibernateException e){
-            throw new DBException(SAVE);
-        }
-        List<BlockWrapper> blocks = cognitiveTest.getBlocks();
-        if (blocks != null) {
-            CognitiveTest test = cognitiveTest.innerTest();
-            for (BlockWrapper block : blocks) {
-                test.setId(testId);
-                block.setCognitiveTest(test);
-                long blockId = blockDAO.add(block.innerBlock());
-                TestBlock testBlock = block.innerBlock();
-                testBlock.setId(blockId);
-                if (block.getQuestions() != null) {
-                    for (TestQuestion question : block.getQuestions()) {
-                        question.setTestManager(cognitiveTest.getTestManager());
-                        question.setCognitiveTest(test);
-                        question.setTestBlock(testBlock);
-                        questionDAO.add(question);
+            long testId = dao.add(cognitiveTest.innerTest());
+            List<BlockWrapper> blocks = cognitiveTest.getBlocks();
+            if (blocks != null) {
+                CognitiveTest test = cognitiveTest.innerTest();
+                for (BlockWrapper block : blocks) {
+                    test.setId(testId);
+                    block.setCognitiveTest(test);
+                    long blockId = blockDAO.add(block.innerBlock());
+                    TestBlock testBlock = block.innerBlock();
+                    testBlock.setId(blockId);
+                    if (block.getQuestions() != null) {
+                        for (TestQuestion question : block.getQuestions()) {
+                            question.setTestManager(cognitiveTest.getTestManager());
+                            question.setCognitiveTest(test);
+                            question.setTestBlock(testBlock);
+                            questionDAO.add(question);
+                        }
                     }
                 }
             }
+            cognitiveTest.setId(testId);
+            return cognitiveTest;
+        }catch (org.hibernate.HibernateException e){
+            throw new DBException(ErrorType.SAVE);
         }
-        cognitiveTest.setId(testId);
-        return cognitiveTest;
     }
 
     /**
@@ -81,17 +80,22 @@ public class CognitiveTestService {
      *             <p>
      *             This will be used in conjunction with the PUT HTTP method.
      */
-    public void updateTestForTestManager(TestWrapper test) {
-        dao.update(test.innerTest());
-        if (test.getBlocks() != null) {
-            for (BlockWrapper block : test.getBlocks()) {
-                blockDAO.update(block.innerBlock());
-                if (blockDAO.getAllBlockQuestions(block.getId()) != null) {
-                    for (TestQuestion question : blockDAO.getAllBlockQuestions(block.getId())) {
-                        questionDAO.update(question);
+    public void updateTestForTestManager(TestWrapper test) throws DBException {
+        try{
+
+            dao.update(test.innerTest());
+            if (test.getBlocks() != null) {
+                for (BlockWrapper block : test.getBlocks()) {
+                    blockDAO.update(block.innerBlock());
+                    if (blockDAO.getAllBlockQuestions(block.getId()) != null) {
+                        for (TestQuestion question : blockDAO.getAllBlockQuestions(block.getId())) {
+                            questionDAO.update(question);
+                        }
                     }
                 }
             }
+        }catch (org.hibernate.HibernateException e){
+            throw new DBException(ErrorType.UPDATE);
         }
     }
 
@@ -103,16 +107,20 @@ public class CognitiveTestService {
      *               <p>
      *               This will be used in conjunction with the DELETE HTTP method.
      */
-    public void deleteTestForTestManager(long testID) {
-        List<BlockWrapper> blocks = findTestById(testID).getBlocks();
-        for (BlockWrapper block : blocks) {
-            List<TestQuestion> questions = block.getQuestions();
-            for (TestQuestion question: questions) {
-                questionDAO.delete(question.getId());
+    public void deleteTestForTestManager(long testID) throws DBException{
+        try {
+            List<BlockWrapper> blocks = findTestById(testID).getBlocks();
+            for (BlockWrapper block : blocks) {
+                List<TestQuestion> questions = block.getQuestions();
+                for (TestQuestion question: questions) {
+                    questionDAO.delete(question.getId());
+                }
+                blockDAO.delete(block.getId());
             }
-            blockDAO.delete(block.getId());
+            dao.delete(testID);
+        }catch (org.hibernate.HibernateException e){
+            throw new DBException(ErrorType.DELETE);
         }
-        dao.delete(testID);
     }
 
 
