@@ -4,9 +4,6 @@ import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestQuestion;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,6 +87,7 @@ public class BlockWrapper {
     }
 
     public BlockWrapper(List<TestQuestion> questions, TestBlock block) {
+        this.id = block.getId();
         this.numberOfQuestions = block.getNumberOfQuestions();
         this.randomize = block.getRandomize();
         this.tag = block.getTag();
@@ -99,6 +97,7 @@ public class BlockWrapper {
     }
 
     public BlockWrapper(TestBlock block) {
+        this.id = block.getId();
         this.numberOfQuestions = block.getNumberOfQuestions();
         this.randomize = block.getRandomize();
         this.tag = block.getTag();
@@ -112,7 +111,9 @@ public class BlockWrapper {
     }
 
     public TestBlock innerBlock() {
-        return new TestBlock(numberOfQuestions, randomize, tag, cognitiveTest);
+        TestBlock block = new  TestBlock(numberOfQuestions, randomize, tag, cognitiveTest);
+        block.setId(id);
+        return block;
     }
 
 }

@@ -3,7 +3,7 @@ import { AuthService } from '../../services/auth-service';
 import { LocalStorageService } from '../../services/local-storage';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
-import { Test, Question, OpenQuestion, TypeQuestion, QuestionPosition, Block } from '../../models';
+import { Test, Question, OpenQuestion, TypeQuestion, QuestionPosition, Block, QuestionInDB } from '../../models';
 import { TestService } from '../../services/database-service/index';
 
 @Component({
@@ -66,18 +66,25 @@ export class TestPreviewComponent implements OnInit {
       questionPosition: QuestionPosition.UpperMiddle
     }
 
+    let question1: QuestionInDB = {
+      question: 'tmp question',
+      questionPosition: 0,
+      answer: 'nooooo',
+      questionType: QuestionPosition.ButtomLeft
+    }
+
     var block : Block = {
-      questions: [],
+      questions: [question1],
       numberOfQuestions: 0
     }
 
     var block2: Block = {
-      questions: [],
+      questions: [question1],
       numberOfQuestions: 0
     }
 
     var block3: Block = {
-      questions: [],
+      questions: [question1],
       numberOfQuestions: 0
     }
     this.testId = this.route.snapshot.params['testId'];
@@ -93,7 +100,7 @@ export class TestPreviewComponent implements OnInit {
     this.test.state=0;
     //this.test.blocks=[];
     this.test.testManager = {id: '1', email:'aa@aa.com'}
-    //console.log(await this.testService.saveCognitiveTest(this.test));
+    console.log(await this.testService.saveCognitiveTest(this.test));
     this.currIndex = 0;
   }
 

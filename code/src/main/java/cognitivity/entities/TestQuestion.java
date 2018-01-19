@@ -24,11 +24,11 @@ public class TestQuestion extends AbstractEntity {
     @Column(name = "tag")
 	private String tag;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "testBlockId", nullable = false)
 	private TestBlock testBlock;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "projectId", nullable = false)
     @JsonIgnore
     private CognitiveTest cognitiveTest;
@@ -41,7 +41,7 @@ public class TestQuestion extends AbstractEntity {
 		this.testManager = testManager;
 	}
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "testManagerId")
 	private TestManager testManager;
 

@@ -49,6 +49,10 @@ public class CognitiveTestService {
                 blockDAO.add(block);
                 if (block.getQuestions() != null) {
                     for (TestQuestion question : block.getQuestions()) {
+                        question.setTestManager(cognitiveTest.getTestManager());
+                        question.setCognitiveTest(cognitiveTest.innerTest());
+                        System.out.println(cognitiveTest.innerTest());
+                        question.setTestBlock(block.innerBlock());
                         questionDAO.add(question);
                     }
                 }
