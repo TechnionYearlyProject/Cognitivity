@@ -59,6 +59,8 @@ export class CreateQuestionComponent implements OnInit {
   markedSecondaryCorrectAnswer?: Array<boolean> = new Array();
   editionModeSecondary: boolean = false;
   indexAnswerInEditSecondary: number = -1;
+  viewSecondary: boolean = false;
+  viewAnswers: Array<string> = new Array();
   //secondaryAnswers?: Array<Array<string>>;
   editionModeMain?: boolean;
   secondaryAnswerMode?: boolean = false;
@@ -875,15 +877,27 @@ export class CreateQuestionComponent implements OnInit {
   }
   finishSecondaryQuestion(){
     if(!this.emptySecondary()){
+      for(let i = 0 ; i < this.secondaryQuestionList.length; i++){
+        if(this.secondaryQuestionList[i].index == this.indexOfMainanswerToShow){
+          this.secondaryQuestionList.splice(i, 1);
+        }
+      }
+      
       this.secondaryQuestionList.splice(this.secondaryQuestionList.length, 0, {
         index: this.indexOfMainanswerToShow,
         questionText: this.currentSecondaryQuestion,
         answers: this.secondaryAnswers
       });
       this.secondaryAnswerMode = false;
+      this.secondaryAnswers = new Array();
+      this.currentSecondaryAnswer = '';
+      this.currentSecondaryQuestion = '';
+      this.markedSecondaryCorrectAnswer = new Array();
     }
-    this.submitSecondaryQuestion = true;
     
+    this.submitSecondaryQuestion = true;
+    console.log('Finish');
+    console.log(this.secondaryQuestionList);
   }
 
   secondaryExists(): boolean{
@@ -956,6 +970,20 @@ export class CreateQuestionComponent implements OnInit {
     this.editionModeSecondary = false;
     this.currentSecondaryAnswer = '';
     this.indexAnswerInEditSecondary = -1;
+  }
+
+  viewSecondaryAnswer(){
+    if(this.viewSecondary){
+      this.viewAnswers = new Array()
+    }else{
+      this.viewSecondary = true;
+      for(let i = 0; i < this.secondaryQuestionList.length; i++){
+        if(this.secondaryQuestionList[i].index == this.indexOfMainanswerToShow){
+          this.viewAnswers = Object.assign([], this.secondaryQuestionList[i].answers);
+          break;
+        }
+      }
+    }
   }
 
   
