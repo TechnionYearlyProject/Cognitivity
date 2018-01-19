@@ -2,7 +2,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { DashboardModule } from './components/dashboard/dashboard.module';
 import { QuestionComponent } from './components/question/question.component';
-import { QuestionListComponent } from './components/block/question-list/question-list.component';
 import { BlockComponent } from './components/block/block.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { TestPreviewComponent } from './components/test-preview/test-preview.component';
