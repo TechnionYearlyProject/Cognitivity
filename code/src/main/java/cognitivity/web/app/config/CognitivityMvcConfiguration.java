@@ -23,11 +23,8 @@ import java.util.Properties;
 @Configuration
 @EnableWebMvc
 @ComponentScan(value = "cognitivity")
-//@ContextConfiguration(locations = {"classpath:spring/app-context.xml"})
-//@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
-
-//@Import(value = HibernateBeanConfiguration.class)
 public class CognitivityMvcConfiguration /* implements BeanDefinitionRegistryPostProcessor */ {
+
 
     @Bean
     @Autowired
