@@ -1,5 +1,6 @@
 package cognitivity.dao;
 
+import cognitivity.dto.BlockWrapper;
 import cognitivity.dto.TestWrapper;
 import cognitivity.entities.*;
 import cognitivity.web.app.config.CognitivityMvcConfiguration;
@@ -53,7 +54,7 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
                 new CognitiveTest("onlyForTests", testManager, 1, 0);
         cognitiveTestDAO.add(new TestWrapper(cognitiveTest));
         testBlock = new TestBlock(0, false, "testTag", cognitiveTest);
-        testBlockDAO.add(testBlock);
+        testBlockDAO.add(new BlockWrapper(testBlock));
         testQuestion = new TestQuestion("testQuestion", 0,
                 null, "testTag", testBlock, cognitiveTest, testManager, 0);
         testQuestionDAO.add(testQuestion);

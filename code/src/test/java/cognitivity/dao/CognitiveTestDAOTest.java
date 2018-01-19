@@ -1,5 +1,6 @@
 package cognitivity.dao;
 
+import cognitivity.dto.BlockWrapper;
 import cognitivity.dto.TestWrapper;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
@@ -178,7 +179,7 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
         for (int i = 0; i < numOfBlocks; i++) {
             testBlocks[i] = new TestBlock(numOfTestQuestionsPerBlock, (i % 2) == 1,
                     "tag : blocknum" + i, cognitiveTestsPerManager[0][i]);
-            testBlockDAO.add(testBlocks[i]);
+            testBlockDAO.add(new BlockWrapper(testBlocks[i]));
             for (int j = 0; j <= numOfTestQuestionsPerBlock; j++) {
                 questions = cognitiveTestDAO.
                         getTestQuestions(cognitiveTestsPerManager[0][i].getId());
@@ -240,7 +241,7 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
                         blocks.size() == i);
                 testBlocks[j][i] = new TestBlock(0, (i % 2) == 1,
                         "tag : blocknum" + i, cognitiveTestsPerManager[0][j]);
-                testBlockDAO.add(testBlocks[j][i]);
+                testBlockDAO.add(new BlockWrapper(testBlocks[j][i]));
                 blocks = cognitiveTestDAO.getTestBlocks(cognitiveTestsPerManager[0][j].getId());
                 assertTrue("this block should have been in the list", blocks.contains(testBlocks[j][i]));
             }

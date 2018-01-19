@@ -30,15 +30,15 @@ public class CognitiveTestDAOimpl extends AbstractDAO<CognitiveTest> implements 
     @Override
     public void add(TestWrapper data) {
         Session session = sessionFactory.getCurrentSession();
-        CognitiveTest new_data = new CognitiveTest(data.getName(),data.getTestManager(),data.getState(),data.getNumberOfQuestions());
-        session.save(new_data);
+        CognitiveTest newData = data.innerTest();
+        session.save(newData);
     }
 
     @Override
     public void update(TestWrapper data) {
         Session session = sessionFactory.getCurrentSession();
-        CognitiveTest new_data = new CognitiveTest(data.getName(),data.getTestManager(),data.getState(),data.getNumberOfQuestions());
-        session.merge(new_data);
+        CognitiveTest newData = data.innerTest();
+        session.merge(newData);
     }
 
     public List<TestQuestion> getTestQuestions(long testId) {

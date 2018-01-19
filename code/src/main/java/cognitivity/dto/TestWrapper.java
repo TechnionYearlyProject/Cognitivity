@@ -145,6 +145,16 @@ public class TestWrapper {
         this.blocks = new ArrayList<>();
     }
 
+    public CognitiveTest innerTest() {
+        CognitiveTest cognitiveTest = new CognitiveTest(name, testManager, state, numberOfQuestions);
+        cognitiveTest.setLastAnswered(lastAnswered);
+        cognitiveTest.setLastModified(lastModified);
+        cognitiveTest.setNumberOfFiledCopies(numberOfFiledCopies);
+        cognitiveTest.setNumberOfSubjects(numberOfSubjects);
+
+        return cognitiveTest;
+    }
+
 
     public List<BlockWrapper> getBlocks() {
         return blocks;
