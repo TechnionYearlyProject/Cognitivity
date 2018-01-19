@@ -2,8 +2,10 @@ package cognitivity.integration;
 
 import cognitivity.controllers.CognitiveTestController;
 import cognitivity.controllers.TestManagerController;
+import cognitivity.controllers.TestSubjectController;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
+import cognitivity.entities.TestSubject;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
@@ -29,6 +31,7 @@ public class AbstractResourceIntegrationTest {
 
     protected MockMvc cognitiveTestMvc;
     protected MockMvc testManagerMvc;
+    protected MockMvc testSubjectMvc;
 
     @Autowired
     protected CognitiveTestController cognitiveTestController;
@@ -36,12 +39,16 @@ public class AbstractResourceIntegrationTest {
     @Autowired
     protected TestManagerController testManagerController;
 
+    @Autowired
+    protected TestSubjectController testSubjectController;
+
     protected static Gson gson;
 
     @Before
     public void setup() {
         cognitiveTestMvc = MockMvcBuilders.standaloneSetup(cognitiveTestController).build();
         testManagerMvc = MockMvcBuilders.standaloneSetup(testManagerController).build();
+        testSubjectMvc = MockMvcBuilders.standaloneSetup(testSubjectController).build();
 
         GsonBuilder builder = new GsonBuilder();
 
@@ -49,6 +56,12 @@ public class AbstractResourceIntegrationTest {
         builder.registerTypeAdapter(Date.class, (JsonDeserializer<Date>) (json, typeOfT, context) -> new Date(json.getAsJsonPrimitive().getAsLong()));
 
         gson = builder.create();
+    }
+
+    public static TestSubject createTestSubject(long id) {
+        TestSubject testSubject = new TestSubject("subject", "ip", "browser");
+        testSubject.setId(id);
+        return testSubject;
     }
 
     public static TestManager createTestManager(long id) {
