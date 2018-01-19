@@ -2,6 +2,7 @@ package cognitivity.dto;
 
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
+import cognitivity.entities.TestManager;
 import cognitivity.entities.TestQuestion;
 import org.junit.Test;
 
@@ -44,7 +45,30 @@ public class BlockWrapperTest {
             assertTrue("Didn't get all the questions", res.contains(t));
         }
 
+        wrapper.setId(5L);
+        assertTrue(wrapper.getId() == 5);
 
+        wrapper.setNumberOfQuestions(10);
+        assertTrue(wrapper.getNumberOfQuestions() == 10);
+
+        wrapper.setRandomize(true);
+        assertTrue(wrapper.getRandomize());
+
+        wrapper.setTag("hello world");
+        assertTrue(wrapper.getTag().equals("hello world"));
+
+        TestManager testManager = new TestManager("a;lkjflsa");
+        CognitiveTest cognitiveTest = new CognitiveTest("hey cognitive", testManager, 1, 10);
+        cognitiveTest.setId(15L);
+        wrapper.setCognitiveTest(cognitiveTest);
+        assertTrue(wrapper.getCognitiveTest().getId() == 15L);
+
+        List<TestQuestion> emptyList = new ArrayList<>();
+        wrapper.setQuestions(emptyList);
+        assertTrue(wrapper.getQuestions() == emptyList);
+
+        TestBlock testBlock = new TestBlock(10, false, "safdj", cognitiveTest);
+        BlockWrapper constructorCheck = new BlockWrapper(emptyList, testBlock);
 
     }
 

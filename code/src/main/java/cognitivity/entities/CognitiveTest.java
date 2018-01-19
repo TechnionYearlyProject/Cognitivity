@@ -21,7 +21,7 @@ public class CognitiveTest extends AbstractEntity {
 		this.testManager = manager;
 		this.numberOfSubjects = 0;
 		this.state = state;
-		this.lastModified = new Date(Calendar.getInstance().getTimeInMillis()); //TODO:Check for format
+		this.lastModified = new Date(Calendar.getInstance().getTimeInMillis());
 		this.lastAnswered = null;
 		this.numberOfFiledCopies = 0;
 		this.numberOfQuestions = numberOfQuestions;
