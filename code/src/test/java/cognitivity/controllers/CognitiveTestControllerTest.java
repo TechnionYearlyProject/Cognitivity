@@ -119,7 +119,7 @@ public class CognitiveTestControllerTest implements RestControllerTest {
                 .andExpect(status().isOk());
 
         // todo : this will probably fail because the jackson factory will build a new object. Should maybe update equal methods?
-        Mockito.verify(cognitiveTestServiceMock, times(1)).updateTestForTestManager(new TestWrapper(test));
+        Mockito.verify(cognitiveTestServiceMock, times(1)).updateTestForTestManager(Matchers.any(TestWrapper.class));
         Mockito.verifyNoMoreInteractions(cognitiveTestServiceMock);
     }
 
