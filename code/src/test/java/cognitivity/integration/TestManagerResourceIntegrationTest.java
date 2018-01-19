@@ -1,7 +1,6 @@
 package cognitivity.integration;
 
 import cognitivity.TestUtil;
-import cognitivity.controllers.TestManagerController;
 import cognitivity.entities.TestManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import config.IntegrationTestContextConfiguration;
@@ -13,9 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Created by ophir on 19/01/18.
@@ -24,13 +24,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = {IntegrationTestContextConfiguration.class})
 public class TestManagerResourceIntegrationTest extends AbstractResourceIntegrationTest {
 
-    // private static MockMvc mockMvc;
-
     @Autowired
     private ObjectMapper objectMapper;
-
-    @Autowired
-    private TestManagerController controller;
 
     @Before
     public void setup() {
@@ -71,5 +66,39 @@ public class TestManagerResourceIntegrationTest extends AbstractResourceIntegrat
 
         // Finally delete the test
         deleteTestManager(managerId, objectMapper, testManagerMvc);
+    }
+
+    @Test
+    public void testUpdateTestManager() throws Exception {
+        manager = createTestManager(9L);
+        // In order to save test, must save manager first.
+        long managerId = saveTestManager(manager, objectMapper, testManagerMvc);
+
+        // Test is saved. Try find it in the database...
+        testManagerMvc.perform(get("/test-managers/findTestManagerIdByEmail")
+                .param("email", "email"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8));
+
+        manager.setId(managerId);
+        manager.setEmail("email2");
+
+        // Now call to update
+        testManagerMvc.perform(post("/test-managers/updateTestManager")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(objectMapper.writeValueAsBytes(manager)))
+                .andDo(print())
+                .andExpect(status().isOk());
+
+        // Check if it was updated...
+        testManagerMvc.perform(get("/test-managers/findTestManagersForTestCriteria")
+                .param("testManagerId", String.valueOf(managerId))
+                .param("testId", "-1"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.email", is("email2")));
+
+        // Finally delete the test
+        deleteTestManager(String.valueOf(managerId), objectMapper, testManagerMvc);
     }
 }
