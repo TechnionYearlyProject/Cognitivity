@@ -10,19 +10,31 @@ import { Test, Question, OpenQuestion, TypeQuestion, QuestionPosition, Block } f
   templateUrl: './test-preview.component.html',
   styleUrls: ['./test-preview.component.css']
 })
-export class TestPreviewComponent implements OnInit {
 
+/*
+this component takes place when the preview button is fired (to preview the whole test)
+it uses the block viewer and indirectly the question viewer to view the whole test.
+*/
+export class TestPreviewComponent implements OnInit {
+  
+  //default constructor 
   constructor(
     private localStorageService: LocalStorageService,
     private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
+
+  //the test object , so we can save/import tests.
   test: Test;
+  //the current test id.
   testId: number;
+  //the current test's index in the tests list.
   currIndex: number;
+  //variable to indicate if we should hide the following button in the creation.
   hideNextButton: boolean = true;
 
+  //default initialization function.
   ngOnInit() {
     var question: OpenQuestion = {
       questionText: 'hello friend?',
@@ -71,18 +83,31 @@ export class TestPreviewComponent implements OnInit {
     this.currIndex = 0;
   }
 
+  /*
+  Input - an index of a specific block
+  Output - returns a boolean result if the called block's id (from the HTML form) is the current id 
+  were viewing. 
+  */
   showBlock(index) {
     return index == this.currIndex;
   }
 
+  /*
+  to indicate if we finished previewing the test.
+  */
   isFinished(e) {
     this.hideNextButton = !e;
   }
 
+  //routing back to the dashboard after we finished previewing the test.
   finishPreview() {
     this.router.navigate(['/dashboard']);
   }
 
+  /*
+  this function increments our block index (the index of the block were viewing)
+  and checks if we finished (reached the last object in the blocks list)
+  */
   nextBlock() {
     this.currIndex++;
     this.hideNextButton = true;

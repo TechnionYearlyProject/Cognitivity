@@ -12,15 +12,22 @@ import { AuthService } from '../../services/auth-service';
     `,
     styleUrls:['./dashboard.component.css']
 })
+
+/*
+The wrapping component of the dashboard.
+*/
 export class DashboardComponent implements OnInit{
+    //object for the currently logged-in user.
     manager;
+    
+    //default constructor 
     constructor(
         private route: ActivatedRoute,
         private router: Router,
         private authService: AuthService
-    ) {
+    ) {}
 
-    }
+    //defualt initialization function.
     ngOnInit() {
         this.manager = this.authService.getCurrentManager();
 

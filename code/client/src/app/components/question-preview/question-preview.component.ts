@@ -5,11 +5,20 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: './question-preview.component.html',
   styleUrls: ['./question-preview.component.css']
 })
-export class QuestionPreviewComponent implements OnInit {
 
+/*
+similar to the block preview component , this component can be used as a generic screen that 
+allows a question's data to be previewed. 
+the component is used to preview a single question.
+*/
+export class QuestionPreviewComponent implements OnInit {
+  //default constructor.
   constructor() { }
+  
+  //we get the question as a passed input, thats the question we'll preview.
   @Input() question: any;
-  ngOnInit() {
-  }
+
+  //default initialization function.
+  ngOnInit() {}
 
 }

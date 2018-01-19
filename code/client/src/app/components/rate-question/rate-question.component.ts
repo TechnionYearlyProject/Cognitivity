@@ -7,31 +7,36 @@ import { Input } from '@angular/core';
   templateUrl: './rate-question.component.html',
   styleUrls: ['./rate-question.component.css']
 })
+
+/*
+A component to represent the Rate question type.
+*/
 export class RateQuestionComponent implements OnInit {
+  //the question's data is passed in as input.
   @Input() question: any;
+  //the array that holds all the possible answers.
   answers: Array<null>;
+  //an array to indicate what answers are currently marked.
   markedAnswers: Array<boolean>;
+  //the final marked answer
   markedAnswer : number;
+  //slider value.
   range_value : number = 50;
+  /*
+  different CSS styles for the positions of the question's text and answers.
+  */
   positionUp : any;
   positionMiddle : any;
   positionButtom : any;
-  constructor() {
-    /*
-    hardcoded question object, when services will be added this piece of code will not be needed
-    */ 
-      /*this.question = {
-        questionText: 'How is your social life?',
-        questionPosition: QuestionPosition.UpperMiddle,
-        type: TypeQuestion.RateQuestion,
-        heightOfRate: 5
-      }*/
-      //End of harcoded question
 
-   }
+  //default constructor.
+  constructor() {}
 
+  /*
+  default initialization function.
+  we initialize all the data structures and set all the marked question to "not marked"
+  */
   ngOnInit() {
-
     this.buildPositionOfQuestion();
     this.answers = new Array<null>(this.question.heightOfRate);
     this.markedAnswers = new Array<boolean>(this.question.heightOfRate);
@@ -40,6 +45,10 @@ export class RateQuestionComponent implements OnInit {
     }
   }
 
+  /*
+  Input - index of the question to be marked.
+  Output - the question is marked. 
+  */
   markAnswer(index: number){
     for(let i = 0; i < this.answers.length; i++){   
       if(i == index){
@@ -52,6 +61,9 @@ export class RateQuestionComponent implements OnInit {
     }
   }
 
+  /*
+  this function creates the CSS styles menthioned above.
+  */
   buildPositionOfQuestion(){
     this.positionUp = {
       'right' : this.isUpperRight(),
