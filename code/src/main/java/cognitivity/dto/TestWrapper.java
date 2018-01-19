@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class TestWrapper {
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -89,11 +89,11 @@ public class TestWrapper {
     }
 
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    private long id;
+    private Long id;
     private String name;
     private TestManager testManager;
     private Integer numberOfSubjects;
@@ -109,8 +109,9 @@ public class TestWrapper {
     public TestWrapper() {
     }
 
+    //TODO: remove!! hardcoded value!
     public TestWrapper(String name, TestManager manager, Integer state, Integer numberOfQuestions) {
-        this.id = 0;
+        this.id = 0L;
         this.name = name;
         this.testManager = manager;
         this.numberOfSubjects = 0;

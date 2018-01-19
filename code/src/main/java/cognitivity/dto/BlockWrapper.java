@@ -69,6 +69,7 @@ public class BlockWrapper {
 
     public BlockWrapper() {}
 
+    //TODO: remove!! hardcoded value!
     public BlockWrapper(Integer numberOfQuestions, Boolean randomize, String tag, CognitiveTest test) {
         this.id = 2L;
         this.numberOfQuestions = numberOfQuestions;
