@@ -47,5 +47,7 @@
         <div class="centered">
             <button class="btn btn-md btn-primary" (click)="saveTest()" style="width: 100%;">Save Test</button>
         </div>
-
+        <div *ngIf = "emptyBlock" style="color:red">
+            Please fill with at least one question or delete block number {{ indexBlock }}
+        </div>
     </div>
