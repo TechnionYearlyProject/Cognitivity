@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Block, Test } from '../../models/index';
+import { Block, Test, QuestionInDB, Manager } from '../../models/index';
 import { BlockComponent } from '../block/block.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SessionService } from '../../services/session-service/index';
@@ -28,6 +28,8 @@ export class CreateTestComponent implements OnInit {
   iterator: Array<Object> = new Array();
   //the string to be shown on the test title.
   titleTest: string;
+  //The manager of the soon to be created test;
+  manager: Manager = {id: -1, email: ''};
 
   //default constructor 
   constructor(
@@ -45,10 +47,10 @@ export class CreateTestComponent implements OnInit {
   */
   async ngOnInit() {
     let user = this.authService.getCurrentManager();
+    console.log(user);
     let managerId = await this.managerService.getManagerId(user.email);
-    managerId = 1;
-    let testId = this.route.snapshot.params['testId'];
-    this.test = await this.testService.findTestForManagerAndTestId(managerId,parseInt(testId));
+    this.manager.email = user.email;
+    this.manager.id = managerId;
     console.log(this.test);
   }
 
@@ -94,6 +96,55 @@ export class CreateTestComponent implements OnInit {
   deleteBlock(index: number){
     console.log('In delete');
     this.iterator.splice(index,1);
+  }
+
+  async saveTest() {
+    let blocks = this.blocks.toArray();
+    let blocksToDB: Block[] = [];
+    let totalQuestionNum: number = 0;
+    for (let block of blocks) {
+
+      let questions: QuestionInDB[] = [];
+
+      for (let questionInBlock of block.getQuestions()) {
+
+        let questionInDB: QuestionInDB = 
+        {
+          question: questionInBlock.question.questionText,
+          questionPosition: questionInBlock.question.questionPosition,
+          questionType: questionInBlock.question.type,
+          answer: JSON.stringify(questionInBlock.question)
+        }
+
+        questions.push(questionInDB);
+      }
+
+      totalQuestionNum += questions.length;
+
+      let blockInDB: Block = 
+      {
+        questions: questions,
+        numberOfQuestions: questions.length
+      }
+
+      blocksToDB.push(blockInDB);
+    }
+    
+    let test: Test = 
+    {
+      name: this.titleTest,
+      lastModified: Date.parse(new Date().toLocaleDateString()).toString(),
+      lastAnswered: null,
+      blocks: blocksToDB,
+      state: 0,
+      numberOfQuestions: totalQuestionNum,
+      numberOfFiledCopies: 0,
+      numberOfSubjects: 0,
+      testManager: this.manager
+    }
+    console.log(await this.testService.saveCognitiveTest(test));
+    this.router.navigate(['/dashboard']);
+
   }
   
 

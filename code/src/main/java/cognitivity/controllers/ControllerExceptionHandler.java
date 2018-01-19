@@ -18,5 +18,6 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     public String handleRuntimeException(DBException e){
         return "Runtime_ERR: "+e.getMessage();
+
     }
 }

@@ -85,5 +85,4 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     public void deleteCognitiveTest(@RequestParam(value = "testId") long testId) throws DBException {
         service.deleteTestForTestManager(testId);
     }
-
 }

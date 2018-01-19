@@ -84,7 +84,7 @@ export class TestService {
     }
 
     deleteCognitiveTest(testId: number): Promise<void> {
-        return this.http.delete(`http://localhost:8181${this.base_mapping}/deleteCognitiveTest/${testId}`, {headers: this.headers})
+        return this.http.delete(`http://localhost:8181${this.base_mapping}/deleteCognitiveTest?testId=${testId}`, {headers: this.headers})
         .toPromise()
         .then(() => null)
         .catch(this.handleError)
