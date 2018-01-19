@@ -46,7 +46,7 @@ export class CreateTestComponent implements OnInit {
   async ngOnInit() {
     let user = this.authService.getCurrentManager();
     let managerId = await this.managerService.getManagerId(user.email);
-    managerId = '1';
+    managerId = 1;
     let testId = this.route.snapshot.params['testId'];
     this.test = await this.testService.findTestForManagerAndTestId(managerId,parseInt(testId));
     console.log(this.test);

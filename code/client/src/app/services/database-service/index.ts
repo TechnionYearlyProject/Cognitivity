@@ -38,10 +38,10 @@ export class TestManagerService {
         .catch(this.handleError);
     }
 
-    getManagerId(email: string): Promise<string> {
-        return this.http.get(`http://localhost:8181${this.base_mapping}/getManagerId?email=${email}`)
+    getManagerId(email: string): Promise<number> {
+        return this.http.get(`http://localhost:8181${this.base_mapping}/findTestManagerIdByEmail?email=${email}`)
         .toPromise()
-        .then(res => res.json().id)
+        .then(res => parseInt(res.text()))
         .catch(this.handleError)
     }
 
@@ -70,7 +70,7 @@ export class TestService {
     //functions
     private headers = new Headers({'Content-Type': 'application/json'});
     base_mapping = '/tests';
-    findTestsForTestManager(managerId: string): Promise<Test[]> {
+    findTestsForTestManager(managerId: number): Promise<Test[]> {
         return this.http.get(`http://localhost:8181${this.base_mapping}/findTestsForTestManager?managerId=${managerId}`)
         .toPromise()
         .then(response => response.json() as Test[])
@@ -96,7 +96,7 @@ export class TestService {
         .catch(this.handleError)
     }
 
-    async findTestForManagerAndTestId(managerId: string, testId: number): Promise<Test> {
+    async findTestForManagerAndTestId(managerId: number, testId: number): Promise<Test> {
         let tests = await this.findTestsForTestManager(managerId);
         if (tests == null) {
             return null;

@@ -56,9 +56,9 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findTestManagerIdByEmail")
-    public TestManager findTestManagerIdByEmail(
+    public long findTestManagerIdByEmail(
             @RequestParam(value = "email") String email) {
-        return null;
+        return service.getManagerIdByEmail(email);
     }
 
     /**

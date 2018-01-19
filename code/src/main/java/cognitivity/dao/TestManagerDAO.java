@@ -8,5 +8,5 @@ public interface TestManagerDAO {
     public void delete(Long id);
     public void add(TestManager data);
     public void update(TestManager data);
-
+    public long getId(String email);
 }
