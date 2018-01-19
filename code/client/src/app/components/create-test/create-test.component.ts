@@ -31,6 +31,9 @@ export class CreateTestComponent implements OnInit {
   //The manager of the soon to be created test;
   manager: Manager = {id: -1, email: ''};
 
+  emptyBlock: boolean = false;
+
+  indexBlock: number = -1;
   //default constructor 
   constructor(
     private router:Router,
@@ -100,6 +103,12 @@ export class CreateTestComponent implements OnInit {
 
   async saveTest() {
     let blocks = this.blocks.toArray();
+    for(let i = 0; i < this.blocks.length; i++){
+      if(this.blocks[i].getQuestions().length == 0){
+        this.emptyBlock = true;
+        this.indexBlock = i + 1;
+      }
+    }
     let blocksToDB: Block[] = [];
     let totalQuestionNum: number = 0;
     for (let block of blocks) {
