@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class TestManager extends AbstractEntity {
 
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
 	public TestManager(String email) {
