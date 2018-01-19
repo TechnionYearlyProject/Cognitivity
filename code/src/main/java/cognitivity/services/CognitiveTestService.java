@@ -2,6 +2,7 @@ package cognitivity.services;
 
 import cognitivity.dao.CognitiveTestDAO;
 import cognitivity.dao.TestBlockDAO;
+import cognitivity.dao.TestQuestionDAO;
 import cognitivity.dto.BlockWrapper;
 import cognitivity.dto.TestWrapper;
 import cognitivity.entities.CognitiveTest;
@@ -22,11 +23,13 @@ public class CognitiveTestService {
 
     private CognitiveTestDAO dao;
     private TestBlockDAO blockDAO;
+    private TestQuestionDAO questionDAO;
 
     @Autowired
-    public CognitiveTestService(CognitiveTestDAO dao, TestBlockDAO blockDAO) {
+    public CognitiveTestService(CognitiveTestDAO dao, TestBlockDAO blockDAO, TestQuestionDAO questionDAO) {
         this.dao = dao;
         this.blockDAO = blockDAO;
+        this.questionDAO = questionDAO;
 
     }
 
@@ -34,12 +37,24 @@ public class CognitiveTestService {
     /**
      * Create a cognitive test, and save it in the DB.
      *
-     * @param cognitiveTest     - The cognitive test to be created
+     * @param cognitiveTest - The cognitive test to be created
      * @return
      */
-    public TestWrapper createTestForTestManager(CognitiveTest cognitiveTest) {
+    public TestWrapper createTestForTestManager(TestWrapper cognitiveTest) {
         dao.add(cognitiveTest);
-        return new TestWrapper(cognitiveTest);
+        List<BlockWrapper> blocks = cognitiveTest.getBlocks();
+        if (blocks != null) {
+            for (BlockWrapper block : blocks) {
+                block.setCognitiveTest(cognitiveTest.innerTest());
+                blockDAO.add(block);
+                if (block.getQuestions() != null) {
+                    for (TestQuestion question : block.getQuestions()) {
+                        questionDAO.add(question);
+                    }
+                }
+            }
+        }
+        return cognitiveTest;
     }
 
     /**
@@ -49,8 +64,18 @@ public class CognitiveTestService {
      *             <p>
      *             This will be used in conjunction with the PUT HTTP method.
      */
-    public void updateTestForTestManager(CognitiveTest test) {
+    public void updateTestForTestManager(TestWrapper test) {
         dao.update(test);
+        if (test.getBlocks() != null) {
+            for (BlockWrapper block : test.getBlocks()) {
+                blockDAO.update(block);
+                if (blockDAO.getAllBlockQuestions(block.getId()) != null) {
+                    for (TestQuestion question : blockDAO.getAllBlockQuestions(block.getId())) {
+                        questionDAO.update(question);
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -74,8 +99,8 @@ public class CognitiveTestService {
     public TestWrapper findTestById(long testID) {
         List<BlockWrapper> blocks = new ArrayList<BlockWrapper>();
         List<TestBlock> preWrapped = dao.getTestBlocks(testID);
-        for ( TestBlock block: preWrapped) {
-            blocks.add(new BlockWrapper(blockDAO.getAllBlockQuestions(block.getId()),block));
+        for (TestBlock block : preWrapped) {
+            blocks.add(new BlockWrapper(blockDAO.getAllBlockQuestions(block.getId()), block));
         }
         return new TestWrapper(dao.get(testID), blocks);
     }
@@ -89,7 +114,7 @@ public class CognitiveTestService {
     public List<TestWrapper> findTestsForTestManager(long managerId) {
         List<TestWrapper> tests = new ArrayList<TestWrapper>();
         List<CognitiveTest> preWrapped = dao.getCognitiveTestOfManager(managerId);
-        for (CognitiveTest test : preWrapped){
+        for (CognitiveTest test : preWrapped) {
             tests.add(findTestById(test.getId()));
         }
         return tests;
@@ -105,8 +130,8 @@ public class CognitiveTestService {
     public List<BlockWrapper> getTestBlocksForTest(long testId) {
         List<TestBlock> preWrapped = dao.getTestBlocks(testId);
         List<BlockWrapper> blocks = new ArrayList<BlockWrapper>();
-        for (TestBlock block : preWrapped){
-            blocks.add(new BlockWrapper(blockDAO.getAllBlockQuestions(block.getId()),block));
+        for (TestBlock block : preWrapped) {
+            blocks.add(new BlockWrapper(blockDAO.getAllBlockQuestions(block.getId()), block));
         }
         return blocks;
     }

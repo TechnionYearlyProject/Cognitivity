@@ -89,6 +89,9 @@ export interface OpenQuestion extends Question {
 export interface Block {
     id?: number,
     questions: Question[],
+    randomize?: boolean,
+    projectId?: number,
+    numberOfQuestions?: number
 }
 
 /*
@@ -99,12 +102,13 @@ export interface Test {
     name?: string,
     numberOfQuestions?: number,
     state?: number,
-    managerId?: number,
     lastModified?: string,
     lastAnswered?: string,
     numberOfFiledCopies?: number,
     blocks?: Block[],
-    numberOfSubjects?: number
+    numberOfSubjects?: number,
+    testManager?: any
+
 }
 
 /* Manager properties */

@@ -28,6 +28,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -99,11 +100,11 @@ public class CognitiveTestControllerTest implements RestControllerTest {
         // createTestForTestManager is a http POST request
         mockMvc.perform(post("/tests/saveCognitiveTest")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(cognitiveTest)))
+                .content(objectMapper.writeValueAsBytes(new TestWrapper(cognitiveTest))))
                 .andExpect(status().isOk());
 
         // todo : this will probably fail because the jackson factory will build a new object. Should maybe update equal methods?
-        Mockito.verify(cognitiveTestServiceMock, times(1)).createTestForTestManager(Matchers.any(CognitiveTest.class));
+        Mockito.verify(cognitiveTestServiceMock, times(1)).createTestForTestManager(Matchers.any(TestWrapper.class));
         Mockito.verifyNoMoreInteractions(cognitiveTestServiceMock);
     }
 
@@ -114,11 +115,11 @@ public class CognitiveTestControllerTest implements RestControllerTest {
         // updateCognitiveTest is a http POST request
         mockMvc.perform(post("/tests/updateCognitiveTest")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(test)))
+                .content(objectMapper.writeValueAsBytes(new TestWrapper(test))))
                 .andExpect(status().isOk());
 
         // todo : this will probably fail because the jackson factory will build a new object. Should maybe update equal methods?
-        Mockito.verify(cognitiveTestServiceMock, times(1)).updateTestForTestManager(test);
+        Mockito.verify(cognitiveTestServiceMock, times(1)).updateTestForTestManager(Matchers.any(TestWrapper.class));
         Mockito.verifyNoMoreInteractions(cognitiveTestServiceMock);
     }
 
