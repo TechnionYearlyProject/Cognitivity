@@ -20,7 +20,7 @@ The wrapping component of the dashboard.
 */
 export class DashboardComponent implements OnInit{
     //object for the currently logged-in user.
-    manager;
+    email;
     
     //default constructor 
     constructor(
@@ -32,10 +32,10 @@ export class DashboardComponent implements OnInit{
 
     //defualt initialization function.
     async ngOnInit() {
-        this.manager = this.authService.getCurrentManager();
-        let possibleId = await this.tmService.getManagerId(this.manager.email);
+        this.email = this.authService.getCurrentManagerEmail();
+        let possibleId = await this.tmService.getManagerId(this.email);
         if (possibleId == -1) {
-            await this.tmService.saveTestManager(this.manager.email);
+            await this.tmService.saveTestManager(this.email);
         }
 
     }

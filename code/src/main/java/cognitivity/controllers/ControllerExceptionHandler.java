@@ -3,10 +3,12 @@ package cognitivity.controllers;
 import cognitivity.exceptions.DBException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * This controller
  */
+@RestController
 @ControllerAdvice
 public class ControllerExceptionHandler {
 

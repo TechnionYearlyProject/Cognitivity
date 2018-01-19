@@ -46,10 +46,10 @@ export class CreateTestComponent implements OnInit {
   the rest of the init takes care of recieving the sent data.
   */
   async ngOnInit() {
-    let user = this.authService.getCurrentManager();
+    let user = this.authService.getCurrentManagerEmail();
     console.log(user);
-    let managerId = await this.managerService.getManagerId(user.email);
-    this.manager.email = user.email;
+    let managerId = await this.managerService.getManagerId(user);
+    this.manager.email = user;
     this.manager.id = managerId;
     console.log(this.test);
   }
