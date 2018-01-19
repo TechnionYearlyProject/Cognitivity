@@ -2,9 +2,9 @@
   <input type="submit" class="btn btn-primary btn-sm" (click)="finishPreview()" value="Finish preview">
 </div>
 <br>
-<div *ngFor="let block of test.blocks; let i=index">
+<div *ngFor="let block of blocks; let i=index">
   <app-block-preview *ngIf="showBlock(i)" [block]="block" (finished)="isFinished($event)"></app-block-preview>
 </div>
 <div style="text-align:center">
-  <input type="submit" class="btn btn-primary" [hidden]="hideNextButton" (click)="nextBlock()" [value]=" currIndex >= test.blocks.length - 1 ? 'Finish preview' : 'Next Block'">
+  <input type="submit" class="btn btn-primary" [hidden]="hideNextButton" (click)="nextBlock()" [value]=" currIndex >= blocksLength - 1 ? 'Finish preview' : 'Next Block'">
 </div>

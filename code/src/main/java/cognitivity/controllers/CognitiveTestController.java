@@ -1,14 +1,18 @@
 package cognitivity.controllers;
 
 import cognitivity.Exceptions.DBException;
+import cognitivity.Exceptions.ErrorType;
 import cognitivity.dto.TestWrapper;
+import cognitivity.entities.TestManager;
 import cognitivity.services.CognitiveTestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import static cognitivity.Exceptions.ErrorType.SAVE;
 import static cognitivity.controllers.AbstractRestController.crossOrigin;
 import static cognitivity.controllers.CognitiveTestController.baseMapping;
 
@@ -85,5 +89,4 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     public void deleteCognitiveTest(@RequestParam(value = "testId") long testId) {
         service.deleteTestForTestManager(testId);
     }
-
 }

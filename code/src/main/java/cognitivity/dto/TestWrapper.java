@@ -88,9 +88,6 @@ public class TestWrapper {
         this.blocks = blocks;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public long getId() {
         return id;

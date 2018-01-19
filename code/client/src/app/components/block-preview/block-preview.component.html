@@ -1,9 +1,9 @@
 <div class=" container" >
 <div *ngFor="let question of block.questions; let i=index" class="form-group"  style="background-color:white;">
-  <app-question-preview *ngIf="showQuestion(i)" [question]="question"></app-question-preview>
+  <app-question-preview *ngIf="showQuestion(i)" [question]="parseToQuestion(question.answer)"></app-question-preview>
 </div>
 <br>
 <div  style="text-align:right;">
-  <input *ngIf="!finish" type="submit" class="btn btn-primary ml-auto" (click)="nextQuestion()" [value]=" currIndex == block.questionList.length - 1 ? 'Finish Block' : 'Next Question'">
+  <input *ngIf="!finish" type="submit" class="btn btn-primary ml-auto" (click)="nextQuestion()" [value]=" currIndex == block.questions.length - 1 ? 'Finish Block' : 'Next Question'">
 </div>
 </div>

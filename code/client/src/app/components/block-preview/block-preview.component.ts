@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Question } from '../../models/index';
 
 @Component({
   selector: 'app-block-preview',
@@ -48,12 +49,16 @@ export class BlockPreviewComponent implements OnInit {
   */
   nextQuestion() {
     this.currIndex++;
-    if (this.currIndex == this.block.questionList.length) {
+    if (this.currIndex == this.block.questions.length) {
       this.finish = true;
       this.finished.emit(true);
     } else {
       this.finished.emit(false);
     }
+  }
+
+  parseToQuestion(text: string): Question {
+    return JSON.parse(text);
   }
 
 }
