@@ -3,9 +3,6 @@ package cognitivity.entities;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- * Created by ophir on 15/01/18.
- */
 public class TestManagerTest {
 
     @Test

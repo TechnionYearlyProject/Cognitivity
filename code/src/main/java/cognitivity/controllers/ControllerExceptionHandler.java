@@ -1,16 +1,23 @@
 package cognitivity.controllers;
 
-import cognitivity.Exceptions.DBException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import cognitivity.exceptions.DBException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+/**
+ * This controller
+ */
 @ControllerAdvice
 public class ControllerExceptionHandler {
 
     @ExceptionHandler(DBException.class)
-    public ResponseEntity handleException(DBException e){
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Trololo! It's working!!! Horray!");
+    public String handleDBException(DBException e){
+        return "DB_ERR: "+e.getType().toString();
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public String handleRuntimeException(DBException e){
+        return "Runtime_ERR: "+e.getMessage();
+
     }
 }

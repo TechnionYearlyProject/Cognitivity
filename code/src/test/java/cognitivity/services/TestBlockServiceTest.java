@@ -102,9 +102,17 @@ public class TestBlockServiceTest {
             assertTrue("Didn't get all the questions for a specific block", questions1.contains(t));
         }
 
-        service.deleteTestBlock(1);
+        try {
+            service.deleteTestBlock(1);
+        }catch (Exception e){
 
-        managerService.deleteTestManager(2);
+        }
+
+        try {
+            managerService.deleteTestManager(2);
+        }catch (Exception e){
+
+        }
 
 
     }

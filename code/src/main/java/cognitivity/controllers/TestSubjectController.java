@@ -1,6 +1,7 @@
 package cognitivity.controllers;
 
 import cognitivity.entities.TestSubject;
+import cognitivity.exceptions.DBException;
 import cognitivity.services.TestSubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -60,7 +61,7 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/saveTestSubject")
-    public TestSubject saveTestSubject(@RequestBody TestSubject testSubject) {
+    public TestSubject saveTestSubject(@RequestBody TestSubject testSubject)throws DBException {
         return service.createTestSubject(testSubject);
     }
 
@@ -72,7 +73,7 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/updateTestSubject")
     public void updateTestSubject(
-            @RequestBody TestSubject subject) {
+            @RequestBody TestSubject subject)throws DBException {
         service.updateTestSubject(subject);
     }
 
@@ -83,7 +84,7 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
      */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.DELETE, value = "/deleteTestSubject")
-    public void deleteTestSubject(@RequestParam(value = "testSubjectId") long testSubjectId) {
+    public void deleteTestSubject(@RequestParam(value = "testSubjectId") long testSubjectId)throws DBException {
         service.deleteTestSubject(testSubjectId);
     }
 

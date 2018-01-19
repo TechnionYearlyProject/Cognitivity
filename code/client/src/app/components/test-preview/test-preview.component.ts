@@ -4,7 +4,7 @@ import { LocalStorageService } from '../../services/local-storage';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Test, Question, OpenQuestion, TypeQuestion, QuestionPosition, Block, QuestionInDB } from '../../models';
-import { TestService } from '../../services/database-service/index';
+import { TestService, TestManagerService } from '../../services/database-service/index';
 
 @Component({
   selector: 'app-test-preview',
@@ -24,7 +24,8 @@ export class TestPreviewComponent implements OnInit {
     private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router,
-    private testService: TestService
+    private testService: TestService,
+    private tmService: TestManagerService
   ) { }
 
   //the test object , so we can save/import tests.
@@ -35,72 +36,21 @@ export class TestPreviewComponent implements OnInit {
   currIndex: number;
   //variable to indicate if we should hide the following button in the creation.
   hideNextButton: boolean = true;
+  //variable to hold the blocks array
+  blocks: Block[];
+  //variable that hold the blocks array length
+  blocksLength: number;
 
   //default initialization function.
   async ngOnInit() {
-    var question: OpenQuestion = {
-      questionText: 'hello friend?',
-      type: TypeQuestion.OpenQuestion,
-      answerText: 'hello',
-      questionPosition: QuestionPosition.ButtomLeft
-    }
-
-    var question2: OpenQuestion = {
-      questionText: 'what\'s new with you?',
-      type: TypeQuestion.OpenQuestion,
-      answerText: 'nothin\' much',
-      questionPosition: QuestionPosition.UpperMiddle
-    }
-
-    var question3: OpenQuestion = {
-      questionText: 'hihihihi?',
-      type: TypeQuestion.OpenQuestion,
-      answerText: 'nothin\' much',
-      questionPosition: QuestionPosition.UpperMiddle
-    }
-
-    var question5: OpenQuestion = {
-      questionText: 'hih?',
-      type: TypeQuestion.OpenQuestion,
-      answerText: 'nothin\' much',
-      questionPosition: QuestionPosition.UpperMiddle
-    }
-
-    let question1: QuestionInDB = {
-      question: 'tmp question',
-      questionPosition: 0,
-      answer: 'nooooo',
-      questionType: QuestionPosition.ButtomLeft
-    }
-
-    var block : Block = {
-      questions: [question1],
-      numberOfQuestions: 1
-    }
-
-    var block2: Block = {
-      questions: [question1],
-      numberOfQuestions: 1
-    }
-
-    var block3: Block = {
-      questions: [question1],
-      numberOfQuestions: 1
-    }
-    this.testId = this.route.snapshot.params['testId'];
-    this.test = {
-      blocks: [block,block2,block3]
-    }
-    this.test.name='test test tset';
-    this.test.lastAnswered='2018-01-01';
-    this.test.lastModified='2018-01-01';
-    this.test.numberOfFiledCopies=1;
-    this.test.numberOfQuestions=2;
-    this.test.numberOfSubjects=3;
-    this.test.state=0;
-    //this.test.blocks=[];
-    this.test.testManager = {id: '13', email:'aa@aa.com'}
-    console.log(await this.testService.saveCognitiveTest(this.test));
+   
+    let email = this.authService.getCurrentManager().email;
+    let managerId = await this.tmService.getManagerId(email);
+    let testId = this.route.snapshot.params['testId'];
+    this.test = await this.testService.findTestForManagerAndTestId(managerId, testId);
+    this.blocks = this.test.blocks;
+    this.blocksLength = this.blocks.length;
+    console.log(this.test);
     this.currIndex = 0;
   }
 

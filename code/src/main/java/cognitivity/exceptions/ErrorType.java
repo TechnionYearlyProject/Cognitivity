@@ -1,4 +1,4 @@
-package cognitivity.Exceptions;
+package cognitivity.exceptions;
 
 public enum ErrorType {
     SAVE,

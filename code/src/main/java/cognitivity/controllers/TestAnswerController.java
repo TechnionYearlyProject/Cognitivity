@@ -1,6 +1,7 @@
 package cognitivity.controllers;
 
 import cognitivity.entities.TestAnswer;
+import cognitivity.exceptions.DBException;
 import cognitivity.services.TestAnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -80,7 +81,7 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/updateTestAnswer")
     public void updateTestAnswer(
-            @RequestBody TestAnswer answer) {
+            @RequestBody TestAnswer answer) throws DBException {
         service.updateTestAnswerForQuestion(answer);
     }
 
@@ -94,7 +95,7 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/saveTestAnswer")
     public TestAnswer saveTestAnswer(
-            @RequestBody TestAnswer testAnswer) {
+            @RequestBody TestAnswer testAnswer) throws DBException {
         return service.addTestAnswerForTestQuestion(testAnswer);
     }
 
@@ -111,7 +112,7 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     @RequestMapping(method = RequestMethod.DELETE, value = "/deleteTestAnswer")
     public void deleteTestAnswer(
             @RequestParam(value = "questionId") long questionId,
-            @RequestParam(value = "testAnswerId", required = false) long answerId) {
+            @RequestParam(value = "testAnswerId", required = false) long answerId) throws DBException {
         if (answerId == -1) {
             // Then delete all answers
             service.deleteAllTestAnswersForQuestion(questionId);

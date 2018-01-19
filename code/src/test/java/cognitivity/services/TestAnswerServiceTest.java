@@ -68,7 +68,7 @@ public class TestAnswerServiceTest {
     test - 3
      */
     @Test
-    public void FullTest() {
+    public void FullTest()throws Exception {
         QuestionService questionService = new QuestionService(qdao,dao,tdao,mdao);
         TestBlockService blockService = new TestBlockService(bdao);
         CognitiveTestService testService = new CognitiveTestService(tdao,bdao, qdao);
@@ -82,10 +82,10 @@ public class TestAnswerServiceTest {
         BlockWrapper block = blockService.createTestBlock(1, false, "tagiity tag", test);
         TestSubject subject = new TestSubject("Rick", "ip", "Ahla dafdefan");
         TestQuestion question = new TestQuestion("Who the f&$# builds a stonehenge?", 4, "No one knows",
-                "Questions we will never answer", block.innerBlock(), test, manager, 0);
+                "Questions we will never answer", block.innerBlock(test.getId()), test, manager, 0);
         questionService.createTestQuestion(question);
         TestQuestion question1 = new TestQuestion("Who ate my sandwich?", 4, "Joey",
-                "Questions we will never answer", block.innerBlock(), test2, manager, 0);
+                "Questions we will never answer", block.innerBlock(test.getId()), test2, manager, 0);
         questionService.createTestQuestion(question1);
 
         TestAnswer answer = new TestAnswer(subject, question, test, 2, 1, 1, 2,

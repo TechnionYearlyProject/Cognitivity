@@ -1,6 +1,6 @@
 package cognitivity.controllers;
 
-import cognitivity.Exceptions.DBException;
+import cognitivity.exceptions.DBException;
 import cognitivity.dto.TestWrapper;
 import cognitivity.services.CognitiveTestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +71,7 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/updateCognitiveTest")
     public void updateCognitiveTest(
-            @RequestBody TestWrapper test) {
+            @RequestBody TestWrapper test) throws DBException {
         service.updateTestForTestManager(test);
     }
 
@@ -82,8 +82,7 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
      */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.DELETE, value = "/deleteCognitiveTest")
-    public void deleteCognitiveTest(@RequestParam(value = "testId") long testId) {
+    public void deleteCognitiveTest(@RequestParam(value = "testId") long testId) throws DBException {
         service.deleteTestForTestManager(testId);
     }
-
 }

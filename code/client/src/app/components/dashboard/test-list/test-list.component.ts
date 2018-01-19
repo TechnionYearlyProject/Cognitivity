@@ -70,10 +70,7 @@ export class TestListComponent implements OnInit {
   Output - adds a new test object to the tests list.
   */
   async addTest() {
-   let test = this.testList[0];
-   test.name = "test";
-    //this.testService.saveCognitiveTest(test);
-    this.testList = await this.testService.findTestsForTestManager(this.managerId);
+   this.router.navigate(['/create-test']);
   }
 
   convertToDateString(date: string) {

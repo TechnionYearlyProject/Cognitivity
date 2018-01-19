@@ -58,7 +58,7 @@ public class TestManagerServiceTest {
     mockTest - 5
      */
     @Test
-    public void FullTest(){
+    public void FullTest()throws Exception{
         TestManagerService service = new TestManagerService(dao,tdao);
         CognitiveTestService testService = new CognitiveTestService(tdao, bdao, qdao);
 
