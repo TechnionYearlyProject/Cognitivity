@@ -3,6 +3,8 @@ package cognitivity.services;
 import cognitivity.dao.TestSubjectDAO;
 import cognitivity.entities.TestAnswer;
 import cognitivity.entities.TestSubject;
+import cognitivity.exceptions.DBException;
+import cognitivity.exceptions.ErrorType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,9 +33,13 @@ public class TestSubjectService {
      * <p>
      * This will be used in conjunction with the POST HTTP method.
      */
-    public TestSubject createTestSubject(TestSubject testSubject) {
-        dao.add(testSubject);
-        return testSubject;
+    public TestSubject createTestSubject(TestSubject testSubject)throws DBException {
+        try {
+            dao.add(testSubject);
+            return testSubject;
+        }catch (org.hibernate.HibernateException e){
+            throw new DBException(ErrorType.UPDATE);
+        }
     }
 
     /**
@@ -43,8 +49,12 @@ public class TestSubjectService {
      *
      * This will be used in conjunction with the PUT HTTP method.
      * */
-    public void updateTestSubject(TestSubject subject) {
-        dao.update(subject);
+    public void updateTestSubject(TestSubject subject)throws DBException {
+        try {
+            dao.update(subject);
+        }catch (org.hibernate.HibernateException e){
+            throw new DBException(ErrorType.UPDATE);
+        }
     }
 
     /**
@@ -54,8 +64,12 @@ public class TestSubjectService {
      *
      * This will be used in conjunction with the DELETE HTTP method.
      * */
-    public void deleteTestSubject(long testSubjectId) {
-        dao.delete(testSubjectId);
+    public void deleteTestSubject(long testSubjectId)throws DBException {
+        try {
+            dao.delete(testSubjectId);
+        }catch (org.hibernate.HibernateException e){
+            throw new DBException(ErrorType.UPDATE);
+        }
     }
 
 

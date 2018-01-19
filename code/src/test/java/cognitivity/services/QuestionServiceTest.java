@@ -1,10 +1,10 @@
 package cognitivity.services;
 
-import cognitivity.Exceptions.DBException;
 import cognitivity.dao.*;
 import cognitivity.dto.BlockWrapper;
 import cognitivity.dto.TestWrapper;
 import cognitivity.entities.*;
+import cognitivity.exceptions.DBException;
 import cognitivity.web.app.config.HibernateBeanConfiguration;
 import config.TestContextBeanConfiguration;
 import org.junit.Before;
@@ -68,7 +68,7 @@ public class QuestionServiceTest {
      * Testing all functionalities Question service
      */
     @Test
-    public void fullTest() {
+    public void fullTest()throws Exception {
         QuestionService service = new QuestionService(testQuestionDAO, answerDao, cognitiveTestDAO, testManagerDAO);
         TestBlockService blockService = new TestBlockService(testBlockDAO);
         CognitiveTestService testService = new CognitiveTestService(cognitiveTestDAO,testBlockDAO, testQuestionDAO);
@@ -86,7 +86,7 @@ public class QuestionServiceTest {
         BlockWrapper block = blockService.createTestBlock(5, true, "Taggy tag", cognitiveTest);
 
 
-        TestQuestion start = new TestQuestion("What is the meaning of life?", 1,"None, it's meaningless", "Unanswered questions", block.innerBlock(), cognitiveTest, manager, 0);
+        TestQuestion start = new TestQuestion("What is the meaning of life?", 1, "None, it's meaningless", "Unanswered questions", block.innerBlock(test.getId()), cognitiveTest, manager, 0);
         TestQuestion question = service.createTestQuestion(start);
 
         assertNotNull("Problem with creating a test question", question);
@@ -108,11 +108,11 @@ public class QuestionServiceTest {
 
         BlockWrapper block2 = blockService.createTestBlock(2, true, "Togos", cognitiveTest);
 
-        TestQuestion question1 = new TestQuestion("Who moved my cheese?", 5, "HE!", "Critical for life", block.innerBlock(), cognitiveTest, manager, 0);
+        TestQuestion question1 = new TestQuestion("Who moved my cheese?", 5, "HE!", "Critical for life", block.innerBlock(test.getId()), cognitiveTest, manager, 0);
         service.createTestQuestion(question1);
-        TestQuestion question2 = new TestQuestion("Who framed Roger Rabbit?", 1, "The monorail!", "Movie questions", block2.innerBlock(), cognitiveTest, manager, 0);
+        TestQuestion question2 = new TestQuestion("Who framed Roger Rabbit?", 1, "The monorail!", "Movie questions", block2.innerBlock(test.getId()), cognitiveTest, manager, 0);
         service.createTestQuestion(question2);
-        TestQuestion question3 = new TestQuestion("Question! Question?", 1, "Answer? Answer!", "What?! Who?!", block2.innerBlock(), cognitiveTest, manager, 0);
+        TestQuestion question3 = new TestQuestion("Question! Question?", 1, "Answer? Answer!", "What?! Who?!", block2.innerBlock(test.getId()), cognitiveTest, manager, 0);
         service.createTestQuestion(question3);
 
         List<TestQuestion> questions = new ArrayList<>();
@@ -139,11 +139,11 @@ public class QuestionServiceTest {
 
         }
 
-        TestQuestion question4 = new TestQuestion("Who moved my cheese?", 5, "The cat", "Critical for life", block.innerBlock(), cognitiveTest1, manager, 0);
+        TestQuestion question4 = new TestQuestion("Who moved my cheese?", 5, "The cat", "Critical for life", block.innerBlock(test.getId()), cognitiveTest1, manager, 0);
         service.createTestQuestion(question4);
-        TestQuestion question5 = new TestQuestion("Who framed Roger Rabbit?", 1, "rail", "Movie questions", block2.innerBlock(), cognitiveTest1, manager, 0);
+        TestQuestion question5 = new TestQuestion("Who framed Roger Rabbit?", 1, "rail", "Movie questions", block2.innerBlock(test.getId()), cognitiveTest1, manager, 0);
         service.createTestQuestion(question5);
-        TestQuestion question6 = new TestQuestion("Question! Question?", 1, "!", "What?! Who?!", block2.innerBlock(), cognitiveTest1, manager, 0);
+        TestQuestion question6 = new TestQuestion("Question! Question?", 1, "!", "What?! Who?!", block2.innerBlock(test.getId()), cognitiveTest1, manager, 0);
         service.createTestQuestion(question6);
         questions.add(question4);
         questions.add(question5);

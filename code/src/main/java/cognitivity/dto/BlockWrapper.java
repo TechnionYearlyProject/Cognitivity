@@ -115,9 +115,10 @@ public class BlockWrapper {
         return questions;
     }
 
-    public TestBlock innerBlock() {
+    public TestBlock innerBlock(long id) {
+        cognitiveTest.setId(id);
         TestBlock block = new  TestBlock(numberOfQuestions, randomize, tag, cognitiveTest);
-        block.setId(id);
+        block.setId(this.id);
         return block;
     }
 

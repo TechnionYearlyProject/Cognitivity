@@ -3,12 +3,15 @@ package cognitivity.dao;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestManager;
+import cognitivity.entities.TestQuestion;
 import cognitivity.web.app.config.CognitivityMvcConfiguration;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -19,6 +22,8 @@ import static org.junit.Assert.*;
 public class TestBlockDAOTest extends AbstractDaoTestClass {
 
     private TestBlock testBlock;
+    private CognitiveTest cognitiveTest;
+    private TestManager testManager;
 
     /*
      * the initialization creates (before this class tests runs") the following objects:
@@ -29,10 +34,10 @@ public class TestBlockDAOTest extends AbstractDaoTestClass {
      */
     @Before
     public void initialize(){
-        TestManager testManager =
+        testManager =
                 new TestManager("onlyForTests TestManager");
         testManagerDAO.add(testManager);
-        CognitiveTest cognitiveTest = new CognitiveTest("onlyForTests", testManager, 0, 1);
+        cognitiveTest = new CognitiveTest("onlyForTests", testManager, 0, 1);
         cognitiveTestDAO.add(cognitiveTest);
         testBlock = new TestBlock(0,false, "testTag", cognitiveTest);
     }
@@ -70,6 +75,23 @@ public class TestBlockDAOTest extends AbstractDaoTestClass {
 
     @Test
     public void getAllBlockQuestions(){
-        //TODO!
+        testBlockDAO.add(testBlock);
+        List<TestQuestion> questionsList = testBlockDAO.getAllBlockQuestions(testBlock.getId());
+        assertTrue("block should be empty", questionsList.isEmpty());
+        int numberOfQuestions = 1000;
+        TestQuestion questions[] = new TestQuestion[numberOfQuestions];
+        for(int i = 0; i < numberOfQuestions; i++){
+            questions[i] = new TestQuestion("question " + i, 5,
+                    "dont ask", "papao", testBlock,
+                    cognitiveTest, testManager,
+                    3);
+            testQuestionDAO.add(questions[i]);
+            questionsList = testBlockDAO.getAllBlockQuestions(testBlock.getId());
+            assertTrue("block should be empty", questionsList.contains(questions[i]));
+            assertTrue("block should be empty", questionsList.size() == i + 1);
+        }
+        testBlockDAO.delete(testBlock.getId());
+        questionsList = testBlockDAO.getAllBlockQuestions(testBlock.getId());
+        assertTrue("block should be empty", questionsList.isEmpty());
     }
 }

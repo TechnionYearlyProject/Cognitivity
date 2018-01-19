@@ -4,6 +4,8 @@ import cognitivity.dao.CognitiveTestDAO;
 import cognitivity.dao.TestManagerDAO;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
+import cognitivity.exceptions.DBException;
+import cognitivity.exceptions.ErrorType;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,9 +38,13 @@ public class TestManagerService {
      * <p>
      * This will be used in conjunction with the POST HTTP method.
      */
-    public TestManager createTestManager(TestManager testManager) {
-        dao.add(testManager);
-        return testManager;
+    public TestManager createTestManager(TestManager testManager) throws DBException {
+        try {
+            dao.add(testManager);
+            return testManager;
+        }catch (org.hibernate.HibernateException e){
+            throw new DBException(ErrorType.UPDATE);
+        }
     }
 
     /**
@@ -48,8 +54,12 @@ public class TestManagerService {
      * <p>
      * This will be used in conjunction with the PUT HTTP method.
      */
-    public void updateTestManager(TestManager manager) {
-        dao.update(manager);
+    public void updateTestManager(TestManager manager)throws DBException {
+        try{
+            dao.update(manager);
+        }catch (org.hibernate.HibernateException e){
+            throw new DBException(ErrorType.UPDATE);
+        }
     }
 
     /**
@@ -59,8 +69,12 @@ public class TestManagerService {
      *                      <p>
      *                      This will be used in conjunction with the DELETE HTTP method.
      */
-    public void deleteTestManager(long testManagerId) {
-        dao.delete(testManagerId);
+    public void deleteTestManager(long testManagerId)throws DBException {
+        try{
+            dao.delete(testManagerId);
+        }catch (org.hibernate.HibernateException e){
+            throw new DBException(ErrorType.UPDATE);
+        }
     }
 
 
