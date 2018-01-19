@@ -36,8 +36,7 @@ public class TestBlockService {
      */
     public BlockWrapper createTestBlock(Integer numberOfQuestions, Boolean randomize, String tag, CognitiveTest test){
         BlockWrapper res = new BlockWrapper(numberOfQuestions, randomize, tag, test);
-        long id = dao.add(res);
-        res.setId(id);
+        dao.add(res.innerBlock());
         return res;
     }
 
@@ -48,7 +47,6 @@ public class TestBlockService {
      */
     public void findBlockById(long Id){
         List<TestQuestion> questions = dao.getAllBlockQuestions(Id);
-
     }
 
     /**
@@ -75,7 +73,6 @@ public class TestBlockService {
      * @param blockId - the block Id we want to delete.
      */
     public void deleteTestBlock(long blockId){
-//        BlockWrapper = findBlockById();
         dao.delete(blockId);
     }
 }

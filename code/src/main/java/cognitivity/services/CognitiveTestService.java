@@ -41,14 +41,14 @@ public class CognitiveTestService {
      * @return
      */
     public TestWrapper createTestForTestManager(TestWrapper cognitiveTest) {
-        long testId = dao.add(cognitiveTest);
+        long testId = dao.add(cognitiveTest.innerTest());
         List<BlockWrapper> blocks = cognitiveTest.getBlocks();
         if (blocks != null) {
             CognitiveTest test = cognitiveTest.innerTest();
             for (BlockWrapper block : blocks) {
                 test.setId(testId);
                 block.setCognitiveTest(test);
-                long blockId = blockDAO.add(block);
+                long blockId = blockDAO.add(block.innerBlock());
                 TestBlock testBlock = block.innerBlock();
                 testBlock.setId(blockId);
                 if (block.getQuestions() != null) {
@@ -73,10 +73,10 @@ public class CognitiveTestService {
      *             This will be used in conjunction with the PUT HTTP method.
      */
     public void updateTestForTestManager(TestWrapper test) {
-        dao.update(test);
+        dao.update(test.innerTest());
         if (test.getBlocks() != null) {
             for (BlockWrapper block : test.getBlocks()) {
-                blockDAO.update(block);
+                blockDAO.update(block.innerBlock());
                 if (blockDAO.getAllBlockQuestions(block.getId()) != null) {
                     for (TestQuestion question : blockDAO.getAllBlockQuestions(block.getId())) {
                         questionDAO.update(question);
