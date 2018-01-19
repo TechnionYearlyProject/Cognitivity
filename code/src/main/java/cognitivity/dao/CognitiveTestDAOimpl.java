@@ -27,19 +27,20 @@ public class CognitiveTestDAOimpl extends AbstractDAO<CognitiveTest> implements 
         super.delete(id, CognitiveTest.class);
     }
 
-    @Override
-    public void add(TestWrapper data) {
-        Session session = sessionFactory.getCurrentSession();
-        CognitiveTest newData = data.innerTest();
-        session.save(newData);
-    }
-
-    @Override
-    public void update(TestWrapper data) {
-        Session session = sessionFactory.getCurrentSession();
-        CognitiveTest newData = data.innerTest();
-        session.merge(newData);
-    }
+//    @Override
+//    public long add(TestWrapper data) {
+//        Session session = sessionFactory.getCurrentSession();
+//        CognitiveTest newData = data.innerTest();
+//        long i = (Long)session.save(newData);
+//        return i;
+//    }
+//
+//    @Override
+//    public void update(TestWrapper data) {
+//        Session session = sessionFactory.getCurrentSession();
+//        CognitiveTest newData = data.innerTest();
+//        session.merge(newData);
+//    }
 
     public List<TestQuestion> getTestQuestions(long testId) {
         Session session = sessionFactory.getCurrentSession();

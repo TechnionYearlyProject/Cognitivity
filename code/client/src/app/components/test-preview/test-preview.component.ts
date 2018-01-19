@@ -75,28 +75,28 @@ export class TestPreviewComponent implements OnInit {
 
     var block : Block = {
       questions: [question1],
-      numberOfQuestions: 0
+      numberOfQuestions: 1
     }
 
     var block2: Block = {
       questions: [question1],
-      numberOfQuestions: 0
+      numberOfQuestions: 1
     }
 
     var block3: Block = {
       questions: [question1],
-      numberOfQuestions: 0
+      numberOfQuestions: 1
     }
     this.testId = this.route.snapshot.params['testId'];
     this.test = {
       blocks: [block,block2,block3]
     }
-    this.test.name='ffssss';
+    this.test.name='test test tset';
     this.test.lastAnswered='2018-01-01';
     this.test.lastModified='2018-01-01';
-    this.test.numberOfFiledCopies=0;
-    this.test.numberOfQuestions=0;
-    this.test.numberOfSubjects=0;
+    this.test.numberOfFiledCopies=1;
+    this.test.numberOfQuestions=2;
+    this.test.numberOfSubjects=3;
     this.test.state=0;
     //this.test.blocks=[];
     this.test.testManager = {id: '1', email:'aa@aa.com'}

@@ -1,11 +1,9 @@
 package cognitivity.dao;
 
-import cognitivity.dto.BlockWrapper;
-import cognitivity.dto.TestWrapper;
 import cognitivity.entities.*;
-import cognitivity.web.app.config.CognitivityMvcConfiguration;
+import config.ObjectMapperBeanConfiguration;
+import config.TestContextBeanConfiguration;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -16,8 +14,8 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {CognitivityMvcConfiguration.class})
-@Ignore("tests passing, but to run them there is a need of db")
+@ContextConfiguration(classes = {TestContextBeanConfiguration.class, ObjectMapperBeanConfiguration.class})
+//@Ignore("tests passing, but to run them there is a need of db")
 public class TestAnswerDAOTest extends AbstractDaoTestClass {
 
     private CognitiveTest cognitiveTest;
@@ -52,9 +50,9 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
         testManagerDAO.add(testManager);
         cognitiveTest =
                 new CognitiveTest("onlyForTests", testManager, 1, 0);
-        cognitiveTestDAO.add(new TestWrapper(cognitiveTest));
+        cognitiveTestDAO.add(cognitiveTest);
         testBlock = new TestBlock(0, false, "testTag", cognitiveTest);
-        testBlockDAO.add(new BlockWrapper(testBlock));
+        testBlockDAO.add(testBlock);
         testQuestion = new TestQuestion("testQuestion", 0,
                 null, "testTag", testBlock, cognitiveTest, testManager, 0);
         testQuestionDAO.add(testQuestion);

@@ -36,7 +36,7 @@ public class TestBlockService {
      */
     public BlockWrapper createTestBlock(Integer numberOfQuestions, Boolean randomize, String tag, CognitiveTest test){
         BlockWrapper res = new BlockWrapper(numberOfQuestions, randomize, tag, test);
-        dao.add(res);
+        dao.add(res.innerBlock());
         return res;
     }
 
