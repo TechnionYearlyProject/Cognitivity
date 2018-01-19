@@ -14,7 +14,7 @@
             <div class="centered">
               <label for="Question text"><span style="font-family:Arial; font-size: 25px; color: white">Enter the question:</span></label>
               <input [(ngModel)] = "questionText" name = "question2" #question = "ngModel" type="text" class="form-control" placeholder="Question text" style="max-width: 100%;" required ><br>
-              <div *ngIf = "question.errors?.required && submit" style="color: red;">
+              <div *ngIf = "(questionText == '' || questionText == null) && submit" style="color: red;">
                   A question is required
               </div>
               <br>
@@ -175,7 +175,7 @@
 
           </div>
           <div *ngIf = "didChoseDrillDownQuestion()">
-              <div *ngIf = "hasMainAnswers()">
+              <div *ngIf = "haveMainAnswers()">
                 <div class="centered">
                     <span style="font-family:Arial; font-size: 25px; color: white">Main answers so far, and please mark the correct answer:</span>
                 </div>
@@ -186,7 +186,7 @@
                 
                         <div class="dropdown-content">
                             <div *ngFor="let answer of mainAnswers; let i = index;">
-                            <button [ngStyle] = " { 'min-width': generateHighestBox(mainAnswers), 'font-size': '15px'} "  class = "btn btn-basic"   (click)="markMainAnswer(i)">{{ answer }}</button>
+                            <button [disabled] = "editionModeMain || editionQuestionSecondary || editionModeSecondary" [ngStyle] = " { 'min-width': generateHighestBox(mainAnswers), 'font-size': '15px'} "  class = "btn btn-basic"   (click)="markMainAnswer(i)">{{ answer }}</button>
                             </div>
                         </div>
                     </div>
@@ -195,18 +195,23 @@
                 <div class="centered">
                     <div *ngIf="showMainAnswer">
                                     <div style="margin: 10px; font-family: Arial; font-size: 25px;color: white;">{{mainAnswers[indexOfMainanswerToShow]}}<br></div>
-                                    <button *ngIf="markedMainCorrectAnswer[indexOfMainanswerToShow]" [ngStyle] = "{ 'width': '150px'}"class="btn btn-sm btn-success"style="color:white;"(click)="markCorretMainAnswer(indexOfMainanswerToShow)" [disabled]="editionModeMain || secondaryAnswerMode">Correct Answer</button>
-                                    <button *ngIf="!markedMainCorrectAnswer[indexOfMainanswerToShow]" [ngStyle] = "{ 'width': '150px'}"class="btn btn-sm btn-danger"style="color:white;"(click)="markCorretMainAnswer(indexOfMainanswerToShow)" [disabled]="editionModeMain || secondaryAnswerMode">Unmarked answer</button>
-                                    <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="goMainUp(indexOfMainanswerToShow)" [disabled] = "editionModeMain || secondaryAnswerMode"><span class="fa fa-arrow-up"></span></button>
-                                    <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="goMainDown(indexOfMainanswerToShow)" [disabled] = "editionModeMain || secondaryAnswerMode"><span class="fa fa-arrow-down"></span></button>
-                                    <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="deleteMainAnswer(indexOfMainanswerToShow)" [disabled] = "editionModeMain || secondaryAnswerMode"><span class="fa fa-trash"></span> Delete answer</button>
-                                    <button class="btn btn-sm btn-primary" style="margin: 10px; " (click)="editMainAnswer(indexOfMainanswerToShow)" [disabled] = "editionModeMain || secondaryAnswerMode"><span class="fa fa-pencil" ></span> Edit answer</button>
-                                    <button class="btn btn-sm btn primary" *ngIf = "!secondaryExists()"(click) = "addSecondaryQuestion(indexOfMainanswerToShow)" [disabled] = "editionModeMain || secondaryAnswerMode"><span class="fa fa-plus"></span> Add Secondary Question</button>
-                                    <button class="btn btn-sm btn primary" *ngIf = "secondaryExists() && !viewSecondary"(click) = "viewSecondaryAnswer()" [disabled] = "editionModeMain"><span class="fa fa-arrow-down"></span> View Secondary Question</button>
-                                    <button class="btn btn-sm btn primary" *ngIf = "secondaryExists() && viewSecondary"(click) = "viewSecondaryAnswer()" [disabled] = "editionModeMain"><span class="fa fa-arrow-up"></span> Unview Secondary Question</button>
+                                    <button *ngIf="markedMainCorrectAnswer[indexOfMainanswerToShow]" [ngStyle] = "{ 'width': '150px'}"class="btn btn-sm btn-success"style="color:white;"(click)="markCorretMainAnswer(indexOfMainanswerToShow)" [disabled]="editionModeMain || secondaryAnswerMode || editionQuestionSecondary">Correct Answer</button>
+                                    <button *ngIf="!markedMainCorrectAnswer[indexOfMainanswerToShow]" [ngStyle] = "{ 'width': '150px'}"class="btn btn-sm btn-danger"style="color:white;"(click)="markCorretMainAnswer(indexOfMainanswerToShow)" [disabled]="editionModeMain || secondaryAnswerMode || editionQuestionSecondary">Unmarked answer</button>
+                                    <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="goMainUp(indexOfMainanswerToShow)" [disabled] = "editionModeMain || secondaryAnswerMode || editionQuestionSecondary"><span class="fa fa-arrow-up"></span></button>
+                                    <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="goMainDown(indexOfMainanswerToShow)" [disabled] = "editionModeMain || secondaryAnswerMode || editionQuestionSecondary"><span class="fa fa-arrow-down"></span></button>
+                                    <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="deleteMainAnswer(indexOfMainanswerToShow)" [disabled] = "editionModeMain || secondaryAnswerMode || editionQuestionSecondary"><span class="fa fa-trash"></span> Delete answer</button>
+                                    <button class="btn btn-sm btn-primary" style="margin: 10px; " (click)="editMainAnswer(indexOfMainanswerToShow)" [disabled] = "editionModeMain || secondaryAnswerMode || editionQuestionSecondary"><span class="fa fa-pencil" ></span> Edit answer</button>
+                                    <button class="btn btn-sm btn primary" *ngIf = "!secondaryExists()"(click) = "addSecondaryQuestion(indexOfMainanswerToShow)" [disabled] = "editionModeMain || secondaryAnswerMode || editionQuestionSecondary"><span class="fa fa-plus"></span> Add Secondary Question</button>
+                                    <button class="btn btn-sm btn primary" *ngIf = "secondaryExists() && !viewSecondary"(click) = "viewSecondaryAnswer()" [disabled] = "editionModeMain || secondaryAnswerMode || editionQuestionSecondary"><span class="fa fa-arrow-down"></span> View Secondary Question</button>
+                                    <button class="btn btn-sm btn primary" *ngIf = "secondaryExists() && viewSecondary"(click) = "viewSecondaryAnswer()" [disabled] = "editionModeMain || secondaryAnswerMode || editionQuestionSecondary"><span class="fa fa-arrow-up"></span> Unview Secondary Question</button>
 
                     </div>
                     <div *ngIf="viewSecondary">
+                        <br>
+                        <div class="container">
+                            <h2 style="font-family: Arial;color: white;">Secondary question is: {{ questionView }}</h2>
+                        </div>
+                        <br>
                         <div class="container">
                             <div class="dropdown">
                                 <button class="dropbtn"><span class="fa fa-chevron-down" > Secondary Answers </span></button>
@@ -217,15 +222,20 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
+                        <br>
+                        <div class="container">
+                                <button class="btn btn-md btn-primary" (click) = "editSecondaryQuestion()">Edit secondary question</button>
+                        </div>
+                        <br> 
                     </div>
-                    <div *ngIf = "secondaryAnswerMode">
+                    <div *ngIf = "secondaryAnswerMode || editionQuestionSecondary">
                             <label for="Question text"><span style="font-family:Arial; font-size: 25px; color: white">Enter the secondary question:</span></label>
                             <input [(ngModel)] = "currentSecondaryQuestion" name = "question2" #question = "ngModel" type="text" class="form-control" placeholder="Secondary question text" style="max-width: 100%;" required ><br>
                     </div>
                 </div>    
               </div>
-              <div *ngIf="secondaryAnswerMode && !editionSecondary">
+              <div *ngIf="(secondaryAnswerMode || editionQuestionSecondary) && !editionSecondary">
                   <div class="centered">
                       <div *ngIf="hasSecondaryAnswers()">
                         <div class="centered">
@@ -243,20 +253,20 @@
                         </div>    
                       </div>
                         <label for="Answer text"><span style="font-family:Arial; font-size: 25px; color: white">Enter an answer for the secondary question:</span></label>
-                        <input [(ngModel)] = "currentSecondaryAnswer" name = "answer" #answer = "ngModel" type="text" class="form-control" placeholder="Answer text" style="max-width: 100%;" required>
+                        <input [(ngModel)] = "currentSecondaryAnswer" name = "answer" #answerSecondary = "ngModel" type="text" class="form-control" placeholder="Answer text" style="max-width: 100%;" required>
 
                         <button class="btn btn-primary" style="margin:1em 0em;" (click)="addSecondaryAnswer()" [disabled] = "editionModeSecondary"><span class="fa fa-plus"></span> Add answer</button>    
     
                   </div>
               </div>
-              <div *ngIf="!editionModeMain && !secondaryAnswerMode && !viewScondary">
+              <div *ngIf="!editionModeMain && !secondaryAnswerMode && !viewSecondary && !editionQuestionSecondary">
                 <div class="centered">
                         <label for="Question text"><span style="font-family:Arial; font-size: 25px; color: white">Enter an answer for the main question:</span></label>
                         <input [(ngModel)] = "currentMainAnswer" name = "answer" #answer = "ngModel" type="text" class="form-control" placeholder="Answer text" style="max-width: 100%;">
                         <button class="btn btn-primary" style="margin:1em 0em;" (click)="addMainAnswer()"><span class="fa fa-plus"></span> Add answer</button>    
                 </div>
               </div>
-              <div *ngIf = "editionModeMain && !secondaryAnswerMode">
+              <div *ngIf = "editionModeMain && !secondaryAnswerMode && !viewSecondary && !editionQuestionSecondary">
                   <div class="centered">
                     <label for="Answer text"><span style="font-family:Arial; font-size: 25px; color: white">Edit your main answer: </span></label>
                     <input [(ngModel)] = "currentMainAnswer" name = "answerMutiple" #answerMultiple = "ngModel" type="text" class="form-control" placeholder="Answer text" style="max-width: 100%;">
@@ -264,16 +274,25 @@
                     <button class="btn btn-primary" style="margin:1em 0em;" (click)="undoEditMain()"><span class="fa fa-undo"></span> Undo change</button>    
                   </div>
               </div>
-              
+              <div class="centered">
+                    <div *ngIf="!haveMainAnswers() && submit" style="color: red;">
+                            Please enter at least one answer
+                    </div>
+                </div>
           </div>
-          <div class="centered" *ngIf="secondaryAnswerMode && !editionModeSecondary">
-            <button class="btn  btn-primary" (click) = "finishSecondaryQuestion()">Add secondary question</button>
-            <button class="btn btn-primary" style="margin:1em 0em;" (click)="undoSecondary()"><span class="fa fa-undo"></span> Undo secondary question</button>
+          <div class="centered" *ngIf="(secondaryAnswerMode || editionQuestionSecondary) && !editionModeSecondary">
+            <button *ngIf = "!editionQuestionSecondary" class="btn  btn-primary" (click) = "finishSecondaryQuestion()">Add secondary question</button>
+            <button *ngIf = "editionQuestionSecondary" class="btn  btn-primary" (click) = "finishSecondaryQuestion()">Apply changes</button>
+            <button  class="btn btn-primary" style="margin:1em 0em;" (click)="undoSecondary()"><span class="fa fa-undo"></span> Undo secondary question</button>
+            <button *ngIf = "editionQuestionSecondary" class="btn btn-primary" (click)="backToView()">Undo changes</button>
             <div *ngIf="submitSecondaryQuestion && emptySecondary()" Style="color:red;">
                 Please enter a question
             </div>
+            <div *ngIf="submitSecondaryQuestion && !hasSecondaryAnswer()" Style="color:red;">
+                    Please enter at least one answer
+            </div>
           </div>
-          <div *ngIf="secondaryAnswerMode && editionModeSecondary">
+          <div *ngIf="(secondaryAnswerMode || editionQuestionSecondary) && editionModeSecondary">
               <div class="centered">
                     <button class="btn  btn-primary" (click) = "applySecondaryEdit()">Apply change</button>
                     <button class="btn btn-primary" style="margin:1em 0em;" (click)="undoSecondaryEdit()"><span class="fa fa-undo"></span> Undo edit</button>
@@ -281,11 +300,13 @@
 
           </div>
           <br>
-          <div class=" centered row">
-              <input type="submit" value="Submit Question"  (click)="onSubmit()" class="btn btn-primary btn-md" [disabled] = "editionMode || editionModeMain || editionSecondaryMode">
-              <input type="submit" value="Cancel"  (click)="cancelDialog()" class="btn btn-danger btn-md" style="margin: 0px 0px 0px 10px;">
+          <div class="container">
+              <input type="submit" value="Submit Question"  (click)="onSubmit()" class="btn btn-primary" [disabled] = "editionMode || editionModeMain || editionModeSecondary || editionQuestionSecondary" [ngStyle]= "{'width' : '75%'}">
           </div>
-          
+          <br>
+          <div class="container">
+                <input type="submit" value="Cancel"  (click)="cancelDialog()" class="btn btn-danger" [ngStyle]= "{'width' : '75%'}">
+          </div>
       </form>
 
  

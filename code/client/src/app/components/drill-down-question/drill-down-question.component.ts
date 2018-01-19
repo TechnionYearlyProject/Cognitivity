@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DrillDownQuestion, TypeQuestion, QuestionPosition } from '../../models';
 @Component({
   selector: 'app-drill-down-question',
@@ -6,7 +6,7 @@ import { DrillDownQuestion, TypeQuestion, QuestionPosition } from '../../models'
   styleUrls: ['./drill-down-question.component.css']
 })
 export class DrillDownQuestionComponent implements OnInit {
-  question: DrillDownQuestion;
+  @Input() question: any;
   markedAnswersMain: Array<boolean>;
   markedAnswerMain: string = 'Choose an answer';
   markedAnswerSecondery: string = 'Choose an answer';
@@ -18,7 +18,7 @@ export class DrillDownQuestionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.question = {
+    /*this.question = {
       questionText: 'Who was the first president of the United States of America?',
       type: TypeQuestion.DrillDownQuestion,
       answersForMain: [
@@ -49,7 +49,7 @@ export class DrillDownQuestionComponent implements OnInit {
         3
       ]
 
-    };
+    };*/
     this.markedAnswersMain = new Array<boolean>(this.question.answersForMain.length);
     for(let i = 0; i < this.question.answersForMain.length; i++){
       this.markedAnswersMain[i] = false;

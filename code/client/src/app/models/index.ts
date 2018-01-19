@@ -151,6 +151,7 @@ export class SecondaryQuestionObject{
     index: number;
     questionText: string;
     answers: Array<string>; 
+    markedAnswer: number = -1;
 }
 
 
