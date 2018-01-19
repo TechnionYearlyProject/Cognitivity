@@ -30,7 +30,7 @@ export class NavbarComponent implements OnInit {
 
   //default ngInit function. gets it's current client email as an input.
   async ngOnInit() {
-    this.loggedInUser = this.authService.getCurrentManager().email;
+    this.loggedInUser = this.authService.getCurrentManagerEmail();
   }
 
   //this function reroute the user when he's logging out.

@@ -18,7 +18,7 @@ export class TestListComponent implements OnInit {
   //the actual list of the tests objects.
   testList: Test[];
   //an object to represent the current manager. it hold the current logged in user's credentials.
-  manager;
+  email;
   managerId;
   //default constructor.
   constructor(
@@ -32,9 +32,9 @@ export class TestListComponent implements OnInit {
   //default ngOnInit function, gets the user's credentials while initialized. 
   async ngOnInit() {
     try {
-      this.manager = this.authService.getCurrentManager();
-      console.log(this.manager.email);
-      this.managerId = await this.tmService.getManagerId(this.manager.email);
+      this.email = this.authService.getCurrentManagerEmail();
+      console.log(this.email);
+      this.managerId = await this.tmService.getManagerId(this.email);
       console.log(this.managerId);
       this.testList = await this.testService.findTestsForTestManager(this.managerId);
       console.log(this.testList)
