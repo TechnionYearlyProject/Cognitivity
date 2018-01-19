@@ -9,8 +9,8 @@ public interface TestQuestionDAO {
 
     public TestQuestion get(Long id);
     public void delete(Long id);
-    public void add(TestQuestion data);
-    public void update(TestQuestion data);
+    public long add(TestQuestion data);
+    public long update(TestQuestion data);
 
     /**
      * Get all test questions from a given manager.

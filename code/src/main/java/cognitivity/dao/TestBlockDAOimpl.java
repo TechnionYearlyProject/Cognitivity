@@ -22,19 +22,19 @@ public class TestBlockDAOimpl extends AbstractDAO<TestBlock> implements TestBloc
         super.delete(id, TestBlock.class);
     }
 
-    @Override
-    public Long add(BlockWrapper data) {
-        Session session = sessionFactory.getCurrentSession();
-        TestBlock newData = data.innerBlock();
-        return (Long) session.save(newData);
-    }
-
-    @Override
-    public void update(BlockWrapper data) {
-        Session session = sessionFactory.getCurrentSession();
-        TestBlock newData = data.innerBlock();
-        session.save(newData);
-    }
+//    @Override
+//    public Long add(BlockWrapper data) {
+//        Session session = sessionFactory.getCurrentSession();
+//        TestBlock newData = data.innerBlock();
+//        return (Long) session.save(newData);
+//    }
+//
+//    @Override
+//    public void update(BlockWrapper data) {
+//        Session session = sessionFactory.getCurrentSession();
+//        TestBlock newData = data.innerBlock();
+//        session.save(newData);
+//    }
 
     /**
      * Get all the questions for a given block.

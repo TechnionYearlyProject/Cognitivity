@@ -26,14 +26,16 @@ public abstract class AbstractDAO<DataType extends AbstractEntity> {
     }
 
     // updates CognitiveTest object
-    public void update(DataType data) {
+    public long update(DataType data) {
         Session session = sessionFactory.getCurrentSession();
         session.merge(data);
+        return data.getId();
     }
 
-    public void add(DataType data) {
+    public long add(DataType data) {
         Session session = sessionFactory.getCurrentSession();
         session.save(data);
+        return data.getId();
     }
 
     protected void delete(Long id, Class<DataType> dataTypeClass) {

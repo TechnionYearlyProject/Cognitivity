@@ -9,8 +9,8 @@ public interface TestSubjectDAO {
 
     public TestSubject get(Long id);
     public void delete(Long id);
-    public void add(TestSubject data);
-    public void update(TestSubject data);
+    public long add(TestSubject data);
+    public long update(TestSubject data);
 
     /**
      * Get all the answers for the given test subject
