@@ -31,8 +31,7 @@ public class CognitiveTestDAOimpl extends AbstractDAO<CognitiveTest> implements 
     public long add(TestWrapper data) {
         Session session = sessionFactory.getCurrentSession();
         CognitiveTest newData = data.innerTest();
-        long i = (Long)session.save(newData);
-        return i;
+        return (Long)session.save(newData);
     }
 
     @Override

@@ -44,7 +44,7 @@ public class CognitiveTestService {
         long testId = dao.add(cognitiveTest);
         List<BlockWrapper> blocks = cognitiveTest.getBlocks();
         if (blocks != null) {
-            CognitiveTest test =cognitiveTest.innerTest();
+            CognitiveTest test = cognitiveTest.innerTest();
             for (BlockWrapper block : blocks) {
                 test.setId(testId);
                 block.setCognitiveTest(test);
@@ -61,6 +61,7 @@ public class CognitiveTestService {
                 }
             }
         }
+        cognitiveTest.setId(testId);
         return cognitiveTest;
     }
 
@@ -87,12 +88,21 @@ public class CognitiveTestService {
 
     /**
      * Delete a CognitiveTest for a test manager (admin).
+     * This method deletes all the blocks and questions of the test
      *
      * @param testID - The test id to delete.
      *               <p>
      *               This will be used in conjunction with the DELETE HTTP method.
      */
     public void deleteTestForTestManager(long testID) {
+        List<BlockWrapper> blocks = findTestById(testID).getBlocks();
+        for (BlockWrapper block : blocks) {
+            List<TestQuestion> questions = block.getQuestions();
+            for (TestQuestion question: questions) {
+                questionDAO.delete(question.getId());
+            }
+            blockDAO.delete(block.getId());
+        }
         dao.delete(testID);
     }
 

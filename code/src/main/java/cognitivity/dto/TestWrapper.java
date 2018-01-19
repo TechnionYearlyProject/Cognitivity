@@ -20,6 +20,10 @@ import java.util.List;
  */
 public class TestWrapper {
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -136,7 +140,7 @@ public class TestWrapper {
     //TODO: This might cause a problem, the test wrapper ID MUSt be similar to the test ID/
     //TODO: However, For a newly created test, there is no Id to fetch.
     public TestWrapper(CognitiveTest test) {
-        this.id = test.getId();
+//        this.id = test.getId();
         this.lastAnswered = test.getLastAnswered();
         this.lastModified = test.getLastModified();
         this.testManager = test.getManager();
