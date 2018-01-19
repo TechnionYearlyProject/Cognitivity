@@ -33,6 +33,8 @@ export class CreateTestComponent implements OnInit {
 
   emptyBlock: boolean = false;
 
+  emptyTest: boolean = false;
+
   indexBlock: number = -1;
   //default constructor 
   constructor(
@@ -103,10 +105,15 @@ export class CreateTestComponent implements OnInit {
 
   async saveTest() {
     let blocks = this.blocks.toArray();
+    if (blocks.length == 0) {
+      this.emptyTest = true;
+      return;
+    }
     for(let i = 0; i < this.blocks.length; i++){
       if(this.blocks[i].getQuestions().length == 0){
         this.emptyBlock = true;
         this.indexBlock = i + 1;
+        return;
       }
     }
     let blocksToDB: Block[] = [];
