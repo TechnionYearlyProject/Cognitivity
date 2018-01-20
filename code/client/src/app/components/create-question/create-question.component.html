@@ -234,7 +234,7 @@
 
                         <div class="dropdown-content">
                             <div *ngFor="let answer of mainAnswers; let i = index;">
-                                <button [disabled]="editionModeMain || editionQuestionSecondary || editionModeSecondary || secondaryAnswerMode || viewSecondary"
+                                <button [disabled]="editionModeMain"
                                     [ngStyle]=" { 'min-width': generateHighestBox(mainAnswers), 'font-size': '15px'} " class="btn btn-basic"
                                     (click)="markMainAnswer(i)">{{ answer }}</button>
                             </div>
@@ -248,18 +248,18 @@
                             <br>
                         </div>
                         <button *ngIf="markedMainCorrectAnswer[indexOfMainanswerToShow]" [ngStyle]="{ 'width': '150px'}" class="btn btn-sm btn-success"
-                            style="color:white;" (click)="markCorretMainAnswer(indexOfMainanswerToShow)" [disabled]="editionModeMain || secondaryAnswerMode || editionQuestionSecondary">Correct Answer</button>
+                            style="color:white;" (click)="markCorretMainAnswer(indexOfMainanswerToShow)" >Correct Answer</button>
                         <button *ngIf="!markedMainCorrectAnswer[indexOfMainanswerToShow]" [ngStyle]="{ 'width': '150px'}" class="btn btn-sm btn-danger"
-                            style="color:white;" (click)="markCorretMainAnswer(indexOfMainanswerToShow)" [disabled]="editionModeMain || secondaryAnswerMode || editionQuestionSecondary">Unmarked answer</button>
-                        <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="goMainUp(indexOfMainanswerToShow)" [disabled]="editionModeMain || secondaryAnswerMode || editionQuestionSecondary">
+                            style="color:white;" (click)="markCorretMainAnswer(indexOfMainanswerToShow)" >Unmarked answer</button>
+                        <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="goMainUp(indexOfMainanswerToShow)" [disabled]="editionModeMain">
                             <span class="fa fa-arrow-up"></span>
                         </button>
-                        <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="goMainDown(indexOfMainanswerToShow)" [disabled]="editionModeMain || secondaryAnswerMode || editionQuestionSecondary">
+                        <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="goMainDown(indexOfMainanswerToShow)" [disabled]="editionModeMain">
                             <span class="fa fa-arrow-down"></span>
                         </button>
-                        <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="deleteMainAnswer(indexOfMainanswerToShow)" [disabled]="editionModeMain || secondaryAnswerMode || editionQuestionSecondary">
+                        <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="deleteMainAnswer(indexOfMainanswerToShow)" [disabled]="editionModeMain">
                             <span class="fa fa-trash"></span> Delete answer</button>
-                        <button class="btn btn-sm btn-primary" style="margin: 10px; " (click)="editMainAnswer(indexOfMainanswerToShow)" [disabled]="editionModeMain || secondaryAnswerMode || editionQuestionSecondary">
+                        <button class="btn btn-sm btn-primary" style="margin: 10px; " (click)="editMainAnswer(indexOfMainanswerToShow)" [disabled]="editionModeMain">
                             <span class="fa fa-pencil"></span> Edit answer</button>
                         <button class="btn btn-sm btn primary" *ngIf="!secondaryExists()" (click)="addSecondaryQuestion(indexOfMainanswerToShow)"
                             [disabled]="editionModeMain || secondaryAnswerMode || editionQuestionSecondary">
@@ -406,7 +406,7 @@
         <br>
         <div class="container" style="max-width: 30%;">
 
-            <input autocomplete="off" type="submit" value="Submit Question" (click)="onSubmit()" class="btn btn-primary" [disabled]="editionMode || editionModeMain || editionModeSecondary || editionQuestionSecondary"
+            <input autocomplete="off" type="submit" value="Submit Question" (click)="onSubmit()" class="btn btn-primary" 
                 [ngStyle]="{'width' : '75%'}">
        </div>
         <br>
