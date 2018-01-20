@@ -33,6 +33,7 @@ export class DashboardComponent implements OnInit{
     //defualt initialization function.
     async ngOnInit() {
         this.email = this.authService.getCurrentManagerEmail();
+        console.log(await this.tmService.getManagerId('aaa@aa.com'));
         let possibleId = await this.tmService.getManagerId(this.email);
         if (possibleId == -1) {
             await this.tmService.saveTestManager(this.email);

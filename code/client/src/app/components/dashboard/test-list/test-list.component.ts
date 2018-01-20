@@ -94,6 +94,7 @@ export class TestListComponent implements OnInit {
 
     let newTest = JSON.parse(JSON.stringify(test));
     newTest.name = test.name + ' (' + this.getNumberOfTestsWithSameName(test.name) + ')';
+    newTest.lastModified = Date.parse(new Date().toLocaleDateString());
     newTest.lastAnswered = null;
     console.log(await this.testService.saveCognitiveTest(newTest));
     this.testList = await this.testService.findTestsForTestManager(this.managerId);
@@ -109,6 +110,7 @@ export class TestListComponent implements OnInit {
 
     return count;
   }
+
 
 
 }
