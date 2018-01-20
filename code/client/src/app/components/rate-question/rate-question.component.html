@@ -1,10 +1,10 @@
 <div *ngIf = "isUp()">
-    <h2 [ngClass] = "positionUp">{{question.questionText }}</h2>
+    <h2 [ngClass] = "positionUp" style="max-width: 100%;word-wrap:break-word;">{{question.questionText }}</h2>
 </div> 
 
 <div class="row">
     <div *ngIf = "isMiddleLeft()" style="margin: 1.5em;">
-            <h2 [ngClass] = "positionMiddle">{{question.questionText }}</h2>
+            <h2 [ngClass] = "positionMiddle" style="max-width: 100%;word-wrap:break-word;">{{question.questionText }}</h2>
         </div>
         <div  *ngFor="let answer of answers; let i = index;" style="margin:3em">
             <div class="styled-input-container">
@@ -15,12 +15,12 @@
             </div>
         </div>
         <div *ngIf = "isMiddleRight()" style="margin: 1.5em;">
-                <h2 [ngClass] = "positionMiddle">{{question.questionText }}</h2>
+                <h2 [ngClass] = "positionMiddle" style="max-width: 100%;word-wrap:break-word;">{{question.questionText }}</h2>
         </div>
 </div>
  
 <div *ngIf = "isButtom()">
-        <h2 [ngClass] = "positionButtom">{{question.questionText }}</h2>
+        <h2 [ngClass] = "positionButtom" style="max-width: 100%;word-wrap:break-word;">{{question.questionText }}</h2>
 </div> 
 <h4>How confident you feel in your answer, in precentage?</h4>
 <div style="text-align: center;">
