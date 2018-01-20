@@ -7,13 +7,13 @@
 <br>
 <br>
     <div class="container">
-        <input class="form-control" type="text" name="answer" placeholder="Enter your answer here" [(ngModel)]="currentAnswer" id="#textBox">
+        <input class="form-control" type="text" name="answer"  placeholder="Enter your answer here" [(ngModel)]="currentAnswer" id="#textBox">
     
     </div>
 <br>
 <br>
 <div *ngIf = "isButtom()">
-        <h2 [ngClass] = "positionButtom">{{question.questionText }}</h2>
+        <h2 [ngClass] = "positionButtom" style="max-width: 100%;word-wrap:break-word;">{{question.questionText }}</h2>
 </div>
 <div class="container">
     <h4>How confident you feel in your answer, in precentage?</h4>

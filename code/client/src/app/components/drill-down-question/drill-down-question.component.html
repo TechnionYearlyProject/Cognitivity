@@ -1,4 +1,4 @@
-<h2>{{ question.questionText }}</h2>
+<h2 style="max-width: 100%;word-wrap:break-word;">{{ question.questionText }}</h2>
 <div class="container">
     <div class="dropdown">
         <button class="dropbtn" ><span class="fa fa-chevron-down" > {{ markedAnswerMain }}</span></button>
@@ -14,7 +14,7 @@
 <br>
 <br>
 <div *ngIf="secondaryQuestionMode">
-    <h2>{{ secondaryQuestion }}</h2>
+    <h2 style="max-width: 100%;word-wrap:break-word;">{{ secondaryQuestion }}</h2>
     <div class="container">
         <div class="dropdown">
             <button class="dropbtn"><span class="fa fa-chevron-down" > {{ markedAnswerSecondery }}</span></button>
