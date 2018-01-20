@@ -76,6 +76,7 @@
 
             </div>
             <div class="centered">
+                <br>
                 <div *ngIf="(didChoseQuestionType() && !didChoseDrillDownQuestion() ) && !didChoseQuestionPosition() && !didChoseDrillDownQuestion() && submit" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
                     Please choose Position for your question
                 </div>
@@ -151,8 +152,8 @@
                                     class="form-control" placeholder="Answer text" style="max-width: 100%;" maxLength="50">
                                 <button class="btn btn-primary" style="margin:1em 0em;" (click)="addAnswer()">
                                     <span class="fa fa-plus"></span> Add answer</button>
-                                <div *ngIf="(answerTextForMultiple == null || answerTextForMultiple.length  < 2 || isSpacePrefix(answerTextForMultiple)) && typedMultipleAnswer" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
-                                    Please enter an answer with at least 2 characters and a proper answer
+                                <div *ngIf="(answerTextForMultiple == null || answerTextForMultiple.length  < 1 || isSpacePrefix(answerTextForMultiple)) && typedMultipleAnswer" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
+                                    Please enter an answer with at least one character and a proper answer
                                 </div>
                             </div>
                             <div *ngIf="editionMode">
@@ -165,8 +166,8 @@
                                     <span class="fa fa-pencil"></span> Apply change</button>
                                 <button class="btn btn-primary" style="margin:1em 0em;" (click)="undo()">
                                     <span class="fa fa-undo"></span> Undo change</button>
-                                <div *ngIf = "typedMultipleAnswer && (answerTextForMultiple == null || answerTextForMultiple.length < 2 || isSpacePrefix(answerTextForMultiple))" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
-                                        Please enter an answer with at least 2 characters and a proper answer
+                                <div *ngIf = "typedMultipleAnswer && (answerTextForMultiple == null || answerTextForMultiple.length < 1 || isSpacePrefix(answerTextForMultiple))" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
+                                        Please enter an answer with at least one character and a proper answer text
                                 </div>
                             </div>
                     </div>
@@ -332,7 +333,7 @@
 
                     <button class="btn btn-primary" style="margin:1em 0em;" (click)="addSecondaryAnswer()" [disabled]="editionModeSecondary">
                         <span class="fa fa-plus"></span> Add answer</button>
-                    <div *ngIf = "(currentSecondaryAnswer == null || currentSecondaryAnswer.length < 2 || isSpacePrefix(currentSecondaryAnswer)) && typedSecondaryAnswer" style="color:red;">
+                    <div *ngIf = "(currentSecondaryAnswer == null || currentSecondaryAnswer.length < 1 || isSpacePrefix(currentSecondaryAnswer)) && typedSecondaryAnswer" style="color:red;">
                         Please enter an answer of at least 2 characters and a proper answer
                     </div>
                 </div>
@@ -346,8 +347,8 @@
                         placeholder="Answer text" style="max-width: 100%;" maxLength="30">
                     <button class="btn btn-primary" style="margin:1em 0em;" (click)="addMainAnswer()">
                         <span class="fa fa-plus"></span> Add answer</button>
-                    <div *ngIf="typedMainAnswer && (currentMainAnswer == null || currentMainAnswer.length < 2 || isSpacePrefix(currentMainAnswer))" style="color:red;">
-                        Please enter an answer with at least 2 characters and a proper answer
+                    <div *ngIf="typedMainAnswer && (currentMainAnswer == null || currentMainAnswer.length < 1 || isSpacePrefix(currentMainAnswer))" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
+                        Please enter an answer with at least one character and a proper answer text
                     </div>
                 </div>
             </div>
@@ -362,7 +363,7 @@
                         <span class="fa fa-pencil"></span> Apply change</button>
                     <button class="btn btn-primary" style="margin:1em 0em;" (click)="undoEditMain()">
                         <span class="fa fa-undo"></span> Undo change</button>
-                    <div *ngIf="typedMainAnswer && (currentMainAnswer == null || currentMainAnswer.length < 2 || isSpacePrefix(currentMainAnswer))" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
+                    <div *ngIf="typedMainAnswer && (currentMainAnswer == null || currentMainAnswer.length < 1 || isSpacePrefix(currentMainAnswer))" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
                         Please enter an answer with at least 2 characters, and a proper answer
                     </div>
                 </div>
@@ -379,10 +380,10 @@
             <button class="btn btn-primary" style="margin:1em 0em;" (click)="undoSecondary()">
                 <span class="fa fa-undo"></span> Cancel secondary question</button>
             <button *ngIf="editionQuestionSecondary" class="btn btn-primary" (click)="backToView()">Undo changes</button>
-            <div *ngIf="submitSecondaryQuestion && emptySecondary()" Style="color:red;">
+            <div *ngIf="submitSecondaryQuestion && emptySecondary()" Style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
                 Please enter a question and at least 2 characters
             </div>
-            <div *ngIf="submitSecondaryQuestion && !hasSecondaryAnswer()" Style="color:red;">
+            <div *ngIf="submitSecondaryQuestion && !hasSecondaryAnswer()" Style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
                 Please enter at least one answer
             </div>
         </div>
