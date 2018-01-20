@@ -85,7 +85,7 @@
                     Please chose type for your question
                 </div>
                 <br>
-                <div *ngIf="!didChoseQuestionPosition() && !didChoseDrillDownQuestion() && submit" style="color: red;">
+                <div *ngIf="(didChoseQuestionType() && !didChoseDrillDownQuestion() ) && !didChoseQuestionPosition() && !didChoseDrillDownQuestion() && submit" style="color: red;">
                     Please chose Position for your question
                 </div>
                 <br>
@@ -427,3 +427,13 @@
 
 
 </div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
