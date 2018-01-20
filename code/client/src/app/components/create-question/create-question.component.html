@@ -121,61 +121,64 @@
         <div *ngIf="didChoseMultipleQuestion() && (didChoseVerticalType() || didChoseHorizontalType())">
 
             <div class="form-group">
-                <div class="centered">
                     <div *ngIf="haveAnswers()">
-                        <span style="font-family:Arial; font-size: 25px; color: white">Answers so far, and please mark the correct answer:</span>
+                        
+                        <div class="centered" style="font-family:Arial; font-size: 25px; color: white">Answers so far, and please mark the correct answer:</div>
                         <ul class="list-group">
 
                             <div *ngFor="let answer of answers; let i = index">
                                 <li class="list-group-item" style="max-width: 100%;background-color: transparent;">
-                                    <span style="margin: 10px; font-family: Arial; font-size: 25px;color: white;">{{answer}}</span>
-                                    <button *ngIf="markedAnswers[i]" class="btn btn-sm btn-success" style="color:white;" (click)="markAnswer(i)">Correct Answer</button>
-                                    <button *ngIf="!markedAnswers[i]" class="btn btn-sm btn-danger" style="color:white;" (click)="markAnswer(i)">Unmarked answer</button>
-                                    <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="goUp(i)" [disabled]="editionMode">
-                                        <span class="fa fa-arrow-up"></span>
-                                    </button>
-                                    <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="goDown(i)" [disabled]="editionMode">
-                                        <span class="fa fa-arrow-down"></span>
-                                    </button>
-                                    <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="deleteAnswer(i)" [disabled]="editionMode">
-                                        <span class="fa fa-trash"></span> Delete answer</button>
-                                    <button class="btn btn-sm btn-primary" (click)="editAnswer(i)" [disabled]="editionMode">
-                                        <span class="fa fa-pencil"></span> Edit answer</button>
+                                    <div class="centered" style="margin: 10px; font-family: Arial; font-size: 25px;color: white; margin: 0px 0px 0px 30px;">{{answer}}</div>
+                                    <br>
+                                    <div class="centered">
+                                        <button *ngIf="markedAnswers[i]" class="btn btn-sm btn-success" style="color:white;" (click)="markAnswer(i)">Correct Answer</button>
+                                        <button *ngIf="!markedAnswers[i]" class="btn btn-sm btn-danger" style="color:white;" (click)="markAnswer(i)">Unmarked answer</button>
+                                        <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="goUp(i)" [disabled]="editionMode">
+                                            <span class="fa fa-arrow-up"></span>
+                                        </button>
+                                        <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="goDown(i)" [disabled]="editionMode">
+                                            <span class="fa fa-arrow-down"></span>
+                                        </button>
+                                        <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="deleteAnswer(i)" [disabled]="editionMode">
+                                            <span class="fa fa-trash"></span> Delete answer</button>
+                                        <button class="btn btn-sm btn-primary" (click)="editAnswer(i)" [disabled]="editionMode">
+                                            <span class="fa fa-pencil"></span> Edit answer</button>
+        
+                                    </div>
                                 </li>
                             </div>
 
                         </ul>
 
                     </div>
-
-                    <div *ngIf="!editionMode">
-                        <label for="Answer text">
-                            <span style="font-family:Arial; font-size: 25px; color: white">Enter an answer for the question:</span>
-                        </label>
-                        <input autocomplete="off" [(ngModel)]="answerTextForMultiple" name="answerMutiple" #answerMultiple="ngModel" type="text"
-                            class="form-control" placeholder="Answer text" style="max-width: 100%;">
-                        <button class="btn btn-primary" style="margin:1em 0em;" (click)="addAnswer()">
-                            <span class="fa fa-plus"></span> Add answer</button>
-                        <div *ngIf="(answerTextForMultiple == null || answerTextForMultiple.length  < 2) && typedMultipleAnswer" style="color: red">
-                            Please enter an answer with at least 2 characters
-                        </div>
+                    <div class="centered">
+                        <div *ngIf="!editionMode">
+                                <label for="Answer text">
+                                    <span style="font-family:Arial; font-size: 25px; color: white;">Enter an answer for the question:</span>
+                                </label>
+                                <input autocomplete="off" [(ngModel)]="answerTextForMultiple" name="answerMutiple" #answerMultiple="ngModel" type="text"
+                                    class="form-control" placeholder="Answer text" style="max-width: 100%;">
+                                <button class="btn btn-primary" style="margin:1em 0em;" (click)="addAnswer()">
+                                    <span class="fa fa-plus"></span> Add answer</button>
+                                <div *ngIf="(answerTextForMultiple == null || answerTextForMultiple.length  < 2) && typedMultipleAnswer" style="color: red">
+                                    Please enter an answer with at least 2 characters
+                                </div>
+                            </div>
+                            <div *ngIf="editionMode">
+                                <label for="Answer text">
+                                    <span style="font-family:Arial; font-size: 25px; color: white">Edit your answer: </span>
+                                </label>
+                                <input autocomplete="off" [(ngModel)]="answerTextForMultiple" name="answerMutiple" #answerMultiple="ngModel" type="text"
+                                    class="form-control" placeholder="Answer text" style="max-width: 100%;">
+                                <button class="btn btn-primary" style="margin:1em 0em;" (click)="applyEdit()">
+                                    <span class="fa fa-pencil"></span> Apply change</button>
+                                <button class="btn btn-primary" style="margin:1em 0em;" (click)="undo()">
+                                    <span class="fa fa-undo"></span> Undo change</button>
+                                <div *ngIf = "typedMultipleAnswer && (answerTextForMultiple == null || answerTextForMultiple.length < 2)" style="color: red">
+                                        Please enter an answer with at least 2 characters
+                                </div>
+                            </div>
                     </div>
-                    <div *ngIf="editionMode">
-                        <label for="Answer text">
-                            <span style="font-family:Arial; font-size: 25px; color: white">Edit your answer: </span>
-                        </label>
-                        <input autocomplete="off" [(ngModel)]="answerTextForMultiple" name="answerMutiple" #answerMultiple="ngModel" type="text"
-                            class="form-control" placeholder="Answer text" style="max-width: 100%;">
-                        <button class="btn btn-primary" style="margin:1em 0em;" (click)="applyEdit()">
-                            <span class="fa fa-pencil"></span> Apply change</button>
-                        <button class="btn btn-primary" style="margin:1em 0em;" (click)="undo()">
-                            <span class="fa fa-undo"></span> Undo change</button>
-                        <div *ngIf = "typedMultipleAnswer && (answerTextForMultiple == null || answerTextForMultiple.length < 2)" style="color: red">
-                                Please enter an answer with at least 2 characters
-                        </div>
-                    </div>
-
-                </div>
             </div>
             <div class="centered">
                 <div *ngIf="!haveAnswers() && submit" style="color: red;">
