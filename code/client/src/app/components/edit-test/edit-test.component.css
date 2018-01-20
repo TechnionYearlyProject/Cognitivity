@@ -1,0 +1,37 @@
+.cover {
+  background: url(https://static1.squarespace.com/static/57b21595d482e91442e5e990/t/586d659b197aeaa9095692d3/1483564444304/Fotolia_100000042_Subscription_Monthly_M.jpg?format=1500w) center center no-repeat fixed; 
+  height: 100%;
+  background-size: cover;
+}
+
+
+
+h1 {
+  font-family: Arial;
+  color: white;
+  text-align: center;  
+}
+h4 {
+  font-family: Arial;
+   color: white;
+}
+
+.centered {
+  
+   text-align: left;
+   width: 800px;
+   margin: 0 auto;
+}
+
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+}
+
+.titleBoi{
+  font-size: 60px;
+  color:silver;
+  font-style: italic;
+}  

@@ -37,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {IntegrationTestContextConfiguration.class})
-@Ignore
+//@Ignore
 public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegrationTest {
 
     @Autowired

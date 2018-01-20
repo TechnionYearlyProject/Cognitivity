@@ -35,6 +35,8 @@ import { QuestionPreviewComponent } from './components/question-preview/question
 import { BlockPreviewComponent } from './components/block-preview/block-preview.component';
 import { TestPreviewComponent } from './components/test-preview/test-preview.component';
 import { DrillDownQuestionComponent } from './components/drill-down-question/drill-down-question.component';
+import { EditBlockComponent } from './components/edit-block/edit-block.component';
+import { EditTestComponent } from './components/edit-test/edit-test.component';
 
 
 
@@ -73,7 +75,9 @@ const PROVIDED_SERVICES = [
     QuestionPreviewComponent,
     BlockPreviewComponent,
     TestPreviewComponent,
-    DrillDownQuestionComponent
+    DrillDownQuestionComponent,
+    EditBlockComponent,
+    EditTestComponent
     
   ],
   imports: [
