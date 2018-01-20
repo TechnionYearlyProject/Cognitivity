@@ -1,3 +1,7 @@
+<br>
+<div class="container">
+    <input type="submit" class="btn btn-primary btn-sm" routerLink="/dashboard" value="Go to dashboard">
+</div>
 <div class="titleBoi">Cognitivity</div>
 <br>
 <br>
@@ -47,13 +51,13 @@
         <div class="centered">
             <button class="btn btn-md btn-primary" (click)="saveTest()" style="width: 100%;">Update Test</button>
         </div>
-        <div *ngIf = "emptyBlock" style="color:red">
+        <div *ngIf = "emptyBlock" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
             Please fill with at least one question or delete block number {{ indexBlock }}
         </div>
-        <div *ngIf = "emptyTest" style="color:red">
+        <div *ngIf = "emptyTest" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
             Please fill with at least one block with at least one question
         </div>
-        <div *ngIf = "noTitle" style="color:red">
+        <div *ngIf = "noTitle" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
             Error: a test has no name
         </div>
     </div>

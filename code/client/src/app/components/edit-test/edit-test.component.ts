@@ -11,7 +11,10 @@ import { EditBlockComponent } from '../edit-block/edit-block.component';
 @Component({
   selector: 'app-edit-test',
   templateUrl: './edit-test.component.html',
-  styleUrls: ['./edit-test.component.css']
+  styleUrls: ['./edit-test.component.css'],
+  host: {
+    '(document:keydown)' : 'onPress($event)'
+  }
 })
 
 /*
@@ -153,7 +156,13 @@ export class EditTestComponent implements OnInit {
       return;
     }
 
-    
+    let testList = await this.testService.findTestsForTestManager(this.manager.id);
+    for (let test of testList) {
+      if (test.name.trim() == this.titleTest.trim().replace(/\s\s+/g, ' ') && this.test.id != test.id) {
+        alert('Name already taken!');
+        return;
+      }
+    }
 
 
     let blocks = this.blocks.toArray();
@@ -229,6 +238,16 @@ export class EditTestComponent implements OnInit {
     console.log(await this.testService.updateCognitiveTest(this.test));
     this.router.navigate(['/dashboard']);
 
+  }
+
+  onPress(event: KeyboardEvent) {
+    if (event.key == 'F5') {
+      if (confirm('Do you want to refresh or go back? All progress will be lost!!')) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   }
   
 

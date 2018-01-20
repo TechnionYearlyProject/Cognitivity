@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Block, Test, QuestionInDB, Manager } from '../../models/index';
 import { BlockComponent } from '../block/block.component';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -10,7 +10,10 @@ import { QueryList, ViewChildren  } from '@angular/core';
 @Component({
   selector: 'app-create-test',
   templateUrl: './create-test.component.html',
-  styleUrls: ['./create-test.component.css']
+  styleUrls: ['./create-test.component.css'],
+  host: {
+    '(document:keydown)' : 'onPress($event)'
+  }
 })
 
 /*
@@ -201,6 +204,16 @@ export class CreateTestComponent implements OnInit {
     console.log(await this.testService.saveCognitiveTest(test));
     this.router.navigate(['/dashboard']);
 
+  }
+
+  onPress(event: KeyboardEvent) {
+    if (event.key == 'F5') {
+      if (confirm('Do you want to refresh or go back? All progress will be lost!!')) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   }
   
 
