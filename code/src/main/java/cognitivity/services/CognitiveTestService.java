@@ -78,23 +78,31 @@ public class CognitiveTestService {
      * @param test - The cognitive test to be updated.
      *             <p>
      *             This will be used in conjunction with the PUT HTTP method.
+     * @Returns the new allocated id for the test
+     *
      */
-    public void updateTestForTestManager(TestWrapper test) throws DBException {
+    public TestWrapper updateTestForTestManager(TestWrapper test) throws DBException {
         try {
-            dao.update(test.innerTest());
+            // we delete the test and add it once again to
+            // remove all the dependencies in the DB(questions and blocks that connected to the test)
+            // we need to do it because we get only the blocks that will be in the updated test(faster then remove
+            // all the existing ones manually)
+            dao.delete(test.innerTest().getId());
+            test.setId(dao.add(test.innerTest()));
             if (test.getBlocks() != null) {
                 for (BlockWrapper block : test.getBlocks()) {
-                    blockDAO.update(block.innerBlock(test.getId()));
-                    if (blockDAO.getAllBlockQuestions(block.getId()) != null) {
-                        for (TestQuestion question : blockDAO.getAllBlockQuestions(block.getId())) {
-                            questionDAO.update(question);
+                    block.setId(blockDAO.add(block.innerBlock(test.getId())));
+                        for (TestQuestion question : block.getQuestions()) {
+                            question.setCognitiveTest(test.innerTest());
+                            question.setTestBlock(block.innerBlock(test.getId()));
+                            questionDAO.add(question);
                         }
-                    }
                 }
             }
         } catch (org.hibernate.HibernateException e) {
             throw new DBException(ErrorType.UPDATE);
         }
+        return test;
     }
 
     /**

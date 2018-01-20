@@ -71,9 +71,9 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/updateCognitiveTest")
-    public void updateCognitiveTest(
+    public TestWrapper updateCognitiveTest(
             @RequestBody TestWrapper test) throws DBException {
-        service.updateTestForTestManager(test);
+        return service.updateTestForTestManager(test);
     }
 
     /**
