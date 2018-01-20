@@ -41,7 +41,12 @@ export class TestManagerService {
     getManagerId(email: string): Promise<number> {
         return this.http.get(`http://localhost:8181${this.base_mapping}/findTestManagerIdByEmail?email=${email}`)
         .toPromise()
-        .then(res => parseInt(res.text()))
+        .then(res => {
+            if (res.status == 204) 
+                return -1;
+            
+            return parseInt(res.text())
+        })
         .catch(this.handleError)
     }
 

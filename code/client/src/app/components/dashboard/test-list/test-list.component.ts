@@ -91,10 +91,23 @@ export class TestListComponent implements OnInit {
   }
 
   async copyTest(test) {
-    test.lastModified = Date.parse(new Date().toLocaleDateString());
-    test.lastAnswered = null;
-    console.log(await this.testService.saveCognitiveTest(test));
+
+    let newTest = JSON.parse(JSON.stringify(test));
+    newTest.name = test.name + ' (' + this.getNumberOfTestsWithSameName(test.name) + ')';
+    newTest.lastAnswered = null;
+    console.log(await this.testService.saveCognitiveTest(newTest));
     this.testList = await this.testService.findTestsForTestManager(this.managerId);
+  }
+
+  getNumberOfTestsWithSameName(name: string) {
+    let count: number = 0;
+    for (let test of this.testList) {
+      if (test.name.startsWith(name)) {
+        count++;
+      }
+    }
+
+    return count;
   }
 
 

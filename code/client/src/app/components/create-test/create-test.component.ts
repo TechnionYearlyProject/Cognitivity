@@ -161,7 +161,8 @@ export class CreateTestComponent implements OnInit {
 
       blocksToDB.push(blockInDB);
     }
-    
+    let date = Date.parse(new Date().toLocaleDateString());
+    console.log(date, new Date(date).toLocaleDateString());
     let test: Test = 
     {
       name: this.titleTest,
