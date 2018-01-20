@@ -25,8 +25,8 @@ public class ControllerExceptionHandler {
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(DBException.class)
-    public String handleDBException(DBException e){
-        return "DB_ERR: "+e.getType().toString();
+    public String handleDBException(DBException e) {
+        return "DB_ERR: " + e.getType().toString();
     }
 
     /**
@@ -40,8 +40,8 @@ public class ControllerExceptionHandler {
      */
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ExceptionHandler(EmptyResultDataAccessException.class)
-    public String handleEmptyResultException(EmptyResultDataAccessException e){
-        return null;
+    public String handleEmptyResultException(EmptyResultDataAccessException e) {
+        return "EmptyResult";
     }
 
 
@@ -55,7 +55,7 @@ public class ControllerExceptionHandler {
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(RuntimeException.class)
-    public String handleRuntimeException(RuntimeException e){
-        return "Runtime_ERR: message is:"+e.getMessage()+".\n from class"+e.getClass();
+    public String handleRuntimeException(RuntimeException e) {
+        return "Runtime_ERR: " + e.getMessage() + ". Type was : " + e.getClass().getName();
     }
 }
