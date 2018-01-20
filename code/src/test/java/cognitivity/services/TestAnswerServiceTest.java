@@ -17,7 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class})
@@ -78,8 +80,10 @@ public class TestAnswerServiceTest {
 
         TestManager manager = new TestManager("mail");
         CognitiveTest test = new CognitiveTest("Sifratiyot", manager, 2, 1);
+        test.setId(3L);
         CognitiveTest test2 = new CognitiveTest("jhfkasjhfkajdfak", manager, 2, 1);
-        BlockWrapper block = blockService.createTestBlock(1, false, "tagiity tag", test);
+        BlockWrapper block = new BlockWrapper(1, false, "tagiity tag", test);
+        block.setId(4L);
         TestSubject subject = new TestSubject("Rick", "ip", "Ahla dafdefan");
         TestQuestion question = new TestQuestion("Who the f&$# builds a stonehenge?", 4, "No one knows",
                 "Questions we will never answer", block.innerBlock(test.getId()), test, manager, 0);
@@ -176,6 +180,29 @@ public class TestAnswerServiceTest {
         blockService.deleteTestBlock(9);
 
         subjectService.deleteTestSubject(2);
+
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).add(any());
+        try{
+            service.addTestAnswerForTestQuestion(new TestAnswer());
+            assertTrue("Problem with handling with exception at create",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).update(any());
+        try {
+            service.updateTestAnswerForQuestion(new TestAnswer());
+            assertTrue("Problem with handling with exception at update",false);
+        }catch (Exception e){}
+        doThrow(new org.hibernate.HibernateException("")).when(dao).getTestAnswers(7);
+        try {
+            service.deleteAllTestAnswersForQuestion(7);
+            assertTrue("Problem with handling with exception at delete",false);
+        }catch (Exception e){}
+        doThrow(new org.hibernate.HibernateException("")).when(dao).delete(any());
+        try {
+            service.deleteTestAnswerForQuestion(7);
+            assertTrue("Problem with handling with exception at delete",false);
+        }catch (Exception e){}
     }
 
 

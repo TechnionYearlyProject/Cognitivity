@@ -17,7 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class})
@@ -101,6 +103,7 @@ public class TestSubjectServiceTest {
 
         TestManager manager = new TestManager("Yo!!!!!!!!!!!!1");
         CognitiveTest test = new CognitiveTest("test", manager, 1, 0);
+        test.setId(9L);
         BlockWrapper block = new BlockWrapper();
         try {
             block = blockService.createTestBlock(2,false,"teag", test);
@@ -198,6 +201,25 @@ public class TestSubjectServiceTest {
         }catch (Exception e){
             assertTrue("Problem with deleting the tests",false);
         }
+
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).add(any());
+        try{
+            service.createTestSubject(new TestSubject());
+            assertTrue("Problem with handling with exception at create",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).update(any());
+        try {
+            service.updateTestSubject(new TestSubject());
+            assertTrue("Problem with handling with exception at update",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).delete(89L);
+        try {
+            service.deleteTestSubject(89L);
+            assertTrue("Problem with handling with exception at delete",false);
+        }catch (Exception e){}
 
 
     }

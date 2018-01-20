@@ -91,7 +91,6 @@ public class BlockWrapper {
     }
 
     public BlockWrapper(@Nullable List<TestQuestion> questions, TestBlock block) {
-        this.id = block.getId();
         this.numberOfQuestions = block.getNumberOfQuestions();
         this.randomize = block.getRandomize();
         this.tag = block.getTag();

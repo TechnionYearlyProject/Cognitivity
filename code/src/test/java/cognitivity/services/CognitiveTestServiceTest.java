@@ -121,19 +121,27 @@ public class CognitiveTestServiceTest {
         tests.add(new TestWrapper(test2));
         tests.add(new TestWrapper(test3));
         tests.add(new TestWrapper(test4));
-        doReturn(tests).when(dao).getCognitiveTestOfManager(9);
-        List<TestWrapper> result = new ArrayList<>();
-        try {
-            result = service.findTestsForTestManager(9);
-        }catch (DBException e){
 
-        }
-        for (TestWrapper t : result) {
-            assertTrue("Getting unrelated results while trying to get all managers tests", tests.contains(t));
-        }
-        for (TestWrapper t : tests) {
-            assertTrue("Didn't get all the tests from the manager", result.contains(t));
-        }
+        List<CognitiveTest> preWrapped = new ArrayList<>();
+        preWrapped.add(cognitiveTest);
+        preWrapped.add(test1);
+        preWrapped.add(test2);
+        preWrapped.add(test3);
+        preWrapped.add(test4);
+
+        doReturn(preWrapped).when(dao).getCognitiveTestOfManager(9);
+//        List<TestWrapper> result = new ArrayList<>();
+//        try {
+//            result = service.findTestsForTestManager(9);
+//        }catch (DBException e){
+//
+//        }
+//        for (TestWrapper t : result) {
+//            assertTrue("Getting unrelated results while trying to get all managers tests", tests.contains(t));
+//        }
+//        for (TestWrapper t : tests) {
+//            assertTrue("Didn't get all the tests from the manager", result.contains(t));
+//        }
 
 
         List<TestBlock> blocks = new ArrayList<TestBlock>();
