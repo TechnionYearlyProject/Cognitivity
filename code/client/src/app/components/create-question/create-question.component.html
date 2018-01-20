@@ -342,7 +342,7 @@
                     <button class="btn btn-primary" style="margin:1em 0em;" (click)="addSecondaryAnswer()" [disabled]="editionModeSecondary">
                         <span class="fa fa-plus"></span> Add answer</button>
                     <div *ngIf = "(currentSecondaryAnswer == null || currentSecondaryAnswer.length < 2) && typedSecondaryAnswer" style="color:red;">
-                        Please enter an answer of at least 2 characters
+                        Please enter an answer of at least 2 characters 11
                     </div>
                 </div>
             </div>
@@ -389,13 +389,10 @@
                 <span class="fa fa-undo"></span> Undo secondary question</button>
             <button *ngIf="editionQuestionSecondary" class="btn btn-primary" (click)="backToView()">Undo changes</button>
             <div *ngIf="submitSecondaryQuestion && emptySecondary()" Style="color:red;">
-                Please enter a question and at least 2 characters
+                Please enter a question and at least 2 characters 12
             </div>
             <div *ngIf="submitSecondaryQuestion && !hasSecondaryAnswer()" Style="color:red;">
                 Please enter at least one answer
-            </div>
-            <div *ngIf = "typedSecondaryAnswer && (currentSecondaryAnswer == null || currentSecondaryAnswer < 2)" style="color: red;">
-                    Please enter an answer with at least 2 characters
             </div>
         </div>
         <div *ngIf="(secondaryAnswerMode || editionQuestionSecondary) && editionModeSecondary">
