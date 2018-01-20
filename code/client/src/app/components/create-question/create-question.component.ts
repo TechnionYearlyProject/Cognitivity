@@ -45,37 +45,67 @@ export class CreateQuestionComponent implements OnInit {
   /*
     --------------- drill down question details ---------------
   */
+  //saves flag for knowing if the main answer was already submitted
   typedMainAnswer: boolean = false;
+  //saces flag for knowing if the secondary answer was already submitted
   typedSecondaryAnswer: boolean = false;
+  //current main answer that is submitted
   currentMainAnswer?: string;
+  //flag for the state when the user pressed a main answer
   showMainAnswer: boolean;
+  //the index of the answer that the user wants to see
   indexOfMainanswerToShow: number = -1;
+  //an array of all the main answers
   mainAnswers?: Array<string> = new Array();
+  //the marking of all the main answers
   markedMainCorrectAnswer?: Array<boolean> = new Array();
+  //an array of all the secondary questions
   secondaryQuestionList? : Array<SecondaryQuestionObject> = new Array();
+  //array of the answers to the current secondary question
   secondaryAnswers?: Array<string> = new Array();
+  //flag for the state when the secondary question is being submitted
   submitSecondaryQuestion?: boolean = false;
+  //current secondary question that the user inputs
   currentSecondaryQuestion?: string = '';
+  //current secondary answer that the user inputs
   currentSecondaryAnswer?: string = '';
+  //array of all secondary question
   secondaryQuestions?: Array<string> = new Array();
+  //edit mode of editing the whole secondary question
   editionQuestionSecondary?: boolean = false;
+  //array of the marked secondary answers
   markedSecondaryCorrectAnswer?: Array<boolean> = new Array();
+  //edit mode of a secondary answer
   editionModeSecondary: boolean = false;
+  //index of an answer that being edited
   indexAnswerInEditSecondary: number = -1;
+  //view mode of a secondary question
   viewSecondary: boolean = false;
+  //answers of the secondary that is being viewd
   viewAnswers: Array<string> = new Array();
+  //answers of the secondary question that is being 
   questionView: string = '';
   //secondaryAnswers?: Array<Array<string>>;
   editionModeMain?: boolean;
+  //flag for the state when the user creates a secondary question
   secondaryAnswerMode?: boolean = false;
+  //index of the main answer to edit
   indexAnswerInEditMain: number = -1;
+  //flag for the state when the user submits the question
   submit: boolean = false;
+  //edit mode
   editionMode: boolean = false;
+  //index of answer to edit
   indexAnswerInEdit: number = -1;
 
   //The question that created and sent to the block component. Will be null in case the user exited the creation of the question before its completion 
   question_object: any;
-
+  //String that describes the question type
+  type_question_desc: string = 'Question Types';
+  //string that describes the question position
+  positon_desc: string = 'Question Position';
+  //string that describes the multiple choice question type
+  multiple_type: string = 'Answer Organization';
   /*
     Params:
     dialogRef - reference for the dialog between the block component to this component.
@@ -85,7 +115,6 @@ export class CreateQuestionComponent implements OnInit {
                    question that the user has created to the block component. 
   */
   constructor(public dialogRef: MatDialogRef<CreateQuestionComponent>, private transferData: SessionService) {
-    console.log(this.transferData.getData());
     if(this.transferData.getData().editMode == true){//Which mean we are in edition mode of the question
       this.editQuestion(this.transferData.getData().value)
     }
@@ -123,8 +152,10 @@ export class CreateQuestionComponent implements OnInit {
     this.typedMainAnswer = false;
     if(this.typeQuestion == TypeQuestion.MultipleChoice){
       this.typeQuestion = null;
+      this.type_question_desc = 'Question Types';
     }else{
       this.typeQuestion = TypeQuestion.MultipleChoice;
+      this.type_question_desc = 'Multiple Choice Question';
     }
   }
 
@@ -139,8 +170,10 @@ export class CreateQuestionComponent implements OnInit {
     this.typedMainAnswer = false;
     if(this.typeQuestion == TypeQuestion.RateQuestion){
       this.typeQuestion = null;
+      this.type_question_desc = 'Question Types';
     }else{
       this.typeQuestion = TypeQuestion.RateQuestion;
+      this.type_question_desc = 'Rate Question';
     }
   }
 
@@ -155,8 +188,10 @@ export class CreateQuestionComponent implements OnInit {
     this.typedMainAnswer = false;
     if(this.typeQuestion == TypeQuestion.OpenQuestion){
       this.typeQuestion = null;
+      this.type_question_desc = 'Question Types';
     }else{
       this.typeQuestion = TypeQuestion.OpenQuestion;
+      this.type_question_desc = 'Open Text Question';
     }
   }
 
@@ -171,8 +206,10 @@ export class CreateQuestionComponent implements OnInit {
     this.typedMainAnswer = false;
     if(this.typeQuestion == TypeQuestion.DrillDownQuestion){
       this.typeQuestion = null;
+      this.type_question_desc = 'Question Types';
     }else{
       this.typeQuestion = TypeQuestion.DrillDownQuestion;
+      this.type_question_desc = 'Drill Down Question';
     }
   }
   /*
@@ -201,8 +238,10 @@ export class CreateQuestionComponent implements OnInit {
   setUpperMiddlePosition() {
     if(this.questionPosition == QuestionPosition.UpperMiddle){
       this.questionPosition = null;
+      this.positon_desc = 'Question Position';
     }else{
       this.questionPosition = QuestionPosition.UpperMiddle;
+      this.positon_desc = 'Upper Middle';
     }
     
   }
@@ -216,8 +255,10 @@ export class CreateQuestionComponent implements OnInit {
   setUpperRightPosition() {
     if(this.questionPosition == QuestionPosition.UpperRight){
       this.questionPosition = null;
+      this.positon_desc = 'Question Position';
     }else{
       this.questionPosition = QuestionPosition.UpperRight;
+      this.positon_desc = 'Upper Right';
     }
   }
   didChoseUpperRight():boolean {
@@ -230,8 +271,10 @@ export class CreateQuestionComponent implements OnInit {
   setUpperLeftPosition() {
     if(this.questionPosition == QuestionPosition.UpperLeft){
       this.questionPosition = null;
+      this.positon_desc = 'Question Position';
     }else{
       this.questionPosition = QuestionPosition.UpperLeft;
+      this.positon_desc = 'Upper Left';
     }
   }
   didChoseUpperLeft():boolean {
@@ -244,8 +287,10 @@ export class CreateQuestionComponent implements OnInit {
   setButtomRightPosition() {
     if(this.questionPosition == QuestionPosition.ButtomRight){
       this.questionPosition = null;
+      this.positon_desc = 'Question Position';
     }else{
       this.questionPosition = QuestionPosition.ButtomRight;
+      this.positon_desc = 'Bottom Right';
     }
   }
   didChoseButtomRight():boolean {
@@ -258,8 +303,10 @@ export class CreateQuestionComponent implements OnInit {
   setButtomLeftPosition() {
     if(this.questionPosition == QuestionPosition.ButtomLeft){
       this.questionPosition = null;
+      this.positon_desc = 'Question Position';
     }else{
       this.questionPosition = QuestionPosition.ButtomLeft;
+      this.positon_desc = 'Bottom Left';
     }
   }
   didChoseButtomLeft():boolean {
@@ -272,8 +319,10 @@ export class CreateQuestionComponent implements OnInit {
   setButtomMiddlePosition() {
     if(this.questionPosition == QuestionPosition.ButtomMiddle){
       this.questionPosition = null;
+      this.positon_desc = 'Question Position';
     }else{
       this.questionPosition = QuestionPosition.ButtomMiddle;
+      this.positon_desc = 'Bottom Middle';
     }
   }
   didChoseButtomMiddle():boolean {
@@ -286,8 +335,10 @@ export class CreateQuestionComponent implements OnInit {
   setMiddleRightPosition() {
     if(this.questionPosition == QuestionPosition.MiddleRight){
       this.questionPosition = null;
+      this.positon_desc = 'Question Position';
     }else{
       this.questionPosition = QuestionPosition.MiddleRight;
+      this.positon_desc = 'Middle Right';
     }
   }
   didChoseMiddleRight():boolean {
@@ -300,8 +351,10 @@ export class CreateQuestionComponent implements OnInit {
   setMiddleLeftPosition() {
     if(this.questionPosition == QuestionPosition.MiddleLeft){
       this.questionPosition = null;
+      this.positon_desc = 'Question Position';
     }else{
       this.questionPosition = QuestionPosition.MiddleLeft;
+      this.positon_desc = 'Middle Left';
     }
   }
   didChoseMiddleLeft():boolean {
@@ -314,8 +367,10 @@ export class CreateQuestionComponent implements OnInit {
   setMiddleMiddlePosition() {
     if(this.questionPosition == QuestionPosition.MiddleMiddle){
       this.questionPosition = null;
+      this.positon_desc = 'Question Position';
     }else{
       this.questionPosition = QuestionPosition.MiddleMiddle;
+      this.positon_desc = 'Middle Middle';
     }
   }
   didChoseMiddleMiddle():boolean {
@@ -337,8 +392,10 @@ export class CreateQuestionComponent implements OnInit {
     this.constructMatrix();
     if(this.typeMultipleQuestion == TypeMultipleQuestion.Matrix){
       this.typeMultipleQuestion = null;
+      this.multiple_type = 'Answer Organization';
     }else{
       this.typeMultipleQuestion = TypeMultipleQuestion.Matrix;
+      this.multiple_type = 'Matrix';
     }
   }
   didChoseMatrixType(){
@@ -353,8 +410,10 @@ export class CreateQuestionComponent implements OnInit {
     this.typedMultipleAnswer = false;
     if(this.typeMultipleQuestion == TypeMultipleQuestion.Vertical){
       this.typeMultipleQuestion = null;
+      this.multiple_type = 'Answer Organization';
     }else{
       this.typeMultipleQuestion = TypeMultipleQuestion.Vertical;
+      this.multiple_type = 'Vertical';
     }
   }
   didChoseVerticalType(){
@@ -369,8 +428,10 @@ export class CreateQuestionComponent implements OnInit {
     this.typedMultipleAnswer = false;
     if(this.typeMultipleQuestion == TypeMultipleQuestion.Horizontal){
       this.typeMultipleQuestion = null;
+      this.multiple_type = 'Answer Organization';
     }else{
       this.typeMultipleQuestion = TypeMultipleQuestion.Horizontal;
+      this.multiple_type = 'Horizontal';
     }
   }
   didChoseHorizontalType(){
@@ -381,7 +442,9 @@ export class CreateQuestionComponent implements OnInit {
     Determining the size of the range of the rate question that is created
   */
   increaseRate(){
-    this.rateSize++;
+    if(this.rateSize < 15){
+        this.rateSize++;
+    }
   }
   decreaseRate(){
     if(this.rateSize > 1){
@@ -399,7 +462,6 @@ export class CreateQuestionComponent implements OnInit {
                         and transfering the question object via the SessionService service. 
   */
   onSubmit(){
-    console.log('1');
     if(this.questionText != null){
      if(this.questionText != '' && !this.isSpacePrefix(this.questionText)){
       if(this.didChoseQuestionType()){
@@ -410,7 +472,6 @@ export class CreateQuestionComponent implements OnInit {
               if(this.haveAnswers()){
                 this.findCorretAnswer();
                 this.constructMultipleQuestion();
-                console.log(this.question_object);//FOR DEBUGGING
                 this.transferData.setData(this.question_object);
                 this.closeDialog();
               }
@@ -419,7 +480,6 @@ export class CreateQuestionComponent implements OnInit {
                 this.findCorretAnswer();
                 this.constructMatrixQuestion();
                 this.transferData.setData(this.question_object);
-                console.log(this.question_object);//FOR DEBUGGING
                 this.closeDialog();
               }
               
@@ -428,15 +488,12 @@ export class CreateQuestionComponent implements OnInit {
         }else if(this.didChoseRateQuestion() && this.didChoseQuestionPosition()){
             this.constructRateQuestion();
             this.transferData.setData(this.question_object);
-            console.log(this.question_object);//FOR DEBUGGING
             this.closeDialog();
         }else if(this.didChoseOpenQuestion() && this.didChoseQuestionPosition()){
               this.constructOpenQuestion();
-              console.log(this.question_object);//FOR DEBUGGING
               this.transferData.setData(this.question_object);
               this.closeDialog();
         }else if(this.didChoseDrillDownQuestion()){
-          console.log('hererererer');
           if(this.haveMainAnswers()){
             this.constructDrillDownQuestion();
             this.transferData.setData(this.question_object);
@@ -663,9 +720,7 @@ export class CreateQuestionComponent implements OnInit {
       this.markedAnswers.splice(index + 1, 0, removed_marked[0]);
     }
   }
-  print(){
-    console.log('hi');
-  }
+
 
   /*
     Marks the answer at the right index as correct.
@@ -737,7 +792,6 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   constructMatrixInEdit(question_to_edit: any){
-    console.log(question_to_edit.answers);
     this.markedAnswersMatrix = new Array<Array<boolean>>(this.dimSize);
     this.matrixAnswers = new Array<Array<string>>(this.dimSize);
     this.iteratorArray = new Array<Array<null>>(this.dimSize);
@@ -751,11 +805,9 @@ export class CreateQuestionComponent implements OnInit {
         }else{
           this.markedAnswersMatrix[i][j] = false;
         }
-        console.log('i: ' + i + ' j: ' + j + ' answer is: ' + question_to_edit.answers[j*this.dimSize + i]);  
         this.matrixAnswers[i][j] = question_to_edit.answers[j*this.dimSize + i];
       }
     }
-    console.log(this.matrixAnswers);
     this.centeringMatrix = {
       'two_col' : this.dimSize == 2,
       'three_col' : this.dimSize == 3,
@@ -812,7 +864,10 @@ export class CreateQuestionComponent implements OnInit {
     this.transferData.clearData();
     this.closeDialog();
   }
-
+  /*
+    This function is for editing an existing question. The function gets
+    question and the form is being filled with the details of the question
+  */
   editQuestion(question: any){
     this.questionText = question.questionText;
     this.typeQuestion = question.type;
@@ -838,7 +893,6 @@ export class CreateQuestionComponent implements OnInit {
         this.constructMatrixInEdit(question);
       }
     }else if(this.typeQuestion == TypeQuestion.DrillDownQuestion){
-      console.log('heerererereererere');
       this.mainAnswers = Object.assign([], question.answersForMain);
       this.markedMainCorrectAnswer = new Array(this.mainAnswers.length);
       for(let i = 0 ; i < this.markedMainCorrectAnswer.length; i++){
@@ -858,14 +912,15 @@ export class CreateQuestionComponent implements OnInit {
             markedAnswer: question.correctAnswerSecondary[i],
             answers: Object.assign([], question.answersForSecondary[i])
           }
-          console.log(obj_to_insert);
           this.secondaryQuestionList.splice(this.secondaryQuestionList.length, 0, obj_to_insert);
         }
       }
     }
 
   }
-
+  /*
+    The function adds an answer for the main question
+  */
   addMainAnswer(){
     if(this.currentMainAnswer != null && this.currentMainAnswer.length >= 2 && !this.isSpacePrefix(this.currentMainAnswer)){
       this.mainAnswers.splice(this.mainAnswers.length, 0, this.currentMainAnswer);
@@ -877,11 +932,17 @@ export class CreateQuestionComponent implements OnInit {
       this.typedMainAnswer = true;
     }
   }
-
+  /*
+    The function returns TRUE if there are answers to the main question,
+    FALSE otherwise
+  */
   haveMainAnswers(): boolean {
     return this.mainAnswers.length >= 1;
   }
 
+  /*
+    The function displays the main answer that was chosen
+  */
   markMainAnswer(index: number){
     this.secondaryAnswerMode = false;
     if(this.indexOfMainanswerToShow == index){
@@ -903,7 +964,9 @@ export class CreateQuestionComponent implements OnInit {
 
     
   }
-
+  /*
+    The function saves the answer that was marked as correct
+  */
   markCorretMainAnswer(index:number){
     for(let i = 0; i < this.markedMainCorrectAnswer.length; i++){
       if(i == index){
@@ -938,7 +1001,9 @@ export class CreateQuestionComponent implements OnInit {
     this.markedSecondaryCorrectAnswer = new Array();
     this.currentSecondaryQuestion = '';
   }
-
+  /*
+    The function edits an answer for the main question
+  */
   editMainAnswer(index: number){
     this.viewSecondary = false;
     this.secondaryAnswerMode = false;
@@ -952,14 +1017,18 @@ export class CreateQuestionComponent implements OnInit {
     this.editionModeMain = true;
     this.indexAnswerInEditMain = index;
   }
-
+  /*
+    The function doesn't change the edited answer for the main question
+  */
   undoEditMain(){
     this.editionModeMain = false;
     this.currentMainAnswer = '';
     this.indexAnswerInEditMain = -1;
     this.typedMainAnswer = false;
   }
-
+  /*
+    applies changes of an answer of the main question
+  */
   applyEditMain(){
     if(this.currentMainAnswer != null && this.currentMainAnswer.length >= 2 && !this.isSpacePrefix(this.currentMainAnswer)){
       this.mainAnswers.splice(this.indexAnswerInEditMain, 1,  this.currentMainAnswer)
@@ -971,7 +1040,9 @@ export class CreateQuestionComponent implements OnInit {
       this.typedMainAnswer = true;
     }
   }
-
+  /*
+    The function moves up the requested answer to the main question
+  */
   goMainUp(index: number){
     
     if(index != 0){
@@ -1009,7 +1080,9 @@ export class CreateQuestionComponent implements OnInit {
 
     } 
   }
-
+   /*
+    The function moves down the requested answer to the main question
+  */
   goMainDown(index: number){
     if(index != this.mainAnswers.length - 1){
       for(let i = 0; i < this.secondaryQuestionList.length; i++){
@@ -1045,7 +1118,10 @@ export class CreateQuestionComponent implements OnInit {
       
     }
   }
-
+  /*
+    This function gets an array of strings to detrmine a dynamic style for the buttons in which all the string will be
+    so the buttons will be aligned according to the longest string
+  */
   generateHighestBox(answers: Array<string>): string{
     let max: number = -1;
     for(let i = 0; i < answers.length; i++){
@@ -1058,7 +1134,9 @@ export class CreateQuestionComponent implements OnInit {
     let returnedSize: string = (size.toString()) + 'px';
     return returnedSize;
   }
-
+  /*
+    The function adds secondary question
+  */
   addSecondaryQuestion(index: number){
     if(this.secondaryExists()){
       this.secondaryAnswerMode = !this.secondaryAnswerMode;
@@ -1067,9 +1145,17 @@ export class CreateQuestionComponent implements OnInit {
     }
     
   }
+
+  /*
+    The function returns if the chosen question is what the user wants to work on
+  */
   whatToShow(index: number):boolean{
     return index == this.indexOfMainanswerToShow;
   }
+
+  /*
+    A function that cancels the secondary question
+  */
   undoSecondary(){
     this.typedSecondaryAnswer = false;
     this.editionQuestionSecondary = false;
@@ -1083,6 +1169,10 @@ export class CreateQuestionComponent implements OnInit {
       }
     }
   }
+
+  /*
+    The function creates secondary question from the details the user has input
+  */
   finishSecondaryQuestion(){
     this.editionQuestionSecondary = false;
     if(!this.emptySecondary() && this.hasSecondaryAnswer()){
@@ -1116,10 +1206,16 @@ export class CreateQuestionComponent implements OnInit {
     this.submitSecondaryQuestion = true;
     this.typedSecondaryAnswer = false;
   }
-
+  /*
+    The function returns TRUE if the secondary question have answers
+  */
   hasSecondaryAnswer(): boolean{
     return this.secondaryAnswers.length >= 1;
   }
+
+  /*
+    The function returns TRUE if the secondary question exists and needs to be viewed
+  */
   secondaryExists(): boolean{
     for(let i = 0; i < this.secondaryQuestionList.length; i++){
       if(this.secondaryQuestionList[i].index == this.indexOfMainanswerToShow){
@@ -1128,10 +1224,16 @@ export class CreateQuestionComponent implements OnInit {
     }
     return false;
   }
-
+  /*
+    The function returns TRUE if secondary question text wasn't filled
+  */
   emptySecondary():boolean{
     return this.currentSecondaryQuestion == null || this.currentSecondaryQuestion.length < 2 || this.isSpacePrefix(this.currentSecondaryQuestion);
   }
+
+  /*
+    The function adds an answer to the secondary question
+  */
   addSecondaryAnswer(){
     if(this.currentSecondaryAnswer != null && this.currentSecondaryAnswer.length >= 2 && !this.isSpacePrefix(this.currentSecondaryAnswer)){
       this.secondaryAnswers.splice(this.secondaryAnswers.length, 0, this.currentSecondaryAnswer);
@@ -1142,9 +1244,17 @@ export class CreateQuestionComponent implements OnInit {
       this.typedSecondaryAnswer = true;
     }
   }
+
+  /*
+    The function returns TRUE if the secondary question has answers
+  */
   hasSecondaryAnswers(): boolean{
     return this.secondaryAnswers.length >= 1;
   }
+  
+  /*
+    The function marks the correct answer by the user
+  */
   markCorretSecondaryAnswer(index: number){
     for(let i = 0; i < this.markedSecondaryCorrectAnswer.length; i++){
       if(i == index){
@@ -1154,6 +1264,9 @@ export class CreateQuestionComponent implements OnInit {
       }
     } 
   }
+  /*
+    The function moves the requested secondary question up
+  */
   goSecondaryUp(index: number){
     if(index != 0){
       let removed = this.secondaryAnswers.splice(index, 1)
@@ -1162,7 +1275,9 @@ export class CreateQuestionComponent implements OnInit {
       this.markedSecondaryCorrectAnswer.splice(index - 1, 0, removed_marked_correct[0]);
     }
   }
-
+    /*
+    The function moves the requested secondary question down
+  */
   goSecondaryDown(index: number){
     if(index != this.secondaryAnswers.length - 1){
       let removed = this.secondaryAnswers.splice(index, 1);
@@ -1172,18 +1287,24 @@ export class CreateQuestionComponent implements OnInit {
       
     }
   }
-
+  /*
+    The function deleted an answer to the secondary question
+  */
   deleteSecondaryAnswer(index: number){
     this.secondaryAnswers.splice(index,1);
     this.markedSecondaryCorrectAnswer.splice(index, 1);
   }
-
+  /*
+    The function gets in edit mode to an answer of the secondary question
+  */
   editSecondaryAnswer(index: number){
     this.currentSecondaryAnswer = this.secondaryAnswers[index];
     this.editionModeSecondary = true;
     this.indexAnswerInEditSecondary = index;
   }
-
+  /*
+    The function applies th changes of the edit mode in an answer of the seocndary question
+  */
   applySecondaryEdit(){
     if(this.currentSecondaryAnswer != null && this.currentSecondaryAnswer.length >= 2 && !this.isSpacePrefix(this.currentSecondaryAnswer)){
       this.secondaryAnswers.splice(this.indexAnswerInEditSecondary, 1,  this.currentSecondaryAnswer)
@@ -1196,14 +1317,18 @@ export class CreateQuestionComponent implements OnInit {
       this.typedSecondaryAnswer = true;
     }
   }
-
+  /*
+    undos changes an answer of the secondary question
+  */
   undoSecondaryEdit(){
     this.typedSecondaryAnswer = false;
     this.editionModeSecondary = false;
     this.currentSecondaryAnswer = '';
     this.indexAnswerInEditSecondary = -1;
   }
-
+  /*
+    The function gets into the view of a secondary question
+  */
   viewSecondaryAnswer(){
     if(this.viewSecondary){
       this.viewAnswers = new Array();
@@ -1219,7 +1344,9 @@ export class CreateQuestionComponent implements OnInit {
       }
     }
   }
-
+  /*
+    The function edits the whole secondary question
+  */
   editSecondaryQuestion(){
     this.viewSecondary = false;
     this.editionQuestionSecondary = true;
@@ -1241,17 +1368,24 @@ export class CreateQuestionComponent implements OnInit {
       }
     }
   }
-
+  /*
+    The function returns from view mode of a secondary question
+  */
   backToView(){
     this.typedSecondaryAnswer = false;
     this.editionQuestionSecondary = false;
     this.viewSecondaryAnswer();
   }
-  
+
+  /*
+    The function retunrs TRUE if the main question have answers
+  */
   hasMainAnswres():boolean{
     return this.mainAnswers.length >= 1;
   }
-
+  /*
+    A function that returns true if the string starts with a white space, to control flawed input
+  */
   isSpacePrefix(str: string): boolean{
       if(str == null){
           return false;
