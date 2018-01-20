@@ -47,7 +47,13 @@ export class TestPreviewComponent implements OnInit {
     let email = this.authService.getCurrentManagerEmail();
     let managerId = await this.tmService.getManagerId(email);
     let testId = this.route.snapshot.params['testId'];
+    if (isNaN(testId) || testId == '') {
+      this.router.navigate(['/dashboard']);
+    }
     this.test = await this.testService.findTestForManagerAndTestId(managerId, testId);
+    if (this.test == null) {
+      this.router.navigate(['/dashboard']);
+    }
     this.blocks = this.test.blocks;
     this.blocksLength = this.blocks.length;
     console.log(this.test);
