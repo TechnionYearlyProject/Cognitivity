@@ -56,7 +56,6 @@ export class LoginPageComponent implements OnInit {
     }
     else{
       if (this.user.email == '') {
-        console.log('got here');
         this.noEmail = true;
       }
 
