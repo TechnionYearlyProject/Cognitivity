@@ -112,8 +112,6 @@ export class BlockComponent implements OnInit {
   editQuestion(index: number){
     this.transferData.setData({editMode: true, value: this.questionList[index].question});
     let dialogRef = this.dialog.open(CreateQuestionComponent, {
-      height: '100%',
-      width:'100%',
       disableClose: true
     });
     dialogRef.afterClosed().subscribe(result => {
