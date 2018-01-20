@@ -108,12 +108,16 @@ export class CreateTestComponent implements OnInit {
     if (blocks.length == 0) {
       this.emptyTest = true;
       return;
+    } else {
+      this.emptyTest = false;
     }
-    for(let i = 0; i < this.blocks.length; i++){
-      if(this.blocks[i].getQuestions().length == 0){
+    for(let i = 0; i < blocks.length; i++){
+      if(blocks[i].getQuestions().length == 0){
         this.emptyBlock = true;
         this.indexBlock = i + 1;
         return;
+      } else {
+        this.emptyBlock = false;
       }
     }
     let blocksToDB: Block[] = [];
