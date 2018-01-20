@@ -3,7 +3,6 @@ package cognitivity.controllers;
 import cognitivity.TestUtil;
 import cognitivity.entities.TestQuestion;
 import cognitivity.services.QuestionService;
-import cognitivity.web.app.config.HibernateBeanConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import config.TestContextBeanConfiguration;
 import org.hamcrest.CoreMatchers;
@@ -101,6 +100,25 @@ public class TestQuestionControllerTest implements RestControllerTest {
                 .andExpect(jsonPath("$[0].tag", is(testQuestion.getTag())));
 
         Mockito.verify(questionService, times(1)).findAllTestQuestionsFromTestId(1234);
+        Mockito.verifyNoMoreInteractions(questionService);
+    }
+
+    //findTestQuestionById
+    @Test
+    public void findTestQuestionByIdReturnsMockedTestAnswerByTest() throws Exception {
+        Mockito.when(questionService.findTestQuestionById(1234L)).thenReturn(testQuestion);
+
+        // findTestQuestionsForTestCriteriaById is a http GET request
+        mockMvc.perform(get("/test-questions/findTestQuestionById")
+                .param("testQuestionId", "1234"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.questionType", is(testQuestion.getQuestionType())))
+                .andExpect(jsonPath("$.question", is(testQuestion.getQuestion())))
+                .andExpect(jsonPath("$.answer", is(testQuestion.getAnswer())))
+                .andExpect(jsonPath("$.tag", is(testQuestion.getTag())));
+
+        Mockito.verify(questionService, times(1)).findTestQuestionById(1234L);
         Mockito.verifyNoMoreInteractions(questionService);
     }
 
