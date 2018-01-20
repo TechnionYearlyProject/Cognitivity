@@ -1,10 +1,11 @@
 package cognitivity.services;
 
+import cognitivity.exceptions.DBException;
 import cognitivity.dao.*;
 import cognitivity.dto.BlockWrapper;
 import cognitivity.dto.TestWrapper;
 import cognitivity.entities.*;
-import cognitivity.exceptions.DBException;
+import cognitivity.exceptions.ErrorType;
 import cognitivity.web.app.config.HibernateBeanConfiguration;
 import config.TestContextBeanConfiguration;
 import org.junit.Before;
@@ -21,6 +22,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class})
@@ -83,10 +85,10 @@ public class QuestionServiceTest {
         }catch (DBException e ){
 
         }
-        BlockWrapper block = blockService.createTestBlock(5, true, "Taggy tag", cognitiveTest);
+        BlockWrapper block = new BlockWrapper(5, true, "Taggy tag", cognitiveTest);
 
 
-        TestQuestion start = new TestQuestion("What is the meaning of life?", 1, "None, it's meaningless", "Unanswered questions", block.innerBlock(test.getId()), cognitiveTest, manager, 0);
+        TestQuestion start = new TestQuestion("What is the meaning of life?", 1,"None, it's meaningless", "Unanswered questions", block.innerBlock(1), cognitiveTest, manager, 0);
         TestQuestion question = service.createTestQuestion(start);
 
         assertNotNull("Problem with creating a test question", question);
@@ -105,14 +107,13 @@ public class QuestionServiceTest {
 
         assertEquals("Problem with updating the question", "Now there is!", numericAnswer);
 
-
         BlockWrapper block2 = blockService.createTestBlock(2, true, "Togos", cognitiveTest);
 
-        TestQuestion question1 = new TestQuestion("Who moved my cheese?", 5, "HE!", "Critical for life", block.innerBlock(test.getId()), cognitiveTest, manager, 0);
+        TestQuestion question1 = new TestQuestion("Who moved my cheese?", 5, "HE!", "Critical for life", block.innerBlock(11), cognitiveTest, manager, 0);
         service.createTestQuestion(question1);
-        TestQuestion question2 = new TestQuestion("Who framed Roger Rabbit?", 1, "The monorail!", "Movie questions", block2.innerBlock(test.getId()), cognitiveTest, manager, 0);
+        TestQuestion question2 = new TestQuestion("Who framed Roger Rabbit?", 1, "The monorail!", "Movie questions", block2.innerBlock(1), cognitiveTest, manager, 0);
         service.createTestQuestion(question2);
-        TestQuestion question3 = new TestQuestion("Question! Question?", 1, "Answer? Answer!", "What?! Who?!", block2.innerBlock(test.getId()), cognitiveTest, manager, 0);
+        TestQuestion question3 = new TestQuestion("Question! Question?", 1, "Answer? Answer!", "What?! Who?!", block2.innerBlock(1), cognitiveTest, manager, 0);
         service.createTestQuestion(question3);
 
         List<TestQuestion> questions = new ArrayList<>();
@@ -139,11 +140,11 @@ public class QuestionServiceTest {
 
         }
 
-        TestQuestion question4 = new TestQuestion("Who moved my cheese?", 5, "The cat", "Critical for life", block.innerBlock(test.getId()), cognitiveTest1, manager, 0);
+        TestQuestion question4 = new TestQuestion("Who moved my cheese?", 5, "The cat", "Critical for life", block.innerBlock(1), cognitiveTest1, manager, 0);
         service.createTestQuestion(question4);
-        TestQuestion question5 = new TestQuestion("Who framed Roger Rabbit?", 1, "rail", "Movie questions", block2.innerBlock(test.getId()), cognitiveTest1, manager, 0);
+        TestQuestion question5 = new TestQuestion("Who framed Roger Rabbit?", 1, "rail", "Movie questions", block2.innerBlock(1), cognitiveTest1, manager, 0);
         service.createTestQuestion(question5);
-        TestQuestion question6 = new TestQuestion("Question! Question?", 1, "!", "What?! Who?!", block2.innerBlock(test.getId()), cognitiveTest1, manager, 0);
+        TestQuestion question6 = new TestQuestion("Question! Question?", 1, "!", "What?! Who?!", block2.innerBlock(1), cognitiveTest1, manager, 0);
         service.createTestQuestion(question6);
         questions.add(question4);
         questions.add(question5);
@@ -203,8 +204,22 @@ public class QuestionServiceTest {
 
         blockService.deleteTestBlock(3);
 
+        doThrow(new org.hibernate.HibernateException("")).when(testQuestionDAO).add(any());
+        try{
+            service.createTestQuestion(new TestQuestion());
+            assertTrue("Problem with handling with exception at create",false);
+        }catch (Exception e){}
 
+        doThrow(new org.hibernate.HibernateException("")).when(testQuestionDAO).update(any());
+        try {
+            service.updateTestQuestion(new TestQuestion());
+            assertTrue("Problem with handling with exception at update",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(testQuestionDAO).delete(any());
+        try {
+            service.deleteTestQuestion(7);
+            assertTrue("Problem with handling with exception at delete",false);
+        }catch (Exception e){}
     }
-
-
 }

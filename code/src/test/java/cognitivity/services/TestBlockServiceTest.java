@@ -4,6 +4,7 @@ import cognitivity.dao.CognitiveTestDAO;
 import cognitivity.dao.TestBlockDAO;
 import cognitivity.dao.TestManagerDAO;
 import cognitivity.dao.TestQuestionDAO;
+import cognitivity.dto.BlockWrapper;
 import cognitivity.entities.*;
 import cognitivity.web.app.config.HibernateBeanConfiguration;
 import config.TestContextBeanConfiguration;
@@ -21,7 +22,11 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyBoolean;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class})
@@ -47,6 +52,7 @@ public class TestBlockServiceTest {
         Mockito.reset(dao);
         Mockito.reset(tdao);
         Mockito.reset(mdao);
+        doReturn(1L).when(dao).add(any());
 
     }
 
@@ -55,14 +61,16 @@ public class TestBlockServiceTest {
     block id - 1
      */
     @Test
-    public void FullTest(){
+    public void FullTest() throws Exception{
         TestBlockService service = new TestBlockService(dao);
         CognitiveTestService testService = new CognitiveTestService(tdao,dao, qdao);
         TestManagerService managerService = new TestManagerService(mdao,tdao);
 
         TestManager manager = new TestManager("Mail e mail");
         CognitiveTest test = new CognitiveTest("YYY Eize Ra'ash. Shiyo", manager, 2, 1);
-        // TestBlock block = service.createTestBlock(1,true,"EZ",test);
+        test.setId(2L);
+        BlockWrapper block = service.createTestBlock(1,true,"EZ",test);
+         assertNotNull("Problem with creating a test block", block);
 
         /*TestQuestion question = new TestQuestion("To be or not to be?", 5, "BBB",
                 "Famous questions", block, test, manager, 0);
@@ -78,7 +86,6 @@ public class TestBlockServiceTest {
         questions.add(question2);*/
 
 
-        // assertNotNull("Problem with creating a test block", block);
 
         // doReturn(block).when(dao).get(1L);
         service.findBlockById(1);
@@ -113,6 +120,30 @@ public class TestBlockServiceTest {
         }catch (Exception e){
 
         }
+
+        TestBlock b = new TestBlock();
+        b.setNumberOfQuestions(4654);
+        doReturn(7L).when(dao).update(any());
+        service.updateTestBlock(b);
+
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).add(any());
+        try{
+            service.createTestBlock(1,true,"EZ",test);
+            assertTrue("Problem with handling with exception at create",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).update(any());
+        try {
+            service.updateTestBlock(new TestBlock());
+            assertTrue("Problem with handling with exception at update",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).delete(any());
+        try {
+            service.deleteTestBlock(1);
+            assertTrue("Problem with handling with exception at delete",false);
+        }catch (Exception e){}
 
 
     }

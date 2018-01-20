@@ -31,6 +31,11 @@ export class CreateTestComponent implements OnInit {
   //The manager of the soon to be created test;
   manager: Manager = {id: -1, email: ''};
 
+  emptyBlock: boolean = false;
+
+  emptyTest: boolean = false;
+
+  indexBlock: number = -1;
   //default constructor 
   constructor(
     private router:Router,
@@ -97,9 +102,28 @@ export class CreateTestComponent implements OnInit {
     console.log('In delete');
     this.iterator.splice(index,1);
   }
-
+  /**
+   * This function saves a test in the DB.
+   * It iterates over all of the questions of all of the blocks 
+   * and collects them to a test object
+   */
   async saveTest() {
     let blocks = this.blocks.toArray();
+    if (blocks.length == 0) {
+      this.emptyTest = true;
+      return;
+    } else {
+      this.emptyTest = false;
+    }
+    for(let i = 0; i < blocks.length; i++){
+      if(blocks[i].getQuestions().length == 0){
+        this.emptyBlock = true;
+        this.indexBlock = i + 1;
+        return;
+      } else {
+        this.emptyBlock = false;
+      }
+    }
     let blocksToDB: Block[] = [];
     let totalQuestionNum: number = 0;
     for (let block of blocks) {
