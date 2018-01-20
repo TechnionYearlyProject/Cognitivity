@@ -1046,6 +1046,7 @@ export class CreateQuestionComponent implements OnInit {
     return index == this.indexOfMainanswerToShow;
   }
   undoSecondary(){
+    this.typedSecondaryAnswer = false;
     this.editionQuestionSecondary = false;
     this.submitSecondaryQuestion = false;
     this.secondaryAnswers = new Array();
@@ -1088,7 +1089,7 @@ export class CreateQuestionComponent implements OnInit {
     }
     
     this.submitSecondaryQuestion = true;
-
+    this.typedSecondaryAnswer = false;
   }
 
   hasSecondaryAnswer(): boolean{
@@ -1217,6 +1218,7 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   backToView(){
+    this.typedSecondaryAnswer = false;
     this.editionQuestionSecondary = false;
     this.viewSecondaryAnswer();
   }

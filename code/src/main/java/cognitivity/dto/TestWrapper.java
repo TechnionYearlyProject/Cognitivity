@@ -127,6 +127,7 @@ public class TestWrapper {
     //TODO: This might cause a problem, the test wrapper ID MUSt be similar to the test ID/
     //TODO: However, For a newly created test, there is no Id to fetch.
     public TestWrapper(CognitiveTest test) {
+        this.id = test.getId();
         this.lastAnswered = test.getLastAnswered();
         this.lastModified = test.getLastModified();
         this.testManager = test.getManager();
@@ -153,5 +154,15 @@ public class TestWrapper {
 
     public List<BlockWrapper> getBlocks() {
         return blocks;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TestWrapper that = (TestWrapper) o;
+
+        return getId() != null ? getId().equals(that.getId()) : that.getId() == null;
     }
 }

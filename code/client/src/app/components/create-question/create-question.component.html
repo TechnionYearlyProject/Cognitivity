@@ -394,9 +394,6 @@
             <div *ngIf="submitSecondaryQuestion && !hasSecondaryAnswer()" Style="color:red;">
                 Please enter at least one answer
             </div>
-            <div *ngIf = "typedSecondaryAnswer && (currentSecondaryAnswer == null || currentSecondaryAnswer < 2)" style="color: red;">
-                    Please enter an answer with at least 2 characters
-            </div>
         </div>
         <div *ngIf="(secondaryAnswerMode || editionQuestionSecondary) && editionModeSecondary">
             <div class="centered">
