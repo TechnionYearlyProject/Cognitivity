@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { CognitivityMvcConfiguration.class})
-//@Ignore("tests passing, but to run them there is a need of db")
+@Ignore("tests passing, but to run them there is a need of db")
 public class TestSubjectDAOTest extends AbstractDaoTestClass {
 
     private int numOfSubjects = 5;
