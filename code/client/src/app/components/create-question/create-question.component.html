@@ -18,10 +18,6 @@
                 <input autocomplete="off" [(ngModel)]="questionText" name="question1" #question1="ngModel" type="text" class="form-control" maxLength="256"
                     placeholder="Question text" style="max-width: 100%;" required maxLength="256">
                 <br>
-                <div *ngIf="(questionText == '' || questionText == null || isSpacePrefix(questionText)) && submit" style="color: red;">
-                    A question is required
-                </div>
-                <br>
             </div>
             <div class="container">
                 <div class="dropdown">
@@ -81,16 +77,16 @@
             </div>
             <div class="centered">
                 <br>
-                <div *ngIf="!didChoseQuestionType() && submit" style="color: red;">
-                    Please chose type for your question
+                <div *ngIf="!didChoseQuestionType() && submit" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
+                    Please choose type for your question
                 </div>
                 <br>
-                <div *ngIf="(didChoseQuestionType() && !didChoseDrillDownQuestion() ) && !didChoseQuestionPosition() && !didChoseDrillDownQuestion() && submit" style="color: red;">
-                    Please chose Position for your question
+                <div *ngIf="(didChoseQuestionType() && !didChoseDrillDownQuestion() ) && !didChoseQuestionPosition() && !didChoseDrillDownQuestion() && submit" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
+                    Please choose Position for your question
                 </div>
                 <br>
-                <div *ngIf="didChoseMultipleQuestion() && !didChoseMultipleChoiceType() && submit" style="color: red;">
-                    Please chose type for your multiple choice question
+                <div *ngIf="didChoseMultipleQuestion() && !didChoseMultipleChoiceType() && submit" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
+                    Please choose type for your multiple choice question
                 </div>
             </div>
         </div>
@@ -160,7 +156,7 @@
                                     class="form-control" placeholder="Answer text" style="max-width: 100%;" maxLength="50">
                                 <button class="btn btn-primary" style="margin:1em 0em;" (click)="addAnswer()">
                                     <span class="fa fa-plus"></span> Add answer</button>
-                                <div *ngIf="(answerTextForMultiple == null || answerTextForMultiple.length  < 2 || isSpacePrefix(answerTextForMultiple)) && typedMultipleAnswer" style="color: red">
+                                <div *ngIf="(answerTextForMultiple == null || answerTextForMultiple.length  < 2 || isSpacePrefix(answerTextForMultiple)) && typedMultipleAnswer" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
                                     Please enter an answer with at least 2 characters and a proper answer
                                 </div>
                             </div>
@@ -174,14 +170,14 @@
                                     <span class="fa fa-pencil"></span> Apply change</button>
                                 <button class="btn btn-primary" style="margin:1em 0em;" (click)="undo()">
                                     <span class="fa fa-undo"></span> Undo change</button>
-                                <div *ngIf = "typedMultipleAnswer && (answerTextForMultiple == null || answerTextForMultiple.length < 2 || isSpacePrefix(answerTextForMultiple))" style="color: red">
+                                <div *ngIf = "typedMultipleAnswer && (answerTextForMultiple == null || answerTextForMultiple.length < 2 || isSpacePrefix(answerTextForMultiple))" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
                                         Please enter an answer with at least 2 characters and a proper answer
                                 </div>
                             </div>
                     </div>
             </div>
             <div class="centered">
-                <div *ngIf="!haveAnswers() && submit" style="color: red;">
+                <div *ngIf="!haveAnswers() && submit" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
                     Please enter at least one answer
                 </div>
             </div>
@@ -212,7 +208,7 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="missingAnswers() && submit" style="color: red;" class="centered">
+            <div *ngIf="missingAnswers() && submit" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;" class="centered">
                 Please enter all answers, and at least 2 characters to an answer
 
             </div>
@@ -371,13 +367,13 @@
                         <span class="fa fa-pencil"></span> Apply change</button>
                     <button class="btn btn-primary" style="margin:1em 0em;" (click)="undoEditMain()">
                         <span class="fa fa-undo"></span> Undo change</button>
-                    <div *ngIf="typedMainAnswer && (currentMainAnswer == null || currentMainAnswer.length < 2 || isSpacePrefix(currentMainAnswer))" style="color: red;">
+                    <div *ngIf="typedMainAnswer && (currentMainAnswer == null || currentMainAnswer.length < 2 || isSpacePrefix(currentMainAnswer))" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
                         Please enter an answer with at least 2 characters, and a proper answer
                     </div>
                 </div>
             </div>
             <div class="centered">
-                <div *ngIf="!haveMainAnswers() && submit" style="color: red;">
+                <div *ngIf="!haveMainAnswers() && submit" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
                     Please enter at least one answer
                 </div>
             </div>
@@ -404,6 +400,9 @@
 
         </div>
         <br>
+        <div  class="centered" *ngIf="(questionText == '' || questionText == null || isSpacePrefix(questionText)) && submit" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
+            A question is required
+        </div>
         <div class="container" style="max-width: 30%;">
 
             <input autocomplete="off" type="submit" value="Submit Question" (click)="onSubmit()" class="btn btn-primary" 
