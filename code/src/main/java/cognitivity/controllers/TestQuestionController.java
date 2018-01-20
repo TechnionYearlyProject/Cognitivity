@@ -49,6 +49,19 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
     }
 
     /**
+     * Method for searching for cognitive test questions by id.
+     *
+     * @return - Cognitive test(s) for the test manager.
+     */
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.GET, value = "/findTestQuestionById")
+    public TestQuestion findTestQuestionById(
+            @RequestParam(value = "testQuestionId") long testQuestionId) {
+        return service.findTestQuestionById(testQuestionId);
+    }
+
+    /**
      * Method for saving (update / create) test questions.
      * <p>
      * Params are as in TestQuestionService.

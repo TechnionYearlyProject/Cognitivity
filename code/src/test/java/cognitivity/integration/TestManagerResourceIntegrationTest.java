@@ -5,6 +5,7 @@ import cognitivity.entities.TestManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import config.IntegrationTestContextConfiguration;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {IntegrationTestContextConfiguration.class})
+@Ignore
 public class TestManagerResourceIntegrationTest extends AbstractResourceIntegrationTest {
 
     @Autowired

@@ -3,7 +3,6 @@ package cognitivity.controllers;
 import cognitivity.TestUtil;
 import cognitivity.entities.TestManager;
 import cognitivity.services.TestManagerService;
-import cognitivity.web.app.config.HibernateBeanConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import config.TestContextBeanConfiguration;
 import org.hamcrest.CoreMatchers;
@@ -85,6 +84,22 @@ public class TestManagerControllerTest implements RestControllerTest {
         Mockito.verify(testManagerService, times(1)).findTestManagerByCreatedTest(1234);
         Mockito.verifyNoMoreInteractions(testManagerService);
     }
+
+    @Test
+    public void findTestManagerIdByEmailCallsServiceMethodsCorrectly() throws Exception {
+        Mockito.when(testManagerService.getManagerIdByEmail("email")).thenReturn(123L);
+
+        // findTestManagersForTestCriteria is a http GET request
+        mockMvc.perform(get("/test-managers/findTestManagerIdByEmail")
+                .param("email", "email"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$", is(123)));
+
+        Mockito.verify(testManagerService, times(1)).getManagerIdByEmail("email");
+        Mockito.verifyNoMoreInteractions(testManagerService);
+    }
+
 
     @Test
     public void findTestManagersForTestCriteriaReturnsMockedTestAnswerByManager() throws Exception {

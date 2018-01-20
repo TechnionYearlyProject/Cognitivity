@@ -20,9 +20,8 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(classes = { CognitivityMvcConfiguration.class})
 @SpringBootTest(classes = {CognitivityMvcConfiguration.class})
-//@Ignore("tests passing, but to run them there is a need of db")
+@Ignore("tests passing, but to run them there is a need of db")
 public class CognitiveTestDAOTest extends AbstractDaoTestClass {
 
     private TestManager[] testManagers;
