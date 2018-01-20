@@ -18,7 +18,7 @@
                 <input autocomplete="off" [(ngModel)]="questionText" name="question1" #question1="ngModel" type="text" class="form-control" maxLength="256"
                     placeholder="Question text" style="max-width: 100%;" required maxLength="256">
                 <br>
-                <div *ngIf="(questionText == '' || questionText == null) && submit" style="color: red;">
+                <div *ngIf="(questionText == '' || questionText == null || isSpacePrefix(questionText)) && submit" style="color: red;">
                     A question is required
                 </div>
                 <br>
@@ -52,12 +52,12 @@
                         <button class="btn btn-primary" *ngIf="didChoseUpperMiddle()" style="min-width: 250px;" (click)="setUpperMiddlePosition()">Upper Middle</button>
                         <button class="btn btn-basic" *ngIf="!didChoseUpperLeft()" style="min-width: 250px;" (click)="setUpperLeftPosition()">Upper Left</button>
                         <button class="btn btn-primary" *ngIf="didChoseUpperLeft()" style="min-width: 250px;" (click)="setUpperLeftPosition()">Upper Left</button>
-                        <button class="btn btn-basic" *ngIf="!didChoseButtomRight()" style="min-width: 250px;" (click)="setButtomRightPosition()">Buttom Right</button>
-                        <button class="btn btn-primary" *ngIf="didChoseButtomRight()" style="min-width: 250px;" (click)="setButtomRightPosition()">Buttom Right</button>
-                        <button class="btn btn-basic" *ngIf="!didChoseButtomMiddle()" style="min-width: 250px;" (click)="setButtomMiddlePosition()">Buttom Middle</button>
-                        <button class="btn btn-primary" *ngIf="didChoseButtomMiddle()" style="min-width: 250px;" (click)="setButtomMiddlePosition()">Buttom Middle</button>
-                        <button class="btn btn-basic" *ngIf="!didChoseButtomLeft()" style="min-width: 250px;" (click)="setButtomLeftPosition()">Buttom Left</button>
-                        <button class="btn btn-primary" *ngIf="didChoseButtomLeft()" style="min-width: 250px;" (click)="setButtomLeftPosition()">Buttom Left</button>
+                        <button class="btn btn-basic" *ngIf="!didChoseButtomRight()" style="min-width: 250px;" (click)="setButtomRightPosition()">Bottom Right</button>
+                        <button class="btn btn-primary" *ngIf="didChoseButtomRight()" style="min-width: 250px;" (click)="setButtomRightPosition()">Bottom Right</button>
+                        <button class="btn btn-basic" *ngIf="!didChoseButtomMiddle()" style="min-width: 250px;" (click)="setButtomMiddlePosition()">Bottom Middle</button>
+                        <button class="btn btn-primary" *ngIf="didChoseButtomMiddle()" style="min-width: 250px;" (click)="setButtomMiddlePosition()">Bottom Middle</button>
+                        <button class="btn btn-basic" *ngIf="!didChoseButtomLeft()" style="min-width: 250px;" (click)="setButtomLeftPosition()">Bottom Left</button>
+                        <button class="btn btn-primary" *ngIf="didChoseButtomLeft()" style="min-width: 250px;" (click)="setButtomLeftPosition()">Bottom Left</button>
                     </div>
 
                 </div>
@@ -126,9 +126,9 @@
                         <div class="centered" style="font-family:Arial; font-size: 25px; color: white">Answers so far, and please mark the correct answer:</div>
                         <ul class="list-group">
 
-                            <div *ngFor="let answer of answers; let i = index">
+                            <div class="centered" *ngFor="let answer of answers; let i = index">
                                 <li class="list-group-item" style="max-width: 100%;background-color: transparent;">
-                                    <div class="centered" style="margin: 10px; font-family: Arial; font-size: 25px;color: white; margin: 0px 0px 0px 30px;">{{answer}}</div>
+                                    <div class="centered" style=" font-family: Arial; font-size: 25px;color: white;">{{answer}}</div>
                                     <br>
                                     <div class="centered">
                                         <button *ngIf="markedAnswers[i]" class="btn btn-sm btn-success" style="color:white;" (click)="markAnswer(i)">Correct Answer</button>
@@ -160,8 +160,8 @@
                                     class="form-control" placeholder="Answer text" style="max-width: 100%;" maxLength="50">
                                 <button class="btn btn-primary" style="margin:1em 0em;" (click)="addAnswer()">
                                     <span class="fa fa-plus"></span> Add answer</button>
-                                <div *ngIf="(answerTextForMultiple == null || answerTextForMultiple.length  < 2) && typedMultipleAnswer" style="color: red">
-                                    Please enter an answer with at least 2 characters
+                                <div *ngIf="(answerTextForMultiple == null || answerTextForMultiple.length  < 2 || isSpacePrefix(answerTextForMultiple)) && typedMultipleAnswer" style="color: red">
+                                    Please enter an answer with at least 2 characters and a proper answer
                                 </div>
                             </div>
                             <div *ngIf="editionMode">
@@ -174,8 +174,8 @@
                                     <span class="fa fa-pencil"></span> Apply change</button>
                                 <button class="btn btn-primary" style="margin:1em 0em;" (click)="undo()">
                                     <span class="fa fa-undo"></span> Undo change</button>
-                                <div *ngIf = "typedMultipleAnswer && (answerTextForMultiple == null || answerTextForMultiple.length < 2)" style="color: red">
-                                        Please enter an answer with at least 2 characters
+                                <div *ngIf = "typedMultipleAnswer && (answerTextForMultiple == null || answerTextForMultiple.length < 2 || isSpacePrefix(answerTextForMultiple))" style="color: red">
+                                        Please enter an answer with at least 2 characters and a proper answer
                                 </div>
                             </div>
                     </div>
@@ -341,8 +341,8 @@
 
                     <button class="btn btn-primary" style="margin:1em 0em;" (click)="addSecondaryAnswer()" [disabled]="editionModeSecondary">
                         <span class="fa fa-plus"></span> Add answer</button>
-                    <div *ngIf = "(currentSecondaryAnswer == null || currentSecondaryAnswer.length < 2) && typedSecondaryAnswer" style="color:red;">
-                        Please enter an answer of at least 2 characters
+                    <div *ngIf = "(currentSecondaryAnswer == null || currentSecondaryAnswer.length < 2 || isSpacePrefix(currentSecondaryAnswer)) && typedSecondaryAnswer" style="color:red;">
+                        Please enter an answer of at least 2 characters and a proper answer
                     </div>
                 </div>
             </div>
@@ -355,8 +355,8 @@
                         placeholder="Answer text" style="max-width: 100%;" maxLength="30">
                     <button class="btn btn-primary" style="margin:1em 0em;" (click)="addMainAnswer()">
                         <span class="fa fa-plus"></span> Add answer</button>
-                    <div *ngIf="typedMainAnswer && (currentMainAnswer == null || currentMainAnswer.length < 2)" style="color:red;">
-                        Please enter an answer with at least 2 characters
+                    <div *ngIf="typedMainAnswer && (currentMainAnswer == null || currentMainAnswer.length < 2 || isSpacePrefix(currentMainAnswer))" style="color:red;">
+                        Please enter an answer with at least 2 characters and a proper answer
                     </div>
                 </div>
             </div>
@@ -371,8 +371,8 @@
                         <span class="fa fa-pencil"></span> Apply change</button>
                     <button class="btn btn-primary" style="margin:1em 0em;" (click)="undoEditMain()">
                         <span class="fa fa-undo"></span> Undo change</button>
-                    <div *ngIf="typedMainAnswer && (currentMainAnswer == null || currentMainAnswer.length < 2)" style="color: red;">
-                        Please enter an answer with at least 2 characters
+                    <div *ngIf="typedMainAnswer && (currentMainAnswer == null || currentMainAnswer.length < 2 || isSpacePrefix(currentMainAnswer))" style="color: red;">
+                        Please enter an answer with at least 2 characters, and a proper answer
                     </div>
                 </div>
             </div>
@@ -386,7 +386,7 @@
             <button *ngIf="!editionQuestionSecondary" class="btn  btn-primary" (click)="finishSecondaryQuestion()">Add secondary question</button>
             <button *ngIf="editionQuestionSecondary" class="btn  btn-primary" (click)="finishSecondaryQuestion()">Apply changes</button>
             <button class="btn btn-primary" style="margin:1em 0em;" (click)="undoSecondary()">
-                <span class="fa fa-undo"></span> Undo secondary question</button>
+                <span class="fa fa-undo"></span> Cancel secondary question</button>
             <button *ngIf="editionQuestionSecondary" class="btn btn-primary" (click)="backToView()">Undo changes</button>
             <div *ngIf="submitSecondaryQuestion && emptySecondary()" Style="color:red;">
                 Please enter a question and at least 2 characters

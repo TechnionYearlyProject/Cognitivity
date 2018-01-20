@@ -7,7 +7,6 @@ import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestManager;
 import cognitivity.entities.TestQuestion;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import config.IntegrationTestContextConfiguration;
 import org.junit.Before;
@@ -18,10 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -135,6 +133,35 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
                         .andReturn().getResponse().getContentAsString(), TestWrapper.class).getId();
     }
 
+    private List<BlockWrapper> getNewBlockWrappers() {
+        Random rand = new Random();
+//        manager = new TestManager("must have an email to get in the db");
+//        cognitiveTest = new CognitiveTest("Man's not hot", manager, 2, 2);
+
+        int numOfBlocks = 15;
+        //random number of questions in each block
+        int maxNumberOfQuestionsInBlock = 100;
+        TestBlock testBlock[] = new TestBlock[numOfBlocks];
+        List<TestQuestion> questionsPerBlock[] = new ArrayList[numOfBlocks];
+        List<BlockWrapper> blockWrappers = new ArrayList<>();
+        for (int i = 0; i < numOfBlocks; i++) {
+            testBlock[i] = new TestBlock(0, true, "pag" + i, cognitiveTest);
+            questionsPerBlock[i] = new ArrayList<>();
+            int numOfQuestions = rand.nextInt(maxNumberOfQuestionsInBlock);
+            for (int j = 0; j < numOfQuestions; j++) {
+                questionsPerBlock[i].add(new TestQuestion("q " + j, 12,
+                        null, "test block " + i, testBlock[i],
+                        cognitiveTest, manager, 0));
+            }
+
+            blockWrappers.add(new BlockWrapper(questionsPerBlock[i], testBlock[i]));
+        }
+
+
+        return blockWrappers;
+
+    }
+
     @Test
     public void testSaveCognitiveTestWithQuestions() throws Exception {
         // In order to save test, must save manager first.
@@ -205,10 +232,12 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
         testWrapper.setNumberOfQuestions(55);
 
         // And call to update...
-        cognitiveTestMvc.perform((post("/tests/updateCognitiveTest"))
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(objectMapper.writeValueAsBytes(testWrapper)))
-                .andExpect(status().isOk());
+        testId = String.valueOf(gson.fromJson(cognitiveTestMvc.perform((post("/tests/updateCognitiveTest"))
+                        .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                        .content(objectMapper.writeValueAsBytes(testWrapper)))
+                        .andExpect(status().isOk())
+                        .andReturn().getResponse().getContentAsString(),
+                TestWrapper.class).getId());
 
         // Check if it was updated...
         cognitiveTestMvc.perform((get("/tests/findTestsForTestManager"))
@@ -217,6 +246,40 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$[0].name", is("test2")))
                 .andExpect(jsonPath("$[0].numberOfQuestions", is(55)));
+
+        // Change the block list and questionList
+        testWrapper.setId(Long.valueOf(testId));
+        List<BlockWrapper> blockWrappers = getNewBlockWrappers();
+        testWrapper.setBlocks(blockWrappers);
+
+        //update once again
+        testId = String.valueOf(gson.fromJson(cognitiveTestMvc.perform((post("/tests/updateCognitiveTest"))
+                        .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                        .content(objectMapper.writeValueAsBytes(testWrapper)))
+                        .andExpect(status().isOk())
+                        .andReturn().getResponse().getContentAsString(),
+                TestWrapper.class).getId());
+
+        //check the result
+        ResultActions updatedResult = cognitiveTestMvc.perform((get("/tests/findTestsForTestManager"))
+                .param("managerId", String.valueOf(managerId)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8));
+        System.out.println(updatedResult.toString());
+        int blockIdx = 0;
+        for (BlockWrapper blockWrapper : blockWrappers) {
+            updatedResult.andExpect(
+                    jsonPath("$[0].blocks[" + blockIdx + "].tag",
+                            is(blockWrapper.getTag())));
+            int questionIdx = 0;
+            for (TestQuestion testQuestion : blockWrapper.getQuestions()) {
+                updatedResult.andExpect(
+                        jsonPath("$[0].blocks[" + blockIdx + "].questions[" + questionIdx + "].question",
+                                is(testQuestion.getQuestion())));
+                questionIdx++;
+            }
+            blockIdx++;
+        }
 
         // Finally delete the test
         cognitiveTestMvc.perform(delete("/tests/deleteCognitiveTest")

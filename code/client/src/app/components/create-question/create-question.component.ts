@@ -401,7 +401,7 @@ export class CreateQuestionComponent implements OnInit {
   onSubmit(){
     console.log('1');
     if(this.questionText != null){
-     if(this.questionText != ''){
+     if(this.questionText != '' && !this.isSpacePrefix(this.questionText)){
       if(this.didChoseQuestionType()){
 
         if(this.didChoseMultipleQuestion()){
@@ -584,7 +584,7 @@ export class CreateQuestionComponent implements OnInit {
     Adding an answer for the question
   */
   addAnswer(){
-    if(this.answerTextForMultiple != null && this.answerTextForMultiple.length >= 2){
+    if(this.answerTextForMultiple != null && this.answerTextForMultiple.length >= 2 && !this.isSpacePrefix(this.answerTextForMultiple)){
       this.typedMultipleAnswer = false;
       this.answers.splice(this.answers.length, 0, this.answerTextForMultiple);
       this.markedAnswers.splice(this.markedAnswers.length, 0, false);
@@ -622,7 +622,7 @@ export class CreateQuestionComponent implements OnInit {
     Applies the edition of the answer
   */
   applyEdit(){
-    if(this.answerTextForMultiple != null && this.answerTextForMultiple.length >= 2){
+    if(this.answerTextForMultiple != null && this.answerTextForMultiple.length >= 2 && !this.isSpacePrefix(this.answerTextForMultiple)){
       this.answers.splice(this.indexAnswerInEdit, 1,  this.answerTextForMultiple)
       this.editionMode = false;
       this.indexAnswerInEdit = -1;
@@ -867,7 +867,7 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   addMainAnswer(){
-    if(this.currentMainAnswer != null && this.currentMainAnswer.length >= 2){
+    if(this.currentMainAnswer != null && this.currentMainAnswer.length >= 2 && !this.isSpacePrefix(this.currentMainAnswer)){
       this.mainAnswers.splice(this.mainAnswers.length, 0, this.currentMainAnswer);
       this.markedMainCorrectAnswer.splice(this.markedMainCorrectAnswer.length, 0, false);
       this.currentMainAnswer = '';
@@ -961,7 +961,7 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   applyEditMain(){
-    if(this.currentMainAnswer != null && this.currentMainAnswer.length >= 2){
+    if(this.currentMainAnswer != null && this.currentMainAnswer.length >= 2 && !this.isSpacePrefix(this.currentMainAnswer)){
       this.mainAnswers.splice(this.indexAnswerInEditMain, 1,  this.currentMainAnswer)
       this.editionModeMain = false;
       this.indexAnswerInEditMain = -1;
@@ -1130,10 +1130,10 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   emptySecondary():boolean{
-    return this.currentSecondaryQuestion == null || this.currentSecondaryQuestion.length < 2;
+    return this.currentSecondaryQuestion == null || this.currentSecondaryQuestion.length < 2 || this.isSpacePrefix(this.currentSecondaryQuestion);
   }
   addSecondaryAnswer(){
-    if(this.currentSecondaryAnswer != null && this.currentSecondaryAnswer.length >= 2){
+    if(this.currentSecondaryAnswer != null && this.currentSecondaryAnswer.length >= 2 && !this.isSpacePrefix(this.currentSecondaryAnswer)){
       this.secondaryAnswers.splice(this.secondaryAnswers.length, 0, this.currentSecondaryAnswer);
       this.markedSecondaryCorrectAnswer.splice(this.markedSecondaryCorrectAnswer.length, 0, false);
       this.currentSecondaryAnswer = '';
@@ -1185,7 +1185,7 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   applySecondaryEdit(){
-    if(this.currentSecondaryAnswer != null && this.currentSecondaryAnswer.length >= 2){
+    if(this.currentSecondaryAnswer != null && this.currentSecondaryAnswer.length >= 2 && !this.isSpacePrefix(this.currentSecondaryAnswer)){
       this.secondaryAnswers.splice(this.indexAnswerInEditSecondary, 1,  this.currentSecondaryAnswer)
       this.editionModeSecondary = false;
       this.indexAnswerInEditSecondary = -1;
@@ -1252,5 +1252,10 @@ export class CreateQuestionComponent implements OnInit {
     return this.mainAnswers.length >= 1;
   }
 
-  
+  isSpacePrefix(str: string): boolean{
+      if(str == null){
+          return false;
+      }
+      return str.charAt(0) == ' ';
+  }  
 }
