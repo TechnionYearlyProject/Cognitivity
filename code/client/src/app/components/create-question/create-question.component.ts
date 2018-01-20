@@ -828,6 +828,9 @@ export class CreateQuestionComponent implements OnInit {
         if(this.matrixAnswers[i][j].length < 2){
           return true;
         }
+        if(this.isSpacePrefix(this.matrixAnswers[i][j])){
+            return true;
+        }
       }
     }
     

@@ -76,11 +76,6 @@
 
             </div>
             <div class="centered">
-                <br>
-                <div *ngIf="!didChoseQuestionType() && submit" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
-                    Please choose type for your question
-                </div>
-                <br>
                 <div *ngIf="(didChoseQuestionType() && !didChoseDrillDownQuestion() ) && !didChoseQuestionPosition() && !didChoseDrillDownQuestion() && submit" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
                     Please choose Position for your question
                 </div>
