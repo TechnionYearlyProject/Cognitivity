@@ -17,8 +17,13 @@ const routes: Routes = [
                 component: TestListComponent
             },
             {
-                path:'test-preview/:testId',
-                component: TestPreviewComponent
+                path:'',
+                redirectTo: 'test-list',
+                pathMatch: 'full'
+            },
+            {
+                path:'**',
+                redirectTo: 'test-list',
             }
         ],
         canActivate: [AuthGuard]

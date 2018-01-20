@@ -6,7 +6,6 @@ import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
 import cognitivity.exceptions.DBException;
 import cognitivity.exceptions.ErrorType;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -102,7 +101,7 @@ public class TestManagerService {
     }
 
     public long getManagerIdByEmail(String email) {
-        return dao.getId(email);
+        return dao.getIdFromEmail(email);
     }
 
 

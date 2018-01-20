@@ -121,7 +121,7 @@ public class TestManagerServiceTest {
         TestManager manager1 = new TestManager("WachedEmail@MashehuMetoraf!");
         manager1.setId(89L);
 
-        doReturn(89L).when(dao).getId("WachedEmail@MashehuMetoraf!");
+        doReturn(89L).when(dao).getIdFromEmail("WachedEmail@MashehuMetoraf!");
         long res = service.getManagerIdByEmail("WachedEmail@MashehuMetoraf!");
 
         assertEquals("Problem with getting manager Id by Email", 89L, res);
