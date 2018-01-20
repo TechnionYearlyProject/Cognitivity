@@ -89,6 +89,10 @@ export class EditTestComponent implements OnInit {
     if(currentIndex != 0){
       let removed = this.iterator.splice(currentIndex, 1);
       this.iterator.splice(currentIndex - 1, 0, removed[0]);
+      if (this.blockListFromDB[currentIndex]) {
+        let removedBlock = this.blockListFromDB.splice(currentIndex, 1);
+        this.blockListFromDB.splice(currentIndex - 1, 0, removedBlock[0]);
+      } 
     }
   }
 
@@ -100,6 +104,10 @@ export class EditTestComponent implements OnInit {
     if(currentIndex != this.blocksList.length-1){
       let removed = this.iterator.splice(currentIndex, 1);
       this.iterator.splice(currentIndex + 1, 0, removed[0]);
+      if (this.blockListFromDB[currentIndex]) {
+        let removedBlock = this.blockListFromDB.splice(currentIndex, 1);
+        this.blockListFromDB.splice(currentIndex + 1, 0, removedBlock[0]);
+      } 
     }
   }
 
@@ -118,6 +126,7 @@ export class EditTestComponent implements OnInit {
   deleteBlock(index: number){
     console.log('In delete');
     this.iterator.splice(index,1);
+    this.blockListFromDB.splice(index, 1);
   }
 
   regex = /[\ ]*([A-Za-z0-9)(]+[\ ]*)+/;
@@ -156,7 +165,9 @@ export class EditTestComponent implements OnInit {
       this.emptyTest = false;
     }
     for(let i = 0; i < blocks.length; i++){
+      console.log('here')
       if(blocks[i].getQuestions().length == 0){
+        console.log('but also here')
         this.emptyBlock = true;
         this.indexBlock = i + 1;
         return;
