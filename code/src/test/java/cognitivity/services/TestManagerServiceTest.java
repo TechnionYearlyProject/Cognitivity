@@ -6,6 +6,7 @@ import cognitivity.dao.TestManagerDAO;
 import cognitivity.dao.TestQuestionDAO;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
+import cognitivity.entities.TestQuestion;
 import cognitivity.web.app.config.HibernateBeanConfiguration;
 import config.TestContextBeanConfiguration;
 import org.junit.Before;
@@ -20,7 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -114,6 +117,32 @@ public class TestManagerServiceTest {
         service.deleteTestManager(1);
 
         testService.deleteTestForTestManager(2);
+
+        TestManager manager1 = new TestManager("WachedEmail@MashehuMetoraf!");
+        manager1.setId(89L);
+
+        doReturn(89L).when(dao).getId("WachedEmail@MashehuMetoraf!");
+        long res = service.getManagerIdByEmail("WachedEmail@MashehuMetoraf!");
+
+        assertEquals("Problem with getting manager Id by Email", 89L, res);
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).add(any());
+        try{
+            service.createTestManager(new TestManager());
+            assertTrue("Problem with handling with exception at create",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).update(any());
+        try {
+            service.updateTestManager(new TestManager());
+            assertTrue("Problem with handling with exception at update",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).delete(any());
+        try {
+            service.deleteTestManager(7);
+            assertTrue("Problem with handling with exception at delete",false);
+        }catch (Exception e){}
 
     }
 
