@@ -892,6 +892,15 @@ export class CreateQuestionComponent implements OnInit {
       this.showMainAnswer = true;
       this.indexOfMainanswerToShow = index;
     }
+    this.secondaryAnswerMode = false;
+    this.editionModeSecondary = false;
+    this.editionQuestionSecondary = false;
+    this.viewSecondary = false;
+    this.currentSecondaryQuestion = '';
+    this.currentSecondaryAnswer = '';
+    this.markedSecondaryCorrectAnswer = new Array();
+    this.secondaryAnswers = new Array();
+
     
   }
 
@@ -908,6 +917,10 @@ export class CreateQuestionComponent implements OnInit {
     Deletes an answer to the question
   */
   deleteMainAnswer(index: number){
+    this.viewSecondary = false;
+    this.secondaryAnswerMode = false;
+    this.editionQuestionSecondary = false;
+    this.editionModeSecondary = false;
     if(this.showMainAnswer){
       this.showMainAnswer = false;
       this.secondaryAnswerMode = false;
@@ -920,9 +933,21 @@ export class CreateQuestionComponent implements OnInit {
     }
     this.mainAnswers.splice(index,1);
     this.markedMainCorrectAnswer.splice(index, 1);
+    this.secondaryAnswers = new Array();
+    this.currentSecondaryAnswer = '';
+    this.markedSecondaryCorrectAnswer = new Array();
+    this.currentSecondaryQuestion = '';
   }
 
   editMainAnswer(index: number){
+    this.viewSecondary = false;
+    this.secondaryAnswerMode = false;
+    this.editionModeSecondary = false;
+    this.editionQuestionSecondary = false;
+    this.currentSecondaryAnswer = '';
+    this.currentSecondaryQuestion = '';
+    this.markedSecondaryCorrectAnswer = new Array();
+    this.secondaryAnswers = new Array();
     this.currentMainAnswer = this.mainAnswers[index];
     this.editionModeMain = true;
     this.indexAnswerInEditMain = index;
