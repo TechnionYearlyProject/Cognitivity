@@ -100,7 +100,12 @@ export class CreateQuestionComponent implements OnInit {
 
   //The question that created and sent to the block component. Will be null in case the user exited the creation of the question before its completion 
   question_object: any;
-
+  //String that describes the question type
+  type_question_desc: string = 'Question Types';
+  //string that describes the question position
+  positon_desc: string = 'Question Position';
+  //string that describes the multiple choice question type
+  multiple_type: string = 'Answer Organization';
   /*
     Params:
     dialogRef - reference for the dialog between the block component to this component.
@@ -147,8 +152,10 @@ export class CreateQuestionComponent implements OnInit {
     this.typedMainAnswer = false;
     if(this.typeQuestion == TypeQuestion.MultipleChoice){
       this.typeQuestion = null;
+      this.type_question_desc = 'Question Types';
     }else{
       this.typeQuestion = TypeQuestion.MultipleChoice;
+      this.type_question_desc = 'Multiple Choice Question';
     }
   }
 
@@ -163,8 +170,10 @@ export class CreateQuestionComponent implements OnInit {
     this.typedMainAnswer = false;
     if(this.typeQuestion == TypeQuestion.RateQuestion){
       this.typeQuestion = null;
+      this.type_question_desc = 'Question Types';
     }else{
       this.typeQuestion = TypeQuestion.RateQuestion;
+      this.type_question_desc = 'Rate Question';
     }
   }
 
@@ -179,8 +188,10 @@ export class CreateQuestionComponent implements OnInit {
     this.typedMainAnswer = false;
     if(this.typeQuestion == TypeQuestion.OpenQuestion){
       this.typeQuestion = null;
+      this.type_question_desc = 'Question Types';
     }else{
       this.typeQuestion = TypeQuestion.OpenQuestion;
+      this.type_question_desc = 'Open Text Question';
     }
   }
 
@@ -195,8 +206,10 @@ export class CreateQuestionComponent implements OnInit {
     this.typedMainAnswer = false;
     if(this.typeQuestion == TypeQuestion.DrillDownQuestion){
       this.typeQuestion = null;
+      this.type_question_desc = 'Question Types';
     }else{
       this.typeQuestion = TypeQuestion.DrillDownQuestion;
+      this.type_question_desc = 'Drill Down Question';
     }
   }
   /*
@@ -225,8 +238,10 @@ export class CreateQuestionComponent implements OnInit {
   setUpperMiddlePosition() {
     if(this.questionPosition == QuestionPosition.UpperMiddle){
       this.questionPosition = null;
+      this.positon_desc = 'Question Position';
     }else{
       this.questionPosition = QuestionPosition.UpperMiddle;
+      this.positon_desc = 'Upper Middle';
     }
     
   }
@@ -240,8 +255,10 @@ export class CreateQuestionComponent implements OnInit {
   setUpperRightPosition() {
     if(this.questionPosition == QuestionPosition.UpperRight){
       this.questionPosition = null;
+      this.positon_desc = 'Question Position';
     }else{
       this.questionPosition = QuestionPosition.UpperRight;
+      this.positon_desc = 'Upper Right';
     }
   }
   didChoseUpperRight():boolean {
@@ -254,8 +271,10 @@ export class CreateQuestionComponent implements OnInit {
   setUpperLeftPosition() {
     if(this.questionPosition == QuestionPosition.UpperLeft){
       this.questionPosition = null;
+      this.positon_desc = 'Question Position';
     }else{
       this.questionPosition = QuestionPosition.UpperLeft;
+      this.positon_desc = 'Upper Left';
     }
   }
   didChoseUpperLeft():boolean {
@@ -268,8 +287,10 @@ export class CreateQuestionComponent implements OnInit {
   setButtomRightPosition() {
     if(this.questionPosition == QuestionPosition.ButtomRight){
       this.questionPosition = null;
+      this.positon_desc = 'Question Position';
     }else{
       this.questionPosition = QuestionPosition.ButtomRight;
+      this.positon_desc = 'Bottom Right';
     }
   }
   didChoseButtomRight():boolean {
@@ -282,8 +303,10 @@ export class CreateQuestionComponent implements OnInit {
   setButtomLeftPosition() {
     if(this.questionPosition == QuestionPosition.ButtomLeft){
       this.questionPosition = null;
+      this.positon_desc = 'Question Position';
     }else{
       this.questionPosition = QuestionPosition.ButtomLeft;
+      this.positon_desc = 'Bottom Left';
     }
   }
   didChoseButtomLeft():boolean {
@@ -296,8 +319,10 @@ export class CreateQuestionComponent implements OnInit {
   setButtomMiddlePosition() {
     if(this.questionPosition == QuestionPosition.ButtomMiddle){
       this.questionPosition = null;
+      this.positon_desc = 'Question Position';
     }else{
       this.questionPosition = QuestionPosition.ButtomMiddle;
+      this.positon_desc = 'Bottom Middle';
     }
   }
   didChoseButtomMiddle():boolean {
@@ -310,8 +335,10 @@ export class CreateQuestionComponent implements OnInit {
   setMiddleRightPosition() {
     if(this.questionPosition == QuestionPosition.MiddleRight){
       this.questionPosition = null;
+      this.positon_desc = 'Question Position';
     }else{
       this.questionPosition = QuestionPosition.MiddleRight;
+      this.positon_desc = 'Middle Right';
     }
   }
   didChoseMiddleRight():boolean {
@@ -324,8 +351,10 @@ export class CreateQuestionComponent implements OnInit {
   setMiddleLeftPosition() {
     if(this.questionPosition == QuestionPosition.MiddleLeft){
       this.questionPosition = null;
+      this.positon_desc = 'Question Position';
     }else{
       this.questionPosition = QuestionPosition.MiddleLeft;
+      this.positon_desc = 'Middle Left';
     }
   }
   didChoseMiddleLeft():boolean {
@@ -338,8 +367,10 @@ export class CreateQuestionComponent implements OnInit {
   setMiddleMiddlePosition() {
     if(this.questionPosition == QuestionPosition.MiddleMiddle){
       this.questionPosition = null;
+      this.positon_desc = 'Question Position';
     }else{
       this.questionPosition = QuestionPosition.MiddleMiddle;
+      this.positon_desc = 'Middle Middle';
     }
   }
   didChoseMiddleMiddle():boolean {
@@ -361,8 +392,10 @@ export class CreateQuestionComponent implements OnInit {
     this.constructMatrix();
     if(this.typeMultipleQuestion == TypeMultipleQuestion.Matrix){
       this.typeMultipleQuestion = null;
+      this.multiple_type = 'Answer Organization';
     }else{
       this.typeMultipleQuestion = TypeMultipleQuestion.Matrix;
+      this.multiple_type = 'Matrix';
     }
   }
   didChoseMatrixType(){
@@ -377,8 +410,10 @@ export class CreateQuestionComponent implements OnInit {
     this.typedMultipleAnswer = false;
     if(this.typeMultipleQuestion == TypeMultipleQuestion.Vertical){
       this.typeMultipleQuestion = null;
+      this.multiple_type = 'Answer Organization';
     }else{
       this.typeMultipleQuestion = TypeMultipleQuestion.Vertical;
+      this.multiple_type = 'Vertical';
     }
   }
   didChoseVerticalType(){
@@ -393,8 +428,10 @@ export class CreateQuestionComponent implements OnInit {
     this.typedMultipleAnswer = false;
     if(this.typeMultipleQuestion == TypeMultipleQuestion.Horizontal){
       this.typeMultipleQuestion = null;
+      this.multiple_type = 'Answer Organization';
     }else{
       this.typeMultipleQuestion = TypeMultipleQuestion.Horizontal;
+      this.multiple_type = 'Horizontal';
     }
   }
   didChoseHorizontalType(){
@@ -405,7 +442,9 @@ export class CreateQuestionComponent implements OnInit {
     Determining the size of the range of the rate question that is created
   */
   increaseRate(){
-    this.rateSize++;
+    if(this.rateSize < 15){
+        this.rateSize++;
+    }
   }
   decreaseRate(){
     if(this.rateSize > 1){
