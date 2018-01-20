@@ -63,7 +63,7 @@ question.
 */
 export class QuestionInBlock {
     question: Question;
-    indexInBlock: number;
+    indexInBlock?: number;
     id?: string;
 }
 

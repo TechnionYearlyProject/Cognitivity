@@ -13,8 +13,8 @@
           <div *ngFor="let currQuestion of questionList; let i = index;">
             <div class="card questionBG">
               <div class="card-body border-primary">
-                <a class="btn arrowbg btn-sm fa fa-arrow-up" (click)="moveMeUp(currQuestion.indexInBlock)"></a>
-                <a class="btn arrowbg btn-sm fa fa-arrow-down" (click)="moveMeDown(currQuestion.indexInBlock)"></a>
+                <a class="btn arrowbg btn-sm fa fa-arrow-up" (click)="moveMeUp(i)"></a>
+                <a class="btn arrowbg btn-sm fa fa-arrow-down" (click)="moveMeDown(i)"></a>
 
          
                   <app-question [myData]="currQuestion" [index]="i"></app-question>

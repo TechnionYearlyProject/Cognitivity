@@ -42,7 +42,7 @@ export class EditBlockComponent implements OnInit {
       console.log('data is:::');
       console.log(question_object);
       if(question_object != null){
-        this.questionList.splice(this.questionList.length, 0,{question: question_object, indexInBlock: this.questionList.length, id:''});  
+        this.questionList.splice(this.questionList.length, 0,{question: question_object, id:''});  
       }
       
     });
@@ -53,8 +53,7 @@ export class EditBlockComponent implements OnInit {
     for (let i = 0; i < this.questionFromDBList.length; i++) {
       this.questionList[i] = 
       { 
-        question: JSON.parse(this.questionFromDBList[i].answer),
-        indexInBlock: i
+        question: JSON.parse(this.questionFromDBList[i].answer)
       };
     }
   }
@@ -70,21 +69,10 @@ export class EditBlockComponent implements OnInit {
   Output - the block is moved in the list.
   */
   moveMeUp(currentIndex) {
-    let arrayLastIndex = this.questionList.length - 1;
-    if (currentIndex == 0) {
-      let tmpMe = this.questionList.shift();
-      for (let num = 0; num < arrayLastIndex; num++) {
-        this.questionList[num].indexInBlock--;
-      }
-      this.questionList.push(tmpMe);
-      tmpMe.indexInBlock = arrayLastIndex;
+    if(currentIndex != 0){
+      let removed = this.questionList.splice(currentIndex,1);
+      this.questionList.splice(currentIndex - 1, 0, removed[0]);  
     }
-    let tmpHolder = this.questionList[currentIndex - 1];
-    let mememe = this.questionList[currentIndex];
-    mememe.indexInBlock--;
-    tmpHolder.indexInBlock++;
-    this.questionList[currentIndex - 1] = mememe;
-    this.questionList[currentIndex] = tmpHolder;
   }
 
 
@@ -94,21 +82,10 @@ export class EditBlockComponent implements OnInit {
   Output - the block is moved in the list.
   */
   moveMeDown(currentIndex) {
-    let arrayLastIndex = this.questionList.length - 1;
-    if (currentIndex == arrayLastIndex) {
-      let tmpMe = this.questionList.pop();
-      for (let num = arrayLastIndex-1; num > 0; num--) {
-        this.questionList[num].indexInBlock++;
-      }
-      this.questionList.unshift(tmpMe);
-      tmpMe.indexInBlock = 0;
+    if(currentIndex != this.questionList.length - 1){
+      let removed = this.questionList.splice(currentIndex, 1);
+      this.questionList.splice(currentIndex + 1, 0 , removed[0]);
     }
-    let tmpHolder = this.questionList[currentIndex + 1];
-    let mememe = this.questionList[currentIndex];
-    mememe.indexInBlock++;
-    tmpHolder.indexInBlock--;
-    this.questionList[currentIndex + 1] = mememe;
-    this.questionList[currentIndex] = tmpHolder;
   }
 
 
@@ -127,7 +104,7 @@ export class EditBlockComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       let question_object = this.transferData.getData();
       if(question_object != null){
-        this.questionList.splice(index, 1,{question: question_object, indexInBlock: index, id:''});  
+        this.questionList.splice(index, 1,{question: question_object, id:''});  
       }
       
     });

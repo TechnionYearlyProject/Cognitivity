@@ -60,7 +60,12 @@ export class BlockComponent implements OnInit {
   Output - the block is moved in the list.
   */
   moveMeUp(currentIndex) {
-    let arrayLastIndex = this.questionList.length - 1;
+    if(currentIndex != 0){
+      let removed = this.questionList.splice(currentIndex,1);
+      removed[0].indexInBlock--;
+      this.questionList.splice(currentIndex - 1, 0, removed[0]);  
+    }
+    /*let arrayLastIndex = this.questionList.length - 1;
     if (currentIndex == 0) {
       let tmpMe = this.questionList.shift();
       for (let num = 0; num < arrayLastIndex; num++) {
@@ -74,7 +79,7 @@ export class BlockComponent implements OnInit {
     mememe.indexInBlock--;
     tmpHolder.indexInBlock++;
     this.questionList[currentIndex - 1] = mememe;
-    this.questionList[currentIndex] = tmpHolder;
+    this.questionList[currentIndex] = tmpHolder;*/
   }
 
 
@@ -84,7 +89,13 @@ export class BlockComponent implements OnInit {
   Output - the block is moved in the list.
   */
   moveMeDown(currentIndex) {
-    let arrayLastIndex = this.questionList.length - 1;
+    if(currentIndex != this.questionList.length - 1){
+      let removed = this.questionList.splice(currentIndex, 1);
+      removed[0].indexInBlock++
+      this.questionList.splice(currentIndex + 1, 0 , removed[0]);
+    }
+ 
+    /*let arrayLastIndex = this.questionList.length - 1;
     if (currentIndex == arrayLastIndex) {
       let tmpMe = this.questionList.pop();
       for (let num = arrayLastIndex-1; num > 0; num--) {
@@ -98,7 +109,7 @@ export class BlockComponent implements OnInit {
     mememe.indexInBlock++;
     tmpHolder.indexInBlock--;
     this.questionList[currentIndex + 1] = mememe;
-    this.questionList[currentIndex] = tmpHolder;
+    this.questionList[currentIndex] = tmpHolder;*/
   }
 
 
