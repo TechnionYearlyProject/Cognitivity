@@ -2,6 +2,7 @@ package cognitivity.dao;
 
 import cognitivity.entities.TestManager;
 import cognitivity.web.app.config.CognitivityMvcConfiguration;
+import config.ObjectMapperBeanConfiguration;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -14,7 +15,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { CognitivityMvcConfiguration.class})
-@Ignore("tests passing, but to run them there is a need of db")
+//@Ignore("tests passing, but to run them there is a need of db")
 public class TestManagerDAOTest extends AbstractDaoTestClass {
 
     private TestManager testManager;
@@ -63,4 +64,19 @@ public class TestManagerDAOTest extends AbstractDaoTestClass {
         testManagerDAO.delete(testManager.getId());
         assertNull("delete problem", testManagerDAO.get(testManager.getId()));
     }
+
+
+    /*
+     * basic test for the getIdFromEmail function,
+     * from email we should get the id of the manager
+     */
+    @Test
+    public void getId(){
+        testManagerDAO.add(testManager);
+        Long managerId = testManager.getId();
+        Long res = testManagerDAO.getIdFromEmail("BB notarealpassword");
+        assertTrue(res.equals(managerId));
+        testManagerDAO.delete(testManager.getId());
+    }
+
 }

@@ -9,7 +9,7 @@ public interface TestManagerDAO {
 
     public long add(TestManager data);
     public long update(TestManager data);
-    public long getId(String email);
+    public long getIdFromEmail(String email);
 
 
 

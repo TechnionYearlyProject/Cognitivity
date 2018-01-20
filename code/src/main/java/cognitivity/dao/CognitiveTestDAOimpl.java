@@ -27,21 +27,6 @@ public class CognitiveTestDAOimpl extends AbstractDAO<CognitiveTest> implements 
         super.delete(id, CognitiveTest.class);
     }
 
-//    @Override
-//    public long add(TestWrapper data) {
-//        Session session = sessionFactory.getCurrentSession();
-//        CognitiveTest newData = data.innerTest();
-//        long i = (Long)session.save(newData);
-//        return i;
-//    }
-//
-//    @Override
-//    public void update(TestWrapper data) {
-//        Session session = sessionFactory.getCurrentSession();
-//        CognitiveTest newData = data.innerTest();
-//        session.merge(newData);
-//    }
-
     public List<TestQuestion> getTestQuestions(long testId) {
         Session session = sessionFactory.getCurrentSession();
         String queryString = "from TestQuestion  T where T.cognitiveTest.id = :testId";
@@ -59,16 +44,13 @@ public class CognitiveTestDAOimpl extends AbstractDAO<CognitiveTest> implements 
         return query.getResultList();
     }
 
-
     @Transactional(readOnly = true)
     public List<CognitiveTest> getCognitiveTestOfManager(long managerId) {
-        System.out.println("ddddd");
         Session session = sessionFactory.getCurrentSession();
         String queryString = "from CognitiveTest T where T.testManager.id = :managerId";
         Query<CognitiveTest> query = session.createQuery(queryString, CognitiveTest.class);
         query.setParameter("managerId", managerId);
         List<CognitiveTest> res = query.getResultList();
-        System.out.println(res.size());
         return res;
     }
 }
