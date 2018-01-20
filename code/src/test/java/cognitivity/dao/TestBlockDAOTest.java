@@ -5,10 +5,13 @@ import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestManager;
 import cognitivity.entities.TestQuestion;
 import cognitivity.web.app.config.CognitivityMvcConfiguration;
+import config.IntegrationTestContextConfiguration;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -18,7 +21,7 @@ import static org.junit.Assert.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { CognitivityMvcConfiguration.class})
+@SpringBootTest(classes = {IntegrationTestContextConfiguration.class})
 @Ignore("tests passing, but to run them there is a need of db")
 public class TestBlockDAOTest extends AbstractDaoTestClass {
 
@@ -42,6 +45,12 @@ public class TestBlockDAOTest extends AbstractDaoTestClass {
         cognitiveTestDAO.add(cognitiveTest);
         testBlock = new TestBlock(0,false, "testTag", cognitiveTest);
     }
+
+    @After
+    public void clean(){
+        testManagerDAO.delete(testManager.getId());
+    }
+
 
     /*
      * This test will check only the basic CRUD functionality:

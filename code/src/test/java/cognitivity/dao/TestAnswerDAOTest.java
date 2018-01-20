@@ -2,10 +2,13 @@ package cognitivity.dao;
 
 import cognitivity.entities.*;
 import cognitivity.web.app.config.CognitivityMvcConfiguration;
+import config.IntegrationTestContextConfiguration;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -14,7 +17,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { CognitivityMvcConfiguration.class})
+@SpringBootTest(classes = {IntegrationTestContextConfiguration.class})
 @Ignore("tests passing, but to run them there is a need of db")
 public class TestAnswerDAOTest extends AbstractDaoTestClass {
 
@@ -62,6 +65,11 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
                 cognitiveTest, 0, 0, 0,
                 0, "blabla", false,
                 10, false, false, false);
+    }
+
+    @After
+    public void clean(){
+        testManagerDAO.delete(testManager.getId());
     }
 
     /*

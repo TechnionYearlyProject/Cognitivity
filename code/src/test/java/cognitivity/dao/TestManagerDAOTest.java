@@ -2,11 +2,14 @@ package cognitivity.dao;
 
 import cognitivity.entities.TestManager;
 import cognitivity.web.app.config.CognitivityMvcConfiguration;
+import config.IntegrationTestContextConfiguration;
 import config.ObjectMapperBeanConfiguration;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -14,7 +17,7 @@ import static org.junit.Assert.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { CognitivityMvcConfiguration.class})
+@SpringBootTest(classes = {IntegrationTestContextConfiguration.class})
 @Ignore("tests passing, but to run them there is a need of db")
 public class TestManagerDAOTest extends AbstractDaoTestClass {
 
@@ -32,6 +35,11 @@ public class TestManagerDAOTest extends AbstractDaoTestClass {
         testManager =
                 new TestManager("BB notarealpassword");
 
+    }
+
+    @After
+    public void clean(){
+        testManagerDAO.delete(testManager.getId());
     }
 
     /*
@@ -61,8 +69,6 @@ public class TestManagerDAOTest extends AbstractDaoTestClass {
         testManagerDAO.update(testManager);
         assertTrue("name incorrect",
                 testManagerName.equals(testManagerDAO.get(testManager.getId()).getEmail()));
-        testManagerDAO.delete(testManager.getId());
-        assertNull("delete problem", testManagerDAO.get(testManager.getId()));
     }
 
 
@@ -76,7 +82,6 @@ public class TestManagerDAOTest extends AbstractDaoTestClass {
         Long managerId = testManager.getId();
         Long res = testManagerDAO.getIdFromEmail("BB notarealpassword");
         assertTrue(res.equals(managerId));
-        testManagerDAO.delete(testManager.getId());
     }
 
 }
