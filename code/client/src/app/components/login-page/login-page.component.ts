@@ -19,6 +19,12 @@ export class LoginPageComponent implements OnInit {
     password:'',
     rememberMe:false
   }
+
+  //Boolean to check if no email was given
+  noEmail: boolean = false;
+
+  //Boolean to check if no password was given
+  noPassword: boolean = false;
   
   //we assume it's the correct user.
   correctUser = true;
@@ -47,7 +53,14 @@ export class LoginPageComponent implements OnInit {
       })
     }
     else{
-      console.log('Not valid');
+      if (this.user.email == '') {
+        console.log('got here');
+        this.noEmail = true;
+      }
+
+      if (this.user.password == '') {
+        this.noPassword = true;
+      }
     }
   }
 }
