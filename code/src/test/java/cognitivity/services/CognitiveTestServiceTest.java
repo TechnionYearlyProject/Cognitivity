@@ -25,6 +25,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class})
@@ -97,15 +98,23 @@ public class CognitiveTestServiceTest {
         assertNotNull("Problem in making test", cognitiveTest);
 
         CognitiveTest test1 = new CognitiveTest("Man's not hot", manager, 2, 2);
+        test1.setId(8L);
         CognitiveTest test2 = new CognitiveTest("Two plus two is", manager, 4, 6);
+        test2.setId(9L);
         CognitiveTest test3 = new CognitiveTest("Minus 0ne that's", manager, 3, 10);
+        test3.setId(10L);
         CognitiveTest test4 = new CognitiveTest("Quick maths!", manager, 3, 17);
+        test4.setId(11L);
 
         TestBlockService blockService = new TestBlockService(bdao);
         BlockWrapper block1 = blockService.createTestBlock(2, true, "tag1", cognitiveTest);
+        block1.setId(12L);
         BlockWrapper block2 = blockService.createTestBlock(5, false, "tag2", cognitiveTest);
+        block2.setId(13L);
         BlockWrapper block3 = blockService.createTestBlock(4, true, "tag3", cognitiveTest);
+        block3.setId(14L);
         BlockWrapper block4 = blockService.createTestBlock(8, false, "tag4", cognitiveTest);
+        block4.setId(15L);
 
 
         TestWrapper getting = service.findTestById(7);
@@ -130,34 +139,48 @@ public class CognitiveTestServiceTest {
         preWrapped.add(test4);
 
         doReturn(preWrapped).when(dao).getCognitiveTestOfManager(9);
-//        List<TestWrapper> result = new ArrayList<>();
-//        try {
-//            result = service.findTestsForTestManager(9);
-//        }catch (DBException e){
-//
-//        }
-//        for (TestWrapper t : result) {
-//            assertTrue("Getting unrelated results while trying to get all managers tests", tests.contains(t));
-//        }
-//        for (TestWrapper t : tests) {
-//            assertTrue("Didn't get all the tests from the manager", result.contains(t));
-//        }
+
+        doReturn(cognitiveTest).when(dao).get(7L);
+        doReturn(test1).when(dao).get(8L);
+        doReturn(test2).when(dao).get(9L);
+        doReturn(test3).when(dao).get(10L);
+        doReturn(test4).when(dao).get(11L);
+        List<TestWrapper> result = new ArrayList<>();
+        try {
+            result = service.findTestsForTestManager(9);
+        }catch (DBException e){
+
+        }
+        for (TestWrapper t : result) {
+            assertTrue("Getting unrelated results while trying to get all managers tests", tests.contains(t));
+        }
+        for (TestWrapper t : tests) {
+            assertTrue("Didn't get all the tests from the manager", result.contains(t));
+        }
 
 
         List<TestBlock> blocks = new ArrayList<TestBlock>();
         blocks.add(block1.innerBlock(test.getId()));
         blocks.add(block2.innerBlock(test.getId()));
         blocks.add(block3.innerBlock(test.getId()));
+
+        List<BlockWrapper> wrappers = new ArrayList<>();
+        wrappers.add(block1);
+        wrappers.add(block2);
+        wrappers.add(block3);
+        wrappers.add(block4);
+
         blocks.add(block4.innerBlock(test.getId()));
 
-//        doReturn(blocks).when(dao).getTestBlocks(7);
-//        List<BlockWrapper> blockResult = service.getTestBlocksForTest(7);
-//        for (TestBlock t : blockResult) {
-//            assertTrue("Getting unrelated results while trying to get all test blocks", blocks.contains(t));
-//        }
-//        for (TestBlock t : blocks) {
-//            assertTrue("Didn't get all the blocks from the test", blockResult.contains(t));
-//        }
+        doReturn(blocks).when(dao).getTestBlocks(7);
+        List<BlockWrapper> blockResult = service.getTestBlocksForTest(7);
+        for (BlockWrapper t : blockResult) {
+            assertTrue("Getting unrelated results while trying to get all test blocks", wrappers.contains(t));
+        }
+        System.out.println("");
+        for (BlockWrapper t : wrappers) {
+            assertTrue("Didn't get all the blocks from the test", blockResult.contains(t));
+        }
 
         QuestionService questionService = new QuestionService(qdao, adao, dao, mdao);
 
@@ -195,6 +218,24 @@ public class CognitiveTestServiceTest {
         questionService.deleteTestQuestion(21);
 
 
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).add(any());
+        try{
+            service.createTestForTestManager(new TestWrapper());
+            assertTrue("Problem with handling with exception at create",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).update(any());
+        try {
+            service.updateTestForTestManager(new TestWrapper());
+            assertTrue("Problem with handling with exception at update",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).delete(any());
+        try {
+            service.deleteTestForTestManager(7);
+            assertTrue("Problem with handling with exception at delete",false);
+        }catch (Exception e){}
     }
 
 
