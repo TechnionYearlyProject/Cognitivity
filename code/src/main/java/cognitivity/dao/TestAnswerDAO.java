@@ -6,6 +6,11 @@ import java.util.List;
 
 public interface TestAnswerDAO {
 
+    /**
+     *
+     * @Note! API documentation of get, delete, add and update is in the AbstractDAO
+     *
+     */
     public TestAnswer get(Long id);
     public void delete(Long id);
     public long add(TestAnswer data);

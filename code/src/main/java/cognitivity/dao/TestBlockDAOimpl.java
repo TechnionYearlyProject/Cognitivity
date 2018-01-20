@@ -11,6 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+
+/**
+ * Data Access Object for TestBlock object
+ * @Note! API documentation is in the Interfaces
+ *
+ */
 @Repository
 public class TestBlockDAOimpl extends AbstractDAO<TestBlock> implements TestBlockDAO {
 

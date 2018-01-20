@@ -12,6 +12,8 @@ import java.util.List;
 
 /**
  * Data Access Object for TestQuestion object
+ * @Note! API documentation is in the Interfaces
+ *
  */
 @Repository
 public class TestQuestionDAOimpl extends AbstractDAO<TestQuestion> implements TestQuestionDAO{
@@ -24,13 +26,12 @@ public class TestQuestionDAOimpl extends AbstractDAO<TestQuestion> implements Te
         super.delete(id, TestQuestion.class);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<TestQuestion> getTestQuestionsFromAManager(TestManager manager) {
         Session session = sessionFactory.getCurrentSession();
         String queryString = "from TestQuestion where testManager = :manager";
         Query<TestQuestion> query = session.createQuery(queryString, TestQuestion.class);
         query.setParameter("manager", manager);
-        List<TestQuestion> res =  query.getResultList();
-        return res;
+        return query.getResultList();
     }
 }

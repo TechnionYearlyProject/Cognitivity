@@ -8,6 +8,11 @@ import java.util.List;
 
 public interface CognitiveTestDAO {
 
+    /**
+     *
+     * @Note! API documentation of get, delete, add and update is in the AbstractDAO
+     *
+     */
     public CognitiveTest get(Long id);
     public void delete(Long id);
     public long add(CognitiveTest data);

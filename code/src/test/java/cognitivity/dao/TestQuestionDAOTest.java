@@ -106,7 +106,7 @@ public class TestQuestionDAOTest extends AbstractDaoTestClass {
         testManagerDAO.add(otherTestManager);
         testQuestion.setTestManager(otherTestManager);
         testQuestionDAO.add(testQuestion);
-        assertTrue("Test manager should have one test",
+        assertTrue("Test manager shouldn't have testsQuestions",
                 testQuestionDAO.getTestQuestionsFromAManager(testManager).isEmpty());
         testQuestion.setTestManager(testManager);
         testQuestionDAO.update(testQuestion);

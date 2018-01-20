@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 /**
  * Data Access Object for TestManager object
+ * @Note! API documentation is in the Interfaces
+ *
  */
 @Repository
 public class TestManagerDAOimpl extends AbstractDAO<TestManager> implements TestManagerDAO {

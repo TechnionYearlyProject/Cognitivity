@@ -14,6 +14,8 @@ import java.util.List;
 
 /**
  * Data Access Object
+ * @Note! API documentation is in the Interfaces
+ *
  */
 @Repository
 @Transactional
