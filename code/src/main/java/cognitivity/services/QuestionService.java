@@ -45,7 +45,7 @@ public class QuestionService {
         try {
             dao.add(q);
             return q;
-        }catch (org.hibernate.HibernateException e){
+        } catch (org.hibernate.HibernateException e) {
             throw new DBException(ErrorType.SAVE);
         }
     }
@@ -57,10 +57,10 @@ public class QuestionService {
      *          <p>
      *          This will be used in conjunction with the PUT HTTP method.
      */
-    public void updateTestQuestion(TestQuestion q) throws DBException{
+    public void updateTestQuestion(TestQuestion q) throws DBException {
         try {
             dao.update(q);
-        }catch (org.hibernate.HibernateException e){
+        } catch (org.hibernate.HibernateException e) {
             throw new DBException(ErrorType.UPDATE);
         }
     }
@@ -79,7 +79,7 @@ public class QuestionService {
     public void deleteTestQuestion(long questionId) throws DBException {
         try {
             dao.delete(questionId);
-        }catch (org.hibernate.HibernateException e){
+        } catch (org.hibernate.HibernateException e) {
             throw new DBException(ErrorType.DELETE);
         }
     }
@@ -123,5 +123,9 @@ public class QuestionService {
     public List<TestQuestion> findAllTestQuestionsFromManagerId(long managerId) {
         TestManager testManager = managerDao.get(managerId);
         return dao.getTestQuestionsFromAManager(testManager);
+    }
+
+    public TestQuestion findTestQuestionById(long testQuestionId) {
+        return dao.get(testQuestionId);
     }
 }

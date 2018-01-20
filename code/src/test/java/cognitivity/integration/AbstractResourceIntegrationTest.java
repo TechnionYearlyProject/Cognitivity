@@ -2,10 +2,9 @@ package cognitivity.integration;
 
 import cognitivity.controllers.CognitiveTestController;
 import cognitivity.controllers.TestManagerController;
+import cognitivity.controllers.TestQuestionController;
 import cognitivity.controllers.TestSubjectController;
-import cognitivity.entities.CognitiveTest;
-import cognitivity.entities.TestManager;
-import cognitivity.entities.TestSubject;
+import cognitivity.entities.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
@@ -32,6 +31,7 @@ public class AbstractResourceIntegrationTest {
     protected MockMvc cognitiveTestMvc;
     protected MockMvc testManagerMvc;
     protected MockMvc testSubjectMvc;
+    protected MockMvc testQuestionMvc;
 
     @Autowired
     protected CognitiveTestController cognitiveTestController;
@@ -42,6 +42,9 @@ public class AbstractResourceIntegrationTest {
     @Autowired
     protected TestSubjectController testSubjectController;
 
+    @Autowired
+    protected TestQuestionController testQuestionController;
+
     protected static Gson gson;
 
     @Before
@@ -49,6 +52,7 @@ public class AbstractResourceIntegrationTest {
         cognitiveTestMvc = MockMvcBuilders.standaloneSetup(cognitiveTestController).build();
         testManagerMvc = MockMvcBuilders.standaloneSetup(testManagerController).build();
         testSubjectMvc = MockMvcBuilders.standaloneSetup(testSubjectController).build();
+        testQuestionMvc = MockMvcBuilders.standaloneSetup(testQuestionController).build();
 
         GsonBuilder builder = new GsonBuilder();
 
@@ -56,6 +60,17 @@ public class AbstractResourceIntegrationTest {
         builder.registerTypeAdapter(Date.class, (JsonDeserializer<Date>) (json, typeOfT, context) -> new Date(json.getAsJsonPrimitive().getAsLong()));
 
         gson = builder.create();
+    }
+
+    public static TestQuestion createTestQuestion(long id) {
+        TestManager testManager = createTestManager(1L);
+        CognitiveTest cognitiveTest = createCognitiveTest(testManager);
+        cognitiveTest.setId(2L);
+        TestBlock block = new TestBlock(1, true, "tag1", cognitiveTest);
+        block.setId(3L);
+        TestQuestion testQuestion = new TestQuestion("q1", 1, "a1", "tag1", block, cognitiveTest, testManager, 1);
+        testQuestion.setId(id);
+        return testQuestion;
     }
 
     public static TestSubject createTestSubject(long id) {
