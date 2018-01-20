@@ -399,9 +399,11 @@ export class CreateQuestionComponent implements OnInit {
                         and transfering the question object via the SessionService service. 
   */
   onSubmit(){
+    console.log('1');
     if(this.questionText != null){
      if(this.questionText != ''){
       if(this.didChoseQuestionType()){
+
         if(this.didChoseMultipleQuestion()){
           if(this.didChoseMultipleChoiceType() && this.didChoseQuestionPosition() ){
             if(this.didChoseVerticalType() || this.didChoseHorizontalType()){
@@ -433,8 +435,6 @@ export class CreateQuestionComponent implements OnInit {
               console.log(this.question_object);//FOR DEBUGGING
               this.transferData.setData(this.question_object);
               this.closeDialog();
-          }
-        console.log(this.didChoseDrillDownQuestion());
         }else if(this.didChoseDrillDownQuestion()){
           console.log('hererererer');
           if(this.haveMainAnswers()){
@@ -443,6 +443,8 @@ export class CreateQuestionComponent implements OnInit {
             this.closeDialog();
           }
         }
+      }
+
   
      } 
     }
