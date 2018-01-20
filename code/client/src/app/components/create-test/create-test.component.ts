@@ -35,6 +35,8 @@ export class CreateTestComponent implements OnInit {
 
   emptyTest: boolean = false;
 
+  noTitle: boolean = false;
+
   indexBlock: number = -1;
   //default constructor 
   constructor(
@@ -108,6 +110,12 @@ export class CreateTestComponent implements OnInit {
    * and collects them to a test object
    */
   async saveTest() {
+    if (this.titleTest == '' || this.titleTest == null) {
+      this.noTitle = true;
+      return;
+    } else {
+      this.noTitle = false;
+    }
     let blocks = this.blocks.toArray();
     if (blocks.length == 0) {
       this.emptyTest = true;
