@@ -109,21 +109,9 @@ public class TestWrapper {
     public TestWrapper() {
     }
 
-    //TODO: remove!! hardcoded value!
-    public TestWrapper(String name, TestManager manager, Integer state, Integer numberOfQuestions) {
-        this.id = 0L;
-        this.name = name;
-        this.testManager = manager;
-        this.numberOfSubjects = 0;
-        this.state = state;
-        this.lastModified = new Date(Calendar.getInstance().getTimeInMillis()); //TODO:Check for format
-        this.lastAnswered = null;
-        this.numberOfFiledCopies = 0;
-        this.numberOfQuestions = numberOfQuestions;
-    }
 
-    // todo : initialize id
     public TestWrapper(CognitiveTest test, List<BlockWrapper> blocks) {
+        this.id = test.getId();
         this.lastAnswered = test.getLastAnswered();
         this.lastModified = test.getLastModified();
         this.testManager = test.getManager();
