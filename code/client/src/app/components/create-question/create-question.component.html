@@ -126,9 +126,9 @@
                         <div class="centered" style="font-family:Arial; font-size: 25px; color: white">Answers so far, and please mark the correct answer:</div>
                         <ul class="list-group">
 
-                            <div *ngFor="let answer of answers; let i = index">
+                            <div class="centered" *ngFor="let answer of answers; let i = index">
                                 <li class="list-group-item" style="max-width: 100%;background-color: transparent;">
-                                    <div class="centered" style="margin: 10px; font-family: Arial; font-size: 25px;color: white; margin: 0px 0px 0px 30px;">{{answer}}</div>
+                                    <div class="centered" style=" font-family: Arial; font-size: 25px;color: white;">{{answer}}</div>
                                     <br>
                                     <div class="centered">
                                         <button *ngIf="markedAnswers[i]" class="btn btn-sm btn-success" style="color:white;" (click)="markAnswer(i)">Correct Answer</button>
@@ -386,7 +386,7 @@
             <button *ngIf="!editionQuestionSecondary" class="btn  btn-primary" (click)="finishSecondaryQuestion()">Add secondary question</button>
             <button *ngIf="editionQuestionSecondary" class="btn  btn-primary" (click)="finishSecondaryQuestion()">Apply changes</button>
             <button class="btn btn-primary" style="margin:1em 0em;" (click)="undoSecondary()">
-                <span class="fa fa-undo"></span> Undo secondary question</button>
+                <span class="fa fa-undo"></span> Cancel secondary question</button>
             <button *ngIf="editionQuestionSecondary" class="btn btn-primary" (click)="backToView()">Undo changes</button>
             <div *ngIf="submitSecondaryQuestion && emptySecondary()" Style="color:red;">
                 Please enter a question and at least 2 characters
