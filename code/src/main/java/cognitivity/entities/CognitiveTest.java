@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.TimeZone;
 
 /**
  *
@@ -21,7 +22,7 @@ public class CognitiveTest extends AbstractEntity {
 		this.testManager = manager;
 		this.numberOfSubjects = 0;
 		this.state = state;
-		this.lastModified = new Date(Calendar.getInstance().getTimeInMillis());
+		this.lastModified = new Date(Calendar.getInstance(TimeZone.getTimeZone("Asia/Jerusalem")).getTimeInMillis());
 		this.lastAnswered = null;
 		this.numberOfFiledCopies = 0;
 		this.numberOfQuestions = numberOfQuestions;
