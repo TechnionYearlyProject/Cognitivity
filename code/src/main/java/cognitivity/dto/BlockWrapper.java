@@ -69,7 +69,6 @@ public class BlockWrapper {
 
     public BlockWrapper() {}
 
-    //TODO: remove!! hardcoded value!
     public BlockWrapper(Integer numberOfQuestions, Boolean randomize, String tag, CognitiveTest test) {
         this.numberOfQuestions = numberOfQuestions;
         this.randomize = randomize;
@@ -98,7 +97,6 @@ public class BlockWrapper {
         this.questions = questions != null ? questions : new ArrayList<>();
     }
 
-    // todo : initialize id
     public BlockWrapper(TestBlock block) {
         this.id = block.getId();
         this.numberOfQuestions = block.getNumberOfQuestions();
