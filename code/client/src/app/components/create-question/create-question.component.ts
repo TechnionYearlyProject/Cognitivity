@@ -871,13 +871,16 @@ export class CreateQuestionComponent implements OnInit {
   editQuestion(question: any){
     this.questionText = question.questionText;
     this.typeQuestion = question.type;
+    this.initializeTypeString();
     this.questionPosition = question.questionPosition;
+    this.initializePositionString();
     if(this.typeQuestion == TypeQuestion.OpenQuestion){
       this.answerText = question.answerText;
     }else if(this.typeQuestion == TypeQuestion.RateQuestion){
       this.rateSize = question.heightOfRate;
     }else if(this.typeQuestion == TypeQuestion.MultipleChoice){
       this.typeMultipleQuestion = question.typeMultipleQuestion;
+      this.initializeMultipleString();
       if(this.typeMultipleQuestion == TypeMultipleQuestion.Horizontal || this.typeMultipleQuestion == TypeMultipleQuestion.Vertical){
         for(let i = 0; i < question.answers.length; i++){
           this.answers.splice(this.answers.length, 0, question.answers[i]);
@@ -919,6 +922,58 @@ export class CreateQuestionComponent implements OnInit {
 
   }
   /*
+    Intializing the description of the type
+  */
+  initializeTypeString(){
+      if(this.typeQuestion == TypeQuestion.DrillDownQuestion){
+          this.type_question_desc = 'Drill Down Question';
+      }else if(this.typeQuestion == TypeQuestion.MultipleChoice){
+          this.type_question_desc = 'Multiple Choice Question'
+      }else if(this.typeQuestion == TypeQuestion.OpenQuestion){
+          this.type_question_desc = 'Open Text Question';
+      }else if(this.typeQuestion == TypeQuestion.RateQuestion){
+          this.type_question_desc = 'Rate Question';
+      }
+  }
+
+  /*
+    Intializing the description of the position
+  */
+  initializePositionString(){
+      if(this.questionPosition == QuestionPosition.UpperRight){
+          this.positon_desc = 'Upper Right';
+      }else if(this.questionPosition == QuestionPosition.UpperLeft){
+          this.positon_desc = 'Upper Left';
+      }else if(this.questionPosition == QuestionPosition.UpperMiddle){
+          this.positon_desc = 'Upper Middle';
+      }else if(this.questionPosition == QuestionPosition.ButtomRight){
+          this.positon_desc = 'Bottom Right';
+      }else if(this.questionPosition == QuestionPosition.ButtomLeft){
+          this.positon_desc = 'Bottom Left';
+      }else if(this.questionPosition == QuestionPosition.ButtomMiddle){
+          this.positon_desc = 'Bottom Middle';
+      }else if(this.questionPosition == QuestionPosition.MiddleLeft){
+          this.positon_desc = 'Middle Left';
+      }else if(this.questionPosition == QuestionPosition.MiddleRight){
+          this.positon_desc = 'Middle Right';
+      }else if(this.questionPosition == QuestionPosition.MiddleMiddle){
+          this.positon_desc = 'Middle Middle';
+      }
+  }
+  /*
+    Intialize the type of the multiple choice question
+  */
+  initializeMultipleString(){
+      if(this.typeMultipleQuestion == TypeMultipleQuestion.Matrix){
+          this.multiple_type = 'Matrix';
+      }else if(this.typeMultipleQuestion == TypeMultipleQuestion.Vertical){
+          this.multiple_type = 'Vertical';
+      }else if(this.typeMultipleQuestion == TypeMultipleQuestion.Horizontal){
+          this.multiple_type = 'Horizontal';
+      }
+  }
+  /*
+
     The function adds an answer for the main question
   */
   addMainAnswer(){
