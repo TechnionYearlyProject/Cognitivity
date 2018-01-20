@@ -102,7 +102,7 @@ public class BlockWrapper {
 
     // todo : initialize id
     public BlockWrapper(TestBlock block) {
-        // this.id = block.getId();
+        // this.id = block.getIdFromEmail();
         this.id = 2L;
         this.numberOfQuestions = block.getNumberOfQuestions();
         this.randomize = block.getRandomize();

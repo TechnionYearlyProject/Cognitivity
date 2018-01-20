@@ -5,10 +5,13 @@ import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestManager;
 import cognitivity.entities.TestQuestion;
 import cognitivity.web.app.config.CognitivityMvcConfiguration;
+import cognitivity.web.app.config.HibernateBeanConfiguration;
+import config.TestContextBeanConfiguration;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -17,8 +20,9 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { CognitivityMvcConfiguration.class})
-@Ignore("tests passing, but to run them there is a need of db")
+//@ContextConfiguration(classes = { CognitivityMvcConfiguration.class})
+@SpringBootTest(classes = {CognitivityMvcConfiguration.class})
+//@Ignore("tests passing, but to run them there is a need of db")
 public class CognitiveTestDAOTest extends AbstractDaoTestClass {
 
     private TestManager[] testManagers;
@@ -240,7 +244,6 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
                 testBlocks[j][i] = new TestBlock(0, (i % 2) == 1,
                         "tag : blocknum" + i, cognitiveTestsPerManager[0][j]);
                 testBlockDAO.add(testBlocks[j][i]);
-                System.out.println("entered " + testBlocks[j][i].getId());
                 blocks = cognitiveTestDAO.getTestBlocks(cognitiveTestsPerManager[0][j].getId());
                 assertTrue("this block should have been in the list", blocks.contains(testBlocks[j][i]));
             }

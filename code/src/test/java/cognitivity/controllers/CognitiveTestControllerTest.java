@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class})
+@SpringBootTest(classes = {TestContextBeanConfiguration.class})
 public class CognitiveTestControllerTest implements RestControllerTest {
 
     private CognitiveTestController controller;
