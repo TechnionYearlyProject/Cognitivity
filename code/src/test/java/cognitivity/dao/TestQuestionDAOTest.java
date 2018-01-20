@@ -6,17 +6,20 @@ import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestManager;
 import cognitivity.entities.TestQuestion;
 import cognitivity.web.app.config.CognitivityMvcConfiguration;
+import config.IntegrationTestContextConfiguration;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { CognitivityMvcConfiguration.class})
+@SpringBootTest(classes = {IntegrationTestContextConfiguration.class})
 @Ignore("tests passing, but to run them there is a need of db")
 public class TestQuestionDAOTest extends AbstractDaoTestClass {
 
@@ -42,6 +45,11 @@ public class TestQuestionDAOTest extends AbstractDaoTestClass {
         testBlockDAO.add(testBlock);
         testQuestion = new TestQuestion("testQuestion", 0,
                 null, "testTag", testBlock, cognitiveTest, testManager, 0);
+    }
+
+    @After
+    public void clean(){
+        testManagerDAO.delete(testManager.getId());
     }
 
     /*
@@ -109,5 +117,6 @@ public class TestQuestionDAOTest extends AbstractDaoTestClass {
         testQuestionDAO.delete(testQuestion.getId());
         assertTrue("Test manager shouldn't have any questions yet",
                 testQuestionDAO.getTestQuestionsFromAManager(testManager).isEmpty());
+        testManagerDAO.delete(otherTestManager.getId());
     }
 }

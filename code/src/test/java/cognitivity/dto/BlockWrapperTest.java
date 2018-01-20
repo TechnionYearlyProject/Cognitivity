@@ -30,10 +30,10 @@ public class BlockWrapperTest {
         questions.add(question2);
 
         BlockWrapper empty = new BlockWrapper(block);
-        // assertEquals("Problem with block wrapper with empty list of questions", null, empty.getQuestions());
+        assertTrue("Problem with block wrapper with empty list of questions", empty.getQuestions().isEmpty());
 
         BlockWrapper empty2 = new BlockWrapper(5 ,true, "tag", test);
-        // assertEquals("Problem with block wrapper without list of questions", null, empty2.getQuestions());
+        assertTrue("Problem with block wrapper with empty list of questions", empty.getQuestions().isEmpty());
 
         BlockWrapper wrapper = new BlockWrapper(questions, block);
 
@@ -69,6 +69,12 @@ public class BlockWrapperTest {
 
         TestBlock testBlock = new TestBlock(10, false, "safdj", cognitiveTest);
         BlockWrapper constructorCheck = new BlockWrapper(emptyList, testBlock);
+        assertTrue(constructorCheck.getTag().equals("safdj"));
+
+        BlockWrapper lastConstructor = new BlockWrapper(emptyList,
+                1500, false, "mug", cognitiveTest);
+        assertTrue(lastConstructor.getNumberOfQuestions() == 1500);
+
 
     }
 
