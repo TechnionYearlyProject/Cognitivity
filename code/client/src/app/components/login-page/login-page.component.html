@@ -18,13 +18,16 @@
           </div>
           <div class="form-group">
             <label for="password">Password:</label>
-            <input type="password" class="form-control" [(ngModel)]="user.password" #password="ngModel" name="password" required minlength="8" autocomplete="off">
+            <input type="password" class="form-control" [(ngModel)]="user.password" #password="ngModel" name="password" required minlength="8" autocomplete="off" [pattern]="REGEX_PASSWORD_NO_SPACE">
             <div *ngIf="password.errors?.required && password.touched || (noPassword && !password.touched)" class="alert">
               Please enter your password!
             </div>
             <div *ngIf="password.errors?.minlength && password.touched" class="alert">
               Password must contain at least 8 characters
             </div>
+            <div *ngIf="password.errors?.pattern && password.touched" class="alert">
+                Password cannot contain spaces!
+              </div>
           </div>
           <br>
           <br>

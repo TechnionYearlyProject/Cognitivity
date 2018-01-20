@@ -30,6 +30,7 @@ export class LoginPageComponent implements OnInit {
   correctUser = true;
   //Regex for email
   REGEX_EMAIL_FORMAT_INPUT = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  REGEX_PASSWORD_NO_SPACE = /^\S*$/;
 
   //default constructor.
   constructor(private router: Router, private authService: AuthService) { }
