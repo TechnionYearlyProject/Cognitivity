@@ -107,14 +107,6 @@ public class CognitiveTestService {
      */
     public void deleteTestForTestManager(long testID) throws DBException {
         try {
-            List<BlockWrapper> blocks = findTestById(testID).getBlocks();
-            for (BlockWrapper block : blocks) {
-                List<TestQuestion> questions = block.getQuestions();
-                for (TestQuestion question : questions) {
-                    questionDAO.delete(question.getId());
-                }
-                blockDAO.delete(block.getId());
-            }
             dao.delete(testID);
         } catch (org.hibernate.HibernateException e) {
             throw new DBException(ErrorType.DELETE);
