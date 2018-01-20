@@ -37,39 +37,6 @@ export class DrillDownQuestionComponent implements OnInit {
   //default initialization function.
   ngOnInit() {
 
-    
-    /*this.question = {
-      questionText: 'Who was the first president of the United States of America?',
-      type: TypeQuestion.DrillDownQuestion,
-      answersForMain: [
-        'George Bush',
-        'Donald Trump',
-        'Bill Clinton',
-        'Hillary Clinton',
-        'None of the above'
-      ],
-      correctMainQuestion: 4,
-      secondaryQuestionsText: [
-        null,
-        'Does Donald Trump a president now?',
-        'What is the color of the hair of Bill Clinton?',
-        'In What year hillary Clinton lost to Donal Trump?',
-        null
-      ],
-      answersForSecondary: [
-        null,
-        ['Yes', 'No'],
-        ['Grey', 'Brown', 'Blue', 'Yellow', 'Red', 'He doesnt have hair'],
-        ['2014', '1990', '2012', '2017'],
-        null
-      ],
-      correctAnswerSecondary: [
-        0,
-        1,
-        3
-      ]
-
-    };*/
     this.markedAnswersMain = new Array<boolean>(this.question.answersForMain.length);
     for(let i = 0; i < this.question.answersForMain.length; i++){
       this.markedAnswersMain[i] = false;
@@ -77,7 +44,10 @@ export class DrillDownQuestionComponent implements OnInit {
 
 
   }
-
+  /*
+    A function that helps to align al buttom in the drop down bar according
+    to the largest string in the array
+  */
   generateHighestBox(answers: Array<string>): string{
     let max: number = -1;
     for(let i = 0; i < answers.length; i++){
@@ -90,6 +60,9 @@ export class DrillDownQuestionComponent implements OnInit {
     let returnedSize: string = (size.toString()) + 'px';
     return returnedSize;
   }
+  /*
+    The answer marks an answer for the main question
+  */
   markAnswerForMain(index: number){
     for(let i = 0; i < this.markedAnswersMain.length; i++){
       if(index == i){
@@ -123,7 +96,9 @@ export class DrillDownQuestionComponent implements OnInit {
 
     }
   }
-
+  /*
+    The function marks an answer for the secondary question
+  */
   markAnswerForSecondary(index: number){
     for(let i = 0; i < this.currentSecondaryAnswers.length; i++){
       if(i == index){

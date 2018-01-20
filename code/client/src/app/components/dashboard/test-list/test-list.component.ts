@@ -90,10 +90,28 @@ export class TestListComponent implements OnInit {
     }
   }
 
-  async copyTest(test) {
+  regex = /[\ ]*([A-Za-z0-9)(]+[\ ]*)+/;
 
+  async copyTest(test) {
+    let newName = prompt('Please enter a name for the test:');
+    if (newName == null || newName == '' || !this.regex.test(newName)) {
+      alert('A bad name. Please choose a name with only letters and numbers');
+      return;
+    }
+    let arr = this.regex.exec(newName);
+    if (arr[0] != newName) {
+      alert('A bad name. Please choose a name with only letters and numbers');
+      return;
+    }
+    console.log(newName.trim().replace(/\s\s+/g, ' '));
+    for (let test of this.testList) {
+      if (test.name.trim() == newName.trim().replace(/\s\s+/g, ' ')) {
+        alert('Name already taken!');
+        return;
+      }
+    }
     let newTest = JSON.parse(JSON.stringify(test));
-    newTest.name = test.name + ' (' + this.getNumberOfTestsWithSameName(test.name) + ')';
+    newTest.name = newName.trim().replace(/\s\s+/g, ' ');
     newTest.lastModified = Date.parse(new Date().toLocaleDateString());
     newTest.lastAnswered = null;
     console.log(await this.testService.saveCognitiveTest(newTest));

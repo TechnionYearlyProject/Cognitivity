@@ -7,8 +7,6 @@ import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestManager;
 import cognitivity.entities.TestQuestion;
-import cognitivity.services.CognitiveTestService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import config.IntegrationTestContextConfiguration;
 import org.junit.Before;
@@ -28,7 +26,6 @@ import java.util.stream.Stream;
 import static cognitivity.integration.TestManagerResourceIntegrationTest.deleteTestManager;
 import static cognitivity.integration.TestManagerResourceIntegrationTest.saveTestManager;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -40,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {IntegrationTestContextConfiguration.class})
-@Ignore
+//@Ignore
 public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegrationTest {
 
     @Autowired
@@ -136,7 +133,7 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
                         .andReturn().getResponse().getContentAsString(), TestWrapper.class).getId();
     }
 
-    private List<BlockWrapper> getNewBlockWrappers(){
+    private List<BlockWrapper> getNewBlockWrappers() {
         Random rand = new Random();
 //        manager = new TestManager("must have an email to get in the db");
 //        cognitiveTest = new CognitiveTest("Man's not hot", manager, 2, 2);
@@ -144,14 +141,14 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
         int numOfBlocks = 15;
         //random number of questions in each block
         int maxNumberOfQuestionsInBlock = 100;
-        TestBlock  testBlock[] = new TestBlock[numOfBlocks];
+        TestBlock testBlock[] = new TestBlock[numOfBlocks];
         List<TestQuestion> questionsPerBlock[] = new ArrayList[numOfBlocks];
         List<BlockWrapper> blockWrappers = new ArrayList<>();
-        for(int i = 0; i < numOfBlocks; i++){
+        for (int i = 0; i < numOfBlocks; i++) {
             testBlock[i] = new TestBlock(0, true, "pag" + i, cognitiveTest);
             questionsPerBlock[i] = new ArrayList<>();
             int numOfQuestions = rand.nextInt(maxNumberOfQuestionsInBlock);
-            for(int j = 0; j < numOfQuestions; j++){
+            for (int j = 0; j < numOfQuestions; j++) {
                 questionsPerBlock[i].add(new TestQuestion("q " + j, 12,
                         null, "test block " + i, testBlock[i],
                         cognitiveTest, manager, 0));
@@ -236,10 +233,10 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
 
         // And call to update...
         testId = String.valueOf(gson.fromJson(cognitiveTestMvc.perform((post("/tests/updateCognitiveTest"))
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(objectMapper.writeValueAsBytes(testWrapper)))
-                .andExpect(status().isOk())
-                .andReturn().getResponse().getContentAsString(),
+                        .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                        .content(objectMapper.writeValueAsBytes(testWrapper)))
+                        .andExpect(status().isOk())
+                        .andReturn().getResponse().getContentAsString(),
                 TestWrapper.class).getId());
 
         // Check if it was updated...
@@ -257,10 +254,10 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
 
         //update once again
         testId = String.valueOf(gson.fromJson(cognitiveTestMvc.perform((post("/tests/updateCognitiveTest"))
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(objectMapper.writeValueAsBytes(testWrapper)))
-                .andExpect(status().isOk())
-                .andReturn().getResponse().getContentAsString(),
+                        .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                        .content(objectMapper.writeValueAsBytes(testWrapper)))
+                        .andExpect(status().isOk())
+                        .andReturn().getResponse().getContentAsString(),
                 TestWrapper.class).getId());
 
         //check the result
@@ -270,12 +267,12 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8));
         System.out.println(updatedResult.toString());
         int blockIdx = 0;
-        for(BlockWrapper blockWrapper : blockWrappers){
+        for (BlockWrapper blockWrapper : blockWrappers) {
             updatedResult.andExpect(
                     jsonPath("$[0].blocks[" + blockIdx + "].tag",
                             is(blockWrapper.getTag())));
             int questionIdx = 0;
-            for(TestQuestion testQuestion : blockWrapper.getQuestions()){
+            for (TestQuestion testQuestion : blockWrapper.getQuestions()) {
                 updatedResult.andExpect(
                         jsonPath("$[0].blocks[" + blockIdx + "].questions[" + questionIdx + "].question",
                                 is(testQuestion.getQuestion())));

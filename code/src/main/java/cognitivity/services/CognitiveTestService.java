@@ -87,22 +87,13 @@ public class CognitiveTestService {
             // remove all the dependencies in the DB(questions and blocks that connected to the test)
             // we need to do it because we get only the blocks that will be in the updated test(faster then remove
             // all the existing ones manually)
+            System.out.println(test.innerTest().getId());
             dao.delete(test.innerTest().getId());
-            test.setId(dao.add(test.innerTest()));
-            if (test.getBlocks() != null) {
-                for (BlockWrapper block : test.getBlocks()) {
-                    block.setId(blockDAO.add(block.innerBlock(test.getId())));
-                        for (TestQuestion question : block.getQuestions()) {
-                            question.setCognitiveTest(test.innerTest());
-                            question.setTestBlock(block.innerBlock(test.getId()));
-                            questionDAO.add(question);
-                        }
-                }
-            }
+            return createTestForTestManager(test);
         } catch (org.hibernate.HibernateException e) {
             throw new DBException(ErrorType.UPDATE);
         }
-        return test;
+
     }
 
     /**

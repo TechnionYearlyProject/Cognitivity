@@ -104,6 +104,8 @@ export class CreateTestComponent implements OnInit {
     console.log('In delete');
     this.iterator.splice(index,1);
   }
+
+  regex = /[\ ]*([A-Za-z0-9)(]+[\ ]*)+/;
   /**
    * This function saves a test in the DB.
    * It iterates over all of the questions of all of the blocks 
@@ -116,6 +118,27 @@ export class CreateTestComponent implements OnInit {
     } else {
       this.noTitle = false;
     }
+
+    if (this.titleTest == null || this.titleTest == '' || !this.regex.test(this.titleTest)) {
+      alert('A bad name. Please choose a name with only letters and numbers');
+      return;
+    }
+    let arr = this.regex.exec(this.titleTest);
+    if (arr[0] != this.titleTest) {
+      alert('A bad name. Please choose a name with only letters and numbers');
+      return;
+    }
+    let testList = await this.testService.findTestsForTestManager(this.manager.id);
+    for (let test of testList) {
+      if (test.name.trim() == this.titleTest.trim().replace(/\s\s+/g, ' ')) {
+        alert('Name already taken!');
+        return;
+      }
+    }
+
+    
+
+
     let blocks = this.blocks.toArray();
     if (blocks.length == 0) {
       this.emptyTest = true;
