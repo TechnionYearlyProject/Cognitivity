@@ -102,7 +102,11 @@ export class CreateTestComponent implements OnInit {
     console.log('In delete');
     this.iterator.splice(index,1);
   }
-
+  /**
+   * This function saves a test in the DB.
+   * It iterates over all of the questions of all of the blocks 
+   * and collects them to a test object
+   */
   async saveTest() {
     let blocks = this.blocks.toArray();
     if (blocks.length == 0) {
