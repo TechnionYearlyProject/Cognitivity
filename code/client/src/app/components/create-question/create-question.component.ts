@@ -563,9 +563,10 @@ export class CreateQuestionComponent implements OnInit {
     Returns TRUE if the user have chosen position for his question, FALSE otherwise.
   */
   didChoseQuestionPosition():boolean{
-    return this.didChoseUpperLeft() || this.didChoseUpperMiddle() || this.didChoseUpperRight()||
-            this.didChoseMiddleLeft() || this.didChoseMiddleMiddle() || this.didChoseMiddleRight() ||
-            this.didChoseButtomLeft() || this.didChoseButtomMiddle() || this.didChoseButtomLeft();
+    let x = this.didChoseUpperLeft() || this.didChoseUpperMiddle() || this.didChoseUpperRight()||
+    this.didChoseMiddleLeft() || this.didChoseMiddleMiddle() || this.didChoseMiddleRight() ||
+    this.didChoseButtomLeft() || this.didChoseButtomMiddle() || this.didChoseButtomLeft() || this.didChoseButtomRight();
+    return x;
   }
 
   /*
