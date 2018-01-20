@@ -38,7 +38,7 @@ public class ControllerExceptionHandler {
      * @param e - The caught exception.
      * @return - null, indicating there is no result to the query.
      */
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @ExceptionHandler(EmptyResultDataAccessException.class)
     public String handleEmptyResultException(EmptyResultDataAccessException e){
         return null;
@@ -56,6 +56,6 @@ public class ControllerExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(RuntimeException.class)
     public String handleRuntimeException(RuntimeException e){
-        return "Runtime_ERR: "+e.getMessage();
+        return "Runtime_ERR: message is:"+e.getMessage()+".\n from class"+e.getClass();
     }
 }

@@ -18,11 +18,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.sql.Wrapper;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.WeakHashMap;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyByte;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
@@ -216,6 +219,43 @@ public class CognitiveTestServiceTest {
         questionService.deleteTestQuestion(19);
         questionService.deleteTestQuestion(20);
         questionService.deleteTestQuestion(21);
+
+
+        TestWrapper wrapper = new TestWrapper(cognitiveTest,wrappers);
+        for (BlockWrapper w : wrappers){
+            w.setQuestions(questions);
+        }
+
+        TestWrapper wrapperResult = service.createTestForTestManager(wrapper);
+        assertTrue("Problem with creating test wrapper with questions", wrapper != null);
+        List<BlockWrapper> testBlocks = wrapperResult.getBlocks();
+        for (BlockWrapper t : testBlocks) {
+            assertTrue("Getting unrelated blocks from the test wrappers", wrappers.contains(t));
+            List<TestQuestion> blockQuestions = t.getQuestions();
+            for (TestQuestion q : blockQuestions){
+                assertTrue("Problem with inserting the questions to the test wrapper", questions.contains(q));
+            }
+        }
+        for (BlockWrapper t : wrappers) {
+            assertTrue("Didn't get all the blocks from the test wrapper", testBlocks.contains(t));
+        }
+
+        wrapper.setName("What a lovely name!");
+        doReturn(blocks).when(dao).getTestBlocks(18L);
+        doReturn(questions).when(bdao).getAllBlockQuestions(12L);
+        doReturn(questions).when(bdao).getAllBlockQuestions(13L);
+        doReturn(questions).when(bdao).getAllBlockQuestions(14L);
+        doReturn(questions).when(bdao).getAllBlockQuestions(15L);
+        service.updateTestForTestManager(wrapper);
+        doReturn(wrapper.innerTest()).when(dao).get(18L);
+//        doReturn(wrappers).when(bdao).get
+        TestWrapper wrapper1 = service.findTestById(18L);
+        String resName = wrapper1.getName();
+        assertEquals("Problem with updating a test with questions","What a lovely name!",resName);
+
+
+
+
 
 
 
