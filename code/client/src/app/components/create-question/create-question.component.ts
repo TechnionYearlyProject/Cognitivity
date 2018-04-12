@@ -641,7 +641,7 @@ export class CreateQuestionComponent implements OnInit {
     Adding an answer for the question
   */
   addAnswer(){
-    if(this.answerTextForMultiple != null && this.answerTextForMultiple.length >= 2 && !this.isSpacePrefix(this.answerTextForMultiple)){
+    if(this.answerTextForMultiple != null && this.answerTextForMultiple.length >= 1 && !this.isSpacePrefix(this.answerTextForMultiple)){
       this.typedMultipleAnswer = false;
       this.answers.splice(this.answers.length, 0, this.answerTextForMultiple);
       this.markedAnswers.splice(this.markedAnswers.length, 0, false);
@@ -679,7 +679,7 @@ export class CreateQuestionComponent implements OnInit {
     Applies the edition of the answer
   */
   applyEdit(){
-    if(this.answerTextForMultiple != null && this.answerTextForMultiple.length >= 2 && !this.isSpacePrefix(this.answerTextForMultiple)){
+    if(this.answerTextForMultiple != null && this.answerTextForMultiple.length >= 1 && !this.isSpacePrefix(this.answerTextForMultiple)){
       this.answers.splice(this.indexAnswerInEdit, 1,  this.answerTextForMultiple)
       this.editionMode = false;
       this.indexAnswerInEdit = -1;
@@ -980,7 +980,7 @@ export class CreateQuestionComponent implements OnInit {
     The function adds an answer for the main question
   */
   addMainAnswer(){
-    if(this.currentMainAnswer != null && this.currentMainAnswer.length >= 2 && !this.isSpacePrefix(this.currentMainAnswer)){
+    if(this.currentMainAnswer != null && this.currentMainAnswer.length >= 1 && !this.isSpacePrefix(this.currentMainAnswer)){
       this.mainAnswers.splice(this.mainAnswers.length, 0, this.currentMainAnswer);
       this.markedMainCorrectAnswer.splice(this.markedMainCorrectAnswer.length, 0, false);
       this.currentMainAnswer = '';
@@ -1088,7 +1088,7 @@ export class CreateQuestionComponent implements OnInit {
     applies changes of an answer of the main question
   */
   applyEditMain(){
-    if(this.currentMainAnswer != null && this.currentMainAnswer.length >= 2 && !this.isSpacePrefix(this.currentMainAnswer)){
+    if(this.currentMainAnswer != null && this.currentMainAnswer.length >= 1 && !this.isSpacePrefix(this.currentMainAnswer)){
       this.mainAnswers.splice(this.indexAnswerInEditMain, 1,  this.currentMainAnswer)
       this.editionModeMain = false;
       this.indexAnswerInEditMain = -1;
@@ -1293,7 +1293,7 @@ export class CreateQuestionComponent implements OnInit {
     The function adds an answer to the secondary question
   */
   addSecondaryAnswer(){
-    if(this.currentSecondaryAnswer != null && this.currentSecondaryAnswer.length >= 2 && !this.isSpacePrefix(this.currentSecondaryAnswer)){
+    if(this.currentSecondaryAnswer != null && this.currentSecondaryAnswer.length >= 1 && !this.isSpacePrefix(this.currentSecondaryAnswer)){
       this.secondaryAnswers.splice(this.secondaryAnswers.length, 0, this.currentSecondaryAnswer);
       this.markedSecondaryCorrectAnswer.splice(this.markedSecondaryCorrectAnswer.length, 0, false);
       this.currentSecondaryAnswer = '';
@@ -1364,7 +1364,7 @@ export class CreateQuestionComponent implements OnInit {
     The function applies th changes of the edit mode in an answer of the seocndary question
   */
   applySecondaryEdit(){
-    if(this.currentSecondaryAnswer != null && this.currentSecondaryAnswer.length >= 2 && !this.isSpacePrefix(this.currentSecondaryAnswer)){
+    if(this.currentSecondaryAnswer != null && this.currentSecondaryAnswer.length >= 1 && !this.isSpacePrefix(this.currentSecondaryAnswer)){
       this.secondaryAnswers.splice(this.indexAnswerInEditSecondary, 1,  this.currentSecondaryAnswer)
       this.editionModeSecondary = false;
       this.indexAnswerInEditSecondary = -1;

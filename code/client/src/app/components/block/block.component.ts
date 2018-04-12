@@ -39,7 +39,7 @@ export class BlockComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       let question_object = this.transferData.getData();
       if(question_object != null){
-        this.questionList.splice(this.questionList.length, 0,{question: question_object, indexInBlock: this.questionList.length, id:''});  
+        this.questionList.splice(this.questionList.length, 0,{question: question_object, id:''});  
       }
       
     });
@@ -62,7 +62,6 @@ export class BlockComponent implements OnInit {
   moveMeUp(currentIndex) {
     if(currentIndex != 0){
       let removed = this.questionList.splice(currentIndex,1);
-      removed[0].indexInBlock--;
       this.questionList.splice(currentIndex - 1, 0, removed[0]);  
     }
     /*let arrayLastIndex = this.questionList.length - 1;
@@ -91,7 +90,6 @@ export class BlockComponent implements OnInit {
   moveMeDown(currentIndex) {
     if(currentIndex != this.questionList.length - 1){
       let removed = this.questionList.splice(currentIndex, 1);
-      removed[0].indexInBlock++
       this.questionList.splice(currentIndex + 1, 0 , removed[0]);
     }
  
@@ -128,7 +126,7 @@ export class BlockComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       let question_object = this.transferData.getData();
       if(question_object != null){
-        this.questionList.splice(index, 1,{question: question_object, indexInBlock: index, id:''});  
+        this.questionList.splice(index, 1,{question: question_object, id:''});  
       }
       
     });
