@@ -163,10 +163,33 @@ public class CognitiveTestService {
      * Find all cognitive test questions in a test.
      *
      * @param testId - The test Id.
-     * @return - All questions the test has.
+     * @return - All questions that the test has.
      */
     public List<TestQuestion> getTestQuestionsForTest(long testId) {
         return dao.getTestQuestions(testId);
     }
 
+    // TODO !
+
+    /**
+     * Method for getting all tests with a specific description in notes field.
+     *
+     * @param notes - The notes files filter.
+     * @return - All tests (wrapper) that their notes field contains the notes string parameter.
+     */
+    public List<TestWrapper> filterTestsByNotes(String notes) {
+        return null;
+    }
+
+    // TODO !
+
+    /**
+     * Method for getting all tests of a specific project.
+     *
+     * @param projectFilter - The project test filter.
+     * @return - All tests (wrapper) that their project field is the same as the projectFilter parameter.
+     */
+    public List<TestWrapper> filterTestsByProject(String projectFilter) {
+        return null;
+    }
 }

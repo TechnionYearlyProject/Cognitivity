@@ -12,12 +12,12 @@ import java.util.TimeZone;
  * The Cognitive Test persistent (JPA) representation (tables).
  *
  */
-
 @Entity
+// todo : change this to "test" table name ??
 @Table(name = "project")
 public class CognitiveTest extends AbstractEntity {
 
-    public CognitiveTest(String name, TestManager manager, Integer state, Integer numberOfQuestions) {
+	public CognitiveTest(String name, TestManager manager, Integer state, Integer numberOfQuestions, String notes, String project) {
 		this.name = name;
 		this.testManager = manager;
 		this.numberOfSubjects = 0;
@@ -26,12 +26,20 @@ public class CognitiveTest extends AbstractEntity {
 		this.lastAnswered = null;
 		this.numberOfFiledCopies = 0;
 		this.numberOfQuestions = numberOfQuestions;
+		this.notes = notes;
+		this.project = project;
 	}
 
 	public CognitiveTest() {}
 
 	@Column(name = "name")
     private String name;
+
+	@Column(name = "notes")
+	private String notes;
+
+	@Column(name = "project")
+	private String project;
 
     @ManyToOne
     @JoinColumn(name = "managerId", nullable = false)

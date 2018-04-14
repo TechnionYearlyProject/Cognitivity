@@ -1,8 +1,7 @@
 package cognitivity.controllers;
 
-import cognitivity.exceptions.DBException;
 import cognitivity.dto.TestWrapper;
-import cognitivity.exceptions.ErrorType;
+import cognitivity.exceptions.DBException;
 import cognitivity.services.CognitiveTestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,6 +45,39 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     public List<TestWrapper> findTestsForTestManager(
             @RequestParam(value = "managerId") long managerId) throws DBException {
         return service.findTestsForTestManager(managerId);
+    }
+
+    /**
+     * Method for getting all tests of a specific project.
+     * <p>
+     * Params are as in CognitiveTestService.
+     *
+     * @return - Cognitive test(s) of a project.
+     */
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.GET, value = "/filterTestsByProject")
+    public List<TestWrapper> filterTestsByProject(
+            @RequestParam(value = "project") String projectFilter) throws DBException {
+        return service.filterTestsByProject(projectFilter);
+    }
+
+
+    /**
+     * Method for getting all tests with a specific description in notes field.
+     * <p>
+     * Params are as in CognitiveTestService.
+     *
+     * @return - Cognitive test(s) with a description that <ul>contains</ul> the passed 'notes' string.
+     */
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.GET, value = "/filterTestsByNotes")
+    public List<TestWrapper> filterTestsByNotes(
+            @RequestParam(value = "notes") String notes) throws DBException {
+        return service.filterTestsByNotes(notes);
     }
 
 

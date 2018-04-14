@@ -1,3 +1,6 @@
+-- noinspection SqlNoDataSourceInspectionForFile
+
+-- noinspection SqlDialectInspectionForFile
 
 /*
 testManager table holds the information about the managers of the test.
@@ -39,13 +42,13 @@ Fields:
 /* need to change the name as well? in the code */
 CREATE TABLE test (id INTEGER PRIMARY KEY AUTO_INCREMENT,
   name TEXT,
-  //REMOVE:: numberOfSubjects INTEGER NOT NULL ,
-  //REMOVE:: state INT NOT NULL ,
-  //ADD:: notes TEXT,
-  //ADD:: project TEXT,
+  -- REMOVE:: numberOfSubjects INTEGER NOT NULL ,
+  -- REMOVE:: state INT NOT NULL ,
+  notes TEXT,
+  project TEXT,
   lastModified DATE NOT NULL ,
   lastAnswered DATE ,
-  //REMOVE:: numberOfFiledCopies INT NOT NULL ,
+  -- REMOVE:: numberOfFiledCopies INT NOT NULL ,
   numberOfQuestions INT NOT NULL ,
   managerId INT NOT NULL,
   FOREIGN KEY (managerId) REFERENCES testManager(id) ON DELETE CASCADE
@@ -81,12 +84,12 @@ rating question, free text question, multiple choice question, drill down questi
 */
 CREATE TABLE testQuestion(id INTEGER PRIMARY KEY AUTO_INCREMENT,
   question text NOT NULL,
-  //REMOVE:: tag text,
-  //REMOVE:: questionType INT NOT NULL,
-  //REMOVE:: answer text,
-  //REMOVE:: questionPosition INT,
+  -- REMOVE:: tag text,
+  -- REMOVE:: questionType INT NOT NULL,
+  -- REMOVE:: answer text,
+  -- REMOVE:: questionPosition INT,
   testManagerId INT NOT NULL,
-  projectId INT NOT NULL,
+  projectId INT NOT NULL, -- todo : change to testId?
   testBlockId INT NOT NULL,
   FOREIGN KEY (testManagerId) REFERENCES testManager(id) ON DELETE CASCADE,
   FOREIGN KEY (projectId) REFERENCES test(id) ON DELETE CASCADE,
@@ -112,17 +115,18 @@ Fields:
 @questionId - a reference to the question that was answered.
 */
 CREATE TABLE testAnswer(id INTEGER PRIMARY KEY AUTO_INCREMENT,
-  //REMOVE:: numberOfClick INTEGER NOT NULL ,
-  //REMOVE:: finalAnswer INTEGER,
-  //REMOVE:: questionPlacement INTEGER NOT NULL ,
-  //REMOVE:: answerPlacement INTEGER NOT NULL ,
-  //REMOVE:: verbalAnswer text,
-  //REMOVE:: questionWithPicture BOOLEAN NOT NULL ,
-  //REMOVE:: timeToAnswer INTEGER NOT NULL ,
-  //REMOVE:: timeMeasured BOOLEAN,
-  //REMOVE:: timeShowed BOOLEAN,
-  //REMOVE:: testeeExit BOOLEAN,
-  //ADD:: testeeAnswer text
+  -- REMOVE:: numberOfClick INTEGER NOT NULL ,
+  -- REMOVE:: finalAnswer INTEGER,
+  -- REMOVE:: questionPlacement INTEGER NOT NULL ,
+  -- REMOVE:: answerPlacement INTEGER NOT NULL ,
+  -- REMOVE:: verbalAnswer text,
+  -- REMOVE:: questionWithPicture BOOLEAN NOT NULL ,
+  -- REMOVE:: timeToAnswer INTEGER NOT NULL ,
+  -- REMOVE:: timeMeasured BOOLEAN,
+  -- REMOVE:: timeShowed BOOLEAN,
+  -- REMOVE:: testeeExit BOOLEAN,
+
+  -- ADD:: testeeAnswer text
   testeeId INTEGER NOT NULL,
   questionId INTEGER NOT NULL,
   projectId INTEGER NOT NULL ,

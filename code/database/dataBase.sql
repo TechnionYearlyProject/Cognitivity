@@ -1,3 +1,5 @@
+# noinspection SqlNoDataSourceInspectionForFile
+
 
 /*
 testManager table holds the information about the managers of the test.
@@ -5,8 +7,8 @@ Fields:
 @id - the main key for the table
 @email - the name of the test manager.
 */
-CREATE TABLE testManager(id INTEGER PRIMARY KEY AUTO_INCREMENT,
-  email VARCHAR(256) NOT NULL UNIQUE
+CREATE TABLE testManager(id    INTEGER PRIMARY KEY AUTO_INCREMENT,
+                         email VARCHAR(256) NOT NULL UNIQUE
 );
 
 /*
@@ -18,9 +20,9 @@ Fields:
 @browser - the type of the browser from which the test was answered.
 */
 CREATE TABLE testSubject(id INTEGER PRIMARY KEY AUTO_INCREMENT,
-  name text,
+  name      text,
   ipAddress text,
-  browser text
+  browser   text
 );
 
 /*
@@ -37,14 +39,14 @@ Fields:
 @managerId - a reference to the manager who works on this project
 */
 CREATE TABLE project (id INTEGER PRIMARY KEY AUTO_INCREMENT,
-  name text,
-  numberOfSubjects INTEGER NOT NULL ,
-  state INT NOT NULL ,
-  lastModified DATE NOT NULL ,
-  lastAnswered DATE ,
-  numberOfFiledCopies INT NOT NULL ,
-  numberOfQuestions INT NOT NULL ,
-  managerId INT NOT NULL,
+  name                text,
+  numberOfSubjects    INTEGER NOT NULL ,
+  state               INT     NOT NULL ,
+  lastModified        DATE    NOT NULL ,
+  lastAnswered        DATE ,
+  numberOfFiledCopies INT     NOT NULL ,
+  numberOfQuestions   INT     NOT NULL ,
+  managerId           INT     NOT NULL,
   FOREIGN KEY (managerId) REFERENCES testManager(id) ON DELETE CASCADE
 );
 
@@ -59,9 +61,9 @@ Fields:
  */
 CREATE TABLE testBlock(id INTEGER PRIMARY KEY AUTO_INCREMENT,
   numberOfQuestions INTEGER NOT NULL ,
-  randomize BOOLEAN,
-  tag text,
-  projectId INT NOT NULL,
+  randomize         BOOLEAN,
+  tag               text,
+  projectId         INT     NOT NULL,
   FOREIGN KEY (projectId) REFERENCES project(id) ON DELETE CASCADE
 );
 
@@ -77,14 +79,14 @@ rating question, free text question, multiple choice question, drill down questi
 @block - a reference to the block in which the question is found
 */
 CREATE TABLE testQuestion(id INTEGER PRIMARY KEY AUTO_INCREMENT,
-  question text NOT NULL ,
-  tag text ,
-  questionType INT NOT NULL,
-  answer text,
+  question         text NOT NULL ,
+  tag              text ,
+  questionType     INT  NOT NULL,
+  answer           text,
   questionPosition INT,
-  testManagerId INT NOT NULL,
-  projectId INT NOT NULL,
-  testBlockId INT NOT NULL,
+  testManagerId    INT  NOT NULL,
+  projectId        INT  NOT NULL,
+  testBlockId      INT  NOT NULL,
   FOREIGN KEY (testManagerId) REFERENCES testManager(id) ON DELETE CASCADE,
   FOREIGN KEY (projectId) REFERENCES project(id) ON DELETE CASCADE,
   FOREIGN KEY (testBlockId) REFERENCES testBlock(id) ON DELETE CASCADE
@@ -109,19 +111,19 @@ Fields:
 @questionId - a reference to the question that was answered.
 */
 CREATE TABLE testAnswer(id INTEGER PRIMARY KEY AUTO_INCREMENT,
-  numberOfClick INTEGER NOT NULL ,
-  finalAnswer INTEGER,
-  questionPlacement INTEGER NOT NULL ,
-  answerPlacement INTEGER NOT NULL ,
-  verbalAnswer text,
+  numberOfClick       INTEGER NOT NULL ,
+  finalAnswer         INTEGER,
+  questionPlacement   INTEGER NOT NULL ,
+  answerPlacement     INTEGER NOT NULL ,
+  verbalAnswer        text,
   questionWithPicture BOOLEAN NOT NULL ,
-  timeToAnswer INTEGER NOT NULL ,
-  timeMeasured BOOLEAN,
-  timeShowed BOOLEAN,
-  testeeExit BOOLEAN,
-  testeeId INTEGER NOT NULL,
-  questionId INTEGER NOT NULL,
-  projectId INTEGER NOT NULL ,
+  timeToAnswer        INTEGER NOT NULL ,
+  timeMeasured        BOOLEAN,
+  timeShowed          BOOLEAN,
+  testeeExit          BOOLEAN,
+  testeeId            INTEGER NOT NULL,
+  questionId          INTEGER NOT NULL,
+  projectId           INTEGER NOT NULL ,
   FOREIGN KEY (testeeId) REFERENCES testSubject(id) ON DELETE CASCADE,
   FOREIGN KEY (questionId) REFERENCES testQuestion(id) ON DELETE CASCADE,
   FOREIGN KEY (projectId) REFERENCES project(id) ON DELETE CASCADE
