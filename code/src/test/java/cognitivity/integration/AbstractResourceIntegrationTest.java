@@ -68,7 +68,7 @@ public class AbstractResourceIntegrationTest {
         cognitiveTest.setId(2L);
         TestBlock block = new TestBlock(1, true, "tag1", cognitiveTest);
         block.setId(3L);
-        TestQuestion testQuestion = new TestQuestion("q1", 1, "a1", "tag1", block, cognitiveTest, testManager, 1);
+        TestQuestion testQuestion = new TestQuestion("q1", block, cognitiveTest, testManager);
         testQuestion.setId(id);
         return testQuestion;
     }
@@ -86,7 +86,7 @@ public class AbstractResourceIntegrationTest {
     }
 
     public static CognitiveTest createCognitiveTest(TestManager manager) {
-        return new CognitiveTest("test", manager, 1, 2, "notes", "project");
+        return new CognitiveTest("test", manager, 2, "notes", "project");
     }
 
     protected WebTestClient client;

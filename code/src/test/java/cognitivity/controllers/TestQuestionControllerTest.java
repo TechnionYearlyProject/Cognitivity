@@ -63,23 +63,8 @@ public class TestQuestionControllerTest implements RestControllerTest {
     private TestQuestion mockTestQuestion() {
         return new TestQuestion() {
             @Override
-            public String getAnswer() {
-                return "hey ophir";
-            }
-
-            @Override
-            public Integer getQuestionType() {
-                return 11;
-            }
-
-            @Override
             public String getQuestion() {
                 return "question_text";
-            }
-
-            @Override
-            public String getTag() {
-                return "tag";
             }
         };
     }
@@ -94,10 +79,7 @@ public class TestQuestionControllerTest implements RestControllerTest {
                 .param("testId", "1234"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$[0].questionType", is(testQuestion.getQuestionType())))
-                .andExpect(jsonPath("$[0].question", is(testQuestion.getQuestion())))
-                .andExpect(jsonPath("$[0].answer", is(testQuestion.getAnswer())))
-                .andExpect(jsonPath("$[0].tag", is(testQuestion.getTag())));
+                .andExpect(jsonPath("$[0].question", is(testQuestion.getQuestion())));
 
         Mockito.verify(questionService, times(1)).findAllTestQuestionsFromTestId(1234);
         Mockito.verifyNoMoreInteractions(questionService);
@@ -113,10 +95,7 @@ public class TestQuestionControllerTest implements RestControllerTest {
                 .param("testQuestionId", "1234"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$.questionType", is(testQuestion.getQuestionType())))
-                .andExpect(jsonPath("$.question", is(testQuestion.getQuestion())))
-                .andExpect(jsonPath("$.answer", is(testQuestion.getAnswer())))
-                .andExpect(jsonPath("$.tag", is(testQuestion.getTag())));
+                .andExpect(jsonPath("$.question", is(testQuestion.getQuestion())));
 
         Mockito.verify(questionService, times(1)).findTestQuestionById(1234L);
         Mockito.verifyNoMoreInteractions(questionService);
@@ -132,10 +111,7 @@ public class TestQuestionControllerTest implements RestControllerTest {
                 .param("testId", "-1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$[0].questionType", is(testQuestion.getQuestionType())))
-                .andExpect(jsonPath("$[0].question", is(testQuestion.getQuestion())))
-                .andExpect(jsonPath("$[0].answer", is(testQuestion.getAnswer())))
-                .andExpect(jsonPath("$[0].tag", is(testQuestion.getTag())));
+                .andExpect(jsonPath("$[0].question", is(testQuestion.getQuestion())));
 
         Mockito.verify(questionService, times(1)).findAllTestQuestionsFromManagerId(12345);
         Mockito.verifyNoMoreInteractions(questionService);

@@ -35,22 +35,6 @@ public class TestWrapper {
         this.testManager = testManager;
     }
 
-    public Integer getNumberOfSubjects() {
-        return numberOfSubjects;
-    }
-
-    public void setNumberOfSubjects(Integer numberOfSubjects) {
-        this.numberOfSubjects = numberOfSubjects;
-    }
-
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
-    }
-
     public Date getLastModified() {
         return lastModified;
     }
@@ -65,14 +49,6 @@ public class TestWrapper {
 
     public void setLastAnswered(Date lastAnswered) {
         this.lastAnswered = lastAnswered;
-    }
-
-    public Integer getNumberOfFiledCopies() {
-        return numberOfFiledCopies;
-    }
-
-    public void setNumberOfFiledCopies(Integer numberOfFiledCopies) {
-        this.numberOfFiledCopies = numberOfFiledCopies;
     }
 
     public Integer getNumberOfQuestions() {
@@ -95,11 +71,8 @@ public class TestWrapper {
     private Long id;
     private String name;
     private TestManager testManager;
-    private Integer numberOfSubjects;
-    private Integer state;
     private Date lastModified;
     private Date lastAnswered;
-    private Integer numberOfFiledCopies;
     private Integer numberOfQuestions;
     private String notes;
     private String project;
@@ -117,10 +90,7 @@ public class TestWrapper {
         this.lastModified = test.getLastModified();
         this.testManager = test.getManager();
         this.name = test.getName();
-        this.numberOfFiledCopies = test.getNumberOfFiledCopies();
         this.numberOfQuestions = test.getNumberOfQuestions();
-        this.numberOfSubjects = test.getNumberOfSubjects();
-        this.state = test.getState();
         this.notes = test.getNotes();
         this.project = test.getProject();
 
@@ -135,21 +105,16 @@ public class TestWrapper {
         this.lastModified = test.getLastModified();
         this.testManager = test.getManager();
         this.name = test.getName();
-        this.numberOfFiledCopies = test.getNumberOfFiledCopies();
         this.numberOfQuestions = test.getNumberOfQuestions();
-        this.numberOfSubjects = test.getNumberOfSubjects();
-        this.state = test.getState();
 
         this.blocks = new ArrayList<>();
     }
 
     public CognitiveTest innerTest() {
-        CognitiveTest cognitiveTest = new CognitiveTest(name, testManager, state, numberOfQuestions, notes, project);
+        CognitiveTest cognitiveTest = new CognitiveTest(name, testManager, numberOfQuestions, notes, project);
         cognitiveTest.setId(id);
         cognitiveTest.setLastAnswered(lastAnswered);
         cognitiveTest.setLastModified(lastModified);
-        cognitiveTest.setNumberOfFiledCopies(numberOfFiledCopies);
-        cognitiveTest.setNumberOfSubjects(numberOfSubjects);
 
         return cognitiveTest;
     }

@@ -13,15 +13,6 @@ public class TestQuestion extends AbstractEntity {
     @Column(name = "question", nullable = false)
     private String question;
 
-    @Column(name = "questionType", nullable = false)
-    private Integer questionType;
-
-    @Column(name = "answer")
-    private String answer;
-
-    @Column(name = "tag")
-	private String tag;
-
 	@ManyToOne
 	@JoinColumn(name = "testBlockId", nullable = false)
 	private TestBlock testBlock;
@@ -42,40 +33,15 @@ public class TestQuestion extends AbstractEntity {
 	@JoinColumn(name = "testManagerId")
 	private TestManager testManager;
 
-	@Column(name = "questionPosition")
-	private Integer questionPosition;
-
-    public TestQuestion(String question, Integer questionType,
-                        String answer, String tag, TestBlock testBlock,
-                        CognitiveTest cognitiveTest, TestManager testManager,
-                        Integer questionPosition) {
+    public TestQuestion(String question, TestBlock testBlock,
+                        CognitiveTest cognitiveTest, TestManager testManager) {
         this.question = question;
-        this.questionType = questionType;
-        this.answer = answer;
-        this.tag = tag;
         this.testBlock = testBlock;
         this.cognitiveTest = cognitiveTest;
         this.testManager = testManager;
-        this.questionPosition = questionPosition;
     }
 
     public TestQuestion() {}
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
-
-    public Integer getQuestionPosition() {
-        return questionPosition;
-    }
-
-    public void setQuestionPosition(Integer questionPosition) {
-        this.questionPosition = questionPosition;
-    }
 
     /**
 	* Returns value of question
@@ -93,36 +59,12 @@ public class TestQuestion extends AbstractEntity {
 		this.question = question;
 	}
 
-	/**
-	* Returns value of questionType
-	* @return
-	*/
-	public Integer getQuestionType() {
-		return questionType;
-	}
-
-	/**
-	* Sets new value of questionType
-	* @param
-	*/
-	public void setQuestionType(Integer questionType) {
-		this.questionType = questionType;
-	}
-
 	public TestBlock getTestBlock() {
 		return testBlock;
 	}
 
 	public void setTestBlock(TestBlock block) {
 		this.testBlock = block;
-	}
-
-	public String getTag(){
-		return tag;
-	}
-
-	public void setTag(String tag) {
-		this.tag = tag;
 	}
 
 	public CognitiveTest getCognitiveTest() {

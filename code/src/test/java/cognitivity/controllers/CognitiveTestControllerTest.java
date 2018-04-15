@@ -61,17 +61,17 @@ public class CognitiveTestControllerTest implements RestControllerTest {
         Assert.assertThat(controller, CoreMatchers.notNullValue());
     }
 
-    private static CognitiveTest buildTest(String ct, String email, int s, int nq) {
+    private static CognitiveTest buildTest(String ct, String email, int nq) {
         TestManager tm = new TestManager(email);
-        CognitiveTest cognitiveTest = new CognitiveTest(ct, tm, s, nq, "notes", "project");
+        CognitiveTest cognitiveTest = new CognitiveTest(ct, tm, nq, "notes", "project");
         cognitiveTest.setId(1L);
         return cognitiveTest;
     }
 
     @Test
     public void findTestsForTestManagerReturnsListOfTests() throws Exception {
-        TestWrapper cognitiveTest1 = new TestWrapper(buildTest("ct1", "em1", 1, 1));
-        TestWrapper cognitiveTest2 = new TestWrapper(buildTest("ct2", "em2", 2, 2));
+        TestWrapper cognitiveTest1 = new TestWrapper(buildTest("ct1", "em1", 1));
+        TestWrapper cognitiveTest2 = new TestWrapper(buildTest("ct2", "em2", 2));
 
         Mockito.when(cognitiveTestServiceMock.findTestsForTestManager(Matchers.anyLong())).thenReturn(Arrays.asList(cognitiveTest1, cognitiveTest2));
 
@@ -95,7 +95,7 @@ public class CognitiveTestControllerTest implements RestControllerTest {
     @Test
     public void saveCognitiveTestCallsServiceWithCorrectParams() throws Exception {
         TestManager tm = new TestManager("email");
-        CognitiveTest cognitiveTest = new CognitiveTest("test", tm, 11, 30, "notes", "project");
+        CognitiveTest cognitiveTest = new CognitiveTest("test", tm, 30, "notes", "project");
         cognitiveTest.setId(1L);
 
         // createTestForTestManager is a http POST request
@@ -111,7 +111,7 @@ public class CognitiveTestControllerTest implements RestControllerTest {
 
     @Test
     public void updateCognitiveTestCallsServiceWithCorrectParams() throws Exception {
-        CognitiveTest test = buildTest("test", "email", 12, 41);
+        CognitiveTest test = buildTest("test", "email", 41);
 
         // updateCognitiveTest is a http POST request
         mockMvc.perform(post("/tests/updateCognitiveTest")

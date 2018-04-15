@@ -12,18 +12,15 @@ import static cognitivity.entities.TestBlockTest.createTestBlock;
 public class TestQuestionTest {
 
     public static TestQuestion createTestQuestion() {
-        return new TestQuestion("q", 1, "5", "tag", createTestBlock(), createCognitiveTest(), createTestManager(), 0);
+        return new TestQuestion("q", createTestBlock(), createCognitiveTest(), createTestManager());
     }
 
     @Test
     public void gettersSettersTest() {
         TestQuestion testQuestion = createTestQuestion();
-        testQuestion.setAnswer(testQuestion.getAnswer());
         testQuestion.setTestBlock(testQuestion.getTestBlock());
         testQuestion.setCognitiveTest(testQuestion.getCognitiveTest());
         testQuestion.setQuestion(testQuestion.getQuestion());
-        testQuestion.setTag(testQuestion.getTag());
-        testQuestion.setQuestionType(testQuestion.getQuestionType());
         testQuestion.setTestManager(testQuestion.getTestManager());
     }
 }

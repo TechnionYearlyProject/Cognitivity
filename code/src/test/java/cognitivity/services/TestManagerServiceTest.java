@@ -69,7 +69,7 @@ public class TestManagerServiceTest {
 
         assertNotNull("Problem with creating a test manager", manager);
 
-        CognitiveTest test = new CognitiveTest("test1", manager, 1, 0, "notes", "project");
+        CognitiveTest test = new CognitiveTest("test1", manager, 0, "notes", "project");
 
         doReturn(manager).when(dao).get(Long.valueOf(1));
         TestManager result = service.findTestManager(1);
@@ -94,9 +94,9 @@ public class TestManagerServiceTest {
         assertEquals("Problem with finding a manager by a test", result,manager);
 
 
-        CognitiveTest test1 = new CognitiveTest("test13", manager, 1, 0, "notes", "project");
-        CognitiveTest test2 = new CognitiveTest("test14", manager, 1, 0, "notes", "project");
-        CognitiveTest test3 = new CognitiveTest("test13", manager, 1, 0, "notes", "project");
+        CognitiveTest test1 = new CognitiveTest("test13", manager, 0, "notes", "project");
+        CognitiveTest test2 = new CognitiveTest("test14", manager, 0, "notes", "project");
+        CognitiveTest test3 = new CognitiveTest("test13", manager, 0, "notes", "project");
 
         List<CognitiveTest> tests = new ArrayList<CognitiveTest>();
         tests.add(test);

@@ -76,7 +76,7 @@ public class QuestionServiceTest {
         TestManagerService managerService = new TestManagerService(testManagerDAO, cognitiveTestDAO);
 
         TestManager manager = new TestManager("lkljl");
-        CognitiveTest cognitiveTest = new CognitiveTest("test1", manager, 1, 100, "notes", "project");
+        CognitiveTest cognitiveTest = new CognitiveTest("test1", manager, 100, "notes", "project");
         TestWrapper testWrapper = new TestWrapper(cognitiveTest);
         TestWrapper test = new TestWrapper();
         try {
@@ -87,7 +87,7 @@ public class QuestionServiceTest {
         BlockWrapper block = new BlockWrapper(5, true, "Taggy tag", cognitiveTest);
 
 
-        TestQuestion start = new TestQuestion("What is the meaning of life?", 1,"None, it's meaningless", "Unanswered questions", block.innerBlock(1), cognitiveTest, manager, 0);
+        TestQuestion start = new TestQuestion("What is the meaning of life?", block.innerBlock(1), cognitiveTest, manager);
         TestQuestion question = service.createTestQuestion(start);
 
         assertNotNull("Problem with creating a test question", question);
@@ -97,22 +97,22 @@ public class QuestionServiceTest {
 
         assertEquals("Problem with getting a test question by ID", question, result);
 
-        question.setAnswer("Now there is!");
+        question.setQuestion("Now there is!");
 
         service.updateTestQuestion(question);
 
         result = service.findQuestionById(1);
-        String numericAnswer = result.getAnswer();
+        String numericAnswer = result.getQuestion();
 
         assertEquals("Problem with updating the question", "Now there is!", numericAnswer);
 
         BlockWrapper block2 = blockService.createTestBlock(2, true, "Togos", cognitiveTest);
 
-        TestQuestion question1 = new TestQuestion("Who moved my cheese?", 5, "HE!", "Critical for life", block.innerBlock(11), cognitiveTest, manager, 0);
+        TestQuestion question1 = new TestQuestion("Who moved my cheese?", block.innerBlock(11), cognitiveTest, manager);
         service.createTestQuestion(question1);
-        TestQuestion question2 = new TestQuestion("Who framed Roger Rabbit?", 1, "The monorail!", "Movie questions", block2.innerBlock(1), cognitiveTest, manager, 0);
+        TestQuestion question2 = new TestQuestion("Who framed Roger Rabbit?", block2.innerBlock(1), cognitiveTest, manager);
         service.createTestQuestion(question2);
-        TestQuestion question3 = new TestQuestion("Question! Question?", 1, "Answer? Answer!", "What?! Who?!", block2.innerBlock(1), cognitiveTest, manager, 0);
+        TestQuestion question3 = new TestQuestion("Question! Question?", block2.innerBlock(1), cognitiveTest, manager);
         service.createTestQuestion(question3);
 
         List<TestQuestion> questions = new ArrayList<>();
@@ -130,7 +130,7 @@ public class QuestionServiceTest {
             assertTrue("Didn't get all the questions from the test", questions1.contains(t));
         }
 
-        CognitiveTest cognitiveTest1 = new CognitiveTest("test1", manager, 1, 100, "notes", "project");
+        CognitiveTest cognitiveTest1 = new CognitiveTest("test1", manager, 100, "notes", "project");
         TestWrapper testWrapper1 = new TestWrapper(cognitiveTest1);
         TestWrapper test2 = new TestWrapper();
         try {
@@ -139,11 +139,11 @@ public class QuestionServiceTest {
 
         }
 
-        TestQuestion question4 = new TestQuestion("Who moved my cheese?", 5, "The cat", "Critical for life", block.innerBlock(1), cognitiveTest1, manager, 0);
+        TestQuestion question4 = new TestQuestion("Who moved my cheese?", block.innerBlock(1), cognitiveTest1, manager);
         service.createTestQuestion(question4);
-        TestQuestion question5 = new TestQuestion("Who framed Roger Rabbit?", 1, "rail", "Movie questions", block2.innerBlock(1), cognitiveTest1, manager, 0);
+        TestQuestion question5 = new TestQuestion("Who framed Roger Rabbit?", block2.innerBlock(1), cognitiveTest1, manager);
         service.createTestQuestion(question5);
-        TestQuestion question6 = new TestQuestion("Question! Question?", 1, "!", "What?! Who?!", block2.innerBlock(1), cognitiveTest1, manager, 0);
+        TestQuestion question6 = new TestQuestion("Question! Question?", block2.innerBlock(1), cognitiveTest1, manager);
         service.createTestQuestion(question6);
         questions.add(question4);
         questions.add(question5);
@@ -163,17 +163,13 @@ public class QuestionServiceTest {
         TestSubject testSubject = new TestSubject("Timothy k miller", "Pip", "Safchrome");
         TestSubject subject = subjectService.createTestSubject(testSubject);
 
-        TestAnswer answer = new TestAnswer(subject, question, cognitiveTest, 52, 43, 2, 3, "Bla is bla", true, 52,
-                false, false, true);
+        TestAnswer answer = new TestAnswer(subject, question, cognitiveTest, "Bla is bla");
         answerService.addTestAnswerForTestQuestion(answer);
-        TestAnswer answer1 = new TestAnswer(subject, question, cognitiveTest, 52, 43, 2, 3, "Bla is bla", true, 52,
-                false, false, true);
+        TestAnswer answer1 = new TestAnswer(subject, question, cognitiveTest, "Bla is bla");
         answerService.addTestAnswerForTestQuestion(answer1);
-        TestAnswer answer2 = new TestAnswer(subject, question, cognitiveTest, 52, 43, 2, 3, "Bla is bla", true, 52,
-                false, false, true);
+        TestAnswer answer2 = new TestAnswer(subject, question, cognitiveTest, "Bla is bla");
         answerService.addTestAnswerForTestQuestion(answer2);
-        TestAnswer answer3 = new TestAnswer(subject, question, cognitiveTest, 52, 43, 2, 3, "Bla is bla", true, 52,
-                false, false, true);
+        TestAnswer answer3 = new TestAnswer(subject, question, cognitiveTest, "Bla is bla");
         answerService.addTestAnswerForTestQuestion(answer3);
 
         List<TestAnswer> answers = new ArrayList<TestAnswer>();

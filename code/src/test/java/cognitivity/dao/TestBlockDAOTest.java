@@ -39,7 +39,7 @@ public class TestBlockDAOTest extends AbstractDaoTestClass {
         testManager =
                 new TestManager("onlyForTests TestManager");
         testManagerDAO.add(testManager);
-        cognitiveTest = new CognitiveTest("onlyForTests", testManager, 0, 1, "notes", "project");
+        cognitiveTest = new CognitiveTest("onlyForTests", testManager, 1, "notes", "project");
         cognitiveTestDAO.add(cognitiveTest);
         testBlock = new TestBlock(0,false, "testTag", cognitiveTest);
     }
@@ -89,10 +89,8 @@ public class TestBlockDAOTest extends AbstractDaoTestClass {
         int numberOfQuestions = 1000;
         TestQuestion questions[] = new TestQuestion[numberOfQuestions];
         for(int i = 0; i < numberOfQuestions; i++){
-            questions[i] = new TestQuestion("question " + i, 5,
-                    "dont ask", "papao", testBlock,
-                    cognitiveTest, testManager,
-                    3);
+            questions[i] = new TestQuestion("question " + i, testBlock,
+                    cognitiveTest, testManager);
             testQuestionDAO.add(questions[i]);
             questionsList = testBlockDAO.getAllBlockQuestions(testBlock.getId());
             assertTrue("block should be empty", questionsList.contains(questions[i]));

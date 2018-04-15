@@ -79,21 +79,20 @@ public class TestAnswerServiceTest {
         TestAnswerService service = new TestAnswerService(dao,sdao);
 
         TestManager manager = new TestManager("mail");
-        CognitiveTest test = new CognitiveTest("Sifratiyot", manager, 2, 1, "notes", "project");
+        CognitiveTest test = new CognitiveTest("Sifratiyot", manager, 1, "notes", "project");
         test.setId(3L);
-        CognitiveTest test2 = new CognitiveTest("jhfkasjhfkajdfak", manager, 2, 1, "notes", "project");
+        CognitiveTest test2 = new CognitiveTest("jhfkasjhfkajdfak", manager, 1, "notes", "project");
         BlockWrapper block = new BlockWrapper(1, false, "tagiity tag", test);
         block.setId(4L);
         TestSubject subject = new TestSubject("Rick", "ip", "Ahla dafdefan");
-        TestQuestion question = new TestQuestion("Who the f&$# builds a stonehenge?", 4, "No one knows",
-                "Questions we will never answer", block.innerBlock(test.getId()), test, manager, 0);
+        TestQuestion question = new TestQuestion("Who the f&$# builds a stonehenge?", block.innerBlock(test.getId()),
+                test, manager);
         questionService.createTestQuestion(question);
-        TestQuestion question1 = new TestQuestion("Who ate my sandwich?", 4, "Joey",
-                "Questions we will never answer", block.innerBlock(test.getId()), test2, manager, 0);
+        TestQuestion question1 = new TestQuestion("Who ate my sandwich?", block.innerBlock(test.getId()), test2,
+                manager);
         questionService.createTestQuestion(question1);
 
-        TestAnswer answer = new TestAnswer(subject, question, test, 2, 1, 1, 2,
-                "None!", false, 43, false, false, true);
+        TestAnswer answer = new TestAnswer(subject, question, test, "None!");
         service.addTestAnswerForTestQuestion(answer);
 
         assertNotNull("Problem with creating a test answer", answer);
@@ -103,22 +102,19 @@ public class TestAnswerServiceTest {
 
         assertEquals("Problem with getting an answer by Id", result, answer);
 
-        answer.setNumberOfClick(5);
+        answer.setFinalAnswer("5");
         service.updateTestAnswerForQuestion(answer);
 
         result = service.findTestAnswerById(1);
-        int numericResult = result.getNumberOfClick();
-        assertEquals("Problem with updating a question", 5, numericResult);
+        String res = result.getFinalAnswer();
+        assertTrue("Problem with updating a question", "5".equals(res));
 
 
-        TestAnswer answer1 = new TestAnswer(subject, question, test, 2, 1, 1, 2,
-                "Yodel", false, 43, false, false, true);
+        TestAnswer answer1 = new TestAnswer(subject, question, test, "Yodel");
         service.addTestAnswerForTestQuestion(answer1);
-        TestAnswer answer2 = new TestAnswer(subject, question, test, 2, 1, 1, 2,
-                "Operah", false, 43, false, false, true);
+        TestAnswer answer2 = new TestAnswer(subject, question, test, "Operah");
         service.addTestAnswerForTestQuestion(answer2);
-        TestAnswer answer3 = new TestAnswer(subject, question, test, 2, 1, 1, 2,
-                "Windows", false, 43, false, false, true);
+        TestAnswer answer3 = new TestAnswer(subject, question, test, "Windows");
         service.addTestAnswerForTestQuestion(answer3);
 
         List<TestAnswer> answers = new ArrayList<TestAnswer>();
@@ -136,14 +132,12 @@ public class TestAnswerServiceTest {
             assertTrue("Didn't get all the answers for a specific question", answerList.contains(t));
         }
 
-        TestAnswer answer4 = new TestAnswer(subject, question1, test2, 2, 1, 1, 2,
-                "Snape killed Dumbeldore", false, 43, false, false, true);
+        TestAnswer answer4 = new TestAnswer(subject, question1, test2, "Snape killed Dumbeldore");
         service.addTestAnswerForTestQuestion(answer4);
-        TestAnswer answer5 = new TestAnswer(subject, question1, test2, 2, 1, 1, 2,
-                "Bruce willis is dead on the 6th sense", false, 43, false, false, true);
+        TestAnswer answer5 = new TestAnswer(subject, question1, test2, "Bruce willis is dead on the 6th sense");
         service.addTestAnswerForTestQuestion(answer5);
-        TestAnswer answer6 = new TestAnswer(subject, question1, test2, 2, 1, 1, 2,
-                "Brad Pit and Edward Norton are the same guy on Fight club", false, 43, false, false, true);
+        TestAnswer answer6 = new TestAnswer(subject, question1, test2,
+                "Brad Pit and Edward Norton are the same guy on Fight club");
         service.addTestAnswerForTestQuestion(answer6);
 
 

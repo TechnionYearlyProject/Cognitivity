@@ -13,18 +13,14 @@ import java.util.TimeZone;
  *
  */
 @Entity
-// todo : change this to "test" table name ??
-@Table(name = "project")
+@Table(name = "test")
 public class CognitiveTest extends AbstractEntity {
 
-	public CognitiveTest(String name, TestManager manager, Integer state, Integer numberOfQuestions, String notes, String project) {
+	public CognitiveTest(String name, TestManager manager, Integer numberOfQuestions, String notes, String project) {
 		this.name = name;
 		this.testManager = manager;
-		this.numberOfSubjects = 0;
-		this.state = state;
 		this.lastModified = new Date(Calendar.getInstance(TimeZone.getTimeZone("Asia/Jerusalem")).getTimeInMillis());
 		this.lastAnswered = null;
-		this.numberOfFiledCopies = 0;
 		this.numberOfQuestions = numberOfQuestions;
 		this.notes = notes;
 		this.project = project;
@@ -46,20 +42,11 @@ public class CognitiveTest extends AbstractEntity {
     @JsonIgnore
     private TestManager testManager;
 
-    @Column(name = "numberOfSubjects", nullable = false)
-    private Integer numberOfSubjects;
-
-    @Column(name = "state", nullable = false)
-    private Integer state;
-
     @Column(name = "lastModified", nullable = false)
     private Date lastModified;
 
     @Column(name = "lastAnswered")
     private Date lastAnswered;
-
-    @Column(name = "numberOfFiledCopies", nullable = false)
-    private Integer numberOfFiledCopies;
 
     @Column(name = "numberOfQuestions", nullable = false)
     private Integer numberOfQuestions;
@@ -98,38 +85,6 @@ public class CognitiveTest extends AbstractEntity {
 	}
 
 	/**
-	* Returns value of numberOfTestees
-	* @return
-	*/
-	public Integer getNumberOfSubjects() {
-		return numberOfSubjects;
-	}
-
-	/**
-	* Sets new value of numberOfTestees
-	* @param
-	*/
-	public void setNumberOfSubjects(Integer numberOfSubjects) {
-		this.numberOfSubjects = numberOfSubjects;
-	}
-
-	/**
-	* Returns value of state
-	* @return
-	*/
-	public Integer getState() {
-		return state;
-	}
-
-	/**
-	* Sets new value of state
-	* @param
-	*/
-	public void setState(Integer state) {
-		this.state = state;
-	}
-
-	/**
 	* Returns value of lastModified
 	* @return
 	*/
@@ -159,22 +114,6 @@ public class CognitiveTest extends AbstractEntity {
 	*/
 	public void setLastAnswered(Date lastAnswered) {
 		this.lastAnswered = lastAnswered;
-	}
-
-	/**
-	* Returns value of numberOfFiledCopies
-	* @return
-	*/
-	public Integer getNumberOfFiledCopies() {
-		return numberOfFiledCopies;
-	}
-
-	/**
-	* Sets new value of numberOfFiledCopies
-	* @param
-	*/
-	public void setNumberOfFiledCopies(Integer numberOfFiledCopies) {
-		this.numberOfFiledCopies = numberOfFiledCopies;
 	}
 
 	/**

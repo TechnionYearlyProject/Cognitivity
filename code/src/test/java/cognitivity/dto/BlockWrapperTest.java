@@ -58,7 +58,7 @@ public class BlockWrapperTest {
         assertTrue(wrapper.getTag().equals("hello world"));
 
         TestManager testManager = new TestManager("a;lkjflsa");
-        CognitiveTest cognitiveTest = new CognitiveTest("hey cognitive", testManager, 1, 10, "notes", "project");
+        CognitiveTest cognitiveTest = new CognitiveTest("hey cognitive", testManager, 10, "notes", "project");
         cognitiveTest.setId(15L);
         wrapper.setCognitiveTest(cognitiveTest);
         assertTrue(wrapper.getCognitiveTest().getId() == 15L);

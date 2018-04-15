@@ -82,7 +82,7 @@ public class CognitiveTestServiceTest {
 
         CognitiveTestService service = new CognitiveTestService(dao, bdao, qdao);
 
-        CognitiveTest cognitiveTest = new CognitiveTest("test1", manager, 1, 2, "notes", "project");
+        CognitiveTest cognitiveTest = new CognitiveTest("test1", manager, 2, "notes", "project");
         cognitiveTest.setId(7L);
         TestWrapper testWrapper = new TestWrapper(cognitiveTest);
         TestWrapper test = new TestWrapper();
@@ -95,13 +95,13 @@ public class CognitiveTestServiceTest {
         doReturn(test.innerTest()).when(dao).get(7L);
         assertNotNull("Problem in making test", cognitiveTest);
 
-        CognitiveTest test1 = new CognitiveTest("Man's not hot", manager, 2, 2, "notes", "project");
+        CognitiveTest test1 = new CognitiveTest("Man's not hot", manager, 2, "notes", "project");
         test1.setId(8L);
-        CognitiveTest test2 = new CognitiveTest("Two plus two is", manager, 4, 6, "notes", "project");
+        CognitiveTest test2 = new CognitiveTest("Two plus two is", manager, 6, "notes", "project");
         test2.setId(9L);
-        CognitiveTest test3 = new CognitiveTest("Minus 0ne that's", manager, 3, 10, "notes", "project");
+        CognitiveTest test3 = new CognitiveTest("Minus 0ne that's", manager, 10, "notes", "project");
         test3.setId(10L);
-        CognitiveTest test4 = new CognitiveTest("Quick maths!", manager, 3, 17, "notes", "project");
+        CognitiveTest test4 = new CognitiveTest("Quick maths!", manager, 17, "notes", "project");
         test4.setId(11L);
 
         TestBlockService blockService = new TestBlockService(bdao);
@@ -182,11 +182,11 @@ public class CognitiveTestServiceTest {
 
         QuestionService questionService = new QuestionService(qdao, adao, dao, mdao);
 
-        TestQuestion question1 = new TestQuestion("question1", 1, "5", "bla", block1.innerBlock(test.getId()), cognitiveTest, manager, 0);
+        TestQuestion question1 = new TestQuestion("question1", block1.innerBlock(test.getId()), cognitiveTest, manager);
         questionService.createTestQuestion(question1);
-        TestQuestion question2 = new TestQuestion("question2", 1, "5", "bla2", block2.innerBlock(test.getId()), cognitiveTest, manager, 0);
+        TestQuestion question2 = new TestQuestion("question2", block2.innerBlock(test.getId()), cognitiveTest, manager);
         questionService.createTestQuestion(question2);
-        TestQuestion question3 = new TestQuestion("question3", 1, "5", "bla3", block3.innerBlock(test.getId()), cognitiveTest, manager, 0);
+        TestQuestion question3 = new TestQuestion("question3", block3.innerBlock(test.getId()), cognitiveTest, manager);
         questionService.createTestQuestion(question3);
 
         List<TestQuestion> questions = new ArrayList<TestQuestion>();

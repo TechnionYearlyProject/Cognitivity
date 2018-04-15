@@ -67,7 +67,7 @@ public class TestBlockServiceTest {
         TestManagerService managerService = new TestManagerService(mdao,tdao);
 
         TestManager manager = new TestManager("Mail e mail");
-        CognitiveTest test = new CognitiveTest("YYY Eize Ra'ash. Shiyo", manager, 2, 1, "notes", "project");
+        CognitiveTest test = new CognitiveTest("YYY Eize Ra'ash. Shiyo", manager, 1, "notes", "project");
         test.setId(2L);
         BlockWrapper block = service.createTestBlock(1,true,"EZ",test);
          assertNotNull("Problem with creating a test block", block);
