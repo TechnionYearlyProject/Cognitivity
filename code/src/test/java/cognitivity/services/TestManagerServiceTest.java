@@ -6,7 +6,6 @@ import cognitivity.dao.TestManagerDAO;
 import cognitivity.dao.TestQuestionDAO;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
-import cognitivity.entities.TestQuestion;
 import cognitivity.web.app.config.HibernateBeanConfiguration;
 import config.TestContextBeanConfiguration;
 import org.junit.Before;
@@ -70,7 +69,7 @@ public class TestManagerServiceTest {
 
         assertNotNull("Problem with creating a test manager", manager);
 
-        CognitiveTest test = new CognitiveTest("test1", manager, 1, 0);
+        CognitiveTest test = new CognitiveTest("test1", manager, 1, 0, "notes", "project");
 
         doReturn(manager).when(dao).get(Long.valueOf(1));
         TestManager result = service.findTestManager(1);
@@ -95,9 +94,9 @@ public class TestManagerServiceTest {
         assertEquals("Problem with finding a manager by a test", result,manager);
 
 
-        CognitiveTest test1 = new CognitiveTest("test13", manager, 1, 0);
-        CognitiveTest test2 = new CognitiveTest("test14", manager, 1, 0);
-        CognitiveTest test3 = new CognitiveTest("test13", manager, 1, 0);
+        CognitiveTest test1 = new CognitiveTest("test13", manager, 1, 0, "notes", "project");
+        CognitiveTest test2 = new CognitiveTest("test14", manager, 1, 0, "notes", "project");
+        CognitiveTest test3 = new CognitiveTest("test13", manager, 1, 0, "notes", "project");
 
         List<CognitiveTest> tests = new ArrayList<CognitiveTest>();
         tests.add(test);

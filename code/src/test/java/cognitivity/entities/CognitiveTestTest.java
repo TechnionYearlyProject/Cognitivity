@@ -21,7 +21,7 @@ public class CognitiveTestTest {
 
         // in the application, when we push item to the db, hibernate allocats the id
         testManager.setId(managerId);
-        return new CognitiveTest("testName", testManager, 3, 10);
+        return new CognitiveTest("testName", testManager, 3, 10, "notes", "project");
     }
 
     @Test

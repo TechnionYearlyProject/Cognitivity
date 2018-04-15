@@ -6,7 +6,6 @@ import cognitivity.entities.TestManager;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 
@@ -102,6 +101,8 @@ public class TestWrapper {
     private Date lastAnswered;
     private Integer numberOfFiledCopies;
     private Integer numberOfQuestions;
+    private String notes;
+    private String project;
 
     private List<BlockWrapper> blocks;
 
@@ -120,6 +121,8 @@ public class TestWrapper {
         this.numberOfQuestions = test.getNumberOfQuestions();
         this.numberOfSubjects = test.getNumberOfSubjects();
         this.state = test.getState();
+        this.notes = test.getNotes();
+        this.project = test.getProject();
 
         this.blocks = blocks;
     }
@@ -141,7 +144,7 @@ public class TestWrapper {
     }
 
     public CognitiveTest innerTest() {
-        CognitiveTest cognitiveTest = new CognitiveTest(name, testManager, state, numberOfQuestions);
+        CognitiveTest cognitiveTest = new CognitiveTest(name, testManager, state, numberOfQuestions, notes, project);
         cognitiveTest.setId(id);
         cognitiveTest.setLastAnswered(lastAnswered);
         cognitiveTest.setLastModified(lastModified);

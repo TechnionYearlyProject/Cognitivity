@@ -2,7 +2,6 @@ package cognitivity.dao;
 
 
 import cognitivity.entities.*;
-import cognitivity.web.app.config.CognitivityMvcConfiguration;
 import config.IntegrationTestContextConfiguration;
 import org.junit.After;
 import org.junit.Before;
@@ -10,7 +9,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.*;
@@ -34,7 +32,7 @@ public class TestSubjectDAOTest extends AbstractDaoTestClass {
         testAnswers = new TestAnswer[numOfSubjects][numOfAnswersPerSubject];
         testManager = new TestManager("qertyt      ");
         testManagerDAO.add(testManager);
-        cognitiveTest = new CognitiveTest("newTest", testManager,0,0);
+        cognitiveTest = new CognitiveTest("newTest", testManager, 0, 0, "notes", "project");
         cognitiveTestDAO.add(cognitiveTest);
         testBlock = new TestBlock(0, true, "tag", cognitiveTest);
         testBlockDAO.add(testBlock);

@@ -192,4 +192,12 @@ public class CognitiveTest extends AbstractEntity {
 	public void setNumberOfQuestions(Integer numberOfQuestions) {
 		this.numberOfQuestions = numberOfQuestions;
 	}
+
+	public String getNotes() {
+		return notes;
+	}
+
+	public String getProject() {
+		return project;
+	}
 }

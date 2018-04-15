@@ -18,17 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.sql.Wrapper;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.WeakHashMap;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyByte;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class})
@@ -87,7 +82,7 @@ public class CognitiveTestServiceTest {
 
         CognitiveTestService service = new CognitiveTestService(dao, bdao, qdao);
 
-        CognitiveTest cognitiveTest = new CognitiveTest("test1", manager, 1, 2);
+        CognitiveTest cognitiveTest = new CognitiveTest("test1", manager, 1, 2, "notes", "project");
         cognitiveTest.setId(7L);
         TestWrapper testWrapper = new TestWrapper(cognitiveTest);
         TestWrapper test = new TestWrapper();
@@ -100,13 +95,13 @@ public class CognitiveTestServiceTest {
         doReturn(test.innerTest()).when(dao).get(7L);
         assertNotNull("Problem in making test", cognitiveTest);
 
-        CognitiveTest test1 = new CognitiveTest("Man's not hot", manager, 2, 2);
+        CognitiveTest test1 = new CognitiveTest("Man's not hot", manager, 2, 2, "notes", "project");
         test1.setId(8L);
-        CognitiveTest test2 = new CognitiveTest("Two plus two is", manager, 4, 6);
+        CognitiveTest test2 = new CognitiveTest("Two plus two is", manager, 4, 6, "notes", "project");
         test2.setId(9L);
-        CognitiveTest test3 = new CognitiveTest("Minus 0ne that's", manager, 3, 10);
+        CognitiveTest test3 = new CognitiveTest("Minus 0ne that's", manager, 3, 10, "notes", "project");
         test3.setId(10L);
-        CognitiveTest test4 = new CognitiveTest("Quick maths!", manager, 3, 17);
+        CognitiveTest test4 = new CognitiveTest("Quick maths!", manager, 3, 17, "notes", "project");
         test4.setId(11L);
 
         TestBlockService blockService = new TestBlockService(bdao);

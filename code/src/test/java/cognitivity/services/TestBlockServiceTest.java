@@ -5,7 +5,10 @@ import cognitivity.dao.TestBlockDAO;
 import cognitivity.dao.TestManagerDAO;
 import cognitivity.dao.TestQuestionDAO;
 import cognitivity.dto.BlockWrapper;
-import cognitivity.entities.*;
+import cognitivity.entities.CognitiveTest;
+import cognitivity.entities.TestBlock;
+import cognitivity.entities.TestManager;
+import cognitivity.entities.TestQuestion;
 import cognitivity.web.app.config.HibernateBeanConfiguration;
 import config.TestContextBeanConfiguration;
 import org.junit.Before;
@@ -19,12 +22,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyBoolean;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 
@@ -67,7 +67,7 @@ public class TestBlockServiceTest {
         TestManagerService managerService = new TestManagerService(mdao,tdao);
 
         TestManager manager = new TestManager("Mail e mail");
-        CognitiveTest test = new CognitiveTest("YYY Eize Ra'ash. Shiyo", manager, 2, 1);
+        CognitiveTest test = new CognitiveTest("YYY Eize Ra'ash. Shiyo", manager, 2, 1, "notes", "project");
         test.setId(2L);
         BlockWrapper block = service.createTestBlock(1,true,"EZ",test);
          assertNotNull("Problem with creating a test block", block);

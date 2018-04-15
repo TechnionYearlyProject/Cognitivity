@@ -1,11 +1,10 @@
 package cognitivity.services;
 
-import cognitivity.exceptions.DBException;
 import cognitivity.dao.*;
 import cognitivity.dto.BlockWrapper;
 import cognitivity.dto.TestWrapper;
 import cognitivity.entities.*;
-import cognitivity.exceptions.ErrorType;
+import cognitivity.exceptions.DBException;
 import cognitivity.web.app.config.HibernateBeanConfiguration;
 import config.TestContextBeanConfiguration;
 import org.junit.Before;
@@ -77,7 +76,7 @@ public class QuestionServiceTest {
         TestManagerService managerService = new TestManagerService(testManagerDAO, cognitiveTestDAO);
 
         TestManager manager = new TestManager("lkljl");
-        CognitiveTest cognitiveTest = new CognitiveTest("test1", manager, 1, 100);
+        CognitiveTest cognitiveTest = new CognitiveTest("test1", manager, 1, 100, "notes", "project");
         TestWrapper testWrapper = new TestWrapper(cognitiveTest);
         TestWrapper test = new TestWrapper();
         try {
@@ -131,7 +130,7 @@ public class QuestionServiceTest {
             assertTrue("Didn't get all the questions from the test", questions1.contains(t));
         }
 
-        CognitiveTest cognitiveTest1 = new CognitiveTest("test1", manager, 1, 100);
+        CognitiveTest cognitiveTest1 = new CognitiveTest("test1", manager, 1, 100, "notes", "project");
         TestWrapper testWrapper1 = new TestWrapper(cognitiveTest1);
         TestWrapper test2 = new TestWrapper();
         try {

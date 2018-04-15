@@ -5,7 +5,6 @@ import cognitivity.dto.TestWrapper;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
 import cognitivity.services.CognitiveTestService;
-import cognitivity.web.app.config.HibernateBeanConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import config.TestContextBeanConfiguration;
 import org.hamcrest.CoreMatchers;
@@ -64,7 +63,7 @@ public class CognitiveTestControllerTest implements RestControllerTest {
 
     private static CognitiveTest buildTest(String ct, String email, int s, int nq) {
         TestManager tm = new TestManager(email);
-        CognitiveTest cognitiveTest = new CognitiveTest(ct, tm, s, nq);
+        CognitiveTest cognitiveTest = new CognitiveTest(ct, tm, s, nq, "notes", "project");
         cognitiveTest.setId(1L);
         return cognitiveTest;
     }
@@ -96,7 +95,7 @@ public class CognitiveTestControllerTest implements RestControllerTest {
     @Test
     public void saveCognitiveTestCallsServiceWithCorrectParams() throws Exception {
         TestManager tm = new TestManager("email");
-        CognitiveTest cognitiveTest = new CognitiveTest("test", tm, 11, 30);
+        CognitiveTest cognitiveTest = new CognitiveTest("test", tm, 11, 30, "notes", "project");
         cognitiveTest.setId(1L);
 
         // createTestForTestManager is a http POST request

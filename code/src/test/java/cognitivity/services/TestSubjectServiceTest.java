@@ -102,7 +102,7 @@ public class TestSubjectServiceTest {
         assertEquals("Problem with updating a test subject", "Tor",result.getBrowser());
 
         TestManager manager = new TestManager("Yo!!!!!!!!!!!!1");
-        CognitiveTest test = new CognitiveTest("test", manager, 1, 0);
+        CognitiveTest test = new CognitiveTest("test", manager, 1, 0, "notes", "project");
         test.setId(9L);
         BlockWrapper block = new BlockWrapper();
         try {

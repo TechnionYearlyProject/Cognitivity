@@ -86,7 +86,7 @@ public class AbstractResourceIntegrationTest {
     }
 
     public static CognitiveTest createCognitiveTest(TestManager manager) {
-        return new CognitiveTest("test", manager, 1, 2);
+        return new CognitiveTest("test", manager, 1, 2, "notes", "project");
     }
 
     protected WebTestClient client;

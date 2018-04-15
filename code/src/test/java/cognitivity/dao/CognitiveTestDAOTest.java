@@ -4,20 +4,14 @@ import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestManager;
 import cognitivity.entities.TestQuestion;
-import cognitivity.web.app.config.CognitivityMvcConfiguration;
-import cognitivity.web.app.config.HibernateBeanConfiguration;
 import config.IntegrationTestContextConfiguration;
-import config.TestContextBeanConfiguration;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -54,7 +48,7 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
             testManagerDAO.add(testManagers[i]);
             for (int j = 0; j < numOfTestsPerManager; j++) {
                 cognitiveTestsPerManager[i][j] = new CognitiveTest("Test" + i + j,
-                        testManagers[i], 1, 0);
+                        testManagers[i], 1, 0, "notes", "project");
             }
         }
 

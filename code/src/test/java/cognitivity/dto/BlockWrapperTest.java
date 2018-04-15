@@ -9,7 +9,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 
 public class BlockWrapperTest {
@@ -58,7 +58,7 @@ public class BlockWrapperTest {
         assertTrue(wrapper.getTag().equals("hello world"));
 
         TestManager testManager = new TestManager("a;lkjflsa");
-        CognitiveTest cognitiveTest = new CognitiveTest("hey cognitive", testManager, 1, 10);
+        CognitiveTest cognitiveTest = new CognitiveTest("hey cognitive", testManager, 1, 10, "notes", "project");
         cognitiveTest.setId(15L);
         wrapper.setCognitiveTest(cognitiveTest);
         assertTrue(wrapper.getCognitiveTest().getId() == 15L);

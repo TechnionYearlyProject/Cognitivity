@@ -79,9 +79,9 @@ public class TestAnswerServiceTest {
         TestAnswerService service = new TestAnswerService(dao,sdao);
 
         TestManager manager = new TestManager("mail");
-        CognitiveTest test = new CognitiveTest("Sifratiyot", manager, 2, 1);
+        CognitiveTest test = new CognitiveTest("Sifratiyot", manager, 2, 1, "notes", "project");
         test.setId(3L);
-        CognitiveTest test2 = new CognitiveTest("jhfkasjhfkajdfak", manager, 2, 1);
+        CognitiveTest test2 = new CognitiveTest("jhfkasjhfkajdfak", manager, 2, 1, "notes", "project");
         BlockWrapper block = new BlockWrapper(1, false, "tagiity tag", test);
         block.setId(4L);
         TestSubject subject = new TestSubject("Rick", "ip", "Ahla dafdefan");

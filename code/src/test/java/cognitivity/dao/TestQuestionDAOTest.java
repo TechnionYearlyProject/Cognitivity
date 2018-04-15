@@ -5,7 +5,6 @@ import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestManager;
 import cognitivity.entities.TestQuestion;
-import cognitivity.web.app.config.CognitivityMvcConfiguration;
 import config.IntegrationTestContextConfiguration;
 import org.junit.After;
 import org.junit.Before;
@@ -13,7 +12,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.*;
@@ -39,7 +37,7 @@ public class TestQuestionDAOTest extends AbstractDaoTestClass {
                 new TestManager("onlyForTests TestManagernotarealpassword");
         testManagerDAO.add(testManager);
         CognitiveTest cognitiveTest =
-                new CognitiveTest("onlyForTests", testManager, 1, 0);
+                new CognitiveTest("onlyForTests", testManager, 1, 0, "notes", "project");
         cognitiveTestDAO.add(cognitiveTest);
         TestBlock testBlock = new TestBlock(0,false, "testTag", cognitiveTest);
         testBlockDAO.add(testBlock);
