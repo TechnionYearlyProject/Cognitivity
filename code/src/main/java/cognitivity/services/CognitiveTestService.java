@@ -189,7 +189,5 @@ public class CognitiveTestService {
      * @param projectFilter - The project test filter.
      * @return - All tests (wrapper) that their project field is the same as the projectFilter parameter.
      */
-    public List<TestWrapper> filterTestsByProject(String projectFilter) {
-        return null;
-    }
+    public List<TestWrapper> filterTestsByProject(String projectFilter) { return null; }
 }

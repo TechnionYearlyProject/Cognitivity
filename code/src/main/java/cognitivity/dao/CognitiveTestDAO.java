@@ -37,7 +37,7 @@ public interface CognitiveTestDAO {
     public List<TestBlock> getTestBlocks(long testId);
 
     /**
-     * Get all tests a given test manager has created.
+     * Returns all the tests that a given test manager has created.
      *
      * @param managerId - The manager Id whose tests we are looking for.
      *
@@ -45,4 +45,17 @@ public interface CognitiveTestDAO {
      */
     public List<CognitiveTest> getCognitiveTestOfManager(long managerId);
 
+    /**
+     * Returns all the tests that have certain substring in the notes
+     * @param notes - The substring to search
+     * @return - A list of all cognitive tests by the notes
+     */
+    public List<CognitiveTest> filterTestsByNotes(String notes);
+
+    /**
+     * Returns all the tests that have certain substring in the projectFilter
+     * @param projectFilter - The substring to search
+     * @return - A list of all cognitive tests by the projectFilter
+     */
+    public List<CognitiveTest> filterTestsByProject(String projectFilter);
 }

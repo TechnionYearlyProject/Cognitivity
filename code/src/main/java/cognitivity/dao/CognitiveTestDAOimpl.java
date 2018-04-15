@@ -55,4 +55,34 @@ public class CognitiveTestDAOimpl extends AbstractDAO<CognitiveTest> implements 
         List<CognitiveTest> res = query.getResultList();
         return res;
     }
+
+
+    //TODO: add tests
+    /**
+     * Helper function for implementing the filter by string functions
+     * @param columnName - The name of the column to filter By
+     * @param filter - The required substring
+     * @return all the CognitiveTest which uphold filter is substring of
+     * CognitiveTest.columnName
+     */
+    private List<CognitiveTest> filterByString(String columnName, String filter){
+        Session session = sessionFactory.getCurrentSession();
+        String queryString = "from CognitiveTest T where T." + columnName + " = :filter";
+        Query<CognitiveTest> query = session.createQuery(queryString, CognitiveTest.class);
+        query.setParameter("filter", "%" + filter + "%");
+        List<CognitiveTest> res = query.getResultList();
+        return res;
+    }
+
+    //TODO: add tests
+    @Transactional(readOnly = true)
+    public List<CognitiveTest> filterTestsByProject(String projectFilter){
+        return filterByString("project", projectFilter);
+    }
+
+    //TODO: add tests
+    @Transactional(readOnly = true)
+    public List<CognitiveTest> filterTestsByNotes(String notes){
+        return filterByString("notes", notes);
+    }
 }
