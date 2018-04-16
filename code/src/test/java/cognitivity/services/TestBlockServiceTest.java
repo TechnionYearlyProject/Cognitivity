@@ -72,33 +72,11 @@ public class TestBlockServiceTest {
         BlockWrapper block = service.createTestBlock(1,true,"EZ",test);
          assertNotNull("Problem with creating a test block", block);
 
-        /*TestQuestion question = new TestQuestion("To be or not to be?", 5, "BBB",
-                "Famous questions", block, test, manager, 0);
-        TestQuestion question1 = new TestQuestion("Who let the dogs out", 5, "who who whow how",
-                "Questions from songs", block, test, manager, 0);
-        TestQuestion question2 = new TestQuestion("Scoobie doobie doo!", 5, "Woof",
-                "Famous questions", block, test, manager, 0);*/
 
         List<TestQuestion> questions = new ArrayList<TestQuestion>();
 
-        /*questions.add(question);
-        questions.add(question1);
-        questions.add(question2);*/
-
-
-
-        // doReturn(block).when(dao).get(1L);
         service.findBlockById(1);
 
-        // assertEquals("Problem with getting a block", result, block);
-
-        /* block.setNumberOfQuestions(7);
-        service.updateTestBlock(block);*/
-
-        // result = service.findBlockById(1);
-        // int numericAnswer = result.getNumberOfQuestions();
-
-        // assertEquals("Problem with updating a block", numericAnswer, 7);
 
         doReturn(questions).when(dao).getAllBlockQuestions(1);
         List<TestQuestion> questions1 = service.findAllBlockQuestions(1);

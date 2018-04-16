@@ -78,7 +78,7 @@ public class CognitiveTestService {
      * @param test - The cognitive test to be updated.
      *             <p>
      *             This will be used in conjunction with the PUT HTTP method.
-     * @Returns the new allocated id for the test
+     * @Return the new allocated id for the test
      *
      */
     public TestWrapper updateTestForTestManager(TestWrapper test) throws DBException {
@@ -169,7 +169,6 @@ public class CognitiveTestService {
         return dao.getTestQuestions(testId);
     }
 
-    // TODO !
 
     /**
      * Method for getting all tests with a specific description in notes field.
@@ -178,10 +177,9 @@ public class CognitiveTestService {
      * @return - All tests (wrapper) that their notes field contains the notes string parameter.
      */
     public List<CognitiveTest> filterTestsByNotes(String notes) {
-        return null;
+        return dao.filterTestsByNotes(notes);
     }
 
-    // TODO !
 
     /**
      * Method for getting all tests of a specific project.
@@ -190,7 +188,7 @@ public class CognitiveTestService {
      * @return - All tests that their project field is the same as the projectFilter parameter.
      */
     public List<CognitiveTest> filterTestsByProject(String projectFilter) {
-        return null;
+        return dao.filterTestsByProject(projectFilter);
     }
 
 
@@ -200,9 +198,8 @@ public class CognitiveTestService {
      * @param managerId - id of the manager the request is build on.
      * @return - All tests that their manager has the id (param) without the questions (no wrapper)
      */
-    // TODO
     public List<CognitiveTest> findTestsForTestManagerWithoutQuestions(long managerId) {
-        return null;
+        return dao.findTestsForTestManagerWithoutQuestions(managerId);
     }
 
     /**
@@ -214,8 +211,9 @@ public class CognitiveTestService {
      *               by the findTestsForTestManagerWithoutQuestions (new) method.
      * @return - test wrapper with all questions and blocks, as described above.
      */
-    // TODO
     public TestWrapper findCognitiveTestById(long testId) {
-        return null;
+        CognitiveTest test = dao.get(testId);
+        List<BlockWrapper> blocks = getTestBlocksForTest(testId);
+        return new TestWrapper(test,blocks);
     }
 }

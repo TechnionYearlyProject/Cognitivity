@@ -53,7 +53,7 @@ public class TestBlockService {
      */
     //TODO:Do we use this method? It doesn't work properly as it's currently written
     public void findBlockById(long Id) {
-//        List<TestQuestion> questions = dao.getAllBlockQuestions(Id);
+        List<TestQuestion> questions = dao.getAllBlockQuestions(Id);
     }
 
     /**

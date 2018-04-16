@@ -243,14 +243,9 @@ public class CognitiveTestServiceTest {
         doReturn(questions).when(bdao).getAllBlockQuestions(15L);
         service.updateTestForTestManager(wrapper);
         doReturn(wrapper.innerTest()).when(dao).get(18L);
-//        doReturn(wrappers).when(bdao).get
         TestWrapper wrapper1 = service.findTestById(18L);
         String resName = wrapper1.getName();
         assertEquals("Problem with updating a test with questions","What a lovely name!",resName);
-
-
-
-
 
 
 

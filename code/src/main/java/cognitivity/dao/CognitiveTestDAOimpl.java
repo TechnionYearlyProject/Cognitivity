@@ -85,4 +85,9 @@ public class CognitiveTestDAOimpl extends AbstractDAO<CognitiveTest> implements 
     public List<CognitiveTest> filterTestsByNotes(String notes){
         return filterByString("notes", notes);
     }
+
+    //TODO
+    public List<CognitiveTest> findTestsForTestManagerWithoutQuestions(long managerId){
+        return null;
+    }
 }
