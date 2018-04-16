@@ -105,7 +105,7 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
                 TestWrapper.class).getId());
 
         // Test is saved. Try find it in the database...
-        cognitiveTestMvc.perform((get("/tests/findTestsForTestManager"))
+        cognitiveTestMvc.perform((get("/tests/findTestsForTestManagerWithoutQuestions"))
                 .param("managerId", String.valueOf(managerId)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
@@ -172,7 +172,7 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
         String testId = String.valueOf(saveCognitiveTest(testWrapper, objectMapper, cognitiveTestMvc));
 
         // Test is saved. Try find it in the database...
-        cognitiveTestMvc.perform((get("/tests/findTestsForTestManager"))
+        cognitiveTestMvc.perform((get("/tests/findTestsForTestManagerWithoutQuestions"))
                 .param("managerId", String.valueOf(managerId)))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -220,7 +220,7 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
                 TestWrapper.class).getId());
 
         // Test is saved. Try find it in the database...
-        cognitiveTestMvc.perform((get("/tests/findTestsForTestManager"))
+        cognitiveTestMvc.perform((get("/tests/findTestsForTestManagerWithoutQuestions"))
                 .param("managerId", String.valueOf(managerId)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8));
@@ -260,7 +260,7 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
                 TestWrapper.class).getId());
 
         //check the result
-        ResultActions updatedResult = cognitiveTestMvc.perform((get("/tests/findTestsForTestManager"))
+        ResultActions updatedResult = cognitiveTestMvc.perform((get("/tests/findTestsForTestManagerWithoutQuestions"))
                 .param("managerId", String.valueOf(managerId)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8));

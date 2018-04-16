@@ -35,22 +35,6 @@ public class TestWrapper {
         this.testManager = testManager;
     }
 
-    public Date getLastModified() {
-        return lastModified;
-    }
-
-    public void setLastModified(Date lastModified) {
-        this.lastModified = lastModified;
-    }
-
-    public Date getLastAnswered() {
-        return lastAnswered;
-    }
-
-    public void setLastAnswered(Date lastAnswered) {
-        this.lastAnswered = lastAnswered;
-    }
-
     public Integer getNumberOfQuestions() {
         return numberOfQuestions;
     }
@@ -97,8 +81,6 @@ public class TestWrapper {
         this.blocks = blocks;
     }
 
-    //TODO: This might cause a problem, the test wrapper ID MUSt be similar to the test ID/
-    //TODO: However, For a newly created test, there is no Id to fetch.
     public TestWrapper(CognitiveTest test) {
         this.id = test.getId();
         this.lastAnswered = test.getLastAnswered();
@@ -106,6 +88,8 @@ public class TestWrapper {
         this.testManager = test.getManager();
         this.name = test.getName();
         this.numberOfQuestions = test.getNumberOfQuestions();
+        this.notes = test.getNotes();
+        this.project = test.getProject();
 
         this.blocks = new ArrayList<>();
     }

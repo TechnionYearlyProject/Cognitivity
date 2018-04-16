@@ -1,6 +1,7 @@
 package cognitivity.controllers;
 
 import cognitivity.dto.TestWrapper;
+import cognitivity.entities.CognitiveTest;
 import cognitivity.exceptions.DBException;
 import cognitivity.services.CognitiveTestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +42,26 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
 
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET, value = "/findTestsForTestManager")
-    public List<TestWrapper> findTestsForTestManager(
+    @RequestMapping(method = RequestMethod.GET, value = "/findCognitiveTestById")
+    public TestWrapper findCognitiveTestById(
+            @RequestParam(value = "testId") long testId) throws DBException {
+        return service.findCognitiveTestById(testId);
+    }
+
+    /**
+     * Method for searching for all cognitive tests of a manager without fetching the questions.
+     * <p>
+     * Params are as in CognitiveTestService.
+     *
+     * @return - Cognitive test(s) for the test manager.
+     */
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.GET, value = "/findTestsForTestManagerWithoutQuestions")
+    public List<CognitiveTest> findTestsForTestManagerWithoutQuestions(
             @RequestParam(value = "managerId") long managerId) throws DBException {
-        return service.findTestsForTestManager(managerId);
+        return service.findTestsForTestManagerWithoutQuestions(managerId);
     }
 
     /**
@@ -58,7 +75,7 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/filterTestsByProject")
-    public List<TestWrapper> filterTestsByProject(
+    public List<CognitiveTest> filterTestsByProject(
             @RequestParam(value = "project") String projectFilter) throws DBException {
         return service.filterTestsByProject(projectFilter);
     }
@@ -75,7 +92,7 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/filterTestsByNotes")
-    public List<TestWrapper> filterTestsByNotes(
+    public List<CognitiveTest> filterTestsByNotes(
             @RequestParam(value = "notes") String notes) throws DBException {
         return service.filterTestsByNotes(notes);
     }
@@ -90,7 +107,7 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/saveCognitiveTest")
     public TestWrapper saveCognitiveTest(
-            @RequestBody TestWrapper cognitiveTest) throws DBException{
+            @RequestBody TestWrapper cognitiveTest) throws DBException {
         return service.createTestForTestManager(cognitiveTest);
     }
 
