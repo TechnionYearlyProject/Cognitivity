@@ -605,6 +605,10 @@ export class CreateQuestionComponent implements OnInit {
       correctAnswer: this.correctAnswer,
       typeMultipleQuestion: this.typeMultipleQuestion
     }
+    if(this.answers.indexOf("I don't know") == -1 && this.typeMultipleQuestion != TypeMultipleQuestion.Matrix)
+    {
+      this.answers.splice(this.answers.length, 0, "I don't know");
+    }
   }
 
   /*
@@ -641,7 +645,8 @@ export class CreateQuestionComponent implements OnInit {
     Adding an answer for the question
   */
   addAnswer(){
-    if(this.answerTextForMultiple != null && this.answerTextForMultiple.length >= 1 && !this.isSpacePrefix(this.answerTextForMultiple)){
+    if(this.answerTextForMultiple != null && this.answerTextForMultiple.length >= 1 && !this.isSpacePrefix(this.answerTextForMultiple)
+    && this.doesHaveMultiAnswer(this.answerTextForMultiple) != true){
       this.typedMultipleAnswer = false;
       this.answers.splice(this.answers.length, 0, this.answerTextForMultiple);
       this.markedAnswers.splice(this.markedAnswers.length, 0, false);
@@ -679,7 +684,8 @@ export class CreateQuestionComponent implements OnInit {
     Applies the edition of the answer
   */
   applyEdit(){
-    if(this.answerTextForMultiple != null && this.answerTextForMultiple.length >= 1 && !this.isSpacePrefix(this.answerTextForMultiple)){
+    if(this.answerTextForMultiple != null && this.answerTextForMultiple.length >= 1 && !this.isSpacePrefix(this.answerTextForMultiple)
+    && this.doesHaveMultiAnswer(this.answerTextForMultiple) != true){
       this.answers.splice(this.indexAnswerInEdit, 1,  this.answerTextForMultiple)
       this.editionMode = false;
       this.indexAnswerInEdit = -1;
@@ -1450,4 +1456,14 @@ export class CreateQuestionComponent implements OnInit {
       }
       return str.charAt(0) == ' ';
   }  
+  /*
+  this function checks if an answer already exists in the multi choice question's answers 
+  and returns True if it is, False otherwise.
+  */
+  doesHaveMultiAnswer(givenStr: string): boolean{
+    if(this.answers.indexOf(givenStr)!= -1){
+      return true;
+    }
+    return false;
+  }
 }
