@@ -1,11 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabase, AngularFireDatabaseModule } from 'angularfire2/database';
-import {AngularFireAuthModule } from 'angularfire2/auth'
+import {AngularFireAuthModule } from 'angularfire2/auth';
+import { TagInputModule } from 'ngx-chips';
+
+
 
 /* Components */
 import { AppComponent } from './app.component';
@@ -89,8 +92,9 @@ const PROVIDED_SERVICES = [
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase,'Cognitivity'),
     MatDialogModule,
-    BrowserAnimationsModule
-
+    BrowserAnimationsModule,
+    TagInputModule, 
+    ReactiveFormsModule
   ],
   providers: [
     ...PROVIDED_SERVICES
