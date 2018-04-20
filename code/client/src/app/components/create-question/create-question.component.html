@@ -38,7 +38,7 @@
 
                 </div>
                 <div class="dropdown">
-                    <button *ngIf = "didChoseRateQuestion() || didChoseOpenQuestion() || didChoseMultipleQuestion()"class="dropbtn" style="margin: 0em 0.5em;" [hidden]="editionMode">
+                    <button *ngIf = "QuestionWithPosition()"class="dropbtn" style="margin: 0em 0.5em;" [hidden]="editionMode">
                         <span class="fa fa-chevron-down"> {{positon_desc}}</span>
                     </button>
                     <div class="dropdown-content">
@@ -87,28 +87,10 @@
             </div>
         </div>
         <div *ngIf="didChoseRateQuestion()" style="height:100px;" class="centered">
-            <h2 style="font-family:Arial; font-size: 25px; color: white">
-                Please enter the maximal bound for the rate (max is 15):
-                <span style="border: 1px; border-style:solid; border-color: white; margin: 0px 10px 0px 0px;">
-                    <span style="margin: 0px 3px 0px 3px;">{{rateSize}}</span>
-                </span>
-                <button class="btn btn-sm btn-basic" (click)="increaseRate()">
-                    <span class="fa fa-plus"></span>
-                </button>
-                <button class="btn btn-sm btn-basic" (click)="decreaseRate()">
-                    <span class="fa fa-minus"></span>
-                </button>
-            </h2>
-
+            <app-create-rate-question [question]="question_object"></app-create-rate-question>
         </div>
         <div *ngIf="didChoseOpenQuestion()" class="centered">
-            <label for="Question text">
-                <span style="font-family:Arial; font-size: 25px; color: white">Enter the correct answer (optional):</span>
-            </label>
-            <input autocomplete="off" [(ngModel)]="answerText" name="answer" #answer="ngModel" type="text" class="form-control" placeholder="Answer text" maxLength="200"
-                style="max-width: 100%;">
-            <br>
-            <br>
+            <app-create-open-question></app-create-open-question>
         </div>
         <div *ngIf="didChoseMultipleQuestion() && (didChoseVerticalType() || didChoseHorizontalType())">
 

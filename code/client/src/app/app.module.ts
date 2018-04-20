@@ -37,6 +37,10 @@ import { TestPreviewComponent } from './components/test-preview/test-preview.com
 import { DrillDownQuestionComponent } from './components/drill-down-question/drill-down-question.component';
 import { EditBlockComponent } from './components/edit-block/edit-block.component';
 import { EditTestComponent } from './components/edit-test/edit-test.component';
+import { CreateRateQuestionComponent } from './components/create-rate-question/create-rate-question.component';
+import { CreateOpenQuestionComponent } from './components/create-open-question/create-open-question.component';
+import { CreateMultipleAnswerQuestionComponent } from './components/create-multiple-answer-question/create-multiple-answer-question.component';
+import { CreateDrillDownQuestionComponent } from './components/create-drill-down-question/create-drill-down-question.component';
 
 
 
@@ -77,7 +81,11 @@ const PROVIDED_SERVICES = [
     TestPreviewComponent,
     DrillDownQuestionComponent,
     EditBlockComponent,
-    EditTestComponent
+    EditTestComponent,
+    CreateRateQuestionComponent,
+    CreateOpenQuestionComponent,
+    CreateMultipleAnswerQuestionComponent,
+    CreateDrillDownQuestionComponent
     
   ],
   imports: [

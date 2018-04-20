@@ -3,12 +3,18 @@ import { TypeMultipleQuestion, TypeQuestion, QuestionPosition} from '../../model
 import {MatDialogRef} from '@angular/material';
 import {SessionService} from '../../services/session-service';
 import { SecondaryQuestionObject } from '../../models';
+import { ViewChild } from '@angular/core';
+import { CreateRateQuestionComponent } from '../create-rate-question/create-rate-question.component';
+import { CreateOpenQuestionComponent } from '../create-open-question/create-open-question.component';
 @Component({
   selector: 'app-create-question',
   templateUrl: './create-question.component.html',
   styleUrls: ['./create-question.component.css']
 })
 export class CreateQuestionComponent implements OnInit {
+  my_num: number = 7;
+  @ViewChild(CreateRateQuestionComponent) rateQuestion: CreateRateQuestionComponent;
+  @ViewChild(CreateOpenQuestionComponent) openQuestion: CreateOpenQuestionComponent;
   /*
     ------------ general question details -------------------
   */
@@ -31,16 +37,6 @@ export class CreateQuestionComponent implements OnInit {
   matrixAnswers?: Array<Array<string>>;
   centeringMatrix?: any;
   iteratorArray?: Array<Array<null>>;
-
-  /*
-    ------------ rate question details ----------------------
-  */
-  rateSize?: number = 1;
-
-  /*
-    ------------ open question details ----------------------
-  */
-  answerText?: string;
 
   /*
     --------------- drill down question details ---------------
@@ -115,17 +111,19 @@ export class CreateQuestionComponent implements OnInit {
                    question that the user has created to the block component. 
   */
   constructor(public dialogRef: MatDialogRef<CreateQuestionComponent>, private transferData: SessionService) {
-    if(this.transferData.getData().editMode == true){//Which mean we are in edition mode of the question
-      this.editQuestion(this.transferData.getData().value)
-    }
-    this.transferData.clearData();
+
    }
 
 
   
 
   ngOnInit() {
-
+    if(this.transferData.getData().editMode == true){//Which mean we are in edition mode of the question
+      this.question_object = this.transferData.getData().value;
+      console.log(this.question_object);
+      this.editQuestion(this.question_object);
+    }
+    this.transferData.clearData();
   }
 
 
@@ -438,19 +436,7 @@ export class CreateQuestionComponent implements OnInit {
     return this.typeMultipleQuestion == TypeMultipleQuestion.Horizontal;
   }
 
-  /*
-    Determining the size of the range of the rate question that is created
-  */
-  increaseRate(){
-    if(this.rateSize < 15){
-        this.rateSize++;
-    }
-  }
-  decreaseRate(){
-    if(this.rateSize > 1){
-      this.rateSize--;
-    }
-  }
+
   /*
     Submission question functions
   */
@@ -556,14 +542,14 @@ export class CreateQuestionComponent implements OnInit {
     Constructing the open question object
   */
   constructOpenQuestion(){
-    if(this.answerText == null){
-      this.answerText = '';
+    if(this.openQuestion.answerText == null){
+      this.openQuestion.answerText = '';
     }
     this.question_object = {
       questionText: this.questionText,
       type: this.typeQuestion,
       questionPosition: this.questionPosition,
-      answerText: this.answerText
+      answerText: this.openQuestion.answerText
     }
   }
 
@@ -575,7 +561,7 @@ export class CreateQuestionComponent implements OnInit {
       questionText: this.questionText,
       type: this.typeQuestion,
       questionPosition: this.questionPosition,
-      heightOfRate: this.rateSize
+      heightOfRate: this.rateQuestion.rateSize
     }
   }
 
@@ -878,9 +864,9 @@ export class CreateQuestionComponent implements OnInit {
     this.questionPosition = question.questionPosition;
     this.initializePositionString();
     if(this.typeQuestion == TypeQuestion.OpenQuestion){
-      this.answerText = question.answerText;
+      //this.answerText = question.answerText;
     }else if(this.typeQuestion == TypeQuestion.RateQuestion){
-      this.rateSize = question.heightOfRate;
+      //this.rateQuestion.rateSize = question.heightOfRate;
     }else if(this.typeQuestion == TypeQuestion.MultipleChoice){
       this.typeMultipleQuestion = question.typeMultipleQuestion;
       this.initializeMultipleString();
@@ -1449,5 +1435,14 @@ export class CreateQuestionComponent implements OnInit {
           return false;
       }
       return str.charAt(0) == ' ';
-  }  
+  }
+  
+  /* ----------------------- New Create Question Code -------------------------- */
+  QuestionWithPosition() : boolean{
+    return this.didChoseRateQuestion() || this.didChoseOpenQuestion() || this.didChoseMultipleQuestion();
+  }
+
+  passParams() : any{
+    console.log('fdfdfdfd');
+  }
 }
