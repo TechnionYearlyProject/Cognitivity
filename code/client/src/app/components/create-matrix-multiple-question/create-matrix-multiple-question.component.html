@@ -1,0 +1,28 @@
+<div>
+  <h2 style="font-family:Arial; font-size: 25px; color: white" class="centered">
+      Enter the dimension of the matrix (2 or 3) and mark the correct answer (optional):
+      <span style="border: 1px; border-style:solid; border-color: white; margin: 0px 10px 0px 0px;">
+          <span style="margin: 0px 3px 0px 3px;">{{dimSize}}</span>
+      </span>
+      <button class="btn btn-sm btn-basic" (click)="increaseDim()">
+          <span class="fa fa-plus"></span>
+      </button>
+      <button class="btn btn-sm btn-basic" (click)="decreaseDim()">
+          <span class="fa fa-minus"></span>
+      </button>
+  </h2>
+  <div class="row" [ngClass]="centeringMatrix">
+      <div *ngFor="let answerRow of iteratorArray; let i = index;" style="margin: 1em;" class="column">
+          <div *ngFor="let answer of answerRow; let j = index;" style="margin: 1em;">
+              <button *ngIf="markedAnswersMatrix[i][j]" class="btn btn-sm btn-success" style="color:white; margin: 0px 0px 3px 0px;" (click)="markAnswer(i,j)">Correct Answer</button>
+              <button *ngIf="!markedAnswersMatrix[i][j]" class="btn btn-sm btn-danger" style="color:white;margin: 0px 0px 3px 0px;" (click)="markAnswer(i,j)">Unmarked answer</button>
+              <br>
+              <input autocomplete="off" [(ngModel)]="matrixAnswers[i][j]" name="answerMutiple{{i}}{{j}}" #answerMultiple{{i}}{{j}}="ngModel"
+                  type="text" class="form-control" placeholder="Answer text" style="max-width: 100%;" maxLength="50">
+          </div>
+      </div>
+  </div>
+
+
+
+</div>

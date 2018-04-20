@@ -6,6 +6,8 @@ import { SecondaryQuestionObject } from '../../models';
 import { ViewChild } from '@angular/core';
 import { CreateRateQuestionComponent } from '../create-rate-question/create-rate-question.component';
 import { CreateOpenQuestionComponent } from '../create-open-question/create-open-question.component';
+import { CreateVerticalHorizontalMultipleComponent } from '../create-vertical-horizontal-multiple/create-vertical-horizontal-multiple.component';
+import { CreateMatrixMultipleQuestionComponent } from '../create-matrix-multiple-question/create-matrix-multiple-question.component';
 @Component({
   selector: 'app-create-question',
   templateUrl: './create-question.component.html',
@@ -15,28 +17,23 @@ export class CreateQuestionComponent implements OnInit {
   my_num: number = 7;
   @ViewChild(CreateRateQuestionComponent) rateQuestion: CreateRateQuestionComponent;
   @ViewChild(CreateOpenQuestionComponent) openQuestion: CreateOpenQuestionComponent;
+  @ViewChild(CreateVerticalHorizontalMultipleComponent) verticalHrizontalQuestion: CreateVerticalHorizontalMultipleComponent;
+  @ViewChild(CreateMatrixMultipleQuestionComponent) matrixQuestion: CreateMatrixMultipleQuestionComponent; 
   /*
     ------------ general question details -------------------
   */
   questionText: string;
   typeQuestion: TypeQuestion;
   questionPosition: QuestionPosition;
-
-  /*
-    ------------ multiple choice question details -----------
-  */
   typeMultipleQuestion?: TypeMultipleQuestion;
-  answers?: Array<string> = new Array();
-  answerTextForMultiple?: string;
-  correctAnswer?: number;
-  markedAnswers?: Array<boolean> = new Array();
   typedMultipleAnswer: boolean = false;
+
   //--------- data regarding the matrix type of multiple choice question
-  dimSize?: number = 2;
-  markedAnswersMatrix?: Array<Array<boolean>>;
-  matrixAnswers?: Array<Array<string>>;
-  centeringMatrix?: any;
-  iteratorArray?: Array<Array<null>>;
+  // dimSize?: number = 2;
+  // markedAnswersMatrix?: Array<Array<boolean>>;
+  // matrixAnswers?: Array<Array<string>>;
+  // centeringMatrix?: any;
+  // iteratorArray?: Array<Array<null>>;
 
   /*
     --------------- drill down question details ---------------
@@ -385,9 +382,8 @@ export class CreateQuestionComponent implements OnInit {
   setMatrixType(){
     this.submit = false;
     this.typedMultipleAnswer = false;
-    this.answers = new Array<string>();
-    this.markedAnswers = new Array<boolean>();
-    this.constructMatrix();
+    //this.answers = new Array<string>();
+    //this.markedAnswers = new Array<boolean>()
     if(this.typeMultipleQuestion == TypeMultipleQuestion.Matrix){
       this.typeMultipleQuestion = null;
       this.multiple_type = 'Answer Organization';
@@ -569,31 +565,41 @@ export class CreateQuestionComponent implements OnInit {
     Constructing the matrix type of multiple choice question object
   */
   constructMatrixQuestion(){
-    for(let i = 0; i < this.dimSize; i++){
-      for(let j = 0; j < this.dimSize; j++){
-        this.answers.splice(this.answers.length, 0 ,this.matrixAnswers[j][i]);
+    for(let i = 0; i < this.matrixQuestion.dimSize; i++){
+      for(let j = 0; j < this.matrixQuestion.dimSize; j++){
+        this.matrixQuestion.answers.splice(this.matrixQuestion.answers.length, 0 ,this.matrixQuestion.matrixAnswers[j][i]);
       }
     }
-    this.constructMultipleQuestion();
-  }
-  /*
-    Constructing the multiple choice question object
-  */
-  constructMultipleQuestion(){
-    if(this.correctAnswer == null){
-      this.correctAnswer = -1;
+    if(this.matrixQuestion.correctAnswer == null){
+      this.matrixQuestion.correctAnswer = -1;
     }
     this.question_object = {
       questionText: this.questionText,
       type: this.typeQuestion,
       questionPosition: this.questionPosition,
-      answers: this.answers,
-      correctAnswer: this.correctAnswer,
+      answers: this.matrixQuestion.answers,
+      correctAnswer: this.matrixQuestion.correctAnswer,
       typeMultipleQuestion: this.typeMultipleQuestion
     }
-    if(this.answers.indexOf("I don't know") == -1 && this.typeMultipleQuestion != TypeMultipleQuestion.Matrix)
+  }
+  /*
+    Constructing the multiple choice question object
+  */
+  constructMultipleQuestion(){
+    if(this.verticalHrizontalQuestion.correctAnswer == null){
+      this.verticalHrizontalQuestion.correctAnswer = -1;
+    }
+    this.question_object = {
+      questionText: this.questionText,
+      type: this.typeQuestion,
+      questionPosition: this.questionPosition,
+      answers: this.verticalHrizontalQuestion.answers,
+      correctAnswer: this.verticalHrizontalQuestion.correctAnswer,
+      typeMultipleQuestion: this.typeMultipleQuestion
+    }
+    if(this.verticalHrizontalQuestion.answers.indexOf("I don't know") == -1 && this.typeMultipleQuestion != TypeMultipleQuestion.Matrix)
     {
-      this.answers.splice(this.answers.length, 0, "I don't know");
+      this.verticalHrizontalQuestion.answers.splice(this.verticalHrizontalQuestion.answers.length, 0, "I don't know");
     }
   }
 
@@ -629,7 +635,7 @@ export class CreateQuestionComponent implements OnInit {
   */
   /*
     Adding an answer for the question
-  */
+  *//*
   addAnswer(){
     if(this.answerTextForMultiple != null && this.answerTextForMultiple.length >= 1 && !this.isSpacePrefix(this.answerTextForMultiple)
     && this.doesHaveMultiAnswer(this.answerTextForMultiple) != true){
@@ -641,190 +647,65 @@ export class CreateQuestionComponent implements OnInit {
     }else{
       this.typedMultipleAnswer = true;
     }
-  }
+  }*/
 
   /*
     Control flow function that checks if the user inserted at least one answer
   */
   haveAnswers(): boolean{
-    return this.answers.length > 0;
-  }
-
-  /*
-    Deletes an answer to the question
-  */
-  deleteAnswer(index: number){
-    this.answers.splice(index,1);
+    if(this.verticalHrizontalQuestion != null){
+      return this.verticalHrizontalQuestion.answers.length > 0;
+    }
+    return false;
     
-    this.markedAnswers.splice(index, 1);
-  }
-  /*
-    Edits an answer to the question
-  */
-  editAnswer(index: number){
-    this.answerTextForMultiple = this.answers[index];
-    this.editionMode = true;
-    this.indexAnswerInEdit = index;
-  }
-  /*
-    Applies the edition of the answer
-  */
-  applyEdit(){
-    if(this.answerTextForMultiple != null && this.answerTextForMultiple.length >= 1 && !this.isSpacePrefix(this.answerTextForMultiple)
-    && this.doesHaveMultiAnswer(this.answerTextForMultiple) != true){
-      this.answers.splice(this.indexAnswerInEdit, 1,  this.answerTextForMultiple)
-      this.editionMode = false;
-      this.indexAnswerInEdit = -1;
-      this.answerTextForMultiple = '';
-      this.typedMultipleAnswer = false;
-    }else{
-      this.typedMultipleAnswer = true;
-    }
-  }
-  /*
-    Undo the edition that was made
-  */
-  undo(){
-    this.editionMode = false;
-    this.answerTextForMultiple = '';
-    this.indexAnswerInEdit = -1;
-    this.typedMultipleAnswer = false;
-  }
-  /*
-    Moving the answer up in the answer's organization
-  */
-  goUp(index: number){
-    if(index != 0){
-      let removed = this.answers.splice(index, 1)
-      let removed_marked = this.markedAnswers.splice(index, 1);
-      this.answers.splice(index - 1, 0, removed[0]);
-      this.markedAnswers.splice(index - 1, 0, removed_marked[0]);
-    } 
-  }
-  /*
-    Moving the answer down in the answer's organization
-  */
-  goDown(index: number){
-    if(index != this.answers.length - 1){
-      let removed = this.answers.splice(index, 1);
-      let removed_marked = this.markedAnswers.splice(index, 1);
-      this.answers.splice(index + 1, 0, removed[0]);
-      this.markedAnswers.splice(index + 1, 0, removed_marked[0]);
-    }
   }
 
 
-  /*
-    Marks the answer at the right index as correct.
-    Params:
-    index - In case the question is Horizontal or Vertical the index is only detemined by this one,
-            because there's on;y one dimension
-    index_col - In case the question is matrix type this index is needed, because there are 2 dimentions.
-                Otherwise it will be -1, by default. 
-  */
-  markAnswer(index: number, index_col: number = -1){
-    if(index_col == -1){
 
-      for(let i = 0; i < this.markedAnswers.length; i++){
-        if(i == index){
-          this.markedAnswers[i] = !this.markedAnswers[i];
+  constructMatrixInEdit(question_to_edit: any){
+    this.matrixQuestion.markedAnswersMatrix = new Array<Array<boolean>>(this.matrixQuestion.dimSize);
+    this.matrixQuestion.matrixAnswers = new Array<Array<string>>(this.matrixQuestion.dimSize);
+    this.matrixQuestion.iteratorArray = new Array<Array<null>>(this.matrixQuestion.dimSize);
+    for(let i = 0; i < this.matrixQuestion.dimSize; i++){
+      this.matrixQuestion.markedAnswersMatrix[i] = new Array<boolean>(this.matrixQuestion.dimSize);
+      this.matrixQuestion.matrixAnswers[i] = new Array<string>(this.matrixQuestion.dimSize);
+      this.matrixQuestion.iteratorArray[i] = new Array<null>(this.matrixQuestion.dimSize); 
+      for(let j = 0; j < this.matrixQuestion.dimSize; j++){
+        if(question_to_edit.correctAnswer == this.matrixQuestion.dimSize*j + i){
+          this.matrixQuestion.markedAnswersMatrix[i][j] = true;
         }else{
-          this.markedAnswers[i] = false;
+          this.matrixQuestion.markedAnswersMatrix[i][j] = false;
         }
-      }  
-    }else{
-      for(let i = 0; i < this.dimSize; i++){
-        for(let j = 0; j < this.dimSize; j++){
-          if(i == index && j == index_col){
-            this.markedAnswersMatrix[i][j] = !this.markedAnswersMatrix[i][j];
-          }else{
-            this.markedAnswersMatrix[i][j] = false;
+        this.matrixQuestion.matrixAnswers[i][j] = question_to_edit.answers[j*this.matrixQuestion.dimSize + i];
+      }
+    }
+    this.matrixQuestion.centeringMatrix = {
+      'two_col' : this.matrixQuestion.dimSize == 2,
+      'three_col' : this.matrixQuestion.dimSize == 3,
+      'four_col' : this.matrixQuestion.dimSize == 4
+    };
+    
+  }
+    /*
+    Control flow function which returns TRUE if there are missing answers in the matrix and FALSE other wise.
+  */
+  missingAnswers():boolean{
+    if(this.matrixQuestion != null){
+      for(let i = 0; i < this.matrixQuestion.dimSize; i++){
+        for(let j = 0; j < this.matrixQuestion.dimSize; j++){
+          if(this.matrixQuestion.matrixAnswers[i][j] == null){
+            return true;
+          }
+          if(this.matrixQuestion.matrixAnswers[i][j].length < 2){
+            return true;
+          }
+          if(this.isSpacePrefix(this.matrixQuestion.matrixAnswers[i][j])){
+              return true;
           }
         }
       }
     }
-  }
-
-  /*
-    Determing the size of the matrix by increasing and deacrsing the size
-  */
-  increaseDim(){
-    if(this.dimSize < 3){
-      this.dimSize++;
-      this.constructMatrix();
-    }
-  }
-  decreaseDim(){
-    if(this.dimSize > 2){
-      this.dimSize--;
-      this.constructMatrix();
-    }
-  }
-  /*
-    The function constructs all the elements in the matrix, according to its size
-  */
-  constructMatrix(){
-    this.markedAnswersMatrix = new Array<Array<boolean>>(this.dimSize);
-    this.matrixAnswers = new Array<Array<string>>(this.dimSize);
-    this.iteratorArray = new Array<Array<null>>(this.dimSize);
-    for(let i = 0; i < this.dimSize; i++){
-      this.markedAnswersMatrix[i] = new Array<boolean>(this.dimSize);
-      this.matrixAnswers[i] = new Array<string>(this.dimSize);
-      this.iteratorArray[i] = new Array<null>(this.dimSize); 
-      for(let j = 0; j < this.dimSize; j++){
-        this.markedAnswersMatrix[i][j] = false;
-        this.matrixAnswers[i][j] = '';
-      }
-    }
-    this.centeringMatrix = {
-      'two_col' : this.dimSize == 2,
-      'three_col' : this.dimSize == 3,
-      'four_col' : this.dimSize == 4
-    };
-  }
-
-  constructMatrixInEdit(question_to_edit: any){
-    this.markedAnswersMatrix = new Array<Array<boolean>>(this.dimSize);
-    this.matrixAnswers = new Array<Array<string>>(this.dimSize);
-    this.iteratorArray = new Array<Array<null>>(this.dimSize);
-    for(let i = 0; i < this.dimSize; i++){
-      this.markedAnswersMatrix[i] = new Array<boolean>(this.dimSize);
-      this.matrixAnswers[i] = new Array<string>(this.dimSize);
-      this.iteratorArray[i] = new Array<null>(this.dimSize); 
-      for(let j = 0; j < this.dimSize; j++){
-        if(question_to_edit.correctAnswer == this.dimSize*j + i){
-          this.markedAnswersMatrix[i][j] = true;
-        }else{
-          this.markedAnswersMatrix[i][j] = false;
-        }
-        this.matrixAnswers[i][j] = question_to_edit.answers[j*this.dimSize + i];
-      }
-    }
-    this.centeringMatrix = {
-      'two_col' : this.dimSize == 2,
-      'three_col' : this.dimSize == 3,
-      'four_col' : this.dimSize == 4
-    };
     
-  }
-
-  /*
-    Control flow function which returns TRUE if there are missing answers in the matrix and FALSE other wise.
-  */
-  missingAnswers():boolean{
-    for(let i = 0; i < this.dimSize; i++){
-      for(let j = 0; j < this.dimSize; j++){
-        if(this.matrixAnswers[i][j] == null){
-          return true;
-        }
-        if(this.matrixAnswers[i][j].length < 2){
-          return true;
-        }
-        if(this.isSpacePrefix(this.matrixAnswers[i][j])){
-            return true;
-        }
-      }
-    }
     
     return false;
   }
@@ -834,17 +715,17 @@ export class CreateQuestionComponent implements OnInit {
   */
   findCorretAnswer(){
     if(!this.didChoseMatrixType()){
-      for(let i = 0; i < this.markedAnswers.length; i++){
-        if(this.markedAnswers[i] == true){
-          this.correctAnswer = i;
+      for(let i = 0; i < this.verticalHrizontalQuestion.markedAnswers.length; i++){
+        if(this.verticalHrizontalQuestion.markedAnswers[i] == true){
+          this.verticalHrizontalQuestion.correctAnswer = i;
           break;
         }
       }
     }else{
-      for(let i = 0; i < this.dimSize; i++){
-        for(let j = 0; j < this.dimSize; j++){
-          if(this.markedAnswersMatrix[i][j] == true){
-            this.correctAnswer = j * this.dimSize + i;
+      for(let i = 0; i < this.matrixQuestion.dimSize; i++){
+        for(let j = 0; j < this.matrixQuestion.dimSize; j++){
+          if(this.matrixQuestion.markedAnswersMatrix[i][j] == true){
+            this.matrixQuestion.correctAnswer = j * this.matrixQuestion.dimSize + i;
           }
         }
       }
@@ -878,17 +759,17 @@ export class CreateQuestionComponent implements OnInit {
       this.initializeMultipleString();
       if(this.typeMultipleQuestion == TypeMultipleQuestion.Horizontal || this.typeMultipleQuestion == TypeMultipleQuestion.Vertical){
         for(let i = 0; i < question.answers.length; i++){
-          this.answers.splice(this.answers.length, 0, question.answers[i]);
+          //this.answers.splice(this.answers.length, 0, question.answers[i]);
           if(i == question.correctAnswer){
-            this.markedAnswers.splice(this.markedAnswers.length, 0, true);
+            //this.markedAnswers.splice(this.markedAnswers.length, 0, true);
           }else{
-            this.markedAnswers.splice(this.markedAnswers.length, 0, false);
+            //this.markedAnswers.splice(this.markedAnswers.length, 0, false);
           }
           
         }
       }else if(this.typeMultipleQuestion == TypeMultipleQuestion.Matrix){
-        this.dimSize = Math.sqrt(question.answers.length);
-        this.constructMatrixInEdit(question);
+        //this.matrixQuestion.dimSize = Math.sqrt(question.answers.length);
+        //this.constructMatrixInEdit(question);
       }
     }else if(this.typeQuestion == TypeQuestion.DrillDownQuestion){
       this.mainAnswers = Object.assign([], question.answersForMain);
@@ -1454,11 +1335,11 @@ export class CreateQuestionComponent implements OnInit {
   /*
   this function checks if an answer already exists in the multi choice question's answers 
   and returns True if it is, False otherwise.
-  */
+  
   doesHaveMultiAnswer(givenStr: string): boolean{
     if(this.answers.indexOf(givenStr)!= -1){
       return true;
     }
     return false;
-  }
+  }*/
 }

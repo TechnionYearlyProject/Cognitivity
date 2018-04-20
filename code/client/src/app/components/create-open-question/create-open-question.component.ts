@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Input } from '@angular/core';
 
 @Component({
   selector: 'app-create-open-question',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateOpenQuestionComponent implements OnInit {
   answerText : string;
+  @Input() question: any;
   constructor() { }
 
   ngOnInit() {
+
+    if(this.question == null){
+      this.answerText = '';
+    } else {
+      this.answerText = this.question.answerText;
+    }
+
   }
 
 }

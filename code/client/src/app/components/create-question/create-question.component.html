@@ -90,108 +90,19 @@
             <app-create-rate-question [question]="question_object"></app-create-rate-question>
         </div>
         <div *ngIf="didChoseOpenQuestion()" class="centered">
-            <app-create-open-question></app-create-open-question>
+            <app-create-open-question [question] = "question_object" ></app-create-open-question>
         </div>
         <div *ngIf="didChoseMultipleQuestion() && (didChoseVerticalType() || didChoseHorizontalType())">
-
-            <div class="form-group">
-                    <div *ngIf="haveAnswers()">
-                        
-                        <div class="centered" style="font-family:Arial; font-size: 25px; color: white">Answers so far. Please mark the correct answer (optional):</div>
-                        <ul class="list-group">
-
-                            <div class="centered" *ngFor="let answer of answers; let i = index">
-                                <li class="list-group-item" style="max-width: 100%;background-color: transparent;">
-                                    <div class="centered" style=" font-family: Arial; font-size: 25px;color: white;">{{answer}}</div>
-                                    <br>
-                                    <div class="centered">
-                                        <button *ngIf="markedAnswers[i]" class="btn btn-sm btn-success" style="color:white;" (click)="markAnswer(i)">Correct Answer</button>
-                                        <button *ngIf="!markedAnswers[i]" class="btn btn-sm btn-danger" style="color:white;" (click)="markAnswer(i)">Unmarked answer</button>
-                                        <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="goUp(i)" [disabled]="editionMode">
-                                            <span class="fa fa-arrow-up"></span>
-                                        </button>
-                                        <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="goDown(i)" [disabled]="editionMode">
-                                            <span class="fa fa-arrow-down"></span>
-                                        </button>
-                                        <button class="btn btn-sm btn-secondary" style="margin: 10px;" (click)="deleteAnswer(i)" [disabled]="editionMode">
-                                            <span class="fa fa-trash"></span> Delete answer</button>
-                                        <button class="btn btn-sm btn-primary" (click)="editAnswer(i)" [disabled]="editionMode">
-                                            <span class="fa fa-pencil"></span> Edit answer</button>
-        
-                                    </div>
-                                </li>
-                            </div>
-
-                        </ul>
-
-                    </div>
-                    <div class="centered">
-                        <div *ngIf="!editionMode">
-                                <label for="Answer text">
-                                    <span style="font-family:Arial; font-size: 25px; color: white;">Enter an answer for the question:</span>
-                                </label>
-                                <input autocomplete="off" [(ngModel)]="answerTextForMultiple" name="answerMutiple" #answerMultiple="ngModel" type="text"
-                                    class="form-control" placeholder="Answer text" style="max-width: 100%;" maxLength="50">
-                                <button class="btn btn-primary" style="margin:1em 0em;" (click)="addAnswer()">
-                                    <span class="fa fa-plus"></span> Add answer</button>
-                                <div *ngIf="(answerTextForMultiple == null || answerTextForMultiple.length  < 1 || isSpacePrefix(answerTextForMultiple)) && typedMultipleAnswer" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
-                                    Please enter an answer with at least one character and a proper answer
-                                </div>
-                                <div *ngIf="doesHaveMultiAnswer(answerTextForMultiple) == true" style="color:red">
-                                    Please avoid adding duplicated answers
-                                </div>
-                            </div>
-                            <div *ngIf="editionMode">
-                                <label for="Answer text">
-                                    <span style="font-family:Arial; font-size: 25px; color: white">Edit your answer: </span>
-                                </label>
-                                <input autocomplete="off" [(ngModel)]="answerTextForMultiple" name="answerMutiple" #answerMultiple="ngModel" type="text"
-                                    class="form-control" placeholder="Answer text" style="max-width: 100%;" maxLength="50">
-                                <button class="btn btn-primary" style="margin:1em 0em;" (click)="applyEdit()">
-                                    <span class="fa fa-pencil"></span> Apply change</button>
-                                <button class="btn btn-primary" style="margin:1em 0em;" (click)="undo()">
-                                    <span class="fa fa-undo"></span> Undo change</button>
-                                <div *ngIf = "typedMultipleAnswer && (answerTextForMultiple == null || answerTextForMultiple.length < 1 || isSpacePrefix(answerTextForMultiple))" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
-                                        Please enter an answer with at least one character and a proper answer text
-                                </div>
-                                <div *ngIf="doesHaveMultiAnswer(answerTextForMultiple) == true" style="color:red">
-                                    Please avoid adding duplicated answers
-                                </div>
-                            </div>
-                    </div>
-            </div>
+            <app-create-vertical-horizontal-multiple [question] = "question_object" ></app-create-vertical-horizontal-multiple>
             <div class="centered">
                 <div *ngIf="!haveAnswers() && submit" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
                     Please enter at least one answer
                 </div>
             </div>
             <br>
-
         </div>
         <div *ngIf="didChoseMultipleQuestion() && didChoseMatrixType()">
-            <h2 style="font-family:Arial; font-size: 25px; color: white" class="centered">
-                Enter the dimension of the matrix (2 or 3) and mark the correct answer (optional):
-                <span style="border: 1px; border-style:solid; border-color: white; margin: 0px 10px 0px 0px;">
-                    <span style="margin: 0px 3px 0px 3px;">{{dimSize}}</span>
-                </span>
-                <button class="btn btn-sm btn-basic" (click)="increaseDim()">
-                    <span class="fa fa-plus"></span>
-                </button>
-                <button class="btn btn-sm btn-basic" (click)="decreaseDim()">
-                    <span class="fa fa-minus"></span>
-                </button>
-            </h2>
-            <div class="row" [ngClass]="centeringMatrix">
-                <div *ngFor="let answerRow of iteratorArray; let i = index;" style="margin: 1em;" class="column">
-                    <div *ngFor="let answer of answerRow; let j = index;" style="margin: 1em;">
-                        <button *ngIf="markedAnswersMatrix[i][j]" class="btn btn-sm btn-success" style="color:white; margin: 0px 0px 3px 0px;" (click)="markAnswer(i,j)">Correct Answer</button>
-                        <button *ngIf="!markedAnswersMatrix[i][j]" class="btn btn-sm btn-danger" style="color:white;margin: 0px 0px 3px 0px;" (click)="markAnswer(i,j)">Unmarked answer</button>
-                        <br>
-                        <input autocomplete="off" [(ngModel)]="matrixAnswers[i][j]" name="answerMutiple{{i}}{{j}}" #answerMultiple{{i}}{{j}}="ngModel"
-                            type="text" class="form-control" placeholder="Answer text" style="max-width: 100%;" maxLength="50">
-                    </div>
-                </div>
-            </div>
+            <app-create-matrix-multiple-question [question] = "question_object" ></app-create-matrix-multiple-question>
             <div *ngIf="missingAnswers() && submit" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;" class="centered">
                 Please enter all answers, and at least 2 characters to an answer
 

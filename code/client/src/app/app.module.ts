@@ -42,8 +42,9 @@ import { EditBlockComponent } from './components/edit-block/edit-block.component
 import { EditTestComponent } from './components/edit-test/edit-test.component';
 import { CreateRateQuestionComponent } from './components/create-rate-question/create-rate-question.component';
 import { CreateOpenQuestionComponent } from './components/create-open-question/create-open-question.component';
-import { CreateMultipleAnswerQuestionComponent } from './components/create-multiple-answer-question/create-multiple-answer-question.component';
 import { CreateDrillDownQuestionComponent } from './components/create-drill-down-question/create-drill-down-question.component';
+import { CreateVerticalHorizontalMultipleComponent } from './components/create-vertical-horizontal-multiple/create-vertical-horizontal-multiple.component';
+import { CreateMatrixMultipleQuestionComponent } from './components/create-matrix-multiple-question/create-matrix-multiple-question.component';
 
 
 
@@ -87,8 +88,9 @@ const PROVIDED_SERVICES = [
     EditTestComponent,
     CreateRateQuestionComponent,
     CreateOpenQuestionComponent,
-    CreateMultipleAnswerQuestionComponent,
-    CreateDrillDownQuestionComponent
+    CreateDrillDownQuestionComponent,
+    CreateVerticalHorizontalMultipleComponent,
+    CreateMatrixMultipleQuestionComponent
     
   ],
   imports: [
