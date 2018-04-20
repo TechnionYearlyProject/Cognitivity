@@ -1441,7 +1441,6 @@ export class CreateQuestionComponent implements OnInit {
           return false;
       }
       return str.charAt(0) == ' ';
-<<<<<<< HEAD
   }
   
   /* ----------------------- New Create Question Code -------------------------- */
@@ -1451,7 +1450,6 @@ export class CreateQuestionComponent implements OnInit {
 
   passParams() : any{
     console.log('fdfdfdfd');
-=======
   }  
   /*
   this function checks if an answer already exists in the multi choice question's answers 
@@ -1462,6 +1460,5 @@ export class CreateQuestionComponent implements OnInit {
       return true;
     }
     return false;
->>>>>>> cfe9fec0a042cec0dfb9dc1366905ba8908eab19
   }
 }

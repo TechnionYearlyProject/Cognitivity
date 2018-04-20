@@ -37,7 +37,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { QuestionPreviewComponent } from './components/question-preview/question-preview.component';
 import { BlockPreviewComponent } from './components/block-preview/block-preview.component';
 import { TestPreviewComponent } from './components/test-preview/test-preview.component';
-<<<<<<< HEAD
 import { DrillDownQuestionComponent } from './components/drill-down-question/drill-down-question.component';
 import { EditBlockComponent } from './components/edit-block/edit-block.component';
 import { EditTestComponent } from './components/edit-test/edit-test.component';
@@ -45,11 +44,6 @@ import { CreateRateQuestionComponent } from './components/create-rate-question/c
 import { CreateOpenQuestionComponent } from './components/create-open-question/create-open-question.component';
 import { CreateMultipleAnswerQuestionComponent } from './components/create-multiple-answer-question/create-multiple-answer-question.component';
 import { CreateDrillDownQuestionComponent } from './components/create-drill-down-question/create-drill-down-question.component';
-=======
-import { DrillDownQuestionComponent } from './components/drill-down-question/drill-down-question.component';
-import { EditBlockComponent } from './components/edit-block/edit-block.component';
-import { EditTestComponent } from './components/edit-test/edit-test.component';
->>>>>>> cfe9fec0a042cec0dfb9dc1366905ba8908eab19
 
 
 
