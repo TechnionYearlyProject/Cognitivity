@@ -14,22 +14,12 @@ public class TestAnswerTest {
     @Test
     public void gettersSettersTest() {
         TestAnswer testAnswer = new TestAnswer(createTestSubject(), createTestQuestion(), createCognitiveTest(),
-                1, 1, 1, 1, "v", true,
-                1, true, true, true);
+                "v");
 
-        testAnswer.setAnswerPlacement(testAnswer.getAnswerPlacement());
         testAnswer.setCognitiveTest(testAnswer.getCognitiveTest());
         testAnswer.setFinalAnswer(testAnswer.getFinalAnswer());
-        testAnswer.setNumberOfClick(testAnswer.getNumberOfClick());
         testAnswer.setQuestion(testAnswer.getQuestion());
-        testAnswer.setQuestionPlacement(testAnswer.getQuestionPlacement());
-        testAnswer.setQuestionWithPicture(testAnswer.getQuestionWithPicture());
-        testAnswer.setTesteeExit(testAnswer.getTesteeExit());
         testAnswer.setTestSubject(testAnswer.getTestSubject());
-        testAnswer.setTimeShowed(testAnswer.getTimeShowed());
-        testAnswer.setTimeMeasured(testAnswer.getTimeMeasured());
-        testAnswer.setTimeToAnswer(testAnswer.getTimeToAnswer());
-        testAnswer.setVerbalAnswer(testAnswer.getVerbalAnswer());
 
         // For abstract entity
         testAnswer.equals(null);

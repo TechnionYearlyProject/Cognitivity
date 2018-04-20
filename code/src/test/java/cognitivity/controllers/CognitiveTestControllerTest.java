@@ -5,7 +5,6 @@ import cognitivity.dto.TestWrapper;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
 import cognitivity.services.CognitiveTestService;
-import cognitivity.web.app.config.HibernateBeanConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import config.TestContextBeanConfiguration;
 import org.hamcrest.CoreMatchers;
@@ -62,41 +61,46 @@ public class CognitiveTestControllerTest implements RestControllerTest {
         Assert.assertThat(controller, CoreMatchers.notNullValue());
     }
 
-    private static CognitiveTest buildTest(String ct, String email, int s, int nq) {
+    private static CognitiveTest buildTest(String ct, String email, int nq) {
         TestManager tm = new TestManager(email);
-        CognitiveTest cognitiveTest = new CognitiveTest(ct, tm, s, nq);
+        CognitiveTest cognitiveTest = new CognitiveTest(ct, tm, nq, "notes", "project");
         cognitiveTest.setId(1L);
         return cognitiveTest;
     }
 
     @Test
     public void findTestsForTestManagerReturnsListOfTests() throws Exception {
-        TestWrapper cognitiveTest1 = new TestWrapper(buildTest("ct1", "em1", 1, 1));
-        TestWrapper cognitiveTest2 = new TestWrapper(buildTest("ct2", "em2", 2, 2));
+        CognitiveTest tes1 = buildTest("ct1", "em1", 1);
+        TestWrapper cognitiveTest1 = new TestWrapper(tes1);
+        CognitiveTest test2 = buildTest("ct2", "em2", 2);
+        TestWrapper cognitiveTest2 = new TestWrapper(test2);
 
-        Mockito.when(cognitiveTestServiceMock.findTestsForTestManager(Matchers.anyLong())).thenReturn(Arrays.asList(cognitiveTest1, cognitiveTest2));
+        Mockito.when(cognitiveTestServiceMock.findTestsForTestManagerWithoutQuestions(Matchers.anyLong())).thenReturn(Arrays.asList(tes1, test2));
 
         // findTestsForTestManager is a http GET request
-        mockMvc.perform(get("/tests/findTestsForTestManager")
+        mockMvc.perform(get("/tests/findTestsForTestManagerWithoutQuestions")
                 .param("managerId", "12345"))
                 .andExpect(status().isOk())
+                //.andDo(print())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].name", is("ct1")))
-                .andExpect(jsonPath("$[0].state", is(1)))
                 .andExpect(jsonPath("$[0].numberOfQuestions", is(1)))
+                //.andExpect(jsonPath("$[0].notes", is("notes")))
+                //.andExpect(jsonPath("$[0].project", is("project")))
                 .andExpect(jsonPath("$[1].name", is("ct2")))
-                .andExpect(jsonPath("$[1].state", is(2)))
                 .andExpect(jsonPath("$[1].numberOfQuestions", is(2)));
+        //.andExpect(jsonPath("$[1].notes", is("notes")))
+        //.andExpect(jsonPath("$[1].project", is("project")));
 
-        Mockito.verify(cognitiveTestServiceMock, times(1)).findTestsForTestManager(Matchers.anyLong());
+        Mockito.verify(cognitiveTestServiceMock, times(1)).findTestsForTestManagerWithoutQuestions(Matchers.anyLong());
         Mockito.verifyNoMoreInteractions(cognitiveTestServiceMock);
     }
 
     @Test
     public void saveCognitiveTestCallsServiceWithCorrectParams() throws Exception {
         TestManager tm = new TestManager("email");
-        CognitiveTest cognitiveTest = new CognitiveTest("test", tm, 11, 30);
+        CognitiveTest cognitiveTest = new CognitiveTest("test", tm, 30, "notes", "project");
         cognitiveTest.setId(1L);
 
         // createTestForTestManager is a http POST request
@@ -112,7 +116,7 @@ public class CognitiveTestControllerTest implements RestControllerTest {
 
     @Test
     public void updateCognitiveTestCallsServiceWithCorrectParams() throws Exception {
-        CognitiveTest test = buildTest("test", "email", 12, 41);
+        CognitiveTest test = buildTest("test", "email", 41);
 
         // updateCognitiveTest is a http POST request
         mockMvc.perform(post("/tests/updateCognitiveTest")

@@ -102,7 +102,7 @@ public class TestSubjectServiceTest {
         assertEquals("Problem with updating a test subject", "Tor",result.getBrowser());
 
         TestManager manager = new TestManager("Yo!!!!!!!!!!!!1");
-        CognitiveTest test = new CognitiveTest("test", manager, 1, 0);
+        CognitiveTest test = new CognitiveTest("test", manager, 0, "notes", "project");
         test.setId(9L);
         BlockWrapper block = new BlockWrapper();
         try {
@@ -110,29 +110,21 @@ public class TestSubjectServiceTest {
         }catch (Exception e){
             assertTrue("problem with updating subject",false);
         }
-        TestQuestion question = new TestQuestion("When will the Shibutzim arrive?",1,"Never!","Questions that remain unasnwered",
-                block.innerBlock(test.getId()), test, manager, 0);
+        TestQuestion question = new TestQuestion("When will the Shibutzim arrive?", block.innerBlock(test.getId()),
+                test, manager);
         questionService.createTestQuestion(question);
 
         TestSubject subject1 = service.createTestSubject(new TestSubject("Timon", "Cow", "Hakuna"));
         TestSubject subject2 = service.createTestSubject(new TestSubject("Pumba", "pig", "Matata"));
         TestSubject subject3 = service.createTestSubject(new TestSubject("Simba", "Lion", "Safari"));
 
-        TestAnswer answer = new TestAnswer(subject,question, test, 5 , 5,
-                4, 2, "To have no worries", false, 5, false,
-                false, false);
+        TestAnswer answer = new TestAnswer(subject,question, test, "To have no worries");
         answerService.addTestAnswerForTestQuestion(answer);
-        TestAnswer answer1 = new TestAnswer(subject1,question, test, 5 , 5,
-                4, 2, "To have no worries", false, 5, false,
-                false, false);
+        TestAnswer answer1 = new TestAnswer(subject1,question, test, "To have no worries");
         answerService.addTestAnswerForTestQuestion(answer1);
-        TestAnswer answer2 = new TestAnswer(subject2,question, test, 5 , 5,
-                4, 2, "To have no worries", false, 5, false,
-                false, false);
+        TestAnswer answer2 = new TestAnswer(subject2,question, test, "To have no worries");
         answerService.addTestAnswerForTestQuestion(answer2);
-        TestAnswer answer3 = new TestAnswer(subject3,question, test, 5 , 5,
-                4, 2, "To have no worries", false, 5, false,
-                false, false);
+        TestAnswer answer3 = new TestAnswer(subject3,question, test, "To have no worries");
         answerService.addTestAnswerForTestQuestion(answer3);
 
         List<TestSubject> subjects = new ArrayList<TestSubject>();
@@ -150,17 +142,11 @@ public class TestSubjectServiceTest {
             assertTrue("Didn't get all the subjects from a specific test",testSubjectList.contains(t));
         }
 
-        TestAnswer answer4 = new TestAnswer(subject,question, test, 5 , 5,
-                4, 2, "To have no worries", false, 5, false,
-                false, false);
+        TestAnswer answer4 = new TestAnswer(subject,question, test, "To have no worries");
         answerService.addTestAnswerForTestQuestion(answer4);
-        TestAnswer answer5 = new TestAnswer(subject,question, test, 5 , 5,
-                4, 2, "To have no worries", false, 5, false,
-                false, false);
+        TestAnswer answer5 = new TestAnswer(subject,question, test, "To have no worries");
         answerService.addTestAnswerForTestQuestion(answer5);
-        TestAnswer answer6 = new TestAnswer(subject,question, test, 5 , 5,
-                4, 2, "To have no worries", false, 5, false,
-                false, false);
+        TestAnswer answer6 = new TestAnswer(subject,question, test, "To have no worries");
         answerService.addTestAnswerForTestQuestion(answer6);
 
         List<TestAnswer> answers = new ArrayList<TestAnswer>();

@@ -12,20 +12,18 @@ import java.util.TimeZone;
  * The Cognitive Test persistent (JPA) representation (tables).
  *
  */
-
 @Entity
-@Table(name = "project")
+@Table(name = "test")
 public class CognitiveTest extends AbstractEntity {
 
-    public CognitiveTest(String name, TestManager manager, Integer state, Integer numberOfQuestions) {
+	public CognitiveTest(String name, TestManager manager, Integer numberOfQuestions, String notes, String project) {
 		this.name = name;
 		this.testManager = manager;
-		this.numberOfSubjects = 0;
-		this.state = state;
 		this.lastModified = new Date(Calendar.getInstance(TimeZone.getTimeZone("Asia/Jerusalem")).getTimeInMillis());
 		this.lastAnswered = null;
-		this.numberOfFiledCopies = 0;
 		this.numberOfQuestions = numberOfQuestions;
+		this.notes = notes;
+		this.project = project;
 	}
 
 	public CognitiveTest() {}
@@ -33,25 +31,22 @@ public class CognitiveTest extends AbstractEntity {
 	@Column(name = "name")
     private String name;
 
+	@Column(name = "notes")
+	private String notes;
+
+	@Column(name = "project")
+	private String project;
+
     @ManyToOne
     @JoinColumn(name = "managerId", nullable = false)
     @JsonIgnore
     private TestManager testManager;
-
-    @Column(name = "numberOfSubjects", nullable = false)
-    private Integer numberOfSubjects;
-
-    @Column(name = "state", nullable = false)
-    private Integer state;
 
     @Column(name = "lastModified", nullable = false)
     private Date lastModified;
 
     @Column(name = "lastAnswered")
     private Date lastAnswered;
-
-    @Column(name = "numberOfFiledCopies", nullable = false)
-    private Integer numberOfFiledCopies;
 
     @Column(name = "numberOfQuestions", nullable = false)
     private Integer numberOfQuestions;
@@ -90,38 +85,6 @@ public class CognitiveTest extends AbstractEntity {
 	}
 
 	/**
-	* Returns value of numberOfTestees
-	* @return
-	*/
-	public Integer getNumberOfSubjects() {
-		return numberOfSubjects;
-	}
-
-	/**
-	* Sets new value of numberOfTestees
-	* @param
-	*/
-	public void setNumberOfSubjects(Integer numberOfSubjects) {
-		this.numberOfSubjects = numberOfSubjects;
-	}
-
-	/**
-	* Returns value of state
-	* @return
-	*/
-	public Integer getState() {
-		return state;
-	}
-
-	/**
-	* Sets new value of state
-	* @param
-	*/
-	public void setState(Integer state) {
-		this.state = state;
-	}
-
-	/**
 	* Returns value of lastModified
 	* @return
 	*/
@@ -154,22 +117,6 @@ public class CognitiveTest extends AbstractEntity {
 	}
 
 	/**
-	* Returns value of numberOfFiledCopies
-	* @return
-	*/
-	public Integer getNumberOfFiledCopies() {
-		return numberOfFiledCopies;
-	}
-
-	/**
-	* Sets new value of numberOfFiledCopies
-	* @param
-	*/
-	public void setNumberOfFiledCopies(Integer numberOfFiledCopies) {
-		this.numberOfFiledCopies = numberOfFiledCopies;
-	}
-
-	/**
 	* Returns value of numberOfQuestions
 	* @return
 	*/
@@ -183,5 +130,13 @@ public class CognitiveTest extends AbstractEntity {
 	*/
 	public void setNumberOfQuestions(Integer numberOfQuestions) {
 		this.numberOfQuestions = numberOfQuestions;
+	}
+
+	public String getNotes() {
+		return notes;
+	}
+
+	public String getProject() {
+		return project;
 	}
 }

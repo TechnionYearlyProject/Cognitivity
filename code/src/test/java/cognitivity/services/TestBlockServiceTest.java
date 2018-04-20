@@ -5,7 +5,10 @@ import cognitivity.dao.TestBlockDAO;
 import cognitivity.dao.TestManagerDAO;
 import cognitivity.dao.TestQuestionDAO;
 import cognitivity.dto.BlockWrapper;
-import cognitivity.entities.*;
+import cognitivity.entities.CognitiveTest;
+import cognitivity.entities.TestBlock;
+import cognitivity.entities.TestManager;
+import cognitivity.entities.TestQuestion;
 import cognitivity.web.app.config.HibernateBeanConfiguration;
 import config.TestContextBeanConfiguration;
 import org.junit.Before;
@@ -19,12 +22,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyBoolean;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 
@@ -67,38 +67,16 @@ public class TestBlockServiceTest {
         TestManagerService managerService = new TestManagerService(mdao,tdao);
 
         TestManager manager = new TestManager("Mail e mail");
-        CognitiveTest test = new CognitiveTest("YYY Eize Ra'ash. Shiyo", manager, 2, 1);
+        CognitiveTest test = new CognitiveTest("YYY Eize Ra'ash. Shiyo", manager, 1, "notes", "project");
         test.setId(2L);
         BlockWrapper block = service.createTestBlock(1,true,"EZ",test);
          assertNotNull("Problem with creating a test block", block);
 
-        /*TestQuestion question = new TestQuestion("To be or not to be?", 5, "BBB",
-                "Famous questions", block, test, manager, 0);
-        TestQuestion question1 = new TestQuestion("Who let the dogs out", 5, "who who whow how",
-                "Questions from songs", block, test, manager, 0);
-        TestQuestion question2 = new TestQuestion("Scoobie doobie doo!", 5, "Woof",
-                "Famous questions", block, test, manager, 0);*/
 
         List<TestQuestion> questions = new ArrayList<TestQuestion>();
 
-        /*questions.add(question);
-        questions.add(question1);
-        questions.add(question2);*/
-
-
-
-        // doReturn(block).when(dao).get(1L);
         service.findBlockById(1);
 
-        // assertEquals("Problem with getting a block", result, block);
-
-        /* block.setNumberOfQuestions(7);
-        service.updateTestBlock(block);*/
-
-        // result = service.findBlockById(1);
-        // int numericAnswer = result.getNumberOfQuestions();
-
-        // assertEquals("Problem with updating a block", numericAnswer, 7);
 
         doReturn(questions).when(dao).getAllBlockQuestions(1);
         List<TestQuestion> questions1 = service.findAllBlockQuestions(1);

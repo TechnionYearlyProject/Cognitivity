@@ -5,7 +5,6 @@ import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestManager;
 import cognitivity.entities.TestQuestion;
-import cognitivity.web.app.config.CognitivityMvcConfiguration;
 import config.IntegrationTestContextConfiguration;
 import org.junit.After;
 import org.junit.Before;
@@ -13,7 +12,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.*;
@@ -39,12 +37,11 @@ public class TestQuestionDAOTest extends AbstractDaoTestClass {
                 new TestManager("onlyForTests TestManagernotarealpassword");
         testManagerDAO.add(testManager);
         CognitiveTest cognitiveTest =
-                new CognitiveTest("onlyForTests", testManager, 1, 0);
+                new CognitiveTest("onlyForTests", testManager, 0, "notes", "project");
         cognitiveTestDAO.add(cognitiveTest);
         TestBlock testBlock = new TestBlock(0,false, "testTag", cognitiveTest);
         testBlockDAO.add(testBlock);
-        testQuestion = new TestQuestion("testQuestion", 0,
-                null, "testTag", testBlock, cognitiveTest, testManager, 0);
+        testQuestion = new TestQuestion("testQuestion", testBlock, cognitiveTest, testManager);
     }
 
     @After
@@ -68,18 +65,18 @@ public class TestQuestionDAOTest extends AbstractDaoTestClass {
         assertNull(testQuestionDAO.get(0L));
         testQuestionDAO.add(testQuestion);
         assertNotNull("add testQuestion problem", testQuestionDAO.get(testQuestion.getId()));
-        String questionTag = testQuestion.getTag();
-        assertTrue("Tag incorrect",
-                questionTag.equals(testQuestionDAO.get(testQuestion.getId()).getTag()));
-        String newQuestionTag = "bla bla bli";
-        testQuestion.setTag(newQuestionTag);
+        String question = testQuestion.getQuestion();
+        assertTrue("Question string incorrect",
+                question.equals(testQuestionDAO.get(testQuestion.getId()).getQuestion()));
+        String newQuestion = "bla bla bli";
+        testQuestion.setQuestion(newQuestion);
         testQuestionDAO.update(testQuestion);
-        assertTrue("tag update incorrect",
-                newQuestionTag.equals(testQuestionDAO.get(testQuestion.getId()).getTag()));
-        testQuestion.setTag(questionTag);
+        assertTrue("Question string update incorrect",
+                newQuestion.equals(testQuestionDAO.get(testQuestion.getId()).getQuestion()));
+        testQuestion.setQuestion(question);
         testQuestionDAO.update(testQuestion);
-        assertTrue("Tag incorrect",
-                questionTag.equals(testQuestionDAO.get(testQuestion.getId()).getTag()));
+        assertTrue("Question string incorrect",
+                question.equals(testQuestionDAO.get(testQuestion.getId()).getQuestion()));
         testQuestionDAO.delete(testQuestion.getId());
         assertNull("delete problem", testQuestionDAO.get(testQuestion.getId()));
     }

@@ -2,7 +2,6 @@ package cognitivity.dao;
 
 
 import cognitivity.entities.*;
-import cognitivity.web.app.config.CognitivityMvcConfiguration;
 import config.IntegrationTestContextConfiguration;
 import org.junit.After;
 import org.junit.Before;
@@ -10,7 +9,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.*;
@@ -34,22 +32,19 @@ public class TestSubjectDAOTest extends AbstractDaoTestClass {
         testAnswers = new TestAnswer[numOfSubjects][numOfAnswersPerSubject];
         testManager = new TestManager("qertyt      ");
         testManagerDAO.add(testManager);
-        cognitiveTest = new CognitiveTest("newTest", testManager,0,0);
+        cognitiveTest = new CognitiveTest("newTest", testManager, 0, "notes", "project");
         cognitiveTestDAO.add(cognitiveTest);
         testBlock = new TestBlock(0, true, "tag", cognitiveTest);
         testBlockDAO.add(testBlock);
 
-        TestQuestion testQuestion = new TestQuestion("bkabalba", 2,"5",
-                "thisIsMyTag", testBlock, cognitiveTest, testManager, 0);
+        TestQuestion testQuestion = new TestQuestion("bkabalba", testBlock, cognitiveTest, testManager);
         testQuestionDAO.add(testQuestion);
         for(int i = 0; i < numOfSubjects; i++){
             testSubject[i] = new TestSubject("subject", "3 " + i, "firefox");
             testSubjectDAO.add(testSubject[i]);
             for(int j = 0; j < numOfAnswersPerSubject; j++){
                 testAnswers[i][j] = new TestAnswer(testSubject[i], testQuestion,
-                        cognitiveTest, 1, j,1,
-                        1, null, false,
-                        5, false, false, false);
+                        cognitiveTest, null);
             }
         }
     }

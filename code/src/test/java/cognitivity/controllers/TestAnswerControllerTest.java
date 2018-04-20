@@ -64,48 +64,8 @@ public class TestAnswerControllerTest implements RestControllerTest {
     private TestAnswer mockTestAnswer() {
         return new TestAnswer() {
             @Override
-            public Integer getNumberOfClick() {
-                return 11;
-            }
-
-            @Override
-            public Integer getFinalAnswer() {
-                return 4;
-            }
-
-            @Override
-            public Integer getQuestionPlacement() {
-                return 5;
-            }
-
-            @Override
-            public Integer getAnswerPlacement() {
-                return 6;
-            }
-
-            @Override
-            public String getVerbalAnswer() {
-                return "answer";
-            }
-
-            @Override
-            public Boolean getQuestionWithPicture() {
-                return true;
-            }
-
-            @Override
-            public Boolean getTimeMeasured() {
-                return false;
-            }
-
-            @Override
-            public Boolean getTimeShowed() {
-                return true;
-            }
-
-            @Override
-            public Boolean getTesteeExit() {
-                return false;
+            public String getFinalAnswer(){
+                return "4";
             }
         };
     }
@@ -119,16 +79,7 @@ public class TestAnswerControllerTest implements RestControllerTest {
                 .param("testAnswerId", "12345"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$.numberOfClick", is(testAnswer.getNumberOfClick())))
-                .andExpect(jsonPath("$.finalAnswer", is(testAnswer.getFinalAnswer())))
-                .andExpect(jsonPath("$.questionPlacement", is(testAnswer.getQuestionPlacement())))
-                .andExpect(jsonPath("$.answerPlacement", is(testAnswer.getAnswerPlacement())))
-                .andExpect(jsonPath("$.verbalAnswer", is(testAnswer.getVerbalAnswer())))
-                .andExpect(jsonPath("$.questionWithPicture", is(testAnswer.getQuestionWithPicture())))
-                .andExpect(jsonPath("$.timeToAnswer", is(testAnswer.getTimeToAnswer())))
-                .andExpect(jsonPath("$.timeMeasured", is(testAnswer.getTimeMeasured())))
-                .andExpect(jsonPath("$.timeShowed", is(testAnswer.getTimeShowed())))
-                .andExpect(jsonPath("$.testeeExit", is(testAnswer.getTesteeExit())));
+                .andExpect(jsonPath("$.finalAnswer", is(testAnswer.getFinalAnswer())));
 
         Mockito.verify(testAnswerService, times(1)).findTestAnswerById(12345);
         Mockito.verifyNoMoreInteractions(testAnswerService);
@@ -143,16 +94,7 @@ public class TestAnswerControllerTest implements RestControllerTest {
                 .param("questionId", "12345"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$[0].numberOfClick", is(testAnswer.getNumberOfClick())))
-                .andExpect(jsonPath("$[0].finalAnswer", is(testAnswer.getFinalAnswer())))
-                .andExpect(jsonPath("$[0].questionPlacement", is(testAnswer.getQuestionPlacement())))
-                .andExpect(jsonPath("$[0].answerPlacement", is(testAnswer.getAnswerPlacement())))
-                .andExpect(jsonPath("$[0].verbalAnswer", is(testAnswer.getVerbalAnswer())))
-                .andExpect(jsonPath("$[0].questionWithPicture", is(testAnswer.getQuestionWithPicture())))
-                .andExpect(jsonPath("$[0].timeToAnswer", is(testAnswer.getTimeToAnswer())))
-                .andExpect(jsonPath("$[0].timeMeasured", is(testAnswer.getTimeMeasured())))
-                .andExpect(jsonPath("$[0].timeShowed", is(testAnswer.getTimeShowed())))
-                .andExpect(jsonPath("$[0].testeeExit", is(testAnswer.getTesteeExit())));
+                .andExpect(jsonPath("$[0].finalAnswer", is(testAnswer.getFinalAnswer())));
 
         Mockito.verify(testAnswerService, times(1)).findAllTestAnswerForAQuestion(12345);
         Mockito.verifyNoMoreInteractions(testAnswerService);
@@ -167,16 +109,7 @@ public class TestAnswerControllerTest implements RestControllerTest {
                 .param("subjectId", "12345"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$[0].numberOfClick", is(testAnswer.getNumberOfClick())))
-                .andExpect(jsonPath("$[0].finalAnswer", is(testAnswer.getFinalAnswer())))
-                .andExpect(jsonPath("$[0].questionPlacement", is(testAnswer.getQuestionPlacement())))
-                .andExpect(jsonPath("$[0].answerPlacement", is(testAnswer.getAnswerPlacement())))
-                .andExpect(jsonPath("$[0].verbalAnswer", is(testAnswer.getVerbalAnswer())))
-                .andExpect(jsonPath("$[0].questionWithPicture", is(testAnswer.getQuestionWithPicture())))
-                .andExpect(jsonPath("$[0].timeToAnswer", is(testAnswer.getTimeToAnswer())))
-                .andExpect(jsonPath("$[0].timeMeasured", is(testAnswer.getTimeMeasured())))
-                .andExpect(jsonPath("$[0].timeShowed", is(testAnswer.getTimeShowed())))
-                .andExpect(jsonPath("$[0].testeeExit", is(testAnswer.getTesteeExit())));
+                .andExpect(jsonPath("$[0].finalAnswer", is(testAnswer.getFinalAnswer())));
 
         Mockito.verify(testAnswerService, times(1)).findTestAnswersBySubject(12345);
         Mockito.verifyNoMoreInteractions(testAnswerService);

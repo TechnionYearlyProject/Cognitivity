@@ -18,17 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.sql.Wrapper;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.WeakHashMap;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyByte;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {TestContextBeanConfiguration.class, HibernateBeanConfiguration.class})
@@ -87,7 +82,7 @@ public class CognitiveTestServiceTest {
 
         CognitiveTestService service = new CognitiveTestService(dao, bdao, qdao);
 
-        CognitiveTest cognitiveTest = new CognitiveTest("test1", manager, 1, 2);
+        CognitiveTest cognitiveTest = new CognitiveTest("test1", manager, 2, "notes", "project");
         cognitiveTest.setId(7L);
         TestWrapper testWrapper = new TestWrapper(cognitiveTest);
         TestWrapper test = new TestWrapper();
@@ -100,13 +95,13 @@ public class CognitiveTestServiceTest {
         doReturn(test.innerTest()).when(dao).get(7L);
         assertNotNull("Problem in making test", cognitiveTest);
 
-        CognitiveTest test1 = new CognitiveTest("Man's not hot", manager, 2, 2);
+        CognitiveTest test1 = new CognitiveTest("Man's not hot", manager, 2, "notes", "project");
         test1.setId(8L);
-        CognitiveTest test2 = new CognitiveTest("Two plus two is", manager, 4, 6);
+        CognitiveTest test2 = new CognitiveTest("Two plus two is", manager, 6, "notes", "project");
         test2.setId(9L);
-        CognitiveTest test3 = new CognitiveTest("Minus 0ne that's", manager, 3, 10);
+        CognitiveTest test3 = new CognitiveTest("Minus 0ne that's", manager, 10, "notes", "project");
         test3.setId(10L);
-        CognitiveTest test4 = new CognitiveTest("Quick maths!", manager, 3, 17);
+        CognitiveTest test4 = new CognitiveTest("Quick maths!", manager, 17, "notes", "project");
         test4.setId(11L);
 
         TestBlockService blockService = new TestBlockService(bdao);
@@ -187,11 +182,11 @@ public class CognitiveTestServiceTest {
 
         QuestionService questionService = new QuestionService(qdao, adao, dao, mdao);
 
-        TestQuestion question1 = new TestQuestion("question1", 1, "5", "bla", block1.innerBlock(test.getId()), cognitiveTest, manager, 0);
+        TestQuestion question1 = new TestQuestion("question1", block1.innerBlock(test.getId()), cognitiveTest, manager);
         questionService.createTestQuestion(question1);
-        TestQuestion question2 = new TestQuestion("question2", 1, "5", "bla2", block2.innerBlock(test.getId()), cognitiveTest, manager, 0);
+        TestQuestion question2 = new TestQuestion("question2", block2.innerBlock(test.getId()), cognitiveTest, manager);
         questionService.createTestQuestion(question2);
-        TestQuestion question3 = new TestQuestion("question3", 1, "5", "bla3", block3.innerBlock(test.getId()), cognitiveTest, manager, 0);
+        TestQuestion question3 = new TestQuestion("question3", block3.innerBlock(test.getId()), cognitiveTest, manager);
         questionService.createTestQuestion(question3);
 
         List<TestQuestion> questions = new ArrayList<TestQuestion>();
@@ -248,14 +243,9 @@ public class CognitiveTestServiceTest {
         doReturn(questions).when(bdao).getAllBlockQuestions(15L);
         service.updateTestForTestManager(wrapper);
         doReturn(wrapper.innerTest()).when(dao).get(18L);
-//        doReturn(wrappers).when(bdao).get
         TestWrapper wrapper1 = service.findTestById(18L);
         String resName = wrapper1.getName();
         assertEquals("Problem with updating a test with questions","What a lovely name!",resName);
-
-
-
-
 
 
 

@@ -4,7 +4,6 @@ import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestManager;
 import cognitivity.entities.TestQuestion;
-import cognitivity.web.app.config.CognitivityMvcConfiguration;
 import config.IntegrationTestContextConfiguration;
 import org.junit.After;
 import org.junit.Before;
@@ -12,7 +11,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
@@ -41,7 +39,7 @@ public class TestBlockDAOTest extends AbstractDaoTestClass {
         testManager =
                 new TestManager("onlyForTests TestManager");
         testManagerDAO.add(testManager);
-        cognitiveTest = new CognitiveTest("onlyForTests", testManager, 0, 1);
+        cognitiveTest = new CognitiveTest("onlyForTests", testManager, 1, "notes", "project");
         cognitiveTestDAO.add(cognitiveTest);
         testBlock = new TestBlock(0,false, "testTag", cognitiveTest);
     }
@@ -91,10 +89,8 @@ public class TestBlockDAOTest extends AbstractDaoTestClass {
         int numberOfQuestions = 1000;
         TestQuestion questions[] = new TestQuestion[numberOfQuestions];
         for(int i = 0; i < numberOfQuestions; i++){
-            questions[i] = new TestQuestion("question " + i, 5,
-                    "dont ask", "papao", testBlock,
-                    cognitiveTest, testManager,
-                    3);
+            questions[i] = new TestQuestion("question " + i, testBlock,
+                    cognitiveTest, testManager);
             testQuestionDAO.add(questions[i]);
             questionsList = testBlockDAO.getAllBlockQuestions(testBlock.getId());
             assertTrue("block should be empty", questionsList.contains(questions[i]));

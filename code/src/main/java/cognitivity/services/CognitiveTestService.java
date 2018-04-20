@@ -78,7 +78,7 @@ public class CognitiveTestService {
      * @param test - The cognitive test to be updated.
      *             <p>
      *             This will be used in conjunction with the PUT HTTP method.
-     * @Returns the new allocated id for the test
+     * @Return the new allocated id for the test
      *
      */
     public TestWrapper updateTestForTestManager(TestWrapper test) throws DBException {
@@ -135,7 +135,7 @@ public class CognitiveTestService {
      * @return - The test the test manager has created with the given id.
      */
     public List<TestWrapper> findTestsForTestManager(long managerId) throws DBException {
-        List<TestWrapper> tests = new ArrayList<TestWrapper>();
+        List<TestWrapper> tests = new ArrayList<>();
         List<CognitiveTest> preWrapped = dao.getCognitiveTestOfManager(managerId);
         for (CognitiveTest test : preWrapped) {
             tests.add(findTestById(test.getId()));
@@ -163,10 +163,57 @@ public class CognitiveTestService {
      * Find all cognitive test questions in a test.
      *
      * @param testId - The test Id.
-     * @return - All questions the test has.
+     * @return - All questions that the test has.
      */
     public List<TestQuestion> getTestQuestionsForTest(long testId) {
         return dao.getTestQuestions(testId);
     }
 
+
+    /**
+     * Method for getting all tests with a specific description in notes field.
+     *
+     * @param notes - The notes files filter.
+     * @return - All tests (wrapper) that their notes field contains the notes string parameter.
+     */
+    public List<CognitiveTest> filterTestsByNotes(String notes) {
+        return dao.filterTestsByNotes(notes);
+    }
+
+
+    /**
+     * Method for getting all tests of a specific project.
+     *
+     * @param projectFilter - The project test filter.
+     * @return - All tests that their project field is the same as the projectFilter parameter.
+     */
+    public List<CognitiveTest> filterTestsByProject(String projectFilter) {
+        return dao.filterTestsByProject(projectFilter);
+    }
+
+
+    /**
+     * Method for searching for all cognitive tests of a manager without fetching the questions.
+     *
+     * @param managerId - id of the manager the request is build on.
+     * @return - All tests that their manager has the id (param) without the questions (no wrapper)
+     */
+    public List<CognitiveTest> findTestsForTestManagerWithoutQuestions(long managerId) {
+        return dao.findTestsForTestManagerWithoutQuestions(managerId);
+    }
+
+    /**
+     * Method for searching searching for a cognitive test by its id in the DB with all its question.
+     *
+     * @param testId - id of the test as its written in the database.
+     *               The test wrapper to be returned should have all the blocks and questions
+     *               that are related to (in the DB tables) to the test with the id, as it was returned
+     *               by the findTestsForTestManagerWithoutQuestions (new) method.
+     * @return - test wrapper with all questions and blocks, as described above.
+     */
+    public TestWrapper findCognitiveTestById(long testId) {
+        CognitiveTest test = dao.get(testId);
+        List<BlockWrapper> blocks = getTestBlocksForTest(testId);
+        return new TestWrapper(test,blocks);
+    }
 }

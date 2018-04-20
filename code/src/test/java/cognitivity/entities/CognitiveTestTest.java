@@ -21,7 +21,7 @@ public class CognitiveTestTest {
 
         // in the application, when we push item to the db, hibernate allocats the id
         testManager.setId(managerId);
-        return new CognitiveTest("testName", testManager, 3, 10);
+        return new CognitiveTest("testName", testManager, 10, "notes", "project");
     }
 
     @Test
@@ -43,11 +43,6 @@ public class CognitiveTestTest {
         cognitiveTest.setManager(newTestManager);
         assertTrue(cognitiveTest.getManager().getId().equals(managerId + 1));
 
-        // state check
-        assertTrue(cognitiveTest.getState() == 3);
-        cognitiveTest.setState(2);
-        assertTrue(cognitiveTest.getState() == 2);
-
         // numberOfQuestion check
         assertTrue(cognitiveTest.getNumberOfQuestions() == 10);
         cognitiveTest.setNumberOfQuestions(1);
@@ -64,14 +59,5 @@ public class CognitiveTestTest {
         cognitiveTest.setLastModified(lastModified);
         assertTrue(cognitiveTest.getLastModified() == lastModified);
 
-        // numberOfFieldCopies should be 0 at start
-        assertTrue(cognitiveTest.getNumberOfFiledCopies() == 0);
-        cognitiveTest.setNumberOfFiledCopies(11);
-        assertTrue(cognitiveTest.getNumberOfFiledCopies() == 11);
-
-        // numberOfSubjects should be 0 at start
-        assertTrue(cognitiveTest.getNumberOfSubjects() == 0);
-        cognitiveTest.setNumberOfSubjects(11);
-        assertTrue(cognitiveTest.getNumberOfSubjects() == 11);
     }
 }

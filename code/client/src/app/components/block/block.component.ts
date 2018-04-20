@@ -24,7 +24,8 @@ export class BlockComponent implements OnInit {
   hidden: boolean = true;
   //the actual list of the questions.
   questionList: Array<QuestionInBlock> = new Array<QuestionInBlock>();
-
+  //this will hold all the tags for the block.
+  items = [];
   //default constructor.
   constructor(private dialog: MatDialog,private router:Router, private transferData: SessionService){}
   

@@ -37,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {IntegrationTestContextConfiguration.class})
-//@Ignore
+@Ignore
 public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegrationTest {
 
     @Autowired
@@ -56,7 +56,7 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
      * Creates a TestQuestion with question = "qi" with i an integer.
      */
     private static TestQuestion createTestQuestion(int i, TestBlock block, CognitiveTest test) {
-        return new TestQuestion("q" + i, 1, "a", "t", block, test, test.getManager(), 1);
+        return new TestQuestion("q" + i, block, test, test.getManager());
     }
 
     /**
@@ -105,7 +105,7 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
                 TestWrapper.class).getId());
 
         // Test is saved. Try find it in the database...
-        cognitiveTestMvc.perform((get("/tests/findTestsForTestManager"))
+        cognitiveTestMvc.perform((get("/tests/findTestsForTestManagerWithoutQuestions"))
                 .param("managerId", String.valueOf(managerId)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
@@ -149,9 +149,8 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
             questionsPerBlock[i] = new ArrayList<>();
             int numOfQuestions = rand.nextInt(maxNumberOfQuestionsInBlock);
             for (int j = 0; j < numOfQuestions; j++) {
-                questionsPerBlock[i].add(new TestQuestion("q " + j, 12,
-                        null, "test block " + i, testBlock[i],
-                        cognitiveTest, manager, 0));
+                questionsPerBlock[i].add(new TestQuestion("q " + j, testBlock[i],
+                        cognitiveTest, manager));
             }
 
             blockWrappers.add(new BlockWrapper(questionsPerBlock[i], testBlock[i]));
@@ -173,7 +172,7 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
         String testId = String.valueOf(saveCognitiveTest(testWrapper, objectMapper, cognitiveTestMvc));
 
         // Test is saved. Try find it in the database...
-        cognitiveTestMvc.perform((get("/tests/findTestsForTestManager"))
+        cognitiveTestMvc.perform((get("/tests/findTestsForTestManagerWithoutQuestions"))
                 .param("managerId", String.valueOf(managerId)))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -221,7 +220,7 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
                 TestWrapper.class).getId());
 
         // Test is saved. Try find it in the database...
-        cognitiveTestMvc.perform((get("/tests/findTestsForTestManager"))
+        cognitiveTestMvc.perform((get("/tests/findTestsForTestManagerWithoutQuestions"))
                 .param("managerId", String.valueOf(managerId)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8));
@@ -261,7 +260,7 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
                 TestWrapper.class).getId());
 
         //check the result
-        ResultActions updatedResult = cognitiveTestMvc.perform((get("/tests/findTestsForTestManager"))
+        ResultActions updatedResult = cognitiveTestMvc.perform((get("/tests/findTestsForTestManagerWithoutQuestions"))
                 .param("managerId", String.valueOf(managerId)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8));

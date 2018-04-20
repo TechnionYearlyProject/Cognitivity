@@ -1,11 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabase, AngularFireDatabaseModule } from 'angularfire2/database';
-import {AngularFireAuthModule } from 'angularfire2/auth'
+import {AngularFireAuthModule } from 'angularfire2/auth';
+import { TagInputModule } from 'ngx-chips';
+
+
 
 /* Components */
 import { AppComponent } from './app.component';
@@ -34,6 +37,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { QuestionPreviewComponent } from './components/question-preview/question-preview.component';
 import { BlockPreviewComponent } from './components/block-preview/block-preview.component';
 import { TestPreviewComponent } from './components/test-preview/test-preview.component';
+<<<<<<< HEAD
 import { DrillDownQuestionComponent } from './components/drill-down-question/drill-down-question.component';
 import { EditBlockComponent } from './components/edit-block/edit-block.component';
 import { EditTestComponent } from './components/edit-test/edit-test.component';
@@ -41,6 +45,11 @@ import { CreateRateQuestionComponent } from './components/create-rate-question/c
 import { CreateOpenQuestionComponent } from './components/create-open-question/create-open-question.component';
 import { CreateMultipleAnswerQuestionComponent } from './components/create-multiple-answer-question/create-multiple-answer-question.component';
 import { CreateDrillDownQuestionComponent } from './components/create-drill-down-question/create-drill-down-question.component';
+=======
+import { DrillDownQuestionComponent } from './components/drill-down-question/drill-down-question.component';
+import { EditBlockComponent } from './components/edit-block/edit-block.component';
+import { EditTestComponent } from './components/edit-test/edit-test.component';
+>>>>>>> cfe9fec0a042cec0dfb9dc1366905ba8908eab19
 
 
 
@@ -97,8 +106,9 @@ const PROVIDED_SERVICES = [
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase,'Cognitivity'),
     MatDialogModule,
-    BrowserAnimationsModule
-
+    BrowserAnimationsModule,
+    TagInputModule, 
+    ReactiveFormsModule
   ],
   providers: [
     ...PROVIDED_SERVICES

@@ -105,9 +105,6 @@ public class TestQuestionResourceIntegrationTest extends AbstractResourceIntegra
                 .andExpect(jsonPath("$.tag", is("tag1")));
 
         question.setQuestion("q2");
-        question.setQuestionType(2);
-        question.setAnswer("a2");
-        question.setTag("tag2");
 
         // Call to update...
         testQuestionMvc.perform(post("/test-questions/updateCognitiveTestQuestion")

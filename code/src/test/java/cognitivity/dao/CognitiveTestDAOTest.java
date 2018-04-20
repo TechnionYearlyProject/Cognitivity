@@ -4,20 +4,14 @@ import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestManager;
 import cognitivity.entities.TestQuestion;
-import cognitivity.web.app.config.CognitivityMvcConfiguration;
-import cognitivity.web.app.config.HibernateBeanConfiguration;
 import config.IntegrationTestContextConfiguration;
-import config.TestContextBeanConfiguration;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -54,7 +48,7 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
             testManagerDAO.add(testManagers[i]);
             for (int j = 0; j < numOfTestsPerManager; j++) {
                 cognitiveTestsPerManager[i][j] = new CognitiveTest("Test" + i + j,
-                        testManagers[i], 1, 0);
+                        testManagers[i], 0, "notes", "project");
             }
         }
 
@@ -91,18 +85,18 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
                 cognitiveTestDAO.add(cognitiveTest);
                 assertNotNull("add cognitiveTest problem",
                         cognitiveTestDAO.get(cognitiveTest.getId()));
-                int state = cognitiveTest.getState();
+                String name = cognitiveTest.getName();
                 assertTrue("state incorrect",
-                        state == cognitiveTestDAO.get(cognitiveTest.getId()).getState());
-                int newState = 2;
-                cognitiveTest.setState(newState);
+                        name.equals(cognitiveTestDAO.get(cognitiveTest.getId()).getName()));
+                String newState = "2";
+                cognitiveTest.setName(newState);
                 cognitiveTestDAO.update(cognitiveTest);
                 assertTrue("state update incorrect",
-                        newState == cognitiveTestDAO.get(cognitiveTest.getId()).getState());
-                cognitiveTest.setState(state);
+                        newState.equals(cognitiveTestDAO.get(cognitiveTest.getId()).getName()));
+                cognitiveTest.setName(name);
                 cognitiveTestDAO.update(cognitiveTest);
                 assertTrue("state update incorrect",
-                        state == cognitiveTestDAO.get(cognitiveTest.getId()).getState());
+                        name.equals(cognitiveTestDAO.get(cognitiveTest.getId()).getName()));
 
             }
         }
@@ -201,8 +195,8 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
                 //as long as we arn't in the last iteration
                 if (j < numOfTestQuestionsPerBlock) {
                     testQuestions[i][j] =
-                            new TestQuestion("to be or not to be", 5, "10", "tag",
-                                    testBlocks[i], cognitiveTestsPerManager[0][i], testManagers[0], 0);
+                            new TestQuestion("to be or not to be", testBlocks[i],
+                                    cognitiveTestsPerManager[0][i], testManagers[0]);
                     testQuestionDAO.add(testQuestions[i][j]);
                 }
             }

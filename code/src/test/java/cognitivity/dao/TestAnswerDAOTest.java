@@ -1,7 +1,6 @@
 package cognitivity.dao;
 
 import cognitivity.entities.*;
-import cognitivity.web.app.config.CognitivityMvcConfiguration;
 import config.IntegrationTestContextConfiguration;
 import org.junit.After;
 import org.junit.Before;
@@ -9,7 +8,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
@@ -52,19 +50,16 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
                 new TestManager("onlyForTests TestManager notarealpassword");
         testManagerDAO.add(testManager);
         cognitiveTest =
-                new CognitiveTest("onlyForTests", testManager, 1, 0);
+                new CognitiveTest("onlyForTests", testManager, 0, "notes", "project");
         cognitiveTestDAO.add(cognitiveTest);
         testBlock = new TestBlock(0, false, "testTag", cognitiveTest);
         testBlockDAO.add(testBlock);
-        testQuestion = new TestQuestion("testQuestion", 0,
-                null, "testTag", testBlock, cognitiveTest, testManager, 0);
+        testQuestion = new TestQuestion("testQuestion", testBlock, cognitiveTest, testManager);
         testQuestionDAO.add(testQuestion);
         testSubject = new TestSubject("testName", "-1", "fireFox");
         testSubjectDAO.add(testSubject);
         testAnswer = new TestAnswer(testSubject, testQuestion,
-                cognitiveTest, 0, 0, 0,
-                0, "blabla", false,
-                10, false, false, false);
+                cognitiveTest, "blabla");
     }
 
     @After
@@ -87,18 +82,18 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
         assertNull(testAnswerDAO.get(0L));
         testAnswerDAO.add(testAnswer);
         assertNotNull("add testAnswer problem", testAnswerDAO.get(testAnswer.getId()));
-        int finalAnswer = testAnswer.getFinalAnswer();
+        String finalAnswer = testAnswer.getFinalAnswer();
         assertTrue("finalAnswer incorrect",
-                finalAnswer == testAnswerDAO.get(testAnswer.getId()).getFinalAnswer());
-        int newFinalAnswer = 2;
+                finalAnswer.equals(testAnswerDAO.get(testAnswer.getId()).getFinalAnswer()));
+        String newFinalAnswer = "2";
         testAnswer.setFinalAnswer(newFinalAnswer);
         testAnswerDAO.update(testAnswer);
         assertTrue("finalAnswer update incorrect",
-                newFinalAnswer == testAnswerDAO.get(testAnswer.getId()).getFinalAnswer());
+                newFinalAnswer.equals(testAnswerDAO.get(testAnswer.getId()).getFinalAnswer()));
         testAnswer.setFinalAnswer(finalAnswer);
         testAnswerDAO.update(testAnswer);
         assertTrue("finalAnswer incorrect",
-                finalAnswer == testAnswerDAO.get(testAnswer.getId()).getFinalAnswer());
+                finalAnswer.equals(testAnswerDAO.get(testAnswer.getId()).getFinalAnswer()));
         testAnswerDAO.delete(testAnswer.getId());
         assertNull("delete problem", testAnswerDAO.get(testAnswer.getId()));
     }
