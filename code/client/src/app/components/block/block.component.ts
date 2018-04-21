@@ -6,6 +6,7 @@ import {Question,  QuestionInBlock} from '../../models'
 import { QuestionComponent } from '../question/question.component';
 import { Input } from '@angular/core/';
 import { SessionService } from '../../services/session-service/index';
+import { forEach } from '@angular/router/src/utils/collection';
 @Component({
   selector: 'app-block',
   templateUrl: './block.component.html',
@@ -24,10 +25,9 @@ export class BlockComponent implements OnInit {
   hidden: boolean = true;
   //the actual list of the questions.
   questionList: Array<QuestionInBlock> = new Array<QuestionInBlock>();
-  //this will hold all the tags for the block.
-  items = [];
+ 
   //default constructor.
-  constructor(private dialog: MatDialog,private router:Router, private transferData: SessionService){}
+  constructor(private dialog: MatDialog,private router:Router, private transferData: SessionService){this.tags=[]}
   
   //this function pops up the dialog for creating a question. 
   openDialog(){
@@ -147,5 +147,20 @@ export class BlockComponent implements OnInit {
   */
   getQuestions(): Array<QuestionInBlock>{
     return this.questionList;
+  } 
+
+ //this will hold all the tags for the block.
+  tags:string[];
+  //tags count
+  tags_count = 0;
+
+//can add more functionality 
+  addTag(){
+    this.tags_count++;
+  }
+
+  ////can add more functionality
+  removeTag(){
+    this.tags_count--;
   }
 }

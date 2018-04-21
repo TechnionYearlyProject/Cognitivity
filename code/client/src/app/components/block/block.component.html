@@ -40,7 +40,8 @@
          * indicate when inserting duplicated tag
          TODO - validation
         -->
-        <tag-input [(ngModel)]='items'  [editable]='true' [maxItems]='5' [blinkIfDupe]='true'></tag-input>
+        <tag-input [(ngModel)]='tags'  [editable]='true' [maxItems]='10' [blinkIfDupe]='true' 
+        [ripple]='true' (onAdd)='addTag()' (onRemove)='removeTag()'></tag-input>
       </div>
       <div class="item">
       </div>
