@@ -83,6 +83,7 @@ CREATE TABLE testQuestion(id INTEGER PRIMARY KEY AUTO_INCREMENT,
   testManagerId INT NOT NULL,
   testId INT NOT NULL,
   testBlockId INT NOT NULL,
+  projectId INT NOT NULL,
   FOREIGN KEY (testManagerId) REFERENCES testManager(id) ON DELETE CASCADE,
   FOREIGN KEY (projectId) REFERENCES test(id) ON DELETE CASCADE,
   FOREIGN KEY (testBlockId) REFERENCES testBlock(id) ON DELETE CASCADE
@@ -107,7 +108,7 @@ Fields:
 @questionId - a reference to the question that was answered.
 */
 CREATE TABLE testAnswer(id INTEGER PRIMARY KEY AUTO_INCREMENT,
-  finalAnswer text
+  finalAnswer text,
   testeeId INTEGER NOT NULL,
   questionId INTEGER NOT NULL,
   projectId INTEGER NOT NULL ,
