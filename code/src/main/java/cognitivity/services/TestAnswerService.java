@@ -5,6 +5,7 @@ import cognitivity.dao.TestSubjectDAO;
 import cognitivity.entities.TestAnswer;
 import cognitivity.exceptions.DBException;
 import cognitivity.exceptions.ErrorType;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @Service
 public class TestAnswerService {
 
+    private final static Logger logger = Logger.getLogger(TestAnswerService.class);
 
     private TestAnswerDAO dao;
     private TestSubjectDAO subjectDao;
@@ -35,8 +37,10 @@ public class TestAnswerService {
     public TestAnswer addTestAnswerForTestQuestion(TestAnswer answer) throws DBException {
         try {
             dao.add(answer);
+            logger.info("Successfully added TestAnswer. TestAnswerId = " + answer.getId());
             return answer;
         }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
             throw new DBException(ErrorType.SAVE);
         }
     }
@@ -51,7 +55,9 @@ public class TestAnswerService {
     public void updateTestAnswerForQuestion(TestAnswer answer) throws DBException {
         try {
             dao.update(answer);
+            logger.info("Successfully updated TestAnswer. TestAnswerId = " + answer.getId());
         }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
             throw new DBException(ErrorType.UPDATE);
         }
     }
@@ -66,7 +72,9 @@ public class TestAnswerService {
     public void deleteTestAnswerForQuestion(long id) throws DBException {
         try {
             dao.delete(id);
+            logger.info("Successfully deleted TestAnswer. TestAnswerId = " + id);
         }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
             throw new DBException(ErrorType.UPDATE);
         }
     }
@@ -84,7 +92,10 @@ public class TestAnswerService {
             for (TestAnswer answer : answers) {
                 dao.delete(answer.getId());
             }
+            logger.info("Successfully deleted all test answers for TestQuestionId = "
+                    + questionId);
         }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
             throw new DBException(ErrorType.UPDATE);
         }
     }

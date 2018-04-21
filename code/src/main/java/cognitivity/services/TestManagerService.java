@@ -6,6 +6,7 @@ import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
 import cognitivity.exceptions.DBException;
 import cognitivity.exceptions.ErrorType;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,8 @@ import java.util.List;
 
 @Service
 public class TestManagerService {
+
+    private final static Logger logger = Logger.getLogger(TestManagerService.class);
 
     private TestManagerDAO dao;
     private CognitiveTestDAO testDao;
@@ -40,8 +43,10 @@ public class TestManagerService {
     public TestManager createTestManager(TestManager testManager) throws DBException {
         try {
             dao.add(testManager);
+            logger.info("Successfully added TestManager. TestManagerId = " + testManager.getId());
             return testManager;
         }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
             throw new DBException(ErrorType.UPDATE);
         }
     }
@@ -49,14 +54,16 @@ public class TestManagerService {
     /**
      * Update a TestManager.
      *
-     * @param manager - The test manager to be updated.
+     * @param testManager - The test manager to be updated.
      * <p>
      * This will be used in conjunction with the PUT HTTP method.
      */
-    public void updateTestManager(TestManager manager)throws DBException {
+    public void updateTestManager(TestManager testManager)throws DBException {
         try{
-            dao.update(manager);
+            dao.update(testManager);
+            logger.info("Successfully updated TestManager. TestManagerId = " + testManager.getId());
         }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
             throw new DBException(ErrorType.UPDATE);
         }
     }
@@ -71,7 +78,9 @@ public class TestManagerService {
     public void deleteTestManager(long testManagerId)throws DBException {
         try{
             dao.delete(testManagerId);
+            logger.info("Successfully deleted TestManager. TestManagerId = " + testManagerId);
         }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
             throw new DBException(ErrorType.UPDATE);
         }
     }

@@ -9,6 +9,7 @@ import cognitivity.entities.TestManager;
 import cognitivity.entities.TestQuestion;
 import cognitivity.exceptions.DBException;
 import cognitivity.exceptions.ErrorType;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,9 @@ import java.util.List;
 
 @Service
 public class QuestionService {
+
+    private final static Logger logger = Logger.getLogger(QuestionService.class);
+
     private TestQuestionDAO dao;
     private TestAnswerDAO answerDao;
     private CognitiveTestDAO testDao;
@@ -44,8 +48,10 @@ public class QuestionService {
     public TestQuestion createTestQuestion(TestQuestion q) throws DBException {
         try {
             dao.add(q);
+            logger.info("Successfully added TestQuestion. TestQuestionId = " + q.getId());
             return q;
         } catch (org.hibernate.HibernateException e) {
+            logger.error(e.getMessage());
             throw new DBException(ErrorType.SAVE);
         }
     }
@@ -60,7 +66,9 @@ public class QuestionService {
     public void updateTestQuestion(TestQuestion q) throws DBException {
         try {
             dao.update(q);
+            logger.info("Successfully updated TestQuestion. TestQuestionId = " + q.getId());
         } catch (org.hibernate.HibernateException e) {
+            logger.error(e.getMessage());
             throw new DBException(ErrorType.UPDATE);
         }
     }
@@ -79,7 +87,9 @@ public class QuestionService {
     public void deleteTestQuestion(long questionId) throws DBException {
         try {
             dao.delete(questionId);
+            logger.info("Successfully deleted TestQuestion. TestQuestionId = " + questionId);
         } catch (org.hibernate.HibernateException e) {
+            logger.error(e.getMessage());
             throw new DBException(ErrorType.DELETE);
         }
     }

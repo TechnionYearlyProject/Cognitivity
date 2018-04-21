@@ -5,6 +5,7 @@ import cognitivity.entities.TestAnswer;
 import cognitivity.entities.TestSubject;
 import cognitivity.exceptions.DBException;
 import cognitivity.exceptions.ErrorType;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ import java.util.List;
 @Service
 public class TestSubjectService {
 
+    private final static Logger logger = Logger.getLogger(TestSubjectService.class);
 
     private TestSubjectDAO dao;
 
@@ -36,8 +38,11 @@ public class TestSubjectService {
     public TestSubject createTestSubject(TestSubject testSubject)throws DBException {
         try {
             dao.add(testSubject);
+            logger.info("Successfully added TestSubject. TestSubjectId = "
+                    + testSubject.getId());
             return testSubject;
         }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
             throw new DBException(ErrorType.UPDATE);
         }
     }
@@ -45,14 +50,17 @@ public class TestSubjectService {
     /**
      * Update a TestSubject.
      *
-     * @param subject - The test subject to update.
+     * @param testSubject - The test subject to update.
      *
      * This will be used in conjunction with the PUT HTTP method.
      * */
-    public void updateTestSubject(TestSubject subject)throws DBException {
+    public void updateTestSubject(TestSubject testSubject)throws DBException {
         try {
-            dao.update(subject);
+            dao.update(testSubject);
+            logger.info("Successfully updated TestSubject. TestSubjectId = "
+                    + testSubject.getId());
         }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
             throw new DBException(ErrorType.UPDATE);
         }
     }
@@ -67,7 +75,10 @@ public class TestSubjectService {
     public void deleteTestSubject(long testSubjectId)throws DBException {
         try {
             dao.delete(testSubjectId);
+            logger.info("Successfully deleted TestSubject. TestSubjectId = "
+                    + testSubjectId);
         }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
             throw new DBException(ErrorType.UPDATE);
         }
     }

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import org.apache.log4j.Logger;
 
 /**
  * Business service for cognitive test related operations.
@@ -23,6 +23,8 @@ import java.util.List;
 
 @Service
 public class CognitiveTestService {
+
+    private final static Logger logger = Logger.getLogger(CognitiveTestService.class);
 
     private CognitiveTestDAO dao;
     private TestBlockDAO blockDAO;
@@ -66,8 +68,10 @@ public class CognitiveTestService {
                 }
             }
             cognitiveTest.setId(testId);
+            logger.info("Successfully added test. testId = " + testId);
             return cognitiveTest;
         } catch (org.hibernate.HibernateException e) {
+            logger.error(e.getMessage());
             throw new DBException(ErrorType.SAVE);
         }
     }
@@ -88,9 +92,10 @@ public class CognitiveTestService {
             // we need to do it because we get only the blocks that will be in the updated test(faster then remove
             // all the existing ones manually)
             System.out.println(test.innerTest().getId());
-            dao.delete(test.innerTest().getId());
+            deleteTestForTestManager(test.innerTest().getId());
             return createTestForTestManager(test);
         } catch (org.hibernate.HibernateException e) {
+            logger.error(e.getMessage());
             throw new DBException(ErrorType.UPDATE);
         }
 
@@ -100,14 +105,16 @@ public class CognitiveTestService {
      * Delete a CognitiveTest for a test manager (admin).
      * This method deletes all the blocks and questions of the test
      *
-     * @param testID - The test id to delete.
+     * @param testId- The test id to delete.
      *               <p>
      *               This will be used in conjunction with the DELETE HTTP method.
      */
-    public void deleteTestForTestManager(long testID) throws DBException {
+    public void deleteTestForTestManager(long testId) throws DBException {
         try {
-            dao.delete(testID);
+            dao.delete(testId);
+            logger.info("Successfully deleted test. testId = " + testId);
         } catch (org.hibernate.HibernateException e) {
+            logger.error(e.getMessage());
             throw new DBException(ErrorType.DELETE);
         }
     }

@@ -7,6 +7,7 @@ import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestQuestion;
 import cognitivity.exceptions.DBException;
 import cognitivity.exceptions.ErrorType;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,8 @@ import java.util.List;
 
 @Service
 public class TestBlockService {
+
+    private final static Logger logger = Logger.getLogger(TestBlockService.class);
 
     private TestBlockDAO dao;
 
@@ -39,8 +42,10 @@ public class TestBlockService {
         try {
             BlockWrapper res = new BlockWrapper(numberOfQuestions, randomize, tag, test);
             dao.add(res.innerBlock(test.getId()));
+            logger.info("Successfully added TestBlock. TestBlockId = " + res.getId());
             return res;
         } catch (org.hibernate.HibernateException e) {
+            logger.info(e.getMessage());
             throw new DBException(ErrorType.UPDATE);
         }
     }
@@ -82,7 +87,9 @@ public class TestBlockService {
     public void deleteTestBlock(long blockId) throws DBException {
         try {
             dao.delete(blockId);
+            logger.info("Successfully deleted TestBlock. TestBlockId = " + blockId);
         } catch (org.hibernate.HibernateException e) {
+            logger.error(e.getMessage());
             throw new DBException(ErrorType.UPDATE);
         }
     }

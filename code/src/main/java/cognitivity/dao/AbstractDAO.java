@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.logging.Logger;
+
 
 @Repository
 @Transactional
@@ -15,6 +17,7 @@ public abstract class AbstractDAO<DataType extends AbstractEntity> {
     // the bean that will be autowired here will be the one with the hibernate setting
     @Autowired
     protected SessionFactory sessionFactory;
+
 
     /**
      * search the object in the DB

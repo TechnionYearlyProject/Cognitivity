@@ -59,7 +59,7 @@ public class CognitivityMvcConfiguration {
     private static Properties additionalProperties() {
         Properties properties = new Properties();
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-        properties.setProperty("hibernate.show_sql", "true");
+//        properties.setProperty("hibernate.show_sql", "true");
         properties.setProperty("current_session_context_class", "thread");
         return properties;
     }
