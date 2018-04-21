@@ -39,16 +39,13 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
     @Before
     public void initialize() {
         testManagers = new TestManager[numOfTestManagers];
-        //new TestManager("onlyForTests TestManager", "notarealpassword");
-        //testManagerDAO.add(testManager);
         cognitiveTestsPerManager = new CognitiveTest[numOfTestManagers][numOfTestsPerManager];
-        //new CognitiveTest("onlyForTests", testManager, 1, 0);
         for (int i = 0; i < numOfTestManagers; i++) {
             testManagers[i] = new TestManager("TestManager" + i + " @gmail.com");
             testManagerDAO.add(testManagers[i]);
             for (int j = 0; j < numOfTestsPerManager; j++) {
                 cognitiveTestsPerManager[i][j] = new CognitiveTest("Test" + i + j,
-                        testManagers[i], 0, "notes", "project");
+                        testManagers[i], 0, "notes" + j, "project" + j);
             }
         }
 
@@ -224,7 +221,6 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
     /*
      * checks the getTestBlocks function:
      *
-     *     - we cheating blocks, each iteration for other test
      *     - at each creation of test we check that the list of blocks is in the expected size
      *     - we also check that in the new added block is in the list
      *     - at the end we remove all the blocks
@@ -267,4 +263,50 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
         }
     }
 
+    /*
+     * checks the filterTestsByProject, filterTestsByNotes function:
+     *
+     *  - checking that empty string returns all the tests
+     *  - checking that the full string(full project/notes string)
+     *    returns all the matching tests
+     *  - checking that substring returns all the matching tests
+     *
+     */
+    @Test
+    public void filterTestsByString(){
+        // adding the tests to the db
+        for(int i = 0; i < numOfTestsPerManager; i++){
+            cognitiveTestDAO.add(cognitiveTestsPerManager[0][i]);
+        }
+        List<CognitiveTest> res;
+        res = cognitiveTestDAO.filterTestsByNotes("");
+        assertTrue("empty string should return all tests",
+                res.size() == numOfTestManagers);
+        res = cognitiveTestDAO.filterTestsByProject("");
+        assertTrue("empty string should return all tests",
+                res.size() == numOfTestManagers);
+
+        res = cognitiveTestDAO.filterTestsByNotes("notes");
+        assertTrue("\"notes\" string should return all tests",
+                res.size() == numOfTestManagers);
+        res = cognitiveTestDAO.filterTestsByProject("project");
+        assertTrue("\"project\" string should return all tests",
+                res.size() == numOfTestManagers);
+
+        res = cognitiveTestDAO.filterTestsByNotes("notes0");
+        assertTrue("\"notes0\" string should return only one test",
+                res.size() == 1 &&
+                        res.get(0).getId().equals(cognitiveTestsPerManager[0][0].getId()));
+        res = cognitiveTestDAO.filterTestsByProject("project0");
+        assertTrue("\"project0\" string should return only one test",
+                res.size() == 1 &&
+                        res.get(0).getId().equals(cognitiveTestsPerManager[0][0].getId()));
+
+        res = cognitiveTestDAO.filterTestsByProject("noSuchProjectExists");
+        assertTrue("\"noSuchProjectExists\" string should return empty list",
+                res.size() == 0);
+        res = cognitiveTestDAO.filterTestsByNotes("noSuchNotesExists");
+        assertTrue("\"noSuchNotesExists\" string should return empty list",
+                res.size() == 0);
+    }
 }

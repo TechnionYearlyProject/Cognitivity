@@ -20,7 +20,7 @@ public class TestAnswer extends AbstractEntity {
     private TestQuestion question;
 
     @ManyToOne
-    @JoinColumn(name = "projectId", nullable = false)
+    @JoinColumn(name = "testId", nullable = false)
     private CognitiveTest cognitiveTest;
 
     @Column(name = "finalAnswer")

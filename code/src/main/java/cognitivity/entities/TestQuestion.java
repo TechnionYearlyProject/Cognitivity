@@ -18,7 +18,7 @@ public class TestQuestion extends AbstractEntity {
 	private TestBlock testBlock;
 
 	@ManyToOne
-	@JoinColumn(name = "projectId", nullable = false)
+	@JoinColumn(name = "testId", nullable = false)
     private CognitiveTest cognitiveTest;
 
 	public TestManager getTestManager() {

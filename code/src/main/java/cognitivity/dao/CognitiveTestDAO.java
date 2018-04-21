@@ -47,10 +47,10 @@ public interface CognitiveTestDAO {
 
     /**
      * Returns all the tests that have certain substring in the notes
-     * @param notes - The substring to search
+     * @param notesFilter - The substring to search
      * @return - A list of all cognitive tests by the notes
      */
-    public List<CognitiveTest> filterTestsByNotes(String notes);
+    public List<CognitiveTest> filterTestsByNotes(String notesFilter);
 
     /**
      * Returns all the tests that have certain substring in the projectFilter
