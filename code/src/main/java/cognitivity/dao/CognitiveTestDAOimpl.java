@@ -74,20 +74,13 @@ public class CognitiveTestDAOimpl extends AbstractDAO<CognitiveTest> implements 
         return res;
     }
 
-    //TODO: add tests
     @Transactional(readOnly = true)
     public List<CognitiveTest> filterTestsByProject(String projectFilter) {
         return filterByString("project", projectFilter);
     }
 
-    //TODO: add tests
     @Transactional(readOnly = true)
     public List<CognitiveTest> filterTestsByNotes(String notesFilter) {
         return filterByString("notes", notesFilter);
-    }
-
-    //TODO
-    public List<CognitiveTest> findTestsForTestManagerWithoutQuestions(long managerId) {
-        return null;
     }
 }

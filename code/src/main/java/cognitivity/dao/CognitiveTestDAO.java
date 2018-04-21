@@ -59,12 +59,4 @@ public interface CognitiveTestDAO {
      */
     public List<CognitiveTest> filterTestsByProject(String projectFilter);
 
-    /**
-     * Method for searching for all cognitive tests of a manager without fetching the questions.
-     *
-     * @param managerId - id of the manager the request is build on.
-     * @return - All tests that their manager has the id (param) without the questions (no wrapper)
-     */
-    public List<CognitiveTest> findTestsForTestManagerWithoutQuestions(long managerId);
-
 }
