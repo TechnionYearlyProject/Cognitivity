@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {IntegrationTestContextConfiguration.class})
-//@Ignore("tests passing, but to run them there is a need of db")
+@Ignore("tests passing, but to run them there is a need of db")
 public class CognitiveTestDAOTest extends AbstractDaoTestClass {
 
     private TestManager[] testManagers;
