@@ -199,7 +199,7 @@ public class CognitiveTestService {
      * @return - All tests that their manager has the id (param) without the questions (no wrapper)
      */
     public List<CognitiveTest> findTestsForTestManagerWithoutQuestions(long managerId) {
-        return dao.findTestsForTestManagerWithoutQuestions(managerId);
+        return dao.getCognitiveTestOfManager(managerId);
     }
 
     /**

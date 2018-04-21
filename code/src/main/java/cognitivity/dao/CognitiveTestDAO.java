@@ -47,10 +47,10 @@ public interface CognitiveTestDAO {
 
     /**
      * Returns all the tests that have certain substring in the notes
-     * @param notes - The substring to search
+     * @param notesFilter - The substring to search
      * @return - A list of all cognitive tests by the notes
      */
-    public List<CognitiveTest> filterTestsByNotes(String notes);
+    public List<CognitiveTest> filterTestsByNotes(String notesFilter);
 
     /**
      * Returns all the tests that have certain substring in the projectFilter
@@ -58,13 +58,5 @@ public interface CognitiveTestDAO {
      * @return - A list of all cognitive tests by the projectFilter
      */
     public List<CognitiveTest> filterTestsByProject(String projectFilter);
-
-    /**
-     * Method for searching for all cognitive tests of a manager without fetching the questions.
-     *
-     * @param managerId - id of the manager the request is build on.
-     * @return - All tests that their manager has the id (param) without the questions (no wrapper)
-     */
-    public List<CognitiveTest> findTestsForTestManagerWithoutQuestions(long managerId);
 
 }
