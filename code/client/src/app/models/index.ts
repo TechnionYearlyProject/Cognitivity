@@ -54,6 +54,7 @@ export interface Question {
     questionText: string;
     type: TypeQuestion;
     questionPosition?: QuestionPosition;
+    showConfidenceBar?: boolean; 
 }
 
 /*

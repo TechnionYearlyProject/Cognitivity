@@ -15,6 +15,7 @@
 <div *ngIf = "isButtom()">
         <h2 [ngClass] = "positionButtom" style="max-width: 100%;word-wrap:break-word;">{{question.questionText }}</h2>
 </div>
+<div *ngIf = "question.showConfidenceBar">
 <div class="container">
     <h4>How confident you feel in your answer, in precentage?</h4>
 </div>
@@ -25,7 +26,9 @@
     </div>
     <h6>{{ range_value }}%</h6>
 </div>
+</div>
 <br>
+
 
       
         
