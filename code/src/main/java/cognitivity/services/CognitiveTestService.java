@@ -72,7 +72,7 @@ public class CognitiveTestService {
             return cognitiveTest;
         } catch (org.hibernate.HibernateException e) {
             logger.error(e.getMessage());
-            throw new DBException(ErrorType.SAVE);
+            throw new DBException(ErrorType.SAVE, cognitiveTest.getId());
         }
     }
 
@@ -86,19 +86,8 @@ public class CognitiveTestService {
      *
      */
     public TestWrapper updateTestForTestManager(TestWrapper test) throws DBException {
-        try {
-            // we delete the test and add it once again to
-            // remove all the dependencies in the DB(questions and blocks that connected to the test)
-            // we need to do it because we get only the blocks that will be in the updated test(faster then remove
-            // all the existing ones manually)
-            System.out.println(test.innerTest().getId());
-            deleteTestForTestManager(test.innerTest().getId());
-            return createTestForTestManager(test);
-        } catch (org.hibernate.HibernateException e) {
-            logger.error(e.getMessage());
-            throw new DBException(ErrorType.UPDATE);
-        }
-
+        deleteTestForTestManager(test.innerTest().getId());
+        return createTestForTestManager(test);
     }
 
     /**
@@ -115,7 +104,7 @@ public class CognitiveTestService {
             logger.info("Successfully deleted test. testId = " + testId);
         } catch (org.hibernate.HibernateException e) {
             logger.error(e.getMessage());
-            throw new DBException(ErrorType.DELETE);
+            throw new DBException(ErrorType.DELETE, testId);
         }
     }
 
@@ -143,11 +132,16 @@ public class CognitiveTestService {
      */
     public List<TestWrapper> findTestsForTestManager(long managerId) throws DBException {
         List<TestWrapper> tests = new ArrayList<>();
-        List<CognitiveTest> preWrapped = dao.getCognitiveTestOfManager(managerId);
-        for (CognitiveTest test : preWrapped) {
-            tests.add(findTestById(test.getId()));
+        try{
+            List<CognitiveTest> preWrapped = dao.getCognitiveTestOfManager(managerId);
+            for (CognitiveTest test : preWrapped) {
+                tests.add(findTestById(test.getId()));
+            }
+            return tests;
+        }catch (org.hibernate.HibernateException e) {
+            logger.error(e.getMessage());
+            throw new DBException(ErrorType.GET, managerId);
         }
-        return tests;
     }
 
 
@@ -181,7 +175,7 @@ public class CognitiveTestService {
      * Method for getting all tests with a specific description in notes field.
      *
      * @param notes - The notes files filter.
-     * @return - All tests (wrapper) that their notes field contains the notes string parameter.
+     * @return - All tests that their notes field contains the notes string parameter.
      */
     public List<CognitiveTest> filterTestsByNotes(String notes) {
         return dao.filterTestsByNotes(notes);
@@ -218,9 +212,7 @@ public class CognitiveTestService {
      *               by the findTestsForTestManagerWithoutQuestions (new) method.
      * @return - test wrapper with all questions and blocks, as described above.
      */
-    public TestWrapper findCognitiveTestById(long testId) {
-        CognitiveTest test = dao.get(testId);
-        List<BlockWrapper> blocks = getTestBlocksForTest(testId);
-        return new TestWrapper(test,blocks);
+    public CognitiveTest findCognitiveTestById(long testId) {
+        return dao.get(testId);
     }
 }

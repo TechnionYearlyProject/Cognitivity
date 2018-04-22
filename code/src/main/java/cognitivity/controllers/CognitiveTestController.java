@@ -43,7 +43,7 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findCognitiveTestById")
-    public TestWrapper findCognitiveTestById(
+    public CognitiveTest findCognitiveTestById(
             @RequestParam(value = "testId") long testId) throws DBException {
         return service.findCognitiveTestById(testId);
     }

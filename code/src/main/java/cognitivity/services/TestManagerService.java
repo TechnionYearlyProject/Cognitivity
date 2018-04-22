@@ -47,7 +47,7 @@ public class TestManagerService {
             return testManager;
         }catch (org.hibernate.HibernateException e){
             logger.error(e.getMessage());
-            throw new DBException(ErrorType.UPDATE);
+            throw new DBException(ErrorType.UPDATE, testManager.getId());
         }
     }
 
@@ -64,7 +64,7 @@ public class TestManagerService {
             logger.info("Successfully updated TestManager. TestManagerId = " + testManager.getId());
         }catch (org.hibernate.HibernateException e){
             logger.error(e.getMessage());
-            throw new DBException(ErrorType.UPDATE);
+            throw new DBException(ErrorType.UPDATE, testManager.getId());
         }
     }
 
@@ -81,7 +81,7 @@ public class TestManagerService {
             logger.info("Successfully deleted TestManager. TestManagerId = " + testManagerId);
         }catch (org.hibernate.HibernateException e){
             logger.error(e.getMessage());
-            throw new DBException(ErrorType.UPDATE);
+            throw new DBException(ErrorType.UPDATE, testManagerId);
         }
     }
 

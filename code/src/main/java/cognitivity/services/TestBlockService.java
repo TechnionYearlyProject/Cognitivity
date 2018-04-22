@@ -46,7 +46,7 @@ public class TestBlockService {
             return res;
         } catch (org.hibernate.HibernateException e) {
             logger.info(e.getMessage());
-            throw new DBException(ErrorType.UPDATE);
+            throw new DBException(ErrorType.UPDATE, test.getId());
         }
     }
 
@@ -90,7 +90,7 @@ public class TestBlockService {
             logger.info("Successfully deleted TestBlock. TestBlockId = " + blockId);
         } catch (org.hibernate.HibernateException e) {
             logger.error(e.getMessage());
-            throw new DBException(ErrorType.UPDATE);
+            throw new DBException(ErrorType.UPDATE, blockId);
         }
     }
 }

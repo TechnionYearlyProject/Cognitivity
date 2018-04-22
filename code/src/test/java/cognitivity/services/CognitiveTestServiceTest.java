@@ -82,7 +82,7 @@ public class CognitiveTestServiceTest {
 
         CognitiveTestService service = new CognitiveTestService(dao, bdao, qdao);
 
-        CognitiveTest cognitiveTest = new CognitiveTest("test1", manager, 2, "notes", "project");
+        CognitiveTest cognitiveTest = new CognitiveTest("test1", manager, 2, "notesa", "project");
         cognitiveTest.setId(7L);
         TestWrapper testWrapper = new TestWrapper(cognitiveTest);
         TestWrapper test = new TestWrapper();
@@ -99,9 +99,9 @@ public class CognitiveTestServiceTest {
         test1.setId(8L);
         CognitiveTest test2 = new CognitiveTest("Two plus two is", manager, 6, "notes", "project");
         test2.setId(9L);
-        CognitiveTest test3 = new CognitiveTest("Minus 0ne that's", manager, 10, "notes", "project");
+        CognitiveTest test3 = new CognitiveTest("Minus 0ne that's", manager, 10, "notes2", "project1");
         test3.setId(10L);
-        CognitiveTest test4 = new CognitiveTest("Quick maths!", manager, 17, "notes", "project");
+        CognitiveTest test4 = new CognitiveTest("Quick maths!", manager, 17, "notes2", "project1");
         test4.setId(11L);
 
         TestBlockService blockService = new TestBlockService(bdao);
@@ -114,6 +114,12 @@ public class CognitiveTestServiceTest {
         BlockWrapper block4 = blockService.createTestBlock(8, false, "tag4", cognitiveTest);
         block4.setId(15L);
 
+
+        doReturn(cognitiveTest).when(dao).get(7L);
+        doReturn(test1).when(dao).get(8L);
+        doReturn(test2).when(dao).get(9L);
+        doReturn(test3).when(dao).get(10L);
+        doReturn(test4).when(dao).get(11L);
 
         TestWrapper getting = service.findTestById(7);
         assertNotNull("Problem in finding the test", getting);
@@ -130,19 +136,46 @@ public class CognitiveTestServiceTest {
         tests.add(new TestWrapper(test4));
 
         List<CognitiveTest> preWrapped = new ArrayList<>();
-        preWrapped.add(cognitiveTest);
         preWrapped.add(test1);
         preWrapped.add(test2);
+        doReturn(preWrapped).when(dao).filterTestsByNotes("notes");
+        List<CognitiveTest> wrrapedNotes = service.filterTestsByNotes("notes");
+        for (CognitiveTest t : preWrapped) {
+            assertTrue("Didn't get all the tests from the manager", wrrapedNotes.contains(t));
+        }
+        for (CognitiveTest t : wrrapedNotes) {
+            assertTrue("Getting unrelated results while trying to get all managers tests", preWrapped.contains(t));
+        }
+
+        List<CognitiveTest> preWrappedProj = new ArrayList<>();
+        preWrappedProj.add(test2);
+        preWrappedProj.add(test3);
+        doReturn(preWrappedProj).when(dao).filterTestsByProject("project1");
+        List<CognitiveTest> wrappedProj = service.filterTestsByProject("project1");
+        for (CognitiveTest t : wrappedProj) {
+            assertTrue("Getting unrelated results while trying to get all managers tests", preWrappedProj.contains(t));
+        }
+        for (CognitiveTest t : preWrappedProj) {
+            assertTrue("Didn't get all the tests from the manager", wrappedProj.contains(t));
+        }
+
+
+
+        preWrapped.add(cognitiveTest);
         preWrapped.add(test3);
         preWrapped.add(test4);
 
         doReturn(preWrapped).when(dao).getCognitiveTestOfManager(9);
+        List<CognitiveTest> unWrapped = service.findTestsForTestManagerWithoutQuestions(9L);
+        for (CognitiveTest t : unWrapped) {
+            assertTrue("Getting unrelated results while trying to get all managers tests", preWrapped.contains(t));
+        }
+        for (CognitiveTest t : preWrapped) {
+            assertTrue("Didn't get all the tests from the manager", unWrapped.contains(t));
+        }
 
-        doReturn(cognitiveTest).when(dao).get(7L);
-        doReturn(test1).when(dao).get(8L);
-        doReturn(test2).when(dao).get(9L);
-        doReturn(test3).when(dao).get(10L);
-        doReturn(test4).when(dao).get(11L);
+        assertEquals("Problem with findCognitiveTestById",cognitiveTest,service.findCognitiveTestById(7L));
+
         List<TestWrapper> result = new ArrayList<>();
         try {
             result = service.findTestsForTestManager(9);
@@ -259,6 +292,12 @@ public class CognitiveTestServiceTest {
         try {
             service.updateTestForTestManager(new TestWrapper());
             assertTrue("Problem with handling with exception at update",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).delete(any());
+        try {
+            service.deleteTestForTestManager(7);
+            assertTrue("Problem with handling with exception at delete",false);
         }catch (Exception e){}
 
         doThrow(new org.hibernate.HibernateException("")).when(dao).delete(any());

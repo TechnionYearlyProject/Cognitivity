@@ -41,7 +41,7 @@ public class TestAnswerService {
             return answer;
         }catch (org.hibernate.HibernateException e){
             logger.error(e.getMessage());
-            throw new DBException(ErrorType.SAVE);
+            throw new DBException(ErrorType.SAVE, answer.getId());
         }
     }
 
@@ -58,7 +58,7 @@ public class TestAnswerService {
             logger.info("Successfully updated TestAnswer. TestAnswerId = " + answer.getId());
         }catch (org.hibernate.HibernateException e){
             logger.error(e.getMessage());
-            throw new DBException(ErrorType.UPDATE);
+            throw new DBException(ErrorType.UPDATE, answer.getId());
         }
     }
 
@@ -75,7 +75,7 @@ public class TestAnswerService {
             logger.info("Successfully deleted TestAnswer. TestAnswerId = " + id);
         }catch (org.hibernate.HibernateException e){
             logger.error(e.getMessage());
-            throw new DBException(ErrorType.UPDATE);
+            throw new DBException(ErrorType.UPDATE, id);
         }
     }
 
@@ -96,7 +96,7 @@ public class TestAnswerService {
                     + questionId);
         }catch (org.hibernate.HibernateException e){
             logger.error(e.getMessage());
-            throw new DBException(ErrorType.UPDATE);
+            throw new DBException(ErrorType.UPDATE, questionId);
         }
     }
 

@@ -58,7 +58,7 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
     @RequestMapping(method = RequestMethod.GET, value = "/findTestQuestionById")
     public TestQuestion findTestQuestionById(
             @RequestParam(value = "testQuestionId") long testQuestionId) {
-        return service.findTestQuestionById(testQuestionId);
+        return service.findQuestionById(testQuestionId);
     }
 
     /**
