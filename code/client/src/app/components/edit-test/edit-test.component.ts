@@ -68,7 +68,7 @@ export class EditTestComponent implements OnInit {
     if (isNaN(testId) || testId == '') {
       this.router.navigate(['/dashboard']);
     }
-    this.test = await this.testService.findTestForManagerAndTestId(managerId, parseInt(testId));
+    this.test = await this.testService.findCognitiveTestById(testId);
     console.log(this.test);
     for (let i = 0; i < this.test.blocks.length; i++) {
       this.addBlock();
