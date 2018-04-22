@@ -52,7 +52,7 @@ public class QuestionService {
             return q;
         } catch (org.hibernate.HibernateException e) {
             logger.error(e.getMessage());
-            throw new DBException(ErrorType.SAVE);
+            throw new DBException(ErrorType.SAVE, q.getId());
         }
     }
 
@@ -69,7 +69,7 @@ public class QuestionService {
             logger.info("Successfully updated TestQuestion. TestQuestionId = " + q.getId());
         } catch (org.hibernate.HibernateException e) {
             logger.error(e.getMessage());
-            throw new DBException(ErrorType.UPDATE);
+            throw new DBException(ErrorType.UPDATE, q.getId());
         }
     }
 
@@ -90,7 +90,7 @@ public class QuestionService {
             logger.info("Successfully deleted TestQuestion. TestQuestionId = " + questionId);
         } catch (org.hibernate.HibernateException e) {
             logger.error(e.getMessage());
-            throw new DBException(ErrorType.DELETE);
+            throw new DBException(ErrorType.DELETE, questionId);
         }
     }
 
@@ -133,9 +133,5 @@ public class QuestionService {
     public List<TestQuestion> findAllTestQuestionsFromManagerId(long managerId) {
         TestManager testManager = managerDao.get(managerId);
         return dao.getTestQuestionsFromAManager(testManager);
-    }
-
-    public TestQuestion findTestQuestionById(long testQuestionId) {
-        return dao.get(testQuestionId);
     }
 }

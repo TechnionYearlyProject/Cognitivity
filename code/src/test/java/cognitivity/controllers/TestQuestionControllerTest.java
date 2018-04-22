@@ -88,7 +88,7 @@ public class TestQuestionControllerTest implements RestControllerTest {
     //findTestQuestionById
     @Test
     public void findTestQuestionByIdReturnsMockedTestAnswerByTest() throws Exception {
-        Mockito.when(questionService.findTestQuestionById(1234L)).thenReturn(testQuestion);
+        Mockito.when(questionService.findQuestionById(1234L)).thenReturn(testQuestion);
 
         // findTestQuestionsForTestCriteriaById is a http GET request
         mockMvc.perform(get("/test-questions/findTestQuestionById")
@@ -97,7 +97,7 @@ public class TestQuestionControllerTest implements RestControllerTest {
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.question", is(testQuestion.getQuestion())));
 
-        Mockito.verify(questionService, times(1)).findTestQuestionById(1234L);
+        Mockito.verify(questionService, times(1)).findQuestionById(1234L);
         Mockito.verifyNoMoreInteractions(questionService);
     }
 

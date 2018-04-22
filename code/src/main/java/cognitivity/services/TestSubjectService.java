@@ -43,7 +43,7 @@ public class TestSubjectService {
             return testSubject;
         }catch (org.hibernate.HibernateException e){
             logger.error(e.getMessage());
-            throw new DBException(ErrorType.UPDATE);
+            throw new DBException(ErrorType.UPDATE,testSubject.getId());
         }
     }
 
@@ -61,7 +61,7 @@ public class TestSubjectService {
                     + testSubject.getId());
         }catch (org.hibernate.HibernateException e){
             logger.error(e.getMessage());
-            throw new DBException(ErrorType.UPDATE);
+            throw new DBException(ErrorType.UPDATE,testSubject.getId());
         }
     }
 
@@ -79,7 +79,7 @@ public class TestSubjectService {
                     + testSubjectId);
         }catch (org.hibernate.HibernateException e){
             logger.error(e.getMessage());
-            throw new DBException(ErrorType.UPDATE);
+            throw new DBException(ErrorType.UPDATE, testSubjectId);
         }
     }
 
