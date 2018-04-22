@@ -155,46 +155,7 @@ export class QuestionService {
 
 }
 
-@Injectable()
-export class BlockService {
-    base_mapping = '/blocks';
 
-    private headers = new Headers({'Content-Type': 'application/json'});
-
-    private handleError(error: any): Promise<any> {
-        console.error('Error', error); // for demo purposes only
-        return Promise.reject(error.message || error);
-    }
-    constructor(private http: Http) {}
-
-    getBlockIDsForTestId(testId: number) : Promise<number[]> {
-        return this.http.get(`http://localhost:8181${this.base_mapping}/getBlockIDsForTestId?testId=${testId}`)
-        .toPromise()
-        .then(res => res.json() as number[])
-        .catch(this.handleError);
-    }
-
-    getBlockById(blockId: number) : Promise<Block> {
-        return this.http.get(`http://localhost:8181${this.base_mapping}/getBlockById?blockId=${blockId}`)
-        .toPromise()
-        .then(res => res.json() as Block)
-        .catch(this.handleError);
-    }
-
-    updateBlock(block: Block) : Promise<Block> {
-        return this.http.post(`http://localhost:8181${this.base_mapping}/updateBlock`, JSON.stringify(block), {headers: this.headers})
-        .toPromise()
-        .then(res => res.json() as Block)
-        .catch(this.handleError);
-    }
-
-    deleteBlock(blockId: number) : Promise<void> {
-        return this.http.delete(`http://localhost:8181${this.base_mapping}/deleteBlock?blockId=${blockId}`, {headers: this.headers})
-        .toPromise()
-        .then(() => null)
-        .catch(this.handleError);
-    }
-}
 
 @Injectable()
 export class TestAnswerService {
