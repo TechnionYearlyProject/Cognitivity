@@ -50,7 +50,7 @@ export class TestPreviewComponent implements OnInit {
     if (isNaN(testId) || testId == '') {
       this.router.navigate(['/dashboard']);
     }
-    this.test = await this.testService.findTestForManagerAndTestId(managerId, testId);
+    this.test = await this.testService.findCognitiveTestById(testId);
     if (this.test == null) {
       this.router.navigate(['/dashboard']);
     }
