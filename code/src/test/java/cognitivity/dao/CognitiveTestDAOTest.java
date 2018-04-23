@@ -52,7 +52,7 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
     }
 
     @After
-    public void clean(){
+    public void clean() {
         //removing test managers will remove all the other allocated resources
         for (int i = 0; i < numOfTestManagers; i++) {
             testManagerDAO.delete(testManagers[i].getId());
@@ -176,7 +176,7 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
         TestQuestion[][] testQuestions =
                 new TestQuestion[numOfBlocks][numOfTestQuestionsPerBlock];
         // adding the tests to the db
-        for(int i = 0; i < numOfTestsPerManager; i++){
+        for (int i = 0; i < numOfTestsPerManager; i++) {
             cognitiveTestDAO.add(cognitiveTestsPerManager[0][i]);
         }
 
@@ -213,7 +213,7 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
         }
 
         // removing the tests from the db
-        for(int i = 0; i < numOfTestsPerManager; i++){
+        for (int i = 0; i < numOfTestsPerManager; i++) {
             cognitiveTestDAO.add(cognitiveTestsPerManager[0][i]);
         }
     }
@@ -230,7 +230,7 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
     public void getTestBlocks() {
 
         // adding the tests to the db
-        for(int i = 0; i < numOfTestsPerManager; i++){
+        for (int i = 0; i < numOfTestsPerManager; i++) {
             cognitiveTestDAO.add(cognitiveTestsPerManager[0][i]);
         }
 
@@ -258,7 +258,7 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
         }
 
         // removing the tests from the db
-        for(int i = 0; i < numOfTestsPerManager; i++){
+        for (int i = 0; i < numOfTestsPerManager; i++) {
             cognitiveTestDAO.add(cognitiveTestsPerManager[0][i]);
         }
     }
@@ -273,9 +273,9 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
      *
      */
     @Test
-    public void filterTestsByString(){
+    public void filterTestsByString() {
         // adding the tests to the db
-        for(int i = 0; i < numOfTestsPerManager; i++){
+        for (int i = 0; i < numOfTestsPerManager; i++) {
             cognitiveTestDAO.add(cognitiveTestsPerManager[0][i]);
         }
         List<CognitiveTest> res;

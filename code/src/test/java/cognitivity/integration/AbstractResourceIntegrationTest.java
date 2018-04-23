@@ -63,7 +63,7 @@ public class AbstractResourceIntegrationTest {
     }
 
     public static TestQuestion createTestQuestion(long id) {
-        TestManager testManager = createTestManager(1L);
+        TestManager testManager = createTestManager(1L, "email1");
         CognitiveTest cognitiveTest = createCognitiveTest(testManager);
         cognitiveTest.setId(2L);
         TestBlock block = new TestBlock(1, true, "tag1", cognitiveTest);
@@ -79,8 +79,8 @@ public class AbstractResourceIntegrationTest {
         return testSubject;
     }
 
-    public static TestManager createTestManager(long id) {
-        TestManager testManager = new TestManager("email");
+    public static TestManager createTestManager(long id, String email) {
+        TestManager testManager = new TestManager(email);
         testManager.setId(id);
         return testManager;
     }

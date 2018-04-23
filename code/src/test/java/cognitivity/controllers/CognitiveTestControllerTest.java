@@ -81,17 +81,16 @@ public class CognitiveTestControllerTest implements RestControllerTest {
         mockMvc.perform(get("/tests/findTestsForTestManagerWithoutQuestions")
                 .param("managerId", "12345"))
                 .andExpect(status().isOk())
-                //.andDo(print())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].name", is("ct1")))
                 .andExpect(jsonPath("$[0].numberOfQuestions", is(1)))
-                //.andExpect(jsonPath("$[0].notes", is("notes")))
-                //.andExpect(jsonPath("$[0].project", is("project")))
+                .andExpect(jsonPath("$[0].notes", is("notes")))
+                .andExpect(jsonPath("$[0].project", is("project")))
                 .andExpect(jsonPath("$[1].name", is("ct2")))
-                .andExpect(jsonPath("$[1].numberOfQuestions", is(2)));
-        //.andExpect(jsonPath("$[1].notes", is("notes")))
-        //.andExpect(jsonPath("$[1].project", is("project")));
+                .andExpect(jsonPath("$[1].numberOfQuestions", is(2)))
+                .andExpect(jsonPath("$[1].notes", is("notes")))
+                .andExpect(jsonPath("$[1].project", is("project")));
 
         Mockito.verify(cognitiveTestServiceMock, times(1)).findTestsForTestManagerWithoutQuestions(Matchers.anyLong());
         Mockito.verifyNoMoreInteractions(cognitiveTestServiceMock);

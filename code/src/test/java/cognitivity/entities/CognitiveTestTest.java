@@ -2,9 +2,6 @@ package cognitivity.entities;
 
 import org.junit.Test;
 
-import java.sql.Date;
-import java.util.Calendar;
-
 import static org.junit.Assert.assertTrue;
 
 public class CognitiveTestTest {
@@ -47,17 +44,6 @@ public class CognitiveTestTest {
         assertTrue(cognitiveTest.getNumberOfQuestions() == 10);
         cognitiveTest.setNumberOfQuestions(1);
         assertTrue(cognitiveTest.getNumberOfQuestions() == 1);
-
-        // last answered should be null at creation
-        assertTrue(cognitiveTest.getLastAnswered() == null);
-        Date newDate = new Date(Calendar.getInstance().getTimeInMillis());
-        cognitiveTest.setLastAnswered(newDate);
-        assertTrue(cognitiveTest.getLastAnswered() == newDate);
-
-        // LastModified check
-        Date lastModified = new Date(Calendar.getInstance().getTimeInMillis());
-        cognitiveTest.setLastModified(lastModified);
-        assertTrue(cognitiveTest.getLastModified() == lastModified);
 
     }
 }

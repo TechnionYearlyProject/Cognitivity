@@ -12,7 +12,11 @@ import java.util.List;
 import static cognitivity.controllers.AbstractRestController.crossOrigin;
 import static cognitivity.controllers.TestAnswerController.baseMapping;
 
-
+/**
+ * REST service for Test answers - allows saving and managing test answers for the client.
+ * <p>
+ * Created by ophir on 17/12/17.
+ */
 @RestController
 @RequestMapping(value = baseMapping,
         produces = "application/json;charset=UTF-8")

@@ -1,6 +1,5 @@
 package cognitivity.dao;
 
-import cognitivity.dto.TestWrapper;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestQuestion;

@@ -43,8 +43,6 @@ CREATE TABLE test (id INTEGER PRIMARY KEY AUTO_INCREMENT,
   name TEXT,
   notes TEXT,
   project TEXT,
-  lastModified DATE NOT NULL ,
-  lastAnswered DATE ,
   numberOfQuestions INT NOT NULL ,
   managerId INT NOT NULL,
   FOREIGN KEY (managerId) REFERENCES testManager(id) ON DELETE CASCADE

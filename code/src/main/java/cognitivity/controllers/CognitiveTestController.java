@@ -16,6 +16,8 @@ import static cognitivity.controllers.CognitiveTestController.baseMapping;
 /**
  * REST service for Cognitive Tests - allows to update, create, search and delete for cognitive tests for a
  * specific test manager or in general - by test id.
+ *
+ * Created by ophir on 17/12/17.
  */
 @RestController
 @RequestMapping(value = baseMapping,

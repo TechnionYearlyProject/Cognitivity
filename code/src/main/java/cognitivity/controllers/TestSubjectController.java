@@ -13,7 +13,12 @@ import java.util.List;
 import static cognitivity.controllers.AbstractRestController.crossOrigin;
 import static cognitivity.controllers.TestSubjectController.baseMapping;
 
-
+/**
+ * REST service for Test Subject - all the information of the subject that is being saved is accessible via this
+ * controller.
+ * <p>
+ * Created by ophir on 17/12/17.
+ */
 @RestController
 @RequestMapping(value = baseMapping,
         produces = "application/json;charset=UTF-8")
