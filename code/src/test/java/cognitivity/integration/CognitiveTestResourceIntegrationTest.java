@@ -63,7 +63,7 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
      * Creating a cognitive test with list of blocks with or without questions
      */
     private TestWrapper createCognitiveTestWrapper(boolean withQuestions, long id) throws Exception {
-        manager = createTestManager(id);
+        manager = createTestManager(id, "email5");
         cognitiveTest = AbstractResourceIntegrationTest.createCognitiveTest(manager);
         cognitiveTest.setId(77L);
         TestBlock block1 = new TestBlock(1, true, "tag1", cognitiveTest);
@@ -91,7 +91,7 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
     @Test
     public void testSaveCognitiveTestWithoutQuestions() throws Exception {
         // In order to save test, must save manager first.
-        manager = createTestManager(1L);
+        manager = createTestManager(1L, "email6");
         long managerId = saveTestManager(manager, objectMapper, testManagerMvc);
 
         TestWrapper testWrapper = createCognitiveTestWrapper(false, managerId);
@@ -164,7 +164,7 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
     @Test
     public void testSaveCognitiveTestWithQuestions() throws Exception {
         // In order to save test, must save manager first.
-        manager = createTestManager(1L);
+        manager = createTestManager(1L, "email7");
         long managerId = saveTestManager(manager, objectMapper, testManagerMvc);
 
         TestWrapper testWrapper = createCognitiveTestWrapper(true, managerId);
@@ -205,7 +205,7 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
     @Test
     public void testUpdateCognitiveTest() throws Exception {
         // In order to save test, must save manager first.
-        manager = createTestManager(1L);
+        manager = createTestManager(1L, "email8");
         long managerId = saveTestManager(manager, objectMapper, testManagerMvc);
         manager.setId(managerId);
 

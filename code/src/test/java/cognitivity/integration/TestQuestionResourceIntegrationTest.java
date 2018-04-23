@@ -3,7 +3,6 @@ package cognitivity.integration;
 import cognitivity.TestUtil;
 import cognitivity.dto.TestWrapper;
 import cognitivity.entities.TestQuestion;
-import cognitivity.entities.TestSubject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import config.IntegrationTestContextConfiguration;
 import org.junit.Before;
@@ -18,13 +17,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import static cognitivity.integration.CognitiveTestResourceIntegrationTest.saveCognitiveTest;
 import static cognitivity.integration.TestManagerResourceIntegrationTest.saveTestManager;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Created by ophir on 20/01/18.
@@ -47,7 +42,8 @@ public class TestQuestionResourceIntegrationTest extends AbstractResourceIntegra
     public static long saveTestQuestion(TestQuestion question, ObjectMapper objectMapper, MockMvc mockMvc, MockMvc managerMockMvc, MockMvc testMvc) throws Exception {
         long managerId = saveTestManager(question.getTestManager(), objectMapper, managerMockMvc);
         question.getTestManager().setId(managerId);
-        long testId = saveCognitiveTest(new TestWrapper(question.getCognitiveTest()), objectMapper, testMvc);
+        TestWrapper testWrapper = new TestWrapper(question.getCognitiveTest());
+        long testId = saveCognitiveTest(testWrapper, objectMapper, testMvc);
         question.getCognitiveTest().setId(testId);
         //long blockId = saveTestBlock()
         return gson.fromJson(
@@ -66,7 +62,7 @@ public class TestQuestionResourceIntegrationTest extends AbstractResourceIntegra
                 .andExpect(status().isOk());
     }
 
-    // @Test
+    @Test
     public void testSaveTestSubject() throws Exception {
         question = createTestQuestion(9L);
         // Save TestQuestion...
@@ -87,7 +83,7 @@ public class TestQuestionResourceIntegrationTest extends AbstractResourceIntegra
         deleteTestQuestion(String.valueOf(questionId), objectMapper, testQuestionMvc);
     }
 
-    // @Test
+    @Test
     public void testUpdateTestSubject() throws Exception {
         question = createTestQuestion(9L);
         // Save TestQuestion...

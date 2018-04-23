@@ -70,8 +70,6 @@ public class TestWrapper {
 
     public TestWrapper(CognitiveTest test, List<BlockWrapper> blocks) {
         this.id = test.getId();
-        this.lastAnswered = test.getLastAnswered();
-        this.lastModified = test.getLastModified();
         this.testManager = test.getManager();
         this.name = test.getName();
         this.numberOfQuestions = test.getNumberOfQuestions();
@@ -83,8 +81,6 @@ public class TestWrapper {
 
     public TestWrapper(CognitiveTest test) {
         this.id = test.getId();
-        this.lastAnswered = test.getLastAnswered();
-        this.lastModified = test.getLastModified();
         this.testManager = test.getManager();
         this.name = test.getName();
         this.numberOfQuestions = test.getNumberOfQuestions();
@@ -97,8 +93,6 @@ public class TestWrapper {
     public CognitiveTest innerTest() {
         CognitiveTest cognitiveTest = new CognitiveTest(name, testManager, numberOfQuestions, notes, project);
         cognitiveTest.setId(id);
-        cognitiveTest.setLastAnswered(lastAnswered);
-        cognitiveTest.setLastModified(lastModified);
 
         return cognitiveTest;
     }

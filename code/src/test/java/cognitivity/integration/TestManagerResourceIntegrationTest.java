@@ -55,13 +55,13 @@ public class TestManagerResourceIntegrationTest extends AbstractResourceIntegrat
 
     @Test
     public void testSaveTestManager() throws Exception {
-        manager = createTestManager(9L);
+        manager = createTestManager(9L, "email2");
         // In order to save test, must save manager first.
         saveTestManager(manager, objectMapper, testManagerMvc);
 
         // Test is saved. Try find it in the database...
         String managerId = testManagerMvc.perform((get("/test-managers/findTestManagerIdByEmail"))
-                .param("email", "email"))
+                .param("email", "email2"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
                 .andReturn().getResponse().getContentAsString();
@@ -72,18 +72,18 @@ public class TestManagerResourceIntegrationTest extends AbstractResourceIntegrat
 
     @Test
     public void testUpdateTestManager() throws Exception {
-        manager = createTestManager(9L);
+        manager = createTestManager(9L, "email3");
         // In order to save test, must save manager first.
         long managerId = saveTestManager(manager, objectMapper, testManagerMvc);
 
         // Test is saved. Try find it in the database...
         testManagerMvc.perform(get("/test-managers/findTestManagerIdByEmail")
-                .param("email", "email"))
+                .param("email", "email3"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8));
 
         manager.setId(managerId);
-        manager.setEmail("email2");
+        manager.setEmail("email4");
 
         // Now call to update
         testManagerMvc.perform(post("/test-managers/updateTestManager")
@@ -98,7 +98,7 @@ public class TestManagerResourceIntegrationTest extends AbstractResourceIntegrat
                 .param("testId", "-1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$.email", is("email2")));
+                .andExpect(jsonPath("$.email", is("email4")));
 
         // Finally delete the test
         deleteTestManager(String.valueOf(managerId), objectMapper, testManagerMvc);

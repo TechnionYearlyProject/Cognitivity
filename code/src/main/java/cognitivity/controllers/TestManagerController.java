@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import static cognitivity.controllers.AbstractRestController.crossOrigin;
 import static cognitivity.controllers.TestManagerController.baseMapping;
 
-
+/**
+ * REST service for Test Managers - offers operation on test managers.
+ * <p>
+ * Created by ophir on 17/12/17.
+ */
 @RestController
 @RequestMapping(value = baseMapping,
         produces = "application/json;charset=UTF-8")

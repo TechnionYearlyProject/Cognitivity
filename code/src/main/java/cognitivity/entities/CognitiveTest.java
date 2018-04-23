@@ -3,9 +3,6 @@ package cognitivity.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.util.Calendar;
-import java.util.TimeZone;
 
 /**
  *
@@ -19,8 +16,6 @@ public class CognitiveTest extends AbstractEntity {
 	public CognitiveTest(String name, TestManager manager, Integer numberOfQuestions, String notes, String project) {
 		this.name = name;
 		this.testManager = manager;
-		this.lastModified = new Date(Calendar.getInstance(TimeZone.getTimeZone("Asia/Jerusalem")).getTimeInMillis());
-		this.lastAnswered = null;
 		this.numberOfQuestions = numberOfQuestions;
 		this.notes = notes;
 		this.project = project;
@@ -41,12 +36,6 @@ public class CognitiveTest extends AbstractEntity {
     @JoinColumn(name = "managerId", nullable = false)
     @JsonIgnore
     private TestManager testManager;
-
-    @Column(name = "lastModified", nullable = false)
-    private Date lastModified;
-
-    @Column(name = "lastAnswered")
-    private Date lastAnswered;
 
     @Column(name = "numberOfQuestions", nullable = false)
     private Integer numberOfQuestions;
@@ -82,38 +71,6 @@ public class CognitiveTest extends AbstractEntity {
 	*/
 	public void setManager(TestManager manager) {
 		this.testManager = manager;
-	}
-
-	/**
-	* Returns value of lastModified
-	* @return
-	*/
-	public Date getLastModified() {
-		return lastModified;
-	}
-
-	/**
-	* Sets new value of lastModified
-	* @param
-	*/
-	public void setLastModified(Date lastModified) {
-		this.lastModified = lastModified;
-	}
-
-	/**
-	* Returns value of lastAnswered
-	* @return
-	*/
-	public Date getLastAnswered() {
-		return lastAnswered;
-	}
-
-	/**
-	* Sets new value of lastAnswered
-	* @param
-	*/
-	public void setLastAnswered(Date lastAnswered) {
-		this.lastAnswered = lastAnswered;
 	}
 
 	/**
