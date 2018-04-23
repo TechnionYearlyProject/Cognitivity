@@ -27,6 +27,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -69,13 +70,34 @@ public class CognitiveTestControllerTest implements RestControllerTest {
     }
 
     @Test
-    public void findTestsForTestManagerReturnsListOfTests() throws Exception {
-        CognitiveTest tes1 = buildTest("ct1", "em1", 1);
-        TestWrapper cognitiveTest1 = new TestWrapper(tes1);
+    public void findTestByTestId() throws Exception {
+        CognitiveTest test1 = buildTest("ct1", "em1", 1);
+        TestWrapper cognitiveTest1 = new TestWrapper(test1);
+
+        Mockito.when(cognitiveTestServiceMock.findCognitiveTestById(Matchers.anyLong()))
+                .thenReturn(cognitiveTest1);
+
+        mockMvc.perform(get("/tests/findCognitiveTestById")
+                .param("testId", "123456"))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(jsonPath("$.name", is("ct1")))
+                .andExpect(jsonPath("$.numberOfQuestions", is(1)))
+                .andExpect(jsonPath("$.notes", is("notes")))
+                .andExpect(jsonPath("$.project", is("project")));
+
+        Mockito.verify(cognitiveTestServiceMock, times(1)).findCognitiveTestById(123456);
+        Mockito.verifyNoMoreInteractions(cognitiveTestServiceMock);
+    }
+
+    @Test
+    public void findTestsForTestManagerReturnsListOfTestsWithoutQuestions() throws Exception {
+        CognitiveTest test1 = buildTest("ct1", "em1", 1);
+        TestWrapper cognitiveTest1 = new TestWrapper(test1);
         CognitiveTest test2 = buildTest("ct2", "em2", 2);
         TestWrapper cognitiveTest2 = new TestWrapper(test2);
 
-        Mockito.when(cognitiveTestServiceMock.findTestsForTestManagerWithoutQuestions(Matchers.anyLong())).thenReturn(Arrays.asList(tes1, test2));
+        Mockito.when(cognitiveTestServiceMock.findTestsForTestManagerWithoutQuestions(Matchers.anyLong())).thenReturn(Arrays.asList(test1, test2));
 
         // findTestsForTestManager is a http GET request
         mockMvc.perform(get("/tests/findTestsForTestManagerWithoutQuestions")

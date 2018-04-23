@@ -10,12 +10,12 @@ import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestQuestion;
 import cognitivity.exceptions.DBException;
 import cognitivity.exceptions.ErrorType;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.log4j.Logger;
 
 /**
  * Business service for cognitive test related operations.
@@ -83,7 +83,6 @@ public class CognitiveTestService {
      *             <p>
      *             This will be used in conjunction with the PUT HTTP method.
      * @Return the new allocated id for the test
-     *
      */
     public TestWrapper updateTestForTestManager(TestWrapper test) throws DBException {
         deleteTestForTestManager(test.innerTest().getId());
@@ -95,8 +94,8 @@ public class CognitiveTestService {
      * This method deletes all the blocks and questions of the test
      *
      * @param testId- The test id to delete.
-     *               <p>
-     *               This will be used in conjunction with the DELETE HTTP method.
+     *                <p>
+     *                This will be used in conjunction with the DELETE HTTP method.
      */
     public void deleteTestForTestManager(long testId) throws DBException {
         try {
@@ -132,13 +131,13 @@ public class CognitiveTestService {
      */
     public List<TestWrapper> findTestsForTestManager(long managerId) throws DBException {
         List<TestWrapper> tests = new ArrayList<>();
-        try{
+        try {
             List<CognitiveTest> preWrapped = dao.getCognitiveTestOfManager(managerId);
             for (CognitiveTest test : preWrapped) {
                 tests.add(findTestById(test.getId()));
             }
             return tests;
-        }catch (org.hibernate.HibernateException e) {
+        } catch (org.hibernate.HibernateException e) {
             logger.error(e.getMessage());
             throw new DBException(ErrorType.GET, managerId);
         }
@@ -212,7 +211,7 @@ public class CognitiveTestService {
      *               by the findTestsForTestManagerWithoutQuestions (new) method.
      * @return - test wrapper with all questions and blocks, as described above.
      */
-    public CognitiveTest findCognitiveTestById(long testId) {
-        return dao.get(testId);
+    public TestWrapper findCognitiveTestById(long testId) {
+        return null;
     }
 }

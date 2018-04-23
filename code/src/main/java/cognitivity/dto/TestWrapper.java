@@ -4,7 +4,6 @@ package cognitivity.dto;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,8 +54,6 @@ public class TestWrapper {
     private Long id;
     private String name;
     private TestManager testManager;
-    private Date lastModified;
-    private Date lastAnswered;
     private Integer numberOfQuestions;
     private String notes;
     private String project;
@@ -110,5 +107,22 @@ public class TestWrapper {
         TestWrapper that = (TestWrapper) o;
 
         return getId() != null ? getId().equals(that.getId()) : that.getId() == null;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public String getProject() {
+        return project;
+    }
+
+    public void setNotes(String notes) {
+
+        this.notes = notes;
+    }
+
+    public void setProject(String project) {
+        this.project = project;
     }
 }
