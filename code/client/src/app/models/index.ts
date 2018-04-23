@@ -103,8 +103,6 @@ export interface Test {
     name?: string,
     numberOfQuestions?: number,
     state?: number,
-    lastModified?: string,
-    lastAnswered?: string,
     numberOfFiledCopies?: number,
     blocks?: Block[],
     numberOfSubjects?: number,

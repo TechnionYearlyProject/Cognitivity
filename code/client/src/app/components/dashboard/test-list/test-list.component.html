@@ -10,8 +10,6 @@
     <tr>
       <th>Name</th>
       <th>No. Questions</th>
-      <th>Last Modified</th>
-      <th>Last Answered</th>
       <th></th>
       <th></th>
       <th></th>
@@ -22,8 +20,6 @@
     <tr *ngFor="let test of testList">
       <td>{{ test.name }}</td>
       <td>{{ test.numberOfQuestions }}</td>
-      <td>{{ convertToDateString(test.lastModified) }}</td>
-      <td>{{ test.lastAnswered == null ? '' : convertToDateString(test.lastAnswered) }}</td>
       <td><a class="btn btn-secondary btn-sm" (click)="deleteTest(test.id)"><i class="fa fa-times"></i> Delete</a></td>
       <td><a [routerLink]="['/test-preview/'+test.id]" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-window-maximize"></i> Preview</a></td>
       <td><a [routerLink]="['/edit-test/'+test.id]" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-arrow-circle-o-right"></i> Edit</a></td>
