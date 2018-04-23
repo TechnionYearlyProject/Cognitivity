@@ -192,8 +192,6 @@ export class CreateTestComponent implements OnInit {
     let test: Test = 
     {
       name: this.titleTest,
-      lastModified: Date.parse(new Date().toLocaleDateString()).toString(),
-      lastAnswered: null,
       blocks: blocksToDB,
       state: 0,
       numberOfQuestions: totalQuestionNum,

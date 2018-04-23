@@ -218,8 +218,6 @@ export class EditTestComponent implements OnInit {
     let test: Test = 
     {
       name: this.titleTest,
-      lastModified: Date.parse(new Date().toLocaleDateString()).toString(),
-      lastAnswered: null,
       blocks: blocksToDB,
       state: 0,
       numberOfQuestions: totalQuestionNum,
@@ -228,7 +226,6 @@ export class EditTestComponent implements OnInit {
       testManager: this.manager
     }
     this.test.name = this.titleTest;
-    this.test.lastModified = Date.parse(new Date().toLocaleDateString()).toString();
     this.test.blocks = blocksToDB;
     this.test.state = 0;
     this.test.numberOfQuestions = totalQuestionNum;
