@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * This controller is designed to handle all the errors that may rise to the rest of the controllers.
+ * @author - Pe'er
+ * @Date - 2.2.18
  */
 @ControllerAdvice
 @RestController

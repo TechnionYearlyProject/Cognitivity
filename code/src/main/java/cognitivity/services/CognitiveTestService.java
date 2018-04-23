@@ -201,17 +201,4 @@ public class CognitiveTestService {
     public List<CognitiveTest> findTestsForTestManagerWithoutQuestions(long managerId) {
         return dao.getCognitiveTestOfManager(managerId);
     }
-
-    /**
-     * Method for searching searching for a cognitive test by its id in the DB with all its question.
-     *
-     * @param testId - id of the test as its written in the database.
-     *               The test wrapper to be returned should have all the blocks and questions
-     *               that are related to (in the DB tables) to the test with the id, as it was returned
-     *               by the findTestsForTestManagerWithoutQuestions (new) method.
-     * @return - test wrapper with all questions and blocks, as described above.
-     */
-    public TestWrapper findCognitiveTestById(long testId) {
-        return null;
-    }
 }

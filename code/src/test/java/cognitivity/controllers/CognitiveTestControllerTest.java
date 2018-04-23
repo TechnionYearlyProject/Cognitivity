@@ -74,7 +74,7 @@ public class CognitiveTestControllerTest implements RestControllerTest {
         CognitiveTest test1 = buildTest("ct1", "em1", 1);
         TestWrapper cognitiveTest1 = new TestWrapper(test1);
 
-        Mockito.when(cognitiveTestServiceMock.findCognitiveTestById(Matchers.anyLong()))
+        Mockito.when(cognitiveTestServiceMock.findTestById(Matchers.anyLong()))
                 .thenReturn(cognitiveTest1);
 
         mockMvc.perform(get("/tests/findCognitiveTestById")
@@ -86,7 +86,7 @@ public class CognitiveTestControllerTest implements RestControllerTest {
                 .andExpect(jsonPath("$.notes", is("notes")))
                 .andExpect(jsonPath("$.project", is("project")));
 
-        Mockito.verify(cognitiveTestServiceMock, times(1)).findCognitiveTestById(123456);
+        Mockito.verify(cognitiveTestServiceMock, times(1)).findTestById(123456);
         Mockito.verifyNoMoreInteractions(cognitiveTestServiceMock);
     }
 
