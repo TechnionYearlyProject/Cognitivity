@@ -47,7 +47,7 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @RequestMapping(method = RequestMethod.GET, value = "/findCognitiveTestById")
     public TestWrapper findCognitiveTestById(
             @RequestParam(value = "testId") long testId) throws DBException {
-        return service.findCognitiveTestById(testId);
+        return service.findTestById(testId);
     }
 
     /**
@@ -63,7 +63,8 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @RequestMapping(method = RequestMethod.GET, value = "/findTestsForTestManagerWithoutQuestions")
     public List<CognitiveTest> findTestsForTestManagerWithoutQuestions(
             @RequestParam(value = "managerId") long managerId) throws DBException {
-        return service.findTestsForTestManagerWithoutQuestions(managerId);
+        List<CognitiveTest> testsForTestManagerWithoutQuestions = service.findTestsForTestManagerWithoutQuestions(managerId);
+        return testsForTestManagerWithoutQuestions;
     }
 
     /**

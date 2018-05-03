@@ -27,7 +27,6 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -74,19 +73,18 @@ public class CognitiveTestControllerTest implements RestControllerTest {
         CognitiveTest test1 = buildTest("ct1", "em1", 1);
         TestWrapper cognitiveTest1 = new TestWrapper(test1);
 
-        Mockito.when(cognitiveTestServiceMock.findCognitiveTestById(Matchers.anyLong()))
+        Mockito.when(cognitiveTestServiceMock.findTestById(Matchers.anyLong()))
                 .thenReturn(cognitiveTest1);
 
         mockMvc.perform(get("/tests/findCognitiveTestById")
                 .param("testId", "123456"))
                 .andExpect(status().isOk())
-                .andDo(print())
                 .andExpect(jsonPath("$.name", is("ct1")))
                 .andExpect(jsonPath("$.numberOfQuestions", is(1)))
                 .andExpect(jsonPath("$.notes", is("notes")))
                 .andExpect(jsonPath("$.project", is("project")));
 
-        Mockito.verify(cognitiveTestServiceMock, times(1)).findCognitiveTestById(123456);
+        Mockito.verify(cognitiveTestServiceMock, times(1)).findTestById(123456);
         Mockito.verifyNoMoreInteractions(cognitiveTestServiceMock);
     }
 
