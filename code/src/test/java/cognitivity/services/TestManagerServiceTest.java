@@ -60,8 +60,8 @@ public class TestManagerServiceTest {
     mockTest - 5
      */
     @Test
-    public void FullTest()throws Exception{
-        TestManagerService service = new TestManagerService(dao,tdao);
+    public void FullTest() throws Exception {
+        TestManagerService service = new TestManagerService(dao, tdao);
         CognitiveTestService testService = new CognitiveTestService(tdao, bdao, qdao);
 
         TestManager m = new TestManager("Safafafa");
@@ -74,14 +74,14 @@ public class TestManagerServiceTest {
         doReturn(manager).when(dao).get(Long.valueOf(1));
         TestManager result = service.findTestManager(1);
 
-        assertEquals("Problem with finding a test manager", result,manager);
+        assertEquals("Problem with finding a test manager", result, manager);
 
         manager.setEmail("Avrasha Masait");
 
         service.updateTestManager(manager);
-            result = service.findTestManager(1);
+        result = service.findTestManager(1);
 
-        assertEquals("Problem with updating a test manager", "Avrasha Masait",result.getEmail());
+        assertEquals("Problem with updating a test manager", "Avrasha Masait", result.getEmail());
 
         TestManager mockManager = new TestManager("Mi Micha");
         mockManager.setId(4L);
@@ -91,7 +91,7 @@ public class TestManagerServiceTest {
         doReturn(mockTest).when(tdao).get(2L);
         doReturn(manager).when(dao).get(4L);
         result = service.findTestManagerByCreatedTest(2);
-        assertEquals("Problem with finding a manager by a test", result,manager);
+        assertEquals("Problem with finding a manager by a test", result, manager);
 
 
         CognitiveTest test1 = new CognitiveTest("test13", manager, 0, "notes", "project");
@@ -106,11 +106,11 @@ public class TestManagerServiceTest {
 
         doReturn(tests).when(tdao).getCognitiveTestOfManager(1);
         List<CognitiveTest> testList = service.findTestsForTestManager(1);
-        for (CognitiveTest t : testList){
-            assertTrue("Getting unrelated tests while trying to get all tests from a specific manager",tests.contains(t));
+        for (CognitiveTest t : testList) {
+            assertTrue("Getting unrelated tests while trying to get all tests from a specific manager", tests.contains(t));
         }
-        for (CognitiveTest t : tests){
-            assertTrue("Didn't get all the tests from a specific manager",testList.contains(t));
+        for (CognitiveTest t : tests) {
+            assertTrue("Didn't get all the tests from a specific manager", testList.contains(t));
         }
 
         service.deleteTestManager(1);
@@ -126,22 +126,25 @@ public class TestManagerServiceTest {
         assertEquals("Problem with getting manager Id by Email", 89L, res);
 
         doThrow(new org.hibernate.HibernateException("")).when(dao).add(any());
-        try{
+        try {
             service.createTestManager(new TestManager());
-            assertTrue("Problem with handling with exception at create",false);
-        }catch (Exception e){}
+            assertTrue("Problem with handling with exception at create", false);
+        } catch (Exception e) {
+        }
 
         doThrow(new org.hibernate.HibernateException("")).when(dao).update(any());
         try {
             service.updateTestManager(new TestManager());
-            assertTrue("Problem with handling with exception at update",false);
-        }catch (Exception e){}
+            assertTrue("Problem with handling with exception at update", false);
+        } catch (Exception e) {
+        }
 
         doThrow(new org.hibernate.HibernateException("")).when(dao).delete(any());
         try {
             service.deleteTestManager(7);
-            assertTrue("Problem with handling with exception at delete",false);
-        }catch (Exception e){}
+            assertTrue("Problem with handling with exception at delete", false);
+        } catch (Exception e) {
+        }
 
     }
 

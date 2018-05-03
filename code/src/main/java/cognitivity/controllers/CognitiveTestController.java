@@ -63,8 +63,7 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @RequestMapping(method = RequestMethod.GET, value = "/findTestsForTestManagerWithoutQuestions")
     public List<CognitiveTest> findTestsForTestManagerWithoutQuestions(
             @RequestParam(value = "managerId") long managerId) throws DBException {
-        List<CognitiveTest> testsForTestManagerWithoutQuestions = service.findTestsForTestManagerWithoutQuestions(managerId);
-        return testsForTestManagerWithoutQuestions;
+        return service.findTestsForTestManagerWithoutQuestions(managerId);
     }
 
     /**

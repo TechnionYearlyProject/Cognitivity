@@ -68,6 +68,7 @@ public class AbstractResourceIntegrationTest {
         cognitiveTest.setId(2L);
         TestBlock block = new TestBlock(1, true, "tag1", cognitiveTest);
         block.setId(3L);
+        block.setCognitiveTest(cognitiveTest);
         TestQuestion testQuestion = new TestQuestion("q1", block, cognitiveTest, testManager);
         testQuestion.setId(id);
         return testQuestion;

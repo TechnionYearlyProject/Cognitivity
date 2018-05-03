@@ -1,6 +1,7 @@
 package cognitivity.integration;
 
 import cognitivity.TestUtil;
+import cognitivity.dto.BlockWrapper;
 import cognitivity.dto.TestWrapper;
 import cognitivity.entities.TestQuestion;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {IntegrationTestContextConfiguration.class})
-@Ignore
+@Ignore("This test class should not run - it doesn't test an optional behaviour of the system")
 public class TestQuestionResourceIntegrationTest extends AbstractResourceIntegrationTest {
 
     @Autowired
@@ -43,6 +44,7 @@ public class TestQuestionResourceIntegrationTest extends AbstractResourceIntegra
         long managerId = saveTestManager(question.getTestManager(), objectMapper, managerMockMvc);
         question.getTestManager().setId(managerId);
         TestWrapper testWrapper = new TestWrapper(question.getCognitiveTest());
+        testWrapper.getBlocks().add(new BlockWrapper(question.getTestBlock()));
         long testId = saveCognitiveTest(testWrapper, objectMapper, testMvc);
         question.getCognitiveTest().setId(testId);
         //long blockId = saveTestBlock()
