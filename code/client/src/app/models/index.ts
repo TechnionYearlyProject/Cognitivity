@@ -57,6 +57,10 @@ export interface Question {
     type: TypeQuestion;
     questionPosition?: QuestionPosition;
     showConfidenceBar?: boolean; 
+    /*fields for time performance measuring*/
+    startTS?:number
+    endTS?:number
+    diffTS?:number
 }
 
 /*
@@ -155,6 +159,10 @@ export interface QuestionInDB {
     questionType?: number;
     answer?: string;
     questionPosition?: number;
+    /*fields for time performance measuring*/
+    startTS?:number
+    endTS?:number
+    diffTS?:number
 }
 
 
