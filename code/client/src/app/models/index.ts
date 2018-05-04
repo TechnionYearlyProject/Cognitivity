@@ -28,6 +28,8 @@ export enum TypeQuestion {
     OpenQuestion,
     DrillDownQuestion
 }
+//TypeQuestion.MyType Mark
+//Add at the enum above MyType to include the new type question
 
 /*
 enum for all the different positions in the screen that we allow to choose for the question's

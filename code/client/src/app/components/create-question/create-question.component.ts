@@ -8,6 +8,10 @@ import { CreateRateQuestionComponent } from '../create-rate-question/create-rate
 import { CreateOpenQuestionComponent } from '../create-open-question/create-open-question.component';
 import { CreateVerticalHorizontalMultipleComponent } from '../create-vertical-horizontal-multiple/create-vertical-horizontal-multiple.component';
 import { CreateMatrixMultipleQuestionComponent } from '../create-matrix-multiple-question/create-matrix-multiple-question.component';
+import { CreateDrillDownQuestionComponent } from '../create-drill-down-question/create-drill-down-question.component';
+//Import Mark
+//import {TypeMyQuestion} from ../../models;
+//import {CreateMyQuestion} from '../create-my-question/create-my-question.component';
 @Component({
   selector: 'app-create-question',
   templateUrl: './create-question.component.html',
@@ -19,6 +23,9 @@ export class CreateQuestionComponent implements OnInit {
   @ViewChild(CreateOpenQuestionComponent) openQuestion: CreateOpenQuestionComponent;
   @ViewChild(CreateVerticalHorizontalMultipleComponent) verticalHrizontalQuestion: CreateVerticalHorizontalMultipleComponent;
   @ViewChild(CreateMatrixMultipleQuestionComponent) matrixQuestion: CreateMatrixMultipleQuestionComponent; 
+  @ViewChild(CreateDrillDownQuestionComponent) drillDownQeustion: CreateDrillDownQuestionComponent;
+  //ViewChild Directive Mark
+  //@ViewChild(CreateMyQuestion) createMyQuestion: CreateMyQuestion;
   /*
     ------------ general question details -------------------
   */
@@ -28,12 +35,6 @@ export class CreateQuestionComponent implements OnInit {
   typeMultipleQuestion?: TypeMultipleQuestion;
   typedMultipleAnswer: boolean = false;
 
-  //--------- data regarding the matrix type of multiple choice question
-  // dimSize?: number = 2;
-  // markedAnswersMatrix?: Array<Array<boolean>>;
-  // matrixAnswers?: Array<Array<string>>;
-  // centeringMatrix?: any;
-  // iteratorArray?: Array<Array<null>>;
 
   /*
     --------------- drill down question details ---------------
@@ -42,49 +43,8 @@ export class CreateQuestionComponent implements OnInit {
   typedMainAnswer: boolean = false;
   //saces flag for knowing if the secondary answer was already submitted
   typedSecondaryAnswer: boolean = false;
-  //current main answer that is submitted
-  currentMainAnswer?: string;
-  //flag for the state when the user pressed a main answer
-  showMainAnswer: boolean;
-  //the index of the answer that the user wants to see
-  indexOfMainanswerToShow: number = -1;
-  //an array of all the main answers
-  mainAnswers?: Array<string> = new Array();
-  //the marking of all the main answers
-  markedMainCorrectAnswer?: Array<boolean> = new Array();
-  //an array of all the secondary questions
-  secondaryQuestionList? : Array<SecondaryQuestionObject> = new Array();
-  //array of the answers to the current secondary question
-  secondaryAnswers?: Array<string> = new Array();
-  //flag for the state when the secondary question is being submitted
-  submitSecondaryQuestion?: boolean = false;
-  //current secondary question that the user inputs
-  currentSecondaryQuestion?: string = '';
-  //current secondary answer that the user inputs
-  currentSecondaryAnswer?: string = '';
-  //array of all secondary question
-  secondaryQuestions?: Array<string> = new Array();
-  //edit mode of editing the whole secondary question
-  editionQuestionSecondary?: boolean = false;
-  //array of the marked secondary answers
-  markedSecondaryCorrectAnswer?: Array<boolean> = new Array();
-  //edit mode of a secondary answer
-  editionModeSecondary: boolean = false;
-  //index of an answer that being edited
-  indexAnswerInEditSecondary: number = -1;
-  //view mode of a secondary question
-  viewSecondary: boolean = false;
-  //answers of the secondary that is being viewd
-  viewAnswers: Array<string> = new Array();
-  //answers of the secondary question that is being 
-  questionView: string = '';
-  //secondaryAnswers?: Array<Array<string>>;
-  editionModeMain?: boolean;
-  //flag for the state when the user creates a secondary question
-  secondaryAnswerMode?: boolean = false;
-  //index of the main answer to edit
-  indexAnswerInEditMain: number = -1;
-  //flag for the state when the user submits the question
+  // //flag for the state when the secondary question is being submitted
+   submitSecondaryQuestion?: boolean = false;
   submit: boolean = false;
   //edit mode
   editionMode: boolean = false;
@@ -172,6 +132,23 @@ export class CreateQuestionComponent implements OnInit {
     }
   }
 
+  //setMyQuestionType Method Mark
+  /*
+  *  setMyQuestionType(){
+    this.submit = false;
+    this.typedMultipleAnswer = false;
+    this.submitSecondaryQuestion = false;
+    this.typedSecondaryAnswer = false;
+    this.typedMainAnswer = false;
+    if(this.typeQuestion == TypeQuestion.OpenQuestion){
+      this.typeQuestion = null;
+      this.type_question_desc = 'Question Types';
+    }else{
+      this.typeQuestion = TypeQuestion.OpenQuestion;
+      this.type_question_desc = 'My Type';
+    }
+  }
+  */
   /*
     Setting the type of the created question, to open question
   */
@@ -382,8 +359,6 @@ export class CreateQuestionComponent implements OnInit {
   setMatrixType(){
     this.submit = false;
     this.typedMultipleAnswer = false;
-    //this.answers = new Array<string>();
-    //this.markedAnswers = new Array<boolean>()
     if(this.typeMultipleQuestion == TypeMultipleQuestion.Matrix){
       this.typeMultipleQuestion = null;
       this.multiple_type = 'Answer Organization';
@@ -494,21 +469,21 @@ export class CreateQuestionComponent implements OnInit {
 
   constructDrillDownQuestion(){
     let correct_main_answer = -1;
-    for(let i = 0; i < this.markedMainCorrectAnswer.length; i++){
-      if(this.markedMainCorrectAnswer[i]){
+    for(let i = 0; i < this.drillDownQeustion.markedMainCorrectAnswer.length; i++){
+      if(this.drillDownQeustion.markedMainCorrectAnswer[i]){
         correct_main_answer = i;
       }
     }
-    let secondary_question_text: Array<string> = new Array(this.mainAnswers.length);
-    let secondary_question_answers: Array<Array<string>> = new Array(this.mainAnswers.length);
-    let secondary_correct_answers: Array<number> = new Array(this.mainAnswers.length);
-    for(let i = 0; i < this.mainAnswers.length; i++){
+    let secondary_question_text: Array<string> = new Array(this.drillDownQeustion.mainAnswers.length);
+    let secondary_question_answers: Array<Array<string>> = new Array(this.drillDownQeustion.mainAnswers.length);
+    let secondary_correct_answers: Array<number> = new Array(this.drillDownQeustion.mainAnswers.length);
+    for(let i = 0; i < this.drillDownQeustion.mainAnswers.length; i++){
       let found_secondary: boolean = false;
-      for(let j = 0; j < this.secondaryQuestionList.length; j++){
-        if(i == this.secondaryQuestionList[j].index){
-          secondary_question_text[i] = this.secondaryQuestionList[j].questionText;
-          secondary_question_answers[i] = Object.assign([], this.secondaryQuestionList[j].answers);
-          secondary_correct_answers[i] = this.secondaryQuestionList[j].markedAnswer;
+      for(let j = 0; j < this.drillDownQeustion.secondaryQuestionList.length; j++){
+        if(i == this.drillDownQeustion.secondaryQuestionList[j].index){
+          secondary_question_text[i] = this.drillDownQeustion.secondaryQuestionList[j].questionText;
+          secondary_question_answers[i] = Object.assign([], this.drillDownQeustion.secondaryQuestionList[j].answers);
+          secondary_correct_answers[i] = this.drillDownQeustion.secondaryQuestionList[j].markedAnswer;
           found_secondary = true;
         }
       }
@@ -518,7 +493,7 @@ export class CreateQuestionComponent implements OnInit {
         secondary_correct_answers[i] = -1;
       }
     }
-    let answers_main = Object.assign([], this.mainAnswers); 
+    let answers_main = Object.assign([], this.drillDownQeustion.mainAnswers); 
     this.question_object = {
       questionText: this.questionText,
       type: this.typeQuestion,
@@ -629,26 +604,6 @@ export class CreateQuestionComponent implements OnInit {
   didChoseMultipleChoiceType():boolean {
     return this.didChoseMatrixType() || this.didChoseVerticalType() || this.didChoseHorizontalType();
   }
-
-  /*
-    Functions related for creating a Horizontal or Vertical multiple choice question
-  */
-  /*
-    Adding an answer for the question
-  *//*
-  addAnswer(){
-    if(this.answerTextForMultiple != null && this.answerTextForMultiple.length >= 1 && !this.isSpacePrefix(this.answerTextForMultiple)
-    && this.doesHaveMultiAnswer(this.answerTextForMultiple) != true){
-      this.typedMultipleAnswer = false;
-      this.answers.splice(this.answers.length, 0, this.answerTextForMultiple);
-      this.markedAnswers.splice(this.markedAnswers.length, 0, false);
-      this.answerTextForMultiple = '';
-  
-    }else{
-      this.typedMultipleAnswer = true;
-    }
-  }*/
-
   /*
     Control flow function that checks if the user inserted at least one answer
   */
@@ -660,32 +615,6 @@ export class CreateQuestionComponent implements OnInit {
     
   }
 
-
-
-  constructMatrixInEdit(question_to_edit: any){
-    this.matrixQuestion.markedAnswersMatrix = new Array<Array<boolean>>(this.matrixQuestion.dimSize);
-    this.matrixQuestion.matrixAnswers = new Array<Array<string>>(this.matrixQuestion.dimSize);
-    this.matrixQuestion.iteratorArray = new Array<Array<null>>(this.matrixQuestion.dimSize);
-    for(let i = 0; i < this.matrixQuestion.dimSize; i++){
-      this.matrixQuestion.markedAnswersMatrix[i] = new Array<boolean>(this.matrixQuestion.dimSize);
-      this.matrixQuestion.matrixAnswers[i] = new Array<string>(this.matrixQuestion.dimSize);
-      this.matrixQuestion.iteratorArray[i] = new Array<null>(this.matrixQuestion.dimSize); 
-      for(let j = 0; j < this.matrixQuestion.dimSize; j++){
-        if(question_to_edit.correctAnswer == this.matrixQuestion.dimSize*j + i){
-          this.matrixQuestion.markedAnswersMatrix[i][j] = true;
-        }else{
-          this.matrixQuestion.markedAnswersMatrix[i][j] = false;
-        }
-        this.matrixQuestion.matrixAnswers[i][j] = question_to_edit.answers[j*this.matrixQuestion.dimSize + i];
-      }
-    }
-    this.matrixQuestion.centeringMatrix = {
-      'two_col' : this.matrixQuestion.dimSize == 2,
-      'three_col' : this.matrixQuestion.dimSize == 3,
-      'four_col' : this.matrixQuestion.dimSize == 4
-    };
-    
-  }
     /*
     Control flow function which returns TRUE if there are missing answers in the matrix and FALSE other wise.
   */
@@ -750,52 +679,11 @@ export class CreateQuestionComponent implements OnInit {
     this.initializeTypeString();
     this.questionPosition = question.questionPosition;
     this.initializePositionString();
-    if(this.typeQuestion == TypeQuestion.OpenQuestion){
-      //this.answerText = question.answerText;
-    }else if(this.typeQuestion == TypeQuestion.RateQuestion){
-      //this.rateQuestion.rateSize = question.heightOfRate;
-    }else if(this.typeQuestion == TypeQuestion.MultipleChoice){
+    if(this.typeQuestion == TypeQuestion.MultipleChoice){
       this.typeMultipleQuestion = question.typeMultipleQuestion;
       this.initializeMultipleString();
-      if(this.typeMultipleQuestion == TypeMultipleQuestion.Horizontal || this.typeMultipleQuestion == TypeMultipleQuestion.Vertical){
-        for(let i = 0; i < question.answers.length; i++){
-          //this.answers.splice(this.answers.length, 0, question.answers[i]);
-          if(i == question.correctAnswer){
-            //this.markedAnswers.splice(this.markedAnswers.length, 0, true);
-          }else{
-            //this.markedAnswers.splice(this.markedAnswers.length, 0, false);
-          }
-          
-        }
-      }else if(this.typeMultipleQuestion == TypeMultipleQuestion.Matrix){
-        //this.matrixQuestion.dimSize = Math.sqrt(question.answers.length);
-        //this.constructMatrixInEdit(question);
-      }
-    }else if(this.typeQuestion == TypeQuestion.DrillDownQuestion){
-      this.mainAnswers = Object.assign([], question.answersForMain);
-      this.markedMainCorrectAnswer = new Array(this.mainAnswers.length);
-      for(let i = 0 ; i < this.markedMainCorrectAnswer.length; i++){
-        if(i == question.correctMainQuestion){
-          this.markedMainCorrectAnswer[i] = true;
-        }else{
-          this.markCorretSecondaryAnswer[i] = false;
-        }
-      }
-      let real_size = 0;
-      let size_to_iterate = question.answersForMain.length;
-      for(let i = 0; i < size_to_iterate; i++ ){
-        if(question.secondaryQuestionsText[i] != null){
-          let obj_to_insert = {
-            index: i,
-            questionText: question.secondaryQuestionsText[i],
-            markedAnswer: question.correctAnswerSecondary[i],
-            answers: Object.assign([], question.answersForSecondary[i])
-          }
-          this.secondaryQuestionList.splice(this.secondaryQuestionList.length, 0, obj_to_insert);
-        }
-      }
     }
-
+    
   }
   /*
     Intializing the description of the type
@@ -848,475 +736,13 @@ export class CreateQuestionComponent implements OnInit {
           this.multiple_type = 'Horizontal';
       }
   }
-  /*
-
-    The function adds an answer for the main question
-  */
-  addMainAnswer(){
-    if(this.currentMainAnswer != null && this.currentMainAnswer.length >= 1 && !this.isSpacePrefix(this.currentMainAnswer)){
-      this.mainAnswers.splice(this.mainAnswers.length, 0, this.currentMainAnswer);
-      this.markedMainCorrectAnswer.splice(this.markedMainCorrectAnswer.length, 0, false);
-      this.currentMainAnswer = '';
-      this.submitSecondaryQuestion = false;
-      this.typedMainAnswer = false;
-    }else{
-      this.typedMainAnswer = true;
-    }
-  }
-  /*
-    The function returns TRUE if there are answers to the main question,
-    FALSE otherwise
-  */
   haveMainAnswers(): boolean {
-    return this.mainAnswers.length >= 1;
+    return this.drillDownQeustion.mainAnswers.length >= 1;
   }
 
-  /*
-    The function displays the main answer that was chosen
-  */
-  markMainAnswer(index: number){
-    this.secondaryAnswerMode = false;
-    if(this.indexOfMainanswerToShow == index){
-      this.showMainAnswer = false;
-
-      this.indexOfMainanswerToShow = -1;
-    }else{
-      this.showMainAnswer = true;
-      this.indexOfMainanswerToShow = index;
-    }
-    this.secondaryAnswerMode = false;
-    this.editionModeSecondary = false;
-    this.editionQuestionSecondary = false;
-    this.viewSecondary = false;
-    this.currentSecondaryQuestion = '';
-    this.currentSecondaryAnswer = '';
-    this.markedSecondaryCorrectAnswer = new Array();
-    this.secondaryAnswers = new Array();
-
-    
-  }
-  /*
-    The function saves the answer that was marked as correct
-  */
-  markCorretMainAnswer(index:number){
-    for(let i = 0; i < this.markedMainCorrectAnswer.length; i++){
-      if(i == index){
-        this.markedMainCorrectAnswer[i] = !this.markedMainCorrectAnswer[i];
-      }else{
-        this.markedMainCorrectAnswer[i] = false;
-      }
-    } 
-  }
-  /*
-    Deletes an answer to the question
-  */
-  deleteMainAnswer(index: number){
-    this.viewSecondary = false;
-    this.secondaryAnswerMode = false;
-    this.editionQuestionSecondary = false;
-    this.editionModeSecondary = false;
-    if(this.showMainAnswer){
-      this.showMainAnswer = false;
-      this.secondaryAnswerMode = false;
-      this.indexOfMainanswerToShow = -1;
-    }
-    for(let i = 0; i < this.secondaryQuestionList.length; i++){
-      if(index == this.secondaryQuestionList[i].index){
-        this.secondaryQuestionList.splice(i,1);
-      }
-    }
-    this.mainAnswers.splice(index,1);
-    this.markedMainCorrectAnswer.splice(index, 1);
-    this.secondaryAnswers = new Array();
-    this.currentSecondaryAnswer = '';
-    this.markedSecondaryCorrectAnswer = new Array();
-    this.currentSecondaryQuestion = '';
-  }
-  /*
-    The function edits an answer for the main question
-  */
-  editMainAnswer(index: number){
-    this.viewSecondary = false;
-    this.secondaryAnswerMode = false;
-    this.editionModeSecondary = false;
-    this.editionQuestionSecondary = false;
-    this.currentSecondaryAnswer = '';
-    this.currentSecondaryQuestion = '';
-    this.markedSecondaryCorrectAnswer = new Array();
-    this.secondaryAnswers = new Array();
-    this.currentMainAnswer = this.mainAnswers[index];
-    this.editionModeMain = true;
-    this.indexAnswerInEditMain = index;
-  }
-  /*
-    The function doesn't change the edited answer for the main question
-  */
-  undoEditMain(){
-    this.editionModeMain = false;
-    this.currentMainAnswer = '';
-    this.indexAnswerInEditMain = -1;
-    this.typedMainAnswer = false;
-  }
-  /*
-    applies changes of an answer of the main question
-  */
-  applyEditMain(){
-    if(this.currentMainAnswer != null && this.currentMainAnswer.length >= 1 && !this.isSpacePrefix(this.currentMainAnswer)){
-      this.mainAnswers.splice(this.indexAnswerInEditMain, 1,  this.currentMainAnswer)
-      this.editionModeMain = false;
-      this.indexAnswerInEditMain = -1;
-      this.currentMainAnswer = '';
-      this.typedMainAnswer = false;
-    }else{
-      this.typedMainAnswer = true;
-    }
-  }
-  /*
-    The function moves up the requested answer to the main question
-  */
-  goMainUp(index: number){
-    
-    if(index != 0){
-      for(let i = 0; i < this.secondaryQuestionList.length; i++){
-        if(index - 1 == this.secondaryQuestionList[i].index){
-
-          let tmp = {
-            index: index,
-            questionText: this.secondaryQuestionList[i].questionText,
-            answers: Object.assign([], this.secondaryQuestionList[i].answers),
-            markedAnswer: this.secondaryQuestionList[i].markedAnswer
-          }
-          this.secondaryQuestionList.splice(i,1);
-          this.secondaryQuestionList.splice(0,0,tmp);
-        }else if(index == this.secondaryQuestionList[i].index){
-          let tmp = {
-            index: index - 1,
-            questionText: this.secondaryQuestionList[i].questionText,
-            answers: Object.assign([], this.secondaryQuestionList[i].answers),
-            markedAnswer: this.secondaryQuestionList[i].markedAnswer
-          }
-          let removed = this.secondaryQuestionList.splice(i,1);
-          this.secondaryQuestionList.splice(0,0,tmp);
-        }
-      }
-      if(this.showMainAnswer){
-        if(this.indexOfMainanswerToShow <= index){
-          this.indexOfMainanswerToShow = index - 1;
-        }
-      }
-      let removed = this.mainAnswers.splice(index, 1)
-      let removed_marked_correct = this.markedMainCorrectAnswer.splice(index,1);
-      this.mainAnswers.splice(index - 1, 0, removed[0]);
-      this.markedMainCorrectAnswer.splice(index - 1, 0, removed_marked_correct[0]);
-
-    } 
-  }
-   /*
-    The function moves down the requested answer to the main question
-  */
-  goMainDown(index: number){
-    if(index != this.mainAnswers.length - 1){
-      for(let i = 0; i < this.secondaryQuestionList.length; i++){
-        if(index == this.secondaryQuestionList[i].index){
-          let tmp = {
-            index: index + 1,
-            questionText: this.secondaryQuestionList[i].questionText,
-            answers: Object.assign([], this.secondaryQuestionList[i].answers),
-            markedAnswer: this.secondaryQuestionList[i].markedAnswer
-          }
-          this.secondaryQuestionList.splice(i,1);
-          this.secondaryQuestionList.splice(0,0,tmp);
-        }else if(index + 1 == this.secondaryQuestionList[i].index){
-          let tmp = {
-            index: index,
-            questionText: this.secondaryQuestionList[i].questionText,
-            answers: Object.assign([], this.secondaryQuestionList[i].answers),
-            markedAnswer: this.secondaryQuestionList[i].markedAnswer
-          }
-          this.secondaryQuestionList.splice(i,1);
-          this.secondaryQuestionList.splice(0,0,tmp);
-        }
-      }
-      if(this.showMainAnswer){
-        if(this.indexOfMainanswerToShow <= index){
-          this.indexOfMainanswerToShow = index + 1;
-        }
-      }
-      let removed = this.mainAnswers.splice(index, 1);
-      let removed_marked_correct = this.markedMainCorrectAnswer.splice(index, 1);
-      this.mainAnswers.splice(index + 1, 0, removed[0]);
-      this.markedMainCorrectAnswer.splice(index + 1, 0, removed_marked_correct[0]);
-      
-    }
-  }
-  /*
-    This function gets an array of strings to detrmine a dynamic style for the buttons in which all the string will be
-    so the buttons will be aligned according to the longest string
-  */
-  generateHighestBox(answers: Array<string>): string{
-    let max: number = -1;
-    for(let i = 0; i < answers.length; i++){
-      if(answers[i].length > max){
-        max = answers[i].length;
-      }
-    }
-    let size = Math.max((max * 20), 300);
-    
-    let returnedSize: string = (size.toString()) + 'px';
-    return returnedSize;
-  }
-  /*
-    The function adds secondary question
-  */
-  addSecondaryQuestion(index: number){
-    if(this.secondaryExists()){
-      this.secondaryAnswerMode = !this.secondaryAnswerMode;
-    }else{
-      this.secondaryAnswerMode = true;
-    }
-    
-  }
-
-  /*
-    The function returns if the chosen question is what the user wants to work on
-  */
-  whatToShow(index: number):boolean{
-    return index == this.indexOfMainanswerToShow;
-  }
-
-  /*
-    A function that cancels the secondary question
-  */
-  undoSecondary(){
-    this.typedSecondaryAnswer = false;
-    this.editionQuestionSecondary = false;
-    this.submitSecondaryQuestion = false;
-    this.secondaryAnswers = new Array();
-    this.currentSecondaryQuestion = '';
-    this.secondaryAnswerMode = false;
-    for(let i = 0; i < this.secondaryQuestionList.length; i++){
-      if(this.indexOfMainanswerToShow == this.secondaryQuestionList[i].index){
-        this.secondaryQuestionList.splice(i,1);
-      }
-    }
-  }
-
-  /*
-    The function creates secondary question from the details the user has input
-  */
-  finishSecondaryQuestion(){
-    this.editionQuestionSecondary = false;
-    if(!this.emptySecondary() && this.hasSecondaryAnswer()){
-      for(let i = 0 ; i < this.secondaryQuestionList.length; i++){
-        if(this.secondaryQuestionList[i].index == this.indexOfMainanswerToShow){
-          this.secondaryQuestionList.splice(i, 1);
-        }
-      }
-      let correct_answer = -1;
-      for(let i = 0; i < this.markedSecondaryCorrectAnswer.length; i++){
-        if(this.markedSecondaryCorrectAnswer[i]){
-          correct_answer = i;
-        }
-        
-      }
-
-      this.secondaryQuestionList.splice(this.secondaryQuestionList.length, 0, {
-        index: this.indexOfMainanswerToShow,
-        questionText: this.currentSecondaryQuestion,
-        answers: this.secondaryAnswers,
-        markedAnswer: correct_answer
-      });
-      this.secondaryAnswerMode = false;
-      this.secondaryAnswers = new Array();
-      this.currentSecondaryAnswer = '';
-
-      this.currentSecondaryQuestion = '';
-      this.markedSecondaryCorrectAnswer = new Array();
-    }
-    
-    this.submitSecondaryQuestion = true;
-    this.typedSecondaryAnswer = false;
-  }
-  /*
-    The function returns TRUE if the secondary question have answers
-  */
-  hasSecondaryAnswer(): boolean{
-    return this.secondaryAnswers.length >= 1;
-  }
-
-  /*
-    The function returns TRUE if the secondary question exists and needs to be viewed
-  */
-  secondaryExists(): boolean{
-    for(let i = 0; i < this.secondaryQuestionList.length; i++){
-      if(this.secondaryQuestionList[i].index == this.indexOfMainanswerToShow){
-        return true;
-      }
-    }
-    return false;
-  }
-  /*
-    The function returns TRUE if secondary question text wasn't filled
-  */
-  emptySecondary():boolean{
-    return this.currentSecondaryQuestion == null || this.currentSecondaryQuestion.length < 2 || this.isSpacePrefix(this.currentSecondaryQuestion);
-  }
-
-  /*
-    The function adds an answer to the secondary question
-  */
-  addSecondaryAnswer(){
-    if(this.currentSecondaryAnswer != null && this.currentSecondaryAnswer.length >= 1 && !this.isSpacePrefix(this.currentSecondaryAnswer)){
-      this.secondaryAnswers.splice(this.secondaryAnswers.length, 0, this.currentSecondaryAnswer);
-      this.markedSecondaryCorrectAnswer.splice(this.markedSecondaryCorrectAnswer.length, 0, false);
-      this.currentSecondaryAnswer = '';
-      this.typedSecondaryAnswer = false;
-    }else{
-      this.typedSecondaryAnswer = true;
-    }
-  }
-
-  /*
-    The function returns TRUE if the secondary question has answers
-  */
-  hasSecondaryAnswers(): boolean{
-    return this.secondaryAnswers.length >= 1;
-  }
-  
-  /*
-    The function marks the correct answer by the user
-  */
-  markCorretSecondaryAnswer(index: number){
-    for(let i = 0; i < this.markedSecondaryCorrectAnswer.length; i++){
-      if(i == index){
-        this.markedSecondaryCorrectAnswer[i] = !this.markedSecondaryCorrectAnswer[i];
-      }else{
-        this.markedSecondaryCorrectAnswer[i] = false;
-      }
-    } 
-  }
-  /*
-    The function moves the requested secondary question up
-  */
-  goSecondaryUp(index: number){
-    if(index != 0){
-      let removed = this.secondaryAnswers.splice(index, 1)
-      let removed_marked_correct = this.markedSecondaryCorrectAnswer.splice(index,1);
-      this.secondaryAnswers.splice(index - 1, 0, removed[0]);
-      this.markedSecondaryCorrectAnswer.splice(index - 1, 0, removed_marked_correct[0]);
-    }
-  }
-    /*
-    The function moves the requested secondary question down
-  */
-  goSecondaryDown(index: number){
-    if(index != this.secondaryAnswers.length - 1){
-      let removed = this.secondaryAnswers.splice(index, 1);
-      let removed_marked_correct = this.markedSecondaryCorrectAnswer.splice(index, 1);
-      this.secondaryAnswers.splice(index + 1, 0, removed[0]);
-      this.markedSecondaryCorrectAnswer.splice(index + 1, 0, removed_marked_correct[0]);
-      
-    }
-  }
-  /*
-    The function deleted an answer to the secondary question
-  */
-  deleteSecondaryAnswer(index: number){
-    this.secondaryAnswers.splice(index,1);
-    this.markedSecondaryCorrectAnswer.splice(index, 1);
-  }
-  /*
-    The function gets in edit mode to an answer of the secondary question
-  */
-  editSecondaryAnswer(index: number){
-    this.currentSecondaryAnswer = this.secondaryAnswers[index];
-    this.editionModeSecondary = true;
-    this.indexAnswerInEditSecondary = index;
-  }
-  /*
-    The function applies th changes of the edit mode in an answer of the seocndary question
-  */
-  applySecondaryEdit(){
-    if(this.currentSecondaryAnswer != null && this.currentSecondaryAnswer.length >= 1 && !this.isSpacePrefix(this.currentSecondaryAnswer)){
-      this.secondaryAnswers.splice(this.indexAnswerInEditSecondary, 1,  this.currentSecondaryAnswer)
-      this.editionModeSecondary = false;
-      this.indexAnswerInEditSecondary = -1;
-      this.currentMainAnswer = '';
-      this.currentSecondaryAnswer = '';
-      this.typedSecondaryAnswer = false;
-    }else{
-      this.typedSecondaryAnswer = true;
-    }
-  }
-  /*
-    undos changes an answer of the secondary question
-  */
-  undoSecondaryEdit(){
-    this.typedSecondaryAnswer = false;
-    this.editionModeSecondary = false;
-    this.currentSecondaryAnswer = '';
-    this.indexAnswerInEditSecondary = -1;
-  }
-  /*
-    The function gets into the view of a secondary question
-  */
-  viewSecondaryAnswer(){
-    if(this.viewSecondary){
-      this.viewAnswers = new Array();
-      this.viewSecondary = false;
-    }else{
-      this.viewSecondary = true;
-      for(let i = 0; i < this.secondaryQuestionList.length; i++){
-        if(this.secondaryQuestionList[i].index == this.indexOfMainanswerToShow){
-          this.questionView = this.secondaryQuestionList[i].questionText;
-          this.viewAnswers = Object.assign([], this.secondaryQuestionList[i].answers);
-          break;
-        }
-      }
-    }
-  }
-  /*
-    The function edits the whole secondary question
-  */
-  editSecondaryQuestion(){
-    this.viewSecondary = false;
-    this.editionQuestionSecondary = true;
-    let correct_answer_index = -1;
-    for(let i = 0; i < this.secondaryQuestionList.length; i++){
-      if(this.secondaryQuestionList[i].index == this.indexOfMainanswerToShow){
-        this.currentSecondaryQuestion = this.secondaryQuestionList[i].questionText;
-        this.secondaryAnswers = Object.assign([], this.secondaryQuestionList[i].answers);
-        correct_answer_index = this.secondaryQuestionList[i].markedAnswer;
-        break;
-      }
-    }
-    this.markedSecondaryCorrectAnswer = new Array(this.secondaryAnswers.length);
-    for(let i = 0; i < this.markedSecondaryCorrectAnswer.length; i++){
-      if(i == correct_answer_index){
-        this.markedSecondaryCorrectAnswer[i] = true;
-      }else{
-        this.markCorretSecondaryAnswer[i] = false;
-      }
-    }
-  }
-  /*
-    The function returns from view mode of a secondary question
-  */
-  backToView(){
-    this.typedSecondaryAnswer = false;
-    this.editionQuestionSecondary = false;
-    this.viewSecondaryAnswer();
-  }
-
-  /*
-    The function retunrs TRUE if the main question have answers
-  */
-  hasMainAnswres():boolean{
-    return this.mainAnswers.length >= 1;
-  }
-  /*
-    A function that returns true if the string starts with a white space, to control flawed input
-  */
+  // /*
+  //   A function that returns true if the string starts with a white space, to control flawed input
+  // */
   isSpacePrefix(str: string): boolean{
       if(str == null){
           return false;
@@ -1329,17 +755,4 @@ export class CreateQuestionComponent implements OnInit {
     return this.didChoseRateQuestion() || this.didChoseOpenQuestion() || this.didChoseMultipleQuestion();
   }
 
-  passParams() : any{
-    console.log('fdfdfdfd');
-  }  
-  /*
-  this function checks if an answer already exists in the multi choice question's answers 
-  and returns True if it is, False otherwise.
-  
-  doesHaveMultiAnswer(givenStr: string): boolean{
-    if(this.answers.indexOf(givenStr)!= -1){
-      return true;
-    }
-    return false;
-  }*/
 }
