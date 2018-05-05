@@ -41,7 +41,7 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
     @RequestMapping(method = RequestMethod.GET, value = "/findTestManagersForTestCriteria")
     public TestManager findTestManagersForTestCriteria(
             @RequestParam(value = "testManagerId") long testManagerId,
-            @RequestParam(value = "testId", required = false) long testId) {
+            @RequestParam(value = "testId", required = false) long testId)throws DBException {
         if (testId == -1) {
             // Then return test manager with id
             return service.findTestManager(testManagerId);
@@ -62,7 +62,7 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findTestManagerIdByEmail")
     public long findTestManagerIdByEmail(
-            @RequestParam(value = "email") String email) {
+            @RequestParam(value = "email") String email)throws DBException {
         return service.getManagerIdByEmail(email);
     }
 

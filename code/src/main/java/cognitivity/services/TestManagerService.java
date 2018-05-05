@@ -15,6 +15,8 @@ import java.util.List;
 /**
  *
  * Business service for test manager related operations.
+ * @Author - Pe'er
+ * @Date - 2.2.18
  *
  */
 
@@ -92,8 +94,13 @@ public class TestManagerService {
      * @param testManagerId - The test manager's id.
      * @return - the test manager found.
      */
-    public TestManager findTestManager(long testManagerId) {
-        return dao.get(testManagerId);
+    public TestManager findTestManager(long testManagerId)throws DBException {
+        try {
+            return dao.get(testManagerId);
+        }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
+            throw new DBException(ErrorType.GET, testManagerId);
+        }
     }
 
     /**
@@ -103,17 +110,25 @@ public class TestManagerService {
      * @return - the test manager that created the test.
      * # Could return empty search result
      */
-    public TestManager findTestManagerByCreatedTest(long testId) {
-        CognitiveTest test = testDao.get(testId);
-        long managerId = test.getManager().getId();
-        return dao.get(managerId);
+    public TestManager findTestManagerByCreatedTest(long testId)throws DBException {
+        try {
+            CognitiveTest test = testDao.get(testId);
+            long managerId = test.getManager().getId();
+            return dao.get(managerId);
+        }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
+            throw new DBException(ErrorType.GET, testId);
+        }
     }
 
-    public long getManagerIdByEmail(String email) {
-        return dao.getIdFromEmail(email);
+    public long getManagerIdByEmail(String email)throws DBException {
+        try {
+            return dao.getIdFromEmail(email);
+        }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
+            throw new DBException(ErrorType.GET, null);
+        }
     }
-
-
 
 
     /**
@@ -122,8 +137,13 @@ public class TestManagerService {
      * @param managerId - The test manager Id.
      * @return - All tests the test manager has created.
      */
-    public List<CognitiveTest> findTestsForTestManager(long managerId) {
-        return testDao.getCognitiveTestOfManager(managerId);
+    public List<CognitiveTest> findTestsForTestManager(long managerId)throws DBException {
+        try {
+            return testDao.getCognitiveTestOfManager(managerId);
+        }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
+            throw new DBException(ErrorType.GET, managerId);
+        }
     }
 
 

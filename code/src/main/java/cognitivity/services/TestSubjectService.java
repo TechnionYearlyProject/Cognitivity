@@ -14,6 +14,8 @@ import java.util.List;
 /**
  *
  * Business service for test subject related operations.
+ * @Author - Pe'er
+ * @Date - 2.2.18
  *
  */
 
@@ -90,8 +92,13 @@ public class TestSubjectService {
      * @param testSubjectId - The test subject's id.
      * @return - the test subject found.
      */
-    public TestSubject findTestSubject(long testSubjectId) {
-        return dao.get(testSubjectId);
+    public TestSubject findTestSubject(long testSubjectId)throws DBException {
+        try{
+            return dao.get(testSubjectId);
+        }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
+            throw new DBException(ErrorType.GET, testSubjectId);
+        }
     }
 
     /**
@@ -100,8 +107,13 @@ public class TestSubjectService {
      * @param subjectId - the test subject Id.
      * @return - all the answers the test subject gave.
      */
-    public List<TestAnswer> findAllTestSubjectAnswers(long subjectId){
-        return dao.getSubjectAnswers(subjectId);
+    public List<TestAnswer> findAllTestSubjectAnswers(long subjectId)throws DBException{
+        try{
+            return dao.getSubjectAnswers(subjectId);
+        }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
+            throw new DBException(ErrorType.GET, subjectId);
+        }
     }
 
 
@@ -111,8 +123,13 @@ public class TestSubjectService {
      * @param testId - the test Id of the given test
      * @return - A list of the subjects who participated the test.
      */
-    public List<TestSubject> findTestSubjectsWhoParticipatedInTest(long testId){
-        return dao.getTestSubjectsWhoParticipatedInTest(testId);
+    public List<TestSubject> findTestSubjectsWhoParticipatedInTest(long testId)throws DBException{
+        try{
+            return dao.getTestSubjectsWhoParticipatedInTest(testId);
+        }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
+            throw new DBException(ErrorType.GET, testId);
+        }
     }
 
 }

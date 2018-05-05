@@ -1,5 +1,9 @@
 package cognitivity.services;
-
+/**
+ * A test class for Test subject service
+ * @Author - Pe'er
+ * @Date - 2.2.18
+ */
 import cognitivity.dao.*;
 import cognitivity.dto.BlockWrapper;
 import cognitivity.entities.*;
@@ -205,6 +209,24 @@ public class TestSubjectServiceTest {
         try {
             service.deleteTestSubject(89L);
             assertTrue("Problem with handling with exception at delete",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).get(89L);
+        try {
+            service.findTestSubject(89L);
+            assertTrue("Problem with handling with exception at findTestSubject",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).getSubjectAnswers(89L);
+        try {
+            service.findAllTestSubjectAnswers(89L);
+            assertTrue("Problem with handling with exception at findAllTestSubjectAnswers",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).getTestSubjectsWhoParticipatedInTest(89L);
+        try {
+            service.findTestSubjectsWhoParticipatedInTest(89L);
+            assertTrue("Problem with handling with exception at findTestSubjectsWhoParticipatedInTest",false);
         }catch (Exception e){}
 
 

@@ -1,5 +1,10 @@
 package cognitivity.services;
 
+/**
+ * A test class for Test block service
+ * @Author - Pe'er
+ * @Date - 2.2.18
+ */
 import cognitivity.dao.CognitiveTestDAO;
 import cognitivity.dao.TestBlockDAO;
 import cognitivity.dao.TestManagerDAO;
@@ -123,6 +128,11 @@ public class TestBlockServiceTest {
             assertTrue("Problem with handling with exception at delete",false);
         }catch (Exception e){}
 
+        doThrow(new org.hibernate.HibernateException("")).when(dao).getAllBlockQuestions(1);
+        try {
+            service.findAllBlockQuestions(1);
+            assertTrue("Problem with handling with exception at findAllBlockQuestions",false);
+        }catch (Exception e){}
 
     }
 

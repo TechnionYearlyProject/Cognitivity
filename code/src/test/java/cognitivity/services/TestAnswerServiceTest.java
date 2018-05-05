@@ -1,5 +1,11 @@
 package cognitivity.services;
 
+/**
+ * A test class for Test answer service
+ * @Author - Pe'er
+ * @Date - 2.2.18
+ */
+
 import cognitivity.dao.*;
 import cognitivity.dto.BlockWrapper;
 import cognitivity.entities.*;
@@ -196,6 +202,30 @@ public class TestAnswerServiceTest {
         try {
             service.deleteTestAnswerForQuestion(7);
             assertTrue("Problem with handling with exception at delete",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).get(7L);
+        try {
+            service.findTestAnswerById(7);
+            assertTrue("Problem with handling with exception at findTestAnswerById",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(sdao).getSubjectAnswers(7L);
+        try {
+            service.findTestAnswersBySubject(7);
+            assertTrue("Problem with handling with exception at findTestAnswersBySubject",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).getTestSubjectAnswersInTest(7L,6L);
+        try {
+            service.findTestAnswersBySubjectInTest(7,6);
+            assertTrue("Problem with handling with exception at findTestAnswersBySubjectInTest",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).getTestAnswers(7L);
+        try {
+            service.findAllTestAnswerForAQuestion(7);
+            assertTrue("Problem with handling with exception at findAllTestAnswerForAQuestion",false);
         }catch (Exception e){}
     }
 

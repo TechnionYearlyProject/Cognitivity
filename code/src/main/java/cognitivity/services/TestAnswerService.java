@@ -13,6 +13,8 @@ import java.util.List;
 
 /**
  * Business service for answers to test questions related operations.
+ * @Author - Pe'er
+ * @Date - 2.2.18
  */
 @Service
 public class TestAnswerService {
@@ -106,8 +108,13 @@ public class TestAnswerService {
      * @param answerId - The test answer's id.
      * @return - Test answer with given id, null if it doesn't exist.
      */
-    public TestAnswer findTestAnswerById(long answerId) {
-        return dao.get(answerId);
+    public TestAnswer findTestAnswerById(long answerId)throws DBException {
+        try{
+            return dao.get(answerId);
+        }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
+            throw new DBException(ErrorType.GET, answerId);
+        }
     }
 
     /**
@@ -116,8 +123,13 @@ public class TestAnswerService {
      * @param subjectId - The test subjects Id.
      * @return - All test answers that belong to the subject with the given id.
      */
-    public List<TestAnswer> findTestAnswersBySubject(long subjectId) {
-        return subjectDao.getSubjectAnswers(subjectId);
+    public List<TestAnswer> findTestAnswersBySubject(long subjectId)throws DBException {
+        try{
+            return subjectDao.getSubjectAnswers(subjectId);
+        }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
+            throw new DBException(ErrorType.GET, subjectId);
+        }
     }
 
     /**
@@ -127,8 +139,13 @@ public class TestAnswerService {
      * @param testId    - The test Id from which we want to get the results.
      * @return - All test answers that belong to the subject with the given id.
      */
-    public List<TestAnswer> findTestAnswersBySubjectInTest(long subjectId, long testId) {
-        return dao.getTestSubjectAnswersInTest(subjectId, testId);
+    public List<TestAnswer> findTestAnswersBySubjectInTest(long subjectId, long testId) throws DBException{
+        try{
+            return dao.getTestSubjectAnswersInTest(subjectId, testId);
+        }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
+            throw new DBException(ErrorType.GET, testId);
+        }
     }
 
     /**
@@ -137,7 +154,12 @@ public class TestAnswerService {
      * @param questionId - The question Id whose answers we are looking for.'
      * @return - A list of all the answers for the question.
      */
-    public List<TestAnswer> findAllTestAnswerForAQuestion(long questionId) {
-        return dao.getTestAnswers(questionId);
+    public List<TestAnswer> findAllTestAnswerForAQuestion(long questionId)throws DBException {
+        try{
+            return dao.getTestAnswers(questionId);
+        }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
+            throw new DBException(ErrorType.GET, questionId);
+        }
     }
 }

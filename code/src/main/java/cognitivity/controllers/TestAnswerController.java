@@ -43,7 +43,7 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findTestAnswerById")
     public TestAnswer findTestAnswerById(
-            @RequestParam(value = "testAnswerId") long answerId) {
+            @RequestParam(value = "testAnswerId") long answerId)throws DBException {
         return service.findTestAnswerById(answerId);
     }
 
@@ -58,7 +58,7 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findTestAnswersByQuestionId")
     public List<TestAnswer> findTestAnswersByQuestionId(
-            @RequestParam(value = "questionId") long questionId) {
+            @RequestParam(value = "questionId") long questionId)throws DBException {
         return service.findAllTestAnswerForAQuestion(questionId);
     }
 
@@ -73,7 +73,7 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findTestAnswersBySubjectId")
     public List<TestAnswer> findTestAnswersBySubjectId(
-            @RequestParam(value = "subjectId") long subjectId) {
+            @RequestParam(value = "subjectId") long subjectId)throws DBException {
         return service.findTestAnswersBySubject(subjectId);
     }
 

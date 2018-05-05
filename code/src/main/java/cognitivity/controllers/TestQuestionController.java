@@ -42,7 +42,7 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
     @RequestMapping(method = RequestMethod.GET, value = "/findTestQuestionsForTestCriteriaById")
     public List<TestQuestion> findTestQuestionsForTestCriteriaById(
             @RequestParam(value = "testManagerId") long testManagerId,
-            @RequestParam(value = "testId", required = false) long testId) {
+            @RequestParam(value = "testId", required = false) long testId)throws DBException {
         if (testId == -1) {
             // Then return all questions of test manager
             return service.findAllTestQuestionsFromManagerId(testManagerId);
@@ -61,7 +61,7 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findTestQuestionById")
     public TestQuestion findTestQuestionById(
-            @RequestParam(value = "testQuestionId") long testQuestionId) {
+            @RequestParam(value = "testQuestionId") long testQuestionId)throws DBException {
         return service.findQuestionById(testQuestionId);
     }
 

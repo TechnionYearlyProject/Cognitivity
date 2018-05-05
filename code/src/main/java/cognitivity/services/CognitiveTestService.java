@@ -19,6 +19,8 @@ import java.util.List;
 
 /**
  * Business service for cognitive test related operations.
+ * @Author - Pe'er
+ * @Date - 2.2.18
  */
 
 @Service
@@ -117,13 +119,18 @@ public class CognitiveTestService {
      *               by the findTestsForTestManagerWithoutQuestions (new) method.
      * @return - test wrapper with all questions and blocks, as described above.
      */
-    public TestWrapper findTestById(long testID) {
-        List<BlockWrapper> blocks = new ArrayList<>();
-        List<TestBlock> preWrapped = dao.getTestBlocks(testID);
-        for (TestBlock block : preWrapped) {
-            blocks.add(new BlockWrapper(blockDAO.getAllBlockQuestions(block.getId()), block));
+    public TestWrapper findTestById(long testID)throws DBException {
+        try{
+            List<BlockWrapper> blocks = new ArrayList<>();
+            List<TestBlock> preWrapped = dao.getTestBlocks(testID);
+            for (TestBlock block : preWrapped) {
+                blocks.add(new BlockWrapper(blockDAO.getAllBlockQuestions(block.getId()), block));
+            }
+            return new TestWrapper(dao.get(testID), blocks);
+        }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
+            throw new DBException(ErrorType.GET, testID);
         }
-        return new TestWrapper(dao.get(testID), blocks);
     }
 
     /**
@@ -153,13 +160,18 @@ public class CognitiveTestService {
      * @param testId - the given test id
      * @return a list of all of the blocks in the test.
      */
-    public List<BlockWrapper> getTestBlocksForTest(long testId) {
-        List<TestBlock> preWrapped = dao.getTestBlocks(testId);
-        List<BlockWrapper> blocks = new ArrayList<BlockWrapper>();
-        for (TestBlock block : preWrapped) {
-            blocks.add(new BlockWrapper(blockDAO.getAllBlockQuestions(block.getId()), block));
+    public List<BlockWrapper> getTestBlocksForTest(long testId)throws DBException {
+        try{
+            List<TestBlock> preWrapped = dao.getTestBlocks(testId);
+            List<BlockWrapper> blocks = new ArrayList<BlockWrapper>();
+            for (TestBlock block : preWrapped) {
+                blocks.add(new BlockWrapper(blockDAO.getAllBlockQuestions(block.getId()), block));
+            }
+            return blocks;
+        }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
+            throw new DBException(ErrorType.GET, testId);
         }
-        return blocks;
     }
 
     /**
@@ -168,8 +180,13 @@ public class CognitiveTestService {
      * @param testId - The test Id.
      * @return - All questions that the test has.
      */
-    public List<TestQuestion> getTestQuestionsForTest(long testId) {
-        return dao.getTestQuestions(testId);
+    public List<TestQuestion> getTestQuestionsForTest(long testId)throws DBException {
+        try{
+            return dao.getTestQuestions(testId);
+        }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
+            throw new DBException(ErrorType.GET, testId);
+        }
     }
 
 
@@ -179,8 +196,13 @@ public class CognitiveTestService {
      * @param notes - The notes files filter.
      * @return - All tests that their notes field contains the notes string parameter.
      */
-    public List<CognitiveTest> filterTestsByNotes(String notes) {
-        return dao.filterTestsByNotes(notes);
+    public List<CognitiveTest> filterTestsByNotes(String notes)throws DBException {
+        try{
+            return dao.filterTestsByNotes(notes);
+        }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
+            throw new DBException(ErrorType.GET, null);
+        }
     }
 
 
@@ -190,8 +212,13 @@ public class CognitiveTestService {
      * @param projectFilter - The project test filter.
      * @return - All tests that their project field is the same as the projectFilter parameter.
      */
-    public List<CognitiveTest> filterTestsByProject(String projectFilter) {
-        return dao.filterTestsByProject(projectFilter);
+    public List<CognitiveTest> filterTestsByProject(String projectFilter)throws DBException {
+        try{
+            return dao.filterTestsByProject(projectFilter);
+        }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
+            throw new DBException(ErrorType.GET, null);
+        }
     }
 
 
@@ -201,7 +228,12 @@ public class CognitiveTestService {
      * @param managerId - id of the manager the request is build on.
      * @return - All tests that their manager has the id (param) without the questions (no wrapper)
      */
-    public List<CognitiveTest> findTestsForTestManagerWithoutQuestions(long managerId) {
-        return dao.getCognitiveTestOfManager(managerId);
+    public List<CognitiveTest> findTestsForTestManagerWithoutQuestions(long managerId)throws DBException {
+        try{
+            return dao.getCognitiveTestOfManager(managerId);
+        }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
+            throw new DBException(ErrorType.GET, managerId);
+        }
     }
 }

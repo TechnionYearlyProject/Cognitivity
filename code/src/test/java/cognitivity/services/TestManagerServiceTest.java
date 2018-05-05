@@ -1,5 +1,9 @@
 package cognitivity.services;
-
+/**
+ * A test class for Test manager service
+ * @Author - Pe'er
+ * @Date - 2.2.18
+ */
 import cognitivity.dao.CognitiveTestDAO;
 import cognitivity.dao.TestBlockDAO;
 import cognitivity.dao.TestManagerDAO;
@@ -143,6 +147,34 @@ public class TestManagerServiceTest {
         try {
             service.deleteTestManager(7);
             assertTrue("Problem with handling with exception at delete", false);
+        } catch (Exception e) {
+        }
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).get(7L);
+        try {
+            service.findTestManager(7);
+            assertTrue("Problem with handling with exception at findTestManager", false);
+        } catch (Exception e) {
+        }
+
+        doThrow(new org.hibernate.HibernateException("")).when(tdao).get(7L);
+        try {
+            service.findTestManagerByCreatedTest(7);
+            assertTrue("Problem with handling with exception at findTestManagerByCreatedTest", false);
+        } catch (Exception e) {
+        }
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).getIdFromEmail(any());
+        try {
+            service.getManagerIdByEmail(null);
+            assertTrue("Problem with handling with exception at getManagerIdByEmail", false);
+        } catch (Exception e) {
+        }
+
+        doThrow(new org.hibernate.HibernateException("")).when(tdao).getCognitiveTestOfManager(7);
+        try {
+            service.findTestsForTestManager(7);
+            assertTrue("Problem with handling with exception at findTestsForTestManager", false);
         } catch (Exception e) {
         }
 

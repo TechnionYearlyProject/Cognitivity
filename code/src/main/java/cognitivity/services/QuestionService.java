@@ -17,6 +17,8 @@ import java.util.List;
 
 /**
  * Business service for test questions related operations.
+ * @Author - Pe'er
+ * @Date - 2.2.18
  */
 
 @Service
@@ -53,10 +55,7 @@ public class QuestionService {
         } catch (org.hibernate.HibernateException e) {
             logger.error(e.getMessage());
             throw new DBException(ErrorType.SAVE, q.getId());
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        return null;
     }
 
     /**
@@ -103,8 +102,13 @@ public class QuestionService {
      * @param id - the question id.
      * @return the question corresponding to the given id if it exists, null otherwise
      */
-    public TestQuestion findQuestionById(long id) {
-        return dao.get(id);
+    public TestQuestion findQuestionById(long id)throws DBException {
+        try{
+            return dao.get(id);
+        }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
+            throw new DBException(ErrorType.GET, id);
+        }
     }
 
     /**
@@ -113,8 +117,13 @@ public class QuestionService {
      * @param questionId - The test question we want to get the answer to.
      * @return - All the answers to the given question.
      */
-    public List<TestAnswer> getTestAnswers(long questionId) {
-        return answerDao.getTestAnswers(questionId);
+    public List<TestAnswer> getTestAnswers(long questionId)throws DBException {
+        try {
+            return answerDao.getTestAnswers(questionId);
+        }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
+            throw new DBException(ErrorType.GET, questionId);
+        }
     }
 
     /**
@@ -123,8 +132,13 @@ public class QuestionService {
      * @param testId - The test Id from which we want to get the questions
      * @return - A list of all test questions in the test
      */
-    public List<TestQuestion> findAllTestQuestionsFromTestId(long testId) {
-        return testDao.getTestQuestions(testId);
+    public List<TestQuestion> findAllTestQuestionsFromTestId(long testId)throws DBException {
+        try{
+            return testDao.getTestQuestions(testId);
+        }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
+            throw new DBException(ErrorType.GET, testId);
+        }
     }
 
     /**
@@ -133,8 +147,13 @@ public class QuestionService {
      * @param managerId - The manager Id from which we want to get the questions
      * @return - A list of all test questions in the test
      */
-    public List<TestQuestion> findAllTestQuestionsFromManagerId(long managerId) {
-        TestManager testManager = managerDao.get(managerId);
-        return dao.getTestQuestionsFromAManager(testManager);
+    public List<TestQuestion> findAllTestQuestionsFromManagerId(long managerId)throws DBException {
+        try{
+            TestManager testManager = managerDao.get(managerId);
+            return dao.getTestQuestionsFromAManager(testManager);
+        }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
+            throw new DBException(ErrorType.GET, managerId);
+        }
     }
 }

@@ -1,5 +1,11 @@
 package cognitivity.services;
 
+/**
+ * A test class for Question service
+ * @Author - Pe'er
+ * @Date - 2.2.18
+ */
+
 import cognitivity.dao.*;
 import cognitivity.dto.BlockWrapper;
 import cognitivity.dto.TestWrapper;
@@ -217,6 +223,30 @@ public class QuestionServiceTest {
         try {
             service.deleteTestQuestion(7);
             assertTrue("Problem with handling with exception at delete",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(testQuestionDAO).get(7L);
+        try {
+            service.findQuestionById(7);
+            assertTrue("Problem with handling with exception at findQuestionById",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(answerDao).getTestAnswers(7L);
+        try {
+            service.getTestAnswers(7);
+            assertTrue("Problem with handling with exception at getTestAnswers",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(cognitiveTestDAO).getTestQuestions(7L);
+        try {
+            service.findAllTestQuestionsFromTestId(7);
+            assertTrue("Problem with handling with exception at findAllTestQuestionsFromTestId",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(testManagerDAO).get(7L);
+        try {
+            service.findAllTestQuestionsFromManagerId(7);
+            assertTrue("Problem with handling with exception at findAllTestQuestionsFromManagerId",false);
         }catch (Exception e){}
     }
 }

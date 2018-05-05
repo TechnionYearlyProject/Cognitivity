@@ -46,7 +46,7 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
     @RequestMapping(method = RequestMethod.GET, value = "/findTestSubjectsForTestCriteria")
     public List<TestSubject> findTestSubjectsForTestCriteria(
             @RequestParam(value = "testSubjectId") long testSubjectId,
-            @RequestParam(value = "testId", required = false) long testId) {
+            @RequestParam(value = "testId", required = false) long testId) throws DBException{
         if (testId == -1) {
             // Then return test subject with id
             return Collections.singletonList(service.findTestSubject(testSubjectId));

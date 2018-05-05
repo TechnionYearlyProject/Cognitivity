@@ -9,9 +9,9 @@ package cognitivity.exceptions;
 
 public class DBException extends Exception {
     ErrorType type;
-    long id;
+    Long id;
 
-    public DBException(ErrorType type, long id) {
+    public DBException(ErrorType type, Long id) {
         super();
         this.type = type;
         this.id = id;

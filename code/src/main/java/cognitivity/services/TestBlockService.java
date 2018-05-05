@@ -15,6 +15,8 @@ import java.util.List;
 
 /**
  * Business service for test Blocks related operations.
+ * @Author - Pe'er
+ * @Date - 2.2.18
  */
 
 @Service
@@ -67,16 +69,26 @@ public class TestBlockService {
      * @param block - The block that needs to be updated.
      */
     //TODO:Do we need this method?
-    public void updateTestBlock(TestBlock block) {
-        dao.update(block);
+    public void updateTestBlock(TestBlock block)throws DBException {
+        try{
+            dao.update(block);
+        }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
+            throw new DBException(ErrorType.UPDATE, block.getId());
+        }
     }
 
     /**
      * @param blockId
      * @return
      */
-    public List<TestQuestion> findAllBlockQuestions(long blockId) {
-        return dao.getAllBlockQuestions(blockId);
+    public List<TestQuestion> findAllBlockQuestions(long blockId)throws DBException {
+        try{
+            return dao.getAllBlockQuestions(blockId);
+        }catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
+            throw new DBException(ErrorType.GET, blockId);
+        }
     }
 
     /**

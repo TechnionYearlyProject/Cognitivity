@@ -1,5 +1,11 @@
 package cognitivity.services;
 
+/**
+ * A test class for Cognitive test service
+ * @Author - Pe'er
+ * @Date - 2.2.18
+ */
+
 import cognitivity.dao.*;
 import cognitivity.dto.BlockWrapper;
 import cognitivity.dto.TestWrapper;
@@ -302,6 +308,48 @@ public class CognitiveTestServiceTest {
         try {
             service.deleteTestForTestManager(7);
             assertTrue("Problem with handling with exception at delete",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).getTestBlocks(7L);
+        try {
+            service.findTestById(7);
+            assertTrue("Problem with handling with exception at findTestById",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).getCognitiveTestOfManager(7);
+        try {
+            service.findTestsForTestManager(7);
+            assertTrue("Problem with handling with exception at findTestsForTestManager",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).getTestBlocks(7);
+        try {
+            service.getTestBlocksForTest(7);
+            assertTrue("Problem with handling with exception at getTestBlocksForTest",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).getTestQuestions(7);
+        try {
+            service.getTestQuestionsForTest(7);
+            assertTrue("Problem with handling with exception at getTestQuestionsForTest",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).filterTestsByNotes(any());
+        try {
+            service.filterTestsByNotes(null);
+            assertTrue("Problem with handling with exception at filterTestsByNotes",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).filterTestsByProject(any());
+        try {
+            service.filterTestsByProject(null);
+            assertTrue("Problem with handling with exception at filterTestsByProject",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).getCognitiveTestOfManager(7);
+        try {
+            service.findTestsForTestManagerWithoutQuestions(7);
+            assertTrue("Problem with handling with exception at findTestsForTestManagerWithoutQuestions",false);
         }catch (Exception e){}
     }
 
