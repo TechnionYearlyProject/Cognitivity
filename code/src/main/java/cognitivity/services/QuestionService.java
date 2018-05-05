@@ -53,7 +53,10 @@ public class QuestionService {
         } catch (org.hibernate.HibernateException e) {
             logger.error(e.getMessage());
             throw new DBException(ErrorType.SAVE, q.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return null;
     }
 
     /**

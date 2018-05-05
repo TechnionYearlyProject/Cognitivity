@@ -174,8 +174,6 @@ public class CognitiveTestServiceTest {
             assertTrue("Didn't get all the tests from the manager", unWrapped.contains(t));
         }
 
-        assertEquals("Problem with findCognitiveTestById",new TestWrapper(cognitiveTest),service.findTestById(7L));
-
         List<TestWrapper> result = new ArrayList<>();
         try {
             result = service.findTestsForTestManager(9);

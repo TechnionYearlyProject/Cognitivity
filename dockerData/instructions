@@ -5,7 +5,7 @@ how to use the docker:
 - execute command: docker build -t database .
   this command will build the image of the docker from the Dockerfile
 
-- execute command: docker run --name database -p3306:3306 database
+- execute command: docker run -d --name database -p3306:3306 database
   this command will run the image, and will redrict port 3306 of the docker to
   port 3306 of the computer, you can add the flag -d so the docker will run in background
 

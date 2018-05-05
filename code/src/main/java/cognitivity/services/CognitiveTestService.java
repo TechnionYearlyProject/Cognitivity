@@ -109,13 +109,16 @@ public class CognitiveTestService {
 
 
     /**
-     * Find a specific cognitive test.
+     * Method for searching searching for a cognitive test by its id in the DB with all its question.
      *
-     * @param testID - The test id to find.
-     * @return - The test with the corresponding ID if it exists, null otherwise.
+     * @param testID - id of the test as its written in the database.
+     *               The test wrapper to be returned should have all the blocks and questions
+     *               that are related to (in the DB tables) to the test with the id, as it was returned
+     *               by the findTestsForTestManagerWithoutQuestions (new) method.
+     * @return - test wrapper with all questions and blocks, as described above.
      */
     public TestWrapper findTestById(long testID) {
-        List<BlockWrapper> blocks = new ArrayList<BlockWrapper>();
+        List<BlockWrapper> blocks = new ArrayList<>();
         List<TestBlock> preWrapped = dao.getTestBlocks(testID);
         for (TestBlock block : preWrapped) {
             blocks.add(new BlockWrapper(blockDAO.getAllBlockQuestions(block.getId()), block));

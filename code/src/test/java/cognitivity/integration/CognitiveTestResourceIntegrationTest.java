@@ -27,7 +27,6 @@ import static cognitivity.integration.TestManagerResourceIntegrationTest.deleteT
 import static cognitivity.integration.TestManagerResourceIntegrationTest.saveTestManager;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -89,7 +88,7 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
     }
 
     @Test
-    public void testSaveCognitiveTestWithoutQuestions() throws Exception {
+    public void testSaveCognitiveTestWithoutQuestionsAndBlocks() throws Exception {
         // In order to save test, must save manager first.
         manager = createTestManager(1L, "email6");
         long managerId = saveTestManager(manager, objectMapper, testManagerMvc);
@@ -110,10 +109,46 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$[0].id", is(Integer.valueOf(testId))))
-                .andExpect(jsonPath("$[0].blocks[0].tag", is("tag1")))
-                .andExpect(jsonPath("$[0].blocks[1].tag", is("tag2")))
-                .andExpect(jsonPath("$[0].blocks[2].tag", is("tag3")))
-                .andExpect(jsonPath("$[0].blocks[3].tag", is("tag4")));
+                .andExpect(jsonPath("$[0].name", is("test")))
+                .andExpect(jsonPath("$[0].numberOfQuestions", is(2)))
+                .andExpect(jsonPath("$[0].notes", is("notes")))
+                .andExpect(jsonPath("$[0].project", is("project")));
+
+        // Finally delete the test
+        cognitiveTestMvc.perform(delete("/tests/deleteCognitiveTest")
+                .param("testId", testId))
+                .andExpect(status().isOk());
+
+        // Deleting test manager
+        deleteTestManager(String.valueOf(managerId), objectMapper, testManagerMvc);
+    }
+
+    @Test
+    public void testSaveCognitiveTestWithoutQuestionsWithBlocks() throws Exception {
+        // In order to save test, must save manager first.
+        manager = createTestManager(1L, "email6");
+        long managerId = saveTestManager(manager, objectMapper, testManagerMvc);
+
+        TestWrapper testWrapper = createCognitiveTestWrapper(false, managerId);
+        // Calling saveCognitiveTest. This should save it in the database.
+        String testId = String.valueOf(gson.fromJson(
+                cognitiveTestMvc.perform(post("/tests/saveCognitiveTest")
+                        .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                        .content(objectMapper.writeValueAsBytes(testWrapper)))
+                        .andExpect(status().isOk())
+                        .andReturn().getResponse().getContentAsString(),
+                TestWrapper.class).getId());
+
+        // Test is saved. Try find it in the database...
+        cognitiveTestMvc.perform((get("/tests/findCognitiveTestById"))
+                .param("testId", testId))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.id", is(Integer.valueOf(testId))))
+                .andExpect(jsonPath("$.blocks[0].tag", is("tag1")))
+                .andExpect(jsonPath("$.blocks[1].tag", is("tag2")))
+                .andExpect(jsonPath("$.blocks[2].tag", is("tag3")))
+                .andExpect(jsonPath("$.blocks[3].tag", is("tag4")));
 
         // Finally delete the test
         cognitiveTestMvc.perform(delete("/tests/deleteCognitiveTest")
@@ -162,7 +197,7 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
     }
 
     @Test
-    public void testSaveCognitiveTestWithQuestions() throws Exception {
+    public void testFindCognitiveTestWithQuestionsAfterSave() throws Exception {
         // In order to save test, must save manager first.
         manager = createTestManager(1L, "email7");
         long managerId = saveTestManager(manager, objectMapper, testManagerMvc);
@@ -172,26 +207,25 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
         String testId = String.valueOf(saveCognitiveTest(testWrapper, objectMapper, cognitiveTestMvc));
 
         // Test is saved. Try find it in the database...
-        cognitiveTestMvc.perform((get("/tests/findTestsForTestManagerWithoutQuestions"))
-                .param("managerId", String.valueOf(managerId)))
-                .andDo(print())
+        cognitiveTestMvc.perform((get("/tests/findCognitiveTestById"))
+                .param("testId", testId))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$[0].id", is(Integer.valueOf(testId))))
-                .andExpect(jsonPath("$[0].blocks[0].tag", is("tag1")))
-                .andExpect(jsonPath("$[0].blocks[1].tag", is("tag2")))
-                .andExpect(jsonPath("$[0].blocks[2].tag", is("tag3")))
-                .andExpect(jsonPath("$[0].blocks[3].tag", is("tag4")))
-                .andExpect(jsonPath("$[0].blocks[0].questions[0].question", is("q1")))
-                .andExpect(jsonPath("$[0].blocks[1].questions[0].question", is("q1")))
-                .andExpect(jsonPath("$[0].blocks[1].questions[1].question", is("q2")))
-                .andExpect(jsonPath("$[0].blocks[2].questions[0].question", is("q1")))
-                .andExpect(jsonPath("$[0].blocks[2].questions[1].question", is("q2")))
-                .andExpect(jsonPath("$[0].blocks[2].questions[2].question", is("q3")))
-                .andExpect(jsonPath("$[0].blocks[3].questions[0].question", is("q1")))
-                .andExpect(jsonPath("$[0].blocks[3].questions[1].question", is("q2")))
-                .andExpect(jsonPath("$[0].blocks[3].questions[2].question", is("q3")))
-                .andExpect(jsonPath("$[0].blocks[3].questions[3].question", is("q4")));
+                .andExpect(jsonPath("$.id", is(Integer.valueOf(testId))))
+                .andExpect(jsonPath("$.blocks[0].tag", is("tag1")))
+                .andExpect(jsonPath("$.blocks[1].tag", is("tag2")))
+                .andExpect(jsonPath("$.blocks[2].tag", is("tag3")))
+                .andExpect(jsonPath("$.blocks[3].tag", is("tag4")))
+                .andExpect(jsonPath("$.blocks[0].questions[0].question", is("q1")))
+                .andExpect(jsonPath("$.blocks[1].questions[0].question", is("q1")))
+                .andExpect(jsonPath("$.blocks[1].questions[1].question", is("q2")))
+                .andExpect(jsonPath("$.blocks[2].questions[0].question", is("q1")))
+                .andExpect(jsonPath("$.blocks[2].questions[1].question", is("q2")))
+                .andExpect(jsonPath("$.blocks[2].questions[2].question", is("q3")))
+                .andExpect(jsonPath("$.blocks[3].questions[0].question", is("q1")))
+                .andExpect(jsonPath("$.blocks[3].questions[1].question", is("q2")))
+                .andExpect(jsonPath("$.blocks[3].questions[2].question", is("q3")))
+                .andExpect(jsonPath("$.blocks[3].questions[3].question", is("q4")));
 
         // Finally delete the test
         cognitiveTestMvc.perform(delete("/tests/deleteCognitiveTest")
@@ -239,7 +273,7 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
                 TestWrapper.class).getId());
 
         // Check if it was updated...
-        cognitiveTestMvc.perform((get("/tests/findTestsForTestManager"))
+        cognitiveTestMvc.perform((get("/tests/findTestsForTestManagerWithoutQuestions"))
                 .param("managerId", String.valueOf(managerId)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
@@ -260,20 +294,20 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
                 TestWrapper.class).getId());
 
         //check the result
-        ResultActions updatedResult = cognitiveTestMvc.perform((get("/tests/findTestsForTestManagerWithoutQuestions"))
-                .param("managerId", String.valueOf(managerId)))
+        ResultActions updatedResult = cognitiveTestMvc.perform((get("/tests/findCognitiveTestById"))
+                .param("testId", testId))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8));
         System.out.println(updatedResult.toString());
         int blockIdx = 0;
         for (BlockWrapper blockWrapper : blockWrappers) {
             updatedResult.andExpect(
-                    jsonPath("$[0].blocks[" + blockIdx + "].tag",
+                    jsonPath("$.blocks[" + blockIdx + "].tag",
                             is(blockWrapper.getTag())));
             int questionIdx = 0;
             for (TestQuestion testQuestion : blockWrapper.getQuestions()) {
                 updatedResult.andExpect(
-                        jsonPath("$[0].blocks[" + blockIdx + "].questions[" + questionIdx + "].question",
+                        jsonPath("$.blocks[" + blockIdx + "].questions[" + questionIdx + "].question",
                                 is(testQuestion.getQuestion())));
                 questionIdx++;
             }

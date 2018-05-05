@@ -63,11 +63,12 @@ public class AbstractResourceIntegrationTest {
     }
 
     public static TestQuestion createTestQuestion(long id) {
-        TestManager testManager = createTestManager(1L, "email1");
+        TestManager testManager = createTestManager(1L, "email11");
         CognitiveTest cognitiveTest = createCognitiveTest(testManager);
         cognitiveTest.setId(2L);
         TestBlock block = new TestBlock(1, true, "tag1", cognitiveTest);
         block.setId(3L);
+        block.setCognitiveTest(cognitiveTest);
         TestQuestion testQuestion = new TestQuestion("q1", block, cognitiveTest, testManager);
         testQuestion.setId(id);
         return testQuestion;

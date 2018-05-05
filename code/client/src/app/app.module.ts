@@ -7,7 +7,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabase, AngularFireDatabaseModule } from 'angularfire2/database';
 import {AngularFireAuthModule } from 'angularfire2/auth';
 import { TagInputModule } from 'ngx-chips';
-
+import { AgGridModule } from 'ag-grid-angular';
 
 
 /* Components */
@@ -45,6 +45,8 @@ import { CreateOpenQuestionComponent } from './components/create-open-question/c
 import { CreateDrillDownQuestionComponent } from './components/create-drill-down-question/create-drill-down-question.component';
 import { CreateVerticalHorizontalMultipleComponent } from './components/create-vertical-horizontal-multiple/create-vertical-horizontal-multiple.component';
 import { CreateMatrixMultipleQuestionComponent } from './components/create-matrix-multiple-question/create-matrix-multiple-question.component';
+import { ResultsPageComponent } from './components/results-page/results-page.component';
+
 
 
 
@@ -90,7 +92,8 @@ const PROVIDED_SERVICES = [
     CreateOpenQuestionComponent,
     CreateDrillDownQuestionComponent,
     CreateVerticalHorizontalMultipleComponent,
-    CreateMatrixMultipleQuestionComponent
+    CreateMatrixMultipleQuestionComponent,
+    ResultsPageComponent
     
   ],
   imports: [
@@ -104,7 +107,8 @@ const PROVIDED_SERVICES = [
     MatDialogModule,
     BrowserAnimationsModule,
     TagInputModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AgGridModule.withComponents([])
   ],
   providers: [
     ...PROVIDED_SERVICES
