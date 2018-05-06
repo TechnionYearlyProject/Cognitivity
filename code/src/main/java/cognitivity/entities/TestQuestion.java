@@ -13,6 +13,9 @@ public class TestQuestion extends AbstractEntity {
     @Column(name = "question", nullable = false)
     private String question;
 
+	@Column(name = "pictureLink", nullable = false)
+	private String pictureLink;
+
 	@ManyToOne
 	@JoinColumn(name = "testBlockId", nullable = false)
 	private TestBlock testBlock;
@@ -33,12 +36,13 @@ public class TestQuestion extends AbstractEntity {
 	@JoinColumn(name = "testManagerId")
 	private TestManager testManager;
 
-    public TestQuestion(String question, TestBlock testBlock,
+    public TestQuestion(String question, String pictureLink, TestBlock testBlock,
                         CognitiveTest cognitiveTest, TestManager testManager) {
         this.question = question;
         this.testBlock = testBlock;
         this.cognitiveTest = cognitiveTest;
         this.testManager = testManager;
+        this.pictureLink = pictureLink;
     }
 
     public TestQuestion() {}
@@ -73,5 +77,14 @@ public class TestQuestion extends AbstractEntity {
 
 	public void setCognitiveTest(CognitiveTest project) {
 		this.cognitiveTest = project;
+	}
+
+	public void setPictureLink(String pictureLink) {
+		this.pictureLink = pictureLink;
+	}
+
+	public String getPictureLink() {
+
+		return pictureLink;
 	}
 }

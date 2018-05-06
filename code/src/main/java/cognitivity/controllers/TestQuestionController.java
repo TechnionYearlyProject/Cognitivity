@@ -104,4 +104,17 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
         service.deleteTestQuestion(questionId);
     }
 
+    /**
+     * Method for searching picture link by question id.
+     *
+     * @return - The link to the picture.
+     */
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.GET, value = "/findPictureLinkPerQuestion")
+    public String findPictureLinkPerQuestion(
+            @RequestParam(value = "testQuestionId") long testQuestionId)throws DBException {
+        return service.findPictureLinkPerQuestion(testQuestionId);
+    }
+
 }

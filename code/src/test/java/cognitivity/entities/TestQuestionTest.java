@@ -12,7 +12,7 @@ import static cognitivity.entities.TestBlockTest.createTestBlock;
 public class TestQuestionTest {
 
     public static TestQuestion createTestQuestion() {
-        return new TestQuestion("q", createTestBlock(), createCognitiveTest(), createTestManager());
+        return new TestQuestion("q","Stam link", createTestBlock(), createCognitiveTest(), createTestManager());
     }
 
     @Test

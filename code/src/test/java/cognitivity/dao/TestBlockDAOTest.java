@@ -89,7 +89,7 @@ public class TestBlockDAOTest extends AbstractDaoTestClass {
         int numberOfQuestions = 1000;
         TestQuestion questions[] = new TestQuestion[numberOfQuestions];
         for(int i = 0; i < numberOfQuestions; i++){
-            questions[i] = new TestQuestion("question " + i, testBlock,
+            questions[i] = new TestQuestion("question " + i,"Stam link" , testBlock,
                     cognitiveTest, testManager);
             testQuestionDAO.add(questions[i]);
             questionsList = testBlockDAO.getAllBlockQuestions(testBlock.getId());

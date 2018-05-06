@@ -192,7 +192,7 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
                 //as long as we arn't in the last iteration
                 if (j < numOfTestQuestionsPerBlock) {
                     testQuestions[i][j] =
-                            new TestQuestion("to be or not to be", testBlocks[i],
+                            new TestQuestion("to be or not to be","Stam link", testBlocks[i],
                                     cognitiveTestsPerManager[0][i], testManagers[0]);
                     testQuestionDAO.add(testQuestions[i][j]);
                 }

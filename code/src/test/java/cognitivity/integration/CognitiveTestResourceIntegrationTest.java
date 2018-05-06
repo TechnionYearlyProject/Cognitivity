@@ -55,7 +55,7 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
      * Creates a TestQuestion with question = "qi" with i an integer.
      */
     private static TestQuestion createTestQuestion(int i, TestBlock block, CognitiveTest test) {
-        return new TestQuestion("q" + i, block, test, test.getManager());
+        return new TestQuestion("q" + i,"Stam link", block, test, test.getManager());
     }
 
     /**
@@ -184,7 +184,7 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
             questionsPerBlock[i] = new ArrayList<>();
             int numOfQuestions = rand.nextInt(maxNumberOfQuestionsInBlock);
             for (int j = 0; j < numOfQuestions; j++) {
-                questionsPerBlock[i].add(new TestQuestion("q " + j, testBlock[i],
+                questionsPerBlock[i].add(new TestQuestion("q " + j,"Stam link", testBlock[i],
                         cognitiveTest, manager));
             }
 

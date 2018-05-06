@@ -55,7 +55,10 @@ public class QuestionService {
         } catch (org.hibernate.HibernateException e) {
             logger.error(e.getMessage());
             throw new DBException(ErrorType.SAVE, q.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return null;
     }
 
     /**
@@ -156,4 +159,20 @@ public class QuestionService {
             throw new DBException(ErrorType.GET, managerId);
         }
     }
+
+    /**
+     * Method for getting a picture link from a specific question
+     *
+     * @param questionID - id of the question whose picture we are looking for
+     * @return - The link to the picture.
+     */
+    public String findPictureLinkPerQuestion(long questionID) throws DBException{
+        try {
+            return dao.findPictureLinkPerQuestion(questionID);
+        } catch (org.hibernate.HibernateException e){
+            logger.error(e.getMessage());
+            throw new DBException(ErrorType.GET, questionID);
+        }
+    }
+
 }

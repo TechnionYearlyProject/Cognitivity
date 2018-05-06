@@ -91,10 +91,10 @@ public class TestAnswerServiceTest {
         BlockWrapper block = new BlockWrapper(1, false, "tagiity tag", test);
         block.setId(4L);
         TestSubject subject = new TestSubject("Rick", "ip", "Ahla dafdefan");
-        TestQuestion question = new TestQuestion("Who the f&$# builds a stonehenge?", block.innerBlock(test.getId()),
+        TestQuestion question = new TestQuestion("Who the f&$# builds a stonehenge?","Stam link", block.innerBlock(test.getId()),
                 test, manager);
         questionService.createTestQuestion(question);
-        TestQuestion question1 = new TestQuestion("Who ate my sandwich?", block.innerBlock(test.getId()), test2,
+        TestQuestion question1 = new TestQuestion("Who ate my sandwich?","Stam link", block.innerBlock(test.getId()), test2,
                 manager);
         questionService.createTestQuestion(question1);
 

@@ -34,4 +34,9 @@ public class TestQuestionDAOimpl extends AbstractDAO<TestQuestion> implements Te
         query.setParameter("manager", manager);
         return query.getResultList();
     }
+
+    @Transactional(readOnly = true)
+    public String findPictureLinkPerQuestion(long questionID){
+        return null;
+    }
 }

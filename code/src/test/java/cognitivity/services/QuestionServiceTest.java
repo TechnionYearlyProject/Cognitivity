@@ -93,7 +93,7 @@ public class QuestionServiceTest {
         BlockWrapper block = new BlockWrapper(5, true, "Taggy tag", cognitiveTest);
 
 
-        TestQuestion start = new TestQuestion("What is the meaning of life?", block.innerBlock(1), cognitiveTest, manager);
+        TestQuestion start = new TestQuestion("What is the meaning of life?","Stam link", block.innerBlock(1), cognitiveTest, manager);
         TestQuestion question = service.createTestQuestion(start);
 
         assertNotNull("Problem with creating a test question", question);
@@ -114,11 +114,11 @@ public class QuestionServiceTest {
 
         BlockWrapper block2 = blockService.createTestBlock(2, true, "Togos", cognitiveTest);
 
-        TestQuestion question1 = new TestQuestion("Who moved my cheese?", block.innerBlock(11), cognitiveTest, manager);
+        TestQuestion question1 = new TestQuestion("Who moved my cheese?","Stam link", block.innerBlock(11), cognitiveTest, manager);
         service.createTestQuestion(question1);
-        TestQuestion question2 = new TestQuestion("Who framed Roger Rabbit?", block2.innerBlock(1), cognitiveTest, manager);
+        TestQuestion question2 = new TestQuestion("Who framed Roger Rabbit?","Stam link", block2.innerBlock(1), cognitiveTest, manager);
         service.createTestQuestion(question2);
-        TestQuestion question3 = new TestQuestion("Question! Question?", block2.innerBlock(1), cognitiveTest, manager);
+        TestQuestion question3 = new TestQuestion("Question! Question?","Stam link", block2.innerBlock(1), cognitiveTest, manager);
         service.createTestQuestion(question3);
 
         List<TestQuestion> questions = new ArrayList<>();
@@ -145,11 +145,11 @@ public class QuestionServiceTest {
 
         }
 
-        TestQuestion question4 = new TestQuestion("Who moved my cheese?", block.innerBlock(1), cognitiveTest1, manager);
+        TestQuestion question4 = new TestQuestion("Who moved my cheese?","Stam link", block.innerBlock(1), cognitiveTest1, manager);
         service.createTestQuestion(question4);
-        TestQuestion question5 = new TestQuestion("Who framed Roger Rabbit?", block2.innerBlock(1), cognitiveTest1, manager);
+        TestQuestion question5 = new TestQuestion("Who framed Roger Rabbit?","Stam link", block2.innerBlock(1), cognitiveTest1, manager);
         service.createTestQuestion(question5);
-        TestQuestion question6 = new TestQuestion("Question! Question?", block2.innerBlock(1), cognitiveTest1, manager);
+        TestQuestion question6 = new TestQuestion("Question! Question?","Stam link", block2.innerBlock(1), cognitiveTest1, manager);
         service.createTestQuestion(question6);
         questions.add(question4);
         questions.add(question5);

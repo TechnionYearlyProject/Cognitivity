@@ -114,7 +114,7 @@ public class TestSubjectServiceTest {
         }catch (Exception e){
             assertTrue("problem with updating subject",false);
         }
-        TestQuestion question = new TestQuestion("When will the Shibutzim arrive?", block.innerBlock(test.getId()),
+        TestQuestion question = new TestQuestion("When will the Shibutzim arrive?","Stam link", block.innerBlock(test.getId()),
                 test, manager);
         questionService.createTestQuestion(question);
 

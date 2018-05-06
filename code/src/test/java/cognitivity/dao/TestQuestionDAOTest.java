@@ -41,7 +41,7 @@ public class TestQuestionDAOTest extends AbstractDaoTestClass {
         cognitiveTestDAO.add(cognitiveTest);
         TestBlock testBlock = new TestBlock(0,false, "testTag", cognitiveTest);
         testBlockDAO.add(testBlock);
-        testQuestion = new TestQuestion("testQuestion", testBlock, cognitiveTest, testManager);
+        testQuestion = new TestQuestion("testQuestion","Stam link", testBlock, cognitiveTest, testManager);
     }
 
     @After

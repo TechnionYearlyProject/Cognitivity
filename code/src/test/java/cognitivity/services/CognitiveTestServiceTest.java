@@ -219,11 +219,11 @@ public class CognitiveTestServiceTest {
 
         QuestionService questionService = new QuestionService(qdao, adao, dao, mdao);
 
-        TestQuestion question1 = new TestQuestion("question1", block1.innerBlock(test.getId()), cognitiveTest, manager);
+        TestQuestion question1 = new TestQuestion("question1","Stam link", block1.innerBlock(test.getId()), cognitiveTest, manager);
         questionService.createTestQuestion(question1);
-        TestQuestion question2 = new TestQuestion("question2", block2.innerBlock(test.getId()), cognitiveTest, manager);
+        TestQuestion question2 = new TestQuestion("question2","Stam link", block2.innerBlock(test.getId()), cognitiveTest, manager);
         questionService.createTestQuestion(question2);
-        TestQuestion question3 = new TestQuestion("question3", block3.innerBlock(test.getId()), cognitiveTest, manager);
+        TestQuestion question3 = new TestQuestion("question3","Stam link", block3.innerBlock(test.getId()), cognitiveTest, manager);
         questionService.createTestQuestion(question3);
 
         List<TestQuestion> questions = new ArrayList<TestQuestion>();
