@@ -43,7 +43,8 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findTestAnswerById")
     public TestAnswer findTestAnswerById(
-            @RequestParam(value = "testAnswerId") long answerId)throws DBException {
+            @RequestParam(value = "testAnswerId") long answerId) throws DBException {
+        applicationInsights.trackEvent("FindTestAnswerById");
         return service.findTestAnswerById(answerId);
     }
 
@@ -58,7 +59,8 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findTestAnswersByQuestionId")
     public List<TestAnswer> findTestAnswersByQuestionId(
-            @RequestParam(value = "questionId") long questionId)throws DBException {
+            @RequestParam(value = "questionId") long questionId) throws DBException {
+        applicationInsights.trackEvent("FindTestAnswersByQuestionId");
         return service.findAllTestAnswerForAQuestion(questionId);
     }
 
@@ -73,7 +75,8 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findTestAnswersBySubjectId")
     public List<TestAnswer> findTestAnswersBySubjectId(
-            @RequestParam(value = "subjectId") long subjectId)throws DBException {
+            @RequestParam(value = "subjectId") long subjectId) throws DBException {
+        applicationInsights.trackEvent("FindTestAnswersBySubjectId");
         return service.findTestAnswersBySubject(subjectId);
     }
 
@@ -86,6 +89,7 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     @RequestMapping(method = RequestMethod.POST, value = "/updateTestAnswer")
     public void updateTestAnswer(
             @RequestBody TestAnswer answer) throws DBException {
+        applicationInsights.trackEvent("UpdateTestAnswer");
         service.updateTestAnswerForQuestion(answer);
     }
 
@@ -100,6 +104,7 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     @RequestMapping(method = RequestMethod.POST, value = "/saveTestAnswer")
     public TestAnswer saveTestAnswer(
             @RequestBody TestAnswer testAnswer) throws DBException {
+        applicationInsights.trackEvent("SaveTestAnswer");
         return service.addTestAnswerForTestQuestion(testAnswer);
     }
 
@@ -117,6 +122,7 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
     public void deleteTestAnswer(
             @RequestParam(value = "questionId") long questionId,
             @RequestParam(value = "testAnswerId", required = false) long answerId) throws DBException {
+        applicationInsights.trackEvent("DeleteTestAnswer");
         if (answerId == -1) {
             // Then delete all answers
             service.deleteAllTestAnswersForQuestion(questionId);

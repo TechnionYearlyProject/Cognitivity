@@ -47,6 +47,7 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @RequestMapping(method = RequestMethod.GET, value = "/findCognitiveTestById")
     public TestWrapper findCognitiveTestById(
             @RequestParam(value = "testId") long testId) throws DBException {
+        applicationInsights.trackEvent("FindCognitiveTestById");
         return service.findTestById(testId);
     }
 
@@ -63,6 +64,7 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @RequestMapping(method = RequestMethod.GET, value = "/findTestsForTestManagerWithoutQuestions")
     public List<CognitiveTest> findTestsForTestManagerWithoutQuestions(
             @RequestParam(value = "managerId") long managerId) throws DBException {
+        applicationInsights.trackEvent("FindTestsForTestManagerWithoutQuestions");
         return service.findTestsForTestManagerWithoutQuestions(managerId);
     }
 
@@ -79,6 +81,7 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @RequestMapping(method = RequestMethod.GET, value = "/filterTestsByProject")
     public List<CognitiveTest> filterTestsByProject(
             @RequestParam(value = "project") String projectFilter) throws DBException {
+        applicationInsights.trackEvent("FilterTestsByProject");
         return service.filterTestsByProject(projectFilter);
     }
 
@@ -96,6 +99,7 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @RequestMapping(method = RequestMethod.GET, value = "/filterTestsByNotes")
     public List<CognitiveTest> filterTestsByNotes(
             @RequestParam(value = "notes") String notes) throws DBException {
+        applicationInsights.trackEvent("FilterTestsByNotes");
         return service.filterTestsByNotes(notes);
     }
 
@@ -110,6 +114,7 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @RequestMapping(method = RequestMethod.POST, value = "/saveCognitiveTest")
     public TestWrapper saveCognitiveTest(
             @RequestBody TestWrapper cognitiveTest) throws DBException {
+        applicationInsights.trackEvent("SaveCognitiveTest");
         return service.createTestForTestManager(cognitiveTest);
     }
 
@@ -124,6 +129,7 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @RequestMapping(method = RequestMethod.POST, value = "/updateCognitiveTest")
     public TestWrapper updateCognitiveTest(
             @RequestBody TestWrapper test) throws DBException {
+        applicationInsights.trackEvent("UpdateCognitiveTest");
         return service.updateTestForTestManager(test);
     }
 
@@ -135,6 +141,7 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.DELETE, value = "/deleteCognitiveTest")
     public void deleteCognitiveTest(@RequestParam(value = "testId") long testId) throws DBException {
+        applicationInsights.trackEvent("DeleteCognitiveTest");
         service.deleteTestForTestManager(testId);
     }
 }

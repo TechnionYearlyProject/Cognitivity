@@ -46,7 +46,8 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
     @RequestMapping(method = RequestMethod.GET, value = "/findTestSubjectsForTestCriteria")
     public List<TestSubject> findTestSubjectsForTestCriteria(
             @RequestParam(value = "testSubjectId") long testSubjectId,
-            @RequestParam(value = "testId", required = false) long testId) throws DBException{
+            @RequestParam(value = "testId", required = false) long testId) throws DBException {
+        applicationInsights.trackEvent("FindTestSubjectsForTestCriteria");
         if (testId == -1) {
             // Then return test subject with id
             return Collections.singletonList(service.findTestSubject(testSubjectId));
@@ -57,7 +58,6 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
     }
 
 
-
     /**
      * Method for creating test subjects.
      * <p>
@@ -66,7 +66,8 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/saveTestSubject")
-    public TestSubject saveTestSubject(@RequestBody TestSubject testSubject)throws DBException {
+    public TestSubject saveTestSubject(@RequestBody TestSubject testSubject) throws DBException {
+        applicationInsights.trackEvent("SaveTestSubject");
         return service.createTestSubject(testSubject);
     }
 
@@ -78,7 +79,8 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/updateTestSubject")
     public void updateTestSubject(
-            @RequestBody TestSubject subject)throws DBException {
+            @RequestBody TestSubject subject) throws DBException {
+        applicationInsights.trackEvent("UpdateTestSubject");
         service.updateTestSubject(subject);
     }
 
@@ -89,7 +91,8 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
      */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.DELETE, value = "/deleteTestSubject")
-    public void deleteTestSubject(@RequestParam(value = "testSubjectId") long testSubjectId)throws DBException {
+    public void deleteTestSubject(@RequestParam(value = "testSubjectId") long testSubjectId) throws DBException {
+        applicationInsights.trackEvent("DeleteTestSubject");
         service.deleteTestSubject(testSubjectId);
     }
 
