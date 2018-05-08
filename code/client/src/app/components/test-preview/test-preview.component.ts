@@ -45,7 +45,6 @@ export class TestPreviewComponent implements OnInit {
   async ngOnInit() {
    
     let email = this.authService.getCurrentManagerEmail();
-    let managerId = await this.tmService.getManagerId(email);
     let testId = this.route.snapshot.params['testId'];
     if (isNaN(testId) || testId == '') {
       this.router.navigate(['/dashboard']);
