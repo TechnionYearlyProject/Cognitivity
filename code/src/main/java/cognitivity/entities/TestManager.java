@@ -3,7 +3,10 @@ package cognitivity.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
 /**
+ * Created by Guy on 20/1/18.
+ *
  *
  * The Test Manager persistent (JPA) representation (tables).
  *

@@ -1,7 +1,10 @@
 package cognitivity.entities;
 
 import javax.persistence.*;
+
 /**
+ * Created by Guy on 20/1/18.
+ *
  *
  * The Test Answer persistent (JPA) representation (tables).
  *

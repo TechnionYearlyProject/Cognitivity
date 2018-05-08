@@ -1,7 +1,9 @@
 package cognitivity.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+/**
+ * Created by Guy on 20/1/18.
+ */
 public abstract class AbstractDaoTestClass {
     /*
      * all the DAOs are member variables because that is the only way to do them Autowired
