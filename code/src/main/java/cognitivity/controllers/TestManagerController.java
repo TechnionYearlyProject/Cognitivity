@@ -41,7 +41,8 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
     @RequestMapping(method = RequestMethod.GET, value = "/findTestManagersForTestCriteria")
     public TestManager findTestManagersForTestCriteria(
             @RequestParam(value = "testManagerId") long testManagerId,
-            @RequestParam(value = "testId", required = false) long testId)throws DBException {
+            @RequestParam(value = "testId", required = false) long testId) throws DBException {
+        applicationInsights.trackEvent("FindTestManagersForTestCriteria");
         if (testId == -1) {
             // Then return test manager with id
             return service.findTestManager(testManagerId);
@@ -62,7 +63,8 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findTestManagerIdByEmail")
     public long findTestManagerIdByEmail(
-            @RequestParam(value = "email") String email)throws DBException {
+            @RequestParam(value = "email") String email) throws DBException {
+        applicationInsights.trackEvent("FindTestManagerIdByEmail");
         return service.getManagerIdByEmail(email);
     }
 
@@ -75,7 +77,8 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/updateTestManager")
     public void updateTestManager(
-            @RequestBody TestManager manager)throws DBException {
+            @RequestBody TestManager manager) throws DBException {
+        applicationInsights.trackEvent("UpdateTestManager");
         service.updateTestManager(manager);
     }
 
@@ -89,7 +92,8 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/saveTestManager")
-    public TestManager saveTestManager(@RequestBody TestManager testManager)throws DBException {
+    public TestManager saveTestManager(@RequestBody TestManager testManager) throws DBException {
+        applicationInsights.trackEvent("SaveTestManager");
         return service.createTestManager(testManager);
     }
 
@@ -100,7 +104,8 @@ public class TestManagerController extends AbstractRestController<TestManagerSer
      */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.DELETE, value = "/deleteTestManager")
-    public void deleteTestManager(@RequestParam(value = "testManagerId") long testManagerId)throws DBException {
+    public void deleteTestManager(@RequestParam(value = "testManagerId") long testManagerId) throws DBException {
+        applicationInsights.trackEvent("DeleteTestManager");
         service.deleteTestManager(testManagerId);
     }
 

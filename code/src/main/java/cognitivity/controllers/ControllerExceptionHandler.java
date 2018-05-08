@@ -1,6 +1,7 @@
 package cognitivity.controllers;
 
 import cognitivity.exceptions.DBException;
+import cognitivity.web.app.CognitivityApplicationInsights;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -28,6 +29,7 @@ public class ControllerExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(DBException.class)
     public String handleDBException(DBException e) {
+        CognitivityApplicationInsights.getInstance().trackFailure(e);
         return "DB_ERR: " + e.getType().toString();
     }
 
@@ -43,6 +45,7 @@ public class ControllerExceptionHandler {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ExceptionHandler(EmptyResultDataAccessException.class)
     public String handleEmptyResultException(EmptyResultDataAccessException e) {
+        CognitivityApplicationInsights.getInstance().trackFailure(e);
         return "EmptyResult";
     }
 
@@ -58,6 +61,7 @@ public class ControllerExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(RuntimeException.class)
     public String handleRuntimeException(RuntimeException e) {
+        CognitivityApplicationInsights.getInstance().trackFailure(e);
         return "Runtime_ERR: " + e.getMessage() + ". Type was : " + e.getClass().getName();
     }
 }

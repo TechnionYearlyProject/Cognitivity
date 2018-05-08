@@ -19,6 +19,8 @@ import { registrationFormComponent } from './components/registration-form/regist
 import { MyDatePickerModule } from 'mydatepicker';
 import { BlockComponent } from './components/block/block.component';
 import { QuestionComponent } from './components/question/question.component';
+import { TestPageBlockComponent } from './components/test-page/block/block.component';
+import { TestPageQuestionComponent } from './components/test-page/question/question.component';
 /* Services */
 import { TestManagerService, TestAnswerService, TestService, SubjectService, QuestionService } from './services/database-service';
 import { RateQuestionComponent } from './components/rate-question/rate-question.component';
@@ -46,6 +48,7 @@ import { CreateDrillDownQuestionComponent } from './components/create-drill-down
 import { CreateVerticalHorizontalMultipleComponent } from './components/create-vertical-horizontal-multiple/create-vertical-horizontal-multiple.component';
 import { CreateMatrixMultipleQuestionComponent } from './components/create-matrix-multiple-question/create-matrix-multiple-question.component';
 import { ResultsPageComponent } from './components/results-page/results-page.component';
+import { TestPageComponent } from './components/test-page/test-page.component';
 
 
 
@@ -93,7 +96,10 @@ const PROVIDED_SERVICES = [
     CreateDrillDownQuestionComponent,
     CreateVerticalHorizontalMultipleComponent,
     CreateMatrixMultipleQuestionComponent,
-    ResultsPageComponent
+    ResultsPageComponent,
+    TestPageComponent,
+    TestPageBlockComponent,
+    TestPageQuestionComponent
     
   ],
   imports: [

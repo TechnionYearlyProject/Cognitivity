@@ -42,7 +42,8 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
     @RequestMapping(method = RequestMethod.GET, value = "/findTestQuestionsForTestCriteriaById")
     public List<TestQuestion> findTestQuestionsForTestCriteriaById(
             @RequestParam(value = "testManagerId") long testManagerId,
-            @RequestParam(value = "testId", required = false) long testId)throws DBException {
+            @RequestParam(value = "testId", required = false) long testId) throws DBException {
+        applicationInsights.trackEvent("FindTestQuestionsForTestCriteriaById");
         if (testId == -1) {
             // Then return all questions of test manager
             return service.findAllTestQuestionsFromManagerId(testManagerId);
@@ -61,7 +62,8 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findTestQuestionById")
     public TestQuestion findTestQuestionById(
-            @RequestParam(value = "testQuestionId") long testQuestionId)throws DBException {
+            @RequestParam(value = "testQuestionId") long testQuestionId) throws DBException {
+        applicationInsights.trackEvent("FindTestQuestionById");
         return service.findQuestionById(testQuestionId);
     }
 
@@ -76,6 +78,7 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
     @RequestMapping(method = RequestMethod.POST, value = "/saveCognitiveTestQuestion")
     public TestQuestion saveCognitiveTestQuestion(
             @RequestBody TestQuestion testQuestion) throws DBException {
+        applicationInsights.trackEvent("SaveCognitiveTestQuestion");
         return service.createTestQuestion(testQuestion);
     }
 
@@ -90,6 +93,7 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
     @RequestMapping(method = RequestMethod.POST, value = "/updateCognitiveTestQuestion")
     public void updateCognitiveTestQuestion(
             @RequestBody TestQuestion question) throws DBException {
+        applicationInsights.trackEvent("UpdateCognitiveTestQuestion");
         service.updateTestQuestion(question);
     }
 
@@ -101,6 +105,7 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.DELETE, value = "/deleteCognitiveTestQuestion")
     public void deleteCognitiveTestQuestion(@RequestParam(value = "questionId") long questionId) throws DBException {
+        applicationInsights.trackEvent("DeleteCognitiveTestQuestion");
         service.deleteTestQuestion(questionId);
     }
 
@@ -113,7 +118,8 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findPictureLinkPerQuestion")
     public String findPictureLinkPerQuestion(
-            @RequestParam(value = "testQuestionId") long testQuestionId)throws DBException {
+            @RequestParam(value = "testQuestionId") long testQuestionId) throws DBException {
+        applicationInsights.trackEvent("FindPictureLinkPerQuestion");
         return service.findPictureLinkPerQuestion(testQuestionId);
     }
 

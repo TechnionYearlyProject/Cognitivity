@@ -21,6 +21,15 @@
     <dependencies>
 
 
+        <!--    Azure Telemetry     -->
+        <!-- https://mvnrepository.com/artifact/com.microsoft.azure/applicationinsights-web -->
+        <dependency>
+            <groupId>com.microsoft.azure</groupId>
+            <artifactId>applicationinsights-web</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+
+
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
         <!--
         <dependency>
@@ -29,12 +38,15 @@
             <version>1.7.25</version>
         </dependency>
         -->
+
         <!-- https://mvnrepository.com/artifact/log4j/log4j -->
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
         </dependency>
+
+
         <!--    For Testing     -->
 
         <!-- https://mvnrepository.com/artifact/junit/junit -->
