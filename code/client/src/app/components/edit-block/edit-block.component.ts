@@ -25,6 +25,8 @@ export class EditBlockComponent implements OnInit {
   hidden: boolean = true;
   //the actual list of the questions.
   questionList: Array<QuestionInBlock> = new Array<QuestionInBlock>();
+  //tags 
+  questionTags: string[];
 
   //default constructor.
   constructor(private dialog: MatDialog,private router:Router, private transferData: SessionService){}
@@ -124,6 +126,36 @@ export class EditBlockComponent implements OnInit {
   */
   getQuestions(): Array<QuestionInBlock>{
     return this.questionList;
+  }
+
+  
+  /**
+   * Author: Ben
+   * This function gets a tag to add to the tags list of the current displayed question.
+   * @param givenTag 
+   * @param questionIndex 
+   */
+  addQuestionTag(givenTag:string, questionIndex:number){
+    this.questionFromDBList[questionIndex].tags.push(givenTag);
+    //for DEBUGGING
+    console.log("pushing to question with id: "+this.questionFromDBList[questionIndex].id+" the tag: "+givenTag);
+  }
+
+  /**
+   * Author: Ben
+   * This function removes a given tag from a question's tags list.
+   * if the tag is not found, does nothing.
+   * @param givenTag 
+   * @param questionIndex 
+   */
+  removeQuestionTag(givenTag:string, questionIndex:number){
+    let tmpQuestion = this.questionFromDBList[questionIndex];
+    let tagIndex = tmpQuestion.tags.indexOf(givenTag);
+    if(tagIndex != -1){
+      tmpQuestion.tags.splice(tagIndex,1);
+      //for DEBUGGING 
+      console.log("found and removed the tag: "+givenTag);
+    }
   }
 }
 

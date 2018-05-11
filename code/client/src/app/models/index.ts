@@ -58,9 +58,12 @@ export interface Question {
     questionPosition?: QuestionPosition;
     showConfidenceBar?: boolean; 
     /*fields for time performance measuring*/
-    startTS?:number
-    endTS?:number
-    diffTS?:number
+    startTS?:number;
+    endTS?:number;
+    diffTS?:number;
+    isBeingMeasured?:boolean;
+     // list of given tags by the user
+     tags?: string[];
 }
 
 /*
@@ -173,6 +176,8 @@ export interface QuestionInDB {
     endTS?:number;
     diffTS?:number;
     isBeingMeasured?:boolean;
+    // list of given tags by the user
+    tags?: string[];
 }
 
 
