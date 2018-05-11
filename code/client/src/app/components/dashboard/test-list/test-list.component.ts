@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Test } from '../../../models'
-import {TestService, TestManagerService} from '../../../services/database-service'
+import { TestService, TestManagerService } from '../../../services/database-service'
 import { AuthService } from '../../../services/auth-service';
+
+
+
 
 @Component({
   selector: 'app-test-list',
@@ -17,6 +20,11 @@ this component holds all the tests created in the system.
 export class TestListComponent implements OnInit {
   //the actual list of the tests objects.
   testList: Test[];
+  filteredTestList: Test[];
+  filter = {
+    option: '',
+    text: ''
+  }
   //an object to represent the current manager. it hold the current logged in user's credentials.
   email;
   managerId;
@@ -29,21 +37,23 @@ export class TestListComponent implements OnInit {
     private tmService: TestManagerService
   ) {}
 
-  //default ngOnInit function, gets the user's credentials while initialized. 
+  //default ngOnInit function, gets the user's credentials while initialized.
   async ngOnInit() {
     try {
       this.email = this.authService.getCurrentManagerEmail();
-      console.log(this.email);
       this.managerId = await this.tmService.getManagerId(this.email);
-      console.log(this.managerId);
       this.testList = await this.testService.findTestsForTestManager(this.managerId);
-      console.log(this.testList)
+      this.filteredTestList = [];
+      this.testList.forEach((test) => {
+          this.filteredTestList.push(test);
+      });
+
     } catch(err) {
       console.log(err);
     }
   }
 
-  /* 
+  /*
   Input - number of a specific test in the tests list.
   Output - returns the status of the test.
   */
@@ -129,6 +139,31 @@ export class TestListComponent implements OnInit {
     return count;
   }
 
+  filterKeyDown(event){
+      if(event.key === "Enter")
+        this.filterTests();
+  }
 
+  filterTests(){
+      this.filteredTestList = [];
+      this.testList.forEach((test) => {
+          let checkBy : string = '';
+          switch(this.filter.option){
+              case 'project':
+                checkBy = test.project;
+              break;
+              case 'name':
+                checkBy = test.name;
+              break;
+              case 'notes':
+                checkBy = test.notes
+              break;
+          }
+          if(checkBy.includes(this.filter.text.trim())){
+              this.filteredTestList.push(test);
+          }
+      });
+      return;
+  }
 
 }

@@ -1,9 +1,9 @@
 import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
 
 
-/* 
-    This file will contain interfaces 
-    which will represent data objects from the DB 
+/*
+    This file will contain interfaces
+    which will represent data objects from the DB
 */
 
 /*
@@ -56,7 +56,7 @@ export interface Question {
     questionText: string;
     type: TypeQuestion;
     questionPosition?: QuestionPosition;
-    showConfidenceBar?: boolean; 
+    showConfidenceBar?: boolean;
     /*fields for time performance measuring*/
     startTS?:number
     endTS?:number
@@ -64,8 +64,8 @@ export interface Question {
 }
 
 /*
-class the represent the question as part of a block. 
-in addition the the question object,  we add the index in the block , and the id of the 
+class the represent the question as part of a block.
+in addition the the question object,  we add the index in the block , and the id of the
 question.
 */
 export class QuestionInBlock {
@@ -91,7 +91,7 @@ export interface OpenQuestion extends Question {
 }
 
 /*
-    Interface that represents block object that holds a list of questions.    
+    Interface that represents block object that holds a list of questions.
 */
 export interface Block {
     id?: number,
@@ -107,13 +107,14 @@ export interface Block {
 export interface Test {
     id?: number,
     name?: string,
+    project?: string,
+    notes?: string
     numberOfQuestions?: number,
     state?: number,
     numberOfFiledCopies?: number,
     blocks?: Block[],
     numberOfSubjects?: number,
-    testManager?: any
-
+    testManager?: any,
 }
 
 /* Manager properties */
@@ -134,7 +135,7 @@ export interface RateQuestion extends Question {
     we are adding the option for optional secnodary questions after one question
 */
 export interface DrillDownQuestion extends Question {
-    answersForMain: Array<string>;    
+    answersForMain: Array<string>;
     correctMainQuestion: number;
     secondaryQuestionsText: Array<string>;
     answersForSecondary: Array<Array<string>>;
@@ -147,7 +148,7 @@ class to represent the sub question as part of the drill down question type.
 export class SecondaryQuestionObject{
     index: number;
     questionText: string;
-    answers: Array<string>; 
+    answers: Array<string>;
     markedAnswer: number = -1;
 }
 
@@ -164,5 +165,3 @@ export interface QuestionInDB {
     endTS?:number
     diffTS?:number
 }
-
-

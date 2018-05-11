@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
@@ -12,7 +12,7 @@ import { AgGridModule } from 'ag-grid-angular';
 
 /* Components */
 import { AppComponent } from './app.component';
-import {DashboardComponent} from './components/dashboard/dashboard.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { OpenQuestionComponent } from './components/open-question/open-question.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { registrationFormComponent } from './components/registration-form/registration-form.component';
@@ -58,10 +58,10 @@ import { TestPageComponent } from './components/test-page/test-page.component';
 
 
 const PROVIDED_SERVICES = [
-  TestManagerService, 
-  TestAnswerService, 
-  TestService, 
-  SubjectService, 
+  TestManagerService,
+  TestAnswerService,
+  TestService,
+  SubjectService,
   QuestionService,
   AuthService,
   AuthGuard,
@@ -100,7 +100,6 @@ const PROVIDED_SERVICES = [
     TestPageComponent,
     TestPageBlockComponent,
     TestPageQuestionComponent
-    
   ],
   imports: [
     BrowserModule,
@@ -112,7 +111,7 @@ const PROVIDED_SERVICES = [
     AngularFireModule.initializeApp(environment.firebase,'Cognitivity'),
     MatDialogModule,
     BrowserAnimationsModule,
-    TagInputModule, 
+    TagInputModule,
     ReactiveFormsModule,
     AgGridModule.withComponents([])
   ],

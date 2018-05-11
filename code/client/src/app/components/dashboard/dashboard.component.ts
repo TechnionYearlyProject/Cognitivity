@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AuthService } from '../../services/auth-service';
 import { TestManagerService } from '../../services/database-service/index';
@@ -21,8 +21,8 @@ The wrapping component of the dashboard.
 export class DashboardComponent implements OnInit{
     //object for the currently logged-in user.
     email;
-    
-    //default constructor 
+
+    //default constructor
     constructor(
         private route: ActivatedRoute,
         private router: Router,

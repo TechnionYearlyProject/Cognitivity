@@ -41,12 +41,12 @@ export class CreateTestComponent implements OnInit {
   noTitle: boolean = false;
 
   indexBlock: number = -1;
-  //default constructor 
+  //default constructor
   constructor(
     private router:Router,
     private route: ActivatedRoute,
     public questionDataService:SessionService,
-    private testService: TestService, 
+    private testService: TestService,
     private authService: AuthService,
     private managerService: TestManagerService
   ) {}
@@ -111,7 +111,7 @@ export class CreateTestComponent implements OnInit {
   regex = /[\ ]*([A-Za-z0-9)(]+[\ ]*)+/;
   /**
    * This function saves a test in the DB.
-   * It iterates over all of the questions of all of the blocks 
+   * It iterates over all of the questions of all of the blocks
    * and collects them to a test object
    */
   async saveTest() {
@@ -139,7 +139,7 @@ export class CreateTestComponent implements OnInit {
       }
     }
 
-    
+
 
 
     let blocks = this.blocks.toArray();
@@ -166,7 +166,7 @@ export class CreateTestComponent implements OnInit {
 
       for (let questionInBlock of block.getQuestions()) {
 
-        let questionInDB: QuestionInDB = 
+        let questionInDB: QuestionInDB =
         {
           question: questionInBlock.question.questionText,
           questionPosition: questionInBlock.question.questionPosition,
@@ -179,7 +179,7 @@ export class CreateTestComponent implements OnInit {
 
       totalQuestionNum += questions.length;
 
-      let blockInDB: Block = 
+      let blockInDB: Block =
       {
         questions: questions,
         numberOfQuestions: questions.length
@@ -189,7 +189,7 @@ export class CreateTestComponent implements OnInit {
     }
     let date = Date.parse(new Date().toLocaleDateString());
     console.log(date, new Date(date).toLocaleDateString());
-    let test: Test = 
+    let test: Test =
     {
       name: this.titleTest,
       blocks: blocksToDB,
@@ -213,6 +213,6 @@ export class CreateTestComponent implements OnInit {
       }
     }
   }
-  
+
 
 }

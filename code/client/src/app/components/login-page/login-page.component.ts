@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth-service';
 })
 
 /*
-the login page component. 
+the login page component.
 */
 export class LoginPageComponent implements OnInit {
 
@@ -25,7 +25,7 @@ export class LoginPageComponent implements OnInit {
 
   //Boolean to check if no password was given
   noPassword: boolean = false;
-  
+
   //we assume it's the correct user.
   correctUser = true;
   //Regex for email

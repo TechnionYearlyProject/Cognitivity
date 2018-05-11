@@ -1,33 +1,56 @@
-<div class="row">
+<div class = "form-inline">
+    <select [(ngModel)]="filter.option" class="custom-select col-md-2">
+        <option selected value = ''>Column...</option>
+        <option value = 'project'>Project</option>
+        <option value = 'name'>Name</option>
+        <option value = 'notes'>Notes</option>
+    </select>
+    <input type = "text" placeholder="Filter By.." class = "form-control col-md-8" [(ngModel)] = "filter.text" (keydown) = "filterKeyDown($event)">
+    <button class = "form-control btn btn-block btn-primary col-md-2"  (click) = "filterTests()">
+        <i class= "fa fa-search"></i> Search
+    </button>
+</div>
+
+<br>
+<div class = "row">
     <div class="col-md-10">
         <h2><i class="fa fa-database"></i> Tests</h2>
     </div>
 </div>
-
 <br>
-<table *ngIf="testList?.length > 0; else noTests" class="table table-striped">
-  <thead class="thead-invers">
-    <tr>
-      <th>Name</th>
-      <th>No. Questions</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th><a href="#" routerLink="/create-test" ><i class="fa fa-plus-circle "></i> Add Test</a></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let test of testList">
-      <td>{{ test.name }}</td>
-      <td>{{ test.numberOfQuestions }}</td>
-      <td><a class="btn btn-secondary btn-sm" (click)="deleteTest(test.id)"><i class="fa fa-times"></i> Delete</a></td>
-      <td><a [routerLink]="['/test-preview/'+test.id]" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-window-maximize"></i> Preview</a></td>
-      <td><a [routerLink]="['/edit-test/'+test.id]" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-arrow-circle-o-right"></i> Edit</a></td>
-      <td><a (click)="copyTest(test)" class="btn btn-secondary btn-sm"><i class="fa fa-file-powerpoint-o "></i> Copy</a></td>
-    </tr>
-  </tbody>
-</table>
+<ng-container *ngIf="testList?.length > 0; else noTests">
+    <table *ngIf="filteredTestList?.length > 0; else noMatchingTests" class="table table-striped">
+      <thead class="thead-invers">
+        <tr>
+          <th>Name</th>
+          <th>No. Questions</th>
+          <th>Project</th>
+          <th>Notes</th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th><a href="#" routerLink="/create-test" ><i class="fa fa-plus-circle "></i> Add Test</a></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let test of filteredTestList">
+          <td>{{ test.name }}</td>
+          <td>{{ test.numberOfQuestions }}</td>
+          <td>{{ test.project }}</td>
+          <td>{{ test.notes }}</td>
+          <td><a class="btn btn-secondary btn-sm" (click)="deleteTest(test.id)"><i class="fa fa-times"></i> Delete</a></td>
+          <td><a [routerLink]="['/test-preview/'+test.id]" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-window-maximize"></i> Preview</a></td>
+          <td><a [routerLink]="['/edit-test/'+test.id]" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-arrow-circle-o-right"></i> Edit</a></td>
+          <td><a (click)="copyTest(test)" class="btn btn-secondary btn-sm"><i class="fa fa-file-powerpoint-o "></i> Copy</a></td>
+        </tr>
+      </tbody>
+    </table>
+</ng-container>
 <ng-template #noTests>
   <hr>
   <h5>There are no tests in the system... Click <a href="#" routerLink="/create-test" >here</a> to add a test</h5>
+</ng-template>
+<ng-template #noMatchingTests>
+  <hr>
+  <h5>There are no tests that meet the filtering requierments</h5>
 </ng-template>
