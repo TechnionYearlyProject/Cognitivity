@@ -58,9 +58,12 @@ export interface Question {
     questionPosition?: QuestionPosition;
     showConfidenceBar?: boolean;
     /*fields for time performance measuring*/
-    startTS?:number
-    endTS?:number
-    diffTS?:number
+    startTS?:number;
+    endTS?:number;
+    diffTS?:number;
+    isBeingMeasured?:boolean;
+     // list of given tags by the user
+     tags?: string[];
 }
 
 /*
@@ -99,6 +102,11 @@ export interface Block {
     randomize?: boolean,
     projectId?: number,
     numberOfQuestions?: number
+    //fields for measuring times
+    blockStartTimestamp?: number,
+    blockEndTimestamp?: number,
+    blockTotalRunningTime?: number,
+    isBeingMeasured?: boolean //indicates if theres a StartBlockMeasure without enclosing StopBlockMeasure.
 }
 
 /*
@@ -114,7 +122,12 @@ export interface Test {
     numberOfFiledCopies?: number,
     blocks?: Block[],
     numberOfSubjects?: number,
-    testManager?: any,
+    testManager?: any
+    // fields for measuring times
+    testStartTimestamp?: number,
+    testEndTimestamp?: number,
+    testTotalRunningTime?: number
+    isBeingMeasured?: boolean; //indicates if theres a StartTestMeasure without enclosing StopTestMeasure.
 }
 
 /* Manager properties */
@@ -161,7 +174,10 @@ export interface QuestionInDB {
     answer?: string;
     questionPosition?: number;
     /*fields for time performance measuring*/
-    startTS?:number
-    endTS?:number
-    diffTS?:number
+    startTS?:number;
+    endTS?:number;
+    diffTS?:number;
+    isBeingMeasured?:boolean;
+    // list of given tags by the user
+    tags?: string[];
 }
