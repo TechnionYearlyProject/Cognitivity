@@ -1,6 +1,6 @@
 <div class=" container" >
   <div *ngFor="let question of block.questions; let i=index" class="form-group"  style="background-color:white;">
-    <app-question *ngIf="showQuestion(i)" [question]="parseToQuestion(question.answer)"></app-question>
+    <app-test-page-question *ngIf="showQuestion(i)" [question]="parseToQuestion(question.answer)"></app-test-page-question>
   </div>
   <br>
   <div  style="text-align:right;">

@@ -11,6 +11,8 @@ import { Test } from '../../models';
 })
 export class TestPageComponent implements OnInit {
   test : Test;
+  //variable to hold the blocks array
+  blocks: any[];
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -31,6 +33,8 @@ export class TestPageComponent implements OnInit {
       //Here we will navigate to a 404 page
       //this.router.navigate(['/dashboard']);
     }
+
+    this.blocks = this.test.blocks;
   }
 
 }
