@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 /**
+ * Created by Guy on 20/1/18.
+ *
  *
  * The Cognitive Test persistent (JPA) representation (tables).
  *

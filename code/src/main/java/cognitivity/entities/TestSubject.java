@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 /**
+ * Created by Guy on 20/1/18.
+ *
  *
  * The Test Subject persistent (JPA) representation (tables).
  *

@@ -1,7 +1,9 @@
 package cognitivity.entities;
 
 import javax.persistence.*;
-
+/**
+ * Created by Guy on 20/1/18.
+ */
 @MappedSuperclass
 public abstract class AbstractEntity implements Cloneable {
 

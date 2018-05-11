@@ -9,7 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.logging.Logger;
 
-
+/**
+ * Created by Guy on 20/1/18.
+ */
 @Repository
 @Transactional
 public abstract class AbstractDAO<DataType extends AbstractEntity> {
