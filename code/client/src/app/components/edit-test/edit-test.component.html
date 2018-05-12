@@ -1,6 +1,6 @@
 <br>
 <div class="container">
-    <input type="submit" class="btn btn-primary btn-sm" routerLink="/dashboard" value="Go to dashboard">
+  <input questionType="submit" class="btn btn-primary btn-sm" routerLink="/dashboard" value="Go to dashboard">
 </div>
 <div class="titleBoi">Cognitivity</div>
 <br>
@@ -11,8 +11,9 @@
             <span class="fa fa-sticky-note-o"></span> Edit Test "{{titleTest}}"</h1>
         <br><br><br>
         <h4>Enter title for the test: </h4>
-        <input [(ngModel)]="titleTest" name="title" #title="ngModel" type="text" class="form-control" placeholder="Title of the test"
-            style="max-width: 100%;" maxLength="16">
+      <input [(ngModel)]="titleTest" name="title" #title="ngModel" questionType="text" class="form-control"
+             placeholder="Title of the test"
+             style="max-width: 100%;" maxLength="16">
         <br>
         <div style="text-align: center;">
             <button class="btn btn-primary btn-sm" (click)="addBlock()">

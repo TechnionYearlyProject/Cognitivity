@@ -5,7 +5,8 @@
         <option value = 'name'>Name</option>
         <option value = 'notes'>Notes</option>
     </select>
-    <input type = "text" placeholder="Filter By.." class = "form-control col-md-8" [(ngModel)] = "filter.text" (keydown) = "filterKeyDown($event)">
+  <input questionType="text" placeholder="Filter By.." class="form-control col-md-8" [(ngModel)]="filter.text"
+         (keydown)="filterKeyDown($event)">
     <button class = "form-control btn btn-block btn-primary col-md-2"  (click) = "filterTests()">
         <i class= "fa fa-search"></i> Search
     </button>

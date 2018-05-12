@@ -3,23 +3,23 @@
       <div id="blockBody " data-children=".item">
         <div class="card-header bg-light" role="tab" id="headingOne">
           <div class="item">
-            <button type="button" class="btn btn-dark btn-lg  btn-block " (click)="toggleHidden()">
+            <button questionType="button" class="btn btn-dark btn-lg  btn-block " (click)="toggleHidden()">
               Block {{blockNumber + 1 }}
             </button>
           </div>
           <div class="collapse show" role="tabpanel" [hidden]="hidden">
-  
-  
+
+
             <div *ngFor="let currQuestion of questionList; let i = index;">
               <div class="card questionBG">
                 <div class="card-body border-primary">
                   <a class="btn arrowbg btn-sm fa fa-arrow-up" (click)="moveMeUp(i)"></a>
                   <a class="btn arrowbg btn-sm fa fa-arrow-down" (click)="moveMeDown(i)"></a>
-  
-           
-                    <app-question [myData]="currQuestion" [index]="i"></app-question>
-              
-  
+
+
+                  <app-question [myData]="currQuestion" [index]="i"></app-question>
+
+
                   <button class="btn btn-sm btn-danger" (click)="deleteQuestion(i)">
                     <span class="fa fa-trash"></span> Delete question</button>
                   <button class="btn btn-sm btn-primary" (click)="editQuestion(i)">

@@ -27,6 +27,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -78,6 +79,7 @@ public class CognitiveTestControllerTest implements RestControllerTest {
 
         mockMvc.perform(get("/tests/findCognitiveTestById")
                 .param("testId", "123456"))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is("ct1")))
                 .andExpect(jsonPath("$.numberOfQuestions", is(1)))

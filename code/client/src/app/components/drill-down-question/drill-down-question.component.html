@@ -18,7 +18,7 @@
     <div class="container">
         <div class="dropdown">
             <button class="dropbtn"><span class="fa fa-chevron-down" > {{ markedAnswerSecondery }}</span></button>
-    
+
             <div class="dropdown-content">
               <div *ngFor="let answer of currentSecondaryAnswers; let i = index;">
                 <button [ngStyle] = " { 'min-width': generateHighestBox(currentSecondaryAnswers), 'font-size': '20px'} "  class = "btn btn-basic" *ngIf="!markedAnswersSecondary[i]"  (click)="markAnswerForSecondary(i)">{{ answer }}</button>
@@ -26,13 +26,14 @@
               </div>
             </div>
         </div>
-    </div>     
+    </div>
 </div>
 <div *ngIf = "true"> <!-- when adding to all of the questions the confidence bar property, change the 'true to' question.showConfidenceBar -->
 <h4>How confident you feel in your answer, in precentage?</h4>
 <div style="text-align: center;">
     <div id="slidecontainer">
-        <input type="range" min="0" max="100" value="50" class="slider centered" id="myRange" [(ngModel)] = "range_value">
+      <input questionType="range" min="0" max="100" value="50" class="slider centered" id="myRange"
+             [(ngModel)]="range_value">
     </div>
     <h6 >{{ range_value }}%</h6>
 </div>

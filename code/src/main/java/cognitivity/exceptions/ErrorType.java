@@ -1,5 +1,5 @@
 /**
- * An enum for the error type
+ * An enum for the error questionType
  * @Author - Pe'er
  * @Date - 2.2.18
  */
@@ -9,5 +9,6 @@ public enum ErrorType {
     SAVE,
     UPDATE,
     DELETE,
-    GET
+    GET,
+    LOAD
 }

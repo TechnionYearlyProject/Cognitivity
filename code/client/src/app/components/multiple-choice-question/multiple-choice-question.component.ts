@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MultipleChoiceQuestion, TypeMultipleQuestion, TypeQuestion, QuestionPosition } from '../../models';
-import { Input } from '@angular/core';
+import {Component, Input, OnInit} from "@angular/core";
+import {QuestionPosition, TypeMultipleQuestion} from "../../models";
 @Component({
   selector: 'app-multiple-choice-question',
   templateUrl: './multiple-choice-question.component.html',
@@ -22,17 +21,17 @@ export class MultipleChoiceQuestionComponent implements OnInit {
 
   //slider value
   range_value: number = 50;
-  //the chosen organization of the question's answers 
+  //the chosen organization of the question's answers
   answerOrganization: TypeMultipleQuestion;
   /*
-    ---------------------- special objects that are ment for multiple question of type matrix
+   ---------------------- special objects that are ment for multiple question of questionType matrix
   */
   markedAnswersMatrix?: Array<Array<boolean>>;
   dimMatrix?: number;
   matrixAnswers?: Array<Array<string>>;
-  //An object that centers the matrix in the web page acocording its size 
-  centeringMatrix?: any; 
-  
+  //An object that centers the matrix in the web page acocording its size
+  centeringMatrix?: any;
+
   //default constructor.
   constructor(){}
 
@@ -48,7 +47,7 @@ export class MultipleChoiceQuestionComponent implements OnInit {
 
   /*
   This function builds up the matrix.
-  we need to matrix to use the different locations of the question and 
+   we need to matrix to use the different locations of the question and
   the question's answers on the screen.
   */
   constructMatrix(){
@@ -88,7 +87,7 @@ export class MultipleChoiceQuestionComponent implements OnInit {
         this.markedAnswers[i] = false;
       }
     }
-    
+
   }
 
   /*
@@ -113,14 +112,14 @@ export class MultipleChoiceQuestionComponent implements OnInit {
   }
 
   /*
-    A function that marks the answer that the user marked. In case the type of the question is Horizontal or vartical the secondary index isn't needed.
+   A function that marks the answer that the user marked. In case the questionType of the question is Horizontal or vartical the secondary index isn't needed.
     The index specify which answer was marked. Due to the binding of this property it will affect the GUI.
   */
   markAnswer(main_index: number,secondary_index:number = -1){
     if(secondary_index == -1){
       for(let i = 0; i < this.question.answers.length; i++){
         if(i == main_index){
-          this.markedAnswers[i] = true;    
+          this.markedAnswers[i] = true;
         }else{
           this.markedAnswers[i] = false;
         }
@@ -139,7 +138,7 @@ export class MultipleChoiceQuestionComponent implements OnInit {
   }
 
   /*
-    ------------- Asking the type of the multiple question ------------------
+   ------------- Asking the questionType of the multiple question ------------------
   */
   isVertical(): boolean{
     return this.answerOrganization == TypeMultipleQuestion.Vertical;
@@ -191,7 +190,7 @@ export class MultipleChoiceQuestionComponent implements OnInit {
   isButtom():boolean{
     return this.isButtomMiddle() || this.isButtomRight() || this.isButtomLeft();
   }
-  
+
   /*
     -------- functions that helps centering the matrix depending on the number of columns
   */

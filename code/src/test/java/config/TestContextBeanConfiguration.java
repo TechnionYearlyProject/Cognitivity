@@ -24,6 +24,11 @@ public class TestContextBeanConfiguration {
     }
 
     @Bean
+    public LoadFromFileService loadFromFileService() {
+        return Mockito.mock(LoadFromFileService.class);
+    }
+
+    @Bean
     public TestAnswerService testAnswerService() {
         return Mockito.mock(TestAnswerService.class);
     }

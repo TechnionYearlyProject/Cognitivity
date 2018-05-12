@@ -1,5 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { DrillDownQuestion, TypeQuestion, QuestionPosition } from '../../models';
+import {Component, Input, OnInit} from "@angular/core";
 @Component({
   selector: 'app-drill-down-question',
   templateUrl: './drill-down-question.component.html',
@@ -7,7 +6,7 @@ import { DrillDownQuestion, TypeQuestion, QuestionPosition } from '../../models'
 })
 
 /*
-The component for the Drill-down question type.
+ The component for the Drill-down question questionType.
 */
 export class DrillDownQuestionComponent implements OnInit {
   @Input() question: any;
@@ -56,7 +55,7 @@ export class DrillDownQuestionComponent implements OnInit {
       }
     }
     let size = Math.max((max * 20), 300);
-    
+
     let returnedSize: string = (size.toString()) + 'px';
     return returnedSize;
   }
@@ -87,7 +86,7 @@ export class DrillDownQuestionComponent implements OnInit {
             this.secondaryQuestionMode = false;
           }
         }
-        
+
         this.markedAnswersMain[i] = !this.markedAnswersMain[i];
 
       }else{
@@ -107,7 +106,7 @@ export class DrillDownQuestionComponent implements OnInit {
         }else{
           this.markedAnswerSecondery = this.currentSecondaryAnswers[i];
         }
-        this.markedAnswersSecondary[i] = !this.markedAnswersSecondary[i]; 
+        this.markedAnswersSecondary[i] = !this.markedAnswersSecondary[i];
       }else{
         this.markedAnswersSecondary[i] = false;
       }

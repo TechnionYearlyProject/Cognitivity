@@ -4,6 +4,7 @@
 </div>
 <br>
 <div  style="text-align:right;">
-  <input *ngIf="!finish" type="submit" class="btn btn-primary ml-auto" (click)="nextQuestion()" [value]=" currIndex == block.questions.length - 1 ? 'Finish Block' : 'Next Question'">
+  <input *ngIf="!finish" questionType="submit" class="btn btn-primary ml-auto" (click)="nextQuestion()"
+         [value]=" currIndex == block.questions.length - 1 ? 'Finish Block' : 'Next Question'">
 </div>
 </div>

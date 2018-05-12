@@ -1,14 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { TypeMultipleQuestion, TypeQuestion, QuestionPosition} from '../../models';
-import {MatDialogRef} from '@angular/material';
-import {SessionService} from '../../services/session-service';
-import { SecondaryQuestionObject } from '../../models';
-import { ViewChild } from '@angular/core';
-import { CreateRateQuestionComponent } from '../create-rate-question/create-rate-question.component';
-import { CreateOpenQuestionComponent } from '../create-open-question/create-open-question.component';
-import { CreateVerticalHorizontalMultipleComponent } from '../create-vertical-horizontal-multiple/create-vertical-horizontal-multiple.component';
-import { CreateMatrixMultipleQuestionComponent } from '../create-matrix-multiple-question/create-matrix-multiple-question.component';
-import { CreateDrillDownQuestionComponent } from '../create-drill-down-question/create-drill-down-question.component';
+import {Component, OnInit, ViewChild} from "@angular/core";
+import {QuestionPosition, TypeMultipleQuestion, TypeQuestion} from "../../models";
+import {MatDialogRef} from "@angular/material";
+import {SessionService} from "../../services/session-service";
+import {CreateRateQuestionComponent} from "../create-rate-question/create-rate-question.component";
+import {CreateOpenQuestionComponent} from "../create-open-question/create-open-question.component";
+import {CreateVerticalHorizontalMultipleComponent} from "../create-vertical-horizontal-multiple/create-vertical-horizontal-multiple.component";
+import {CreateMatrixMultipleQuestionComponent} from "../create-matrix-multiple-question/create-matrix-multiple-question.component";
+import {CreateDrillDownQuestionComponent} from "../create-drill-down-question/create-drill-down-question.component";
 //Import Mark
 //import {TypeMyQuestion} from ../../models;
 //import {CreateMyQuestion} from '../create-my-question/create-my-question.component';
@@ -22,7 +20,7 @@ export class CreateQuestionComponent implements OnInit {
   @ViewChild(CreateRateQuestionComponent) rateQuestion: CreateRateQuestionComponent;
   @ViewChild(CreateOpenQuestionComponent) openQuestion: CreateOpenQuestionComponent;
   @ViewChild(CreateVerticalHorizontalMultipleComponent) verticalHrizontalQuestion: CreateVerticalHorizontalMultipleComponent;
-  @ViewChild(CreateMatrixMultipleQuestionComponent) matrixQuestion: CreateMatrixMultipleQuestionComponent; 
+  @ViewChild(CreateMatrixMultipleQuestionComponent) matrixQuestion: CreateMatrixMultipleQuestionComponent;
   @ViewChild(CreateDrillDownQuestionComponent) drillDownQeustion: CreateDrillDownQuestionComponent;
   //ViewChild Directive Mark
   //@ViewChild(CreateMyQuestion) createMyQuestion: CreateMyQuestion;
@@ -51,13 +49,13 @@ export class CreateQuestionComponent implements OnInit {
   //index of answer to edit
   indexAnswerInEdit: number = -1;
 
-  //The question that created and sent to the block component. Will be null in case the user exited the creation of the question before its completion 
+  //The question that created and sent to the block component. Will be null in case the user exited the creation of the question before its completion
   question_object: any;
-  //String that describes the question type
+  //String that describes the question questionType
   type_question_desc: string = 'Question Types';
   //string that describes the question position
   positon_desc: string = 'Question Position';
-  //string that describes the multiple choice question type
+  //string that describes the multiple choice question questionType
   multiple_type: string = 'Answer Organization';
   /*
     Params:
@@ -65,14 +63,14 @@ export class CreateQuestionComponent implements OnInit {
                 This is for making the creation of the
                 question as a modal and not in a different web page.
     transferData - Injected service for transfering the object that describes the
-                   question that the user has created to the block component. 
+   question that the user has created to the block component.
   */
   constructor(public dialogRef: MatDialogRef<CreateQuestionComponent>, private transferData: SessionService) {
 
    }
 
 
-  
+
 
   ngOnInit() {
     if(this.transferData.getData().editMode == true){//Which mean we are in edition mode of the question
@@ -93,10 +91,10 @@ export class CreateQuestionComponent implements OnInit {
     this.dialogRef.close();
   }
   /*
-   ----------- setters for the type of the created question
+   ----------- setters for the questionType of the created question
    */
   /*
-    Setting the type of the created question, to multiple choice question
+   Setting the questionType of the created question, to multiple choice question
   */
   setMultipleQuestion(){
     this.submit = false;
@@ -115,7 +113,7 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   /*
-    Setting the type of the created question, to rate question
+   Setting the questionType of the created question, to rate question
   */
   setRateQuestion(){
     this.submit = false;
@@ -150,7 +148,7 @@ export class CreateQuestionComponent implements OnInit {
   }
   */
   /*
-    Setting the type of the created question, to open question
+   Setting the questionType of the created question, to open question
   */
   setOpenQuestion(){
     this.submit = false;
@@ -168,7 +166,7 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   /*
-    Setting the type of the created question, to drill down question
+   Setting the questionType of the created question, to drill down question
   */
   setDrillDownQuestion(){
     this.submit = false;
@@ -185,7 +183,7 @@ export class CreateQuestionComponent implements OnInit {
     }
   }
   /*
-    Getters for the type of the question
+   Getters for the questionType of the question
   */
   didChoseMultipleQuestion() : boolean{
     return this.typeQuestion == TypeQuestion.MultipleChoice;
@@ -215,7 +213,7 @@ export class CreateQuestionComponent implements OnInit {
       this.questionPosition = QuestionPosition.UpperMiddle;
       this.positon_desc = 'Upper Middle';
     }
-    
+
   }
   didChoseUpperMiddle():boolean {
     return this.questionPosition == QuestionPosition.UpperMiddle;
@@ -316,7 +314,7 @@ export class CreateQuestionComponent implements OnInit {
   didChoseMiddleRight():boolean {
     return this.questionPosition == QuestionPosition.MiddleRight;
   }
-  
+
   /*
     Middle Left position
   */
@@ -354,7 +352,7 @@ export class CreateQuestionComponent implements OnInit {
   */
 
   /*
-    Matrix type
+   Matrix questionType
   */
   setMatrixType(){
     this.submit = false;
@@ -372,7 +370,7 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   /*
-    Vertical type
+   Vertical questionType
   */
   setVerticalType(){
     this.submit = false;
@@ -390,7 +388,7 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   /*
-    Horizontal type
+   Horizontal questionType
   */
   setHorizontalType(){
     this.submit = false;
@@ -416,7 +414,7 @@ export class CreateQuestionComponent implements OnInit {
     The main function - checks if all the information related to the question was filled, if not
                         the function doesn't allow the finish of the dialog. If all the information is valid
                         and completed properly the dialog finishes and move back to the block compnent
-                        and transfering the question object via the SessionService service. 
+   and transfering the question object via the SessionService service.
   */
   onSubmit(){
     if(this.questionText != null){
@@ -439,7 +437,7 @@ export class CreateQuestionComponent implements OnInit {
                 this.transferData.setData(this.question_object);
                 this.closeDialog();
               }
-              
+
             }
           }
         }else if(this.didChoseRateQuestion() && this.didChoseQuestionPosition()){
@@ -459,10 +457,10 @@ export class CreateQuestionComponent implements OnInit {
         }
       }
 
-  
-     } 
+
+     }
     }
-    
+
     this.submit = true;
   }
 
@@ -493,18 +491,18 @@ export class CreateQuestionComponent implements OnInit {
         secondary_correct_answers[i] = -1;
       }
     }
-    let answers_main = Object.assign([], this.drillDownQeustion.mainAnswers); 
+    let answers_main = Object.assign([], this.drillDownQeustion.mainAnswers);
     this.question_object = {
       questionText: this.questionText,
       type: this.typeQuestion,
       questionPosition: QuestionPosition.UpperMiddle,
-      answersForMain:  answers_main,    
+      answersForMain: answers_main,
       correctMainQuestion: correct_main_answer,
       secondaryQuestionsText: secondary_question_text,
       answersForSecondary: secondary_question_answers,
       correctAnswerSecondary: secondary_correct_answers
     };
- 
+
   }
   /*
     Construction the diffeerent types of questions after the form completed properly
@@ -537,7 +535,7 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   /*
-    Constructing the matrix type of multiple choice question object
+   Constructing the matrix questionType of multiple choice question object
   */
   constructMatrixQuestion(){
     for(let i = 0; i < this.matrixQuestion.dimSize; i++){
@@ -582,10 +580,10 @@ export class CreateQuestionComponent implements OnInit {
     Control flow functions that checks if the user entered all the related information for creating a question
   */
   /*
-    Returns TRUE if the user have chosen type for his question, FALSE otherwise.
+   Returns TRUE if the user have chosen questionType for his question, FALSE otherwise.
   */
   didChoseQuestionType():boolean {
-    return this.didChoseOpenQuestion() || this.didChoseRateQuestion() || this.didChoseMultipleQuestion() || this.didChoseDrillDownQuestion(); 
+    return this.didChoseOpenQuestion() || this.didChoseRateQuestion() || this.didChoseMultipleQuestion() || this.didChoseDrillDownQuestion();
   }
   /*
     Returns TRUE if the user have chosen position for his question, FALSE otherwise.
@@ -598,8 +596,8 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   /*
-    Returns TRUE if the user entered a type for the multiple choice question,
-    in case he chose a multiple choice question type, FLASE otherwise
+   Returns TRUE if the user entered a questionType for the multiple choice question,
+   in case he chose a multiple choice question questionType, FLASE otherwise
   */
   didChoseMultipleChoiceType():boolean {
     return this.didChoseMatrixType() || this.didChoseVerticalType() || this.didChoseHorizontalType();
@@ -612,7 +610,7 @@ export class CreateQuestionComponent implements OnInit {
       return this.verticalHrizontalQuestion.answers.length > 0;
     }
     return false;
-    
+
   }
 
     /*
@@ -634,8 +632,8 @@ export class CreateQuestionComponent implements OnInit {
         }
       }
     }
-    
-    
+
+
     return false;
   }
   /*
@@ -659,7 +657,7 @@ export class CreateQuestionComponent implements OnInit {
         }
       }
     }
-    
+
   }
   /*
     Canceling the dialog with the block compnent, when the user exited the creation of the question
@@ -683,10 +681,10 @@ export class CreateQuestionComponent implements OnInit {
       this.typeMultipleQuestion = question.typeMultipleQuestion;
       this.initializeMultipleString();
     }
-    
+
   }
   /*
-    Intializing the description of the type
+   Intializing the description of the questionType
   */
   initializeTypeString(){
       if(this.typeQuestion == TypeQuestion.DrillDownQuestion){
@@ -725,7 +723,7 @@ export class CreateQuestionComponent implements OnInit {
       }
   }
   /*
-    Intialize the type of the multiple choice question
+   Intialize the questionType of the multiple choice question
   */
   initializeMultipleString(){
       if(this.typeMultipleQuestion == TypeMultipleQuestion.Matrix){
@@ -749,7 +747,7 @@ export class CreateQuestionComponent implements OnInit {
       }
       return str.charAt(0) == ' ';
   }
-  
+
   /* ----------------------- New Create Question Code -------------------------- */
   QuestionWithPosition() : boolean{
     return this.didChoseRateQuestion() || this.didChoseOpenQuestion() || this.didChoseMultipleQuestion();

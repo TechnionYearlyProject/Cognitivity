@@ -17,7 +17,7 @@ Fields:
 @id - the main key for the table
 @name - the name of the test subject.
 @ipAddress - the ip address of the computer from which the test was answered.
-@browser - the type of the browser from which the test was answered.
+@browser - the questionType of the browser from which the test was answered.
 */
 CREATE TABLE testSubject(id INTEGER PRIMARY KEY AUTO_INCREMENT,
   name      text,
@@ -72,7 +72,7 @@ testQuestion table holds the questions to the test.
 Fields:
 @id - the main key for the table
 @question - the question itself.
-@questionType - an ENUM that holds one of 4 values, indicating the type of the question. The type of the question can be one of the following:
+@questionType - an ENUM that holds one of 4 values, indicating the questionType of the question. The questionType of the question can be one of the following:
 rating question, free text question, multiple choice question, drill down question.
 @answer - this field holds the correct answer for the question of the question is a multiple choice question or a drill down question. Otherwise it holds NULL.
 @project

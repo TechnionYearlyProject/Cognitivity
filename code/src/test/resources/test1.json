@@ -1,0 +1,88 @@
+{
+  "testManager": {
+    "email": "ophirk8396@gmail.com"
+  },
+  "name": "test1",
+  "notes": "This is a first test for checking the load feature",
+  "project": "project1",
+  "blocks": [
+    {
+      "numberOfQuestions": 4,
+      "tag": "blocker",
+      "shuffle": true,
+      "questions": [
+        {
+          "text": "How smart are you? (from 1 to 5)",
+          "position": 9,
+          "questionType": 2,
+          "hasConfidenceBar": true,
+          "pictureLink": "picture/link/path",
+          "hasTimeMeasurement": false,
+          "tags": [
+            "rating"
+          ],
+          "maxRating": 5
+        },
+        {
+          "text": "What do you study?",
+          "position": 2,
+          "questionType": 3,
+          "hasConfidenceBar": false,
+          "pictureLink": "picture/link/path2",
+          "hasTimeMeasurement": true,
+          "tags": [
+            "open",
+            "thinker"
+          ],
+          "answerText": "Computer Science"
+        },
+        {
+          "text": "How smart are you? (from 1 to 5)",
+          "position": 1,
+          "questionType": 1,
+          "hasConfidenceBar": true,
+          "pictureLink": "picture/link/path",
+          "hasTimeMeasurement": false,
+          "tags": [
+            "rating"
+          ],
+          "answers": [
+            "Yes",
+            "No",
+            "Maybe"
+          ],
+          "correctAnswer": 1,
+          "structure": 1
+        },
+        {
+          "text": "How smart are you? (from 1 to 5)",
+          "position": 1,
+          "questionType": 4,
+          "hasConfidenceBar": true,
+          "pictureLink": "picture/link/path",
+          "hasTimeMeasurement": false,
+          "tags": [
+            "rating"
+          ],
+          "answersForMain": [
+            "Yes",
+            "No",
+            "Maybe"
+          ],
+          "correctAnswerForMain": 1,
+          "secondaryQuestions": [
+            {
+              "text": "Really?",
+              "answers": [
+                "yes",
+                "No"
+              ],
+              "correctAnswer": 1,
+              "indexOfMainQuestion": 2
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

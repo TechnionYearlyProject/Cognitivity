@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { TypeMultipleQuestion } from '../../models/index';
-import { Input } from '@angular/core';
+import {Component, Input, OnInit} from "@angular/core";
+import {TypeMultipleQuestion} from "../../models/index";
 
 @Component({
   selector: 'app-create-vertical-horizontal-multiple',
@@ -35,7 +34,7 @@ export class CreateVerticalHorizontalMultipleComponent implements OnInit {
         }else{
           this.markedAnswers.splice(this.markedAnswers.length, 0, false);
         }
-        
+
       }
     }
   }
@@ -51,19 +50,19 @@ export class CreateVerticalHorizontalMultipleComponent implements OnInit {
       this.answers.splice(this.answers.length, 0, this.answerTextForMultiple);
       this.markedAnswers.splice(this.markedAnswers.length, 0, false);
       this.answerTextForMultiple = '';
-  
+
     }else{
       this.typedMultipleAnswer = true;
     }
   }
 
-  
+
   /*
     Deletes an answer to the question
   */
   deleteAnswer(index: number){
     this.answers.splice(index,1);
-    
+
     this.markedAnswers.splice(index, 1);
   }
   /*
@@ -107,7 +106,7 @@ export class CreateVerticalHorizontalMultipleComponent implements OnInit {
       let removed_marked = this.markedAnswers.splice(index, 1);
       this.answers.splice(index - 1, 0, removed[0]);
       this.markedAnswers.splice(index - 1, 0, removed_marked[0]);
-    } 
+    }
   }
   /*
     Moving the answer down in the answer's organization
@@ -127,8 +126,8 @@ export class CreateVerticalHorizontalMultipleComponent implements OnInit {
     Params:
     index - In case the question is Horizontal or Vertical the index is only detemined by this one,
             because there's on;y one dimension
-    index_col - In case the question is matrix type this index is needed, because there are 2 dimentions.
-                Otherwise it will be -1, by default. 
+   index_col - In case the question is matrix questionType this index is needed, because there are 2 dimentions.
+   Otherwise it will be -1, by default.
   */
   markAnswer(index: number, index_col: number = -1){
     if(index_col == -1){
@@ -139,12 +138,12 @@ export class CreateVerticalHorizontalMultipleComponent implements OnInit {
         }else{
           this.markedAnswers[i] = false;
         }
-      }  
+      }
     }
   }
 
     /*
-  this function checks if an answer already exists in the multi choice question's answers 
+     this function checks if an answer already exists in the multi choice question's answers
   and returns True if it is, False otherwise.
   */
   doesHaveMultiAnswer(givenStr: string): boolean{

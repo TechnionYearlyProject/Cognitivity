@@ -15,8 +15,9 @@
                 <label for="Question text">
                     <span style="font-family:Arial; font-size: 25px; color: white">Enter the question:</span>
                 </label>
-                <input autocomplete="off" [(ngModel)]="questionText" name="question1" #question1="ngModel" type="text" class="form-control" maxLength="256"
-                    placeholder="Question text" style="max-width: 100%;" required maxLength="256">
+              <input autocomplete="off" [(ngModel)]="questionText" name="question1" #question1="ngModel"
+                     questionType="text" class="form-control" maxLength="256"
+                     placeholder="Question text" style="max-width: 100%;" required maxLength="256">
                 <br>
             </div>
             <div class="container">
@@ -82,7 +83,7 @@
                 </div>
                 <br>
                 <div *ngIf="didChoseMultipleQuestion() && !didChoseMultipleChoiceType() && submit" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
-                    Please choose type for your multiple choice question
+                  Please choose questionType for your multiple choice question
                 </div>
             </div>
         </div>
@@ -144,13 +145,15 @@
         </div>
         <div class="container" style="max-width: 30%;">
 
-            <input autocomplete="off" type="submit" value="Submit Question" (click)="onSubmit()" class="btn btn-primary" 
-                [ngStyle]="{'width' : '75%'}">
+          <input autocomplete="off" questionType="submit" value="Submit Question" (click)="onSubmit()"
+                 class="btn btn-primary"
+                 [ngStyle]="{'width' : '75%'}">
        </div>
         <br>
 
         <div class="container" style="max-width: 30%;">
-            <input autocomplete="off" type="submit" value="Cancel" (click)="cancelDialog()" class="btn btn-danger" [ngStyle]="{'width' : '75%'}">
+          <input autocomplete="off" questionType="submit" value="Cancel" (click)="cancelDialog()" class="btn btn-danger"
+                 [ngStyle]="{'width' : '75%'}">
         </div>
 
 

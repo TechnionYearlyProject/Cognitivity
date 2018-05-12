@@ -1,12 +1,12 @@
 <div>
-  
+
               <div class="form-group">
                       <div *ngIf="haveAnswers()">
-                          
+
                           <div class="centered" style="font-family:Arial; font-size: 25px; color: white">Answers so far. Please mark the correct answer (optional):</div>
                           <ul class="list-group">
-  
-                              <div class="centered" *ngFor="let answer of answers; let i = index">
+
+                            <div class="centered" *ngFor="let answer of answers; let i = index">
                                   <li class="list-group-item" style="max-width: 100%;background-color: transparent;">
                                       <div class="centered" style=" font-family: Arial; font-size: 25px;color: white;">{{answer}}</div>
                                       <br>
@@ -23,21 +23,22 @@
                                               <span class="fa fa-trash"></span> Delete answer</button>
                                           <button class="btn btn-sm btn-primary" (click)="editAnswer(i)" [disabled]="editionMode">
                                               <span class="fa fa-pencil"></span> Edit answer</button>
-          
+
                                       </div>
                                   </li>
                               </div>
-  
+
                           </ul>
-  
+
                       </div>
                       <div class="centered">
                           <div *ngIf="!editionMode">
                                   <label for="Answer text">
                                       <span style="font-family:Arial; font-size: 25px; color: white;">Enter an answer for the question:</span>
                                   </label>
-                                  <input autocomplete="off" [(ngModel)]="answerTextForMultiple" name="answerMutiple" #answerMultiple="ngModel" type="text"
-                                      class="form-control" placeholder="Answer text" style="max-width: 100%;" maxLength="50">
+                            <input autocomplete="off" [(ngModel)]="answerTextForMultiple" name="answerMutiple"
+                                   #answerMultiple="ngModel" questionType="text"
+                                   class="form-control" placeholder="Answer text" style="max-width: 100%;" maxLength="50">
                                   <button class="btn btn-primary" style="margin:1em 0em;" (click)="addAnswer()">
                                       <span class="fa fa-plus"></span> Add answer</button>
                                   <div *ngIf="(answerTextForMultiple == null || answerTextForMultiple.length  < 1 || isSpacePrefix(answerTextForMultiple)) && typedMultipleAnswer" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
@@ -51,8 +52,9 @@
                                   <label for="Answer text">
                                       <span style="font-family:Arial; font-size: 25px; color: white">Edit your answer: </span>
                                   </label>
-                                  <input autocomplete="off" [(ngModel)]="answerTextForMultiple" name="answerMutiple" #answerMultiple="ngModel" type="text"
-                                      class="form-control" placeholder="Answer text" style="max-width: 100%;" maxLength="50">
+                                <input autocomplete="off" [(ngModel)]="answerTextForMultiple" name="answerMutiple"
+                                       #answerMultiple="ngModel" questionType="text"
+                                       class="form-control" placeholder="Answer text" style="max-width: 100%;" maxLength="50">
                                   <button class="btn btn-primary" style="margin:1em 0em;" (click)="applyEdit()">
                                       <span class="fa fa-pencil"></span> Apply change</button>
                                   <button class="btn btn-primary" style="margin:1em 0em;" (click)="undo()">
@@ -67,6 +69,5 @@
                       </div>
               </div>
               <br>
-  
-          </div>
-  
+
+</div>

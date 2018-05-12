@@ -1,7 +1,6 @@
-import { Component, OnInit, AnimationStyleMetadata } from '@angular/core';
-import { RateQuestion, TypeQuestion, QuestionPosition } from '../../models';
-import { stringify } from '@angular/core/src/util';
-import { Input } from '@angular/core';
+import {AnimationStyleMetadata, Component, Input, OnInit} from "@angular/core";
+import {QuestionPosition} from "../../models";
+import {stringify} from "@angular/core/src/util";
 @Component({
   selector: 'app-rate-question',
   templateUrl: './rate-question.component.html',
@@ -9,7 +8,7 @@ import { Input } from '@angular/core';
 })
 
 /*
-A component to represent the Rate question type.
+ A component to represent the Rate question questionType.
 */
 export class RateQuestionComponent implements OnInit {
   //the question's data is passed in as input.
@@ -47,10 +46,10 @@ export class RateQuestionComponent implements OnInit {
 
   /*
   Input - index of the question to be marked.
-  Output - the question is marked. 
+   Output - the question is marked.
   */
   markAnswer(index: number){
-    for(let i = 0; i < this.answers.length; i++){   
+    for (let i = 0; i < this.answers.length; i++) {
       if(i == index){
         this.markedAnswers[i] = true;
         this.markedAnswer = i;
@@ -123,6 +122,6 @@ export class RateQuestionComponent implements OnInit {
     return this.isButtomMiddle() || this.isButtomRight() || this.isButtomLeft();
   }
   onSubmit(evet: Event){
-    
+
   }
 }

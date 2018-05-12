@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { OpenQuestion, TypeQuestion, QuestionPosition } from '../../models';
-import { Input } from '@angular/core';
+import {Component, Input, OnInit} from "@angular/core";
+import {QuestionPosition} from "../../models";
 @Component({
   selector: 'app-open-question',
   templateUrl: './open-question.component.html',
   styleUrls: ['./open-question.component.css']
 })
 /*
-component to represent the open question type.
+ component to represent the open question questionType.
 */
 export class OpenQuestionComponent implements OnInit {
   //the question's data passed as input
