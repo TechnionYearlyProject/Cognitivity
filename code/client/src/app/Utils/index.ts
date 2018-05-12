@@ -175,7 +175,9 @@ export class TimeMeasurer {
           console.log("total running time is: "+currQuestion.diffTS);
          }
             
+        }
+
+
+  
   }
-
-
 }
