@@ -181,3 +181,17 @@ export interface QuestionInDB {
     // list of given tags by the user
     tags?: string[];
 }
+
+export interface TimeMeasurment {
+    timeForAnswering: number;
+    numberOfAnswerChanges: number;
+}
+
+export interface QuestionAnswer {
+    questionId: number;
+    subjectId: number;
+    answer: string;
+    timeMeasurement: TimeMeasurment;
+}
+
+

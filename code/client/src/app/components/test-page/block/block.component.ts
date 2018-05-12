@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Question } from '../../../models/index';
+import { Question, TimeMeasurment } from '../../../models/index';
 
 @Component({
   selector: 'app-test-page-block',
@@ -17,12 +17,15 @@ export class TestPageBlockComponent implements OnInit {
   //the current index of the question in block.
   currIndex: number;
 
+  timeMeasurments: TimeMeasurment[];
+
   //default constructor.
   constructor() { }
 
-  //when the component is initialized. the current index is set to 0.
+  
   ngOnInit() {
     this.currIndex = 0;
+    this.timeMeasurments = new Array<TimeMeasurment>(this.block.questions.length); //Init array for time measurements for each question.
   }
 
   /*
@@ -34,11 +37,6 @@ export class TestPageBlockComponent implements OnInit {
   will get true and present the question.
   */
   showQuestion(index) {
-    /* initial timestamp */
-    let tmpTS = performance.now();
-    this.block.questions[this.currIndex].startTS = tmpTS;
-    console.log("Question number "+this.currIndex+" initialTS is "+tmpTS);
-
     return index == this.currIndex;
   }
 
@@ -47,13 +45,7 @@ export class TestPageBlockComponent implements OnInit {
   if we did - it triggers an event to notify our caller that the preview of the block is done.
   */
   nextQuestion() {
-    /* end timestamp and diff */
-    let tmpTS = performance.now();
-    this.block.questions[this.currIndex].endTS = tmpTS;
-    console.log("Question number "+this.currIndex+" endTS is "+tmpTS);
-    this.block.questions[this.currIndex].diffTS = tmpTS - this.block.questions[this.currIndex].startTS;
-    console.log("Question number "+this.currIndex+" diffTS is "+this.block.questions[this.currIndex].diffTS);
-
+    // Insert Time measuring
     this.currIndex++;
     if (this.currIndex == this.block.questions.length) {
       this.finish = true;
@@ -65,6 +57,12 @@ export class TestPageBlockComponent implements OnInit {
 
   parseToQuestion(text: string): Question {
     return JSON.parse(text);
+  }
+
+  onQuestionFinish(i: number, timeMeasurement: TimeMeasurment) {
+    // register time took.
+    this.timeMeasurments[i] = timeMeasurement;
+    
   }
 
 }
