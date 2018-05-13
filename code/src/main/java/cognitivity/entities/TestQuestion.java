@@ -14,7 +14,7 @@ public class TestQuestion extends AbstractEntity {
     @Column(name = "question", nullable = false)
     private String question;
 
-    @Column(name = "pictureLink", nullable = false)
+    @Column(name = "pictureLink")
     private String pictureLink;
 
     @ManyToOne
