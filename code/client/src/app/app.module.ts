@@ -20,6 +20,10 @@ import { MyDatePickerModule } from 'mydatepicker';
 import { BlockComponent } from './components/block/block.component';
 import { QuestionComponent } from './components/question/question.component';
 import { TestPageBlockComponent } from './components/test-page/block/block.component';
+import { TestPageOpenQuestionComponent } from './components/test-page/open-question/open-question.component';
+import { TestPageDrillDownQuestionComponent } from './components/test-page/drill-down-question/drill-down-question.component';
+import { TestPageRateQuestionComponent } from './components/test-page/rate-question/rate-question.component';
+import { TestPageMultipleChoiceQuestionComponent } from './components/test-page/multiple-choice-question/multiple-choice-question.component';
 import { TestPageQuestionComponent } from './components/test-page/question/question.component';
 /* Services */
 import { TestManagerService, TestAnswerService, TestService, SubjectService, QuestionService } from './services/database-service';
@@ -99,7 +103,11 @@ const PROVIDED_SERVICES = [
     ResultsPageComponent,
     TestPageComponent,
     TestPageBlockComponent,
-    TestPageQuestionComponent
+    TestPageQuestionComponent,
+    TestPageDrillDownQuestionComponent,
+    TestPageMultipleChoiceQuestionComponent,
+    TestPageOpenQuestionComponent,
+    TestPageRateQuestionComponent
   ],
   imports: [
     BrowserModule,

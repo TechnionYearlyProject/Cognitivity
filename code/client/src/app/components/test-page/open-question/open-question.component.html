@@ -1,0 +1,38 @@
+
+<br>
+<div *ngIf = "isUp()">
+        <h2 [ngClass] = "positionUp" style="max-width: 100%;word-wrap:break-word;">{{question.questionText }}</h2>
+</div>
+<br>
+<br>
+<br>
+    <div class="container">
+      <input autocomplete="off" class="form-control" questionType="text" name="answer"
+             placeholder="Enter your answer here" [(ngModel)]="currentAnswer" id="#textBox">
+
+    </div>
+<br>
+<br>
+<div *ngIf = "isButtom()">
+        <h2 [ngClass] = "positionButtom" style="max-width: 100%;word-wrap:break-word;">{{question.questionText }}</h2>
+</div>
+<div *ngIf = "true"> <!-- when adding to all of the questions the confidence bar property, change the 'true to' question.showConfidenceBar -->
+<div class="container">
+    <h4>How confident you feel in your answer, in precentage?</h4>
+</div>
+
+<div style="text-align: center;">
+    <div id="slidecontainer">
+      <input questionType="range" min="0" max="100" value="50" class="slider centered" id="myRange"
+             [(ngModel)]="range_value">
+    </div>
+    <h6>{{ range_value }}%</h6>
+</div>
+</div>
+<br>
+
+
+
+
+
+

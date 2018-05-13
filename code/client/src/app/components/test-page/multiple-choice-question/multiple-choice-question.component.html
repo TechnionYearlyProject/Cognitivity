@@ -1,0 +1,77 @@
+<div *ngIf = "isUp()">
+  <h2 [ngClass] = "positionUp" style="max-width: 100%;word-wrap:break-word;">{{question.questionText }}</h2>
+</div>
+<div *ngIf = "isVertical()" class="row" style="margin:3em">
+  <div *ngIf = "isMiddleLeft()" style="margin: 1.5em;">
+      <h2 [ngClass] = "positionMiddle" style="max-width: 100%;word-wrap:break-word;">{{question.questionText }}</h2>
+  </div>
+  <div class="column">
+
+      <div  *ngFor="let answer of question.answers; let i = index;">
+          <div class="styled-input-container">
+              <div class="styled-input-single">
+                <input class="onoffswitch-checkbox" id="check-box-{{answer}}{{i}}" [checked]="markedAnswers[i]"
+                       name="isMarked" questionType="checkbox" (change)="markAnswer(i)" style="margin:0.5em">
+                  <label for="check-box-{{answer}}{{i}}" >{{ answer }}</label>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div *ngIf = "isMiddleRight()" style="margin: 1.5em;">
+          <h2 [ngClass] = "positionMiddle" style="max-width: 100%;word-wrap:break-word;">{{question.questionText }}</h2>
+  </div>
+</div>
+<div *ngIf = "isHorizontal()" class="row" style="margin: 100px 0px 0px 0px;">
+    <div *ngIf = "isMiddleLeft()" style="margin: 1.5em;">
+        <h2 [ngClass] = "positionMiddle" style="max-width: 100%;word-wrap:break-word;">{{question.questionText }}</h2>
+    </div>
+    <div  *ngFor="let answer of question.answers; let i = index;"  style="margin:3em">
+        <div class="styled-input-container">
+            <div class="styled-input-single">
+              <input class="onoffswitch-checkbox" id="check-box-{{answer}}{{i}}" [checked]="markedAnswers[i]"
+                     name="isMarked" questionType="checkbox" (change)="markAnswer(i)" style="margin:0.5em">
+                <label for="check-box-{{answer}}{{i}}">{{ answer }}</label>
+            </div>
+        </div>
+    </div>
+    <div *ngIf = "isMiddleRight()" style="margin: 1.5em;">
+            <h2 [ngClass] = "positionMiddle" style="max-width: 100%;word-wrap:break-word;">{{question.questionText }}</h2>
+    </div>
+</div>
+<div *ngIf="isMatrix()" class="row" style="margin: 10px;">
+    <div *ngIf = "isMiddleLeft()"  style="margin: 3em;">
+        <h2 [ngClass] = "positionMiddle" style="max-width: 100%;word-wrap:break-word;">{{question.questionText }}</h2>
+    </div>
+    <div  class="row" [ngClass]="centeringMatrix">
+        <div *ngFor="let currRow of matrixAnswers; let i = index"  style="margin:1em" class="column">
+          <div *ngFor=" let currAns of currRow; let j = index" style="margin: 1em;">
+                <div class="styled-input-container">
+                    <div class="styled-input-single">
+                      <input class="onoffswitch-checkbox" id="check-box-{{currAns}}{{i}}{{j}}"
+                             [checked]="markedAnswersMatrix[i][j]" name="isMarked" questionType="checkbox"
+                             (change)="markAnswer(i,j)" style="margin:3em">
+                        <label for="check-box-{{currAns}}{{i}}{{j}}">{{ currAns }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf = "isMiddleRight()"  style="margin: 3em;">
+        <h2 [ngClass] = "positionMiddle" style="max-width: 100%;word-wrap:break-word;">{{question.questionText }}</h2>
+    </div>
+</div>
+
+<div *ngIf = "isButtom()">
+        <h2 [ngClass] = "positionButtom" style="max-width: 100%;word-wrap:break-word;">{{question.questionText }}</h2>
+</div>
+<div *ngIf = "true"> <!-- when adding to all of the questions the confidence bar property, change the 'true to' question.showConfidenceBar -->
+<h4>How confident you feel in your answer, in precentage?</h4>
+<div style="text-align: center;">
+    <div id="slidecontainer">
+      <input questionType="range" min="0" max="100" value="50" class="slider centered" id="myRange"
+             [(ngModel)]="range_value">
+    </div>
+    <h6>{{ range_value }}%</h6>
+</div>
+</div>

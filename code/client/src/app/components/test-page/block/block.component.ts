@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Question, TimeMeasurment } from '../../../models/index';
+import { Question, TimeMeasurment, QuestionAnswer } from '../../../models/index';
 
 @Component({
   selector: 'app-test-page-block',
@@ -17,7 +17,7 @@ export class TestPageBlockComponent implements OnInit {
   //the current index of the question in block.
   currIndex: number;
 
-  timeMeasurments: TimeMeasurment[];
+  questionAnswers: QuestionAnswer[];
 
   //default constructor.
   constructor() { }
@@ -25,7 +25,7 @@ export class TestPageBlockComponent implements OnInit {
   
   ngOnInit() {
     this.currIndex = 0;
-    this.timeMeasurments = new Array<TimeMeasurment>(this.block.questions.length); //Init array for time measurements for each question.
+    this.questionAnswers = new Array<QuestionAnswer>(this.block.questions.length); //Init array for time measurements for each question.
   }
 
   /*
@@ -45,23 +45,25 @@ export class TestPageBlockComponent implements OnInit {
   if we did - it triggers an event to notify our caller that the preview of the block is done.
   */
   nextQuestion() {
-    // Insert Time measuring
+    // Insert Time measuring of last question
     this.currIndex++;
+    
     if (this.currIndex == this.block.questions.length) {
       this.finish = true;
       this.finished.emit(true);
     } else {
       this.finished.emit(false);
     }
+    // begin time measuring of next question
   }
 
   parseToQuestion(text: string): Question {
     return JSON.parse(text);
   }
 
-  onQuestionFinish(i: number, timeMeasurement: TimeMeasurment) {
-    // register time took.
-    this.timeMeasurments[i] = timeMeasurement;
+  onQuestionFinish(i: number, questionAnswer: QuestionAnswer) {
+    // register answer.
+    this.questionAnswers[i] = questionAnswer;
     
   }
 
