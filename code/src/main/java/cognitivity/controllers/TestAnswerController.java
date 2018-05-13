@@ -132,4 +132,20 @@ public class TestAnswerController extends AbstractRestController<TestAnswerServi
         }
     }
 
+
+    /**
+     * Method for returning all test answers for a sgiven test.
+     *
+     * @param testId - The given test id.
+     * @return - A list of all test answers for the given test.
+     */
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.GET, value = "/findAllTestAnswersForATest")
+    public List<TestAnswer> findAllTestAnswersForATest(
+            @RequestParam(value = "testId") long testId) throws DBException {
+        applicationInsights.trackEvent("FindTestAnswersBySubjectId");
+        return service.findAllTestAnswersForATest(testId);
+    }
+
 }

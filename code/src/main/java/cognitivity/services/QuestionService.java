@@ -50,10 +50,10 @@ public class QuestionService {
     public TestQuestion createTestQuestion(TestQuestion q) throws DBException {
         try {
             dao.add(q);
-            logger.info("Successfully added TestQuestion. TestQuestionId = " + q.getId());
+            logger.info("Successfully added TestQuestion. TestQuestionId: " + q.getId());
             return q;
         } catch (org.hibernate.HibernateException e) {
-            logger.error(e.getMessage());
+            logger.error("Failed to add a test question. TestQuestionId: "+q.getId(),e);
             throw new DBException(ErrorType.SAVE, q.getId());
         } catch (Exception e) {
             e.printStackTrace();
@@ -71,9 +71,9 @@ public class QuestionService {
     public void updateTestQuestion(TestQuestion q) throws DBException {
         try {
             dao.update(q);
-            logger.info("Successfully updated TestQuestion. TestQuestionId = " + q.getId());
+            logger.info("Successfully updated TestQuestion. TestQuestionId: " + q.getId());
         } catch (org.hibernate.HibernateException e) {
-            logger.error(e.getMessage());
+            logger.error("Failed to update a test question. TestQuestionId: "+q.getId(),e);
             throw new DBException(ErrorType.UPDATE, q.getId());
         }
     }
@@ -92,9 +92,9 @@ public class QuestionService {
     public void deleteTestQuestion(long questionId) throws DBException {
         try {
             dao.delete(questionId);
-            logger.info("Successfully deleted TestQuestion. TestQuestionId = " + questionId);
+            logger.info("Successfully deleted TestQuestion. TestQuestionId: " + questionId);
         } catch (org.hibernate.HibernateException e) {
-            logger.error(e.getMessage());
+            logger.error("Failed to delete a test question. TestQuestionId: "+questionId,e);
             throw new DBException(ErrorType.DELETE, questionId);
         }
     }
@@ -107,9 +107,11 @@ public class QuestionService {
      */
     public TestQuestion findQuestionById(long id)throws DBException {
         try{
-            return dao.get(id);
+            TestQuestion toReturn = dao.get(id);
+            logger.info("Successfully found a TestQuestion. TestQuestionId: " + id);
+            return toReturn;
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
+            logger.error("Failed to find a test question. TestQuestionId: "+id,e);
             throw new DBException(ErrorType.GET, id);
         }
     }
@@ -122,9 +124,11 @@ public class QuestionService {
      */
     public List<TestAnswer> getTestAnswers(long questionId)throws DBException {
         try {
-            return answerDao.getQuestionAnswers(questionId);
+            List<TestAnswer> toReturn = answerDao.getQuestionAnswers(questionId);
+            logger.info("Successfully found test answers a TestQuestion. TestQuestionId: " + questionId);
+            return toReturn;
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
+            logger.error("Failed to find test answers for a test question. TestQuestionId: "+questionId,e);
             throw new DBException(ErrorType.GET, questionId);
         }
     }
@@ -137,9 +141,11 @@ public class QuestionService {
      */
     public List<TestQuestion> findAllTestQuestionsFromTestId(long testId)throws DBException {
         try{
-            return testDao.getTestQuestions(testId);
+            List<TestQuestion> toReturn = testDao.getTestQuestions(testId);
+            logger.info("Successfully found all test questions from test ID. Test ID: " + testId);
+            return toReturn;
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
+            logger.error("Failed to find all test questions from test ID. Test ID: "+testId,e);
             throw new DBException(ErrorType.GET, testId);
         }
     }
@@ -153,9 +159,11 @@ public class QuestionService {
     public List<TestQuestion> findAllTestQuestionsFromManagerId(long managerId)throws DBException {
         try{
             TestManager testManager = managerDao.get(managerId);
-            return dao.getTestQuestionsFromAManager(testManager);
+            List<TestQuestion> toReturn = dao.getTestQuestionsFromAManager(testManager);
+            logger.info("Successfully found all test questions from test manager ID. Test manager ID: " + managerId);
+            return toReturn;
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
+            logger.error("Failed to find all test questions from test manager ID. Test manager ID: "+managerId,e);
             throw new DBException(ErrorType.GET, managerId);
         }
     }
@@ -168,9 +176,11 @@ public class QuestionService {
      */
     public String findPictureLinkPerQuestion(long questionId) throws DBException{
         try {
-            return dao.findPictureLinkPerQuestion(questionId);
+            String toReturn = dao.findPictureLinkPerQuestion(questionId);
+            logger.info("Successfully found picture link for a picture. Test question ID: " + questionId);
+            return toReturn;
         } catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
+            logger.error("Failed to find picture link for a picture. Test question ID: "+questionId,e);
             throw new DBException(ErrorType.GET, questionId);
         }
     }

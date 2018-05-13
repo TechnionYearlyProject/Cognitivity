@@ -6,6 +6,7 @@ import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestManager;
 import cognitivity.exceptions.DBException;
 import cognitivity.exceptions.ErrorType;
+import cognitivity.services.fileLoader.Test;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,11 +46,11 @@ public class TestManagerService {
     public TestManager createTestManager(TestManager testManager) throws DBException {
         try {
             dao.add(testManager);
-            logger.info("Successfully added TestManager. TestManagerId = " + testManager.getId());
+            logger.info("Successfully added TestManager. TestManagerID: " + testManager.getId());
             return testManager;
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
-            throw new DBException(ErrorType.UPDATE, testManager.getId());
+            logger.error("Failed to add TestManager. TestManagerID: " +testManager.getId(),e);
+            throw new DBException(ErrorType.SAVE, testManager.getId());
         }
     }
 
@@ -63,9 +64,9 @@ public class TestManagerService {
     public void updateTestManager(TestManager testManager)throws DBException {
         try{
             dao.update(testManager);
-            logger.info("Successfully updated TestManager. TestManagerId = " + testManager.getId());
+            logger.info("Successfully updated TestManager. TestManagerID: " + testManager.getId());
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
+            logger.error("Failed to update TestManager. TestManagerID: " + testManager.getId(),e);
             throw new DBException(ErrorType.UPDATE, testManager.getId());
         }
     }
@@ -80,10 +81,10 @@ public class TestManagerService {
     public void deleteTestManager(long testManagerId)throws DBException {
         try{
             dao.delete(testManagerId);
-            logger.info("Successfully deleted TestManager. TestManagerId = " + testManagerId);
+            logger.info("Successfully deleted TestManager. TestManagerID: " + testManagerId);
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
-            throw new DBException(ErrorType.UPDATE, testManagerId);
+            logger.error("Failed to delete TestManager. TestManagerID: " + testManagerId,e);
+            throw new DBException(ErrorType.DELETE, testManagerId);
         }
     }
 
@@ -96,9 +97,11 @@ public class TestManagerService {
      */
     public TestManager findTestManager(long testManagerId)throws DBException {
         try {
-            return dao.get(testManagerId);
+            TestManager toReturn = dao.get(testManagerId);
+            logger.info("Successfully found TestManager. TestManagerID: " + testManagerId);
+            return toReturn;
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
+            logger.error("Failed to find TestManager. TestManagerID: " + testManagerId,e);
             throw new DBException(ErrorType.GET, testManagerId);
         }
     }
@@ -114,18 +117,22 @@ public class TestManagerService {
         try {
             CognitiveTest test = testDao.get(testId);
             long managerId = test.getManager().getId();
-            return dao.get(managerId);
+            TestManager toReturn = dao.get(managerId);
+            logger.info("Successfully found Test manager by test ID. TestID: " + testId);
+            return toReturn;
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
+            logger.error("Failed to find Test manager by test ID. TestID: " + testId,e);
             throw new DBException(ErrorType.GET, testId);
         }
     }
 
     public long getManagerIdByEmail(String email)throws DBException {
         try {
-            return dao.getIdFromEmail(email);
+            long toReturn = dao.getIdFromEmail(email);
+            logger.info("Successfully found Test manager by email. Email: " + email);
+            return toReturn;
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
+            logger.error("Failed to find Test manager by email. Email: " + email,e);
             throw new DBException(ErrorType.GET, null);
         }
     }
@@ -139,9 +146,11 @@ public class TestManagerService {
      */
     public List<CognitiveTest> findTestsForTestManager(long managerId)throws DBException {
         try {
-            return testDao.getCognitiveTestOfManager(managerId);
+            List<CognitiveTest> toReturn = testDao.getCognitiveTestOfManager(managerId);
+            logger.info("Successfully found Tests for test manager. TestManagerID: " + managerId);
+            return toReturn;
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
+            logger.error("Failed to find Tests for test manager. TestManagerID: " + managerId,e);
             throw new DBException(ErrorType.GET, managerId);
         }
     }

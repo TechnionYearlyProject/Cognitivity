@@ -54,4 +54,8 @@ public class TestAnswerDAOimpl extends AbstractDAO<TestAnswer> implements TestAn
         query.setParameter("testId", testId);
         return query.getResultList();
     }
+
+    public List<TestAnswer> findAllTestAnswersForATest(long testID){
+        return null;
+    }
 }

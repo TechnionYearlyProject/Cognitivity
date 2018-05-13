@@ -40,12 +40,12 @@ public class TestSubjectService {
     public TestSubject createTestSubject(TestSubject testSubject)throws DBException {
         try {
             dao.add(testSubject);
-            logger.info("Successfully added TestSubject. TestSubjectId = "
+            logger.info("Successfully added TestSubject. TestSubjectID: "
                     + testSubject.getId());
             return testSubject;
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
-            throw new DBException(ErrorType.UPDATE,testSubject.getId());
+            logger.error("Failed to add TestSubject. TestSubjectID: " + testSubject.getId(),e);
+            throw new DBException(ErrorType.SAVE,testSubject.getId());
         }
     }
 
@@ -59,10 +59,10 @@ public class TestSubjectService {
     public void updateTestSubject(TestSubject testSubject)throws DBException {
         try {
             dao.update(testSubject);
-            logger.info("Successfully updated TestSubject. TestSubjectId = "
+            logger.info("Successfully updated TestSubject. TestSubjectID: "
                     + testSubject.getId());
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
+            logger.error("Failed to update TestSubject. TestSubjectID: " + testSubject.getId(),e);
             throw new DBException(ErrorType.UPDATE,testSubject.getId());
         }
     }
@@ -77,10 +77,10 @@ public class TestSubjectService {
     public void deleteTestSubject(long testSubjectId)throws DBException {
         try {
             dao.delete(testSubjectId);
-            logger.info("Successfully deleted TestSubject. TestSubjectId = "
+            logger.info("Successfully deleted TestSubject. TestSubjectID: "
                     + testSubjectId);
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
+            logger.error("Failed to delete TestSubject. TestSubjectID: " + testSubjectId,e);
             throw new DBException(ErrorType.UPDATE, testSubjectId);
         }
     }
@@ -94,9 +94,12 @@ public class TestSubjectService {
      */
     public TestSubject findTestSubject(long testSubjectId)throws DBException {
         try{
-            return dao.get(testSubjectId);
+            TestSubject toReturn = dao.get(testSubjectId);
+            logger.info("Successfully found TestSubject. TestSubjectID: "
+                    + testSubjectId);
+            return toReturn;
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
+            logger.error("Failed to find TestSubject. TestSubjectID: " + testSubjectId,e);
             throw new DBException(ErrorType.GET, testSubjectId);
         }
     }
@@ -109,9 +112,13 @@ public class TestSubjectService {
      */
     public List<TestAnswer> findAllTestSubjectAnswers(long subjectId)throws DBException{
         try{
-            return dao.getSubjectAnswers(subjectId);
+            List<TestAnswer> toReturn = dao.getSubjectAnswers(subjectId);
+            logger.info("Successfully found all TestSubjects' answers. TestSubjectID: "
+                    + subjectId);
+            return toReturn;
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
+            logger.error("Failed to find all TestSubjects' answers. TestSubjectID: "
+                    + subjectId,e);
             throw new DBException(ErrorType.GET, subjectId);
         }
     }
@@ -125,9 +132,13 @@ public class TestSubjectService {
      */
     public List<TestSubject> findTestSubjectsWhoParticipatedInTest(long testId)throws DBException{
         try{
-            return dao.getTestSubjectsWhoParticipatedInTest(testId);
+            List<TestSubject> toReturn = dao.getTestSubjectsWhoParticipatedInTest(testId);
+            logger.info("Successfully found all TestSubjects who participated in a test. TestID: "
+                    + testId);
+            return toReturn;
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
+            logger.error("Failed to find all TestSubjects who participated in a test. TestID: "
+                    + testId,e);
             throw new DBException(ErrorType.GET, testId);
         }
     }

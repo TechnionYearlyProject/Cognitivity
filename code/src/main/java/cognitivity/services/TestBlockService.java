@@ -44,11 +44,11 @@ public class TestBlockService {
         try {
             BlockWrapper res = new BlockWrapper(numberOfQuestions, randomize, tag, test);
             dao.add(res.innerBlock(test.getId()));
-            logger.info("Successfully added TestBlock. TestBlockId = " + res.getId());
+            logger.info("Successfully added TestBlock. TestBlockID: " + res.getId());
             return res;
         } catch (org.hibernate.HibernateException e) {
-            logger.info(e.getMessage());
-            throw new DBException(ErrorType.UPDATE, test.getId());
+            logger.info("Failed to add TestBlock.",e);
+            throw new DBException(ErrorType.SAVE, test.getId());
         }
     }
 
@@ -72,21 +72,25 @@ public class TestBlockService {
     public void updateTestBlock(TestBlock block)throws DBException {
         try{
             dao.update(block);
+            logger.info("Successfully updated TestBlock. TestBlockID: " + block.getId());
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
+            logger.error("Failed to update a TestBlock. TestBlockID: " + block.getId(),e);
             throw new DBException(ErrorType.UPDATE, block.getId());
         }
     }
 
     /**
-     * @param blockId
-     * @return
+     * Return all block questions for a specific block.
+     * @param blockId - The Id of the block.
+     * @return - A list of all the questions in the block.
      */
     public List<TestQuestion> findAllBlockQuestions(long blockId)throws DBException {
         try{
-            return dao.getAllBlockQuestions(blockId);
+            List<TestQuestion> toReturn = dao.getAllBlockQuestions(blockId);
+            logger.info("Successfully got all questions from a TestBlock. TestBlockID: " + blockId);
+            return toReturn;
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
+            logger.error("Failed to get all questions from a TestBlock. TestBlockID: " + blockId,e);
             throw new DBException(ErrorType.GET, blockId);
         }
     }
@@ -99,10 +103,10 @@ public class TestBlockService {
     public void deleteTestBlock(long blockId) throws DBException {
         try {
             dao.delete(blockId);
-            logger.info("Successfully deleted TestBlock. TestBlockId = " + blockId);
+            logger.info("Successfully deleted TestBlock. TestBlockID: " + blockId);
         } catch (org.hibernate.HibernateException e) {
-            logger.error(e.getMessage());
-            throw new DBException(ErrorType.UPDATE, blockId);
+            logger.error("Failed to delete a TestBlock. TestBlockID: " + blockId,e);
+            throw new DBException(ErrorType.DELETE, blockId);
         }
     }
 }

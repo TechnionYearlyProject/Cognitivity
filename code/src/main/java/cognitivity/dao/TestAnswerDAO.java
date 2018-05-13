@@ -42,4 +42,12 @@ public interface TestAnswerDAO {
      * @return - A list of all test answers relating to the given test.
      */
     public List<TestAnswer> getTestAnswers(long testId);
+
+    /**
+     * Get all answers from all test subjects for a given test.
+     *
+     * @param testID - The given test ID.
+     * @return - A list of all answers from all test subjects to the given test.
+     */
+    public List<TestAnswer> findAllTestAnswersForATest(long testID);
 }

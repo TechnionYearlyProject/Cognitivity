@@ -39,10 +39,10 @@ public class TestAnswerService {
     public TestAnswer addTestAnswerForTestQuestion(TestAnswer answer) throws DBException {
         try {
             dao.add(answer);
-            logger.info("Successfully added TestAnswer. TestAnswerId = " + answer.getId());
+            logger.info("Successfully added TestAnswer. TestAnswerId: " + answer.getId());
             return answer;
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
+            logger.error("Failed to add testAnswer. TestAnswerID: "+answer.getId(),e);
             throw new DBException(ErrorType.SAVE, answer.getId());
         }
     }
@@ -57,9 +57,9 @@ public class TestAnswerService {
     public void updateTestAnswerForQuestion(TestAnswer answer) throws DBException {
         try {
             dao.update(answer);
-            logger.info("Successfully updated TestAnswer. TestAnswerId = " + answer.getId());
+            logger.info("Successfully updated TestAnswer. TestAnswerID: " + answer.getId());
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
+            logger.error("Failed to update testAnswer. TestAnswerID: "+answer.getId(),e);
             throw new DBException(ErrorType.UPDATE, answer.getId());
         }
     }
@@ -74,9 +74,9 @@ public class TestAnswerService {
     public void deleteTestAnswerForQuestion(long id) throws DBException {
         try {
             dao.delete(id);
-            logger.info("Successfully deleted TestAnswer. TestAnswerId = " + id);
+            logger.info("Successfully deleted TestAnswer. TestAnswerID: " + id);
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
+            logger.error("Failed to delete testAnswer. TestAnswerID: "+id,e);
             throw new DBException(ErrorType.UPDATE, id);
         }
     }
@@ -94,10 +94,10 @@ public class TestAnswerService {
             for (TestAnswer answer : answers) {
                 dao.delete(answer.getId());
             }
-            logger.info("Successfully deleted all test answers for TestQuestionId = "
+            logger.info("Successfully deleted all test answers for TestQuestionID: "
                     + questionId);
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
+            logger.error("Failed to delete all test answers for TestQuestionID: "+questionId,e);
             throw new DBException(ErrorType.UPDATE, questionId);
         }
     }
@@ -110,9 +110,12 @@ public class TestAnswerService {
      */
     public TestAnswer findTestAnswerById(long answerId)throws DBException {
         try{
-            return dao.get(answerId);
+            TestAnswer toReturn = dao.get(answerId);
+            logger.info("Successfully found a test answers by ID. TestAnswer ID: "
+                    + answerId);
+            return toReturn;
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
+            logger.error("Failed to find a test answers by ID. TestAnswer ID: "+answerId,e);
             throw new DBException(ErrorType.GET, answerId);
         }
     }
@@ -125,9 +128,12 @@ public class TestAnswerService {
      */
     public List<TestAnswer> findTestAnswersBySubject(long subjectId)throws DBException {
         try{
-            return subjectDao.getSubjectAnswers(subjectId);
+            List<TestAnswer> toReturn = subjectDao.getSubjectAnswers(subjectId);
+            logger.info("Successfully found test answers by subject. Test subject ID: "
+                    + subjectId);
+            return toReturn;
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
+            logger.error("Failed to find test answers by subject. Test subject ID: "+subjectId,e);
             throw new DBException(ErrorType.GET, subjectId);
         }
     }
@@ -141,9 +147,13 @@ public class TestAnswerService {
      */
     public List<TestAnswer> findTestAnswersBySubjectInTest(long subjectId, long testId) throws DBException{
         try{
-            return dao.getTestSubjectAnswersInTest(subjectId, testId);
+            List<TestAnswer> toReturn = dao.getTestSubjectAnswersInTest(subjectId, testId);
+            logger.info("Successfully found test answers by subject in test. Test subject ID: "
+                    + subjectId+". Test ID: " + testId);
+            return toReturn;
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
+            logger.error("Failed to find test answers by subject in test. Test subject ID: "
+                    + subjectId+". Test ID: " + testId,e);
             throw new DBException(ErrorType.GET, testId);
         }
     }
@@ -156,10 +166,33 @@ public class TestAnswerService {
      */
     public List<TestAnswer> findAllTestAnswerForAQuestion(long questionId)throws DBException {
         try{
-            return dao.getQuestionAnswers(questionId);
+            List<TestAnswer> toReturn = dao.getQuestionAnswers(questionId);
+            logger.info("Successfully found all test answers for a question. Test question ID: "
+                    + questionId);
+            return toReturn;
         }catch (org.hibernate.HibernateException e){
-            logger.error(e.getMessage());
+            logger.error("Failed to find all test answers for a question. Test question ID: "
+                    + questionId,e);
             throw new DBException(ErrorType.GET, questionId);
+        }
+    }
+
+    /**
+     * Get all answers from all test subjects for a given test.
+     *
+     * @param testID - The given test ID.
+     * @return - A list of all answers from all test subjects to the given test.
+     */
+    public List<TestAnswer> findAllTestAnswersForATest(long testID) throws DBException{
+        try{
+            List<TestAnswer> toReturn = dao.findAllTestAnswersForATest(testID);
+            logger.info("Successfully found all test answers for a test. Test ID: "
+                    + testID);
+            return toReturn;
+        }catch (org.hibernate.HibernateException e){
+            logger.error("Failed to find all test answers for a test. Test ID: "
+                    + testID,e);
+            throw new DBException(ErrorType.GET, testID);
         }
     }
 }
