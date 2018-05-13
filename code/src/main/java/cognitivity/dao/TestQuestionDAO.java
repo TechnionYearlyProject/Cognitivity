@@ -30,9 +30,9 @@ public interface TestQuestionDAO {
     /**
      * Get the link to the picture of the given question.
      *
-     * @param questionID - the id of the given question
+     * @param questionId - the id of the given question
      * @return - The link to the picture
      */
-    public String findPictureLinkPerQuestion(long questionID);
+    public String findPictureLinkPerQuestion(long questionId);
 
 }

@@ -33,6 +33,13 @@ public interface TestAnswerDAO {
      * @param questionId - The question Id whose answers we are looking for.
      * @return - A list of all test answers relating to the given question.
      */
-    public List<TestAnswer> getTestAnswers(long questionId);
+    public List<TestAnswer> getQuestionAnswers(long questionId);
 
+    /**
+     * Get all the answers for the given test.
+     *
+     * @param testId - The test Id whose answers we are looking for.
+     * @return - A list of all test answers relating to the given test.
+     */
+    public List<TestAnswer> getTestAnswers(long testId);
 }

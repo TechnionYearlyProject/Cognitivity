@@ -38,7 +38,12 @@ public class TestQuestionDAOimpl extends AbstractDAO<TestQuestion> implements Te
     }
 
     @Transactional(readOnly = true)
-    public String findPictureLinkPerQuestion(long questionID){
-        return null;
+    public String findPictureLinkPerQuestion(long questionId){
+        Session session = sessionFactory.getCurrentSession();
+        String queryString = "from TestQuestion where id = :questionId";
+        Query<TestQuestion> query = session.createQuery(queryString, TestQuestion.class);
+        query.setParameter("questionId", questionId);
+        TestQuestion question = query.getSingleResult();
+        return question.getPictureLink();
     }
 }

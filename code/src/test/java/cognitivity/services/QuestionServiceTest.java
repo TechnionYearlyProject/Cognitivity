@@ -184,7 +184,7 @@ public class QuestionServiceTest {
         answers.add(answer2);
         answers.add(answer3);
 
-        doReturn(answers).when(answerDao).getTestAnswers(1);
+        doReturn(answers).when(answerDao).getQuestionAnswers(1);
         List<TestAnswer> res = service.getTestAnswers(1);
         for (TestAnswer t : res) {
             assertTrue("Getting unrelated results while trying to get all the answers to the question", answers.contains(t));
@@ -231,10 +231,10 @@ public class QuestionServiceTest {
             assertTrue("Problem with handling with exception at findQuestionById",false);
         }catch (Exception e){}
 
-        doThrow(new org.hibernate.HibernateException("")).when(answerDao).getTestAnswers(7L);
+        doThrow(new org.hibernate.HibernateException("")).when(answerDao).getQuestionAnswers(7L);
         try {
             service.getTestAnswers(7);
-            assertTrue("Problem with handling with exception at getTestAnswers",false);
+            assertTrue("Problem with handling with exception at getQuestionAnswers",false);
         }catch (Exception e){}
 
         doThrow(new org.hibernate.HibernateException("")).when(cognitiveTestDAO).getTestQuestions(7L);

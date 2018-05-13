@@ -90,7 +90,7 @@ public class TestAnswerService {
      */
     public void deleteAllTestAnswersForQuestion(long questionId) throws DBException {
         try {
-            List<TestAnswer> answers = dao.getTestAnswers(questionId);
+            List<TestAnswer> answers = dao.getQuestionAnswers(questionId);
             for (TestAnswer answer : answers) {
                 dao.delete(answer.getId());
             }
@@ -156,7 +156,7 @@ public class TestAnswerService {
      */
     public List<TestAnswer> findAllTestAnswerForAQuestion(long questionId)throws DBException {
         try{
-            return dao.getTestAnswers(questionId);
+            return dao.getQuestionAnswers(questionId);
         }catch (org.hibernate.HibernateException e){
             logger.error(e.getMessage());
             throw new DBException(ErrorType.GET, questionId);

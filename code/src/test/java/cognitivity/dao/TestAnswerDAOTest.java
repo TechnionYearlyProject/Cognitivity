@@ -148,8 +148,8 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
     }
 
     /*
-     * checks the getTestAnswers function:
-     *     first, we check that there isn't an answers for the test
+     * checks the getQuestionAnswers function:
+     *     first, we check that there isn't an answers for the question
      *     next, we check that the list updates itself when we add an answer
      *     next, we check that the list updates when we add an answer of another subject
      *     next, we check that when we remove an answer the list returns without this answer
@@ -157,12 +157,12 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
      *
      */
     @Test
-    public void getTestAnswers() {
-        List<TestAnswer> answers = testAnswerDAO.getTestAnswers(testQuestion.getId());
+    public void getQuestionAnswers() {
+        List<TestAnswer> answers = testAnswerDAO.getQuestionAnswers(testQuestion.getId());
         assertTrue(answers.isEmpty());
 
         testAnswerDAO.add(testAnswer);
-        answers = testAnswerDAO.getTestAnswers(testQuestion.getId());
+        answers = testAnswerDAO.getQuestionAnswers(testQuestion.getId());
         assertTrue(answers.contains(testAnswer));
         assertTrue(answers.size() == 1);
 
@@ -171,20 +171,56 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
         testAnswer.setTestSubject(newTestSubject);
         testAnswer.setId(testAnswer.getId() + 1);
         testAnswerDAO.add(testAnswer);
-        answers = testAnswerDAO.getTestAnswers(testQuestion.getId());
+        answers = testAnswerDAO.getQuestionAnswers(testQuestion.getId());
         assertTrue(answers.contains(testAnswer));
         assertTrue(answers.size() == 2);
 
         testAnswerDAO.delete(testAnswer.getId());
-        answers = testAnswerDAO.getTestAnswers(testQuestion.getId());
+        answers = testAnswerDAO.getQuestionAnswers(testQuestion.getId());
         assertTrue(!answers.contains(testAnswer));
         assertTrue(answers.size() == 1);
 
         testAnswer.setTestSubject(testSubject);
         testAnswer.setId(testAnswer.getId() - 1);
         testAnswerDAO.delete(testAnswer.getId());
-        answers = testAnswerDAO.getTestAnswers(testQuestion.getId());
+        answers = testAnswerDAO.getQuestionAnswers(testQuestion.getId());
         assertTrue(answers.isEmpty());
     }
 
+
+    /*
+     * checks the getTestAnswers function:
+     *     first, we check that there isn't an answers for the test
+     *     next, we check that the list updates itself when we add an answer
+     *     next, we check that the list updates when we add an answer of another subject
+     *     next, we check that the list updates when we add an answer of another question
+     *     
+     */
+    @Test
+    public void getTestAnswers(){
+        List<TestAnswer> answers = testAnswerDAO.getQuestionAnswers(testQuestion.getId());
+        assertTrue(answers.isEmpty());
+
+        testAnswerDAO.add(testAnswer);
+        answers = testAnswerDAO.getTestAnswers(cognitiveTest.getId());
+        assertTrue(answers.size() == 1);
+
+        TestSubject newTestSubject = new TestSubject("anotherName", "-1", "fireFox");
+        testSubjectDAO.add(newTestSubject);
+        testAnswer.setTestSubject(newTestSubject);
+        testAnswer.setId(testAnswer.getId() + 1);
+        testAnswerDAO.add(testAnswer);
+        answers = testAnswerDAO.getTestAnswers(cognitiveTest.getId());
+        assertTrue(answers.size() == 2);
+
+        testQuestion.setId(testQuestion.getId() + 1);
+        testQuestionDAO.add(testQuestion);
+
+        testAnswer.setId(testAnswer.getId() + 1);
+        testAnswer.setQuestion(testQuestion);
+        testAnswerDAO.add(testAnswer);
+        answers = testAnswerDAO.getTestAnswers(cognitiveTest.getId());
+        assertTrue(answers.size() == 3);
+
+    }
 }

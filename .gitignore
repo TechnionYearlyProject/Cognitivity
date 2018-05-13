@@ -15,6 +15,7 @@ target/
 src/main/webapp/META-INF
 .idea
 *.iml
-
+code/node_modules/
+code/client/node_modules/
 
 code/src/main/java/cognitivity/controllers/GetItControllerForTesting

@@ -122,7 +122,7 @@ public class QuestionService {
      */
     public List<TestAnswer> getTestAnswers(long questionId)throws DBException {
         try {
-            return answerDao.getTestAnswers(questionId);
+            return answerDao.getQuestionAnswers(questionId);
         }catch (org.hibernate.HibernateException e){
             logger.error(e.getMessage());
             throw new DBException(ErrorType.GET, questionId);
@@ -163,15 +163,15 @@ public class QuestionService {
     /**
      * Method for getting a picture link from a specific question
      *
-     * @param questionID - id of the question whose picture we are looking for
+     * @param questionId - id of the question whose picture we are looking for
      * @return - The link to the picture.
      */
-    public String findPictureLinkPerQuestion(long questionID) throws DBException{
+    public String findPictureLinkPerQuestion(long questionId) throws DBException{
         try {
-            return dao.findPictureLinkPerQuestion(questionID);
+            return dao.findPictureLinkPerQuestion(questionId);
         } catch (org.hibernate.HibernateException e){
             logger.error(e.getMessage());
-            throw new DBException(ErrorType.GET, questionID);
+            throw new DBException(ErrorType.GET, questionId);
         }
     }
 

@@ -118,4 +118,15 @@ public class TestQuestionDAOTest extends AbstractDaoTestClass {
                 testQuestionDAO.getTestQuestionsFromAManager(testManager).isEmpty());
         testManagerDAO.delete(otherTestManager.getId());
     }
+
+    /*
+     * This test will check findPictureLinkPerQuestion functionality:
+     *
+     *  - we check that the picture link of the image identical to the link we saved
+     *
+     */
+    public void findPictureLinkPerQuestion(){
+        String picLink = testQuestionDAO.findPictureLinkPerQuestion(testQuestion.getId());
+        assertTrue("Wrong picture link", picLink.equals(testQuestion.getPictureLink()));
+    }
 }

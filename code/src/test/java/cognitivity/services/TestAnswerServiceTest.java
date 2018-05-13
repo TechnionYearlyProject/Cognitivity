@@ -129,7 +129,7 @@ public class TestAnswerServiceTest {
         answers.add(answer2);
         answers.add(answer1);
 
-        doReturn(answers).when(dao).getTestAnswers(1);
+        doReturn(answers).when(dao).getQuestionAnswers(1);
         List<TestAnswer> answerList = service.findAllTestAnswerForAQuestion(1);
         for (TestAnswer t : answerList) {
             assertTrue("Getting unrelated answers while trying to get all answers for a specific question", answers.contains(t));
@@ -193,7 +193,7 @@ public class TestAnswerServiceTest {
             service.updateTestAnswerForQuestion(new TestAnswer());
             assertTrue("Problem with handling with exception at update",false);
         }catch (Exception e){}
-        doThrow(new org.hibernate.HibernateException("")).when(dao).getTestAnswers(7);
+        doThrow(new org.hibernate.HibernateException("")).when(dao).getQuestionAnswers(7);
         try {
             service.deleteAllTestAnswersForQuestion(7);
             assertTrue("Problem with handling with exception at delete",false);
@@ -222,7 +222,7 @@ public class TestAnswerServiceTest {
             assertTrue("Problem with handling with exception at findTestAnswersBySubjectInTest",false);
         }catch (Exception e){}
 
-        doThrow(new org.hibernate.HibernateException("")).when(dao).getTestAnswers(7L);
+        doThrow(new org.hibernate.HibernateException("")).when(dao).getQuestionAnswers(7L);
         try {
             service.findAllTestAnswerForAQuestion(7);
             assertTrue("Problem with handling with exception at findAllTestAnswerForAQuestion",false);

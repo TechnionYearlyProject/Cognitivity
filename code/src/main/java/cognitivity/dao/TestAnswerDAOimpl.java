@@ -38,11 +38,20 @@ public class TestAnswerDAOimpl extends AbstractDAO<TestAnswer> implements TestAn
     }
 
     @Transactional(readOnly = true)
-    public List<TestAnswer> getTestAnswers(long questionId) {
+    public List<TestAnswer> getQuestionAnswers(long questionId) {
         Session session = sessionFactory.getCurrentSession();
         String queryString = "from TestAnswer T where T.question.id = :questionId";
         Query<TestAnswer> query = session.createQuery(queryString, TestAnswer.class);
         query.setParameter("questionId", questionId);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<TestAnswer> getTestAnswers(long testId) {
+        Session session = sessionFactory.getCurrentSession();
+        String queryString = "from TestAnswer T where T.cognitiveTest.id = :testId";
+        Query<TestAnswer> query = session.createQuery(queryString, TestAnswer.class);
+        query.setParameter("testId", testId);
         return query.getResultList();
     }
 }
