@@ -161,7 +161,7 @@ export class oneQuestionToRuleThemAll implements OnInit{
   }
 
   get_questionDB_ins_question_type():number{
-    return this.questionInDB_instance.questionType;
+    return this.questionInDB_instance.type;
   }
 
   get_questionDB_ins_answer():string{
@@ -202,7 +202,7 @@ export class oneQuestionToRuleThemAll implements OnInit{
   }
 
   set_questionDB_ins_question_type(newType:number):void{
-    this.questionInDB_instance.questionType = newType;
+    this.questionInDB_instance.type = newType;
   }
 
   set_questionDB_ins_answer(newAns:string):void{

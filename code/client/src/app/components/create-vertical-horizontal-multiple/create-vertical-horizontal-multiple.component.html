@@ -37,7 +37,7 @@
                                       <span style="font-family:Arial; font-size: 25px; color: white;">Enter an answer for the question:</span>
                                   </label>
                             <input autocomplete="off" [(ngModel)]="answerTextForMultiple" name="answerMutiple"
-                                   #answerMultiple="ngModel" questionType="text"
+                                   #answerMultiple="ngModel" type="text"
                                    class="form-control" placeholder="Answer text" style="max-width: 100%;" maxLength="50">
                                   <button class="btn btn-primary" style="margin:1em 0em;" (click)="addAnswer()">
                                       <span class="fa fa-plus"></span> Add answer</button>
@@ -53,7 +53,7 @@
                                       <span style="font-family:Arial; font-size: 25px; color: white">Edit your answer: </span>
                                   </label>
                                 <input autocomplete="off" [(ngModel)]="answerTextForMultiple" name="answerMutiple"
-                                       #answerMultiple="ngModel" questionType="text"
+                                       #answerMultiple="ngModel" type="text"
                                        class="form-control" placeholder="Answer text" style="max-width: 100%;" maxLength="50">
                                   <button class="btn btn-primary" style="margin:1em 0em;" (click)="applyEdit()">
                                       <span class="fa fa-pencil"></span> Apply change</button>

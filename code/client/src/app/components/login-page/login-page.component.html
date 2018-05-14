@@ -8,7 +8,7 @@
         <form name="form"  #f="ngForm" (ngSubmit)="onSubmit(f)">
           <div class="form-group">
             <label for="email">Email:</label>
-            <input questionType="email" class="form-control" [(ngModel)]="user.email" #email="ngModel" name="email"
+            <input type="email" class="form-control" [(ngModel)]="user.email" #email="ngModel" name="email"
                    required autocomplete="off" minlength="4" [pattern]=REGEX_EMAIL_FORMAT_INPUT>
             <div *ngIf="email.errors?.required && email.touched || (noEmail && !email.touched)" class="alert">
               Please enter your email!
@@ -19,7 +19,7 @@
           </div>
           <div class="form-group">
             <label for="password">Password:</label>
-            <input questionType="password" class="form-control" [(ngModel)]="user.password" #password="ngModel"
+            <input type="password" class="form-control" [(ngModel)]="user.password" #password="ngModel"
                    name="password" required minlength="8" autocomplete="off" [pattern]="REGEX_PASSWORD_NO_SPACE">
             <div *ngIf="password.errors?.required && password.touched || (noPassword && !password.touched)" class="alert">
               Please enter your password!
@@ -33,7 +33,7 @@
           </div>
           <br>
           <br>
-          <input questionType="submit" class="btn btn-block btn-success btn-md" value="Login">
+          <input type="submit" class="btn btn-block btn-success btn-md" value="Login">
           <div *ngIf="!correctUser" class="alert">
             Wrong credentials, please check your email and password
           </div>

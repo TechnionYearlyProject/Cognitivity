@@ -13,9 +13,9 @@ import {OnInit} from "@angular/core/src/metadata/lifecycle_hooks";
     Matrix - The answers will be formed in a matrix structure
 */
 export enum TypeMultipleQuestion {
-  Vertical = 0x1,
-  Horizontal = 0x2,
-  Matrix = 0x3
+  Vertical = 0,
+  Horizontal,
+  Matrix 
 }
 
 /*
@@ -23,28 +23,28 @@ enum for the types of the questions.
 we allow - multiple choice , rate , open text , and drilldown types.
 */
 export enum TypeQuestion {
-  MultipleChoice = 0x1,
-  RateQuestion = 0x2,
-  OpenQuestion = 0x3,
-  DrillDownQuestion = 0x4
+  MultipleChoice = 0,
+  RateQuestion,
+  OpenQuestion,
+  DrillDownQuestion
 }
 //TypeQuestion.MyType Mark
-//Add at the enum above MyType to include the new questionType question
+//Add at the enum above MyType to include the new type question
 
 /*
 enum for all the different positions in the screen that we allow to choose for the question's
 text/answers.
 */
 export enum QuestionPosition {
-  UpperRight = 0x1,
-  UpperMiddle = 0x2,
-  UpperLeft = 0x3,
-  MiddleRight = 0x4,
-  MiddleMiddle = 0x5,
-  MiddleLeft = 0x6,
-  ButtomRight = 0x7,
-  ButtomMiddle = 0x8,
-  ButtomLeft = 0x9
+  UpperRight = 0,
+  UpperMiddle,
+  UpperLeft,
+  MiddleRight,
+  MiddleMiddle,
+  MiddleLeft,
+  ButtomRight,
+  ButtomMiddle,
+  ButtomLeft
 }
 
 
@@ -156,7 +156,7 @@ export interface DrillDownQuestion extends Question {
 }
 
 /*
- class to represent the sub question as part of the drill down question questionType.
+ class to represent the sub question as part of the drill down question type.
 */
 export class SecondaryQuestionObject{
     index: number;
@@ -170,7 +170,7 @@ export interface QuestionInDB {
     id?: number;
     question?: string;
     tag?: string;
-    questionType?: number;
+    type?: number;
     answer?: string;
     questionPosition?: number;
     /*fields for time performance measuring*/

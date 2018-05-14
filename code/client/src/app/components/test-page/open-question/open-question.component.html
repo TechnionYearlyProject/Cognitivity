@@ -7,7 +7,7 @@
 <br>
 <br>
     <div class="container">
-      <input autocomplete="off" class="form-control" questionType="text" name="answer"
+      <input autocomplete="off" class="form-control" type="text" name="answer"
              placeholder="Enter your answer here" [(ngModel)]="currentAnswer" id="#textBox">
 
     </div>
@@ -23,7 +23,7 @@
 
 <div style="text-align: center;">
     <div id="slidecontainer">
-      <input questionType="range" min="0" max="100" value="50" class="slider centered" id="myRange"
+      <input type="range" min="0" max="100" value="50" class="slider centered" id="myRange"
              [(ngModel)]="range_value">
     </div>
     <h6>{{ range_value }}%</h6>

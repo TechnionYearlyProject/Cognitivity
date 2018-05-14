@@ -19,7 +19,7 @@ export class TestPageComponent implements OnInit {
    //the current test's index in the tests list.
    currIndex: number;
    //variable to indicate if we should hide the following button in the creation.
-  hideNextButton: boolean = true;
+  hideNextButton: boolean /*= true*/;
   constructor(
     private route: ActivatedRoute,
     private router: Router,

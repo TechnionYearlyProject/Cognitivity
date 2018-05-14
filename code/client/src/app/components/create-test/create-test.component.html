@@ -1,6 +1,6 @@
 <br>
 <div class="container">
-  <input questionType="submit" class="btn btn-primary btn-sm" routerLink="/dashboard" value="Go to dashboard">
+  <input type="submit" class="btn btn-primary btn-sm" routerLink="/dashboard" value="Go to dashboard">
 </div>
 <div class="titleBoi">Cognitivity</div>
 <br>
@@ -11,7 +11,7 @@
             <span class="fa fa-sticky-note-o"></span> Create New Test</h1>
         <br><br><br>
         <h4>Enter title for the test: </h4>
-      <input [(ngModel)]="titleTest" name="title" #title="ngModel" questionType="text" class="form-control"
+      <input [(ngModel)]="titleTest" name="title" #title="ngModel" type="text" class="form-control"
              placeholder="Title of the test"
              style="max-width: 100%;" maxLength="50">
         <br>

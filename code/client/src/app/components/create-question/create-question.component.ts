@@ -51,11 +51,11 @@ export class CreateQuestionComponent implements OnInit {
 
   //The question that created and sent to the block component. Will be null in case the user exited the creation of the question before its completion
   question_object: any;
-  //String that describes the question questionType
+  //String that describes the question type
   type_question_desc: string = 'Question Types';
   //string that describes the question position
   positon_desc: string = 'Question Position';
-  //string that describes the multiple choice question questionType
+  //string that describes the multiple choice question type
   multiple_type: string = 'Answer Organization';
   /*
     Params:
@@ -91,10 +91,10 @@ export class CreateQuestionComponent implements OnInit {
     this.dialogRef.close();
   }
   /*
-   ----------- setters for the questionType of the created question
+   ----------- setters for the type of the created question
    */
   /*
-   Setting the questionType of the created question, to multiple choice question
+   Setting the type of the created question, to multiple choice question
   */
   setMultipleQuestion(){
     this.submit = false;
@@ -113,7 +113,7 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   /*
-   Setting the questionType of the created question, to rate question
+   Setting the type of the created question, to rate question
   */
   setRateQuestion(){
     this.submit = false;
@@ -130,9 +130,9 @@ export class CreateQuestionComponent implements OnInit {
     }
   }
 
-  //setMyQuestionType Method Mark
+  //setMytype Method Mark
   /*
-  *  setMyQuestionType(){
+  *  setMytype(){
     this.submit = false;
     this.typedMultipleAnswer = false;
     this.submitSecondaryQuestion = false;
@@ -148,7 +148,7 @@ export class CreateQuestionComponent implements OnInit {
   }
   */
   /*
-   Setting the questionType of the created question, to open question
+   Setting the type of the created question, to open question
   */
   setOpenQuestion(){
     this.submit = false;
@@ -166,7 +166,7 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   /*
-   Setting the questionType of the created question, to drill down question
+   Setting the type of the created question, to drill down question
   */
   setDrillDownQuestion(){
     this.submit = false;
@@ -183,7 +183,7 @@ export class CreateQuestionComponent implements OnInit {
     }
   }
   /*
-   Getters for the questionType of the question
+   Getters for the type of the question
   */
   didChoseMultipleQuestion() : boolean{
     return this.typeQuestion == TypeQuestion.MultipleChoice;
@@ -352,7 +352,7 @@ export class CreateQuestionComponent implements OnInit {
   */
 
   /*
-   Matrix questionType
+   Matrix type
   */
   setMatrixType(){
     this.submit = false;
@@ -370,7 +370,7 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   /*
-   Vertical questionType
+   Vertical type
   */
   setVerticalType(){
     this.submit = false;
@@ -388,7 +388,7 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   /*
-   Horizontal questionType
+   Horizontal type
   */
   setHorizontalType(){
     this.submit = false;
@@ -419,7 +419,7 @@ export class CreateQuestionComponent implements OnInit {
   onSubmit(){
     if(this.questionText != null){
      if(this.questionText != '' && !this.isSpacePrefix(this.questionText)){
-      if(this.didChoseQuestionType()){
+      if(this.didChosetype()){
 
         if(this.didChoseMultipleQuestion()){
           if(this.didChoseMultipleChoiceType() && this.didChoseQuestionPosition() ){
@@ -535,7 +535,7 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   /*
-   Constructing the matrix questionType of multiple choice question object
+   Constructing the matrix type of multiple choice question object
   */
   constructMatrixQuestion(){
     for(let i = 0; i < this.matrixQuestion.dimSize; i++){
@@ -580,9 +580,9 @@ export class CreateQuestionComponent implements OnInit {
     Control flow functions that checks if the user entered all the related information for creating a question
   */
   /*
-   Returns TRUE if the user have chosen questionType for his question, FALSE otherwise.
+   Returns TRUE if the user have chosen type for his question, FALSE otherwise.
   */
-  didChoseQuestionType():boolean {
+  didChosetype():boolean {
     return this.didChoseOpenQuestion() || this.didChoseRateQuestion() || this.didChoseMultipleQuestion() || this.didChoseDrillDownQuestion();
   }
   /*
@@ -596,8 +596,8 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   /*
-   Returns TRUE if the user entered a questionType for the multiple choice question,
-   in case he chose a multiple choice question questionType, FLASE otherwise
+   Returns TRUE if the user entered a type for the multiple choice question,
+   in case he chose a multiple choice question type, FLASE otherwise
   */
   didChoseMultipleChoiceType():boolean {
     return this.didChoseMatrixType() || this.didChoseVerticalType() || this.didChoseHorizontalType();
@@ -684,7 +684,7 @@ export class CreateQuestionComponent implements OnInit {
 
   }
   /*
-   Intializing the description of the questionType
+   Intializing the description of the type
   */
   initializeTypeString(){
       if(this.typeQuestion == TypeQuestion.DrillDownQuestion){
@@ -723,7 +723,7 @@ export class CreateQuestionComponent implements OnInit {
       }
   }
   /*
-   Intialize the questionType of the multiple choice question
+   Intialize the type of the multiple choice question
   */
   initializeMultipleString(){
       if(this.typeMultipleQuestion == TypeMultipleQuestion.Matrix){

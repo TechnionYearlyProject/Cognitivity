@@ -18,7 +18,7 @@
               <button *ngIf="!markedAnswersMatrix[i][j]" class="btn btn-sm btn-danger" style="color:white;margin: 0px 0px 3px 0px;" (click)="markAnswer(i,j)">Unmarked answer</button>
               <br>
               <input autocomplete="off" [(ngModel)]="matrixAnswers[i][j]" name="answerMutiple{{i}}{{j}}" #answerMultiple{{i}}{{j}}="ngModel"
-                     questionType="text" class="form-control" placeholder="Answer text" style="max-width: 100%;"
+                     type="text" class="form-control" placeholder="Answer text" style="max-width: 100%;"
                      maxLength="50">
           </div>
       </div>

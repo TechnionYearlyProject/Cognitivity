@@ -24,7 +24,7 @@ export class MultipleChoiceQuestionComponent implements OnInit {
   //the chosen organization of the question's answers
   answerOrganization: TypeMultipleQuestion;
   /*
-   ---------------------- special objects that are ment for multiple question of questionType matrix
+   ---------------------- special objects that are ment for multiple question of type matrix
   */
   markedAnswersMatrix?: Array<Array<boolean>>;
   dimMatrix?: number;
@@ -112,7 +112,7 @@ export class MultipleChoiceQuestionComponent implements OnInit {
   }
 
   /*
-   A function that marks the answer that the user marked. In case the questionType of the question is Horizontal or vartical the secondary index isn't needed.
+   A function that marks the answer that the user marked. In case the type of the question is Horizontal or vartical the secondary index isn't needed.
     The index specify which answer was marked. Due to the binding of this property it will affect the GUI.
   */
   markAnswer(main_index: number,secondary_index:number = -1){
@@ -138,7 +138,7 @@ export class MultipleChoiceQuestionComponent implements OnInit {
   }
 
   /*
-   ------------- Asking the questionType of the multiple question ------------------
+   ------------- Asking the type of the multiple question ------------------
   */
   isVertical(): boolean{
     return this.answerOrganization == TypeMultipleQuestion.Vertical;

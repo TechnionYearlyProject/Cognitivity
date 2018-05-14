@@ -196,7 +196,7 @@ export class EditTestComponent implements OnInit {
         {
           question: questionInBlock.question.questionText,
           questionPosition: questionInBlock.question.questionPosition,
-          questionType: questionInBlock.question.type,
+          type: questionInBlock.question.type,
           answer: JSON.stringify(questionInBlock.question)
         }
 

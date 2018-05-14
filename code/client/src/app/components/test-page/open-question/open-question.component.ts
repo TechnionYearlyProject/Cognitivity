@@ -6,7 +6,7 @@ import {QuestionPosition} from "../../../models";
   styleUrls: ['./open-question.component.css']
 })
 /*
- component to represent the open question questionType.
+ component to represent the open question type.
 */
 export class TestPageOpenQuestionComponent implements OnInit {
   //the question's data passed as input

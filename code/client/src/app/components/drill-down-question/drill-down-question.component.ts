@@ -6,7 +6,7 @@ import {Component, Input, OnInit} from "@angular/core";
 })
 
 /*
- The component for the Drill-down question questionType.
+ The component for the Drill-down question type.
 */
 export class DrillDownQuestionComponent implements OnInit {
   @Input() question: any;

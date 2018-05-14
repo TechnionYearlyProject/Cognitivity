@@ -8,7 +8,7 @@ import {stringify} from "@angular/core/src/util";
 })
 
 /*
- A component to represent the Rate question questionType.
+ A component to represent the Rate question type.
 */
 export class TestPageRateQuestionComponent implements OnInit {
   //the question's data is passed in as input.

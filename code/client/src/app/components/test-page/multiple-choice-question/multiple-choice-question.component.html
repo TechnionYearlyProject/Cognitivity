@@ -11,7 +11,7 @@
           <div class="styled-input-container">
               <div class="styled-input-single">
                 <input class="onoffswitch-checkbox" id="check-box-{{answer}}{{i}}" [checked]="markedAnswers[i]"
-                       name="isMarked" questionType="checkbox" (change)="markAnswer(i)" style="margin:0.5em">
+                       name="isMarked" type="checkbox" (change)="markAnswer(i)" style="margin:0.5em">
                   <label for="check-box-{{answer}}{{i}}" >{{ answer }}</label>
               </div>
           </div>
@@ -30,7 +30,7 @@
         <div class="styled-input-container">
             <div class="styled-input-single">
               <input class="onoffswitch-checkbox" id="check-box-{{answer}}{{i}}" [checked]="markedAnswers[i]"
-                     name="isMarked" questionType="checkbox" (change)="markAnswer(i)" style="margin:0.5em">
+                     name="isMarked" type="checkbox" (change)="markAnswer(i)" style="margin:0.5em">
                 <label for="check-box-{{answer}}{{i}}">{{ answer }}</label>
             </div>
         </div>
@@ -49,7 +49,7 @@
                 <div class="styled-input-container">
                     <div class="styled-input-single">
                       <input class="onoffswitch-checkbox" id="check-box-{{currAns}}{{i}}{{j}}"
-                             [checked]="markedAnswersMatrix[i][j]" name="isMarked" questionType="checkbox"
+                             [checked]="markedAnswersMatrix[i][j]" name="isMarked" type="checkbox"
                              (change)="markAnswer(i,j)" style="margin:3em">
                         <label for="check-box-{{currAns}}{{i}}{{j}}">{{ currAns }}</label>
                     </div>
@@ -69,7 +69,7 @@
 <h4>How confident you feel in your answer, in precentage?</h4>
 <div style="text-align: center;">
     <div id="slidecontainer">
-      <input questionType="range" min="0" max="100" value="50" class="slider centered" id="myRange"
+      <input type="range" min="0" max="100" value="50" class="slider centered" id="myRange"
              [(ngModel)]="range_value">
     </div>
     <h6>{{ range_value }}%</h6>

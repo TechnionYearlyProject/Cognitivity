@@ -4,7 +4,7 @@
 
 /*
   Usage example:
- At the constructor of the component, declare a variable of SessionService with the desired questionType (let's say Test).
+ At the constructor of the component, declare a variable of SessionService with the desired type (let's say Test).
     When routing from component A to component B and wishing to pass a Test object,
     at the click event of the button that does the routing, call this.sessionService.setData(test) where 'test' is the object.
     In component B, at ngOnInit, save the object returned from this.sessionService.getData() .

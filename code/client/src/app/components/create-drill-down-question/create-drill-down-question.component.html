@@ -78,7 +78,7 @@
                   <span style="font-family:Arial; font-size: 25px; color: white">Enter the secondary question:</span>
               </label>
             <input autocomplete="off" [(ngModel)]="currentSecondaryQuestion" name="question2" #question="ngModel"
-                   questionType="text" class="form-control"
+                   type="text" class="form-control"
                    placeholder="Secondary question text" style="max-width: 100%;" required maxLength="256">
               <br>
           </div>
@@ -116,7 +116,7 @@
               <span style="font-family:Arial; font-size: 25px; color: white">Enter an answer for the secondary question:</span>
           </label>
         <input autocomplete="off" [(ngModel)]="currentSecondaryAnswer" name="answerSecondary" #answerSecondary="ngModel"
-               questionType="text" class="form-control"
+               type="text" class="form-control"
                placeholder="Answer text" style="max-width: 100%;" required maxLength="30">
 
           <button class="btn btn-primary" style="margin:1em 0em;" (click)="addSecondaryAnswer()" [disabled]="editionModeSecondary">
@@ -131,7 +131,7 @@
           <label for="Question text">
               <span style="font-family:Arial; font-size: 25px; color: white">Enter an answer for the main question:</span>
           </label>
-        <input autocomplete="off" [(ngModel)]="currentMainAnswer" name="answer" #answer="ngModel" questionType="text"
+        <input autocomplete="off" [(ngModel)]="currentMainAnswer" name="answer" #answer="ngModel" type="text"
                class="form-control"
                placeholder="Answer text" style="max-width: 100%;" maxLength="30">
           <button class="btn btn-primary" style="margin:1em 0em;" (click)="addMainAnswer()">
@@ -147,7 +147,7 @@
               <span style="font-family:Arial; font-size: 25px; color: white">Edit your main answer: </span>
           </label>
         <input autocomplete="off" [(ngModel)]="currentMainAnswer" name="answerMutiple" #answerMultiple="ngModel"
-               questionType="text" class="form-control"
+               type="text" class="form-control"
                placeholder="Answer text" style="max-width: 100%;" maxLength="30">
           <button class="btn btn-primary" style="margin:1em 0em;" (click)="applyEditMain()">
               <span class="fa fa-pencil"></span> Apply change</button>

@@ -126,7 +126,7 @@ export class CreateVerticalHorizontalMultipleComponent implements OnInit {
     Params:
     index - In case the question is Horizontal or Vertical the index is only detemined by this one,
             because there's on;y one dimension
-   index_col - In case the question is matrix questionType this index is needed, because there are 2 dimentions.
+   index_col - In case the question is matrix type this index is needed, because there are 2 dimentions.
    Otherwise it will be -1, by default.
   */
   markAnswer(index: number, index_col: number = -1){
