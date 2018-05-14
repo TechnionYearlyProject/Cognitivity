@@ -48,7 +48,7 @@ public class LoadFromFileController extends AbstractRestController<LoadFromFileS
      * Params are as in LoadFromFileService.
      */
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET, value = "/loadTestFromDirectory")
+    @RequestMapping(method = RequestMethod.POST, value = "/loadTestFromDirectory")
     public void loadTestFromDirectory(@RequestParam(value = "dirName") String dirName) throws LoaderException {
         applicationInsights.trackEvent("LoadTestFromDirectory");
         service.loadTestFromDirectory(dirName);

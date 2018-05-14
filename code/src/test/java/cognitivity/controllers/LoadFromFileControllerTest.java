@@ -15,8 +15,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -53,13 +53,30 @@ public class LoadFromFileControllerTest implements RestControllerTest {
 
     @Test
     public void testReadJSONFile() throws Exception {
-        // final String fileName = "/home/ophir/Desktop/studies/semester8/Projects/Cognitivity-spring/Cognitivity/code/src/test/resources/test1.json";
-        final String fileName = "hello.json";
+        final String fileName = System.getProperty("user.dir") + "/src/test/resources/test1.json";
+
+        Mockito.doNothing().when(loadFromFileServiceMock).loadFromJSONFile(fileName);
 
         mockMvc.perform(post("/load-from-file/loadFromJSONFile")
                 .param("fileName", fileName))
-                .andDo(print())
                 .andExpect(status().isOk());
+
+        Mockito.verify(loadFromFileServiceMock, times(1)).loadFromJSONFile(fileName);
+        Mockito.verifyNoMoreInteractions(loadFromFileServiceMock);
+    }
+
+    @Test
+    public void testReadJSONFromDir() throws Exception {
+        final String dirName = System.getProperty("user.dir") + "/src/test/resources/";
+
+        Mockito.doNothing().when(loadFromFileServiceMock).loadTestFromDirectory(dirName);
+
+        mockMvc.perform(post("/load-from-file/loadTestFromDirectory")
+                .param("dirName", dirName))
+                .andExpect(status().isOk());
+
+        Mockito.verify(loadFromFileServiceMock, times(1)).loadTestFromDirectory(dirName);
+        Mockito.verifyNoMoreInteractions(loadFromFileServiceMock);
     }
 }
 
