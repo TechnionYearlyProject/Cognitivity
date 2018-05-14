@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from "@angular/core";
-import {QuestionPosition} from "../../../models";
+import {QuestionPosition, QuestionAnswer, TypeQuestion, OpenQuestionAnswer} from "../../../models";
 @Component({
   selector: 'app-test-page-open-question',
   templateUrl: './open-question.component.html',
@@ -90,5 +90,17 @@ export class TestPageOpenQuestionComponent implements OnInit {
   }
   isButtom():boolean{
     return this.isButtomMiddle() || this.isButtomRight() || this.isButtomLeft();
+  }
+
+  buildAnswer(): QuestionAnswer {
+    let questionAnswer : OpenQuestionAnswer = {
+      questionId: this.question.id,
+      subjectId: /* will come later, for now hard-coded */ 1,
+      questionType: TypeQuestion.OpenQuestion,
+      answer: this.currentAnswer,
+      confidence: this.range_value
+    }
+
+    return questionAnswer;
   }
 }

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from "@angular/core";
-import {QuestionPosition, TypeMultipleQuestion} from "../../../models";
+import {QuestionPosition, TypeMultipleQuestion, QuestionAnswer, OpenQuestionAnswer, TypeQuestion} from "../../../models";
 @Component({
   selector: 'app-test-page-multiple-choice-question',
   templateUrl: './multiple-choice-question.component.html',
@@ -208,6 +208,19 @@ export class TestPageMultipleChoiceQuestionComponent implements OnInit {
   }
   higherThanFourColNum():boolean{
     return this.dimMatrix > 4;
+  }
+
+  buildAnswer(): QuestionAnswer {
+    /*let questionAnswer : OpenQuestionAnswer = {
+      questionId: this.question.id,
+      subjectId:  will come later, for now hard-coded  1,
+      questionType: TypeQuestion.MultipleChoice,
+      answer: this.question.answers[,
+      confidence: this.range_value
+    }
+
+    return questionAnswer;*/
+    return null;
   }
 
 }

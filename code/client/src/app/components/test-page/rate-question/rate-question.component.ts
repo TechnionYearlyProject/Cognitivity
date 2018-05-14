@@ -1,5 +1,5 @@
 import {AnimationStyleMetadata, Component, Input, OnInit} from "@angular/core";
-import {QuestionPosition} from "../../../models";
+import {QuestionPosition, QuestionAnswer, TypeQuestion, RateQuestionAnswer} from "../../../models";
 import {stringify} from "@angular/core/src/util";
 @Component({
   selector: 'app-test-page-rate-question',
@@ -123,5 +123,17 @@ export class TestPageRateQuestionComponent implements OnInit {
   }
   onSubmit(evet: Event){
 
+  }
+
+  buildAnswer(): QuestionAnswer {
+    let questionAnswer : RateQuestionAnswer = {
+      questionId: this.question.id,
+      subjectId: /* will come later, for now hard-coded */ 1,
+      questionType: TypeQuestion.RateQuestion,
+      answer: this.markedAnswer,
+      confidence: this.range_value
+    }
+
+    return questionAnswer;
   }
 }

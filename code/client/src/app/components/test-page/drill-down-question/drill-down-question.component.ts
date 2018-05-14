@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from "@angular/core";
+import { QuestionAnswer, DrillDownQuestionAnswer, TypeQuestion } from "../../../models";
 @Component({
   selector: 'app-test-page-drill-down-question',
   templateUrl: './drill-down-question.component.html',
@@ -111,6 +112,19 @@ export class TestPageDrillDownQuestionComponent implements OnInit {
         this.markedAnswersSecondary[i] = false;
       }
     }
+  }
+
+  buildAnswer(): QuestionAnswer {
+    let questionAnswer : DrillDownQuestionAnswer = {
+      questionId: this.question.id,
+      subjectId: /* will come later, for now hard-coded */ 1,
+      questionType: TypeQuestion.DrillDownQuestion,
+      primaryAnswer: this.markedAnswerMain,
+      secnodaryAnswer: this.markedAnswerSecondery,
+      confidence: this.range_value
+    }
+
+    return questionAnswer;
   }
 
 }

@@ -187,11 +187,29 @@ export interface TimeMeasurment {
     numberOfAnswerChanges: number;
 }
 
+// models to represent answers for all types of questions
 export interface QuestionAnswer {
     questionId: number;
     subjectId: number;
+    questionType: TypeQuestion;
+    confidence: number;
+}
+
+export interface OpenQuestionAnswer extends QuestionAnswer {
     answer: string;
-    timeMeasurement: TimeMeasurment;
+}
+
+export interface DrillDownQuestionAnswer extends QuestionAnswer {
+    primaryAnswer: string;
+    secnodaryAnswer: string;
+}
+
+export interface MultipleChoiceQuestionAnswer extends QuestionAnswer {
+    answer:string;
+}
+
+export interface RateQuestionAnswer extends QuestionAnswer {
+    answer: number;
 }
 
 
