@@ -5,24 +5,21 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-
 /**
  * Created by ophir on 12/05/18.
  */
 public class TestReader {
-    private String fileName;
+    private String jsonData;
 
-    public TestReader(String fileName) {
-        this.fileName = fileName;
+    public TestReader(String jsonData) {
+        this.jsonData = jsonData;
     }
 
-    public Test read() throws FileNotFoundException {
+    public Test read() {
         return new GsonBuilder()
                 .registerTypeAdapter(Question.class, questionJsonDeserializer)
                 .create()
-                .fromJson(new FileReader(fileName), Test.class);
+                .fromJson(jsonData, Test.class);
     }
 
 

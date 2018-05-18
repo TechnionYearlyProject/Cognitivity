@@ -79,6 +79,16 @@ public class CognitiveTestDAOimpl extends AbstractDAO<CognitiveTest> implements 
         return filterByString("project", projectFilter);
     }
 
+    @Override
+    public boolean testWithNameExists(String testName) {
+        Session session = sessionFactory.getCurrentSession();
+        String queryString = "from CognitiveTest T where T.name LIKE :testName";
+        Query<CognitiveTest> query = session.createQuery(queryString, CognitiveTest.class);
+        query.setParameter("testName", "%" + testName + "%");
+        List<CognitiveTest> res = query.getResultList();
+        return !res.isEmpty();
+    }
+
     @Transactional(readOnly = true)
     public List<CognitiveTest> filterTestsByNotes(String notesFilter) {
         return filterByString("notes", notesFilter);

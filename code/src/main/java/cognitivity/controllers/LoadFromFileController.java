@@ -37,10 +37,10 @@ public class LoadFromFileController extends AbstractRestController<LoadFromFileS
      */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/loadFromJSONFile")
-    public void loadFromJSONFile(@RequestParam(value = "fileName") String fileName,
-                                 @RequestParam(value = "managerId") long managerId) throws LoaderException, DBException {
+    public void loadFromJSONFile(@RequestParam(value = "managerId") long managerId,
+                                 @RequestBody String jsonData) throws LoaderException, DBException {
         applicationInsights.trackEvent("LoadFromJSONFile");
-        service.loadFromJSONFile(fileName, managerId);
+        service.loadFromJSONFile(jsonData, managerId);
     }
 
 
@@ -49,11 +49,11 @@ public class LoadFromFileController extends AbstractRestController<LoadFromFileS
      * <p>
      * Params are as in LoadFromFileService.
      */
-    @ResponseStatus(HttpStatus.OK)
+    /*@ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/loadTestFromDirectory")
     public void loadTestFromDirectory(@RequestParam(value = "dirName") String dirName,
                                       @RequestParam(value = "managerId") long managerId) throws LoaderException, DBException {
         applicationInsights.trackEvent("LoadTestFromDirectory");
         service.loadTestFromDirectory(dirName, managerId);
-    }
+    }*/
 }
