@@ -29,7 +29,7 @@ public class TestReader {
     private JsonDeserializer<Question> questionJsonDeserializer = (JsonDeserializer<Question>)
             (jsonElement, type, jsonDeserializationContext) -> {
                 // Switch by the question questionType - deserialize according to the actual question questionType.
-                final int index = jsonElement.getAsJsonObject().get("questionType").getAsInt() - 1;
+                final int index = jsonElement.getAsJsonObject().get("questionType").getAsInt();
                 if (!(index <= QuestionType.values().length && index >= 0)) {
                     return null;
                 }

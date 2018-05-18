@@ -2,15 +2,18 @@ how to use the docker:
 
 - install docker
 
-- execute command: docker build -t database .
+- execute command: sudo docker build -t database .
   this command will build the image of the docker from the Dockerfile
 
-- execute command: docker run -d --name database -p3306:3306 database
+- execute command: sudo docker run -d --name database -p3306:3306 database
   this command will run the image, and will redrict port 3306 of the docker to
   port 3306 of the computer, you can add the flag -d so the docker will run in background
 
-- execute command: docker exec -it database bash
+- execute command: sudo docker exec -it database bash
   using this command you can open bash shell in the docker
+
+- execute command: chmod 777 construct_db
+  this command will allow executing to script that builds the database from the settings file
 
 - execute command: ./construct_db
   this command will construct the database by the db_settings file

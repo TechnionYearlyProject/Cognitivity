@@ -16,6 +16,30 @@ public class DrillDownQuestion extends Question {
         this.secondaryQuestions = secondaryQuestions;
     }
 
+    public String[] getAnswersForMain() {
+        return answersForMain;
+    }
+
+    public void setAnswersForMain(String[] answersForMain) {
+        this.answersForMain = answersForMain;
+    }
+
+    public int getCorrectForMain() {
+        return correctForMain;
+    }
+
+    public void setCorrectForMain(int correctForMain) {
+        this.correctForMain = correctForMain;
+    }
+
+    public DrillDownSecondaryQuestion[] getSecondaryQuestions() {
+        return secondaryQuestions;
+    }
+
+    public void setSecondaryQuestions(DrillDownSecondaryQuestion[] secondaryQuestions) {
+        this.secondaryQuestions = secondaryQuestions;
+    }
+
     private String[] answersForMain;
     private int correctForMain;
     private DrillDownSecondaryQuestion[] secondaryQuestions;

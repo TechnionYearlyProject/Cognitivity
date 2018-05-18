@@ -6,7 +6,6 @@ import cognitivity.dao.TestQuestionDAO;
 import cognitivity.dto.BlockWrapper;
 import cognitivity.dto.TestWrapper;
 import cognitivity.entities.CognitiveTest;
-import cognitivity.entities.TestAnswer;
 import cognitivity.entities.TestBlock;
 import cognitivity.entities.TestQuestion;
 import cognitivity.exceptions.DBException;
@@ -20,6 +19,7 @@ import java.util.List;
 
 /**
  * Business service for cognitive test related operations.
+ *
  * @Author - Pe'er
  * @Date - 2.2.18
  */
@@ -43,21 +43,21 @@ public class CognitiveTestService {
 
 
     /**
-     * Create a cognitive test, and save it in the DB.
-     *
-     * @param cognitiveTest - The cognitive test to be created
-     * @return
+     * Refactoring for code re-use in another service.
      */
-    public TestWrapper createTestForTestManager(TestWrapper cognitiveTest) throws DBException {
+    public static TestWrapper saveTestWrapperWithDaos(TestWrapper cognitiveTest,
+                                                      CognitiveTestDAO cognitiveTestDAO,
+                                                      TestBlockDAO testBlockDAO,
+                                                      TestQuestionDAO testQuestionDAO) throws DBException {
         try {
-            long testId = dao.add(cognitiveTest.innerTest());
+            long testId = cognitiveTestDAO.add(cognitiveTest.innerTest());
             List<BlockWrapper> blocks = cognitiveTest.getBlocks();
             if (blocks != null) {
                 CognitiveTest test = cognitiveTest.innerTest();
                 for (BlockWrapper block : blocks) {
                     test.setId(testId);
                     block.setCognitiveTest(test);
-                    long blockId = blockDAO.add(block.innerBlock(test.getId()));
+                    long blockId = testBlockDAO.add(block.innerBlock(test.getId()));
                     TestBlock testBlock = block.innerBlock(test.getId());
                     testBlock.setId(blockId);
                     if (block.getQuestions() != null) {
@@ -65,7 +65,7 @@ public class CognitiveTestService {
                             question.setTestManager(cognitiveTest.getTestManager());
                             question.setCognitiveTest(test);
                             question.setTestBlock(testBlock);
-                            questionDAO.add(question);
+                            testQuestionDAO.add(question);
                         }
                     }
                 }
@@ -74,9 +74,20 @@ public class CognitiveTestService {
             logger.info("Successfully added test. testId = " + testId);
             return cognitiveTest;
         } catch (org.hibernate.HibernateException e) {
-            logger.error("Failed to create a cognitive test and add it to the DB. Test ID: "+cognitiveTest.innerTest().getId(),e);
+            logger.error("Failed to create a cognitive test and add it to the DB. Test ID: " + cognitiveTest.innerTest().getId(), e);
             throw new DBException(ErrorType.SAVE, cognitiveTest.getId());
         }
+    }
+
+
+    /**
+     * Create a cognitive test, and save it in the DB.
+     *
+     * @param cognitiveTest - The cognitive test to be created
+     * @return
+     */
+    public TestWrapper createTestForTestManager(TestWrapper cognitiveTest) throws DBException {
+        return saveTestWrapperWithDaos(cognitiveTest, dao, blockDAO, questionDAO);
     }
 
     /**
@@ -105,7 +116,7 @@ public class CognitiveTestService {
             dao.delete(testId);
             logger.info("Successfully deleted test. testId = " + testId);
         } catch (org.hibernate.HibernateException e) {
-            logger.error("Failed to delete a test for test manager. Test ID: "+testId,e);
+            logger.error("Failed to delete a test for test manager. Test ID: " + testId, e);
             throw new DBException(ErrorType.DELETE, testId);
         }
     }
@@ -120,8 +131,8 @@ public class CognitiveTestService {
      *               by the findTestsForTestManagerWithoutQuestions (new) method.
      * @return - test wrapper with all questions and blocks, as described above.
      */
-    public TestWrapper findTestById(long testID)throws DBException {
-        try{
+    public TestWrapper findTestById(long testID) throws DBException {
+        try {
             List<BlockWrapper> blocks = new ArrayList<>();
             List<TestBlock> preWrapped = dao.getTestBlocks(testID);
             for (TestBlock block : preWrapped) {
@@ -129,8 +140,8 @@ public class CognitiveTestService {
             }
             logger.info("Successfully found test. testId = " + testID);
             return new TestWrapper(dao.get(testID), blocks);
-        }catch (org.hibernate.HibernateException e){
-            logger.error("Failed to find test. Test ID: "+testID,e);
+        } catch (org.hibernate.HibernateException e) {
+            logger.error("Failed to find test. Test ID: " + testID, e);
             throw new DBException(ErrorType.GET, testID);
         }
     }
@@ -151,7 +162,7 @@ public class CognitiveTestService {
             logger.info("Successfully found tests for test manager. testId = " + managerId);
             return tests;
         } catch (org.hibernate.HibernateException e) {
-            logger.error("Failed to find tests for test manager. Test manager ID: "+managerId,e);
+            logger.error("Failed to find tests for test manager. Test manager ID: " + managerId, e);
             throw new DBException(ErrorType.GET, managerId);
         }
     }
@@ -163,8 +174,8 @@ public class CognitiveTestService {
      * @param testId - the given test id
      * @return a list of all of the blocks in the test.
      */
-    public List<BlockWrapper> getTestBlocksForTest(long testId)throws DBException {
-        try{
+    public List<BlockWrapper> getTestBlocksForTest(long testId) throws DBException {
+        try {
             List<TestBlock> preWrapped = dao.getTestBlocks(testId);
             List<BlockWrapper> blocks = new ArrayList<BlockWrapper>();
             for (TestBlock block : preWrapped) {
@@ -172,8 +183,8 @@ public class CognitiveTestService {
             }
             logger.info("Successfully found all test blocks for a test. testID: " + testId);
             return blocks;
-        }catch (org.hibernate.HibernateException e){
-            logger.error("Failed to find all test blocks for a test. testID: "+testId,e);
+        } catch (org.hibernate.HibernateException e) {
+            logger.error("Failed to find all test blocks for a test. testID: " + testId, e);
             throw new DBException(ErrorType.GET, testId);
         }
     }
@@ -184,13 +195,13 @@ public class CognitiveTestService {
      * @param testId - The test Id.
      * @return - All questions that the test has.
      */
-    public List<TestQuestion> getTestQuestionsForTest(long testId)throws DBException {
-        try{
+    public List<TestQuestion> getTestQuestionsForTest(long testId) throws DBException {
+        try {
             List<TestQuestion> toReturn = dao.getTestQuestions(testId);
             logger.info("Successfully found all test questions for a test. testID: " + testId);
             return toReturn;
-        }catch (org.hibernate.HibernateException e){
-            logger.error("Failed to find all test questions for a test. testID: "+testId,e);
+        } catch (org.hibernate.HibernateException e) {
+            logger.error("Failed to find all test questions for a test. testID: " + testId, e);
             throw new DBException(ErrorType.GET, testId);
         }
     }
@@ -202,13 +213,13 @@ public class CognitiveTestService {
      * @param notes - The notes files filter.
      * @return - All tests that their notes field contains the notes string parameter.
      */
-    public List<CognitiveTest> filterTestsByNotes(String notes)throws DBException {
-        try{
+    public List<CognitiveTest> filterTestsByNotes(String notes) throws DBException {
+        try {
             List<CognitiveTest> toReturn = dao.filterTestsByNotes(notes);
             logger.info("Successfully found all tests for a given notes. notes: " + notes);
             return toReturn;
-        }catch (org.hibernate.HibernateException e){
-            logger.error("Failed to find all tests for given notes. notes: "+notes,e);
+        } catch (org.hibernate.HibernateException e) {
+            logger.error("Failed to find all tests for given notes. notes: " + notes, e);
             throw new DBException(ErrorType.GET, null);
         }
     }
@@ -220,13 +231,13 @@ public class CognitiveTestService {
      * @param projectFilter - The project test filter.
      * @return - All tests that their project field is the same as the projectFilter parameter.
      */
-    public List<CognitiveTest> filterTestsByProject(String projectFilter)throws DBException {
-        try{
+    public List<CognitiveTest> filterTestsByProject(String projectFilter) throws DBException {
+        try {
             List<CognitiveTest> toReturn = dao.filterTestsByProject(projectFilter);
             logger.info("Successfully found all tests for a given project. Project: " + projectFilter);
             return toReturn;
-        }catch (org.hibernate.HibernateException e){
-            logger.error("Failed to find all tests for a given project. Project: "+projectFilter,e);
+        } catch (org.hibernate.HibernateException e) {
+            logger.error("Failed to find all tests for a given project. Project: " + projectFilter, e);
             throw new DBException(ErrorType.GET, null);
         }
     }
@@ -238,13 +249,13 @@ public class CognitiveTestService {
      * @param managerId - id of the manager the request is build on.
      * @return - All tests that their manager has the id (param) without the questions (no wrapper)
      */
-    public List<CognitiveTest> findTestsForTestManagerWithoutQuestions(long managerId)throws DBException {
-        try{
+    public List<CognitiveTest> findTestsForTestManagerWithoutQuestions(long managerId) throws DBException {
+        try {
             List<CognitiveTest> toReturn = dao.getCognitiveTestOfManager(managerId);
             logger.info("Successfully found all tests for a given manager, without questions. ManagerID: " + managerId);
             return toReturn;
-        }catch (org.hibernate.HibernateException e){
-            logger.error("Failed to find all tests for a given manager, without questions. ManagerID: "+managerId,e);
+        } catch (org.hibernate.HibernateException e) {
+            logger.error("Failed to find all tests for a given manager, without questions. ManagerID: " + managerId, e);
             throw new DBException(ErrorType.GET, managerId);
         }
     }

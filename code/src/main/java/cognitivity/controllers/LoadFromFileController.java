@@ -1,5 +1,6 @@
 package cognitivity.controllers;
 
+import cognitivity.exceptions.DBException;
 import cognitivity.exceptions.LoaderException;
 import cognitivity.services.LoadFromFileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +37,10 @@ public class LoadFromFileController extends AbstractRestController<LoadFromFileS
      */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/loadFromJSONFile")
-    public void loadFromJSONFile(@RequestParam(value = "fileName") String fileName) throws LoaderException {
+    public void loadFromJSONFile(@RequestParam(value = "fileName") String fileName,
+                                 @RequestParam(value = "managerId") long managerId) throws LoaderException, DBException {
         applicationInsights.trackEvent("LoadFromJSONFile");
-        service.loadFromJSONFile(fileName);
+        service.loadFromJSONFile(fileName, managerId);
     }
 
 
@@ -49,8 +51,9 @@ public class LoadFromFileController extends AbstractRestController<LoadFromFileS
      */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/loadTestFromDirectory")
-    public void loadTestFromDirectory(@RequestParam(value = "dirName") String dirName) throws LoaderException {
+    public void loadTestFromDirectory(@RequestParam(value = "dirName") String dirName,
+                                      @RequestParam(value = "managerId") long managerId) throws LoaderException, DBException {
         applicationInsights.trackEvent("LoadTestFromDirectory");
-        service.loadTestFromDirectory(dirName);
+        service.loadTestFromDirectory(dirName, managerId);
     }
 }
