@@ -22,12 +22,20 @@ export class OpenQuestionComponent implements OnInit {
   positionMiddle : any;
   positionButtom : any;
 
+  //to indicate if we need to show the confidence bar
+  isAnswered:boolean;
+
+  //to indicate if one can edit the text answer.
+  isEdit:boolean;
+
   //default constructor.
   constructor() {}
 
   //default initialization function.
   ngOnInit() {
     this.buildPositionOfQuestion();
+    this.isAnswered = false;
+    this.isEdit = true;
   }
 
   /*
@@ -51,6 +59,28 @@ export class OpenQuestionComponent implements OnInit {
     }
   }
 
+/**
+ * This function will set the isAnswered property to True
+ */
+submit_answer(){
+  this.isAnswered = true;
+  this.isEdit = false;
+}
+
+//can also add future add-ons like distractions when changing an answer.
+change_answer(){
+  this.isAnswered = false;
+  this.isEdit = true;
+}
+//return confidence bar need
+get_is_answered():boolean{
+  return this.isAnswered;
+}
+
+//return isEdit 
+is_edit_mode():boolean{
+  return this.isEdit;
+}
 
    /*
     ------------------------------- functions for asking the position of the question text -----------------------

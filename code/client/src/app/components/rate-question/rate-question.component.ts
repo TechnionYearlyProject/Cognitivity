@@ -50,10 +50,15 @@ export class RateQuestionComponent implements OnInit {
   */
   markAnswer(index: number){
     for (let i = 0; i < this.answers.length; i++) {
-      if(i == index){
-        this.markedAnswers[i] = true;
-        this.markedAnswer = i;
-
+      if(i == index){ //fixed unmark issue.
+        if(this.markedAnswers[i]){
+          this.markedAnswers[i] = false;
+          this.markedAnswer = -1;
+        }
+        else{
+          this.markedAnswers[i] = true;
+          this.markedAnswer = i;
+        }
       }else{
         this.markedAnswers[i] = false;
       }
@@ -79,6 +84,19 @@ export class RateQuestionComponent implements OnInit {
       'middle' : this.isMiddleMiddle(),
       'left' : this.isMiddleLeft()
     }
+  }
+
+
+  
+
+  //checking if we have a marked answer.
+  get_is_marked():boolean{
+    for (let i = 0; i < this.markedAnswers.length; i++) {
+        if(this.markedAnswers[i]){
+          return true;
+        }
+    }
+    return false;
   }
 
 

@@ -19,6 +19,9 @@ export class MultipleChoiceQuestionComponent implements OnInit {
   positionMiddle: any;
   positionButtom: any;
 
+  //is answered var, so we can view the confidence bar
+  isAnswered:boolean;
+
   //slider value
   range_value: number = 50;
   //the chosen organization of the question's answers
@@ -43,6 +46,7 @@ export class MultipleChoiceQuestionComponent implements OnInit {
     if(this.answerOrganization == TypeMultipleQuestion.Matrix){
       this.constructMatrix();
     }
+    this.isAnswered = false;
   }
 
   /*
@@ -120,8 +124,10 @@ export class MultipleChoiceQuestionComponent implements OnInit {
       for(let i = 0; i < this.question.answers.length; i++){
         if(i == main_index){
           this.markedAnswers[i] = true;
+          this.isAnswered = true;
         }else{
           this.markedAnswers[i] = false;
+          this.isAnswered = false;
         }
       }
     }else{
@@ -129,8 +135,10 @@ export class MultipleChoiceQuestionComponent implements OnInit {
         for(let j = 0; j < this.dimMatrix; j++){
           if(i == main_index && j == secondary_index){
             this.markedAnswersMatrix[i][j] = true;
+            this.isAnswered = true;
           }else{
             this.markedAnswersMatrix[i][j] = false;
+            this.isAnswered = false;
           }
         }
       }
@@ -210,4 +218,8 @@ export class MultipleChoiceQuestionComponent implements OnInit {
     return this.dimMatrix > 4;
   }
 
+  //this function will return the isAnswered field to indicate if we need to show the confidence bar
+  get_is_answered():boolean{
+    return this.isAnswered;
+  }
 }

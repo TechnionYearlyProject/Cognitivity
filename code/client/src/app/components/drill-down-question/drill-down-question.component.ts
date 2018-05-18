@@ -29,7 +29,6 @@ export class DrillDownQuestionComponent implements OnInit {
   range_value: number = 50;
   //to indicate if we're using the secondary question option.
   secondaryQuestionMode: boolean = false;
-
   //default constructor.
   constructor() { }
 
@@ -94,6 +93,16 @@ export class DrillDownQuestionComponent implements OnInit {
       }
 
     }
+  }
+
+   //checking if we have a marked answer.
+   get_is_marked():boolean{
+    for (let i = 0; i < this.markedAnswersMain.length; i++) {
+        if(this.markedAnswersMain[i]){
+          return true;
+        }
+    }
+    return false;
   }
   /*
     The function marks an answer for the secondary question
