@@ -45,6 +45,8 @@ export class TestPageComponent implements OnInit {
     this.blocks = []; //TODO: remove
     this.blocksLength = this.blocks.length;
     this.currIndex = 0;
+
+    document.body.classList.add('background-white');
   }
 
   finishTest() {
