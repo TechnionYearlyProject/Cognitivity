@@ -61,4 +61,9 @@ public interface CognitiveTestDAO {
      */
     public List<CognitiveTest> filterTestsByProject(String projectFilter);
 
+    /**
+     * Check if a test exists with a specified name
+     */
+    boolean testWithNameExists(String name);
+
 }

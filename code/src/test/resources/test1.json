@@ -13,8 +13,8 @@
       "questions": [
         {
           "text": "How smart are you? (from 1 to 5)",
-          "position": 9,
-          "questionType": 2,
+          "position": 8,
+          "questionType": 1,
           "hasConfidenceBar": true,
           "pictureLink": "picture/link/path",
           "hasTimeMeasurement": false,
@@ -25,8 +25,8 @@
         },
         {
           "text": "What do you study?",
-          "position": 2,
-          "questionType": 3,
+          "position": 1,
+          "questionType": 2,
           "hasConfidenceBar": false,
           "pictureLink": "picture/link/path2",
           "hasTimeMeasurement": true,
@@ -38,8 +38,8 @@
         },
         {
           "text": "How smart are you? (from 1 to 5)",
-          "position": 1,
-          "questionType": 1,
+          "position": 0,
+          "questionType": 0,
           "hasConfidenceBar": true,
           "pictureLink": "picture/link/path",
           "hasTimeMeasurement": false,
@@ -56,8 +56,8 @@
         },
         {
           "text": "How smart are you? (from 1 to 5)",
-          "position": 1,
-          "questionType": 4,
+          "position": 0,
+          "questionType": 3,
           "hasConfidenceBar": true,
           "pictureLink": "picture/link/path",
           "hasTimeMeasurement": false,

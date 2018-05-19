@@ -182,10 +182,80 @@ export interface QuestionInDB {
     tags?: string[];
 }
 
+//------------------------------------------------------------------------------------------
+/**
+ * This interfaces will be used by the timing class.
+ * Author: Ben
+ */
+// Interface for a single question
+export interface question_timing{
+    //The question's ID
+    qID: number;
+    //Variable to indicate if the current question is being measured already
+    qIsMeasured: boolean;
+    //The question's start timestamp
+    qStartTS: number;
+    //The question's end timestamp
+    qEndTS: number;
+    //The question's total running time
+    qTotTS:number;
+    //The question's confidence bar start timestamp
+    qConBarStartTS: number;
+    //The question's confidence bar end timestamp
+    qConBarEndTS: number;
+    //The question's confidence bar total running time
+    qConBarTotTS: number;
+    //The ID of the containing block
+    qBlockID: number;
+}
+//Interface to represent a single block in the timing class
+export interface block_timing{
+    //The block's ID
+    bID: number;
+    //The number of contained questions
+    bQuestionsNum: number;
+    //Variable to indicate if the current block is being measured already
+    bIsMeasured: boolean;
+    //The block's start TS
+    bStartTS: number;
+    //The block's end TS
+    bEndTS: number;
+    //The block's total running time
+    bTotTS: number;
+    //An array of all the questions and their information
+    questionTimes:question_timing[];
+}
+
+/**
+ * Interface to represent a single test in the timing class.
+ * This interface will also contain the final result array being returned.
+ */
+export interface test_timing{
+    //The test's ID
+    tID: number;
+    //The number of contained blocks
+    tBlocksNum: number;
+    //Variable to indicate if the current test is being measured already
+    tIsMeasured: boolean;
+    //The test's start TS
+    tStartTS: number;
+    //The test's end TS
+    tEndTS: number;
+    //The test's total running time
+    tTotTS: number;
+    //An array of all the blocks and their information
+    resultArr:block_timing[];
+}
+
 export interface TimeMeasurment {
     timeForAnswering: number;
     numberOfAnswerChanges: number;
+
+    //The following will contain the result test object
+    testObject: test_timing;
 }
+
+//------------------------------------------------------------------------------------------
 
 // models to represent answers for all types of questions
 export interface QuestionAnswer {
@@ -193,8 +263,11 @@ export interface QuestionAnswer {
     subjectId: number;
     questionType: TypeQuestion;
     confidence: number;
+    is_time_distraction: boolean; // holds if the question have time distraction
+    changes_of_answer: number; // hold the number of times that the answer was changed by the subject
+    time_for_question: any; //hold the time object for the the time masurment feature. TODO: fill the type of the object
+    time_for_confidence_bar: any;//hold the time object for the confidence bar. 
 }
-
 export interface OpenQuestionAnswer extends QuestionAnswer {
     answer: string;
 }

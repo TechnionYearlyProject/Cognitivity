@@ -67,7 +67,8 @@ public class BlockWrapper {
 
     private List<TestQuestion> questions;
 
-    public BlockWrapper() {}
+    public BlockWrapper() {
+    }
 
     public BlockWrapper(Integer numberOfQuestions, Boolean randomize, String tag, CognitiveTest test) {
         this.numberOfQuestions = numberOfQuestions;
@@ -111,9 +112,9 @@ public class BlockWrapper {
         return questions;
     }
 
-    public TestBlock innerBlock(long id) {
-        cognitiveTest.setId(id);
-        TestBlock block = new  TestBlock(numberOfQuestions, randomize, tag, cognitiveTest);
+    public TestBlock innerBlock(long testId) {
+        cognitiveTest.setId(testId);
+        TestBlock block = new TestBlock(numberOfQuestions, randomize, tag, cognitiveTest);
         block.setId(this.id);
         return block;
     }

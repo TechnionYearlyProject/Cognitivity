@@ -5,15 +5,24 @@ package cognitivity.exceptions;
  */
 public class LoaderException extends CognitivityException {
 
-    private final String fileName;
+    private final String jsonData;
+    private String message;
 
-    public LoaderException(String fileName) {
+    public LoaderException(String jsonData) {
         super("LoaderException : ");
-        this.fileName = fileName;
+        this.jsonData = jsonData;
+    }
+
+    public LoaderException(String jsonData, String message) {
+        super("LoaderException : ");
+        this.jsonData = jsonData;
+        this.message = message;
     }
 
     @Override
     public String getMessage() {
-        return super.getMessage() + "Error reading from path : " + fileName;
+        return super.getMessage() + "Error reading from file.\n" +
+                "Message : " + message + "\n" +
+                "Data was : " + jsonData;
     }
 }

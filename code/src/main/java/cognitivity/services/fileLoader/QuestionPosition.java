@@ -6,30 +6,30 @@ import com.google.gson.annotations.SerializedName;
  * Created by ophir on 12/05/18.
  */
 public enum QuestionPosition {
-    @SerializedName("1")
+    @SerializedName("0")
     UpperRight,
 
-    @SerializedName("2")
+    @SerializedName("1")
     UpperMiddle,
 
-    @SerializedName("3")
+    @SerializedName("2")
     UpperLeft,
 
-    @SerializedName("4")
+    @SerializedName("3")
     MiddleRight,
 
-    @SerializedName("5")
+    @SerializedName("4")
     MiddleMiddle,
 
-    @SerializedName("6")
+    @SerializedName("5")
     MiddleLeft,
 
-    @SerializedName("7")
+    @SerializedName("6")
     BottomRight,
 
-    @SerializedName("8")
+    @SerializedName("7")
     BottomMiddle,
 
-    @SerializedName("9")
+    @SerializedName("8")
     BottomLeft
 }

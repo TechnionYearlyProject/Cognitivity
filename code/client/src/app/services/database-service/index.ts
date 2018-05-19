@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Test, Manager, Question, Block } from '../../models';
+import { Test, Manager, Question, Block, QuestionAnswer } from '../../models';
 import { Http, Headers } from '@angular/http'
 import { RequestOptionsArgs } from '@angular/http/src/interfaces';
 
@@ -151,7 +151,34 @@ export class QuestionService {
 }
 
 
+/*
+ *
+ * Author: Mark Erlikh Date: 19.5.18 
+ * 
+ */
+ /*
+  * This service os for pulling all the results information on a specific test
+  */
+  @Injectable()
+  export class TestAnswersService {
+     base_mapping = '/test-answers';
+     
+     private headers = new Headers({'Content-Type': 'application/json'});
 
+     constructor(private http: Http){}
+
+     findAllAnswersForTest(testId: number): Promise<QuestionAnswer[]>{
+        return this.http.get(`http://localhost:8181${this.base_mapping}/findAllTestAnswersForATest?testId=${testId}`, {headers: this.headers})
+        .toPromise()
+        .then(res => res.json() as QuestionAnswer[])
+        .catch(ErrorHandler.handleError);
+     }
+
+
+ 
+     
+  }
+//TODO: this is in use?
 @Injectable()
 export class TestAnswerService {
     //functions

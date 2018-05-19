@@ -7,8 +7,8 @@
 <br>
 <br>
     <div class="container">
-      <input autocomplete="off" class="form-control" type="text" name="answer"
-             placeholder="Enter your answer here" [(ngModel)]="currentAnswer" id="#textBox">
+      <input [readonly]="!is_edit_mode()" autocomplete="off" class="form-control" type="text" name="answer"
+             placeholder="Enter your answer here" [(ngModel)]="currentAnswer" id="#textBox" >
 
     </div>
 <br>
@@ -16,11 +16,17 @@
 <div *ngIf = "isButtom()">
         <h2 [ngClass] = "positionButtom" style="max-width: 100%;word-wrap:break-word;">{{question.questionText }}</h2>
 </div>
-<div *ngIf = "true"> <!-- when adding to all of the questions the confidence bar property, change the 'true to' question.showConfidenceBar -->
+
+<div class="container">
+<button class="btn btn-primary btn-sm" (click)="submit_answer()">Submit</button>
+</div><br><div class="container">
+<button class="btn btn-primary btn-sm" (click)="change_answer()">Change Answer</button>
+</div>
+
+<div *ngIf = "get_is_answered()"> <!-- when adding to all of the questions the confidence bar property, change the 'true to' question.showConfidenceBar -->
 <div class="container">
     <h4>How confident you feel in your answer, in precentage?</h4>
 </div>
-
 <div style="text-align: center;">
     <div id="slidecontainer">
       <input type="range" min="0" max="100" value="50" class="slider centered" id="myRange"

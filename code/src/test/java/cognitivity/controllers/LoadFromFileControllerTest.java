@@ -55,13 +55,14 @@ public class LoadFromFileControllerTest implements RestControllerTest {
     public void testReadJSONFile() throws Exception {
         final String fileName = System.getProperty("user.dir") + "/src/test/resources/test1.json";
 
-        Mockito.doNothing().when(loadFromFileServiceMock).loadFromJSONFile(fileName);
+        Mockito.doNothing().when(loadFromFileServiceMock).loadFromJSONFile(fileName, 0);
 
         mockMvc.perform(post("/load-from-file/loadFromJSONFile")
-                .param("fileName", fileName))
+                .param("fileName", fileName)
+                .param("managerId", "0"))
                 .andExpect(status().isOk());
 
-        Mockito.verify(loadFromFileServiceMock, times(1)).loadFromJSONFile(fileName);
+        Mockito.verify(loadFromFileServiceMock, times(1)).loadFromJSONFile(fileName, 0);
         Mockito.verifyNoMoreInteractions(loadFromFileServiceMock);
     }
 
@@ -69,13 +70,14 @@ public class LoadFromFileControllerTest implements RestControllerTest {
     public void testReadJSONFromDir() throws Exception {
         final String dirName = System.getProperty("user.dir") + "/src/test/resources/";
 
-        Mockito.doNothing().when(loadFromFileServiceMock).loadTestFromDirectory(dirName);
+        Mockito.doNothing().when(loadFromFileServiceMock).loadTestFromDirectory(dirName, 0);
 
         mockMvc.perform(post("/load-from-file/loadTestFromDirectory")
-                .param("dirName", dirName))
+                .param("dirName", dirName)
+                .param("managerId", "0"))
                 .andExpect(status().isOk());
 
-        Mockito.verify(loadFromFileServiceMock, times(1)).loadTestFromDirectory(dirName);
+        Mockito.verify(loadFromFileServiceMock, times(1)).loadTestFromDirectory(dirName, 0);
         Mockito.verifyNoMoreInteractions(loadFromFileServiceMock);
     }
 }
