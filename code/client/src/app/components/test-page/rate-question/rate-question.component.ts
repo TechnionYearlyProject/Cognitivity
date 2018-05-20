@@ -1,4 +1,4 @@
-import {AnimationStyleMetadata, Component, Input, OnInit} from "@angular/core";
+import {AnimationStyleMetadata, Component, Input, OnInit, Output, EventEmitter} from "@angular/core";
 import {QuestionPosition, QuestionAnswer, TypeQuestion, RateQuestionAnswer} from "../../../models";
 import {stringify} from "@angular/core/src/util";
 @Component({
@@ -27,7 +27,8 @@ export class TestPageRateQuestionComponent implements OnInit {
   positionUp : any;
   positionMiddle : any;
   positionButtom : any;
-
+  // Event emitter to determine if the subject filled an answer
+  @Output() answered: EventEmitter<boolean> = new EventEmitter();
   //default constructor.
   constructor() {}
 
@@ -42,6 +43,8 @@ export class TestPageRateQuestionComponent implements OnInit {
     for(let i = 0; i < this.question.heightOfRate; i++){
       this.markedAnswers[i] = false;
     }
+
+    this.answered.emit(false);
   }
 
   /*
@@ -53,6 +56,7 @@ export class TestPageRateQuestionComponent implements OnInit {
       if(i == index){
         this.markedAnswers[i] = true;
         this.markedAnswer = i;
+        this.answered.emit(true);
 
       }else{
         this.markedAnswers[i] = false;
