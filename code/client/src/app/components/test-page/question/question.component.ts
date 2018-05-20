@@ -31,7 +31,9 @@ constructor() { }
 @ViewChild(TestPageRateQuestionComponent) rateQuestion: TestPageRateQuestionComponent;
 
 //default initialization function.
-ngOnInit() {}
+ngOnInit() {
+  this.finished.emit(false);
+}
 
 // emit the time measurements and answers.
 onQuestionFinish() {
@@ -46,6 +48,24 @@ onQuestionFinish() {
 
   this.finished.emit(questionAnswer);
 }
+
+getAnswer() {
+  var questionAnswer: QuestionAnswer;
+  switch(this.question.type) {
+    case TypeQuestion.OpenQuestion: questionAnswer = this.openQuestion.buildAnswer(); break;
+    case TypeQuestion.DrillDownQuestion: questionAnswer = this.drillDownQuestion.buildAnswer(); break;
+    case TypeQuestion.MultipleChoice: questionAnswer = this.multipleChoiceQuestion.buildAnswer(); break;
+    case TypeQuestion.RateQuestion: questionAnswer = this.rateQuestion.buildAnswer(); break;
+  }
+
+  return questionAnswer;
+}
+
+onAnswering(didAnswer: boolean) {
+  //console.log(didAnswer);
+  this.finished.emit(didAnswer);
+}
+
 }
 
 

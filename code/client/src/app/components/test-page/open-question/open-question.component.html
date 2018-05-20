@@ -8,7 +8,7 @@
 <br>
     <div class="container">
       <input autocomplete="off" class="form-control" type="text" name="answer"
-             placeholder="Enter your answer here" [(ngModel)]="currentAnswer" id="#textBox">
+             placeholder="Enter your answer here" [(ngModel)]="currentAnswer" (input)="onAnswerChange()" id="#textBox">
 
     </div>
 <br>

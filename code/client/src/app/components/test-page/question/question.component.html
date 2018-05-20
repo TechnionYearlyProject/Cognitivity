@@ -1,4 +1,4 @@
-<app-test-page-multiple-choice-question *ngIf="question.type==0" [question]="question"></app-test-page-multiple-choice-question>
-<app-test-page-rate-question *ngIf="question.type==1" [question]="question"></app-test-page-rate-question>
-<app-test-page-open-question *ngIf="question.type==2" [question]="question"></app-test-page-open-question>
-<app-test-page-drill-down-question *ngIf="question.type==3" [question]="question"></app-test-page-drill-down-question>
+<app-test-page-multiple-choice-question *ngIf="question.type==0" [question]="question" (answered)="onAnswering($event)"></app-test-page-multiple-choice-question>
+<app-test-page-rate-question *ngIf="question.type==1" [question]="question" (answered)="onAnswering($event)" ></app-test-page-rate-question>
+<app-test-page-open-question *ngIf="question.type==2" [question]="question" (answered)="onAnswering($event)"></app-test-page-open-question>
+<app-test-page-drill-down-question *ngIf="question.type==3" [question]="question" (answered)="onAnswering($event)"></app-test-page-drill-down-question>

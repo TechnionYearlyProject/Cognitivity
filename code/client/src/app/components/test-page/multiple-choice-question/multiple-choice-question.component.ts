@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, Input, OnInit, Output, EventEmitter} from "@angular/core";
 import {QuestionPosition, TypeMultipleQuestion, QuestionAnswer, OpenQuestionAnswer, TypeQuestion} from "../../../models";
 @Component({
   selector: 'app-test-page-multiple-choice-question',
@@ -31,7 +31,8 @@ export class TestPageMultipleChoiceQuestionComponent implements OnInit {
   matrixAnswers?: Array<Array<string>>;
   //An object that centers the matrix in the web page acocording its size
   centeringMatrix?: any;
-
+  // Event emitter to determine if the subject filled an answer
+  @Output() answered: EventEmitter<boolean> = new EventEmitter();
   //default constructor.
   constructor(){}
 
@@ -209,7 +210,7 @@ export class TestPageMultipleChoiceQuestionComponent implements OnInit {
   higherThanFourColNum():boolean{
     return this.dimMatrix > 4;
   }
-
+  // function to return marked answer
   buildAnswer(): QuestionAnswer {
     /*let questionAnswer : OpenQuestionAnswer = {
       questionId: this.question.id,

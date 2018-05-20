@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, Input, OnInit, Output, EventEmitter} from "@angular/core";
 import { QuestionAnswer, DrillDownQuestionAnswer, TypeQuestion } from "../../../models";
 @Component({
   selector: 'app-test-page-drill-down-question',
@@ -30,6 +30,8 @@ export class TestPageDrillDownQuestionComponent implements OnInit {
   range_value: number = 50;
   //to indicate if we're using the secondary question option.
   secondaryQuestionMode: boolean = false;
+  // Event emitter to determine if the subject filled an answer
+  @Output() answered: EventEmitter<boolean> = new EventEmitter();
 
   //default constructor.
   constructor() { }

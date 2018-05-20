@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from "@angular/core";
-import {QuestionPosition, QuestionAnswer, TypeQuestion, OpenQuestionAnswer} from "../../../models";
+import {Component, Input, OnInit, Output, EventEmitter} from "@angular/core";
+import {QuestionPosition, QuestionAnswer, TypeQuestion, OpenQuestionAnswer, OpenQuestion} from "../../../models";
 @Component({
   selector: 'app-test-page-open-question',
   templateUrl: './open-question.component.html',
@@ -10,7 +10,7 @@ import {QuestionPosition, QuestionAnswer, TypeQuestion, OpenQuestionAnswer} from
 */
 export class TestPageOpenQuestionComponent implements OnInit {
   //the question's data passed as input
-  @Input() question: any;
+  @Input() question: OpenQuestion;
   //the current answer that the subject fills up.
   currentAnswer: string;
   //slider value.
@@ -22,12 +22,24 @@ export class TestPageOpenQuestionComponent implements OnInit {
   positionMiddle : any;
   positionButtom : any;
 
+
+  // Event emitter to determine if the subject filled an answer
+  @Output() answered: EventEmitter<boolean> = new EventEmitter();
   //default constructor.
   constructor() {}
 
   //default initialization function.
   ngOnInit() {
     this.buildPositionOfQuestion();
+    this.answered.emit(false);
+  }
+
+  onAnswerChange() {
+    if (this.currentAnswer == "") {
+      this.answered.emit(false);
+    }
+    else
+      this.answered.emit(true);
   }
 
   /*
@@ -98,7 +110,8 @@ export class TestPageOpenQuestionComponent implements OnInit {
       subjectId: /* will come later, for now hard-coded */ 1,
       questionType: TypeQuestion.OpenQuestion,
       answer: this.currentAnswer,
-      confidence: this.range_value
+      confidence: this.range_value,
+
     }
 
     return questionAnswer;
