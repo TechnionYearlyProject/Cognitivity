@@ -263,10 +263,10 @@ export interface QuestionAnswer {
     subjectId: number;
     questionType: TypeQuestion;
     confidence: number;
-    is_time_distraction: boolean; // holds if the question have time distraction
-    changes_of_answer: number; // hold the number of times that the answer was changed by the subject
-    time_for_question: any; //hold the time object for the the time masurment feature. TODO: fill the type of the object
-    time_for_confidence_bar: any;//hold the time object for the confidence bar. 
+    is_time_distraction?: boolean; // holds if the question have time distraction
+    changes_of_answer?: number; // hold the number of times that the answer was changed by the subject
+    time_for_question?: any; //hold the time object for the the time masurment feature. TODO: fill the type of the object
+    time_for_confidence_bar?: any;//hold the time object for the confidence bar. 
 }
 export interface OpenQuestionAnswer extends QuestionAnswer {
     answer: string;
@@ -283,6 +283,10 @@ export interface MultipleChoiceQuestionAnswer extends QuestionAnswer {
 
 export interface RateQuestionAnswer extends QuestionAnswer {
     answer: number;
+}
+
+export interface BlockAnswers {
+    answers: QuestionAnswer[];
 }
 
 
