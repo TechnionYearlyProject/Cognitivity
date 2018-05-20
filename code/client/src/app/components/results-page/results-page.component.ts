@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { QuestionAnswer } from '../../models/index';
 
 @Component({
   selector: 'app-results-page',
@@ -12,7 +13,8 @@ export class ResultsPageComponent implements OnInit {
    * 
    */
   constructor() { }
-  test_name: string = 'My Test'; // The name of the test should get from the dashboard (the caller test) TODO: after connecting to the dashboard assign this ad Input directive
+  test_name: string = 'My Test'; // The name of the test should get from the dashboard (the caller test) TODO: after connecting to the dashboard assign this as Input directive
+  test_id: number;// The id of the test. Will be used in the service to collect the results of the test. TODO: after connecting to the dashboard assign this as Input directive
   columnDefs : any; //The definition of the table that hold all the information on the results
   ngOnInit() {
     this.define_table_results();
@@ -26,9 +28,11 @@ export class ResultsPageComponent implements OnInit {
       {headerName: 'Type of Question', field: 'question_type'},
       {headerName: 'Confidence in Answer', field: 'conf_value' },
       {headerName: 'Time Distraction', field: 'is_time_distraction'},
-      {headerName: 'Answer', field: 'answer'},
       {headerName: '# of Answer Changes', field: 'changes_of_answer'},
       {headerName: 'Time for Answer', field: 'time'},
+      {headerName: 'TIme for confidense bar', field: 'time_conf'},
+      {headerName: 'Answer', field: 'answer'},
+      
     ];
   }
 
