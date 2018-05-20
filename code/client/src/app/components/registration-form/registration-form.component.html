@@ -1,154 +1,145 @@
-<body>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="container col-lg-8">
-        <div class="card bg-info">
-            <div class="card-body">
-                <form class="form-group" novalidate #f="ngForm" (ngSubmit)="onSubmit(f)">
-                    <!-- start of header msg -->
-                    <div class="card text-center">
+<div class="container col-lg-8">
+    <div class="card bg-info">
+        <div class="card-body">
+            <form class="form-group" novalidate #f="ngForm" (ngSubmit)="onSubmit(f)">
+                <!-- start of header msg -->
+                <div class="card text-center">
+                    <div class="card-body">
+                        <br>
+                        <h4 class="card-title">Subject Info Registration</h4>
+                        <br>
+                        <p class="card-text">The following information is for research purposes only and will not be submitted to any third
+                            party.
+                        </p>
+                    </div>
+                </div>
+                <!-- end of header msg -->
+                <br>
+                <br>
+                <!-- ROW 1 START -->
+                <div class="row justify-content-around">
+                    <!-- defines the row for the last and first name -->
+                    <div class="col-lg-4">
+                        <!-- defines the left column -->
+                        <!-- Here we define the first field (first name) -->
                         <div class="card-body">
+                            <label for="firstName" class="fields">First Name</label>
                             <br>
-                            <h4 class="card-title">Subject Info Registration</h4>
-                            <br>
-                            <p class="card-text">The following information is for research purposes only and will not be submitted to any third
-                                party.
-                            </p>
-                        </div>
-                    </div>
-                    <!-- end of header msg -->
-                    <br>
-                    <br>
-                    <!-- ROW 1 START -->
-                    <div class="row justify-content-around">
-                        <!-- defines the row for the last and first name -->
-                        <div class="col-lg-4">
-                            <!-- defines the left column -->
-                            <!-- Here we define the first field (first name) -->
-                            <div class="card-body">
-                                <label for="firstName" class="fields">First Name</label>
-                                <br>
-                              <input type="text" class="form-control" name="name" [(ngModel)]="user.name"
-                                     #userName="ngModel" minlength="2" required placeholder="First name">
-                                <div *ngIf="userName.errors?.required && userName.touched" class="alert alert-danger">
-                                    Please enter your first name
-                                </div>
-                                <div *ngIf="userName.errors?.minlength && userName.touched" class="alert alert-danger">
-                                    First name must contain at least 2 characters
-                                </div>
+                            <input type="text" class="form-control" name="name" [(ngModel)]="user.name"
+                                    #userName="ngModel" minlength="2" required placeholder="First name">
+                            <div *ngIf="userName.errors?.required && userName.touched" class="alert alert-danger">
+                                Please enter your first name
                             </div>
-                            <br>
-                            <br>
-                        </div>
-                        <div class="col-lg-4">
-                            <!-- defines the right column -->
-                            <!-- Here we define the last name field -->
-                            <div class="card-body">
-                                <label for="lastName" class="fields">Last Name</label>
-                                <br>
-                              <input type="text" class="form-control" name="lastname"
-                                     [(ngModel)]="user.lastname" #userLastname="ngModel" minlength="2"
-                                     required placeholder="Last name">
-                                <div *ngIf="userLastname.errors?.required && userLastname.touched" class="alert alert-danger">
-                                    Please enter your last name
-                                </div>
-                                <div *ngIf="userLastname.errors?.minlength && userLastname.touched" class="alert alert-danger">
-                                    Last name must contain at least 2 characters
-                                </div>
+                            <div *ngIf="userName.errors?.minlength && userName.touched" class="alert alert-danger">
+                                First name must contain at least 2 characters
                             </div>
-                            <br>
-                            <br>
                         </div>
+                        <br>
+                        <br>
                     </div>
-                    <!-- ROW 1 END -->
-                    <br>
-                    <br>
+                    <div class="col-lg-4">
+                        <!-- defines the right column -->
+                        <!-- Here we define the last name field -->
+                        <div class="card-body">
+                            <label for="lastName" class="fields">Last Name</label>
+                            <br>
+                            <input type="text" class="form-control" name="lastname"
+                                    [(ngModel)]="user.lastname" #userLastname="ngModel" minlength="2"
+                                    required placeholder="Last name">
+                            <div *ngIf="userLastname.errors?.required && userLastname.touched" class="alert alert-danger">
+                                Please enter your last name
+                            </div>
+                            <div *ngIf="userLastname.errors?.minlength && userLastname.touched" class="alert alert-danger">
+                                Last name must contain at least 2 characters
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+                <!-- ROW 1 END -->
+                <br>
+                <br>
 
-                    <!-- ROW 2 START -->
-                    <div class="row justify-content-around">
-                        <!-- defines the row for the age and date of birth -->
-                        <div class="col-lg-4">
-                            <!-- defines the left column -->
-                            <!-- Here we define the ID field -->
-                            <div class="card-body">
-                                <label for="ID" class="fields">ID</label>
-                                <br>
-                              <input type="text" class="form-control" name="ID" [(ngModel)]="user.id"
-                                     #userID="ngModel" minlength="9" required placeholder="ID">
-                                <div *ngIf="userID.errors?.required && userID.touched" class="alert alert-danger">
-                                    Please enter your ID
-                                </div>
-                                <div *ngIf="userID.errors?.minlength && userID.touched" class="alert alert-danger">
-                                    ID must contain at least 9 digits
-                                </div>
+                <!-- ROW 2 START -->
+                <div class="row justify-content-around">
+                    <!-- defines the row for the age and date of birth -->
+                    <div class="col-lg-4">
+                        <!-- defines the left column -->
+                        <!-- Here we define the ID field -->
+                        <div class="card-body">
+                            <label for="ID" class="fields">ID</label>
+                            <br>
+                            <input type="text" class="form-control" name="ID" [(ngModel)]="user.id"
+                                    #userID="ngModel" minlength="9" required placeholder="ID">
+                            <div *ngIf="userID.errors?.required && userID.touched" class="alert alert-danger">
+                                Please enter your ID
                             </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <!-- defines the right column -->
-                            <!-- Here we define the date of birth -->
-                            <!-- Form code begins -->
-                            <div class="card-body">
-                                <label for="birthDate" class="fields">Date of birth</label>
-                                <br>
-                                <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="model" #birthdate="ngModel" required placeholder="Date of birth"></my-date-picker>
-                                <div *ngIf="birthdate.errors?.required && birthdate.touched" class="alert alert-danger">
-                                    Please enter your date of birth
-                                </div>
+                            <div *ngIf="userID.errors?.minlength && userID.touched" class="alert alert-danger">
+                                ID must contain at least 9 digits
                             </div>
                         </div>
                     </div>
-                    <!-- ROW 2 END -->
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <!-- ROW 3 START -->
-                    <!-- defines the row for the marital status and job -->
-                    <div class="row justify-content-around">
-                        <div class="col-lg-4">
-                            <!-- defines the left column -->
-                            <!-- Here we define the family state field -->
-                            <div class="card-body">
-                                <label for="maritalStatus" class="fields">Marital Status</label>
-                                <select class="custom-select form-control form-control-md" name="maritalState" [(ngModel)]="user.maritalstatus" #maritalstatus="ngModel"
-                                    required>
-                                    <option>Single</option>
-                                    <option>Married</option>
-                                    <option>Divorced</option>
-                                    <option>Widower</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <!-- defines the right column -->
-                            <!-- Here we define the current job -->
-                            <div class="card-body">
-                                <label for="job" class="fields">Current job</label>
-                              <input type="text" class="form-control" name="currentjob"
-                                     [(ngModel)]="user.currentjob" #currentjob="ngModel" required
-                                     placeholder="Current job">
-                                <div *ngIf="currentjob.errors?.required && currentjob.touched" class="alert alert-danger">
-                                    Please enter your current job
-                                </div>
+                    <div class="col-lg-4">
+                        <!-- defines the right column -->
+                        <!-- Here we define the date of birth -->
+                        <!-- Form code begins -->
+                        <div class="card-body">
+                            <label for="birthDate" class="fields">Date of birth</label>
+                            <br>
+                            <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="model" #birthdate="ngModel" required placeholder="Date of birth"></my-date-picker>
+                            <div *ngIf="birthdate.errors?.required && birthdate.touched" class="alert alert-danger">
+                                Please enter your date of birth
                             </div>
                         </div>
                     </div>
-                    <!-- ROW 3 END -->
-                    <br>
-                    <br>
-                    <div style="text-align: center;">
-                      <input class="btn btn-success" type="submit" value="Submit">
+                </div>
+                <!-- ROW 2 END -->
+                <br>
+                <br>
+                <br>
+                <br>
+                <!-- ROW 3 START -->
+                <!-- defines the row for the marital status and job -->
+                <div class="row justify-content-around">
+                    <div class="col-lg-4">
+                        <!-- defines the left column -->
+                        <!-- Here we define the family state field -->
+                        <div class="card-body">
+                            <label for="maritalStatus" class="fields">Marital Status</label>
+                            <select class="custom-select form-control form-control-md" name="maritalState" [(ngModel)]="user.maritalstatus" #maritalstatus="ngModel"
+                                required>
+                                <option>Single</option>
+                                <option>Married</option>
+                                <option>Divorced</option>
+                                <option>Widower</option>
+                            </select>
+                        </div>
                     </div>
-                </form>
-            </div>
+                    <div class="col-lg-4">
+                        <!-- defines the right column -->
+                        <!-- Here we define the current job -->
+                        <div class="card-body">
+                            <label for="job" class="fields">Current job</label>
+                            <input type="text" class="form-control" name="currentjob"
+                                    [(ngModel)]="user.currentjob" #currentjob="ngModel" required
+                                    placeholder="Current job">
+                            <div *ngIf="currentjob.errors?.required && currentjob.touched" class="alert alert-danger">
+                                Please enter your current job
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ROW 3 END -->
+                <br>
+                <br>
+                <div style="text-align: center;">
+                    <input class="btn btn-primary" type="submit" value="Submit and start the test">
+                </div>
+            </form>
         </div>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-</body>
+</div>
+<br>
+<br>
+

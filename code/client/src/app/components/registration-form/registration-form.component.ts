@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 
 @Component({
@@ -21,6 +21,8 @@ export class registrationFormComponent implements OnInit {
     currentjob:''
   }
 
+  @Output() complete: EventEmitter<number> = new EventEmitter();
+
   //default constructor.
   constructor() { }
 
@@ -34,6 +36,10 @@ export class registrationFormComponent implements OnInit {
   onSubmit({value,valid}){
     if(valid){
       console.log(value);
+
+      // here we will save the in the db the data on the subject, and get his id from db
+      let id = /* get answer from db... */ 1 /* temp hard-coded value */;
+      this.complete.emit(id);
     }
     else{
       console.log('Not valid');
