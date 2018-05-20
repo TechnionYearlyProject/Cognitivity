@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Question, TimeMeasurment, QuestionAnswer } from '../../../models/index';
+import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Question, TimeMeasurment, QuestionAnswer, BlockAnswers } from '../../../models/index';
+import { TestPageQuestionComponent } from '../question/question.component';
 
 @Component({
   selector: 'app-test-page-block',
@@ -7,7 +8,7 @@ import { Question, TimeMeasurment, QuestionAnswer } from '../../../models/index'
   styleUrls: ['./block.component.css']
 })
 export class TestPageBlockComponent implements OnInit {
-
+  @ViewChild(TestPageQuestionComponent) question: TestPageQuestionComponent; 
   //the block input given to the class, that's the block we're about to preview.
   @Input() block:any;
   //we want to notify when we finish previewing the block.
@@ -18,6 +19,8 @@ export class TestPageBlockComponent implements OnInit {
   currIndex: number;
 
   questionAnswers: QuestionAnswer[];
+
+  didAnswerQuestion: boolean = false;
 
   //default constructor.
   constructor() { }
@@ -46,13 +49,12 @@ export class TestPageBlockComponent implements OnInit {
   */
   nextQuestion() {
     // Insert Time measuring of last question
+    this.questionAnswers[this.currIndex] = this.question.getAnswer();
     this.currIndex++;
-    
+    this.didAnswerQuestion = false;
     if (this.currIndex == this.block.questions.length) {
       this.finish = true;
-      this.finished.emit(true);
-    } else {
-      this.finished.emit(false);
+      this.finished.emit();
     }
     // begin time measuring of next question
   }
@@ -61,10 +63,16 @@ export class TestPageBlockComponent implements OnInit {
     return JSON.parse(text);
   }
 
-  onQuestionFinish(i: number, questionAnswer: QuestionAnswer) {
-    // register answer.
-    this.questionAnswers[i] = questionAnswer;
+  onQuestionFinish(didFinish: boolean) {
+    this.didAnswerQuestion = didFinish;
     
+  }
+
+  getQuestionAnswers() {
+    let blockAnswer: BlockAnswers = {
+      answers: this.questionAnswers
+    }
+    return blockAnswer;
   }
 
 }
