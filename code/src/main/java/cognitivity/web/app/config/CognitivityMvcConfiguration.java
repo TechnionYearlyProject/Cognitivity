@@ -2,6 +2,7 @@ package cognitivity.web.app.config;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -46,13 +47,26 @@ public class CognitivityMvcConfiguration {
         return transactionManager;
     }
 
+    @Value("${db.port}")
+    String serverPort;
+
+    @Value("${db.name}")
+    String databaseName;
+
+    @Value("${db.userName}")
+    String userName;
+
+    // todo: maybe it will be better to pass sensitive parameters by command line?
+    @Value("${db.password}")
+    String password;
+
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/Cognitivity?serverTimezone=UTC&useSSL=false");
-        dataSource.setUsername("root");
-        dataSource.setPassword("password");
+        dataSource.setUrl("jdbc:mysql://localhost:" + serverPort + "/" + databaseName + "?serverTimezone=UTC&useSSL=false");
+        dataSource.setUsername(userName);
+        dataSource.setPassword(password);
         return dataSource;
     }
 
