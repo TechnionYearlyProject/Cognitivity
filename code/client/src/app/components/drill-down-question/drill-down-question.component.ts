@@ -30,6 +30,11 @@ export class DrillDownQuestionComponent implements OnInit {
   //to indicate if we're using the secondary question option.
   secondaryQuestionMode: boolean = false;
   //default constructor.
+
+  //The main answer that the subject chose
+  chosenMainAnswer : number = -1;
+  //The second answer that the subject chose, will be -1 if there is no second answer
+  chosenSecondAnswer : number = -1;
   constructor() { }
 
   //default initialization function.
@@ -120,6 +125,30 @@ export class DrillDownQuestionComponent implements OnInit {
         this.markedAnswersSecondary[i] = false;
       }
     }
+  }
+
+ /* The following function returns a tple
+  * object that reprsents the answers for the drill down question
+  * the first item is the index of the main answer and the seocond is the answer
+  * for the secondary answer, if there isn't a secondary question it will be -1
+  */
+  returnAnswers(){
+    let mainAnswerIndex = -1, secondAnswerIndex = -1;
+    for(let i = 0; i < this.markedAnswersMain.length; i++){
+      if(this.markAnswerForMain[i]){
+        mainAnswerIndex = i;
+        break;
+      }
+    }
+    if(this.secondaryQuestionMode){
+      for(let i = 0; i < this.markedAnswersSecondary.length; i++){
+        if(this.markedAnswersSecondary[i]){
+          secondAnswerIndex = i;
+        }
+      }
+    }
+    return {mainAnswer : mainAnswerIndex, secondAnswer: secondAnswerIndex};
+    
   }
 
 }
