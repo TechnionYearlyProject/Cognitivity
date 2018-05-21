@@ -1,4 +1,4 @@
-<div class = "form-inline">
+<div class = "form-inline search-bar">
     <select [(ngModel)]="filter.option" class="custom-select col-md-2">
         <option selected value = ''>Column...</option>
         <option value = 'project'>Project</option>
@@ -39,10 +39,10 @@
           <td>{{ test.numberOfQuestions }}</td>
           <td>{{ test.project }}</td>
           <td>{{ test.notes }}</td>
-          <td><a class="btn btn-secondary btn-sm" (click)="deleteTest(test.id)"><i class="fa fa-times"></i> Delete</a></td>
+          <td><a class="btn btn-secondary btn-sm" href="#" (click)="deleteTest(test.id)"><i class="fa fa-times"></i> Delete</a></td>
           <td><a [routerLink]="['/test-preview/'+test.id]" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-window-maximize"></i> Preview</a></td>
           <td><a [routerLink]="['/edit-test/'+test.id]" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-arrow-circle-o-right"></i> Edit</a></td>
-          <td><a (click)="copyTest(test)" class="btn btn-secondary btn-sm"><i class="fa fa-file-powerpoint-o "></i> Copy</a></td>
+          <td><a (click)="copyTest(test)" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-file-powerpoint-o "></i> Copy</a></td>
         </tr>
       </tbody>
     </table>

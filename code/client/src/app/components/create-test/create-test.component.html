@@ -50,7 +50,8 @@
         </div>
         <br>
         <div class="centered">
-            <button class="btn btn-md btn-primary" (click)="saveTest()" style="width: 100%;">Save Test</button>
+            <button class="btn btn-block btn-success col-md-12" data-toggle="modal" data-target="#uploadTestModal">Upload Test</button>
+            <button class="btn btn-block btn-primary col-md-12" (click)="saveTest()">Save Test</button>
         </div>
         <div *ngIf = "emptyBlock" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
             Please fill with at least one question or delete block number {{ indexBlock }}
@@ -61,4 +62,28 @@
         <div *ngIf = "noTitle" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
             Error: a test has no name
         </div>
+    </div>
+
+    <div class="modal fade" id="uploadTestModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title text-muted">Upload Test</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+
+          <!-- Modal body -->
+          <div class="modal-body form-group">
+                <input type = "file" class = "form-control-file" name="file" (change)="updateFile($event)"/>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+              <button class="btn btn-block btn-primary col-md-12" (click)="uploadTest()">Upload Test</button>
+          </div>
+
+        </div>
+      </div>
     </div>

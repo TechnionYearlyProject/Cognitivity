@@ -18,7 +18,7 @@ Each function is described well by is name.
 @Injectable()
 export class TestManagerService {
 
-    //tuples for representing the way we send data between the front-end and DB. 
+    //tuples for representing the way we send data between the front-end and DB.
     private headers = new Headers({'Content-Type': 'application/json'});
 
     //the basic route mapping.
@@ -31,7 +31,7 @@ export class TestManagerService {
     saveTestManager(email: string): Promise<void> {
         return this.http.post(`http://localhost:8181${this.base_mapping}/saveTestManager`, JSON.stringify({'email': email}),{headers: this.headers})
         .toPromise()
-        .then(() => null) 
+        .then(() => null)
         .catch(ErrorHandler.handleError);
     }
 
@@ -46,9 +46,9 @@ export class TestManagerService {
         return this.http.get(`http://localhost:8181${this.base_mapping}/findTestManagerIdByEmail?email=${email}`)
         .toPromise()
         .then(res => {
-            if (res.status == 204) 
+            if (res.status == 204)
                 return -1;
-            
+
             return parseInt(res.text())
         })
         .catch(ErrorHandler.handleError)
@@ -111,9 +111,9 @@ export class TestService {
         .then(response => response.json() as Test)
         .catch(ErrorHandler.handleError)
     }
-    
 
-   
+
+
     constructor(private http : Http) {}
 }
 
@@ -125,7 +125,7 @@ export class QuestionService {
 
     private headers = new Headers({'Content-Type': 'application/json'});
 
-    
+
     constructor(private http: Http) {}
 
     findTestQuestionsForManager(managerId: number, testId: number = null): Promise<Question[]> {
@@ -153,8 +153,8 @@ export class QuestionService {
 
 /*
  *
- * Author: Mark Erlikh Date: 19.5.18 
- * 
+ * Author: Mark Erlikh Date: 19.5.18
+ *
  */
  /*
   * This service os for pulling all the results information on a specific test
@@ -162,7 +162,7 @@ export class QuestionService {
   @Injectable()
   export class TestAnswersService {
      base_mapping = '/test-answers';
-     
+
      private headers = new Headers({'Content-Type': 'application/json'});
 
      constructor(private http: Http){}
@@ -175,12 +175,30 @@ export class QuestionService {
      }
 
 
- 
-     
+
+
   }
 //TODO: this is in use?
 @Injectable()
 export class TestAnswerService {
     //functions
     constructor() {}
+}
+
+@Injectable()
+export class FileUploadService {
+    base_mapping = '/load-from-file';
+
+    private headers = new Headers({'Content-Type': 'application/json'});
+
+
+    constructor(private http: Http) {}
+    uploadCognitiveTest(test): Promise<void> {
+        return this.http.post(`http://localhost:8181${this.base_mapping}/loadFromJSONFile`,JSON.stringify(test),{headers : this.headers})
+        .toPromise()
+        .then(() => null)
+        .catch(ErrorHandler.handleError);
+    }
+
+
 }

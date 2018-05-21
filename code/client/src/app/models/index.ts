@@ -15,7 +15,7 @@ import {OnInit} from "@angular/core/src/metadata/lifecycle_hooks";
 export enum TypeMultipleQuestion {
   Vertical = 0,
   Horizontal,
-  Matrix 
+  Matrix
 }
 
 /*
@@ -113,20 +113,20 @@ export interface Block {
     Interface that represents test object that holds its list of blocks.
  */
 export interface Test {
-    id?: number,
-    name?: string,
-    project?: string,
-    notes?: string
-    numberOfQuestions?: number,
-    state?: number,
-    numberOfFiledCopies?: number,
-    blocks?: Block[],
-    numberOfSubjects?: number,
-    testManager?: any
+    id?: number;
+    name?: string;
+    project?: string;
+    notes?: string;
+    numberOfQuestions?: number;
+    state?: number;
+    numberOfFiledCopies?: number;
+    blocks?: Block[];
+    numberOfSubjects?: number;
+    testManager?: any;
     // fields for measuring times
-    testStartTimestamp?: number,
-    testEndTimestamp?: number,
-    testTotalRunningTime?: number
+    testStartTimestamp?: number;
+    testEndTimestamp?: number;
+    testTotalRunningTime?: number;
     isBeingMeasured?: boolean; //indicates if theres a StartTestMeasure without enclosing StopTestMeasure.
 }
 
@@ -266,7 +266,7 @@ export interface QuestionAnswer {
     is_time_distraction?: boolean; // holds if the question have time distraction
     changes_of_answer?: number; // hold the number of times that the answer was changed by the subject
     time_for_question?: any; //hold the time object for the the time masurment feature. TODO: fill the type of the object
-    time_for_confidence_bar?: any;//hold the time object for the confidence bar. 
+    time_for_confidence_bar?: any;//hold the time object for the confidence bar.
 }
 export interface OpenQuestionAnswer extends QuestionAnswer {
     answer: string;
@@ -288,5 +288,3 @@ export interface RateQuestionAnswer extends QuestionAnswer {
 export interface BlockAnswers {
     answers: QuestionAnswer[];
 }
-
-

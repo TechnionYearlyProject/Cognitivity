@@ -1,9 +1,10 @@
 import { Component, OnInit, HostListener } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Block, Test, QuestionInDB, Manager } from '../../models/index';
 import { BlockComponent } from '../block/block.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SessionService } from '../../services/session-service/index';
-import { TestService, TestManagerService } from '../../services/database-service/index';
+import { TestService, TestManagerService, FileUploadService } from '../../services/database-service/index';
 import { AuthService } from '../../services/auth-service/index';
 import { QueryList, ViewChildren  } from '@angular/core';
 
@@ -41,6 +42,10 @@ export class CreateTestComponent implements OnInit {
   noTitle: boolean = false;
 
   indexBlock: number = -1;
+
+  // in case of upload file
+  file : File = null;
+
   //default constructor
   constructor(
     private router:Router,
@@ -48,7 +53,8 @@ export class CreateTestComponent implements OnInit {
     public questionDataService:SessionService,
     private testService: TestService,
     private authService: AuthService,
-    private managerService: TestManagerService
+    private managerService: TestManagerService,
+    private fileUploadService: FileUploadService
   ) {}
 
   /*
@@ -109,6 +115,34 @@ export class CreateTestComponent implements OnInit {
   }
 
   regex = /[\ ]*([A-Za-z0-9)(]+[\ ]*)+/;
+
+
+  /*
+   * validates the test name before saving it to database
+   * @parameter testName: the name that need to be validated
+   */
+  async testNameValidate(testName : string){
+      let badName = 'A bad name. Please choose a name with only letters and numbers';
+      let nameAlreadyTaken = 'Name already taken!';
+      if (testName == null || testName == '' || !this.regex.test(testName)) {
+        alert(badName);
+        return false;
+      }
+      let arr = this.regex.exec(testName);
+      if (arr[0] != testName) {
+        alert(badName);
+        return false;
+      }
+      let testList = await this.testService.findTestsForTestManager(this.manager.id);
+      for (let test of testList) {
+        if (testName.trim() == testName.trim().replace(/\s\s+/g, ' ')) {
+          alert(nameAlreadyTaken);
+          return false;
+        }
+      }
+      return true;
+  }
+
   /**
    * This function saves a test in the DB.
    * It iterates over all of the questions of all of the blocks
@@ -122,25 +156,8 @@ export class CreateTestComponent implements OnInit {
       this.noTitle = false;
     }
 
-    if (this.titleTest == null || this.titleTest == '' || !this.regex.test(this.titleTest)) {
-      alert('A bad name. Please choose a name with only letters and numbers');
-      return;
-    }
-    let arr = this.regex.exec(this.titleTest);
-    if (arr[0] != this.titleTest) {
-      alert('A bad name. Please choose a name with only letters and numbers');
-      return;
-    }
-    let testList = await this.testService.findTestsForTestManager(this.manager.id);
-    for (let test of testList) {
-      if (test.name.trim() == this.titleTest.trim().replace(/\s\s+/g, ' ')) {
-        alert('Name already taken!');
+    if(!this.testNameValidate(this.titleTest))
         return;
-      }
-    }
-
-
-
 
     let blocks = this.blocks.toArray();
     if (blocks.length == 0) {
@@ -202,6 +219,32 @@ export class CreateTestComponent implements OnInit {
     console.log(await this.testService.saveCognitiveTest(test));
     this.router.navigate(['/dashboard']);
 
+  }
+
+  updateFile(event){
+      if(event.target.files.length != 1){
+          alert("only one file can be submitted each time");
+          return;
+      }
+      let fullFile = event.target.files[0];
+      var reader = new FileReader();
+      reader.onload = (event) => {
+          try {
+            		this.file = JSON.parse(reader.result);
+                    console.log("Received json: " + JSON.stringify(this.file));
+          } catch (ex) {
+    			alert('exeption when trying to parse json = ' + ex);
+		  }
+      };
+      reader.readAsText(fullFile);
+  }
+
+  async uploadTest() {
+    if(!this.file)
+        return;
+    console.log("Uploaded json: " + JSON.stringify(this.file));
+    console.log(await this.fileUploadService.uploadCognitiveTest(this.file));
+    this.router.navigate(['/dashboard']);
   }
 
   onPress(event: KeyboardEvent) {
