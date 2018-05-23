@@ -243,7 +243,7 @@ export class CreateTestComponent implements OnInit {
     if(!this.file)
         return;
     console.log("Uploaded json: " + JSON.stringify(this.file));
-    console.log(await this.fileUploadService.uploadCognitiveTest(this.file));
+    console.log(await this.fileUploadService.uploadCognitiveTest(this.file, this.manager.id));
     this.router.navigate(['/dashboard']);
   }
 

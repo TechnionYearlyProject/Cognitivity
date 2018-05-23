@@ -193,8 +193,8 @@ export class FileUploadService {
 
 
     constructor(private http: Http) {}
-    uploadCognitiveTest(test): Promise<void> {
-        return this.http.post(`http://localhost:8181${this.base_mapping}/loadFromJSONFile`,JSON.stringify(test),{headers : this.headers})
+    uploadCognitiveTest(test, managerId): Promise<void> {
+        return this.http.post(`http://localhost:8181${this.base_mapping}/loadFromJSONFile?managerId=${managerId}`, JSON.stringify(test), {headers : this.headers})
         .toPromise()
         .then(() => null)
         .catch(ErrorHandler.handleError);
