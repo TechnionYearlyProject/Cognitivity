@@ -17,5 +17,6 @@ src/main/webapp/META-INF
 *.iml
 code/node_modules/
 code/client/node_modules/
+code/log/
 
 code/src/main/java/cognitivity/controllers/GetItControllerForTesting
