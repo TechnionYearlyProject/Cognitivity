@@ -222,4 +222,29 @@ export class MultipleChoiceQuestionComponent implements OnInit {
   get_is_answered():boolean{
     return this.isAnswered;
   }
+
+  /*
+   *
+   * A function that returns the answer of the subject 
+   */
+  returnAnswers(){
+    let answerIndex = -1;
+    if(this.answerOrganization == TypeMultipleQuestion.Matrix){
+      for(let i = 0; i < this.dimMatrix; i++){
+        for(let j = 0; j < this.dimMatrix; j++){
+          if(this.markedAnswersMatrix[i][j]){
+            answerIndex = j*this.dimMatrix + i;
+          }
+          
+        }
+      }
+    }else{
+      for(let i = 0; i < this.dimMatrix; i++){
+        if(this.markedAnswers[i]){
+          answerIndex = i;
+        }
+      }
+    }
+    return answerIndex;
+  }
 }
