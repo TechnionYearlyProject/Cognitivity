@@ -4,6 +4,7 @@ import cognitivity.dao.CognitiveTestDAO;
 import cognitivity.dao.TestAnswerDAO;
 import cognitivity.dao.TestManagerDAO;
 import cognitivity.dao.TestQuestionDAO;
+import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestAnswer;
 import cognitivity.entities.TestManager;
 import cognitivity.entities.TestQuestion;
@@ -55,10 +56,7 @@ public class QuestionService {
         } catch (org.hibernate.HibernateException e) {
             logger.error("Failed to add a test question. TestQuestionId: "+q.getId(),e);
             throw new DBException(ErrorType.SAVE, q.getId());
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        return null;
     }
 
     /**
@@ -108,6 +106,10 @@ public class QuestionService {
     public TestQuestion findQuestionById(long id)throws DBException {
         try{
             TestQuestion toReturn = dao.get(id);
+            if (toReturn == null){
+                logger.error("Failed to find a test question.Test question with TestQuestionId: "+id+" doesn't exist");
+                throw new DBException(ErrorType.DOESNT_EXIST, id);
+            }
             logger.info("Successfully found a TestQuestion. TestQuestionId: " + id);
             return toReturn;
         }catch (org.hibernate.HibernateException e){
@@ -124,6 +126,11 @@ public class QuestionService {
      */
     public List<TestAnswer> getTestAnswers(long questionId)throws DBException {
         try {
+            TestQuestion question = dao.get(questionId);
+            if (question == null){
+                logger.error("Failed to find test answers for a test question. Test question with TestQuestionId: "+questionId+" doesn't exist");
+                throw new DBException(ErrorType.DOESNT_EXIST, questionId);
+            }
             List<TestAnswer> toReturn = answerDao.getQuestionAnswers(questionId);
             logger.info("Successfully found test answers a TestQuestion. TestQuestionId: " + questionId);
             return toReturn;
@@ -141,6 +148,11 @@ public class QuestionService {
      */
     public List<TestQuestion> findAllTestQuestionsFromTestId(long testId)throws DBException {
         try{
+            CognitiveTest test = testDao.get(testId);
+            if(test == null){
+                logger.error("Failed to find all test questions from test ID. Test with test ID: "+testId+" doesn't exist");
+                throw new DBException(ErrorType.DOESNT_EXIST, testId);
+            }
             List<TestQuestion> toReturn = testDao.getTestQuestions(testId);
             logger.info("Successfully found all test questions from test ID. Test ID: " + testId);
             return toReturn;
@@ -159,6 +171,10 @@ public class QuestionService {
     public List<TestQuestion> findAllTestQuestionsFromManagerId(long managerId)throws DBException {
         try{
             TestManager testManager = managerDao.get(managerId);
+            if (testManager == null){
+                logger.error("Failed to find all test questions from test manager ID. Test manager with ID: "+managerId+" doesn't exist");
+                throw new DBException(ErrorType.DOESNT_EXIST, managerId);
+            }
             List<TestQuestion> toReturn = dao.getTestQuestionsFromAManager(testManager);
             logger.info("Successfully found all test questions from test manager ID. Test manager ID: " + managerId);
             return toReturn;
@@ -177,6 +193,10 @@ public class QuestionService {
     public String findPictureLinkPerQuestion(long questionId) throws DBException{
         try {
             String toReturn = dao.findPictureLinkPerQuestion(questionId);
+            if (toReturn == null){
+                logger.error("Failed to find picture link for a picture. Test question with ID: "+questionId+" doesn't exist");
+                throw new DBException(ErrorType.DOESNT_EXIST, questionId);
+            }
             logger.info("Successfully found picture link for a picture. Test question ID: " + questionId);
             return toReturn;
         } catch (org.hibernate.HibernateException e){

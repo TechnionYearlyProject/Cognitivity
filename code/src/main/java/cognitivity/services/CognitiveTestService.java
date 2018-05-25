@@ -7,6 +7,7 @@ import cognitivity.dto.BlockWrapper;
 import cognitivity.dto.TestWrapper;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
+import cognitivity.entities.TestManager;
 import cognitivity.entities.TestQuestion;
 import cognitivity.exceptions.DBException;
 import cognitivity.exceptions.ErrorType;
@@ -139,6 +140,11 @@ public class CognitiveTestService {
                 blocks.add(new BlockWrapper(blockDAO.getAllBlockQuestions(block.getId()), block));
             }
             logger.info("Successfully found test. testId = " + testID);
+            CognitiveTest test = dao.get(testID);
+            if (test == null){
+                logger.error("Failed to find test. Test with test ID: " + testID+" Doesn't exist");
+                throw new DBException(ErrorType.DOESNT_EXIST, testID);
+            }
             return new TestWrapper(dao.get(testID), blocks);
         } catch (org.hibernate.HibernateException e) {
             logger.error("Failed to find test. Test ID: " + testID, e);
@@ -153,8 +159,9 @@ public class CognitiveTestService {
      * @return - The test the test manager has created with the given id.
      */
     public List<TestWrapper> findTestsForTestManager(long managerId) throws DBException {
-        List<TestWrapper> tests = new ArrayList<>();
         try {
+            // TODO: What id the test manager is not in the system?
+            List<TestWrapper> tests = new ArrayList<>();
             List<CognitiveTest> preWrapped = dao.getCognitiveTestOfManager(managerId);
             for (CognitiveTest test : preWrapped) {
                 tests.add(findTestById(test.getId()));
@@ -176,6 +183,11 @@ public class CognitiveTestService {
      */
     public List<BlockWrapper> getTestBlocksForTest(long testId) throws DBException {
         try {
+            CognitiveTest test = dao.get(testId);
+            if (test == null){
+                logger.error("Failed to find all test blocks for a test. Test with testID: " + testId+" doesn't exist");
+                throw new DBException(ErrorType.DOESNT_EXIST, testId);
+            }
             List<TestBlock> preWrapped = dao.getTestBlocks(testId);
             List<BlockWrapper> blocks = new ArrayList<BlockWrapper>();
             for (TestBlock block : preWrapped) {
@@ -197,6 +209,11 @@ public class CognitiveTestService {
      */
     public List<TestQuestion> getTestQuestionsForTest(long testId) throws DBException {
         try {
+            CognitiveTest test = dao.get(testId);
+            if (test == null){
+                logger.error("Failed to find all test questions for a test. Test with testID: " + testId+ " doesn't exist");
+                throw new DBException(ErrorType.DOESNT_EXIST, testId);
+            }
             List<TestQuestion> toReturn = dao.getTestQuestions(testId);
             logger.info("Successfully found all test questions for a test. testID: " + testId);
             return toReturn;

@@ -111,6 +111,10 @@ public class TestAnswerService {
     public TestAnswer findTestAnswerById(long answerId)throws DBException {
         try{
             TestAnswer toReturn = dao.get(answerId);
+            if (toReturn == null){
+                logger.error("Failed to find a test answers by ID. TestAnswer with ID: "+answerId+" doesn't exist");
+                throw new DBException(ErrorType.DOESNT_EXIST, answerId);
+            }
             logger.info("Successfully found a test answers by ID. TestAnswer ID: "
                     + answerId);
             return toReturn;
@@ -128,6 +132,10 @@ public class TestAnswerService {
      */
     public List<TestAnswer> findTestAnswersBySubject(long subjectId)throws DBException {
         try{
+            if(subjectDao.get(subjectId) == null){
+                logger.error("Failed to find test answers by subject. Test subject with ID: "+subjectId+" doesn't exist");
+                throw new DBException(ErrorType.DOESNT_EXIST, subjectId);
+            }
             List<TestAnswer> toReturn = subjectDao.getSubjectAnswers(subjectId);
             logger.info("Successfully found test answers by subject. Test subject ID: "
                     + subjectId);
@@ -147,6 +155,11 @@ public class TestAnswerService {
      */
     public List<TestAnswer> findTestAnswersBySubjectInTest(long subjectId, long testId) throws DBException{
         try{
+            if(subjectDao.get(subjectId) == null){
+                logger.error("Failed to find test answers by subject in test. Test subject with ID: "
+                        + subjectId+" doesn't exist");
+                throw new DBException(ErrorType.DOESNT_EXIST, subjectId);
+            }
             List<TestAnswer> toReturn = dao.getTestSubjectAnswersInTest(subjectId, testId);
             logger.info("Successfully found test answers by subject in test. Test subject ID: "
                     + subjectId+". Test ID: " + testId);

@@ -98,6 +98,10 @@ public class TestManagerService {
     public TestManager findTestManager(long testManagerId)throws DBException {
         try {
             TestManager toReturn = dao.get(testManagerId);
+            if (toReturn == null){
+                logger.error("Failed to find TestManager. TestManager with ID: " + testManagerId+" doesn't exist");
+                throw new DBException(ErrorType.DOESNT_EXIST, testManagerId);
+            }
             logger.info("Successfully found TestManager. TestManagerID: " + testManagerId);
             return toReturn;
         }catch (org.hibernate.HibernateException e){
@@ -116,6 +120,10 @@ public class TestManagerService {
     public TestManager findTestManagerByCreatedTest(long testId)throws DBException {
         try {
             CognitiveTest test = testDao.get(testId);
+            if (test == null){
+                logger.error("Failed to find Test manager by test ID. Test with ID: " + testId+" doesn't exist");
+                throw new DBException(ErrorType.DOESNT_EXIST, testId);
+            }
             long managerId = test.getManager().getId();
             TestManager toReturn = dao.get(managerId);
             logger.info("Successfully found Test manager by test ID. TestID: " + testId);
@@ -146,6 +154,10 @@ public class TestManagerService {
      */
     public List<CognitiveTest> findTestsForTestManager(long managerId)throws DBException {
         try {
+            if (dao.get(managerId) == null){
+                logger.error("Failed to find Tests for test manager. TestManager with ID: " + managerId+" doesn't exist");
+                throw new DBException(ErrorType.DOESNT_EXIST, managerId);
+            }
             List<CognitiveTest> toReturn = testDao.getCognitiveTestOfManager(managerId);
             logger.info("Successfully found Tests for test manager. TestManagerID: " + managerId);
             return toReturn;
