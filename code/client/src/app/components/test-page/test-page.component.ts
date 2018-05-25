@@ -3,11 +3,7 @@ import { TestService, TestManagerService } from '../../services/database-service
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth-service';
-<<<<<<< HEAD
-import { Test, OpenQuestion, TypeQuestion, QuestionPosition, Block, RateQuestion, BlockAnswers, MultipleChoiceQuestion, TypeMultipleQuestion, DrillDownQuestion } from '../../models';
-=======
-import { Test, OpenQuestion, TypeQuestion, QuestionPosition, Block, RateQuestion, BlockAnswers, TimeMeasurment } from '../../models/index';
->>>>>>> 01d1e4424ca536079cce334b2793f576aa07384c
+import { Test, OpenQuestion, TypeQuestion, QuestionPosition, Block, RateQuestion, BlockAnswers, MultipleChoiceQuestion, TypeMultipleQuestion, DrillDownQuestion, TimeMeasurment } from '../../models';
 import { TestPageBlockComponent } from './block/block.component';
 import { TimeMeasurer } from '../../Utils/index';
 @Component({
@@ -30,7 +26,8 @@ export class TestPageComponent implements OnInit {
    currIndex: number;
    //variable to indicate if we should hide the following button in the creation.
   hideNextButton: boolean = true;
-
+  private timing:TimeMeasurer;//TimeMeasurer - instance of the timing class
+  private timingMeasurment:any;//TimeMeasurment - TimeMeasurment object thatll contain the results for the timing class
   @ViewChild(TestPageBlockComponent) block: TestPageBlockComponent;
   constructor(
     private route: ActivatedRoute,
@@ -38,8 +35,7 @@ export class TestPageComponent implements OnInit {
     private testService: TestService,
     private tmService: TestManagerService,
     private authService: AuthService,
-    private timing:any,//TimeMeasurer - instance of the timing class
-    private timingMeasurment:any//TimeMeasurment - TimeMeasurment object thatll contain the results for the timing class
+    
   ) {
    }
 
