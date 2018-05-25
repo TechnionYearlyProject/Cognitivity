@@ -51,4 +51,8 @@ public class TestSubjectDAOimpl extends AbstractDAO<TestSubject> implements Test
         query.setParameter("cognitiveTestId", testId);
         return query.getResultList();
     }
+
+    public List<TestSubject> findAllTestSubjectsInTheSystem(){
+        return null;
+    }
 }

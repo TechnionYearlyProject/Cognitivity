@@ -1,6 +1,9 @@
 package cognitivity.controllers;
 
 import cognitivity.exceptions.DBException;
+import cognitivity.exceptions.Error;
+import cognitivity.exceptions.ErrorClass;
+import cognitivity.exceptions.LoaderException;
 import cognitivity.web.app.CognitivityApplicationInsights;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -24,13 +27,13 @@ public class ControllerExceptionHandler {
      * Namely, Errors in adding, deleting and updating data in the DB.
      *
      * @param e - The caught exception.
-     * @return - A string containing information about the error.
+     * @return - An object containing the information about the error that is required to the front end.
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(DBException.class)
-    public String handleDBException(DBException e) {
+    public Error handleDBException(DBException e) {
         CognitivityApplicationInsights.getInstance().trackFailure(e);
-        return "DB_ERR: " + e.getType().toString();
+        return new Error(ErrorClass.DB,e.getMessage(),e.getType());
     }
 
     /**
@@ -40,15 +43,32 @@ public class ControllerExceptionHandler {
      * As a convention in the project, whenever an access to the DB brings no result, null should be returned.
      *
      * @param e - The caught exception.
-     * @return - null, indicating there is no result to the query.
+     * @return - An object containing the information about the error that is required to the front end.
      */
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ExceptionHandler(EmptyResultDataAccessException.class)
-    public String handleEmptyResultException(EmptyResultDataAccessException e) {
+    public Error handleEmptyResultException(EmptyResultDataAccessException e) {
         CognitivityApplicationInsights.getInstance().trackFailure(e);
-        return "EmptyResult";
+        return new Error(ErrorClass.EMPTY_RESULT, "The query in the database has given no results",null);
     }
 
+    //TODO: add a handler to problems to load a test.
+
+    /**
+     * Exception handler for exceptions in test loader.
+     * Whenever an error in the test loader accours,
+     * this method catches them and sends the relevant data to the front end.
+     *
+     * @param e - The caught exception.
+     * @return - An object containing the information about the error that is required to the front end.
+     */
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(LoaderException.class)
+    public Error handleLoadeException(LoaderException e) {
+        CognitivityApplicationInsights.getInstance().trackFailure(e);
+        return new Error(ErrorClass.LOAD,"There has been a load error in the system. Error was: "+e.getMessage()+
+                "\nFor more information please refer to the log.",null);
+    }
 
     /**
      * Exception handler for the rest of the runtime exceptions.
@@ -56,12 +76,13 @@ public class ControllerExceptionHandler {
      * this method catches them and sends the relevant data to the front end.
      *
      * @param e - The caught exception.
-     * @return - A string containing information about the error.
+     * @return - An object containing the information about the error that is required to the front end.
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(RuntimeException.class)
-    public String handleRuntimeException(RuntimeException e) {
+    public Error handleRuntimeException(RuntimeException e) {
         CognitivityApplicationInsights.getInstance().trackFailure(e);
-        return "Runtime_ERR: " + e.getMessage() + ". Type was : " + e.getClass().getName();
+        return new Error(ErrorClass.RUNTIME,"There has been a runtime error in the system. Error was: "+e.getMessage()+
+                "\nType is:"+e.getClass().getName()+"\nFor more information please refer to the log.",null);
     }
 }

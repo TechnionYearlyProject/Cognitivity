@@ -13,6 +13,7 @@ class HttpTarget{
 class ErrorHandler {
     static handleError(error: any) {
         console.error('Error', error); // for demo purposes only
+        alert(error);
         return Promise.reject(error.message || error);
     }
 }

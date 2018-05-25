@@ -36,4 +36,12 @@ public interface TestSubjectDAO {
      */
     public List<TestSubject> getTestSubjectsWhoParticipatedInTest(long testId);
 
+    /**
+     *
+     * Get all test subjects in the system.
+     *
+     * @return - A list containing all test subjects in the system.
+     */
+    public List<TestSubject> findAllTestSubjectsInTheSystem();
+
 }

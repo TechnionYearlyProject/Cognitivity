@@ -96,4 +96,14 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
         service.deleteTestSubject(testSubjectId);
     }
 
+    /**
+     * Method for getting all test subjects in the system.
+     */
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.GET, value = "/findAllTestSubjectsInTheSystem")
+    public void findAllTestSubjectsInTheSystem() throws DBException {
+        applicationInsights.trackEvent("findAllTestSubjectsInTheSystem");
+        service.findAllTestSubjectsInTheSystem();
+    }
+
 }
