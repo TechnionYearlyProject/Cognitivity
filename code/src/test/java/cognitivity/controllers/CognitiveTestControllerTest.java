@@ -92,7 +92,6 @@ public class CognitiveTestControllerTest implements RestControllerTest {
     @Test
     public void filterTestsByNotes() throws Exception {
         CognitiveTest test1 = buildTest("ct1", "em1", 1);
-        TestWrapper cognitiveTest1 = new TestWrapper(test1);
 
         Mockito.when(cognitiveTestServiceMock.filterTestsByNotes("filterString"))
                 .thenReturn(Collections.singletonList(test1));
@@ -106,6 +105,25 @@ public class CognitiveTestControllerTest implements RestControllerTest {
                 .andExpect(jsonPath("$[0].project", is("project")));
 
         Mockito.verify(cognitiveTestServiceMock, times(1)).filterTestsByNotes("filterString");
+        Mockito.verifyNoMoreInteractions(cognitiveTestServiceMock);
+    }
+
+    @Test
+    public void filterTestsByProject() throws Exception {
+        CognitiveTest test1 = buildTest("ct1", "em1", 1);
+
+        Mockito.when(cognitiveTestServiceMock.filterTestsByProject("filterString"))
+                .thenReturn(Collections.singletonList(test1));
+
+        mockMvc.perform(get("/tests/filterTestsByProject")
+                .param("project", "filterString"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].name", is("ct1")))
+                .andExpect(jsonPath("$[0].numberOfQuestions", is(1)))
+                .andExpect(jsonPath("$[0].notes", is("notes")))
+                .andExpect(jsonPath("$[0].project", is("project")));
+
+        Mockito.verify(cognitiveTestServiceMock, times(1)).filterTestsByProject("filterString");
         Mockito.verifyNoMoreInteractions(cognitiveTestServiceMock);
     }
 
