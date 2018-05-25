@@ -24,10 +24,22 @@ public class TestSubject extends AbstractEntity {
     @Column(name = "browser")
     private String browser;
 
-	public TestSubject(String name, String ipAddress, String browser) {
+    @Column(name = "birthDate")
+	private String birthDate;
+
+    @Column(name = "Occupation")
+	private String Occupation;
+
+    @Column(name = "martialStatus")
+	private String martialStatus;
+
+	public TestSubject(String name, String ipAddress, String browser, String birthDate, String occupation, String martialStatus) {
 		this.name = name;
 		this.ipAddress = ipAddress;
 		this.browser = browser;
+		this.birthDate = birthDate;
+		Occupation = occupation;
+		this.martialStatus = martialStatus;
 	}
 
 	public TestSubject() {}
@@ -75,5 +87,29 @@ public class TestSubject extends AbstractEntity {
 	*/
 	public void setBrowser(String browser) {
 		this.browser = browser;
+	}
+
+	public String getBirthDate() {
+		return birthDate;
+	}
+
+	public String getOccupation() {
+		return Occupation;
+	}
+
+	public String getMartialStatus() {
+		return martialStatus;
+	}
+
+	public void setBirthDate(String birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public void setOccupation(String occupation) {
+		Occupation = occupation;
+	}
+
+	public void setMartialStatus(String martialStatus) {
+		this.martialStatus = martialStatus;
 	}
 }

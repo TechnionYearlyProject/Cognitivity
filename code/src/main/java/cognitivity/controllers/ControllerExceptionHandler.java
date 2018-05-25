@@ -64,7 +64,7 @@ public class ControllerExceptionHandler {
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(LoaderException.class)
-    public Error handleLoadeException(LoaderException e) {
+    public Error handleLoaderException(LoaderException e) {
         CognitivityApplicationInsights.getInstance().trackFailure(e);
         return new Error(ErrorClass.LOAD,"There has been a load error in the system. Error was: "+e.getMessage()+
                 "\nFor more information please refer to the log.",null);

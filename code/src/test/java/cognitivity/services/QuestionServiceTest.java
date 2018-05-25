@@ -164,9 +164,13 @@ public class QuestionServiceTest {
             assertTrue("Didn't get all the questions from all the tests", questions1.contains(t));
         }
 
+        doReturn("Stam link").when(testQuestionDAO).findPictureLinkPerQuestion(1L);
+        String link = service.findPictureLinkPerQuestion(1L);
+        assertTrue("Didn't get the right link when used findPictureLinkPerQuestion", link.equals("Stam link"));
+
         TestAnswerService answerService = new TestAnswerService(answerDao, testSubjectDAO);
         TestSubjectService subjectService = new TestSubjectService(testSubjectDAO);
-        TestSubject testSubject = new TestSubject("Timothy k miller", "Pip", "Safchrome");
+        TestSubject testSubject = new TestSubject("Timothy k miller", "Pip", "Safchrome","2003","A fictional character","m");
         TestSubject subject = subjectService.createTestSubject(testSubject);
 
         TestAnswer answer = new TestAnswer(subject, question, cognitiveTest, "Bla is bla");
@@ -247,6 +251,12 @@ public class QuestionServiceTest {
         try {
             service.findAllTestQuestionsFromManagerId(7);
             assertTrue("Problem with handling with exception at findAllTestQuestionsFromManagerId",false);
+        }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(testQuestionDAO).findPictureLinkPerQuestion(7L);
+        try {
+            service.findPictureLinkPerQuestion(7);
+            assertTrue("Problem with handling with exception at findPictureLinkPerQuestion",false);
         }catch (Exception e){}
     }
 }
