@@ -198,7 +198,7 @@ public class TestAnswerService {
      */
     public List<TestAnswer> findAllTestAnswersForATest(long testID) throws DBException{
         try{
-            List<TestAnswer> toReturn = dao.findAllTestAnswersForATest(testID);
+            List<TestAnswer> toReturn = dao.getTestAnswers(testID);
             logger.info("Successfully found all test answers for a test. Test ID: "
                     + testID);
             return toReturn;

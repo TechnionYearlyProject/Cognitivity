@@ -111,8 +111,9 @@ export class TestPageBlockComponent implements OnInit {
   */
   nextQuestion() {
     // Insert Time measuring of last question
+    console.log('finish question button');
     this.questionAnswers[this.currIndex] = this.question.getAnswer();
-    this.currIndex = this.currIndex++;
+    this.currIndex++;
     this.didAnswerQuestion = false;
     if (this.currIndex == this.block.questions.length) {
       this.finish = true;

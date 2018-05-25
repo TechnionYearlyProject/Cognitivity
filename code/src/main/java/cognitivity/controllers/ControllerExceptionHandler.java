@@ -29,7 +29,7 @@ public class ControllerExceptionHandler {
      * @param e - The caught exception.
      * @return - An object containing the information about the error that is required to the front end.
      */
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(DBException.class)
     public Error handleDBException(DBException e) {
         CognitivityApplicationInsights.getInstance().trackFailure(e);
@@ -45,7 +45,7 @@ public class ControllerExceptionHandler {
      * @param e - The caught exception.
      * @return - An object containing the information about the error that is required to the front end.
      */
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(EmptyResultDataAccessException.class)
     public Error handleEmptyResultException(EmptyResultDataAccessException e) {
         CognitivityApplicationInsights.getInstance().trackFailure(e);
@@ -62,7 +62,7 @@ public class ControllerExceptionHandler {
      * @param e - The caught exception.
      * @return - An object containing the information about the error that is required to the front end.
      */
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(LoaderException.class)
     public Error handleLoaderException(LoaderException e) {
         CognitivityApplicationInsights.getInstance().trackFailure(e);
@@ -78,7 +78,7 @@ public class ControllerExceptionHandler {
      * @param e - The caught exception.
      * @return - An object containing the information about the error that is required to the front end.
      */
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(RuntimeException.class)
     public Error handleRuntimeException(RuntimeException e) {
         CognitivityApplicationInsights.getInstance().trackFailure(e);

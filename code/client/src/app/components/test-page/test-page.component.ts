@@ -74,9 +74,12 @@ export class TestPageComponent implements OnInit {
   async finishTest() {
     let testSubject: TestSubject = {
       id:1,
-      ipAddress: '11111',
-      name: 'moshe',
-      browser: 'chrome'
+      ipAddress: 'ss',
+      name: 'ss',
+      browser: 'ss',
+      martialStatus: 'ss',
+      occupation: 'ss',
+      birthdate: 'ss'
     }
     console.log(this.blocksAnswers);
     for (let i = 0; i < this.blocksAnswers.length; i++) {
@@ -106,7 +109,7 @@ nextBlock() {
   this.blocksAnswers[this.currIndex] = this.block.getQuestionAnswers();
   this.currIndex++;
   if (this.currIndex == this.blocks.length) {
-    
+    console.log('finished test in nextBlock');
     this.finishTest();
   }
 }

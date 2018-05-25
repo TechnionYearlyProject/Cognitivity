@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { QuestionAnswer } from '../../models/index';
+import { TestAnswersService } from '../../services/database-service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-results-page',
@@ -12,12 +14,25 @@ export class ResultsPageComponent implements OnInit {
    * Author: Mark Erlikh Date: 19.5.18 
    * 
    */
-  constructor() { }
+  constructor(
+                private answerTestService: TestAnswersService,
+                private router: Router,
+                private route: ActivatedRoute
+             ) { }
   test_name: string = 'My Test'; // The name of the test should get from the dashboard (the caller test) TODO: after connecting to the dashboard assign this as Input directive
   test_id: number;// The id of the test. Will be used in the service to collect the results of the test. TODO: after connecting to the dashboard assign this as Input directive
   columnDefs : any; //The definition of the table that hold all the information on the results
-  ngOnInit() {
+  answers: QuestionAnswer [];
+  async ngOnInit() {
     this.define_table_results();
+    let testId = this.route.snapshot.params['testId'];
+    if (isNaN(testId) || testId == '') {
+      this.router.navigate(['/dashboard']);
+    }
+    console.log('over here');
+    this.answers = await this.answerTestService.findAllAnswersForTest(testId);
+    
+    console.log(this.answers);
   }
 
   /* Here we define the columns that will be presented. */

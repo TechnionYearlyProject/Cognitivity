@@ -149,6 +149,9 @@ public class CognitiveTestService {
         } catch (org.hibernate.HibernateException e) {
             logger.error("Failed to find test. Test ID: " + testID, e);
             throw new DBException(ErrorType.GET, testID);
+        } catch (NullPointerException e) {
+            logger.error("Failed to find test. Test ID: " + testID, e);
+            throw new DBException(ErrorType.GET, testID);
         }
     }
 

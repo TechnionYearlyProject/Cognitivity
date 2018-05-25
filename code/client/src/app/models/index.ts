@@ -242,6 +242,10 @@ export interface TestSubject {
   name: string;
   ipAddress: string;
   browser: string;
+  occupation: string;
+  birthdate: string;
+  martialStatus: string;
+
 }
 
 // models to represent answers for all types of questions

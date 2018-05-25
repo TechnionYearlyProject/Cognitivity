@@ -11,6 +11,7 @@ import { CreateQuestionComponent } from './components/create-question/create-que
 import { DrillDownQuestionComponent } from './components/drill-down-question/drill-down-question.component';
 import { EditTestComponent } from './components/edit-test/edit-test.component';
 import { TestPageComponent } from './components/test-page/test-page.component';
+import { ResultsPageComponent } from './components/results-page/results-page.component';
 
 /*
 Here we define the different routes in the application.
@@ -40,6 +41,11 @@ const appRoutes: Routes = [
     {
         path: 'test/:testId',
         component: TestPageComponent
+    },
+    {
+        path: 'test-results/:testId',
+        component: ResultsPageComponent,
+        canActivate: [AuthGuard]
     },
     {//in every other case , route to the dashboard.
         path: '**',
