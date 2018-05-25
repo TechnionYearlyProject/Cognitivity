@@ -35,7 +35,7 @@ export class TestPageBlockComponent implements OnInit {
     this.currIndex = 0;
     this.questionAnswers = new Array<QuestionAnswer>(this.block.questions.length); //Init array for time measurements for each question.
      //start to measure the current block 
-    this.timing.timing_startBlockMeasure(this.block.id,this.block.numberOfQuestions);
+    //this.timing.timing_startBlockMeasure(this.block.id,this.block.numberOfQuestions);
   
   }
 
@@ -73,7 +73,7 @@ export class TestPageBlockComponent implements OnInit {
   onQuestionFinish(didFinish: boolean) {
     this.didAnswerQuestion = didFinish;
     //finish the measurment for the current question.
-    this.timing.timing_stopQuestionMeasure(this.block.questions[this.currIndex].id,this.block.id);
+    //this.timing.timing_stopQuestionMeasure(this.block.questions[this.currIndex].id,this.block.id);
   }
 
   getQuestionAnswers() {

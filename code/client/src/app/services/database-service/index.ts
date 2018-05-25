@@ -120,7 +120,7 @@ export class TestService {
     }
 
     findCognitiveTestById(testId: number) : Promise<Test> {
-        return this.http.get(`${this.target}${this.base_mapping}/findCognitiveTestById?TestId=${testId}`)
+        return this.http.get(`${this.target}${this.base_mapping}/findCognitiveTestById?testId=${testId}`)
         .toPromise()
         .then(response => response.json() as Test)
         .catch(ErrorHandler.handleError)

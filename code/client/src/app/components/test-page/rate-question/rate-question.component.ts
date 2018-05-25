@@ -140,4 +140,14 @@ export class TestPageRateQuestionComponent implements OnInit {
 
     return questionAnswer;
   }
+
+  //checking if we have a marked answer.
+  get_is_marked():boolean{
+    for (let i = 0; i < this.markedAnswers.length; i++) {
+        if(this.markedAnswers[i]){
+          return true;
+        }
+    }
+    return false;
+  }
 }

@@ -47,7 +47,7 @@ ngOnInit() {
   this.answerSwitcher = new SwitchCounterTracker(0);
   this.appInsightsTrackerIns = ApplicationInsightsTracker.getInstance;
   //start the time measurment for the current question
-  this.timing.timing_startQuestionMeasure(this.fatherBlockID,this.question.id);
+  //this.timing.timing_startQuestionMeasure(this.fatherBlockID,this.question.id);
 }
 
 

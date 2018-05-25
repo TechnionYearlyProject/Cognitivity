@@ -33,6 +33,9 @@ export class TestPageMultipleChoiceQuestionComponent implements OnInit {
   centeringMatrix?: any;
   // Event emitter to determine if the subject filled an answer
   @Output() answered: EventEmitter<boolean> = new EventEmitter();
+
+  //is answered var, so we can view the confidence bar
+  isAnswered:boolean;
   //default constructor.
   constructor(){}
 
@@ -44,6 +47,8 @@ export class TestPageMultipleChoiceQuestionComponent implements OnInit {
     if(this.answerOrganization == TypeMultipleQuestion.Matrix){
       this.constructMatrix();
     }
+
+    this.isAnswered = false;
   }
 
   /*
@@ -139,6 +144,7 @@ export class TestPageMultipleChoiceQuestionComponent implements OnInit {
     
     // send event that subject marked an answer
     this.answered.emit(true);
+    this.isAnswered = true;
   }
 
   /*
@@ -248,6 +254,11 @@ export class TestPageMultipleChoiceQuestionComponent implements OnInit {
     }
 
     return questionAnswer;
+  }
+
+  //this function will return the isAnswered field to indicate if we need to show the confidence bar
+  get_is_answered():boolean{
+    return this.isAnswered;
   }
 
 }

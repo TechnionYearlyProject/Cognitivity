@@ -52,64 +52,6 @@ export class TestPageComponent implements OnInit {
       //this.router.navigate(['/dashboard']);
     }
 
-
-    let question: OpenQuestion = {
-      id: 1,
-      questionText: "How are you?",
-      answerText: "good",
-      type: TypeQuestion.OpenQuestion,
-      questionPosition: QuestionPosition.UpperMiddle,
-    }
-
-    let question2: RateQuestion = {
-      id: 2,
-      questionText: "Are you ok???",
-      heightOfRate: 5,
-      type: TypeQuestion.RateQuestion,
-      questionPosition: QuestionPosition.UpperMiddle,
-    }
-
-    let question3: MultipleChoiceQuestion = {
-      id: 2,
-      questionText: "Are you ok???",
-      answers:["yes", "no", "idk"],
-      type: TypeQuestion.MultipleChoice,
-      questionPosition: QuestionPosition.UpperMiddle,
-      typeMultipleQuestion: TypeMultipleQuestion.Horizontal,
-      correctAnswer: 0
-    }
-
-    //this.blocks = this.test.blocks;
-    let block: Block = {
-      questions: [{
-        id: 1, 
-        question: JSON.stringify(question), 
-        questionPosition: question.questionPosition,
-        
-        type:question.type
-      },{
-        id: 2, 
-        question: JSON.stringify(question2), 
-        questionPosition: question2.questionPosition,
-        type:question2.type
-      }],
-
-    }
-    let block2: Block = {
-      questions: [{
-        id: 1, 
-        question: JSON.stringify(question3), 
-        questionPosition: question3.questionPosition,
-        type:question3.type
-      },{
-        id: 2, 
-        question: JSON.stringify(question2), 
-        questionPosition: question2.questionPosition,
-        type:question2.type
-      }],
-
-    }
-
     this.blocks = this.test.blocks;
     this.blocksLength = this.blocks.length;
     this.blocksAnswers = new Array<BlockAnswers>(this.blocksLength);
@@ -118,16 +60,16 @@ export class TestPageComponent implements OnInit {
     document.body.classList.add('background-white');
 
     //initializing the timing class
-    this.timing = new TimeMeasurer(this.timingMeasurment,this.test.id,this.blocks.length);
+    //this.timing = new TimeMeasurer(this.timingMeasurment,this.test.id,this.blocks.length);
     //after initializing the class we want to start the test measuring with timing_startTestMeasure() method
-    this.timing.timing_startTestMeasure();
+    //this.timing.timing_startTestMeasure();
 
   }
 
   finishTest() {
     console.log(this.blocksAnswers);
     //when stopping the test, call timing_stopTestMeasure() to end the test measuring.
-    this.timing.timing_stopTestMeasure();
+    //this.timing.timing_stopTestMeasure();
     //the results of the timing class sits in ----------this.timingMeasurment.testObject--------------
   }
 
@@ -151,7 +93,7 @@ showBlock(index) {
 onBlockFinish() {
   this.hideNextButton = false;
   //when finishing the block we want to stop the timing measurment for the block.
-  this.timing.timing_stopBlockMeasure(this.blocks[this.currIndex].id);
+  //this.timing.timing_stopBlockMeasure(this.blocks[this.currIndex].id);
 }
 
 onFormCompletion(subjectId: number) {
