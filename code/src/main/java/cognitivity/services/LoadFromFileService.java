@@ -4,9 +4,7 @@ import cognitivity.dao.CognitiveTestDAO;
 import cognitivity.dao.TestBlockDAO;
 import cognitivity.dao.TestManagerDAO;
 import cognitivity.dao.TestQuestionDAO;
-import cognitivity.exceptions.DBException;
-import cognitivity.exceptions.ErrorType;
-import cognitivity.exceptions.LoaderException;
+import cognitivity.exceptions.*;
 import cognitivity.services.fileLoader.ITestReader;
 import cognitivity.services.fileLoader.Test;
 import cognitivity.services.fileLoader.TestDBSaver;
@@ -54,7 +52,7 @@ public class LoadFromFileService {
     public void loadFromJSONFile(String jsonData, long managerId) throws LoaderException, DBException {
         if (!testManagerDAO.managerWithIdExists(managerId)) {
             logger.warn("Manager with this id (" + managerId + ") does not exist in the DB");
-            throw new LoaderException("Manager with this id (" + managerId + ") does not exist in the DB");
+            throw new ManagerDoesNotExistLoadException(jsonData);
         }
         long defaultId = 0;
         ITestReader reader = readerFactory.get();
@@ -62,7 +60,7 @@ public class LoadFromFileService {
             Test test = reader.read();
             if (testDAO.testWithNameExists(test.getName())) {
                 logger.warn("Test with this name (" + test.getName() + ") already exists in the DB");
-                throw new LoaderException("Test with this name (" + test.getName() + ") already exists in the DB");
+                throw new TestNameAlreadyExistsLoadException(jsonData);
             }
             logger.info("Successfully read Test Object from json file");
             TestDBSaver saver = new TestDBSaver(test, this.testDAO, testBlockDAO, testQuestionDAO, managerId)
@@ -75,7 +73,7 @@ public class LoadFromFileService {
             throw new DBException(ErrorType.SAVE, defaultId);
         } catch (com.google.gson.JsonSyntaxException e) {
             logger.error(e.getMessage() + " when trying to parse test content");
-            throw new LoaderException("Failed parsing test content");
+            throw new JsonTestParseError(jsonData);
         }
     }
 }

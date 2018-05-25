@@ -4,8 +4,7 @@ import cognitivity.dao.CognitiveTestDAO;
 import cognitivity.dao.TestBlockDAO;
 import cognitivity.dao.TestManagerDAO;
 import cognitivity.dao.TestQuestionDAO;
-import cognitivity.exceptions.DBException;
-import cognitivity.exceptions.LoaderException;
+import cognitivity.exceptions.*;
 import cognitivity.services.fileLoader.TestReader;
 import cognitivity.web.app.config.HibernateBeanConfiguration;
 import com.google.gson.JsonParser;
@@ -62,8 +61,8 @@ public class LoadFromFileServiceTest {
         Mockito.when(testManagerDAO.managerWithIdExists(1L))
                 .thenReturn(false);
 
-        exception.expect(LoaderException.class);
-        exception.expectMessage("Manager with this id (1) does not exist in the DB");
+        exception.expect(ManagerDoesNotExistLoadException.class);
+        exception.expectMessage(ManagerDoesNotExistLoadException.errorMessage);
         service.loadFromJSONFile("data", 1L);
     }
 
@@ -87,8 +86,8 @@ public class LoadFromFileServiceTest {
         Mockito.when(cognitiveTestDAO.testWithNameExists("test"))
                 .thenReturn(true);
 
-        exception.expect(LoaderException.class);
-        exception.expectMessage("Test with this name (test) already exists in the DB");
+        exception.expect(TestNameAlreadyExistsLoadException.class);
+        exception.expectMessage(TestNameAlreadyExistsLoadException.errorMessage);
         service.loadFromJSONFile("data", 1L);
     }
 
@@ -99,8 +98,8 @@ public class LoadFromFileServiceTest {
         Mockito.when(cognitiveTestDAO.testWithNameExists("test"))
                 .thenReturn(false);
 
-        exception.expect(LoaderException.class);
-        exception.expectMessage("Failed parsing test content");
+        exception.expect(JsonTestParseError.class);
+        exception.expectMessage(JsonTestParseError.errorMessage);
         service.loadFromJSONFile("data", 1L);
     }
 
