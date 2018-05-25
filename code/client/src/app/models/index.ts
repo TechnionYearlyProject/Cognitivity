@@ -93,7 +93,7 @@ export interface Block {
   id?: number,
   questions: QuestionInDB[],
   randomize?: boolean,
-  projectId?: number,
+  testId?: number,
   numberOfQuestions?: number
  
 }
@@ -237,16 +237,29 @@ export interface TimeMeasurment {
 
 //------------------------------------------------------------------------------------------
 
+export interface TestSubject {
+  id?: number;
+  name: string;
+  ipAddress: string;
+  browser: string;
+}
+
 // models to represent answers for all types of questions
 export interface QuestionAnswer {
   questionId: number;
-  subjectId: number;
-  questionType: TypeQuestion;
-  confidence: number;
-  is_time_distraction?: boolean; // holds if the question have time distraction
-  changes_of_answer?: number; // hold the number of times that the answer was changed by the subject
-  time_for_question?: any; //hold the time object for the the time masurment feature. TODO: fill the type of the object
-  time_for_confidence_bar?: any;//hold the time object for the confidence bar.
+  testeeId: number;
+  finalAnswer: string;
+  id?: number;
+  testId: number;
+}
+
+export interface QuestionAnswerForDB {
+  question: QuestionInDB;
+  cognitiveTest: Test;
+  finalAnswer: string;
+  id?: number;
+  testSubject: TestSubject;
+
 }
 export interface OpenQuestionAnswer extends QuestionAnswer {
   answer: string;
@@ -267,4 +280,10 @@ export interface RateQuestionAnswer extends QuestionAnswer {
 
 export interface BlockAnswers {
   answers: QuestionAnswer[];
+}
+
+export interface Error {
+  errorClass: string;
+  message: string;
+  type: string;
 }
