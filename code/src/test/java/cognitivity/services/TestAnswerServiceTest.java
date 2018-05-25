@@ -90,7 +90,7 @@ public class TestAnswerServiceTest {
         CognitiveTest test2 = new CognitiveTest("jhfkasjhfkajdfak", manager, 1, "notes", "project");
         BlockWrapper block = new BlockWrapper(1, false, "tagiity tag", test);
         block.setId(4L);
-        TestSubject subject = new TestSubject("Rick", "ip", "Ahla dafdefan");
+        TestSubject subject = new TestSubject("Rick", "ip", "Ahla dafdefan","2013","Mad scientist","a widow :(");
         TestQuestion question = new TestQuestion("Who the f&$# builds a stonehenge?","Stam link", block.innerBlock(test.getId()),
                 test, manager);
         questionService.createTestQuestion(question);
@@ -182,6 +182,15 @@ public class TestAnswerServiceTest {
         subjectService.deleteTestSubject(2);
 
 
+        doReturn(answers).when(dao).findAllTestAnswersForATest(7L);
+        answerList = service.findAllTestAnswersForATest(7L);
+        for (TestAnswer t : answerList) {
+            assertTrue("Getting unrelated answers while trying to get all answers from a certain test", answers.contains(t));
+        }
+        for (TestAnswer t : answers) {
+            assertTrue("Didn't get all the answers for a specific test", answerList.contains(t));
+        }
+
         doThrow(new org.hibernate.HibernateException("")).when(dao).add(any());
         try{
             service.addTestAnswerForTestQuestion(new TestAnswer());
@@ -227,6 +236,13 @@ public class TestAnswerServiceTest {
             service.findAllTestAnswerForAQuestion(7);
             assertTrue("Problem with handling with exception at findAllTestAnswerForAQuestion",false);
         }catch (Exception e){}
+
+        doThrow(new org.hibernate.HibernateException("")).when(dao).findAllTestAnswersForATest(7L);
+        try {
+            service.findAllTestAnswersForATest(7L);
+            assertTrue("Problem with handling with exception at findAllTestAnswersForATest",false);
+        }catch (Exception e){}
+
     }
 
 

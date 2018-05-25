@@ -11,10 +11,15 @@ class HttpTarget{
 }
 // Error handler class, holds behavior when errors are returned from server
 class ErrorHandler {
-    static handleError(error: any) {
-        console.error('Error', error); // for demo purposes only
+    static handleError(error: Error) {
+        
+        alert("Error:\ncould not perform the last operation.\n"+error.message);
+
+        //TODO:Check the meaning of the code below
         return Promise.reject(error.message || error);
     }
+    
+
 }
 
 

@@ -10,5 +10,6 @@ public enum ErrorType {
     UPDATE,
     DELETE,
     GET,
-    LOAD
+    LOAD,
+    DOESNT_EXIST
 }

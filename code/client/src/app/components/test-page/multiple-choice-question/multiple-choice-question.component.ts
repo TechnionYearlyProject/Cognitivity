@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, Output, EventEmitter} from "@angular/core";
-import {QuestionPosition, TypeMultipleQuestion, QuestionAnswer, OpenQuestionAnswer, TypeQuestion} from "../../../models";
+import {QuestionPosition, TypeMultipleQuestion, QuestionAnswer, OpenQuestionAnswer, TypeQuestion, MultipleChoiceQuestionAnswer} from "../../../models";
 @Component({
   selector: 'app-test-page-multiple-choice-question',
   templateUrl: './multiple-choice-question.component.html',
@@ -136,6 +136,9 @@ export class TestPageMultipleChoiceQuestionComponent implements OnInit {
         }
       }
     }
+    
+    // send event that subject marked an answer
+    this.answered.emit(true);
   }
 
   /*
@@ -210,18 +213,41 @@ export class TestPageMultipleChoiceQuestionComponent implements OnInit {
   higherThanFourColNum():boolean{
     return this.dimMatrix > 4;
   }
+
+  returnAnswers(){
+    let answerIndex = -1;
+    if(this.answerOrganization == TypeMultipleQuestion.Matrix){
+      for(let i = 0; i < this.dimMatrix; i++){
+        for(let j = 0; j < this.dimMatrix; j++){
+          if(this.markedAnswersMatrix[i][j]){
+            answerIndex = j*this.dimMatrix + i;
+          }
+          
+        }
+      }
+    }else{
+      for(let i = 0; i < this.markedAnswers.length; i++){
+        if(this.markedAnswers[i]){
+          answerIndex = i;
+          console.log('whattt');
+        }
+      }
+    }
+    return answerIndex;
+  }
+
+  
   // function to return marked answer
   buildAnswer(): QuestionAnswer {
-    /*let questionAnswer : OpenQuestionAnswer = {
+    let questionAnswer : MultipleChoiceQuestionAnswer = {
       questionId: this.question.id,
-      subjectId:  will come later, for now hard-coded  1,
+      subjectId:  /*will come later, for now hard-coded*/  1,
       questionType: TypeQuestion.MultipleChoice,
-      answer: this.question.answers[,
+      answer: this.returnAnswers(),
       confidence: this.range_value
     }
 
-    return questionAnswer;*/
-    return null;
+    return questionAnswer;
   }
 
 }

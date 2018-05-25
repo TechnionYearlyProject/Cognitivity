@@ -22,6 +22,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 
@@ -80,7 +81,7 @@ public class TestSubjectServiceTest {
         QuestionService questionService = new QuestionService(qdao,adao,tdao,mdao);
         TestBlockService blockService = new TestBlockService(bdao);
 
-        TestSubject testSubject = new TestSubject("Simha Gora", "pipipp", "Queue");
+        TestSubject testSubject = new TestSubject("Simha Gora", "pipipp", "Queue","some","thing","here");
         TestSubject subject = new TestSubject();
         try {
             subject = service.createTestSubject(testSubject);
@@ -118,9 +119,19 @@ public class TestSubjectServiceTest {
                 test, manager);
         questionService.createTestQuestion(question);
 
-        TestSubject subject1 = service.createTestSubject(new TestSubject("Timon", "Cow", "Hakuna"));
-        TestSubject subject2 = service.createTestSubject(new TestSubject("Pumba", "pig", "Matata"));
-        TestSubject subject3 = service.createTestSubject(new TestSubject("Simba", "Lion", "Safari"));
+        TestSubject subject1 = service.createTestSubject(new TestSubject("Timon", "Cow", "Hakuna","1987","A guardian","Same sex married"));
+        TestSubject subject2 = service.createTestSubject(new TestSubject("Pumba", "pig", "Matata","1987","A guardian","Same sex married"));
+        TestSubject subject3 = service.createTestSubject(new TestSubject("Simba", "Lion", "Safari","1987","A king!","Married? at least I think so?"));
+        TestSubject subject4 = service.createTestSubject(new TestSubject("Mufasa", "Lion", "Safari","1987","A dead king!","Married to the ground (in which he ie burried)"));
+        TestSubject subject5 = service.createTestSubject(new TestSubject("Scar", "Lion", "Safari","1987","A false king!","Married! to EVIL!"));
+
+
+        doReturn(8L).when(dao).add(any());
+        service.createTestSubject(subject1);
+        service.createTestSubject(subject2);
+        service.createTestSubject(subject3);
+        service.createTestSubject(subject4);
+        service.createTestSubject(subject5);
 
         TestAnswer answer = new TestAnswer(subject,question, test, "To have no worries");
         answerService.addTestAnswerForTestQuestion(answer);
@@ -166,6 +177,24 @@ public class TestSubjectServiceTest {
         for (TestAnswer t : answers){
             assertTrue("Didn't get all the answers from a specific subject",answerList.contains(t));
         }
+
+        List<TestSubject> all = new ArrayList<>();
+        all.add(testSubject);
+        all.add(subject1);
+        all.add(subject2);
+        all.add(subject3);
+        all.add(subject4);
+        all.add(subject5);
+
+        doReturn(all).when(dao).findAllTestSubjectsInTheSystem();
+        List<TestSubject> allRes = service.findAllTestSubjectsInTheSystem();
+        for (TestSubject t : all){
+            assertTrue("Getting unrelated answer while trying to get all answers of a specific subject",allRes.contains(t));
+        }
+        for (TestSubject t : allRes){
+            assertTrue("Didn't get all the answers from a specific subject",all.contains(t));
+        }
+
 
         try {
             service.deleteTestSubject(1);
@@ -229,7 +258,11 @@ public class TestSubjectServiceTest {
             assertTrue("Problem with handling with exception at findTestSubjectsWhoParticipatedInTest",false);
         }catch (Exception e){}
 
-
+        doThrow(new org.hibernate.HibernateException("")).when(dao).findAllTestSubjectsInTheSystem();
+        try {
+            service.findAllTestSubjectsInTheSystem();
+            assertTrue("Problem with handling with exception at findAllTestSubjectsInTheSystem",false);
+        }catch (Exception e){}
     }
 
 

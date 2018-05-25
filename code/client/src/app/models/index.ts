@@ -54,11 +54,7 @@ export interface Question {
   type: TypeQuestion;
   questionPosition?: QuestionPosition;
   showConfidenceBar?: boolean;
-  /*fields for time performance measuring*/
-  startTS?: number;
-  endTS?: number;
-  diffTS?: number;
-  isBeingMeasured?: boolean;
+  
   // list of given tags by the user
   tags?: string[];
 }
@@ -99,11 +95,7 @@ export interface Block {
   randomize?: boolean,
   projectId?: number,
   numberOfQuestions?: number
-  //fields for measuring times
-  blockStartTimestamp?: number,
-  blockEndTimestamp?: number,
-  blockTotalRunningTime?: number,
-  isBeingMeasured?: boolean //indicates if theres a StartBlockMeasure without enclosing StopBlockMeasure.
+ 
 }
 
 /*
@@ -120,11 +112,7 @@ export interface Test {
     blocks?: Block[];
     numberOfSubjects?: number;
     testManager?: any;
-    // fields for measuring times
-    testStartTimestamp?: number;
-    testEndTimestamp?: number;
-    testTotalRunningTime?: number;
-    isBeingMeasured?: boolean; //indicates if theres a StartTestMeasure without enclosing StopTestMeasure.
+    
 }
 
 /* Manager properties */
@@ -168,13 +156,8 @@ export interface QuestionInDB {
   question?: string;
   tag?: string;
   type?: number;
-  answer?: string;
   questionPosition?: number;
-  /*fields for time performance measuring*/
-  startTS?: number;
-  endTS?: number;
-  diffTS?: number;
-  isBeingMeasured?: boolean;
+  
   // list of given tags by the user
   tags?: string[];
 }
@@ -270,12 +253,12 @@ export interface OpenQuestionAnswer extends QuestionAnswer {
 }
 
 export interface DrillDownQuestionAnswer extends QuestionAnswer {
-  primaryAnswer: string;
-  secnodaryAnswer: string;
+  primaryAnswer: number;
+  secnodaryAnswer: number;
 }
 
 export interface MultipleChoiceQuestionAnswer extends QuestionAnswer {
-  answer: string;
+  answer: number;
 }
 
 export interface RateQuestionAnswer extends QuestionAnswer {

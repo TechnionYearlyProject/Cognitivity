@@ -95,6 +95,10 @@ public class TestSubjectService {
     public TestSubject findTestSubject(long testSubjectId)throws DBException {
         try{
             TestSubject toReturn = dao.get(testSubjectId);
+            if(toReturn == null){
+                logger.error("Failed to find TestSubject. TestSubject with ID: " + testSubjectId+" doesn't exist");
+                throw new DBException(ErrorType.GET, testSubjectId);
+            }
             logger.info("Successfully found TestSubject. TestSubjectID: "
                     + testSubjectId);
             return toReturn;
@@ -112,6 +116,11 @@ public class TestSubjectService {
      */
     public List<TestAnswer> findAllTestSubjectAnswers(long subjectId)throws DBException{
         try{
+            if(dao.get(subjectId) == null){
+                logger.error("Failed to find all TestSubjects' answers. TestSubject with ID: "
+                        + subjectId+" doesn't exist");
+                throw new DBException(ErrorType.DOESNT_EXIST, subjectId);
+            }
             List<TestAnswer> toReturn = dao.getSubjectAnswers(subjectId);
             logger.info("Successfully found all TestSubjects' answers. TestSubjectID: "
                     + subjectId);
@@ -142,5 +151,25 @@ public class TestSubjectService {
             throw new DBException(ErrorType.GET, testId);
         }
     }
+
+    /**
+     *
+     * Get all test subjects in the system.
+     *
+     * @return - A list containing all test subjects in the system.
+     */
+    public List<TestSubject> findAllTestSubjectsInTheSystem() throws DBException{
+        try{
+            List<TestSubject> toReturn = dao.findAllTestSubjectsInTheSystem();
+            logger.info("Successfully found all TestSubjects in the system.");
+            return toReturn;
+        }catch (org.hibernate.HibernateException e){
+            logger.error("Failed to find all TestSubjects in the system "
+                    ,e);
+            throw new DBException(ErrorType.GET, null);
+        }
+
+    }
+
 
 }

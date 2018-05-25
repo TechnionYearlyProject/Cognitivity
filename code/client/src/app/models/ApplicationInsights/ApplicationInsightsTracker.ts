@@ -43,6 +43,7 @@ const instrumentation_key = 'bf85656a-0c3e-4a2d-a744-fdffa181700b';
  *    * track number of answer switches per question.
  *    * track amount of elapsed time per question.
  * */
+
 export class ApplicationInsightsTracker {
   private appInsights: Microsoft.ApplicationInsights.IAppInsights;
 
@@ -105,4 +106,3 @@ export class ApplicationInsightsTracker {
 
   private static _instance: ApplicationInsightsTracker;
 }
-

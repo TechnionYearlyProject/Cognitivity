@@ -58,7 +58,7 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
         testBlockDAO.add(testBlock);
         testQuestion = new TestQuestion("testQuestion","Stam link", testBlock, cognitiveTest, testManager);
         testQuestionDAO.add(testQuestion);
-        testSubject = new TestSubject("testName", "-1", "fireFox");
+        testSubject = new TestSubject("testName", "-1", "fireFox","DD/MM/YYYY","a test holder","Will he? Won't he?");
         testSubjectDAO.add(testSubject);
         testAnswer = new TestAnswer(testSubject, testQuestion,
                 cognitiveTest, "blabla");
@@ -119,7 +119,7 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
         assertTrue("problem with getting testAnswers for subject", answers.contains(testAnswer));
         assertTrue("problem with getting testAnswers for subject", answers.size() == 1);
 
-        TestSubject newTestSubject = new TestSubject("anotherName", "-1", "fireFox");
+        TestSubject newTestSubject = new TestSubject("anotherName", "-1", "fireFox","-3","ocup up","Donated in the office");
         testSubjectDAO.add(newTestSubject);
         testAnswer.setTestSubject(newTestSubject);
         testAnswer.setId(testAnswer.getId() + 1);
@@ -166,7 +166,7 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
         assertTrue(answers.contains(testAnswer));
         assertTrue(answers.size() == 1);
 
-        TestSubject newTestSubject = new TestSubject("anotherName", "-1", "fireFox");
+        TestSubject newTestSubject = new TestSubject("anotherName", "-1", "fireFox","2 minutes before that other guy","A place holder","Nope!");
         testSubjectDAO.add(newTestSubject);
         testAnswer.setTestSubject(newTestSubject);
         testAnswer.setId(testAnswer.getId() + 1);
@@ -205,7 +205,7 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
         answers = testAnswerDAO.getTestAnswers(cognitiveTest.getId());
         assertTrue(answers.size() == 1);
 
-        TestSubject newTestSubject = new TestSubject("anotherName", "-1", "fireFox");
+        TestSubject newTestSubject = new TestSubject("anotherName", "-1", "fireFox","aahh","ooh","eehh");
         testSubjectDAO.add(newTestSubject);
         testAnswer.setTestSubject(newTestSubject);
         testAnswer.setId(testAnswer.getId() + 1);

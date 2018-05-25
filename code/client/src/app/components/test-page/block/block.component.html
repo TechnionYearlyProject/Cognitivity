@@ -1,6 +1,6 @@
 <div class=" container" >
   <div *ngFor="let question of block.questions; let i=index" class="form-group"  style="background-color:white;">
-    <app-test-page-question *ngIf="showQuestion(i)" [question]="parseToQuestion(question.answer)" (finished)="onQuestionFinish( $event)"></app-test-page-question>
+    <app-test-page-question *ngIf="showQuestion(i)"[timing]="timing" [fatherBlockID]="block.id" [question]="parseToQuestion(question.question)" (finished)="onQuestionFinish( $event)"></app-test-page-question>
   </div>
   <br>
   <div  style="text-align:right;">

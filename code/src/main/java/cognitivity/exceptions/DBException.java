@@ -24,7 +24,7 @@ public class DBException extends CognitivityException {
 
     @Override
     public String getMessage() {
-        return super.getMessage() + "of questionType : " + type.name() + " with id : " + id;
+        return super.getMessage() + "of questionType : " + type.name().toLowerCase() + " with id : " + id;
     }
 }
 

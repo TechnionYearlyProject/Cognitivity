@@ -86,6 +86,10 @@ public class TestBlockService {
      */
     public List<TestQuestion> findAllBlockQuestions(long blockId)throws DBException {
         try{
+            if (dao.get(blockId) == null){
+                logger.error("Failed to get all questions from a TestBlock. Test block with ID: " + blockId+" doesn't exist");
+                throw new DBException(ErrorType.DOESNT_EXIST, blockId);
+            }
             List<TestQuestion> toReturn = dao.getAllBlockQuestions(blockId);
             logger.info("Successfully got all questions from a TestBlock. TestBlockID: " + blockId);
             return toReturn;

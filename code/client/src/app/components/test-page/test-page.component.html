@@ -5,7 +5,7 @@
   <app-registration-form (complete)="onFormCompletion($event)"></app-registration-form>
 </div>
 <div *ngFor="let block of blocks; let i=index">
-  <app-test-page-block *ngIf="showBlock(i)" [block]="block" (finished)="onBlockFinish()"></app-test-page-block>
+  <app-test-page-block *ngIf="showBlock(i)" [timing]="timing" [block]="block" (finished)="onBlockFinish()"></app-test-page-block>
 </div>
 <div style="text-align:center">
   <input type="submit" class="btn btn-primary" [hidden]="hideNextButton" (click)="nextBlock()"

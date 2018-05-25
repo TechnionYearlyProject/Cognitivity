@@ -8,7 +8,7 @@ import org.junit.Test;
 public class TestSubjectTest {
 
     public static TestSubject createTestSubject() {
-        return new TestSubject("name", "5.1.1.1", "firefox");
+        return new TestSubject("name", "5.1.1.1", "firefox","A date to be born in","ocu","Forever alone");
     }
 
     @Test

@@ -55,7 +55,7 @@ export class EditBlockComponent implements OnInit {
     for (let i = 0; i < this.questionFromDBList.length; i++) {
       this.questionList[i] = 
       { 
-        question: JSON.parse(this.questionFromDBList[i].answer)
+        question: JSON.parse(this.questionFromDBList[i].question)
       };
     }
   }

@@ -10,6 +10,7 @@ import { CreateTestComponent } from './components/create-test/create-test.compon
 import { CreateQuestionComponent } from './components/create-question/create-question.component';
 import { DrillDownQuestionComponent } from './components/drill-down-question/drill-down-question.component';
 import { EditTestComponent } from './components/edit-test/edit-test.component';
+import { TestPageComponent } from './components/test-page/test-page.component';
 
 /*
 Here we define the different routes in the application.
@@ -36,10 +37,15 @@ const appRoutes: Routes = [
         component: EditTestComponent,
         canActivate: [AuthGuard]
     },
+    {
+        path: 'test/:testId',
+        component: TestPageComponent
+    },
     {//in every other case , route to the dashboard.
         path: '**',
         redirectTo: 'dashboard'
-    }
+    },
+    
 ];
 
 @NgModule({

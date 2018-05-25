@@ -116,13 +116,33 @@ export class TestPageDrillDownQuestionComponent implements OnInit {
     }
   }
 
+  returnAnswers(){
+    let mainAnswerIndex = -1, secondAnswerIndex = -1;
+    for(let i = 0; i < this.markedAnswersMain.length; i++){
+      if(this.markAnswerForMain[i]){
+        mainAnswerIndex = i;
+        break;
+      }
+    }
+    if(this.secondaryQuestionMode){
+      for(let i = 0; i < this.markedAnswersSecondary.length; i++){
+        if(this.markedAnswersSecondary[i]){
+          secondAnswerIndex = i;
+        }
+      }
+    }
+    return {mainAnswer : mainAnswerIndex, secondAnswer: secondAnswerIndex};
+    
+  }
+
   buildAnswer(): QuestionAnswer {
+    let answers = this.returnAnswers();
     let questionAnswer : DrillDownQuestionAnswer = {
       questionId: this.question.id,
       subjectId: /* will come later, for now hard-coded */ 1,
       questionType: TypeQuestion.DrillDownQuestion,
-      primaryAnswer: this.markedAnswerMain,
-      secnodaryAnswer: this.markedAnswerSecondery,
+      primaryAnswer: answers.mainAnswer,
+      secnodaryAnswer: answers.secondAnswer,
       confidence: this.range_value
     }
 
