@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { TestService, TestManagerService } from '../../services/database-service/index';
+import { TestService, TestManagerService, TestAnswersService } from '../../services/database-service/index';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth-service';
-import { Test, OpenQuestion, TypeQuestion, QuestionPosition, Block, RateQuestion, BlockAnswers, MultipleChoiceQuestion, TypeMultipleQuestion, DrillDownQuestion, TimeMeasurment } from '../../models';
+import { Test, OpenQuestion, TypeQuestion, QuestionPosition, Block, RateQuestion, BlockAnswers, MultipleChoiceQuestion, TypeMultipleQuestion, DrillDownQuestion, TimeMeasurment, TestSubject, QuestionAnswerForDB } from '../../models';
 import { TestPageBlockComponent } from './block/block.component';
 import { TimeMeasurer } from '../../Utils/index';
 @Component({
@@ -20,6 +20,7 @@ export class TestPageComponent implements OnInit {
 
   blocksLength: number;
 
+  testId: number;
   
 
    //the current test's index in the tests list.
@@ -35,6 +36,7 @@ export class TestPageComponent implements OnInit {
     private testService: TestService,
     private tmService: TestManagerService,
     private authService: AuthService,
+    private answerService: TestAnswersService
     
   ) {
    }
@@ -46,11 +48,14 @@ export class TestPageComponent implements OnInit {
       //Here we will navigate to a 404 page
       //this.router.navigate(['/dashboard']);
     }
+    this.testId = testId;
     this.test = await this.testService.findCognitiveTestById(testId);
     if (this.test == null) {
       //Here we will navigate to a 404 page
       //this.router.navigate(['/dashboard']);
     }
+
+    console.log(this.test);
 
     this.blocks = this.test.blocks;
     this.blocksLength = this.blocks.length;
@@ -66,8 +71,27 @@ export class TestPageComponent implements OnInit {
 
   }
 
-  finishTest() {
+  async finishTest() {
+    let testSubject: TestSubject = {
+      id:1,
+      ipAddress: '11111',
+      name: 'moshe',
+      browser: 'chrome'
+    }
     console.log(this.blocksAnswers);
+    for (let i = 0; i < this.blocksAnswers.length; i++) {
+      for (let j = 0; j < this.blocksAnswers[i].answers.length; j++) {
+        let questionAnswerForDB: QuestionAnswerForDB = {
+          finalAnswer: this.blocksAnswers[i].answers[j].finalAnswer,
+          testSubject: testSubject,
+          cognitiveTest: this.test,
+          question: this.test.blocks[i].questions[j]
+          
+        }
+          console.log(questionAnswerForDB);
+          await this.answerService.saveTestAnswer(questionAnswerForDB);
+      }
+    }
     //when stopping the test, call timing_stopTestMeasure() to end the test measuring.
     //this.timing.timing_stopTestMeasure();
     //the results of the timing class sits in ----------this.timingMeasurment.testObject--------------

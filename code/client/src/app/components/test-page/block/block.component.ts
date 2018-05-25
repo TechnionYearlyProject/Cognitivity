@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
-import { Question, TimeMeasurment, QuestionAnswer, BlockAnswers, Block } from '../../../models/index';
+import { Question, TimeMeasurment, QuestionAnswer, BlockAnswers, Block, QuestionInDB } from '../../../models/index';
 import { TestPageQuestionComponent } from '../question/question.component';
 import { TimeMeasurer } from '../../../Utils/index';
 
@@ -12,6 +12,8 @@ export class TestPageBlockComponent implements OnInit {
   @ViewChild(TestPageQuestionComponent) question: TestPageQuestionComponent; 
   //the block input given to the class, that's the block we're about to preview.
   @Input() block:any;
+
+  @Input() testId: number;
   //we want to notify when we finish previewing the block.
   @Output() finished: EventEmitter<any> = new EventEmitter();
   //local variable to indicate when we finish previewing the block.
@@ -25,6 +27,8 @@ export class TestPageBlockComponent implements OnInit {
 
   questionAnswers: QuestionAnswer[];
 
+  questions: QuestionInDB[];
+
   didAnswerQuestion: boolean = false;
 
   //default constructor.
@@ -34,9 +38,10 @@ export class TestPageBlockComponent implements OnInit {
   ngOnInit() {
     this.currIndex = 0;
     this.questionAnswers = new Array<QuestionAnswer>(this.block.questions.length); //Init array for time measurements for each question.
+    this.questions = this.block.questions;
      //start to measure the current block 
     //this.timing.timing_startBlockMeasure(this.block.id,this.block.numberOfQuestions);
-  
+    console.log(this.testId);
   }
 
   /*
@@ -66,8 +71,10 @@ export class TestPageBlockComponent implements OnInit {
     }
   }
 
-  parseToQuestion(text: string): Question {
-    return JSON.parse(text);
+  parseToQuestion(question: QuestionInDB): Question {
+    let actualQuestion: Question = JSON.parse(question.question);
+    actualQuestion.id = question.id;
+    return actualQuestion;
   }
 
   onQuestionFinish(didFinish: boolean) {

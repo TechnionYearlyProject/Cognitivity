@@ -24,6 +24,8 @@ constructor() { }
 //we get the question as a passed input, thats the question we'll preview.
 @Input() question:any ;
 
+@Input() testId: number;
+
 //we need to get the timing object from the block
 @Input() timing:any;//TimeMeasurer
 //also, we need to know the ID of the containing block.

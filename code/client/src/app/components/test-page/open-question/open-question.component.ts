@@ -11,6 +11,8 @@ import {QuestionPosition, QuestionAnswer, TypeQuestion, OpenQuestionAnswer, Open
 export class TestPageOpenQuestionComponent implements OnInit {
   //the question's data passed as input
   @Input() question: any;//OpenQuestion type
+
+  @Input() testId: number;
   //the current answer that the subject fills up.
   currentAnswer: string;
   //slider value.
@@ -122,13 +124,15 @@ export class TestPageOpenQuestionComponent implements OnInit {
   }
 
   buildAnswer(): QuestionAnswer {
-    let questionAnswer : OpenQuestionAnswer = {
-      questionId: this.question.id,
-      subjectId: /* will come later, for now hard-coded */ 1,
-      questionType: TypeQuestion.OpenQuestion,
+    let openQuestionAnswer = {
       answer: this.currentAnswer,
-      confidence: this.range_value,
-
+      confidence: this.range_value
+    }
+    let questionAnswer : QuestionAnswer = {
+      questionId: this.question.id,
+      testeeId: /* will come later, for now hard-coded */ 1,
+      finalAnswer: JSON.stringify(openQuestionAnswer),
+      testId: this.testId
     }
 
     return questionAnswer;

@@ -13,6 +13,8 @@ import {stringify} from "@angular/core/src/util";
 export class TestPageRateQuestionComponent implements OnInit {
   //the question's data is passed in as input.
   @Input() question: any;
+
+  @Input() testId: number;
   //the array that holds all the possible answers.
   answers: Array<null>;
   //an array to indicate what answers are currently marked.
@@ -130,12 +132,15 @@ export class TestPageRateQuestionComponent implements OnInit {
   }
 
   buildAnswer(): QuestionAnswer {
-    let questionAnswer : RateQuestionAnswer = {
-      questionId: this.question.id,
-      subjectId: /* will come later, for now hard-coded */ 1,
-      questionType: TypeQuestion.RateQuestion,
+    let answer = {
       answer: this.markedAnswer,
       confidence: this.range_value
+    }
+    let questionAnswer : QuestionAnswer = {
+      questionId: this.question.id,
+      testeeId: /* will come later, for now hard-coded */ 1,
+      finalAnswer: JSON.stringify(answer),
+      testId: this.testId
     }
 
     return questionAnswer;

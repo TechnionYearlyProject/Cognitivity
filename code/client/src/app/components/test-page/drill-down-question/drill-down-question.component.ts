@@ -10,6 +10,9 @@ import { QuestionAnswer, DrillDownQuestionAnswer, TypeQuestion } from "../../../
  The component for the Drill-down question type.
 */
 export class TestPageDrillDownQuestionComponent implements OnInit {
+  
+  @Input() testId: number;
+  
   @Input() question: any;
   //the object that holds the question.
   //@Input() question1: any;
@@ -137,13 +140,16 @@ export class TestPageDrillDownQuestionComponent implements OnInit {
 
   buildAnswer(): QuestionAnswer {
     let answers = this.returnAnswers();
-    let questionAnswer : DrillDownQuestionAnswer = {
-      questionId: this.question.id,
-      subjectId: /* will come later, for now hard-coded */ 1,
-      questionType: TypeQuestion.DrillDownQuestion,
+    let answer = {
       primaryAnswer: answers.mainAnswer,
       secnodaryAnswer: answers.secondAnswer,
       confidence: this.range_value
+    }
+    let questionAnswer : QuestionAnswer = {
+      questionId: this.question.id,
+      testeeId: /* will come later, for now hard-coded */ 1,
+      finalAnswer: JSON.stringify(answer),
+      testId: this.testId
     }
 
     return questionAnswer;

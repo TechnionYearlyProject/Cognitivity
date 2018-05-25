@@ -12,6 +12,8 @@ component for a multiple choice question.
 export class TestPageMultipleChoiceQuestionComponent implements OnInit {
   //input of the question's data.
   @Input() question: any;
+
+  @Input() testId: number;
   //array to indicate what answers are highlighted.
   markedAnswers?: Array<boolean>;
   //Objects that detemines the style of the question text itself
@@ -245,12 +247,15 @@ export class TestPageMultipleChoiceQuestionComponent implements OnInit {
   
   // function to return marked answer
   buildAnswer(): QuestionAnswer {
-    let questionAnswer : MultipleChoiceQuestionAnswer = {
-      questionId: this.question.id,
-      subjectId:  /*will come later, for now hard-coded*/  1,
-      questionType: TypeQuestion.MultipleChoice,
+    let answer = {
       answer: this.returnAnswers(),
       confidence: this.range_value
+    }
+    let questionAnswer : QuestionAnswer = {
+      questionId: this.question.id,
+      testeeId:  /*will come later, for now hard-coded*/  1,
+      finalAnswer: JSON.stringify(answer),
+      testId: this.testId
     }
 
     return questionAnswer;
