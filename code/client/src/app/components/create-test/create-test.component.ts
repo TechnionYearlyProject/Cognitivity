@@ -185,10 +185,10 @@ export class CreateTestComponent implements OnInit {
 
         let questionInDB: QuestionInDB =
         {
-          question: questionInBlock.question.questionText,
+          question: JSON.stringify(questionInBlock.question),
           questionPosition: questionInBlock.question.questionPosition,
           type: questionInBlock.question.type,
-          answer: JSON.stringify(questionInBlock.question)
+          
         }
 
         questions.push(questionInDB);

@@ -3,7 +3,7 @@ import { TestService, TestManagerService } from '../../services/database-service
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth-service';
-import { Test, OpenQuestion, TypeQuestion, QuestionPosition, Block, RateQuestion, BlockAnswers } from '../../models';
+import { Test, OpenQuestion, TypeQuestion, QuestionPosition, Block, RateQuestion, BlockAnswers, MultipleChoiceQuestion, TypeMultipleQuestion, DrillDownQuestion } from '../../models';
 import { TestPageBlockComponent } from './block/block.component';
 @Component({
   selector: 'app-test-page',
@@ -40,7 +40,7 @@ export class TestPageComponent implements OnInit {
       //Here we will navigate to a 404 page
       //this.router.navigate(['/dashboard']);
     }
-    this.test //= await this.testService.findCognitiveTestById(testId);
+    this.test = await this.testService.findCognitiveTestById(testId);
     if (this.test == null) {
       //Here we will navigate to a 404 page
       //this.router.navigate(['/dashboard']);
@@ -63,27 +63,28 @@ export class TestPageComponent implements OnInit {
       questionPosition: QuestionPosition.UpperMiddle,
     }
 
-    let question3: OpenQuestion = {
+    let question3: MultipleChoiceQuestion = {
       id: 2,
       questionText: "Are you ok???",
-      answerText: "yay",
-      type: TypeQuestion.OpenQuestion,
+      answers:["yes", "no", "idk"],
+      type: TypeQuestion.MultipleChoice,
       questionPosition: QuestionPosition.UpperMiddle,
+      typeMultipleQuestion: TypeMultipleQuestion.Horizontal,
+      correctAnswer: 0
     }
 
     //this.blocks = this.test.blocks;
     let block: Block = {
       questions: [{
         id: 1, 
-        question: "lol what", 
+        question: JSON.stringify(question), 
         questionPosition: question.questionPosition,
-        answer: JSON.stringify(question),
+        
         type:question.type
       },{
         id: 2, 
-        question: "lol what", 
+        question: JSON.stringify(question2), 
         questionPosition: question2.questionPosition,
-        answer: JSON.stringify(question2),
         type:question2.type
       }],
 
@@ -91,21 +92,19 @@ export class TestPageComponent implements OnInit {
     let block2: Block = {
       questions: [{
         id: 1, 
-        question: "lol what", 
+        question: JSON.stringify(question3), 
         questionPosition: question3.questionPosition,
-        answer: JSON.stringify(question3),
         type:question3.type
       },{
         id: 2, 
-        question: "lol what", 
+        question: JSON.stringify(question2), 
         questionPosition: question2.questionPosition,
-        answer: JSON.stringify(question2),
         type:question2.type
       }],
 
     }
 
-    this.blocks = [block, block2]; //TODO: remove
+    this.blocks = this.test.blocks;
     this.blocksLength = this.blocks.length;
     this.blocksAnswers = new Array<BlockAnswers>(this.blocksLength);
     this.currIndex = -1;

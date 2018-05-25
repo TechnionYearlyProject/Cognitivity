@@ -104,7 +104,10 @@ export class TestListComponent implements OnInit {
 
   async copyTest(test) {
     let newName = prompt('Please enter a name for the test:');
-    if (newName == null || newName == '' || !this.regex.test(newName)) {
+    if (newName === null) {
+      return;
+    }
+    if (newName == '' || !this.regex.test(newName)) {
       alert('A bad name. Please choose a name with only letters and numbers');
       return;
     }

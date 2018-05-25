@@ -79,7 +79,12 @@ export class TestManagerService {
 @Injectable()
 export class SubjectService {
     //functions
-    constructor() {}
+    private target : string = HttpTarget.getHttpTaraget();
+    private headers = new Headers({'Content-Type': 'application/json'});
+    base_mapping = '/test-subjects';
+
+    
+    constructor(private http: Http) {}
 }
 
 @Injectable()
@@ -115,7 +120,7 @@ export class TestService {
     }
 
     findCognitiveTestById(testId: number) : Promise<Test> {
-        return this.http.get(`${this.target}${this.base_mapping}/findCognitiveTestById?TestId=${testId}`)
+        return this.http.get(`${this.target}${this.base_mapping}/findCognitiveTestById?testId=${testId}`)
         .toPromise()
         .then(response => response.json() as Test)
         .catch(ErrorHandler.handleError)

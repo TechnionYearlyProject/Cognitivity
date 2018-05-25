@@ -40,11 +40,8 @@ export class BlockPreviewComponent implements OnInit {
   will get true and present the question.
   */
   showQuestion(index) {
-    /* initial timestamp */
-    let tmpTS = performance.now();
-    this.block.questions[this.currIndex].startTS = tmpTS;
-    console.log("Question number "+this.currIndex+" initialTS is "+tmpTS);
-
+    
+    
     return index == this.currIndex;
   }
 
@@ -53,13 +50,7 @@ export class BlockPreviewComponent implements OnInit {
   if we did - it triggers an event to notify our caller that the preview of the block is done.
   */
   nextQuestion() {
-    /* end timestamp and diff */
-    let tmpTS = performance.now();
-    this.block.questions[this.currIndex].endTS = tmpTS;
-    console.log("Question number "+this.currIndex+" endTS is "+tmpTS);
-    this.block.questions[this.currIndex].diffTS = tmpTS - this.block.questions[this.currIndex].startTS;
-    console.log("Question number "+this.currIndex+" diffTS is "+this.block.questions[this.currIndex].diffTS);
-
+   
     this.currIndex++;
     if (this.currIndex == this.block.questions.length) {
       this.finish = true;
