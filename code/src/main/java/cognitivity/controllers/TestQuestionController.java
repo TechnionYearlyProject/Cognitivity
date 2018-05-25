@@ -116,7 +116,9 @@ public class TestQuestionController extends AbstractRestController<QuestionServi
      */
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET, value = "/findPictureLinkPerQuestion")
+    @RequestMapping(method = RequestMethod.GET,
+            value = "/findPictureLinkPerQuestion",
+            produces = "text/plain")
     public String findPictureLinkPerQuestion(
             @RequestParam(value = "testQuestionId") long testQuestionId) throws DBException {
         applicationInsights.trackEvent("FindPictureLinkPerQuestion");

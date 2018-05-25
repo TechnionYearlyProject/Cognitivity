@@ -5,6 +5,8 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created by Guy on 20/1/18.
  *
@@ -29,5 +31,15 @@ public class TestManagerDAOimpl extends AbstractDAO<TestManager> implements Test
         Query<Long> integerQuery = session.createQuery(queryString, Long.class);
         integerQuery.setParameter("email", email);
         return integerQuery.getSingleResult();
+    }
+
+    @Override
+    public boolean managerWithIdExists(long managerId) {
+        Session session = sessionFactory.getCurrentSession();
+        String queryString = "from TestManager T where T.id LIKE :managerId";
+        Query<TestManager> query = session.createQuery(queryString, TestManager.class);
+        query.setParameter("managerId", managerId);
+        List<TestManager> res = query.getResultList();
+        return !res.isEmpty();
     }
 }

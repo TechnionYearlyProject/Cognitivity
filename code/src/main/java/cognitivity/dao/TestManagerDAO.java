@@ -32,5 +32,8 @@ public interface TestManagerDAO {
     public long getIdFromEmail(String email);
 
 
-
+    /**
+     * Check if a manager with id exists in the db.
+     */
+    boolean managerWithIdExists(long managerId);
 }

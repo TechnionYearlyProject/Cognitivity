@@ -71,7 +71,7 @@ public class TestQuestionResourceIntegrationTest extends AbstractResourceIntegra
         long questionId = saveTestQuestion(question, objectMapper, testQuestionMvc, testManagerMvc, cognitiveTestMvc);
         question.setId(questionId);
 
-        // Question is saved. Try find it in the database...
+        // QuestionCoverTest is saved. Try find it in the database...
         testQuestionMvc.perform((get("/test-questions/findTestQuestionById"))
                 .param("testQuestionId", String.valueOf(questionId)))
                 .andExpect(status().isOk())
@@ -92,7 +92,7 @@ public class TestQuestionResourceIntegrationTest extends AbstractResourceIntegra
         long questionId = saveTestQuestion(question, objectMapper, testQuestionMvc, testManagerMvc, cognitiveTestMvc);
         question.setId(questionId);
 
-        // Question is saved. Try find it in the database...
+        // QuestionCoverTest is saved. Try find it in the database...
         testQuestionMvc.perform((get("/test-questions/findTestQuestionById"))
                 .param("testQuestionId", String.valueOf(questionId)))
                 .andExpect(status().isOk())

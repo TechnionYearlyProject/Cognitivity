@@ -169,6 +169,7 @@ public class TestSubjectServiceTest {
         answers.add(answer5);
         answers.add(answer6);
 
+        doReturn(subject).when(dao).get(8L);
         doReturn(answers).when(dao).getSubjectAnswers(8);
         List<TestAnswer> answerList = service.findAllTestSubjectAnswers(8);
         for (TestAnswer t : answerList){

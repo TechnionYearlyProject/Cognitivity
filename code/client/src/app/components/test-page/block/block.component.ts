@@ -31,6 +31,10 @@ export class TestPageBlockComponent implements OnInit {
 
   didAnswerQuestion: boolean = false;
 
+  //array to indicate for every index , if the question in that index in the block's questions array was displayed.
+  wasShownArr: boolean[];
+
+
   //default constructor.
   constructor() { }
 
@@ -56,6 +60,51 @@ export class TestPageBlockComponent implements OnInit {
     return index == this.currIndex;
   }
 
+
+  /**
+   * This function iterates over all the wasShown array and returns the number of questions that HASNT been seen.
+   */
+  private wasAllShown():number{
+    let counter = 0;
+    for(let i = 0; i<this.wasShownArr.length;i++){
+      if(!this.wasShownArr[i]){
+        counter++;
+      }
+    }
+    return counter;
+  }
+
+  /**
+   * This function gets a number (lets say X) and returns the X first question index that hasn't been seen.
+   * (X>=1)
+   */
+  private xFirstFree(x:number):number{
+    let freeCounter = x;
+    for(let i = 0; i<this.wasShownArr.length;i++){
+      if(!this.wasShownArr[i]){
+        freeCounter--;
+      }
+      if(freeCounter == 0){
+        return i;
+      }
+    }
+  }
+
+  /**
+   * This function generates a random index for a question that hasn't been shown yet.
+   */
+  private generateRandomIndex():number{
+    let possibleAnswers = this.wasAllShown();//that'll be the higg limit we'll get a random index from
+    let randomIndex = Math.floor(Math.random()*possibleAnswers);//low is 0, we add -1 so the 1 dissapears 
+    return this.xFirstFree(randomIndex);
+  }
+
+  /**
+   * TODO
+   * replace the this.currIndex++ with the generateRandomIndex function. 
+   * after testing the implementation.
+   * 
+   */
   /*
   this function increments out index and checks if we finished the list.
   if we did - it triggers an event to notify our caller that the preview of the block is done.
@@ -63,7 +112,7 @@ export class TestPageBlockComponent implements OnInit {
   nextQuestion() {
     // Insert Time measuring of last question
     this.questionAnswers[this.currIndex] = this.question.getAnswer();
-    this.currIndex++;
+    this.currIndex = this.currIndex++;
     this.didAnswerQuestion = false;
     if (this.currIndex == this.block.questions.length) {
       this.finish = true;

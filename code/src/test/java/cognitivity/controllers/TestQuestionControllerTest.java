@@ -66,6 +66,11 @@ public class TestQuestionControllerTest implements RestControllerTest {
             public String getQuestion() {
                 return "question_text";
             }
+
+            @Override
+            public String getPictureLink() {
+                return "link";
+            }
         };
     }
 
@@ -82,6 +87,20 @@ public class TestQuestionControllerTest implements RestControllerTest {
                 .andExpect(jsonPath("$[0].question", is(testQuestion.getQuestion())));
 
         Mockito.verify(questionService, times(1)).findAllTestQuestionsFromTestId(1234);
+        Mockito.verifyNoMoreInteractions(questionService);
+    }
+
+    @Test
+    public void findPictureLinkPerQuestion() throws Exception {
+        Mockito.when(questionService.findPictureLinkPerQuestion(1234)).thenReturn(testQuestion.getPictureLink());
+
+        // findTestQuestionsForTestCriteriaById is a http GET request
+        mockMvc.perform(get("/test-questions/findPictureLinkPerQuestion")
+                .param("testQuestionId", "1234"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", is(testQuestion.getPictureLink())));
+
+        Mockito.verify(questionService, times(1)).findPictureLinkPerQuestion(1234);
         Mockito.verifyNoMoreInteractions(questionService);
     }
 

@@ -101,9 +101,9 @@ public class TestSubjectController extends AbstractRestController<TestSubjectSer
      */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findAllTestSubjectsInTheSystem")
-    public void findAllTestSubjectsInTheSystem() throws DBException {
-        applicationInsights.trackEvent("findAllTestSubjectsInTheSystem");
-        service.findAllTestSubjectsInTheSystem();
+    public List<TestSubject> findAllTestSubjectsInTheSystem() throws DBException {
+        applicationInsights.trackEvent("FindAllTestSubjectsInTheSystem");
+        return service.findAllTestSubjectsInTheSystem();
     }
 
 }

@@ -1,5 +1,7 @@
 package cognitivity.web.app.config;
 
+import cognitivity.services.fileLoader.ITestReader;
+import cognitivity.services.fileLoader.TestReader;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.sql.DataSource;
 import java.util.Properties;
+import java.util.function.Supplier;
 
 
 /**
@@ -45,6 +48,11 @@ public class CognitivityMvcConfiguration {
         transactionManager.setSessionFactory(sessionFactory);
 
         return transactionManager;
+    }
+
+    @Bean
+    public Supplier<ITestReader> testReaderSupplier(String data) {
+        return () -> new TestReader(data);
     }
 
     @Value("${db.port}")

@@ -68,16 +68,16 @@ public class TestQuestionDAOTest extends AbstractDaoTestClass {
         testQuestionDAO.add(testQuestion);
         assertNotNull("add testQuestion problem", testQuestionDAO.get(testQuestion.getId()));
         String question = testQuestion.getQuestion();
-        assertTrue("Question string incorrect",
+        assertTrue("QuestionCoverTest string incorrect",
                 question.equals(testQuestionDAO.get(testQuestion.getId()).getQuestion()));
         String newQuestion = "bla bla bli";
         testQuestion.setQuestion(newQuestion);
         testQuestionDAO.update(testQuestion);
-        assertTrue("Question string update incorrect",
+        assertTrue("QuestionCoverTest string update incorrect",
                 newQuestion.equals(testQuestionDAO.get(testQuestion.getId()).getQuestion()));
         testQuestion.setQuestion(question);
         testQuestionDAO.update(testQuestion);
-        assertTrue("Question string incorrect",
+        assertTrue("QuestionCoverTest string incorrect",
                 question.equals(testQuestionDAO.get(testQuestion.getId()).getQuestion()));
         testQuestionDAO.delete(testQuestion.getId());
         assertNull("delete problem", testQuestionDAO.get(testQuestion.getId()));
