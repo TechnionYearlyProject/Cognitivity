@@ -1,7 +1,8 @@
 package cognitivity.services;
 
 /**
- * A test class for Question service
+ * A test class for QuestionCoverTest service
+ *
  * @Author - Pe'er
  * @Date - 2.2.18
  */
@@ -72,13 +73,13 @@ public class QuestionServiceTest {
      */
 
     /**
-     * Testing all functionalities Question service
+     * Testing all functionalities QuestionCoverTest service
      */
     @Test
-    public void fullTest()throws Exception {
+    public void fullTest() throws Exception {
         QuestionService service = new QuestionService(testQuestionDAO, answerDao, cognitiveTestDAO, testManagerDAO);
         TestBlockService blockService = new TestBlockService(testBlockDAO);
-        CognitiveTestService testService = new CognitiveTestService(cognitiveTestDAO,testBlockDAO, testQuestionDAO);
+        CognitiveTestService testService = new CognitiveTestService(cognitiveTestDAO, testBlockDAO, testQuestionDAO);
         TestManagerService managerService = new TestManagerService(testManagerDAO, cognitiveTestDAO);
 
         TestManager manager = new TestManager("lkljl");
@@ -87,13 +88,13 @@ public class QuestionServiceTest {
         TestWrapper test = new TestWrapper();
         try {
             test = testService.createTestForTestManager(testWrapper);
-        }catch (DBException e ){
+        } catch (DBException e) {
 
         }
         BlockWrapper block = new BlockWrapper(5, true, "Taggy tag", cognitiveTest);
 
 
-        TestQuestion start = new TestQuestion("What is the meaning of life?","Stam link", block.innerBlock(1), cognitiveTest, manager);
+        TestQuestion start = new TestQuestion("What is the meaning of life?", "Stam link", block.innerBlock(1), cognitiveTest, manager);
         TestQuestion question = service.createTestQuestion(start);
 
         assertNotNull("Problem with creating a test question", question);
@@ -114,11 +115,11 @@ public class QuestionServiceTest {
 
         BlockWrapper block2 = blockService.createTestBlock(2, true, "Togos", cognitiveTest);
 
-        TestQuestion question1 = new TestQuestion("Who moved my cheese?","Stam link", block.innerBlock(11), cognitiveTest, manager);
+        TestQuestion question1 = new TestQuestion("Who moved my cheese?", "Stam link", block.innerBlock(11), cognitiveTest, manager);
         service.createTestQuestion(question1);
-        TestQuestion question2 = new TestQuestion("Who framed Roger Rabbit?","Stam link", block2.innerBlock(1), cognitiveTest, manager);
+        TestQuestion question2 = new TestQuestion("Who framed Roger Rabbit?", "Stam link", block2.innerBlock(1), cognitiveTest, manager);
         service.createTestQuestion(question2);
-        TestQuestion question3 = new TestQuestion("Question! Question?","Stam link", block2.innerBlock(1), cognitiveTest, manager);
+        TestQuestion question3 = new TestQuestion("QuestionCoverTest! QuestionCoverTest?", "Stam link", block2.innerBlock(1), cognitiveTest, manager);
         service.createTestQuestion(question3);
 
         List<TestQuestion> questions = new ArrayList<>();
@@ -141,15 +142,15 @@ public class QuestionServiceTest {
         TestWrapper test2 = new TestWrapper();
         try {
             test2 = testService.createTestForTestManager(testWrapper1);
-        }catch (DBException e){
+        } catch (DBException e) {
 
         }
 
-        TestQuestion question4 = new TestQuestion("Who moved my cheese?","Stam link", block.innerBlock(1), cognitiveTest1, manager);
+        TestQuestion question4 = new TestQuestion("Who moved my cheese?", "Stam link", block.innerBlock(1), cognitiveTest1, manager);
         service.createTestQuestion(question4);
-        TestQuestion question5 = new TestQuestion("Who framed Roger Rabbit?","Stam link", block2.innerBlock(1), cognitiveTest1, manager);
+        TestQuestion question5 = new TestQuestion("Who framed Roger Rabbit?", "Stam link", block2.innerBlock(1), cognitiveTest1, manager);
         service.createTestQuestion(question5);
-        TestQuestion question6 = new TestQuestion("Question! Question?","Stam link", block2.innerBlock(1), cognitiveTest1, manager);
+        TestQuestion question6 = new TestQuestion("QuestionCoverTest! QuestionCoverTest?", "Stam link", block2.innerBlock(1), cognitiveTest1, manager);
         service.createTestQuestion(question6);
         questions.add(question4);
         questions.add(question5);
@@ -194,7 +195,6 @@ public class QuestionServiceTest {
         }
 
 
-
         service.deleteTestQuestion(1);
         service.deleteTestQuestion(4);
         service.deleteTestQuestion(5);
@@ -208,45 +208,52 @@ public class QuestionServiceTest {
         blockService.deleteTestBlock(3);
 
         doThrow(new org.hibernate.HibernateException("")).when(testQuestionDAO).add(any());
-        try{
+        try {
             service.createTestQuestion(new TestQuestion());
-            assertTrue("Problem with handling with exception at create",false);
-        }catch (Exception e){}
+            assertTrue("Problem with handling with exception at create", false);
+        } catch (Exception e) {
+        }
 
         doThrow(new org.hibernate.HibernateException("")).when(testQuestionDAO).update(any());
         try {
             service.updateTestQuestion(new TestQuestion());
-            assertTrue("Problem with handling with exception at update",false);
-        }catch (Exception e){}
+            assertTrue("Problem with handling with exception at update", false);
+        } catch (Exception e) {
+        }
 
         doThrow(new org.hibernate.HibernateException("")).when(testQuestionDAO).delete(any());
         try {
             service.deleteTestQuestion(7);
-            assertTrue("Problem with handling with exception at delete",false);
-        }catch (Exception e){}
+            assertTrue("Problem with handling with exception at delete", false);
+        } catch (Exception e) {
+        }
 
         doThrow(new org.hibernate.HibernateException("")).when(testQuestionDAO).get(7L);
         try {
             service.findQuestionById(7);
-            assertTrue("Problem with handling with exception at findQuestionById",false);
-        }catch (Exception e){}
+            assertTrue("Problem with handling with exception at findQuestionById", false);
+        } catch (Exception e) {
+        }
 
         doThrow(new org.hibernate.HibernateException("")).when(answerDao).getQuestionAnswers(7L);
         try {
             service.getTestAnswers(7);
-            assertTrue("Problem with handling with exception at getQuestionAnswers",false);
-        }catch (Exception e){}
+            assertTrue("Problem with handling with exception at getQuestionAnswers", false);
+        } catch (Exception e) {
+        }
 
         doThrow(new org.hibernate.HibernateException("")).when(cognitiveTestDAO).getTestQuestions(7L);
         try {
             service.findAllTestQuestionsFromTestId(7);
-            assertTrue("Problem with handling with exception at findAllTestQuestionsFromTestId",false);
-        }catch (Exception e){}
+            assertTrue("Problem with handling with exception at findAllTestQuestionsFromTestId", false);
+        } catch (Exception e) {
+        }
 
         doThrow(new org.hibernate.HibernateException("")).when(testManagerDAO).get(7L);
         try {
             service.findAllTestQuestionsFromManagerId(7);
-            assertTrue("Problem with handling with exception at findAllTestQuestionsFromManagerId",false);
-        }catch (Exception e){}
+            assertTrue("Problem with handling with exception at findAllTestQuestionsFromManagerId", false);
+        } catch (Exception e) {
+        }
     }
 }

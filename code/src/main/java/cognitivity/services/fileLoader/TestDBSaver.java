@@ -10,7 +10,7 @@ import cognitivity.services.CognitiveTestService;
 /**
  * Created by ophir on 18/05/18.
  */
-public class TestDBSaver {
+public class TestDBSaver implements ITestDBSaver {
     private final Test test;
     private final CognitiveTestDAO cognitiveTestDAO;
     private final TestBlockDAO testBlockDAO;
@@ -29,11 +29,13 @@ public class TestDBSaver {
         this.managerId = managerId;
     }
 
-    public TestDBSaver convert() throws Exception {
+    @Override
+    public TestDBSaver convert() {
         this.testWrapper = new TestWrapperConverter(test, managerId).convert();
         return this;
     }
 
+    @Override
     public void writeToMySql() throws DBException {
         CognitiveTestService.saveTestWrapperWithDaos(
                 testWrapper,
@@ -43,6 +45,7 @@ public class TestDBSaver {
         );
     }
 
+    @Override
     public TestWrapper getWrapper() {
         return testWrapper;
     }
