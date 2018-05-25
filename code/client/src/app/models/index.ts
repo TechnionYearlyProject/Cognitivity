@@ -270,8 +270,8 @@ export interface OpenQuestionAnswer extends QuestionAnswer {
 }
 
 export interface DrillDownQuestionAnswer extends QuestionAnswer {
-  primaryAnswer: string;
-  secnodaryAnswer: string;
+  primaryAnswer: number;
+  secnodaryAnswer: number;
 }
 
 export interface MultipleChoiceQuestionAnswer extends QuestionAnswer {
