@@ -275,7 +275,7 @@ export interface DrillDownQuestionAnswer extends QuestionAnswer {
 }
 
 export interface MultipleChoiceQuestionAnswer extends QuestionAnswer {
-  answer: string;
+  answer: number;
 }
 
 export interface RateQuestionAnswer extends QuestionAnswer {
