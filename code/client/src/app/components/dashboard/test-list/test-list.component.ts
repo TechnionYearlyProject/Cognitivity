@@ -43,6 +43,7 @@ export class TestListComponent implements OnInit {
       this.email = this.authService.getCurrentManagerEmail();
       this.managerId = await this.tmService.getManagerId(this.email);
       this.testList = await this.testService.findTestsForTestManager(this.managerId);
+      console.log(this.testList[0]);
       this.filteredTestList = [];
       this.testList.forEach((test) => {
           this.filteredTestList.push(test);
@@ -123,7 +124,8 @@ export class TestListComponent implements OnInit {
         return;
       }
     }
-    let newTest = JSON.parse(JSON.stringify(test));
+    let expandedTest = await this.testService.findCognitiveTestById(test.id);
+    let newTest = JSON.parse(JSON.stringify(expandedTest));
     newTest.name = newName.trim().replace(/\s\s+/g, ' ');
     newTest.lastModified = Date.parse(new Date().toLocaleDateString());
     newTest.lastAnswered = null;
