@@ -147,6 +147,7 @@ public class TestAnswerServiceTest {
         service.addTestAnswerForTestQuestion(answer6);
 
 
+        doReturn(subject).when(sdao).get(2L);
         doReturn(answers).when(dao).getTestSubjectAnswersInTest(2,3);
         answerList = service.findTestAnswersBySubjectInTest(2, 3);
         for (TestAnswer t : answerList) {

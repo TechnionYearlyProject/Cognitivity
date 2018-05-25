@@ -127,6 +127,7 @@ public class QuestionServiceTest {
         questions.add(question2);
         questions.add(question3);
 
+        doReturn(test.innerTest()).when(cognitiveTestDAO).get(2L);
         doReturn(questions).when(cognitiveTestDAO).getTestQuestions(2);
         List<TestQuestion> questions1 = service.findAllTestQuestionsFromTestId(2);
         for (TestQuestion t : questions1) {
@@ -155,6 +156,7 @@ public class QuestionServiceTest {
         questions.add(question5);
         questions.add(question6);
 
+        doReturn(manager).when(testManagerDAO).get(3L);
         doReturn(questions).when(testQuestionDAO).getTestQuestionsFromAManager(any());
         questions1 = service.findAllTestQuestionsFromManagerId(3);
         for (TestQuestion t : questions1) {

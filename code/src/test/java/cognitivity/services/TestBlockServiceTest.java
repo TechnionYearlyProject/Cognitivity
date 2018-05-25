@@ -82,7 +82,7 @@ public class TestBlockServiceTest {
 
         service.findBlockById(1);
 
-
+        doReturn(new TestBlock()).when(dao).get(1L);
         doReturn(questions).when(dao).getAllBlockQuestions(1);
         List<TestQuestion> questions1 = service.findAllBlockQuestions(1);
         for (TestQuestion t : questions1) {
