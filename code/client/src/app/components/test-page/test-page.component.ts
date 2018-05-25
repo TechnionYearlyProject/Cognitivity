@@ -3,21 +3,24 @@ import { TestService, TestManagerService } from '../../services/database-service
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth-service';
-import { Test, OpenQuestion, TypeQuestion, QuestionPosition, Block, RateQuestion, BlockAnswers } from '../../models';
+import { Test, OpenQuestion, TypeQuestion, QuestionPosition, Block, RateQuestion, BlockAnswers, TimeMeasurment } from '../../models/index';
 import { TestPageBlockComponent } from './block/block.component';
+import { TimeMeasurer } from '../../Utils/index';
 @Component({
   selector: 'app-test-page',
   templateUrl: './test-page.component.html',
   styleUrls: ['./test-page.component.css']
 })
 export class TestPageComponent implements OnInit {
-  test : Test;
+  test : any;
   //variable to hold the blocks array
-  blocks: any[];
+  blocks: Block[];
 
   blocksAnswers: BlockAnswers[];
 
   blocksLength: number;
+
+  
 
    //the current test's index in the tests list.
    currIndex: number;
@@ -30,8 +33,11 @@ export class TestPageComponent implements OnInit {
     private router: Router,
     private testService: TestService,
     private tmService: TestManagerService,
-    private authService: AuthService
-  ) { }
+    private authService: AuthService,
+    private timing:any,//TimeMeasurer - instance of the timing class
+    private timingMeasurment:any//TimeMeasurment - TimeMeasurment object thatll contain the results for the timing class
+  ) {
+   }
 
   async ngOnInit() {
     let email// = this.authService.getCurrentManagerEmail();
@@ -111,10 +117,19 @@ export class TestPageComponent implements OnInit {
     this.currIndex = -1;
 
     document.body.classList.add('background-white');
+
+    //initializing the timing class
+    this.timing = new TimeMeasurer(this.timingMeasurment,this.test.id,this.blocks.length);
+    //after initializing the class we want to start the test measuring with timing_startTestMeasure() method
+    this.timing.timing_startTestMeasure();
+
   }
 
   finishTest() {
     console.log(this.blocksAnswers);
+    //when stopping the test, call timing_stopTestMeasure() to end the test measuring.
+    this.timing.timing_stopTestMeasure();
+    //the results of the timing class sits in ----------this.timingMeasurment.testObject--------------
   }
 
   /*
@@ -136,6 +151,8 @@ showBlock(index) {
 
 onBlockFinish() {
   this.hideNextButton = false;
+  //when finishing the block we want to stop the timing measurment for the block.
+  this.timing.timing_stopBlockMeasure(this.blocks[this.currIndex].id);
 }
 
 onFormCompletion(subjectId: number) {
