@@ -136,6 +136,9 @@ export class TestPageMultipleChoiceQuestionComponent implements OnInit {
         }
       }
     }
+    
+    // send event that subject marked an answer
+    this.answered.emit(true);
   }
 
   /*
@@ -223,9 +226,10 @@ export class TestPageMultipleChoiceQuestionComponent implements OnInit {
         }
       }
     }else{
-      for(let i = 0; i < this.dimMatrix; i++){
+      for(let i = 0; i < this.markedAnswers.length; i++){
         if(this.markedAnswers[i]){
           answerIndex = i;
+          console.log('whattt');
         }
       }
     }
