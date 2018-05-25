@@ -3,7 +3,6 @@ package cognitivity.dao;
 import cognitivity.entities.TestAnswer;
 import cognitivity.entities.TestSubject;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,6 +52,9 @@ public class TestSubjectDAOimpl extends AbstractDAO<TestSubject> implements Test
     }
 
     public List<TestSubject> findAllTestSubjectsInTheSystem(){
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        String queryString = "from TestSubject";
+        Query<TestSubject> query = session.createQuery(queryString, TestSubject.class);
+        return query.getResultList();
     }
 }

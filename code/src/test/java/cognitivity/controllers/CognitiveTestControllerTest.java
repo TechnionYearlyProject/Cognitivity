@@ -22,12 +22,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -79,7 +79,6 @@ public class CognitiveTestControllerTest implements RestControllerTest {
 
         mockMvc.perform(get("/tests/findCognitiveTestById")
                 .param("testId", "123456"))
-                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is("ct1")))
                 .andExpect(jsonPath("$.numberOfQuestions", is(1)))
@@ -87,6 +86,26 @@ public class CognitiveTestControllerTest implements RestControllerTest {
                 .andExpect(jsonPath("$.project", is("project")));
 
         Mockito.verify(cognitiveTestServiceMock, times(1)).findTestById(123456);
+        Mockito.verifyNoMoreInteractions(cognitiveTestServiceMock);
+    }
+
+    @Test
+    public void filterTestsByNotes() throws Exception {
+        CognitiveTest test1 = buildTest("ct1", "em1", 1);
+        TestWrapper cognitiveTest1 = new TestWrapper(test1);
+
+        Mockito.when(cognitiveTestServiceMock.filterTestsByNotes("filterString"))
+                .thenReturn(Collections.singletonList(test1));
+
+        mockMvc.perform(get("/tests/filterTestsByNotes")
+                .param("notes", "filterString"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].name", is("ct1")))
+                .andExpect(jsonPath("$[0].numberOfQuestions", is(1)))
+                .andExpect(jsonPath("$[0].notes", is("notes")))
+                .andExpect(jsonPath("$[0].project", is("project")));
+
+        Mockito.verify(cognitiveTestServiceMock, times(1)).filterTestsByNotes("filterString");
         Mockito.verifyNoMoreInteractions(cognitiveTestServiceMock);
     }
 

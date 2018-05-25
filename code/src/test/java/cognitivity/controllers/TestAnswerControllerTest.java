@@ -3,7 +3,6 @@ package cognitivity.controllers;
 import cognitivity.TestUtil;
 import cognitivity.entities.TestAnswer;
 import cognitivity.services.TestAnswerService;
-import cognitivity.web.app.config.HibernateBeanConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import config.TestContextBeanConfiguration;
 import org.hamcrest.CoreMatchers;
@@ -82,6 +81,21 @@ public class TestAnswerControllerTest implements RestControllerTest {
                 .andExpect(jsonPath("$.finalAnswer", is(testAnswer.getFinalAnswer())));
 
         Mockito.verify(testAnswerService, times(1)).findTestAnswerById(12345);
+        Mockito.verifyNoMoreInteractions(testAnswerService);
+    }
+
+    @Test
+    public void findAllTestAnswerForATest() throws Exception {
+        Mockito.when(testAnswerService.findAllTestAnswersForATest(12345)).thenReturn(Collections.singletonList(testAnswer));
+
+        // findTestsForTestManager is a http GET request
+        mockMvc.perform(get("/test-answers/findAllTestAnswersForATest")
+                .param("testId", "12345"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$[0].finalAnswer", is(testAnswer.getFinalAnswer())));
+
+        Mockito.verify(testAnswerService, times(1)).findAllTestAnswersForATest(12345);
         Mockito.verifyNoMoreInteractions(testAnswerService);
     }
 

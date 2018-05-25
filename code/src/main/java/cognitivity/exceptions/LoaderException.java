@@ -13,12 +13,6 @@ public class LoaderException extends CognitivityException {
         this.jsonData = jsonData;
     }
 
-    public LoaderException(String jsonData, String message) {
-        super("LoaderException : ");
-        this.jsonData = jsonData;
-        this.message = message;
-    }
-
     @Override
     public String getMessage() {
         return super.getMessage() + "Error reading from file.\n" +

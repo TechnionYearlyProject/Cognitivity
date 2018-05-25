@@ -3,7 +3,6 @@ package cognitivity.controllers;
 import cognitivity.TestUtil;
 import cognitivity.entities.TestSubject;
 import cognitivity.services.TestSubjectService;
-import cognitivity.web.app.config.HibernateBeanConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import config.TestContextBeanConfiguration;
 import org.hamcrest.CoreMatchers;
@@ -15,7 +14,6 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -96,6 +94,21 @@ public class TestSubjectControllerTest implements RestControllerTest {
                 .andExpect(jsonPath("$[0].ipAddress", is(testSubject.getIpAddress())));
 
         Mockito.verify(testSubjectService, times(1)).findTestSubjectsWhoParticipatedInTest(1234);
+        Mockito.verifyNoMoreInteractions(testSubjectService);
+    }
+
+    @Test
+    public void findAllTestSubjectsInTheSystem() throws Exception {
+        Mockito.when(testSubjectService.findAllTestSubjectsInTheSystem()).thenReturn(Collections.singletonList(testSubject));
+        // findAllTestSubjectsInTheSystem is a http GET request
+        mockMvc.perform(get("/test-subjects/findAllTestSubjectsInTheSystem"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$[0].name", is(testSubject.getName())))
+                .andExpect(jsonPath("$[0].browser", is(testSubject.getBrowser())))
+                .andExpect(jsonPath("$[0].ipAddress", is(testSubject.getIpAddress())));
+
+        Mockito.verify(testSubjectService, times(1)).findAllTestSubjectsInTheSystem();
         Mockito.verifyNoMoreInteractions(testSubjectService);
     }
 
