@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Test, Manager, Question, Block, QuestionAnswer } from '../../models';
+import { Test, Manager, Question, Block, QuestionAnswer, Error, QuestionAnswerForDB } from '../../models';
 import { Http, Headers } from '@angular/http'
 import { RequestOptionsArgs } from '@angular/http/src/interfaces';
 
@@ -13,7 +13,7 @@ class HttpTarget{
 class ErrorHandler {
     static handleError(error: Error) {
         
-        alert("Error:\ncould not perform the last operation.\n"+error.message);
+        alert("Error:\ncould not perform the last operation.\n"+error);
 
         //TODO:Check the meaning of the code below
         return Promise.reject(error.message || error);
@@ -162,6 +162,8 @@ export class QuestionService {
         .catch(ErrorHandler.handleError);
     }
 
+    
+
 }
 
 
@@ -188,6 +190,33 @@ export class QuestionService {
         .catch(ErrorHandler.handleError);
      }
 
+     saveTestAnswer(answer: QuestionAnswerForDB): Promise<QuestionAnswerForDB> {
+        return this.http.post(`${this.target}${this.base_mapping}/saveTestAnswer`,JSON.stringify(answer), {headers: this.headers})
+        .toPromise()
+        .then(res => res.json() as QuestionAnswerForDB)
+        .catch(ErrorHandler.handleError);
+     }
+
+     deleteTestAnswer(questionId: number, testAnswerId: number = -1): Promise<void> {
+        return this.http.delete(`${this.target}${this.base_mapping}/deleteTestAnswer?questionId=${questionId}&testAnswerId=${testAnswerId}`, {headers: this.headers})
+        .toPromise()
+        .then(() => null)
+        .catch(ErrorHandler.handleError);
+    }
+
+    updateTestAnswer(answer: QuestionAnswer): Promise<QuestionAnswer> {
+        return this.http.post(`${this.target}${this.base_mapping}/updateTestAnswer`, JSON.stringify(answer), {headers: this.headers})
+        .toPromise()
+        .then(res => res.json() as QuestionAnswer)
+        .catch(ErrorHandler.handleError)
+    }
+
+    findTestAnswersBySubjectId(subjectId: number): Promise<QuestionAnswer[]> {
+        return this.http.get(`${this.target}${this.base_mapping}//findTestAnswersBySubjectId?subjectId=${subjectId}`, {headers: this.headers})
+        .toPromise()
+        .then(res => res.json() as QuestionAnswer[])
+        .catch(ErrorHandler.handleError);
+    }
 
 
 
