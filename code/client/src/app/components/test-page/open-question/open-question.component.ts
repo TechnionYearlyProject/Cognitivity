@@ -10,7 +10,7 @@ import {QuestionPosition, QuestionAnswer, TypeQuestion, OpenQuestionAnswer, Open
 */
 export class TestPageOpenQuestionComponent implements OnInit {
   //the question's data passed as input
-  @Input() question: OpenQuestion;
+  @Input() question: any;//OpenQuestion type
   //the current answer that the subject fills up.
   currentAnswer: string;
   //slider value.

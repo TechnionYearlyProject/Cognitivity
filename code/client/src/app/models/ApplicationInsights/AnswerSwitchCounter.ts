@@ -17,7 +17,7 @@
 export class SwitchCounterTracker {
   private counter: number;
 
-  private constructor(newCounter: number) {
+  constructor(newCounter: number) {
     this.counter = newCounter;
   }
 
@@ -38,9 +38,8 @@ export class SwitchCounterTracker {
   /**
    * Implementation of the singleton pattern.
    * */
-  public static get getNewSwitchCounter() {
-    return this._instance || (this._instance = new this(0));
-  }
+  //public static get getNewSwitchCounter():SwitchCounterTracker {
+  //  return new this(0);
+  //}
 
-  private static _instance: SwitchCounterTracker;
 }

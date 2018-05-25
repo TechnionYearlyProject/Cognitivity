@@ -143,4 +143,23 @@ public class TestSubjectService {
         }
     }
 
+    /**
+     *
+     * Get all test subjects in the system.
+     *
+     * @return - A list containing all test subjects in the system.
+     */
+    public List<TestSubject> findAllTestSubjectsInTheSystem() throws DBException{
+        try{
+            List<TestSubject> toReturn = dao.findAllTestSubjectsInTheSystem();
+            logger.info("Successfully found all TestSubjects in the system.");
+            return toReturn;
+        }catch (org.hibernate.HibernateException e){
+            logger.error("Failed to find all TestSubjects in the system "
+                    ,e);
+            throw new DBException(ErrorType.GET, null);
+        }
+    }
+
+
 }
