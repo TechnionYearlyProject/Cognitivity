@@ -53,7 +53,7 @@ public class LoadFromFileDependencyBeanConfiguration {
                 cognitiveTestDAO,
                 testBlockDAO,
                 testManagerDAO,
-                () -> new TestReader("data")
+                (s) -> new TestReader("data")
         );
     }
 }

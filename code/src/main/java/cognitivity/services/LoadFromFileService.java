@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.function.Supplier;
+import java.util.function.Function;
 
 /**
  * This class's goal is to provide the service for the frontend api of loading tests from json files.
@@ -23,7 +23,7 @@ import java.util.function.Supplier;
 public class LoadFromFileService {
 
     private final static Logger logger = Logger.getLogger(LoadFromFileService.class);
-    private final Supplier<ITestReader> readerFactory;
+    private final Function<String, ITestReader> readerFactory;
 
     private TestQuestionDAO testQuestionDAO;
     private CognitiveTestDAO testDAO;
@@ -36,7 +36,7 @@ public class LoadFromFileService {
                                CognitiveTestDAO testDAO,
                                TestBlockDAO testBlockDAO,
                                TestManagerDAO testManagerDAO,
-                               Supplier<ITestReader> readerFactory) {
+                               Function<String, ITestReader> readerFactory) {
         this.testQuestionDAO = testQuestionDAO;
         this.testDAO = testDAO;
         this.testBlockDAO = testBlockDAO;
@@ -55,7 +55,7 @@ public class LoadFromFileService {
             throw new ManagerDoesNotExistLoadException(jsonData);
         }
         long defaultId = 0;
-        ITestReader reader = readerFactory.get();
+        ITestReader reader = readerFactory.apply(jsonData);
         try {
             Test test = reader.read();
             if (testDAO.testWithNameExists(test.getName())) {

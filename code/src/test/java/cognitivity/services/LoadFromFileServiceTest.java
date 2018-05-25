@@ -6,7 +6,6 @@ import cognitivity.dao.TestManagerDAO;
 import cognitivity.dao.TestQuestionDAO;
 import cognitivity.exceptions.*;
 import cognitivity.services.fileLoader.TestReader;
-import cognitivity.web.app.config.HibernateBeanConfiguration;
 import com.google.gson.JsonParser;
 import config.LoadFromFileDependencyBeanConfiguration;
 import org.junit.Before;
@@ -27,7 +26,9 @@ import java.io.FileReader;
  * Created by ophir on 25/05/18.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = {LoadFromFileDependencyBeanConfiguration.class, HibernateBeanConfiguration.class})
+@SpringBootTest(classes = {
+        LoadFromFileDependencyBeanConfiguration.class
+})
 public class LoadFromFileServiceTest {
 
     @Rule
@@ -73,7 +74,7 @@ public class LoadFromFileServiceTest {
                 cognitiveTestDAO,
                 testBlockDAO,
                 testManagerDAO,
-                () -> () -> new cognitivity.services.fileLoader.Test(
+                (s) -> () -> new cognitivity.services.fileLoader.Test(
                         null,
                         "test",
                         null,
@@ -113,7 +114,7 @@ public class LoadFromFileServiceTest {
                 cognitiveTestDAO,
                 testBlockDAO,
                 testManagerDAO,
-                () -> new TestReader(jsonData)
+                (s) -> new TestReader(jsonData)
         );
 
         Mockito.when(testManagerDAO.managerWithIdExists(Matchers.anyLong()))
