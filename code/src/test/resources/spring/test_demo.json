@@ -1,0 +1,29 @@
+{
+  "testManager": {
+    "email": "TanyaBrochman@cognitivity.com"
+  },
+  "name": "Demo Test",
+  "notes": "This is a test for the demo",
+  "project": "Cognitivity Project",
+  "blocks": [
+    {
+      "numberOfQuestions": 1,
+      "tag": "Rate Question Block",
+      "shuffle": true,
+      "questions": [
+        {
+          "text": "How smart are you? (from 1 to 5)",
+          "position": 8,
+          "questionType": 1,
+          "hasConfidenceBar": true,
+          "pictureLink": "Unsupported picture link",
+          "hasTimeMeasurement": false,
+          "tags": [
+            "Rate Question"
+          ],
+          "maxRating": 5
+        }
+      ]
+    }
+  ]
+}
