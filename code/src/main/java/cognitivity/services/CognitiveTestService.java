@@ -7,7 +7,6 @@ import cognitivity.dto.BlockWrapper;
 import cognitivity.dto.TestWrapper;
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
-import cognitivity.entities.TestManager;
 import cognitivity.entities.TestQuestion;
 import cognitivity.exceptions.DBException;
 import cognitivity.exceptions.ErrorType;
@@ -39,7 +38,6 @@ public class CognitiveTestService {
         this.dao = dao;
         this.blockDAO = blockDAO;
         this.questionDAO = questionDAO;
-
     }
 
 

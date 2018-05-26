@@ -44,4 +44,9 @@ public interface TestSubjectDAO {
      */
     public List<TestSubject> findAllTestSubjectsInTheSystem();
 
+    /**
+     * Check if a subject with email exists.
+     */
+    boolean doesSubjectWithEmailExist(String email);
+
 }

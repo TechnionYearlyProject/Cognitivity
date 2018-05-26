@@ -2,6 +2,7 @@ package cognitivity.services;
 
 /**
  * A test class for Test answer service
+ *
  * @Author - Pe'er
  * @Date - 2.2.18
  */
@@ -76,13 +77,13 @@ public class TestAnswerServiceTest {
     test - 3
      */
     @Test
-    public void FullTest()throws Exception {
-        QuestionService questionService = new QuestionService(qdao,dao,tdao,mdao);
+    public void FullTest() throws Exception {
+        QuestionService questionService = new QuestionService(qdao, dao, tdao, mdao);
         TestBlockService blockService = new TestBlockService(bdao);
-        CognitiveTestService testService = new CognitiveTestService(tdao,bdao, qdao);
-        TestManagerService managerService = new TestManagerService(mdao,tdao);
+        CognitiveTestService testService = new CognitiveTestService(tdao, bdao, qdao);
+        TestManagerService managerService = new TestManagerService(mdao, tdao);
         TestSubjectService subjectService = new TestSubjectService(sdao);
-        TestAnswerService service = new TestAnswerService(dao,sdao);
+        TestAnswerService service = new TestAnswerService(dao, sdao);
 
         TestManager manager = new TestManager("mail");
         CognitiveTest test = new CognitiveTest("Sifratiyot", manager, 1, "notes", "project");
@@ -90,11 +91,11 @@ public class TestAnswerServiceTest {
         CognitiveTest test2 = new CognitiveTest("jhfkasjhfkajdfak", manager, 1, "notes", "project");
         BlockWrapper block = new BlockWrapper(1, false, "tagiity tag", test);
         block.setId(4L);
-        TestSubject subject = new TestSubject("Rick", "ip", "Ahla dafdefan","2013","Mad scientist","a widow :(");
-        TestQuestion question = new TestQuestion("Who the f&$# builds a stonehenge?","Stam link", block.innerBlock(test.getId()),
+        TestSubject subject = new TestSubject("Rick", "ip", "Ahla dafdefan", "2013", "Mad scientist", "a widow :(", "email");
+        TestQuestion question = new TestQuestion("Who the f&$# builds a stonehenge?", "Stam link", block.innerBlock(test.getId()),
                 test, manager);
         questionService.createTestQuestion(question);
-        TestQuestion question1 = new TestQuestion("Who ate my sandwich?","Stam link", block.innerBlock(test.getId()), test2,
+        TestQuestion question1 = new TestQuestion("Who ate my sandwich?", "Stam link", block.innerBlock(test.getId()), test2,
                 manager);
         questionService.createTestQuestion(question1);
 
@@ -148,7 +149,7 @@ public class TestAnswerServiceTest {
 
 
         doReturn(subject).when(sdao).get(2L);
-        doReturn(answers).when(dao).getTestSubjectAnswersInTest(2,3);
+        doReturn(answers).when(dao).getTestSubjectAnswersInTest(2, 3);
         answerList = service.findTestAnswersBySubjectInTest(2, 3);
         for (TestAnswer t : answerList) {
             assertTrue("Getting unrelated answers while trying to get all answers for a specific test", answers.contains(t));
@@ -194,56 +195,65 @@ public class TestAnswerServiceTest {
 
 
         doThrow(new org.hibernate.HibernateException("")).when(dao).add(any());
-        try{
+        try {
             service.addTestAnswerForTestQuestion(new TestAnswer());
-            assertTrue("Problem with handling with exception at create",false);
-        }catch (Exception e){}
+            assertTrue("Problem with handling with exception at create", false);
+        } catch (Exception e) {
+        }
 
         doThrow(new org.hibernate.HibernateException("")).when(dao).update(any());
         try {
             service.updateTestAnswerForQuestion(new TestAnswer());
-            assertTrue("Problem with handling with exception at update",false);
-        }catch (Exception e){}
+            assertTrue("Problem with handling with exception at update", false);
+        } catch (Exception e) {
+        }
         doThrow(new org.hibernate.HibernateException("")).when(dao).getQuestionAnswers(7);
         try {
             service.deleteAllTestAnswersForQuestion(7);
-            assertTrue("Problem with handling with exception at delete",false);
-        }catch (Exception e){}
+            assertTrue("Problem with handling with exception at delete", false);
+        } catch (Exception e) {
+        }
         doThrow(new org.hibernate.HibernateException("")).when(dao).delete(any());
         try {
             service.deleteTestAnswerForQuestion(7);
-            assertTrue("Problem with handling with exception at delete",false);
-        }catch (Exception e){}
+            assertTrue("Problem with handling with exception at delete", false);
+        } catch (Exception e) {
+        }
 
         doThrow(new org.hibernate.HibernateException("")).when(dao).get(7L);
         try {
             service.findTestAnswerById(7);
-            assertTrue("Problem with handling with exception at findTestAnswerById",false);
-        }catch (Exception e){}
+            assertTrue("Problem with handling with exception at findTestAnswerById", false);
+        } catch (Exception e) {
+        }
 
         doThrow(new org.hibernate.HibernateException("")).when(sdao).getSubjectAnswers(7L);
         try {
             service.findTestAnswersBySubject(7);
-            assertTrue("Problem with handling with exception at findTestAnswersBySubject",false);
-        }catch (Exception e){}
+            assertTrue("Problem with handling with exception at findTestAnswersBySubject", false);
+        } catch (Exception e) {
+        }
 
-        doThrow(new org.hibernate.HibernateException("")).when(dao).getTestSubjectAnswersInTest(7L,6L);
+        doThrow(new org.hibernate.HibernateException("")).when(dao).getTestSubjectAnswersInTest(7L, 6L);
         try {
-            service.findTestAnswersBySubjectInTest(7,6);
-            assertTrue("Problem with handling with exception at findTestAnswersBySubjectInTest",false);
-        }catch (Exception e){}
+            service.findTestAnswersBySubjectInTest(7, 6);
+            assertTrue("Problem with handling with exception at findTestAnswersBySubjectInTest", false);
+        } catch (Exception e) {
+        }
 
         doThrow(new org.hibernate.HibernateException("")).when(dao).getQuestionAnswers(7L);
         try {
             service.findAllTestAnswerForAQuestion(7);
-            assertTrue("Problem with handling with exception at findAllTestAnswerForAQuestion",false);
-        }catch (Exception e){}
+            assertTrue("Problem with handling with exception at findAllTestAnswerForAQuestion", false);
+        } catch (Exception e) {
+        }
 
         doThrow(new org.hibernate.HibernateException("")).when(dao).getTestAnswers(7L);
         try {
             service.findAllTestAnswersForATest(7L);
-            assertTrue("Problem with handling with exception at findAllTestAnswersForATest",false);
-        }catch (Exception e){}
+            assertTrue("Problem with handling with exception at findAllTestAnswersForATest", false);
+        } catch (Exception e) {
+        }
 
     }
 

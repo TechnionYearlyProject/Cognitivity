@@ -33,13 +33,25 @@ public class TestSubject extends AbstractEntity {
     @Column(name = "martialStatus")
 	private String martialStatus;
 
-	public TestSubject(String name, String ipAddress, String browser, String birthDate, String occupation, String martialStatus) {
+	@Column(name = "email")
+	private String email;
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public TestSubject(String name, String ipAddress, String browser, String birthDate, String occupation, String martialStatus, String email) {
 		this.name = name;
 		this.ipAddress = ipAddress;
 		this.browser = browser;
 		this.birthDate = birthDate;
 		Occupation = occupation;
 		this.martialStatus = martialStatus;
+		this.email = email;
 	}
 
 	public TestSubject() {}
