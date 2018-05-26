@@ -2,6 +2,49 @@ import { Injectable } from '@angular/core';
 import { Test, Manager, Question, Block, QuestionAnswer, Error, QuestionAnswerForDB, TestSubject } from '../../models';
 import { Http, Headers } from '@angular/http'
 import { RequestOptionsArgs } from '@angular/http/src/interfaces';
+import {
+    HttpRequest,
+    HttpHandler,
+    HttpEvent,
+    HttpInterceptor,
+    HttpResponse,
+    HttpErrorResponse,
+  } from '@angular/common/http'
+  import { Observable } from 'rxjs/Observable';
+  import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/empty';
+import 'rxjs/add/operator/retry'; 
+import 'rxjs/add/operator/do';
+
+//The following code is meant to make the error handling more modular, please ignore it for now
+
+// @Injectable()
+// export class HttpErrorInterceptor implements HttpInterceptor {
+//   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+//     return next.handle(request)
+//       .catch((err: HttpErrorResponse) => {
+
+//         if (err.error instanceof Error) {
+//           // A client-side or network error occurred. Handle it accordingly.
+//           console.error('An error occurred:', err.error.message);
+//           alert("WTF WTF WT WT WTF ");
+//         } else {
+//           // The backend returned an unsuccessful response code.
+//           // The response body may contain clues as to what went wrong,
+//           console.error(`Backend returned code ${err.status}, body was: ${err.error}`);
+//           alert("DAMNN DAMNN DAMNN DAMNN");
+//         }
+
+//         // ...optionally return a default fallback value so app can continue (pick one)
+//         // which could be a default value (which has to be a HttpResponse here)
+//         // return Observable.of(new HttpResponse({body: [{name: "Default value..."}]}));
+//         // or simply an empty observable
+//         alert("ALL IS WELL ALL IS WELL ALL IS WELL!");
+//         return Observable.empty<HttpEvent<any>>();
+//       });
+//   }
+// }
 
 class HttpTarget{
     private static httpTarget : string = 'http://localhost:8181';
@@ -11,11 +54,11 @@ class HttpTarget{
 }
 // Error handler class, holds behavior when errors are returned from server
 class ErrorHandler {
-    static handleError(error: Error) {
+    static handleError(error: any) {
         
-        alert("Error:\ncould not perform the last operation.\n"+error);
+        let errorMessage = JSON.parse(error._body).message;
+        alert("Error:\ncould not perform the last operation.\n"+errorMessage);
 
-        //TODO:Check the meaning of the code below
         return Promise.reject(error.message || error);
     }
     
