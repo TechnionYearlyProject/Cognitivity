@@ -57,6 +57,7 @@ export class TestPageQuestionComponent implements OnInit {
   onQuestionFinish() {
 
     var questionAnswer: QuestionAnswer;
+    
     switch (this.question.type) {
       case TypeQuestion.OpenQuestion:
         questionAnswer = this.openQuestion.buildAnswer();
@@ -80,7 +81,8 @@ export class TestPageQuestionComponent implements OnInit {
 
   getAnswer() {
     var questionAnswer: QuestionAnswer;
-    switch (this.question.type) {
+    console.log('dfsdfdfsdfsdfdgdfg', this.question);
+    switch (parseInt( this.question.type)) {
       case TypeQuestion.OpenQuestion:
         questionAnswer = this.openQuestion.buildAnswer();
         break;
@@ -91,10 +93,11 @@ export class TestPageQuestionComponent implements OnInit {
         questionAnswer = this.multipleChoiceQuestion.buildAnswer();
         break;
       case TypeQuestion.RateQuestion:
+        console.log('dgdfgfdhdfghghtjtdgrgergerrgege')
         questionAnswer = this.rateQuestion.buildAnswer();
         break;
     }
-
+    console.log('dfggd', questionAnswer);
     return questionAnswer;
   }
 

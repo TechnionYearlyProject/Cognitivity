@@ -143,6 +143,8 @@ export class TestPageRateQuestionComponent implements OnInit {
       testId: this.testId
     }
 
+    console.log('????',questionAnswer);
+
     return questionAnswer;
   }
 

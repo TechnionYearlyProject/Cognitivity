@@ -51,7 +51,7 @@ export class TestPageBlockComponent implements OnInit {
     for(let i=0;i<this.wasShownArr.length;i++){
       this.wasShownArr[i] = false;
     }
-    this.currIndex = this.generateRandomIndex();
+    this.currIndex = 0;
   }
 
   /*
@@ -124,9 +124,10 @@ export class TestPageBlockComponent implements OnInit {
     );
     this.wasShownArr[this.currIndex] = true;
     this.questionAnswers[this.currIndex] = this.question.getAnswer();
-    this.currIndex = this.generateRandomIndex();
+    console.log(this.question.getAnswer());
+    this.currIndex++;
     this.didAnswerQuestion = false;
-    if (this.wasAllShown()==0) {
+    if (this.currIndex == this.block.questions.length) {
       this.finish = true;
       this.finished.emit();
     }
