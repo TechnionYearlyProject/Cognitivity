@@ -8,6 +8,7 @@ import config.TestContextBeanConfiguration;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -21,7 +22,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.Collections;
 import java.util.List;
 
-import static cognitivity.entities.TestSubjectTest.createTestSubject;
 import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -31,7 +31,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = {TestContextBeanConfiguration.class})
+@SpringBootTest(classes = {
+        TestContextBeanConfiguration.class
+})
 public class SendLinkControllerTest implements RestControllerTest {
 
     private DistributeTestLinkToSubjectController controller;
@@ -59,7 +61,7 @@ public class SendLinkControllerTest implements RestControllerTest {
 
     @Test
     public void testThatServiceMethodIsDelegated() throws SendLinksException, Exception {
-        List<TestSubject> subjectList = Collections.singletonList(createTestSubject());
+        List<String> subjectList = Collections.singletonList("email@gmail.com");
 
         mockMvc.perform(post("/send-links/sendLinksToSubjects")
                 .param("link", "link")
@@ -69,5 +71,23 @@ public class SendLinkControllerTest implements RestControllerTest {
 
         Mockito.verify(distributeTestLinkToSubjectService, times(1)).sendLinksToSubjects(subjectList, "link");
         Mockito.verifyNoMoreInteractions(distributeTestLinkToSubjectService);
+    }
+
+    @Test
+    @Ignore
+    public void testSendLinks() throws SendLinksException {
+        TestSubject subject = new TestSubject(
+                "Ophir",
+                "ip",
+                "browser",
+                "s",
+                "oc",
+                "single as fuck",
+                "ophirk8396@gmail.com"
+        );
+
+
+        // testSubjectDAO.add(subject);
+        distributeTestLinkToSubjectService.sendLinksToSubjects(Collections.singletonList(subject.getEmail()), "localhost:4200/test/8");
     }
 }

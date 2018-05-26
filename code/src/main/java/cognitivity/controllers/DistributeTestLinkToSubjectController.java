@@ -1,6 +1,5 @@
 package cognitivity.controllers;
 
-import cognitivity.entities.TestSubject;
 import cognitivity.exceptions.SendLinksException;
 import cognitivity.services.DistributeTestLinkToSubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,15 +32,15 @@ public class DistributeTestLinkToSubjectController extends AbstractRestControlle
 
 
     /**
-     * Method for sending the links to a list of subjects
+     * Method for sending the links to a list of subjectsEmails
      * <p>
      * Params are as in DistributeTestLinkToSubjectService.
      */
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/sendLinksToSubjects")
-    public void sendLinksToSubjects(@RequestBody List<TestSubject> subjects,
+    public void sendLinksToSubjects(@RequestBody List<String> subjectsEmails,
                                     @RequestParam(value = "link") String link) throws SendLinksException {
-        service.sendLinksToSubjects(subjects, link);
+        service.sendLinksToSubjects(subjectsEmails, link);
     }
 }
