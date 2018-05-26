@@ -47,6 +47,8 @@ export class TestPageDrillDownQuestionComponent implements OnInit {
       this.markedAnswersMain[i] = false;
     }
 
+    this.answered.emit(false);
+
 
   }
   /*
@@ -153,6 +155,18 @@ export class TestPageDrillDownQuestionComponent implements OnInit {
     }
 
     return questionAnswer;
+  }
+
+  //checking if we have a marked answer.
+  get_is_marked():boolean{
+    for (let i = 0; i < this.markedAnswersMain.length; i++) {
+        if(this.markedAnswersMain[i]){
+          this.answered.emit(true);
+          return true;
+        }
+    }
+    this.answered.emit(false);
+    return false;
   }
 
 }
