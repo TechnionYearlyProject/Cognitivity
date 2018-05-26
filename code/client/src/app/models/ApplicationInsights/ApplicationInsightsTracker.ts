@@ -2,24 +2,10 @@
  * Created by ophir on 21/05/18.
  */
 
-/**
- <script type="text/javascript">
- var appInsights=window.appInsights||function(a){
-  function b(a){c[a]=function(){var b=arguments;c.queue.push(function(){c[a].apply(c,b)})}}var c={config:a},d=document,e=window;setTimeout(function(){var b=d.createElement("script");b.src=a.url||"https://az416426.vo.msecnd.net/scripts/a/ai.0.js",d.getElementsByTagName("script")[0].parentNode.appendChild(b)});try{c.cookie=d.cookie}catch(a){}c.queue=[];for(var f=["Event","Exception","Metric","PageView","Trace","Dependency"];f.length;)b("track"+f.pop());if(b("setAuthenticatedUserContext"),b("clearAuthenticatedUserContext"),b("startTrackEvent"),b("stopTrackEvent"),b("startTrackPage"),b("stopTrackPage"),b("flush"),!a.disableExceptionTracking){f="onerror",b("_"+f);var g=e[f];e[f]=function(a,b,d,e,h){var i=g&&g(a,b,d,e,h);return!0!==i&&c["_"+f](a,b,d,e,h),i}}return c
-  }({
-      instrumentationKey:"bf85656a-0c3e-4a2d-a744-fdffa181700b"
-  });
-
- window.appInsights=appInsights,appInsights.queue&&0===appInsights.queue.length&&appInsights.trackPageView();
- </script>
-
-
- This script is to be put in every html page (before the head section)
- */
-
 import {AppInsights} from "applicationinsights-js";
 import {SwitchCounterTracker} from "./AnswerSwitchCounter";
-import {TimeMeasurer} from "../../Utils/index";
+import {TimeMeasurer} from "../../Utils";
+import {environment} from "./environment";
 
 
 /**
@@ -51,11 +37,10 @@ export class ApplicationInsightsTracker {
    * Constructor and configuration.
    * */
   private config: Microsoft.ApplicationInsights.IConfig = {
-    instrumentationKey: instrumentation_key
+    instrumentationKey: environment.appInsights.instrumentationKey
   };
 
   private constructor() {
-    appInsights = AppInsights;
     if (!AppInsights.config) {
       AppInsights.downloadAndSetup(this.config);
     }
@@ -79,7 +64,8 @@ export class ApplicationInsightsTracker {
     let measurements = {
       "numberOfSwitcher": switchTracker.getSwitchCount
     };
-    this.appInsights.trackEvent(name, properties, measurements);
+    console.log('track switch answers');
+    AppInsights.trackEvent(name, properties, measurements);
   }
 
   public trackQuestionElapsedTime(timeMeasurements: TimeMeasurer,
@@ -94,14 +80,14 @@ export class ApplicationInsightsTracker {
       "totalElapsedTime": timeMeasurements.getQuestionTotalRunning(questionId),
       "confidenceBarElapsedTime": timeMeasurements.getQuestionConBarTotalRunning(questionId)
     };
-    this.appInsights.trackEvent(name, properties, measurements);
+    AppInsights.trackEvent(name, properties, measurements);
   }
 
   /**
    * Implementation of the singleton pattern.
    * */
   public static get getInstance() {
-    return this._instance || (this._instance = new this());
+    return this._instance || (this._instance = new ApplicationInsightsTracker());
   }
 
   private static _instance: ApplicationInsightsTracker;

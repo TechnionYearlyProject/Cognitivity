@@ -42,7 +42,7 @@ export class CreateQuestionComponent implements OnInit {
   //saces flag for knowing if the secondary answer was already submitted
   typedSecondaryAnswer: boolean = false;
   // //flag for the state when the secondary question is being submitted
-   submitSecondaryQuestion?: boolean = false;
+  submitSecondaryQuestion?: boolean = false;
   submit: boolean = false;
   //edit mode
   editionMode: boolean = false;
@@ -57,6 +57,7 @@ export class CreateQuestionComponent implements OnInit {
   positon_desc: string = 'Question Position';
   //string that describes the multiple choice question type
   multiple_type: string = 'Answer Organization';
+
   /*
     Params:
     dialogRef - reference for the dialog between the block component to this component.
@@ -67,13 +68,11 @@ export class CreateQuestionComponent implements OnInit {
   */
   constructor(public dialogRef: MatDialogRef<CreateQuestionComponent>, private transferData: SessionService) {
 
-   }
-
-
+  }
 
 
   ngOnInit() {
-    if(this.transferData.getData().editMode == true){//Which mean we are in edition mode of the question
+    if (this.transferData.getData().editMode == true) {//Which mean we are in edition mode of the question
       this.question_object = this.transferData.getData().value;
       console.log(this.question_object);
       this.editQuestion(this.question_object);
@@ -87,26 +86,28 @@ export class CreateQuestionComponent implements OnInit {
     Could happen in case the user exited this component via the Cancel button
     or by finishing the creation of the question.
   */
-  closeDialog(){
+  closeDialog() {
     this.dialogRef.close();
   }
+
   /*
    ----------- setters for the type of the created question
    */
+
   /*
    Setting the type of the created question, to multiple choice question
   */
-  setMultipleQuestion(){
+  setMultipleQuestion() {
     this.submit = false;
     this.typedMultipleAnswer = false;
     this.typedSecondaryAnswer = false;
     this.submitSecondaryQuestion = false;
     this.submitSecondaryQuestion = false;
     this.typedMainAnswer = false;
-    if(this.typeQuestion == TypeQuestion.MultipleChoice){
+    if (this.typeQuestion == TypeQuestion.MultipleChoice) {
       this.typeQuestion = null;
       this.type_question_desc = 'Question Types';
-    }else{
+    } else {
       this.typeQuestion = TypeQuestion.MultipleChoice;
       this.type_question_desc = 'Multiple Choice Question';
     }
@@ -115,16 +116,16 @@ export class CreateQuestionComponent implements OnInit {
   /*
    Setting the type of the created question, to rate question
   */
-  setRateQuestion(){
+  setRateQuestion() {
     this.submit = false;
     this.typedMultipleAnswer = false;
     this.typedSecondaryAnswer = false;
     this.submitSecondaryQuestion = false;
     this.typedMainAnswer = false;
-    if(this.typeQuestion == TypeQuestion.RateQuestion){
+    if (this.typeQuestion == TypeQuestion.RateQuestion) {
       this.typeQuestion = null;
       this.type_question_desc = 'Question Types';
-    }else{
+    } else {
       this.typeQuestion = TypeQuestion.RateQuestion;
       this.type_question_desc = 'Rate Question';
     }
@@ -147,19 +148,20 @@ export class CreateQuestionComponent implements OnInit {
     }
   }
   */
+
   /*
    Setting the type of the created question, to open question
   */
-  setOpenQuestion(){
+  setOpenQuestion() {
     this.submit = false;
     this.typedMultipleAnswer = false;
     this.submitSecondaryQuestion = false;
     this.typedSecondaryAnswer = false;
     this.typedMainAnswer = false;
-    if(this.typeQuestion == TypeQuestion.OpenQuestion){
+    if (this.typeQuestion == TypeQuestion.OpenQuestion) {
       this.typeQuestion = null;
       this.type_question_desc = 'Question Types';
-    }else{
+    } else {
       this.typeQuestion = TypeQuestion.OpenQuestion;
       this.type_question_desc = 'Open Text Question';
     }
@@ -168,33 +170,37 @@ export class CreateQuestionComponent implements OnInit {
   /*
    Setting the type of the created question, to drill down question
   */
-  setDrillDownQuestion(){
+  setDrillDownQuestion() {
     this.submit = false;
     this.submitSecondaryQuestion = false;
     this.typedMultipleAnswer = false;
     this.typedSecondaryAnswer = false;
     this.typedMainAnswer = false;
-    if(this.typeQuestion == TypeQuestion.DrillDownQuestion){
+    if (this.typeQuestion == TypeQuestion.DrillDownQuestion) {
       this.typeQuestion = null;
       this.type_question_desc = 'Question Types';
-    }else{
+    } else {
       this.typeQuestion = TypeQuestion.DrillDownQuestion;
       this.type_question_desc = 'Drill Down Question';
     }
   }
+
   /*
    Getters for the type of the question
   */
-  didChoseMultipleQuestion() : boolean{
+  didChoseMultipleQuestion(): boolean {
     return this.typeQuestion == TypeQuestion.MultipleChoice;
   }
-  didChoseRateQuestion() : boolean{
+
+  didChoseRateQuestion(): boolean {
     return this.typeQuestion == TypeQuestion.RateQuestion;
   }
-  didChoseOpenQuestion() : boolean{
+
+  didChoseOpenQuestion(): boolean {
     return this.typeQuestion == TypeQuestion.OpenQuestion;
   }
-  didChoseDrillDownQuestion() : boolean{
+
+  didChoseDrillDownQuestion(): boolean {
     return this.typeQuestion == TypeQuestion.DrillDownQuestion;
   }
 
@@ -206,16 +212,17 @@ export class CreateQuestionComponent implements OnInit {
     Upper Middle position
   */
   setUpperMiddlePosition() {
-    if(this.questionPosition == QuestionPosition.UpperMiddle){
+    if (this.questionPosition == QuestionPosition.UpperMiddle) {
       this.questionPosition = null;
       this.positon_desc = 'Question Position';
-    }else{
+    } else {
       this.questionPosition = QuestionPosition.UpperMiddle;
       this.positon_desc = 'Upper Middle';
     }
 
   }
-  didChoseUpperMiddle():boolean {
+
+  didChoseUpperMiddle(): boolean {
     return this.questionPosition == QuestionPosition.UpperMiddle;
   }
 
@@ -223,15 +230,16 @@ export class CreateQuestionComponent implements OnInit {
     Upper Right position
   */
   setUpperRightPosition() {
-    if(this.questionPosition == QuestionPosition.UpperRight){
+    if (this.questionPosition == QuestionPosition.UpperRight) {
       this.questionPosition = null;
       this.positon_desc = 'Question Position';
-    }else{
+    } else {
       this.questionPosition = QuestionPosition.UpperRight;
       this.positon_desc = 'Upper Right';
     }
   }
-  didChoseUpperRight():boolean {
+
+  didChoseUpperRight(): boolean {
     return this.questionPosition == QuestionPosition.UpperRight;
   }
 
@@ -239,15 +247,16 @@ export class CreateQuestionComponent implements OnInit {
     Upper Left position
   */
   setUpperLeftPosition() {
-    if(this.questionPosition == QuestionPosition.UpperLeft){
+    if (this.questionPosition == QuestionPosition.UpperLeft) {
       this.questionPosition = null;
       this.positon_desc = 'Question Position';
-    }else{
+    } else {
       this.questionPosition = QuestionPosition.UpperLeft;
       this.positon_desc = 'Upper Left';
     }
   }
-  didChoseUpperLeft():boolean {
+
+  didChoseUpperLeft(): boolean {
     return this.questionPosition == QuestionPosition.UpperLeft;
   }
 
@@ -255,15 +264,16 @@ export class CreateQuestionComponent implements OnInit {
     Buttom Right position
   */
   setButtomRightPosition() {
-    if(this.questionPosition == QuestionPosition.ButtomRight){
+    if (this.questionPosition == QuestionPosition.ButtomRight) {
       this.questionPosition = null;
       this.positon_desc = 'Question Position';
-    }else{
+    } else {
       this.questionPosition = QuestionPosition.ButtomRight;
       this.positon_desc = 'Bottom Right';
     }
   }
-  didChoseButtomRight():boolean {
+
+  didChoseButtomRight(): boolean {
     return this.questionPosition == QuestionPosition.ButtomRight;
   }
 
@@ -271,15 +281,16 @@ export class CreateQuestionComponent implements OnInit {
     Buttom Left position
   */
   setButtomLeftPosition() {
-    if(this.questionPosition == QuestionPosition.ButtomLeft){
+    if (this.questionPosition == QuestionPosition.ButtomLeft) {
       this.questionPosition = null;
       this.positon_desc = 'Question Position';
-    }else{
+    } else {
       this.questionPosition = QuestionPosition.ButtomLeft;
       this.positon_desc = 'Bottom Left';
     }
   }
-  didChoseButtomLeft():boolean {
+
+  didChoseButtomLeft(): boolean {
     return this.questionPosition == QuestionPosition.ButtomLeft;
   }
 
@@ -287,15 +298,16 @@ export class CreateQuestionComponent implements OnInit {
     Buttom Middle position
   */
   setButtomMiddlePosition() {
-    if(this.questionPosition == QuestionPosition.ButtomMiddle){
+    if (this.questionPosition == QuestionPosition.ButtomMiddle) {
       this.questionPosition = null;
       this.positon_desc = 'Question Position';
-    }else{
+    } else {
       this.questionPosition = QuestionPosition.ButtomMiddle;
       this.positon_desc = 'Bottom Middle';
     }
   }
-  didChoseButtomMiddle():boolean {
+
+  didChoseButtomMiddle(): boolean {
     return this.questionPosition == QuestionPosition.ButtomMiddle;
   }
 
@@ -303,15 +315,16 @@ export class CreateQuestionComponent implements OnInit {
     Middle Right position
   */
   setMiddleRightPosition() {
-    if(this.questionPosition == QuestionPosition.MiddleRight){
+    if (this.questionPosition == QuestionPosition.MiddleRight) {
       this.questionPosition = null;
       this.positon_desc = 'Question Position';
-    }else{
+    } else {
       this.questionPosition = QuestionPosition.MiddleRight;
       this.positon_desc = 'Middle Right';
     }
   }
-  didChoseMiddleRight():boolean {
+
+  didChoseMiddleRight(): boolean {
     return this.questionPosition == QuestionPosition.MiddleRight;
   }
 
@@ -319,15 +332,16 @@ export class CreateQuestionComponent implements OnInit {
     Middle Left position
   */
   setMiddleLeftPosition() {
-    if(this.questionPosition == QuestionPosition.MiddleLeft){
+    if (this.questionPosition == QuestionPosition.MiddleLeft) {
       this.questionPosition = null;
       this.positon_desc = 'Question Position';
-    }else{
+    } else {
       this.questionPosition = QuestionPosition.MiddleLeft;
       this.positon_desc = 'Middle Left';
     }
   }
-  didChoseMiddleLeft():boolean {
+
+  didChoseMiddleLeft(): boolean {
     return this.questionPosition == QuestionPosition.MiddleLeft;
   }
 
@@ -335,15 +349,16 @@ export class CreateQuestionComponent implements OnInit {
     Middle Middle position
   */
   setMiddleMiddlePosition() {
-    if(this.questionPosition == QuestionPosition.MiddleMiddle){
+    if (this.questionPosition == QuestionPosition.MiddleMiddle) {
       this.questionPosition = null;
       this.positon_desc = 'Question Position';
-    }else{
+    } else {
       this.questionPosition = QuestionPosition.MiddleMiddle;
       this.positon_desc = 'Middle Middle';
     }
   }
-  didChoseMiddleMiddle():boolean {
+
+  didChoseMiddleMiddle(): boolean {
     return this.questionPosition == QuestionPosition.MiddleMiddle;
   }
 
@@ -354,54 +369,57 @@ export class CreateQuestionComponent implements OnInit {
   /*
    Matrix type
   */
-  setMatrixType(){
+  setMatrixType() {
     this.submit = false;
     this.typedMultipleAnswer = false;
-    if(this.typeMultipleQuestion == TypeMultipleQuestion.Matrix){
+    if (this.typeMultipleQuestion == TypeMultipleQuestion.Matrix) {
       this.typeMultipleQuestion = null;
       this.multiple_type = 'Answer Organization';
-    }else{
+    } else {
       this.typeMultipleQuestion = TypeMultipleQuestion.Matrix;
       this.multiple_type = 'Matrix';
     }
   }
-  didChoseMatrixType(){
+
+  didChoseMatrixType() {
     return this.typeMultipleQuestion == TypeMultipleQuestion.Matrix;
   }
 
   /*
    Vertical type
   */
-  setVerticalType(){
+  setVerticalType() {
     this.submit = false;
     this.typedMultipleAnswer = false;
-    if(this.typeMultipleQuestion == TypeMultipleQuestion.Vertical){
+    if (this.typeMultipleQuestion == TypeMultipleQuestion.Vertical) {
       this.typeMultipleQuestion = null;
       this.multiple_type = 'Answer Organization';
-    }else{
+    } else {
       this.typeMultipleQuestion = TypeMultipleQuestion.Vertical;
       this.multiple_type = 'Vertical';
     }
   }
-  didChoseVerticalType(){
+
+  didChoseVerticalType() {
     return this.typeMultipleQuestion == TypeMultipleQuestion.Vertical;
   }
 
   /*
    Horizontal type
   */
-  setHorizontalType(){
+  setHorizontalType() {
     this.submit = false;
     this.typedMultipleAnswer = false;
-    if(this.typeMultipleQuestion == TypeMultipleQuestion.Horizontal){
+    if (this.typeMultipleQuestion == TypeMultipleQuestion.Horizontal) {
       this.typeMultipleQuestion = null;
       this.multiple_type = 'Answer Organization';
-    }else{
+    } else {
       this.typeMultipleQuestion = TypeMultipleQuestion.Horizontal;
       this.multiple_type = 'Horizontal';
     }
   }
-  didChoseHorizontalType(){
+
+  didChoseHorizontalType() {
     return this.typeMultipleQuestion == TypeMultipleQuestion.Horizontal;
   }
 
@@ -416,76 +434,76 @@ export class CreateQuestionComponent implements OnInit {
                         and completed properly the dialog finishes and move back to the block compnent
    and transfering the question object via the SessionService service.
   */
-  onSubmit(){
-    if(this.questionText != null){
-     if(this.questionText != '' && !this.isSpacePrefix(this.questionText)){
-      if(this.didChosetype()){
+  onSubmit() {
+    if (this.questionText != null) {
+      if (this.questionText != '' && !this.isSpacePrefix(this.questionText)) {
+        if (this.didChosetype()) {
 
-        if(this.didChoseMultipleQuestion()){
-          if(this.didChoseMultipleChoiceType() && this.didChoseQuestionPosition() ){
-            if(this.didChoseVerticalType() || this.didChoseHorizontalType()){
-              if(this.haveAnswers()){
-                this.findCorretAnswer();
-                this.constructMultipleQuestion();
-                this.transferData.setData(this.question_object);
-                this.closeDialog();
-              }
-            }else if(this.didChoseMatrixType()){
-              if(!this.missingAnswers()){
-                this.findCorretAnswer();
-                this.constructMatrixQuestion();
-                this.transferData.setData(this.question_object);
-                this.closeDialog();
-              }
+          if (this.didChoseMultipleQuestion()) {
+            if (this.didChoseMultipleChoiceType() && this.didChoseQuestionPosition()) {
+              if (this.didChoseVerticalType() || this.didChoseHorizontalType()) {
+                if (this.haveAnswers()) {
+                  this.findCorretAnswer();
+                  this.constructMultipleQuestion();
+                  this.transferData.setData(this.question_object);
+                  this.closeDialog();
+                }
+              } else if (this.didChoseMatrixType()) {
+                if (!this.missingAnswers()) {
+                  this.findCorretAnswer();
+                  this.constructMatrixQuestion();
+                  this.transferData.setData(this.question_object);
+                  this.closeDialog();
+                }
 
+              }
             }
-          }
-        }else if(this.didChoseRateQuestion() && this.didChoseQuestionPosition()){
+          } else if (this.didChoseRateQuestion() && this.didChoseQuestionPosition()) {
             this.constructRateQuestion();
             this.transferData.setData(this.question_object);
             this.closeDialog();
-        }else if(this.didChoseOpenQuestion() && this.didChoseQuestionPosition()){
-              this.constructOpenQuestion();
-              this.transferData.setData(this.question_object);
-              this.closeDialog();
-        }else if(this.didChoseDrillDownQuestion()){
-          if(this.haveMainAnswers()){
-            this.constructDrillDownQuestion();
+          } else if (this.didChoseOpenQuestion() && this.didChoseQuestionPosition()) {
+            this.constructOpenQuestion();
             this.transferData.setData(this.question_object);
             this.closeDialog();
+          } else if (this.didChoseDrillDownQuestion()) {
+            if (this.haveMainAnswers()) {
+              this.constructDrillDownQuestion();
+              this.transferData.setData(this.question_object);
+              this.closeDialog();
+            }
           }
         }
+
+
       }
-
-
-     }
     }
 
     this.submit = true;
   }
 
 
-  constructDrillDownQuestion(){
+  constructDrillDownQuestion() {
     let correct_main_answer = -1;
-    for(let i = 0; i < this.drillDownQeustion.markedMainCorrectAnswer.length; i++){
-      if(this.drillDownQeustion.markedMainCorrectAnswer[i]){
+    for (let i = 0; i < this.drillDownQeustion.markedMainCorrectAnswer.length; i++) {
+      if (this.drillDownQeustion.markedMainCorrectAnswer[i]) {
         correct_main_answer = i;
       }
     }
     let secondary_question_text: Array<string> = new Array(this.drillDownQeustion.mainAnswers.length);
     let secondary_question_answers: Array<Array<string>> = new Array(this.drillDownQeustion.mainAnswers.length);
     let secondary_correct_answers: Array<number> = new Array(this.drillDownQeustion.mainAnswers.length);
-    for(let i = 0; i < this.drillDownQeustion.mainAnswers.length; i++){
+    for (let i = 0; i < this.drillDownQeustion.mainAnswers.length; i++) {
       let found_secondary: boolean = false;
-      for(let j = 0; j < this.drillDownQeustion.secondaryQuestionList.length; j++){
-        if(i == this.drillDownQeustion.secondaryQuestionList[j].index){
+      for (let j = 0; j < this.drillDownQeustion.secondaryQuestionList.length; j++) {
+        if (i == this.drillDownQeustion.secondaryQuestionList[j].index) {
           secondary_question_text[i] = this.drillDownQeustion.secondaryQuestionList[j].questionText;
           secondary_question_answers[i] = Object.assign([], this.drillDownQeustion.secondaryQuestionList[j].answers);
           secondary_correct_answers[i] = this.drillDownQeustion.secondaryQuestionList[j].markedAnswer;
           found_secondary = true;
         }
       }
-      if(!found_secondary){
+      if (!found_secondary) {
         secondary_question_text[i] = null;
         secondary_question_answers[i] = null;
         secondary_correct_answers[i] = -1;
@@ -504,14 +522,16 @@ export class CreateQuestionComponent implements OnInit {
     };
 
   }
+
   /*
     Construction the diffeerent types of questions after the form completed properly
   */
+
   /*
     Constructing the open question object
   */
-  constructOpenQuestion(){
-    if(this.openQuestion.answerText == null){
+  constructOpenQuestion() {
+    if (this.openQuestion.answerText == null) {
       this.openQuestion.answerText = '';
     }
     this.question_object = {
@@ -525,7 +545,7 @@ export class CreateQuestionComponent implements OnInit {
   /*
     Constructing the rate question object
   */
-  constructRateQuestion(){
+  constructRateQuestion() {
     this.question_object = {
       questionText: this.questionText,
       type: this.typeQuestion,
@@ -537,13 +557,13 @@ export class CreateQuestionComponent implements OnInit {
   /*
    Constructing the matrix type of multiple choice question object
   */
-  constructMatrixQuestion(){
-    for(let i = 0; i < this.matrixQuestion.dimSize; i++){
-      for(let j = 0; j < this.matrixQuestion.dimSize; j++){
-        this.matrixQuestion.answers.splice(this.matrixQuestion.answers.length, 0 ,this.matrixQuestion.matrixAnswers[j][i]);
+  constructMatrixQuestion() {
+    for (let i = 0; i < this.matrixQuestion.dimSize; i++) {
+      for (let j = 0; j < this.matrixQuestion.dimSize; j++) {
+        this.matrixQuestion.answers.splice(this.matrixQuestion.answers.length, 0, this.matrixQuestion.matrixAnswers[j][i]);
       }
     }
-    if(this.matrixQuestion.correctAnswer == null){
+    if (this.matrixQuestion.correctAnswer == null) {
       this.matrixQuestion.correctAnswer = -1;
     }
     this.question_object = {
@@ -555,11 +575,12 @@ export class CreateQuestionComponent implements OnInit {
       typeMultipleQuestion: this.typeMultipleQuestion
     }
   }
+
   /*
     Constructing the multiple choice question object
   */
-  constructMultipleQuestion(){
-    if(this.verticalHrizontalQuestion.correctAnswer == null){
+  constructMultipleQuestion() {
+    if (this.verticalHrizontalQuestion.correctAnswer == null) {
       this.verticalHrizontalQuestion.correctAnswer = -1;
     }
     this.question_object = {
@@ -570,8 +591,7 @@ export class CreateQuestionComponent implements OnInit {
       correctAnswer: this.verticalHrizontalQuestion.correctAnswer,
       typeMultipleQuestion: this.typeMultipleQuestion
     }
-    if(this.verticalHrizontalQuestion.answers.indexOf("I don't know") == -1 && this.typeMultipleQuestion != TypeMultipleQuestion.Matrix)
-    {
+    if (this.verticalHrizontalQuestion.answers.indexOf("I don't know") == -1 && this.typeMultipleQuestion != TypeMultipleQuestion.Matrix) {
       this.verticalHrizontalQuestion.answers.splice(this.verticalHrizontalQuestion.answers.length, 0, "I don't know");
     }
   }
@@ -579,19 +599,21 @@ export class CreateQuestionComponent implements OnInit {
   /*
     Control flow functions that checks if the user entered all the related information for creating a question
   */
+
   /*
    Returns TRUE if the user have chosen type for his question, FALSE otherwise.
   */
-  didChosetype():boolean {
+  didChosetype(): boolean {
     return this.didChoseOpenQuestion() || this.didChoseRateQuestion() || this.didChoseMultipleQuestion() || this.didChoseDrillDownQuestion();
   }
+
   /*
     Returns TRUE if the user have chosen position for his question, FALSE otherwise.
   */
-  didChoseQuestionPosition():boolean{
-    let x = this.didChoseUpperLeft() || this.didChoseUpperMiddle() || this.didChoseUpperRight()||
-    this.didChoseMiddleLeft() || this.didChoseMiddleMiddle() || this.didChoseMiddleRight() ||
-    this.didChoseButtomLeft() || this.didChoseButtomMiddle() || this.didChoseButtomLeft() || this.didChoseButtomRight();
+  didChoseQuestionPosition(): boolean {
+    let x = this.didChoseUpperLeft() || this.didChoseUpperMiddle() || this.didChoseUpperRight() ||
+      this.didChoseMiddleLeft() || this.didChoseMiddleMiddle() || this.didChoseMiddleRight() ||
+      this.didChoseButtomLeft() || this.didChoseButtomMiddle() || this.didChoseButtomLeft() || this.didChoseButtomRight();
     return x;
   }
 
@@ -599,35 +621,36 @@ export class CreateQuestionComponent implements OnInit {
    Returns TRUE if the user entered a type for the multiple choice question,
    in case he chose a multiple choice question type, FLASE otherwise
   */
-  didChoseMultipleChoiceType():boolean {
+  didChoseMultipleChoiceType(): boolean {
     return this.didChoseMatrixType() || this.didChoseVerticalType() || this.didChoseHorizontalType();
   }
+
   /*
     Control flow function that checks if the user inserted at least one answer
   */
-  haveAnswers(): boolean{
-    if(this.verticalHrizontalQuestion != null){
+  haveAnswers(): boolean {
+    if (this.verticalHrizontalQuestion != null) {
       return this.verticalHrizontalQuestion.answers.length > 0;
     }
     return false;
 
   }
 
-    /*
-    Control flow function which returns TRUE if there are missing answers in the matrix and FALSE other wise.
-  */
-  missingAnswers():boolean{
-    if(this.matrixQuestion != null){
-      for(let i = 0; i < this.matrixQuestion.dimSize; i++){
-        for(let j = 0; j < this.matrixQuestion.dimSize; j++){
-          if(this.matrixQuestion.matrixAnswers[i][j] == null){
+  /*
+  Control flow function which returns TRUE if there are missing answers in the matrix and FALSE other wise.
+*/
+  missingAnswers(): boolean {
+    if (this.matrixQuestion != null) {
+      for (let i = 0; i < this.matrixQuestion.dimSize; i++) {
+        for (let j = 0; j < this.matrixQuestion.dimSize; j++) {
+          if (this.matrixQuestion.matrixAnswers[i][j] == null) {
             return true;
           }
-          if(this.matrixQuestion.matrixAnswers[i][j].length < 2){
+          if (this.matrixQuestion.matrixAnswers[i][j].length < 2) {
             return true;
           }
-          if(this.isSpacePrefix(this.matrixQuestion.matrixAnswers[i][j])){
-              return true;
+          if (this.isSpacePrefix(this.matrixQuestion.matrixAnswers[i][j])) {
+            return true;
           }
         }
       }
@@ -636,22 +659,23 @@ export class CreateQuestionComponent implements OnInit {
 
     return false;
   }
+
   /*
     For constructing the whole multiple choice question, after all its information is ready, according to the markings
     the corect answer is found and saved in this.correctAnswer
   */
-  findCorretAnswer(){
-    if(!this.didChoseMatrixType()){
-      for(let i = 0; i < this.verticalHrizontalQuestion.markedAnswers.length; i++){
-        if(this.verticalHrizontalQuestion.markedAnswers[i] == true){
+  findCorretAnswer() {
+    if (!this.didChoseMatrixType()) {
+      for (let i = 0; i < this.verticalHrizontalQuestion.markedAnswers.length; i++) {
+        if (this.verticalHrizontalQuestion.markedAnswers[i] == true) {
           this.verticalHrizontalQuestion.correctAnswer = i;
           break;
         }
       }
-    }else{
-      for(let i = 0; i < this.matrixQuestion.dimSize; i++){
-        for(let j = 0; j < this.matrixQuestion.dimSize; j++){
-          if(this.matrixQuestion.markedAnswersMatrix[i][j] == true){
+    } else {
+      for (let i = 0; i < this.matrixQuestion.dimSize; i++) {
+        for (let j = 0; j < this.matrixQuestion.dimSize; j++) {
+          if (this.matrixQuestion.markedAnswersMatrix[i][j] == true) {
             this.matrixQuestion.correctAnswer = j * this.matrixQuestion.dimSize + i;
           }
         }
@@ -659,81 +683,86 @@ export class CreateQuestionComponent implements OnInit {
     }
 
   }
+
   /*
     Canceling the dialog with the block compnent, when the user exited the creation of the question
     When not competing to fill all information. No data is being transfered
   */
-  cancelDialog(){
+  cancelDialog() {
     this.transferData.clearData();
     this.closeDialog();
   }
+
   /*
     This function is for editing an existing question. The function gets
     question and the form is being filled with the details of the question
   */
-  editQuestion(question: any){
+  editQuestion(question: any) {
     this.questionText = question.questionText;
     this.typeQuestion = question.type;
     this.initializeTypeString();
     this.questionPosition = question.questionPosition;
     this.initializePositionString();
-    if(this.typeQuestion == TypeQuestion.MultipleChoice){
+    if (this.typeQuestion == TypeQuestion.MultipleChoice) {
       this.typeMultipleQuestion = question.typeMultipleQuestion;
       this.initializeMultipleString();
     }
 
   }
+
   /*
    Intializing the description of the type
   */
-  initializeTypeString(){
-      if(this.typeQuestion == TypeQuestion.DrillDownQuestion){
-          this.type_question_desc = 'Drill Down Question';
-      }else if(this.typeQuestion == TypeQuestion.MultipleChoice){
-          this.type_question_desc = 'Multiple Choice Question'
-      }else if(this.typeQuestion == TypeQuestion.OpenQuestion){
-          this.type_question_desc = 'Open Text Question';
-      }else if(this.typeQuestion == TypeQuestion.RateQuestion){
-          this.type_question_desc = 'Rate Question';
-      }
+  initializeTypeString() {
+    if (this.typeQuestion == TypeQuestion.DrillDownQuestion) {
+      this.type_question_desc = 'Drill Down Question';
+    } else if (this.typeQuestion == TypeQuestion.MultipleChoice) {
+      this.type_question_desc = 'Multiple Choice Question'
+    } else if (this.typeQuestion == TypeQuestion.OpenQuestion) {
+      this.type_question_desc = 'Open Text Question';
+    } else if (this.typeQuestion == TypeQuestion.RateQuestion) {
+      this.type_question_desc = 'Rate Question';
+    }
   }
 
   /*
     Intializing the description of the position
   */
-  initializePositionString(){
-      if(this.questionPosition == QuestionPosition.UpperRight){
-          this.positon_desc = 'Upper Right';
-      }else if(this.questionPosition == QuestionPosition.UpperLeft){
-          this.positon_desc = 'Upper Left';
-      }else if(this.questionPosition == QuestionPosition.UpperMiddle){
-          this.positon_desc = 'Upper Middle';
-      }else if(this.questionPosition == QuestionPosition.ButtomRight){
-          this.positon_desc = 'Bottom Right';
-      }else if(this.questionPosition == QuestionPosition.ButtomLeft){
-          this.positon_desc = 'Bottom Left';
-      }else if(this.questionPosition == QuestionPosition.ButtomMiddle){
-          this.positon_desc = 'Bottom Middle';
-      }else if(this.questionPosition == QuestionPosition.MiddleLeft){
-          this.positon_desc = 'Middle Left';
-      }else if(this.questionPosition == QuestionPosition.MiddleRight){
-          this.positon_desc = 'Middle Right';
-      }else if(this.questionPosition == QuestionPosition.MiddleMiddle){
-          this.positon_desc = 'Middle Middle';
-      }
+  initializePositionString() {
+    if (this.questionPosition == QuestionPosition.UpperRight) {
+      this.positon_desc = 'Upper Right';
+    } else if (this.questionPosition == QuestionPosition.UpperLeft) {
+      this.positon_desc = 'Upper Left';
+    } else if (this.questionPosition == QuestionPosition.UpperMiddle) {
+      this.positon_desc = 'Upper Middle';
+    } else if (this.questionPosition == QuestionPosition.ButtomRight) {
+      this.positon_desc = 'Bottom Right';
+    } else if (this.questionPosition == QuestionPosition.ButtomLeft) {
+      this.positon_desc = 'Bottom Left';
+    } else if (this.questionPosition == QuestionPosition.ButtomMiddle) {
+      this.positon_desc = 'Bottom Middle';
+    } else if (this.questionPosition == QuestionPosition.MiddleLeft) {
+      this.positon_desc = 'Middle Left';
+    } else if (this.questionPosition == QuestionPosition.MiddleRight) {
+      this.positon_desc = 'Middle Right';
+    } else if (this.questionPosition == QuestionPosition.MiddleMiddle) {
+      this.positon_desc = 'Middle Middle';
+    }
   }
+
   /*
    Intialize the type of the multiple choice question
   */
-  initializeMultipleString(){
-      if(this.typeMultipleQuestion == TypeMultipleQuestion.Matrix){
-          this.multiple_type = 'Matrix';
-      }else if(this.typeMultipleQuestion == TypeMultipleQuestion.Vertical){
-          this.multiple_type = 'Vertical';
-      }else if(this.typeMultipleQuestion == TypeMultipleQuestion.Horizontal){
-          this.multiple_type = 'Horizontal';
-      }
+  initializeMultipleString() {
+    if (this.typeMultipleQuestion == TypeMultipleQuestion.Matrix) {
+      this.multiple_type = 'Matrix';
+    } else if (this.typeMultipleQuestion == TypeMultipleQuestion.Vertical) {
+      this.multiple_type = 'Vertical';
+    } else if (this.typeMultipleQuestion == TypeMultipleQuestion.Horizontal) {
+      this.multiple_type = 'Horizontal';
+    }
   }
+
   haveMainAnswers(): boolean {
     return this.drillDownQeustion.mainAnswers.length >= 1;
   }
@@ -741,15 +770,15 @@ export class CreateQuestionComponent implements OnInit {
   // /*
   //   A function that returns true if the string starts with a white space, to control flawed input
   // */
-  isSpacePrefix(str: string): boolean{
-      if(str == null){
-          return false;
-      }
-      return str.charAt(0) == ' ';
+  isSpacePrefix(str: string): boolean {
+    if (str == null) {
+      return false;
+    }
+    return str.charAt(0) == ' ';
   }
 
   /* ----------------------- New Create Question Code -------------------------- */
-  QuestionWithPosition() : boolean{
+  QuestionWithPosition(): boolean {
     return this.didChoseRateQuestion() || this.didChoseOpenQuestion() || this.didChoseMultipleQuestion();
   }
 

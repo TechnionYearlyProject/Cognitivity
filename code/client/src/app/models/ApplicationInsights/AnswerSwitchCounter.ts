@@ -25,6 +25,7 @@ export class SwitchCounterTracker {
    * Posts a switch answer event.
    * */
   public switchAnswer(): void {
+    console.log('switch answers');
     this.counter++;
   }
 
