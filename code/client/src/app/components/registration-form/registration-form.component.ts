@@ -1,4 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { SubjectService } from '../../services/database-service/index';
+import { TestSubject } from '../../models/index';
 
 
 @Component({
@@ -12,19 +14,19 @@ This component represents the registration form for the subject.
 */
 export class registrationFormComponent implements OnInit {
   //defines the subjects field that we'll get from the form.
-  user={
+  user : TestSubject = {
     name:'',
-    lastname:'',
-    id:'',
-    birthdate:'',
-    maritalstatus:'',
-    currentjob:''
+    occupation :'',
+    birthDate:'',
+    martialStatus:''
   }
 
-  @Output() complete: EventEmitter<number> = new EventEmitter();
+  @Output() complete: EventEmitter<TestSubject> = new EventEmitter();
 
   //default constructor.
-  constructor() { }
+  constructor(
+                private subjectService : SubjectService
+             ) { }
 
   //default initialization function.
   ngOnInit() {
@@ -33,13 +35,23 @@ export class registrationFormComponent implements OnInit {
   /*
   function for enforcing the validation of the fields in the form.
   */
-  onSubmit({value,valid}){
+  async onSubmit({value,valid}){
     if(valid){
+      console.log('this is my valuessssss');
       console.log(value);
+      this.user = {
+        name: value.name + ' ' + value.lastname,
+        occupation: value.currentjob,
+        birthDate: value.mydate.formatted,
+        martialStatus: value.maritalState
+      };
+      console.log('user is:::::');
+      console.log(this.user);
 
       // here we will save the in the db the data on the subject, and get his id from db
-      let id = /* get answer from db... */ 1 /* temp hard-coded value */;
-      this.complete.emit(id);
+      let user = await this.subjectService.saveTestSubject(this.user);   
+
+      this.complete.emit(user);
     }
     else{
       console.log('Not valid');

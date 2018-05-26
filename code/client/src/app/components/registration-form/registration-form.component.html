@@ -122,7 +122,7 @@
                         <div class="card-body">
                             <label for="job" class="fields">Current job</label>
                             <input type="text" class="form-control" name="currentjob"
-                                    [(ngModel)]="user.currentjob" #currentjob="ngModel" required
+                                    [(ngModel)]="user.occupation" #currentjob="ngModel" required
                                     placeholder="Current job">
                             <div *ngIf="currentjob.errors?.required && currentjob.touched" class="alert alert-danger">
                                 Please enter your current job
