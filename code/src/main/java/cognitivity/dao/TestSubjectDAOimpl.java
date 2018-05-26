@@ -11,13 +11,13 @@ import java.util.List;
 
 /**
  * Created by Guy on 20/1/18.
- *
+ * <p>
  * Data Access Object for TestQuestion object
- * @Note! API documentation is in the Interfaces
  *
+ * @Note! API documentation is in the Interfaces
  */
 @Repository
-public class TestSubjectDAOimpl extends AbstractDAO<TestSubject> implements TestSubjectDAO{
+public class TestSubjectDAOimpl extends AbstractDAO<TestSubject> implements TestSubjectDAO {
 
     public TestSubject get(Long id) {
         return super.get(id, TestSubject.class);
@@ -42,16 +42,16 @@ public class TestSubjectDAOimpl extends AbstractDAO<TestSubject> implements Test
         Session session = sessionFactory.getCurrentSession();
         String queryString =
                 "select testSubject " +
-                "from TestSubject testSubject, TestAnswer testAnswer " +
-                "where testSubject.id = testAnswer.testSubject.id AND testAnswer.cognitiveTest.id = :cognitiveTestId " +
-                "group by testSubject";
+                        "from TestSubject testSubject, TestAnswer testAnswer " +
+                        "where testSubject.id = testAnswer.testSubject.id AND testAnswer.cognitiveTest.id = :cognitiveTestId " +
+                        "group by testSubject";
 
         Query<TestSubject> query = session.createQuery(queryString, TestSubject.class);
         query.setParameter("cognitiveTestId", testId);
         return query.getResultList();
     }
 
-    public List<TestSubject> findAllTestSubjectsInTheSystem(){
+    public List<TestSubject> findAllTestSubjectsInTheSystem() {
         Session session = sessionFactory.getCurrentSession();
         String queryString = "from TestSubject";
         Query<TestSubject> query = session.createQuery(queryString, TestSubject.class);
@@ -60,6 +60,11 @@ public class TestSubjectDAOimpl extends AbstractDAO<TestSubject> implements Test
 
     @Override
     public boolean doesSubjectWithEmailExist(String email) {
-        return false;
+        Session session = sessionFactory.getCurrentSession();
+        String queryString = "from TestSubject T where T.email = :email";
+        Query<TestSubject> query = session.createQuery(queryString, TestSubject.class);
+        query.setParameter("email", email);
+        List<TestSubject> res = query.getResultList();
+        return !res.isEmpty();
     }
 }

@@ -64,7 +64,6 @@ export class ApplicationInsightsTracker {
     let measurements = {
       "numberOfSwitcher": switchTracker.getSwitchCount
     };
-    console.log('track switch answers');
     AppInsights.trackEvent(name, properties, measurements);
   }
 

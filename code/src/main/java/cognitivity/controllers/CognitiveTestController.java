@@ -58,7 +58,6 @@ public class CognitiveTestController extends AbstractRestController<CognitiveTes
      *
      * @return - Cognitive test(s) for the test manager.
      */
-
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findTestsForTestManagerWithoutQuestions")

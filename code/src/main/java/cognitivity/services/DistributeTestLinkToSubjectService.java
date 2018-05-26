@@ -1,14 +1,12 @@
 package cognitivity.services;
 
 import cognitivity.dao.TestSubjectDAO;
-import cognitivity.entities.TestSubject;
 import cognitivity.exceptions.SendLinksException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.mail.*;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.List;
@@ -32,16 +30,16 @@ public class DistributeTestLinkToSubjectService {
         this.testSubjectDAO = testSubjectDAO;
     }
 
-    private void checkSubjectsAreRegistered(List<TestSubject> subjects) throws SendLinksException {
+    private void checkSubjectsAreRegistered(List<String> subjects) throws SendLinksException {
         if (subjects.stream()
-                .anyMatch(s -> !testSubjectDAO.doesSubjectWithEmailExist(s.getEmail()))) {
+                .anyMatch(e -> !testSubjectDAO.doesSubjectWithEmailExist(e))) {
             logger.error("Some subjects were not registered");
             throw new SendLinksException();
         }
     }
 
-    private static void sendEmailToSubjects(List<TestSubject> subjects, String link) {
-        final String username = "cognivitity.tests@gmail.com";
+    private static void sendEmailToSubjects(List<String> subjects, String link) {
+        final String username = "cognivitity.tests";
         final String password = "cognitivity1234";
 
         Properties props = new Properties();
@@ -60,16 +58,12 @@ public class DistributeTestLinkToSubjectService {
         try {
 
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(username));
-            Address[] addresses = (Address[]) subjects.stream()
-                    .map(TestSubject::getEmail)
-                    .map(e -> {
-                        try {
-                            return InternetAddress.parse(e);
-                        } catch (AddressException ignored) {
-                        }
-                        return null;
-                    }).toArray();
+            InternetAddress address = new InternetAddress(username);
+            message.setFrom(address);
+            Address[] addresses = new Address[subjects.size()];
+            for (int i = 0; i < subjects.size(); i++) {
+                addresses[i] = InternetAddress.parse(subjects.get(i))[0];
+            }
             message.setRecipients(Message.RecipientType.TO, addresses);
             message.setSubject("Cognitivity: Test invitation");
             message.setText(
@@ -92,10 +86,10 @@ public class DistributeTestLinkToSubjectService {
     /**
      * Sends the email with the link to all subjects.
      *
-     * @param link     - the link to send.
      * @param subjects - the list of subjects to send the link to
+     * @param link     - the link to send.
      */
-    public void sendLinksToSubjects(List<TestSubject> subjects, String link) throws SendLinksException {
+    public void sendLinksToSubjects(List<String> subjects, String link) throws SendLinksException {
         checkSubjectsAreRegistered(subjects);
         sendEmailToSubjects(subjects, link);
     }
