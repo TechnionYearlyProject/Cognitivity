@@ -21,11 +21,8 @@ export class TestPageComponent implements OnInit {
   blocksLength: number;
 
   testId: number;
-<<<<<<< HEAD
   
   subject: TestSubject;
-=======
->>>>>>> 9b48b3e5978dee9b66cacbd21d0b7445320ded87
 
 
   //the current test's index in the tests list.
@@ -77,19 +74,6 @@ export class TestPageComponent implements OnInit {
   }
 
   async finishTest() {
-<<<<<<< HEAD
-
-=======
-    let testSubject: TestSubject = {
-      id: 1,
-      ipAddress: 'ss',
-      name: 'ss',
-      browser: 'ss',
-      martialStatus: 'ss',
-      occupation: 'ss',
-      birthdate: 'ss'
-    };
->>>>>>> 9b48b3e5978dee9b66cacbd21d0b7445320ded87
     console.log(this.blocksAnswers);
     for (let i = 0; i < this.blocksAnswers.length; i++) {
       for (let j = 0; j < this.blocksAnswers[i].answers.length; j++) {
@@ -127,25 +111,17 @@ export class TestPageComponent implements OnInit {
     return index == this.currIndex;
   }
 
-<<<<<<< HEAD
 onFormCompletion(subject: TestSubject) {
   // will use the subject id here
   console.log("subject id is", subject);
   this.subject = subject;
   this.currIndex++;
 }
-=======
   onBlockFinish() {
     this.hideNextButton = false;
     //when finishing the block we want to stop the timing measurment for the block.
     //this.timing.timing_stopBlockMeasure(this.blocks[this.currIndex].id);
   }
 
-  onFormCompletion(subjectId: number) {
-    // will use the subject id here
-    console.log("subject id is", subjectId);
-    this.currIndex++;
-  }
->>>>>>> 9b48b3e5978dee9b66cacbd21d0b7445320ded87
 
 }
