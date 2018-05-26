@@ -1,7 +1,8 @@
-import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
-import { Question, TimeMeasurment, QuestionAnswer, BlockAnswers, Block, QuestionInDB } from '../../../models/index';
-import { TestPageQuestionComponent } from '../question/question.component';
-import { TimeMeasurer } from '../../../Utils/index';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {BlockAnswers, Question, QuestionAnswer, QuestionInDB} from '../../../models/index';
+import {TestPageQuestionComponent} from '../question/question.component';
+import {TimeMeasurer} from '../../../Utils/index';
+import {ApplicationInsightsTracker} from "../../../models/ApplicationInsights/ApplicationInsightsTracker";
 
 @Component({
   selector: 'app-test-page-block',
@@ -9,7 +10,7 @@ import { TimeMeasurer } from '../../../Utils/index';
   styleUrls: ['./block.component.css']
 })
 export class TestPageBlockComponent implements OnInit {
-  @ViewChild(TestPageQuestionComponent) question: TestPageQuestionComponent; 
+  @ViewChild(TestPageQuestionComponent) question: TestPageQuestionComponent;
   //the block input given to the class, that's the block we're about to preview.
   @Input() block:any;
 
@@ -38,22 +39,22 @@ export class TestPageBlockComponent implements OnInit {
   //default constructor.
   constructor() { }
 
-  
+
   ngOnInit() {
     this.currIndex = 0;
     this.questionAnswers = new Array<QuestionAnswer>(this.block.questions.length); //Init array for time measurements for each question.
     this.questions = this.block.questions;
-     //start to measure the current block 
+    //start to measure the current block
     //this.timing.timing_startBlockMeasure(this.block.id,this.block.numberOfQuestions);
     console.log(this.testId);
   }
 
   /*
   in the HTML file, each question is shown , only if the show question function returns true for it's index.
-  meaning the only question that'll get true is the function that it's index is identical to our 
+  meaning the only question that'll get true is the function that it's index is identical to our
   current index.
   Input - the index of some question in the list.
-  Output - if the question index is identical to our current index we return true , so the ngIf if the HTML 
+  Output - if the question index is identical to our current index we return true , so the ngIf if the HTML
   will get true and present the question.
   */
   showQuestion(index) {
@@ -95,15 +96,15 @@ export class TestPageBlockComponent implements OnInit {
    */
   private generateRandomIndex():number{
     let possibleAnswers = this.wasAllShown();//that'll be the higg limit we'll get a random index from
-    let randomIndex = Math.floor(Math.random()*possibleAnswers);//low is 0, we add -1 so the 1 dissapears 
+    let randomIndex = Math.floor(Math.random() * possibleAnswers);//low is 0, we add -1 so the 1 dissapears
     return this.xFirstFree(randomIndex);
   }
 
   /**
    * TODO
-   * replace the this.currIndex++ with the generateRandomIndex function. 
+   * replace the this.currIndex++ with the generateRandomIndex function.
    * after testing the implementation.
-   * 
+   *
    */
   /*
   this function increments out index and checks if we finished the list.
@@ -112,6 +113,12 @@ export class TestPageBlockComponent implements OnInit {
   nextQuestion() {
     // Insert Time measuring of last question
     console.log('finish question button');
+    ApplicationInsightsTracker.getInstance.trackNumberOfAnswersSwitches(
+      this.question.answerSwitcher,
+      this.question.question.id,
+      this.question.question.type.toString()
+    );
+
     this.questionAnswers[this.currIndex] = this.question.getAnswer();
     this.currIndex++;
     this.didAnswerQuestion = false;
