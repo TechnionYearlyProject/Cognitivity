@@ -179,10 +179,10 @@ export class QuestionService {
 
      constructor(private http: Http){}
 
-     findAllAnswersForTest(testId: number): Promise<QuestionAnswer[]>{
+     findAllAnswersForTest(testId: number): Promise<QuestionAnswerForDB[]>{
         return this.http.get(`${this.target}${this.base_mapping}/findAllTestAnswersForATest?testId=${testId}`, {headers: this.headers})
         .toPromise()
-        .then(res => res.json() as QuestionAnswer[])
+        .then(res => res.json() as QuestionAnswerForDB[])
         .catch(ErrorHandler.handleError);
      }
 

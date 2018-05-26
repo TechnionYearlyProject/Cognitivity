@@ -10,3 +10,11 @@
  
     background-size: cover;
   }
+
+  th {
+    color: white;
+  }
+
+  td {
+    color: white;
+  }

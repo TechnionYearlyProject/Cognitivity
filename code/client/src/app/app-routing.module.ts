@@ -43,7 +43,7 @@ const appRoutes: Routes = [
         component: TestPageComponent
     },
     {
-        path: 'test-results/:testId',
+        path: 'test-results/:testId/:testName',
         component: ResultsPageComponent,
         canActivate: [AuthGuard]
     },

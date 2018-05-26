@@ -6,20 +6,38 @@
   </div>
   <br>
   <br>
-  <div class=" container" >
-  <ag-grid-angular 
-      style="width: 100%; height: 500px;color: black;" 
-      class="ag-theme-balham"
-      [enableSorting]="true"
-      [enableFilter]="true"
-      [rowData]="rowData" 
-      [columnDefs]="columnDefs"
-      [enableColResize]="true"
-      
-      >
-  </ag-grid-angular>
-  
-</div>
+  <div *ngIf = "flag" class=" container" >
+    <ng-container *ngIf="answers?.length > 0; else noAnswers">
+      <table  class="table table-striped">
+        <thead class="thead-invers">
+          <tr>
+            <th>Question ID</th>
+            <th>Subject ID</th>
+            <th>Type of Question</th>
+            <th>Confidence in Answer</th>
+            <th>Time Distraction</th>
+            <th>Time for Answer</th>
+            <th>Answer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let questionAnswer of answers">
+            <td>{{ questionAnswer.question_id }}</td>
+            <td>{{ questionAnswer.subject_id }}</td>
+            <td>{{ questionAnswer.question_type }}</td>
+            <td>{{ questionAnswer.conf_value }}</td>
+            <td>{{ questionAnswer.is_time_distraction }}</td>
+            <td>{{ questionAnswer.time }}</td>
+            <td>{{ questionAnswer.answer }}</td>
+          </tr>
+        </tbody>
+      </table>
+  </ng-container>
+  <ng-template #noAnswers>
+      <hr>
+      <h5 class="container" style="font-family: Arial; color: white; font-size:30px">There are no answers to this test yet</h5>
+    </ng-template>
+  </div>
 <br>
 <div class="container">
   <input type="submit" class="btn btn-primary btn-md" routerLink="/dashboard" value="Go to dashboard">

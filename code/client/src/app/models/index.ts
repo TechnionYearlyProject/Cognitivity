@@ -291,3 +291,15 @@ export interface Error {
   message: string;
   type: string;
 }
+
+export interface ParsedQuestionAnswer {
+  question_id: number;
+  subject_id: number;
+  question_type: number;
+  conf_value: number;
+  is_time_distraction: boolean;
+  changes_of_answer: number;
+  time: number;
+  time_conf: number;
+  answer: string;
+}

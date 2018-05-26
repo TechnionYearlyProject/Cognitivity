@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { QuestionAnswer } from '../../models/index';
+import { QuestionAnswer, QuestionAnswerForDB, ParsedQuestionAnswer } from '../../models/index';
 import { TestAnswersService } from '../../services/database-service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { GridOptions } from 'ag-grid/dist/lib/entities/gridOptions';
+import { Input } from '@angular/core/src/metadata/directives';
 
 @Component({
   selector: 'app-results-page',
@@ -9,53 +11,60 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./results-page.component.css']
 })
 export class ResultsPageComponent implements OnInit {
+
   /*
    *
    * Author: Mark Erlikh Date: 19.5.18 
    * 
    */
+ test_name: string; // The name of the test should get from the dashboard (the caller test) 
   constructor(
                 private answerTestService: TestAnswersService,
                 private router: Router,
                 private route: ActivatedRoute
-             ) { }
-  test_name: string = 'My Test'; // The name of the test should get from the dashboard (the caller test) TODO: after connecting to the dashboard assign this as Input directive
+             ) {
+                  
+               }
+  
   test_id: number;// The id of the test. Will be used in the service to collect the results of the test. TODO: after connecting to the dashboard assign this as Input directive
   columnDefs : any; //The definition of the table that hold all the information on the results
-  answers: QuestionAnswer [];
+  answers:  Array<ParsedQuestionAnswer> = new Array();
+  private gridOptions: GridOptions;
+  flag: boolean = false;
   async ngOnInit() {
-    this.define_table_results();
     let testId = this.route.snapshot.params['testId'];
+    this.test_name = this.route.snapshot.params['testName'];
     if (isNaN(testId) || testId == '') {
       this.router.navigate(['/dashboard']);
     }
     console.log('over here');
-    this.answers = await this.answerTestService.findAllAnswersForTest(testId);
-    
-    console.log(this.answers);
+    let answers = await this.answerTestService.findAllAnswersForTest(testId);
+    this.flag = true;
+    this.parseAnswers(answers);
+    console.log(answers);
   }
 
   /* Here we define the columns that will be presented. */
-  define_table_results(){
-    this.columnDefs = [
-      {headerName: 'Question ID', field: 'question_id'},
-      {headerName: 'Subject ID', field: 'subject_id'},
-      {headerName: 'Type of Question', field: 'question_type'},
-      {headerName: 'Confidence in Answer', field: 'conf_value' },
-      {headerName: 'Time Distraction', field: 'is_time_distraction'},
-      {headerName: '# of Answer Changes', field: 'changes_of_answer'},
-      {headerName: 'Time for Answer', field: 'time'},
-      {headerName: 'TIme for confidense bar', field: 'time_conf'},
-      {headerName: 'Answer', field: 'answer'},
-      
-    ];
+  parseAnswers(answers: QuestionAnswerForDB []){
+    for(let questionAnswer of answers){
+      let answerObject = JSON.parse(questionAnswer.finalAnswer);
+      let typeQuestion = JSON.parse(questionAnswer.question.question).type;
+      let questionAnswerParsed = {
+        question_id: questionAnswer.question.id,
+        subject_id: questionAnswer.testSubject.id,
+        question_type: typeQuestion,
+        conf_value: answerObject.confidence,
+        is_time_distraction: false,
+        changes_of_answer: 0,
+        time: 0,
+        time_conf: 0,
+        answer: answerObject.answer
+      };
+      this.answers.push(questionAnswerParsed);
+    }
+    console.log(this.answers);
   }
-
   
-  rowData = [
-    {question_id: 54, subject_id: 'Mark Erlikh',question_type: '1', conf_value: 'No conf', is_time_distraction: false, answer: 'Hi', changes_of_answer: 5, time: 20},
-    {question_id: 55, subject_id: 'Mark Erlikh',question_type: '1', conf_value: 25, is_time_distraction: false, answer: 'Hi', changes_of_answer: 5, time: 20}
-  ];
 /* Here we define a hard coded (for now) rows data */
 // rowData = [
 //   { make: 'Toyota', model: 'Celica', price: 35000 },
