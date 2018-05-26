@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Test, Manager, Question, Block, QuestionAnswer, Error, QuestionAnswerForDB } from '../../models';
+import { Test, Manager, Question, Block, QuestionAnswer, Error, QuestionAnswerForDB, TestSubject } from '../../models';
 import { Http, Headers } from '@angular/http'
 import { RequestOptionsArgs } from '@angular/http/src/interfaces';
 
@@ -81,11 +81,7 @@ export class TestManagerService {
     }
 }
 
-@Injectable()
-export class SubjectService {
-    //functions
-    constructor() {}
-}
+
 
 @Injectable()
 export class TestService {
@@ -244,4 +240,20 @@ export class FileUploadService {
     }
 
 
+}
+
+@Injectable()
+export class SubjectService {
+    private target : string = HttpTarget.getHttpTaraget();
+    private headers = new Headers({'Content-Type': 'application/json'});
+    base_mapping = '/test-subjects';
+
+    //functions
+    constructor(private http: Http) {}
+    saveTestSubject(testSubject: TestSubject): Promise<TestSubject> {
+        return this.http.post(`${this.target}${this.base_mapping}/saveTestSubject`, JSON.stringify(testSubject), {headers : this.headers})
+        .toPromise()
+        .then(res => res.json() as TestSubject)
+        .catch(ErrorHandler.handleError);
+    }
 }

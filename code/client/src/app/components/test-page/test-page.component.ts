@@ -22,6 +22,7 @@ export class TestPageComponent implements OnInit {
 
   testId: number;
   
+  subject: TestSubject;
 
    //the current test's index in the tests list.
    currIndex: number;
@@ -72,21 +73,13 @@ export class TestPageComponent implements OnInit {
   }
 
   async finishTest() {
-    let testSubject: TestSubject = {
-      id:1,
-      ipAddress: 'ss',
-      name: 'ss',
-      browser: 'ss',
-      martialStatus: 'ss',
-      occupation: 'ss',
-      birthdate: 'ss'
-    }
+
     console.log(this.blocksAnswers);
     for (let i = 0; i < this.blocksAnswers.length; i++) {
       for (let j = 0; j < this.blocksAnswers[i].answers.length; j++) {
         let questionAnswerForDB: QuestionAnswerForDB = {
           finalAnswer: this.blocksAnswers[i].answers[j].finalAnswer,
-          testSubject: testSubject,
+          testSubject: this.subject,
           cognitiveTest: this.test,
           question: this.test.blocks[i].questions[j]
           
@@ -123,9 +116,10 @@ onBlockFinish() {
   //this.timing.timing_stopBlockMeasure(this.blocks[this.currIndex].id);
 }
 
-onFormCompletion(subjectId: number) {
+onFormCompletion(subject: TestSubject) {
   // will use the subject id here
-  console.log("subject id is", subjectId);
+  console.log("subject id is", subject);
+  this.subject = subject;
   this.currIndex++;
 }
 

@@ -240,10 +240,10 @@ export interface TimeMeasurment {
 export interface TestSubject {
   id?: number;
   name: string;
-  ipAddress: string;
-  browser: string;
+  ipAddress?: string;
+  browser?: string;
   occupation: string;
-  birthdate: string;
+  birthDate: string;
   martialStatus: string;
 
 }
