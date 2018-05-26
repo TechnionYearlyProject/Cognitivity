@@ -46,6 +46,9 @@ export class CreateTestComponent implements OnInit {
   // in case of upload file
   file : File = null;
 
+  projectname:string;
+  notes: string;
+
   //default constructor
   constructor(
     private router:Router,
@@ -68,6 +71,7 @@ export class CreateTestComponent implements OnInit {
     this.manager.email = user;
     this.manager.id = managerId;
     console.log(this.test);
+    this.notes = "";
   }
 
   //this function adds a block to out list using the iterator.
@@ -204,11 +208,14 @@ export class CreateTestComponent implements OnInit {
 
       blocksToDB.push(blockInDB);
     }
+    
     let date = Date.parse(new Date().toLocaleDateString());
     console.log(date, new Date(date).toLocaleDateString());
     let test: Test =
     {
       name: this.titleTest,
+      notes: this.notes,
+      project:this.projectname,
       blocks: blocksToDB,
       state: 0,
       numberOfQuestions: totalQuestionNum,
