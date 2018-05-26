@@ -58,6 +58,10 @@ public class LoadFromFileService {
         ITestReader reader = readerFactory.apply(jsonData);
         try {
             Test test = reader.read();
+            if (test == null) {
+                logger.error("Error when trying to parse test content");
+                throw new JsonTestParseError(jsonData);
+            }
             if (testDAO.testWithNameExists(test.getName())) {
                 logger.warn("Test with this name (" + test.getName() + ") already exists in the DB");
                 throw new TestNameAlreadyExistsLoadException(jsonData);
