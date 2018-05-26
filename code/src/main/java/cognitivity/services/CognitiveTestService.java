@@ -137,12 +137,12 @@ public class CognitiveTestService {
             for (TestBlock block : preWrapped) {
                 blocks.add(new BlockWrapper(blockDAO.getAllBlockQuestions(block.getId()), block));
             }
-            logger.info("Successfully found test. testId = " + testID);
             CognitiveTest test = dao.get(testID);
             if (test == null){
                 logger.error("Failed to find test. Test with test ID: " + testID+" Doesn't exist");
                 throw new DBException(ErrorType.DOESNT_EXIST, testID);
             }
+            logger.info("Successfully found test. testId = " + testID);
             return new TestWrapper(dao.get(testID), blocks);
         } catch (org.hibernate.HibernateException e) {
             logger.error("Failed to find test. Test ID: " + testID, e);
