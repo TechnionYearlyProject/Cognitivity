@@ -171,6 +171,10 @@ export class TestListComponent implements OnInit {
       return;
   }
 
+  gen_link(test: Test){
+    alert('The link for this test is: ' + 'localhost:4200/test/' + test.id)
+    return false;
+  }
   
 
 }
