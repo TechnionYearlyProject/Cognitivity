@@ -135,7 +135,7 @@ export class CreateTestComponent implements OnInit {
       }
       let testList = await this.testService.findTestsForTestManager(this.manager.id);
       for (let test of testList) {
-        if (testName.trim() == testName.trim().replace(/\s\s+/g, ' ')) {
+        if (test.name.trim() == testName.trim().replace(/\s\s+/g, ' ')) {
           alert(nameAlreadyTaken);
           return false;
         }
@@ -156,9 +156,24 @@ export class CreateTestComponent implements OnInit {
       this.noTitle = false;
     }
 
-    if(!this.testNameValidate(this.titleTest))
+    let badName = 'A bad name. Please choose a name with only letters and numbers';
+      let nameAlreadyTaken = 'Name already taken!';
+      if (this.titleTest == null || this.titleTest == '' || !this.regex.test(this.titleTest)) {
+        alert(badName);
+        return false;
+      }
+      let arr = this.regex.exec(this.titleTest);
+      if (arr[0] != this.titleTest) {
+        alert(badName);
         return;
-
+      }
+      let testList = await this.testService.findTestsForTestManager(this.manager.id);
+      for (let test of testList) {
+        if (test.name.trim() == this.titleTest.trim().replace(/\s\s+/g, ' ')) {
+          alert(nameAlreadyTaken);
+          return;
+        }
+      }
     let blocks = this.blocks.toArray();
     if (blocks.length == 0) {
       this.emptyTest = true;
