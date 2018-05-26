@@ -29,6 +29,11 @@ public class TestContextBeanConfiguration {
     }
 
     @Bean
+    public DistributeTestLinkToSubjectService distributeTestLinkToSubjectService() {
+        return Mockito.mock(DistributeTestLinkToSubjectService.class);
+    }
+
+    @Bean
     public TestAnswerService testAnswerService() {
         return Mockito.mock(TestAnswerService.class);
     }

@@ -132,7 +132,7 @@ public class TestSubjectControllerTest implements RestControllerTest {
 
     @Test
     public void saveTestSubjectCallsServiceWithCorrectParams() throws Exception {
-        TestSubject testSubject = new TestSubject("name", "123", "firefox","Just now","A sales man","Sold his wife to buy a better one");
+        TestSubject testSubject = new TestSubject("name", "123", "firefox", "Just now", "A sales man", "Sold his wife to buy a better one", "email");
         // saveTestSubject is a http POST request
         mockMvc.perform(post("/test-subjects/saveTestSubject")
                 .contentType(MediaType.APPLICATION_JSON)

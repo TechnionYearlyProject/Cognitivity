@@ -42,7 +42,7 @@ public class TestSubjectDAOTest extends AbstractDaoTestClass {
         TestQuestion testQuestion = new TestQuestion("bkabalba","Stam link", testBlock, cognitiveTest, testManager);
         testQuestionDAO.add(testQuestion);
         for(int i = 0; i < numOfSubjects; i++){
-            testSubject[i] = new TestSubject("subject", "3 " + i, "firefox","dddd","oooo","mmmm");
+            testSubject[i] = new TestSubject("subject", "3 " + i, "firefox", "dddd", "oooo", "mmmm", "email");
             testSubjectDAO.add(testSubject[i]);
             for(int j = 0; j < numOfAnswersPerSubject; j++){
                 testAnswers[i][j] = new TestAnswer(testSubject[i], testQuestion,

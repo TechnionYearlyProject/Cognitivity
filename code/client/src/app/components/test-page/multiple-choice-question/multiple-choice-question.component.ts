@@ -127,7 +127,9 @@ export class TestPageMultipleChoiceQuestionComponent implements OnInit {
     if(secondary_index == -1){
       for(let i = 0; i < this.question.answers.length; i++){
         if(i == main_index){
-          this.markedAnswers[i] = true;
+          this.markedAnswers[i] = !this.markedAnswers[i];
+          this.answered.emit(this.markedAnswers[i]);
+          this.isAnswered = this.markedAnswers[i];
         }else{
           this.markedAnswers[i] = false;
         }
@@ -136,7 +138,9 @@ export class TestPageMultipleChoiceQuestionComponent implements OnInit {
       for(let i = 0; i < this.dimMatrix; i++){
         for(let j = 0; j < this.dimMatrix; j++){
           if(i == main_index && j == secondary_index){
-            this.markedAnswersMatrix[i][j] = true;
+            this.markedAnswersMatrix[i][j] = !this.markedAnswersMatrix[i][j];
+            this.answered.emit(this.markedAnswersMatrix[i][j]);
+            this.isAnswered = this.markedAnswersMatrix[i][j];
           }else{
             this.markedAnswersMatrix[i][j] = false;
           }
@@ -144,9 +148,6 @@ export class TestPageMultipleChoiceQuestionComponent implements OnInit {
       }
     }
     
-    // send event that subject marked an answer
-    this.answered.emit(true);
-    this.isAnswered = true;
   }
 
   /*

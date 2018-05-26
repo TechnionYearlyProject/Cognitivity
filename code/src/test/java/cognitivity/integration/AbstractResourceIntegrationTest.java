@@ -75,7 +75,7 @@ public class AbstractResourceIntegrationTest {
     }
 
     public static TestSubject createTestSubject(long id) {
-        TestSubject testSubject = new TestSubject("subject", "ip", "browser","","","");
+        TestSubject testSubject = new TestSubject("subject", "ip", "browser", "", "", "", "email");
         testSubject.setId(id);
         return testSubject;
     }
