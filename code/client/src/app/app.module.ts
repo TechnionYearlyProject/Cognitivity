@@ -53,6 +53,8 @@ import { CreateVerticalHorizontalMultipleComponent } from './components/create-v
 import { CreateMatrixMultipleQuestionComponent } from './components/create-matrix-multiple-question/create-matrix-multiple-question.component';
 import { ResultsPageComponent } from './components/results-page/results-page.component';
 import { TestPageComponent } from './components/test-page/test-page.component';
+import { TestFinishComponent } from './components/test-page/test-finish/test-finish.component';
+import { TestPageGuard } from './services/test-page-service/test-page-guard';
 
 
 
@@ -76,7 +78,8 @@ const PROVIDED_SERVICES = [
   AngularFireDatabase,
   AngularFireDatabaseModule,
   MatDialog,
-  TestAnswersService
+  TestAnswersService,
+  TestPageGuard
 ];
 
 @NgModule({
@@ -109,7 +112,8 @@ const PROVIDED_SERVICES = [
     TestPageDrillDownQuestionComponent,
     TestPageMultipleChoiceQuestionComponent,
     TestPageOpenQuestionComponent,
-    TestPageRateQuestionComponent
+    TestPageRateQuestionComponent,
+    TestFinishComponent
   ],
   imports: [
     BrowserModule,
