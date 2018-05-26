@@ -88,6 +88,8 @@ export class TestPageComponent implements OnInit {
         await this.answerService.saveTestAnswer(questionAnswerForDB);
       }
     }
+
+    this.router.navigate(['test-finish']);
     //when stopping the test, call timing_stopTestMeasure() to end the test measuring.
     //this.timing.timing_stopTestMeasure();
     //the results of the timing class sits in ----------this.timingMeasurment.testObject--------------
