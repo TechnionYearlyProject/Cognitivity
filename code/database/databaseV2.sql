@@ -29,7 +29,8 @@ CREATE TABLE testSubject(id INTEGER PRIMARY KEY AUTO_INCREMENT,
   browser text,
   birthDate text,
   Occupation text,
-  martialStatus text
+  martialStatus text,
+  email text
 );
 
 /*

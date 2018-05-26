@@ -57,4 +57,9 @@ public class TestSubjectDAOimpl extends AbstractDAO<TestSubject> implements Test
         Query<TestSubject> query = session.createQuery(queryString, TestSubject.class);
         return query.getResultList();
     }
+
+    @Override
+    public boolean doesSubjectWithEmailExist(String email) {
+        return false;
+    }
 }

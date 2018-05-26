@@ -47,6 +47,11 @@ export class TestPageBlockComponent implements OnInit {
     //start to measure the current block
     //this.timing.timing_startBlockMeasure(this.block.id,this.block.numberOfQuestions);
     console.log(this.testId);
+    this.wasShownArr = new Array(this.block.numberOfQuestions);
+    for(let i=0;i<this.wasShownArr.length;i++){
+      this.wasShownArr[i] = false;
+    }
+    this.currIndex = this.generateRandomIndex();
   }
 
   /*
@@ -95,8 +100,8 @@ export class TestPageBlockComponent implements OnInit {
    * This function generates a random index for a question that hasn't been shown yet.
    */
   private generateRandomIndex():number{
-    let possibleAnswers = this.wasAllShown();//that'll be the higg limit we'll get a random index from
-    let randomIndex = Math.floor(Math.random() * possibleAnswers);//low is 0, we add -1 so the 1 dissapears
+    let possibleAnswers = this.wasAllShown();//that'll be the high limit we'll get a random index from
+    let randomIndex = Math.floor(Math.random() * possibleAnswers+1);//low is 1
     return this.xFirstFree(randomIndex);
   }
 
@@ -112,17 +117,16 @@ export class TestPageBlockComponent implements OnInit {
   */
   nextQuestion() {
     // Insert Time measuring of last question
-    console.log('finish question button');
     ApplicationInsightsTracker.getInstance.trackNumberOfAnswersSwitches(
       this.question.answerSwitcher,
       this.question.question.id,
       this.question.question.type.toString()
     );
-
+    this.wasShownArr[this.currIndex] = true;
     this.questionAnswers[this.currIndex] = this.question.getAnswer();
-    this.currIndex++;
+    this.currIndex = this.generateRandomIndex();
     this.didAnswerQuestion = false;
-    if (this.currIndex == this.block.questions.length) {
+    if (this.wasAllShown()==0) {
       this.finish = true;
       this.finished.emit();
     }

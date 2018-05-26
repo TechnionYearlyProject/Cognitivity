@@ -172,7 +172,7 @@ public class QuestionServiceTest {
 
         TestAnswerService answerService = new TestAnswerService(answerDao, testSubjectDAO);
         TestSubjectService subjectService = new TestSubjectService(testSubjectDAO);
-        TestSubject testSubject = new TestSubject("Timothy k miller", "Pip", "Safchrome","2003","A fictional character","m");
+        TestSubject testSubject = new TestSubject("Timothy k miller", "Pip", "Safchrome", "2003", "A fictional character", "m", "email");
         TestSubject subject = subjectService.createTestSubject(testSubject);
 
         TestAnswer answer = new TestAnswer(subject, question, cognitiveTest, "Bla is bla");

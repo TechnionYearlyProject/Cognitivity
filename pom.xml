@@ -21,6 +21,13 @@
     <dependencies>
 
 
+      <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+      <dependency>
+          <groupId>javax.mail</groupId>
+          <artifactId>mail</artifactId>
+          <version>1.4</version>
+      </dependency>
+
         <!--    Azure Telemetry     -->
         <!-- https://mvnrepository.com/artifact/com.microsoft.azure/applicationinsights-web -->
         <dependency>
