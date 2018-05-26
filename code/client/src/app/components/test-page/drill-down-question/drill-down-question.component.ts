@@ -76,8 +76,10 @@ export class TestPageDrillDownQuestionComponent implements OnInit {
         if(this.markedAnswersMain[i]){
           this.markedAnswerMain = 'Choose an answer';
           this.secondaryQuestionMode = false;
+          this.answered.emit(false);
         }else{
           this.markedAnswerMain = this.question.answersForMain[i];
+          this.answered.emit(true);
           if(this.question.secondaryQuestionsText[i] != null){
             this.secondaryQuestion = this.question.secondaryQuestionsText[i];
             let sizeOfSecondaryanswers = this.question.answersForSecondary[i].length;
@@ -95,7 +97,10 @@ export class TestPageDrillDownQuestionComponent implements OnInit {
           }
         }
 
+        console.log('whadmgkfdglfkgkf')
+
         this.markedAnswersMain[i] = !this.markedAnswersMain[i];
+        console.log(i, this.markedAnswersMain[i]);
 
       }else{
         this.markedAnswersMain[i] = false;
@@ -124,7 +129,7 @@ export class TestPageDrillDownQuestionComponent implements OnInit {
   returnAnswers(){
     let mainAnswerIndex = -1, secondAnswerIndex = -1;
     for(let i = 0; i < this.markedAnswersMain.length; i++){
-      if(this.markAnswerForMain[i]){
+      if(this.markedAnswerMain[i]){
         mainAnswerIndex = i;
         break;
       }
@@ -136,6 +141,7 @@ export class TestPageDrillDownQuestionComponent implements OnInit {
         }
       }
     }
+    console.log('whhhhhattttt');
     return {mainAnswer : mainAnswerIndex, secondAnswer: secondAnswerIndex};
     
   }
@@ -160,12 +166,10 @@ export class TestPageDrillDownQuestionComponent implements OnInit {
   //checking if we have a marked answer.
   get_is_marked():boolean{
     for (let i = 0; i < this.markedAnswersMain.length; i++) {
-        if(this.markedAnswersMain[i]){
-          this.answered.emit(true);
+        if(this.markedAnswersMain[i]) {    
           return true;
         }
     }
-    this.answered.emit(false);
     return false;
   }
 
