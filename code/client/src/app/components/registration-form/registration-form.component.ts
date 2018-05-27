@@ -39,17 +39,17 @@ export class registrationFormComponent implements OnInit {
     if(valid){
       console.log('this is my valuessssss');
       console.log(value);
-      this.user = {
+      let newUser = {
         name: value.name + ' ' + value.lastname,
         occupation: value.currentjob,
         birthDate: value.mydate.formatted,
         martialStatus: value.maritalState
       };
       console.log('user is:::::');
-      console.log(this.user);
+      console.log(newUser);
 
       // here we will save the in the db the data on the subject, and get his id from db
-      let user = await this.subjectService.saveTestSubject(this.user);   
+      let user = await this.subjectService.saveTestSubject(newUser);   
 
       this.complete.emit(user);
     }
