@@ -107,7 +107,7 @@ export class TestManagerService {
 
             return parseInt(res.text())
         })
-        .catch(ErrorHandler.handleError)
+        .catch(() => {return -1;} )
     }
 
     deleteTestManager(id: number): Promise<void> {
