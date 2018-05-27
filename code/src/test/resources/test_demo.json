@@ -22,6 +22,33 @@
             "Rate Question"
           ],
           "maxRating": 5
+        },
+        {
+          "text": "How much time did you spend on this course this week?",
+          "position": 0,
+          "questionType": 3,
+          "hasConfidenceBar": true,
+          "pictureLink": "Unsupported picture link",
+          "hasTimeMeasurement": false,
+          "tags": [
+            "drill-down"
+          ],
+          "answersForMain": [
+            "At least 9 hours",
+            "Less than 9 hours"
+          ],
+          "correctAnswerForMain": 1,
+          "secondaryQuestions": [
+            {
+              "text": "Why didn't you spend more?",
+              "answers": [
+                "I didn't have time",
+                "I didn't want to"
+              ],
+              "correctAnswer": 1,
+              "indexOfMainQuestion": 1
+            }
+          ]
         }
       ]
     }

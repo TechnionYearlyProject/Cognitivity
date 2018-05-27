@@ -39,6 +39,10 @@ public class TestWrapperConverter {
         public List<String> getSecondaryQuestionsText() {
             List<String> secondaryQuestionsText = new ArrayList<>();
             for (int i = 0, indexOfSecondary = 0; i < question.getAnswersForMain().length; i++) {
+                if (indexOfSecondary >= question.getSecondaryQuestions().length) {
+                    secondaryQuestionsText.add(i, null);
+                    continue;
+                }
                 DrillDownSecondaryQuestion drillDownSecondaryQuestion = question.getSecondaryQuestions()[indexOfSecondary];
                 if (drillDownSecondaryQuestion.getIndexOfMainQuestion() == i) {
                     secondaryQuestionsText.add(i, drillDownSecondaryQuestion.getText());
@@ -53,6 +57,10 @@ public class TestWrapperConverter {
         public List<List<String>> getAnswersForSecondary() {
             List<List<String>> secondaryQuestionsAnswers = new ArrayList<>();
             for (int i = 0, indexOfSecondary = 0; i < question.getAnswersForMain().length; i++) {
+                if (indexOfSecondary >= question.getSecondaryQuestions().length) {
+                    secondaryQuestionsAnswers.add(i, null);
+                    continue;
+                }
                 DrillDownSecondaryQuestion drillDownSecondaryQuestion = question.getSecondaryQuestions()[indexOfSecondary];
                 if (drillDownSecondaryQuestion.getIndexOfMainQuestion() == i) {
                     secondaryQuestionsAnswers.add(i, Arrays.asList(drillDownSecondaryQuestion.getAnswers()));
@@ -67,6 +75,10 @@ public class TestWrapperConverter {
         public List<Integer> getCorrectAnswerSecondary() {
             List<Integer> secondaryQuestionsCorrectAnswer = new ArrayList<>();
             for (int i = 0, indexOfSecondary = 0; i < question.getAnswersForMain().length; i++) {
+                if (indexOfSecondary >= question.getSecondaryQuestions().length) {
+                    secondaryQuestionsCorrectAnswer.add(i, null);
+                    continue;
+                }
                 DrillDownSecondaryQuestion drillDownSecondaryQuestion = question.getSecondaryQuestions()[indexOfSecondary];
                 if (drillDownSecondaryQuestion.getIndexOfMainQuestion() == i) {
                     secondaryQuestionsCorrectAnswer.add(drillDownSecondaryQuestion.getCorrectAnswer());

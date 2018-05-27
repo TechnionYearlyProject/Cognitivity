@@ -1,5 +1,6 @@
-import {Component, Input, OnInit, Output, EventEmitter} from "@angular/core";
-import { QuestionAnswer, DrillDownQuestionAnswer, TypeQuestion } from "../../../models";
+import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
+import {QuestionAnswer} from "../../../models";
+
 @Component({
   selector: 'app-test-page-drill-down-question',
   templateUrl: './drill-down-question.component.html',
@@ -10,9 +11,9 @@ import { QuestionAnswer, DrillDownQuestionAnswer, TypeQuestion } from "../../../
  The component for the Drill-down question type.
 */
 export class TestPageDrillDownQuestionComponent implements OnInit {
-  
+
   @Input() testId: number;
-  
+
   @Input() question: any;
   //the object that holds the question.
   //@Input() question1: any;
@@ -129,7 +130,9 @@ export class TestPageDrillDownQuestionComponent implements OnInit {
   returnAnswers(){
     let mainAnswerIndex = -1, secondAnswerIndex = -1;
     for(let i = 0; i < this.markedAnswersMain.length; i++){
-      if(this.markedAnswerMain[i]){
+      if (this.markedAnswersMain[i]) {
+        console.log('In the return answer');
+        console.log(i);
         mainAnswerIndex = i;
         break;
       }
@@ -143,7 +146,7 @@ export class TestPageDrillDownQuestionComponent implements OnInit {
     }
     console.log('whhhhhattttt');
     return {mainAnswer : mainAnswerIndex, secondAnswer: secondAnswerIndex};
-    
+
   }
 
   buildAnswer(): QuestionAnswer {
@@ -166,7 +169,7 @@ export class TestPageDrillDownQuestionComponent implements OnInit {
   //checking if we have a marked answer.
   get_is_marked():boolean{
     for (let i = 0; i < this.markedAnswersMain.length; i++) {
-        if(this.markedAnswersMain[i]) {    
+      if (this.markedAnswersMain[i]) {
           return true;
         }
     }

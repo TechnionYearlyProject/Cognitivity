@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from "@angular/core";
+
 @Component({
   selector: 'app-drill-down-question',
   templateUrl: './drill-down-question.component.html',
@@ -135,7 +136,7 @@ export class DrillDownQuestionComponent implements OnInit {
   returnAnswers(){
     let mainAnswerIndex = -1, secondAnswerIndex = -1;
     for(let i = 0; i < this.markedAnswersMain.length; i++){
-      if(this.markAnswerForMain[i]){
+      if (this.markedAnswersMain[i]) {
         mainAnswerIndex = i;
         break;
       }
@@ -148,7 +149,7 @@ export class DrillDownQuestionComponent implements OnInit {
       }
     }
     return {mainAnswer : mainAnswerIndex, secondAnswer: secondAnswerIndex};
-    
+
   }
 
 }
