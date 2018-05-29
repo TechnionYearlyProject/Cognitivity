@@ -49,31 +49,39 @@ export class ResultsPageComponent implements OnInit {
     for (let questionAnswer of answers) {
       let answerObject = JSON.parse(questionAnswer.finalAnswer);
       let typeQuestion = JSON.parse(questionAnswer.question.question).type;
-      console.log(typeQuestion);
+      console.log(questionAnswer);
       let questionAnswerParsed;
       if (typeQuestion != '3') {
         questionAnswerParsed = {
           question_id: questionAnswer.question.id,
           subject_id: questionAnswer.testSubject.id,
+          name: questionAnswer.testSubject.name,
           question_type: typeQuestion,
           conf_value: answerObject.confidence,
           is_time_distraction: false,
           changes_of_answer: 0,
           time: 0,
           time_conf: 0,
-          answer: answerObject.answer
+          answer: (parseInt(answerObject.answer) + 1)
         };
       } else {
+        let answerString;
+        if (answerObject.secnodaryAnswer == '-1') {
+          answerString = 'Main: ' + (parseInt(answerObject.primaryAnswer) + 1)
+        } else {
+          answerString = 'Main: ' + (parseInt(answerObject.primaryAnswer) + 1) + ' Secondary: ' + (parseInt(answerObject.secnodaryAnswer) + 1)
+        }
         questionAnswerParsed = {
           question_id: questionAnswer.question.id,
           subject_id: questionAnswer.testSubject.id,
+          name: questionAnswer.testSubject.name,
           question_type: typeQuestion,
           conf_value: answerObject.confidence,
           is_time_distraction: false,
           changes_of_answer: 0,
           time: 0,
           time_conf: 0,
-          answer: 'Main: ' + answerObject.primaryAnswer + ' Secondary: ' + answerObject.secnodaryAnswer
+          answer: answerString
         }
 
 

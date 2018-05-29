@@ -54,7 +54,7 @@ export interface Question {
   type: TypeQuestion;
   questionPosition?: QuestionPosition;
   showConfidenceBar?: boolean;
-  
+
   // list of given tags by the user
   tags?: string[];
 }
@@ -95,7 +95,7 @@ export interface Block {
   randomize?: boolean,
   testId?: number,
   numberOfQuestions?: number
- 
+
 }
 
 /*
@@ -112,7 +112,7 @@ export interface Test {
     blocks?: Block[];
     numberOfSubjects?: number;
     testManager?: any;
-    
+
 }
 
 /* Manager properties */
@@ -157,7 +157,7 @@ export interface QuestionInDB {
   tag?: string;
   type?: number;
   questionPosition?: number;
-  
+
   // list of given tags by the user
   tags?: string[];
 }
@@ -295,6 +295,7 @@ export interface Error {
 export interface ParsedQuestionAnswer {
   question_id: number;
   subject_id: number;
+  name?: string;
   question_type: number;
   conf_value: number;
   is_time_distraction: boolean;

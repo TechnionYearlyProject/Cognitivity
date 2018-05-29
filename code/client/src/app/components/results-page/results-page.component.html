@@ -1,7 +1,7 @@
 
   <br>
   <div class="container" style="color: white;font-family: Arial; font-size: 20px;">
-      
+
     <span class="fa fa-line-chart fa-stack-2x"> Analysis for the test : {{ test_name }}</span>
   </div>
   <br>
@@ -13,6 +13,7 @@
           <tr>
             <th>Question ID</th>
             <th>Subject ID</th>
+            <th>Name</th>
             <th>Type of Question</th>
             <th>Confidence in Answer</th>
             <th>Time Distraction</th>
@@ -24,6 +25,7 @@
           <tr *ngFor="let questionAnswer of answers">
             <td>{{ questionAnswer.question_id }}</td>
             <td>{{ questionAnswer.subject_id }}</td>
+            <td>{{ questionAnswer.name }}</td>
             <td>{{ questionAnswer.question_type }}</td>
             <td>{{ questionAnswer.conf_value }}</td>
             <td>{{ questionAnswer.is_time_distraction }}</td>
