@@ -1,4 +1,4 @@
-import {block_timing, question_timing, test_timing, TimeMeasurment} from "../models/index";
+import {block_timing, question_timing, test_timing, TimeMeasurment, Block} from "../models/index";
 
 
 /**
@@ -91,24 +91,26 @@ import {block_timing, question_timing, test_timing, TimeMeasurment} from "../mod
 
 export class TimeMeasurer {
 
-  //An object of TimeMeasurement interface that contains the test object.
-  private timingObject: TimeMeasurment;
-  private myTestObj: test_timing;
+  //the object that'll contain all the results from the timing collection.
+  myTestObj: test_timing;
   // saves the next index to initialize a block in.
   private nextFreeBlock: number;
 
   //setting the initial required fields for measuring a test
-  constructor(givenTimeMeasurmentObj: TimeMeasurment, given_tID: number, given_tBlocksNum: number) {
-    this.timingObject = givenTimeMeasurmentObj;
+  constructor( given_tID: number, given_tBlocksNum: number,blocksLengthArray:number[]) {
     this.nextFreeBlock = 0;
-    this.myTestObj = this.timingObject.testObject;
-    this.myTestObj.tID = given_tID;
-    this.myTestObj.tBlocksNum = given_tBlocksNum;
-    this.myTestObj.tIsMeasured = false;
-    this.myTestObj.tStartTS = 0;
-    this.myTestObj.tEndTS = 0;
-    this.myTestObj.tTotTS = 0;
-    this.myTestObj.resultArr = new Array[this.myTestObj.tBlocksNum];
+    //initializing my results object - 
+    this.myTestObj = {tID:given_tID, tBlocksNum:given_tBlocksNum, tIsMeasured:false, tStartTS:0, tEndTS:0, tTotTS:0,resultArr:null }
+    this.myTestObj.resultArr = new Array<block_timing>(this.myTestObj.tBlocksNum);
+    for(let i=0;i<this.myTestObj.tBlocksNum;i++){
+      this.myTestObj.resultArr[i] = {bID:0, bQuestionsNum:0, bIsMeasured:false, bStartTS:0, bEndTS:0, bTotTS:0, questionTimes:null};
+      this.myTestObj.resultArr[i].questionTimes = new Array<question_timing>(blocksLengthArray[i]);
+      let tmp = blocksLengthArray[i];
+      for (let j= 0; j < tmp; j++) {
+        this.myTestObj.resultArr[i].questionTimes[j] = {qID:-1, qIsMeasured:false, qBlockID:0, qConBarStartTS:0, qConBarEndTS:0,
+        qConBarTotTS:0, qStartTS:0, qEndTS:0, qTotTS:0 }
+      }
+    }
   }
 
   /**
@@ -119,9 +121,6 @@ export class TimeMeasurer {
   timing_startTestMeasure(): void {
     this.myTestObj.tStartTS = performance.now();
     this.myTestObj.tIsMeasured = true;
-    // for DEBUGGING
-    //console.log("Starting to measure time for test with ID: "+myTestObj.tID);
-    //console.log("tStartTS is: "+myTestObj.tStartTS);
   }
 
   /**
@@ -133,10 +132,6 @@ export class TimeMeasurer {
     this.myTestObj.tEndTS = performance.now();
     this.myTestObj.tTotTS = (this.myTestObj.tEndTS - this.myTestObj.tStartTS);
     this.myTestObj.tIsMeasured = false;
-    // for DEBUGGING
-    //console.log("finished to measure time for test with ID: "+myTestObj.tID);
-    //console.log("tEndTS is: "+myTestObj.tEndTS);
-    //console.log("tTotTS is: "+myTestObj.tTotTS);
   }
 
   /**
@@ -145,22 +140,6 @@ export class TimeMeasurer {
   private initialize_block_timing(new_bID: number, new_bQuestionNum: number, currObj: block_timing): void {
     currObj.bID = new_bID;
     currObj.bQuestionsNum = new_bQuestionNum;
-    currObj.bIsMeasured = false;
-    currObj.bStartTS = 0;
-    currObj.bEndTS = 0;
-    currObj.bTotTS = 0;
-    currObj.questionTimes = new Array[currObj.bQuestionsNum];
-    for (let i = 0; i < currObj.bQuestionsNum; i++) {
-      currObj.questionTimes[i].qID = -1;
-      currObj.questionTimes[i].qIsMeasured = false;
-      currObj.questionTimes[i].qBlockID = currObj.bID;
-      currObj.questionTimes[i].qConBarStartTS = 0;
-      currObj.questionTimes[i].qConBarEndTS = 0;
-      currObj.questionTimes[i].qConBarTotTS = 0;
-      currObj.questionTimes[i].qStartTS = 0;
-      currObj.questionTimes[i].qEndTS = 0;
-      currObj.questionTimes[i].qTotTS = 0;
-    }
   }
 
   /**
@@ -169,15 +148,20 @@ export class TimeMeasurer {
    * @param given_bQuestionNum
    */
   timing_startBlockMeasure(given_bID: number, given_bQuestionNum: number): void {
-    let myCurrBlock = this.myTestObj.resultArr[this.nextFreeBlock];
+    let myCurrBlock:block_timing = this.myTestObj.resultArr[this.nextFreeBlock];
     this.nextFreeBlock++;
+    
+
     //initialize the block object.
     this.initialize_block_timing(given_bID, given_bQuestionNum, myCurrBlock);
+    //myCurrBlock = {bID:given_bID, bQuestionsNum:given_bQuestionNum, bIsMeasured:false, bStartTS:0, bEndTS:0, bTotTS:0, questionTimes:null};
+   // myCurrBlock.questionTimes = new Array<question_timing>(myCurrBlock.bQuestionsNum);
+    //for (let i = 0; i < myCurrBlock.bQuestionsNum; i++) {
+    //  myCurrBlock.questionTimes[i] = {qID:-1, qIsMeasured:false, qBlockID:myCurrBlock.bID, qConBarStartTS:0, qConBarEndTS:0,
+    //  qConBarTotTS:0, qStartTS:0, qEndTS:0, qTotTS:0 }
+  //  }
     myCurrBlock.bStartTS = performance.now();
     myCurrBlock.bIsMeasured = true;
-    //for DEBUGGING
-    //console.log("Start measure Block with id: "+myCurrBlock.bID);
-    //console.log("bStartTS is: "+myCurrBlock.bStartTS);
   }
 
 
@@ -188,7 +172,7 @@ export class TimeMeasurer {
    */
   private findBlock(given_bID: number): number {
     for (let i = 0; i < this.nextFreeBlock; i++) {
-      if (this.myTestObj.resultArr[i].bID == given_bID) {
+      if (this.myTestObj.resultArr[i]!= null && this.myTestObj.resultArr[i].bID == given_bID) {
         return i;
       }
     }
@@ -241,12 +225,12 @@ export class TimeMeasurer {
     //find the first place with a question object with id != -1
     let myBlockIndex = this.findBlock(given_bID);
     if (myBlockIndex > -1) {
-      let myCurrBlock = this.myTestObj.resultArr[myBlockIndex];
-      for (let i = 0; i < myCurrBlock.bQuestionsNum; i++) {
-        if (myCurrBlock.questionTimes[i].qID == -1) {
-          myCurrBlock.questionTimes[i].qID = given_qID;
-          myCurrBlock.questionTimes[i].qStartTS = performance.now();
-          myCurrBlock.questionTimes[i].qIsMeasured = true;
+      for (let i = 0; i < this.myTestObj.resultArr[myBlockIndex].bQuestionsNum; i++) {
+        if (this.myTestObj.resultArr[myBlockIndex].questionTimes[i].qID == -1) {
+          this.myTestObj.resultArr[myBlockIndex].questionTimes[i].qBlockID = given_bID;
+          this.myTestObj.resultArr[myBlockIndex].questionTimes[i].qID = given_qID;
+          this.myTestObj.resultArr[myBlockIndex].questionTimes[i].qStartTS = performance.now();
+          this.myTestObj.resultArr[myBlockIndex].questionTimes[i].qIsMeasured = true;
           return true;
         }
       }

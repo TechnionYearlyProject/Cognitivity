@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {TestAnswersService, TestManagerService, TestService} from '../../services/database-service/index';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../services/auth-service';
-import {Block, BlockAnswers, QuestionAnswerForDB, TestSubject} from '../../models';
+import {Block, BlockAnswers, QuestionAnswerForDB, TestSubject, test_timing} from '../../models';
 import {TestPageBlockComponent} from './block/block.component';
 import {TimeMeasurer} from '../../Utils/index';
 
@@ -30,7 +30,9 @@ export class TestPageComponent implements OnInit {
   //variable to indicate if we should hide the following button in the creation.
   hideNextButton: boolean = true;
   private timing: TimeMeasurer;//TimeMeasurer - instance of the timing class
-  private timingMeasurment: any;//TimeMeasurment - TimeMeasurment object thatll contain the results for the timing class
+  private timingResults: test_timing;//will contains all the results from the timing class.
+  //private timingMeasurment: any;//TimeMeasurment - TimeMeasurment object thatll contain the results for the timing class
+  private blocksLengthArray :number[];
   @ViewChild(TestPageBlockComponent) block: TestPageBlockComponent;
 
   constructor(
@@ -57,7 +59,7 @@ export class TestPageComponent implements OnInit {
       //this.router.navigate(['/dashboard']);
     }
 
-    console.log(this.test);
+    //console.log(this.test);
 
     this.blocks = this.test.blocks;
     this.blocksLength = this.blocks.length;
@@ -66,15 +68,25 @@ export class TestPageComponent implements OnInit {
 
     document.body.classList.add('background-white');
 
+
     //initializing the timing class
-    //this.timing = new TimeMeasurer(this.timingMeasurment,this.test.id,this.blocks.length);
+    //this.timingMeasurment = new TimeMeasurment();
+
+    //generating the blocks lengths array for constructing the results object in the timing class.
+    this.blocksLengthArray = new Array<number>(this.test.blocks.length);
+    for(let i=0;i<this.test.blocks.length;i++){
+      this.blocksLengthArray[i] = this.test.blocks[i].questions.length;  
+    }
+    this.timing = new TimeMeasurer(this.test.id,this.blocks.length,this.blocksLengthArray);
+
+
     //after initializing the class we want to start the test measuring with timing_startTestMeasure() method
-    //this.timing.timing_startTestMeasure();
+    this.timing.timing_startTestMeasure();
 
   }
 
   async finishTest() {
-    console.log(this.blocksAnswers);
+    //console.log(this.blocksAnswers);
     for (let i = 0; i < this.blocksAnswers.length; i++) {
       for (let j = 0; j < this.blocksAnswers[i].answers.length; j++) {
         let questionAnswerForDB: QuestionAnswerForDB = {
@@ -84,14 +96,15 @@ export class TestPageComponent implements OnInit {
           question: this.test.blocks[i].questions[j]
 
         };
-        console.log(questionAnswerForDB);
+        //console.log(questionAnswerForDB);
         await this.answerService.saveTestAnswer(questionAnswerForDB);
       }
     }
 
     this.router.navigate(['test-finish']);
     //when stopping the test, call timing_stopTestMeasure() to end the test measuring.
-    //this.timing.timing_stopTestMeasure();
+    this.timing.timing_stopTestMeasure();
+    //console.log(this.timing.getFullResults());
     //the results of the timing class sits in ----------this.timingMeasurment.testObject--------------
   }
 
@@ -102,9 +115,11 @@ export class TestPageComponent implements OnInit {
   nextBlock() {
     this.hideNextButton = true;
     this.blocksAnswers[this.currIndex] = this.block.getQuestionAnswers();
+
+
     this.currIndex++;
+
     if (this.currIndex == this.blocks.length) {
-      console.log('finished test in nextBlock');
       this.finishTest();
     }
   }
@@ -115,14 +130,15 @@ export class TestPageComponent implements OnInit {
 
 onFormCompletion(subject: TestSubject) {
   // will use the subject id here
-  console.log("subject id is", subject);
+
   this.subject = subject;
   this.currIndex++;
 }
   onBlockFinish() {
     this.hideNextButton = false;
     //when finishing the block we want to stop the timing measurment for the block.
-    //this.timing.timing_stopBlockMeasure(this.blocks[this.currIndex].id);
+
+    this.timing.timing_stopBlockMeasure(this.blocks[this.currIndex].id);  
   }
 
 

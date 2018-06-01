@@ -45,8 +45,9 @@ export class TestPageBlockComponent implements OnInit {
     this.questionAnswers = new Array<QuestionAnswer>(this.block.questions.length); //Init array for time measurements for each question.
     this.questions = this.block.questions;
     //start to measure the current block
-    //this.timing.timing_startBlockMeasure(this.block.id,this.block.numberOfQuestions);
-    console.log(this.testId);
+
+    this.timing.timing_startBlockMeasure(this.block.id,this.block.numberOfQuestions);
+
     this.wasShownArr = new Array(this.block.numberOfQuestions);
     for(let i=0;i<this.wasShownArr.length;i++){
       this.wasShownArr[i] = false;
@@ -104,13 +105,6 @@ export class TestPageBlockComponent implements OnInit {
     let randomIndex = Math.floor(Math.random() * possibleAnswers+1);//low is 1
     return this.xFirstFree(randomIndex);
   }
-
-  /**
-   * TODO
-   * replace the this.currIndex++ with the generateRandomIndex function.
-   * after testing the implementation.
-   *
-   */
   /*
   this function increments out index and checks if we finished the list.
   if we did - it triggers an event to notify our caller that the preview of the block is done.
@@ -124,10 +118,9 @@ export class TestPageBlockComponent implements OnInit {
     );
     this.wasShownArr[this.currIndex] = true;
     this.questionAnswers[this.currIndex] = this.question.getAnswer();
-    console.log(this.question.getAnswer());
-    this.currIndex++;
+    this.currIndex= this.generateRandomIndex();
     this.didAnswerQuestion = false;
-    if (this.currIndex == this.block.questions.length) {
+    if (this.wasAllShown()==0) {
       this.finish = true;
       this.finished.emit();
     }
@@ -142,7 +135,8 @@ export class TestPageBlockComponent implements OnInit {
   onQuestionFinish(didFinish: boolean) {
     this.didAnswerQuestion = didFinish;
     //finish the measurment for the current question.
-    //this.timing.timing_stopQuestionMeasure(this.block.questions[this.currIndex].id,this.block.id);
+
+    this.timing.timing_stopQuestionMeasure(this.block.questions[this.currIndex].id,this.block.id);
   }
 
   getQuestionAnswers() {

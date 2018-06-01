@@ -49,7 +49,7 @@ export class TestPageQuestionComponent implements OnInit {
     this.answerSwitcher = new SwitchCounterTracker(0);
     this.appInsightsTrackerIns = ApplicationInsightsTracker.getInstance;
     //start the time measurment for the current question
-    //this.timing.timing_startQuestionMeasure(this.fatherBlockID,this.question.id);
+    this.timing.timing_startQuestionMeasure(this.fatherBlockID,this.question.id);
   }
 
 
@@ -81,7 +81,6 @@ export class TestPageQuestionComponent implements OnInit {
 
   getAnswer() {
     var questionAnswer: QuestionAnswer;
-    console.log('dfsdfdfsdfsdfdgdfg', this.question);
     switch (parseInt( this.question.type)) {
       case TypeQuestion.OpenQuestion:
         questionAnswer = this.openQuestion.buildAnswer();
@@ -93,16 +92,15 @@ export class TestPageQuestionComponent implements OnInit {
         questionAnswer = this.multipleChoiceQuestion.buildAnswer();
         break;
       case TypeQuestion.RateQuestion:
-        console.log('dgdfgfdhdfghghtjtdgrgergerrgege')
         questionAnswer = this.rateQuestion.buildAnswer();
         break;
     }
-    console.log('dfggd', questionAnswer);
+
     return questionAnswer;
   }
 
   onAnswering(didAnswer: boolean) {
-    //console.log(didAnswer);
+
     this.finished.emit(didAnswer);
     //Should be called every time a subject changes an answer.
     this.answerSwitcher.switchAnswer();

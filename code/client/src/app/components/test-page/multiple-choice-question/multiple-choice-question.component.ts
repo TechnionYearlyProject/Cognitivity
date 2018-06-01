@@ -147,7 +147,6 @@ export class TestPageMultipleChoiceQuestionComponent implements OnInit {
         }
       }
     }
-    
   }
 
   /*
@@ -238,7 +237,7 @@ export class TestPageMultipleChoiceQuestionComponent implements OnInit {
       for(let i = 0; i < this.markedAnswers.length; i++){
         if(this.markedAnswers[i]){
           answerIndex = i;
-          console.log('whattt');
+         // console.log('whattt');
         }
       }
     }

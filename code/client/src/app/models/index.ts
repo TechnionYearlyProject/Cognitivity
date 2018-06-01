@@ -228,6 +228,7 @@ export interface test_timing {
 }
 
 export interface TimeMeasurment {
+  // are those fileds in use?? by whom? 
   timeForAnswering: number;
   numberOfAnswerChanges: number;
 
