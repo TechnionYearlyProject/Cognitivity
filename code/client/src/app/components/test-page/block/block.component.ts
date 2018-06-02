@@ -110,7 +110,10 @@ export class TestPageBlockComponent implements OnInit {
   if we did - it triggers an event to notify our caller that the preview of the block is done.
   */
   nextQuestion() {
-    // Insert Time measuring of last question
+
+  //console.log("### stopping timing for question "+this.block.questions[this.currIndex].id.toString()+" in block "+this.block.id.toString()+" ###");
+  //finish the measurment for the current question.
+  this.timing.timing_stopQuestionMeasure(this.block.questions[this.currIndex].id,this.block.id);
     ApplicationInsightsTracker.getInstance.trackNumberOfAnswersSwitches(
       this.question.answerSwitcher,
       this.question.question.id,
@@ -120,6 +123,8 @@ export class TestPageBlockComponent implements OnInit {
     this.questionAnswers[this.currIndex] = this.question.getAnswer();
     this.currIndex= this.generateRandomIndex();
     this.didAnswerQuestion = false;
+  
+
     if (this.wasAllShown()==0) {
       this.finish = true;
       this.finished.emit();
@@ -134,9 +139,7 @@ export class TestPageBlockComponent implements OnInit {
 
   onQuestionFinish(didFinish: boolean) {
     this.didAnswerQuestion = didFinish;
-    //finish the measurment for the current question.
-
-    this.timing.timing_stopQuestionMeasure(this.block.questions[this.currIndex].id,this.block.id);
+         
   }
 
   getQuestionAnswers() {

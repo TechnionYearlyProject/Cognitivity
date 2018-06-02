@@ -104,7 +104,7 @@ export class TestPageComponent implements OnInit {
     this.router.navigate(['test-finish']);
     //when stopping the test, call timing_stopTestMeasure() to end the test measuring.
     this.timing.timing_stopTestMeasure();
-    //console.log(this.timing.getFullResults());
+   // console.log(this.timing.getFullResults());
     //the results of the timing class sits in ----------this.timingMeasurment.testObject--------------
   }
 

@@ -224,6 +224,7 @@ export class TimeMeasurer {
   timing_startQuestionMeasure(given_bID: number, given_qID: number): boolean {
     //find the first place with a question object with id != -1
     let myBlockIndex = this.findBlock(given_bID);
+   // console.log("##TIMING CLASS## - for given question ID: "+given_qID.toString()+" and given block ID: "+given_bID.toString()+" found block index: "+myBlockIndex.toString());
     if (myBlockIndex > -1) {
       for (let i = 0; i < this.myTestObj.resultArr[myBlockIndex].bQuestionsNum; i++) {
         if (this.myTestObj.resultArr[myBlockIndex].questionTimes[i].qID == -1) {
@@ -280,6 +281,9 @@ export class TimeMeasurer {
       myCurrQuestion.qEndTS = performance.now();
       myCurrQuestion.qTotTS = (myCurrQuestion.qEndTS - myCurrQuestion.qStartTS);
       myCurrQuestion.qIsMeasured = false;
+      //compute the conf bar as well.
+      myCurrQuestion.qConBarEndTS = myCurrQuestion.qEndTS;
+      myCurrQuestion.qConBarTotTS = (myCurrQuestion.qConBarEndTS - myCurrQuestion.qConBarStartTS);
       return true;
     }
     return false;
@@ -293,6 +297,9 @@ export class TimeMeasurer {
    */
   timing_startConfidenceMeasure(given_qID: number, given_bID: number): boolean {
     let myCurrQuestion = this.findQuestion(given_qID, given_bID);
+   // console.log("~~~~~~~~for question id: "+given_qID.toString()+" and block: "+given_bID.toString()+" found question:");
+   // console.log(myCurrQuestion);
+   // console.log("~~~~~~~~~");
     if (myCurrQuestion != null) {
       myCurrQuestion.qConBarStartTS = performance.now();
       return true;

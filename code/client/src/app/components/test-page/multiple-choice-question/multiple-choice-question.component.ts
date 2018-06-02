@@ -1,5 +1,6 @@
 import {Component, Input, OnInit, Output, EventEmitter} from "@angular/core";
-import {QuestionPosition, TypeMultipleQuestion, QuestionAnswer, OpenQuestionAnswer, TypeQuestion, MultipleChoiceQuestionAnswer} from "../../../models";
+import {QuestionPosition, TypeMultipleQuestion, QuestionAnswer, OpenQuestionAnswer, TypeQuestion, MultipleChoiceQuestionAnswer, test_timing} from "../../../models";
+import { TimeMeasurer } from "../../../Utils/index";
 @Component({
   selector: 'app-test-page-multiple-choice-question',
   templateUrl: './multiple-choice-question.component.html',
@@ -14,6 +15,8 @@ export class TestPageMultipleChoiceQuestionComponent implements OnInit {
   @Input() question: any;
 
   @Input() testId: number;
+
+
   //array to indicate what answers are highlighted.
   markedAnswers?: Array<boolean>;
   //Objects that detemines the style of the question text itself

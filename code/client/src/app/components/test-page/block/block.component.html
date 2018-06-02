@@ -1,10 +1,10 @@
 <div class=" container" >
   <div *ngFor="let question of block.questions; let i=index" class="form-group"  style="background-color:white;">
-    <app-test-page-question *ngIf="showQuestion(i)"[timing]="timing" [testId]="testId" [fatherBlockID]="block.id" [question]="parseToQuestion(question)" (finished)="onQuestionFinish( $event)"></app-test-page-question>
+    <app-test-page-question *ngIf="showQuestion(i)" [timing]="timing" [testId]="testId" [fatherBlockID]="block.id" [question]="parseToQuestion(question)" (finished)="onQuestionFinish( $event)"></app-test-page-question>
   </div>
   <br>
   <div  style="text-align:right;">
     <input *ngIf="!finish && didAnswerQuestion" type="submit" class="btn btn-primary ml-auto" (click)="nextQuestion()" 
-           [value]=" currIndex == block.questions.length - 1 ? 'Finish Section' : 'Next Question'">
+           [value]=" wasAllShown()==1 ? 'Finish Section' : 'Next Question'">
   </div>
   </div>
