@@ -1,7 +1,7 @@
 <div class="container col-lg-8">
     <div class="card bg-light">
         <div class="card-body">
-            <form class="form-group" novalidate #f="ngForm" (ngSubmit)="onSubmit(f)">
+            <form class="form-group" novalidate  #f="ngForm" (ngSubmit)="onSubmit(f)">
                 <!-- start of header msg -->
                 <div class="card text-center">
                     <div class="card-body">
@@ -26,11 +26,11 @@
                             <label for="firstName" class="fields">First Name</label>
                             <br>
                             <input type="text" class="form-control" name="name" [(ngModel)]="user.name"
-                                    #userName="ngModel" minlength="2" required placeholder="First name">
-                            <div *ngIf="userName.errors?.required && userName.touched" class="alert alert-danger">
+                                    #userName="ngModel" minlength="2" placeholder="First name" required>
+                            <div *ngIf="userName.errors?.required && submitted" class="alert alert-danger">
                                 Please enter your first name
                             </div>
-                            <div *ngIf="userName.errors?.minlength && userName.touched" class="alert alert-danger">
+                            <div *ngIf="userName.errors?.minlength && userName.dirty && userName.touched" class="alert alert-danger">
                                 First name must contain at least 2 characters
                             </div>
                         </div>
@@ -46,10 +46,10 @@
                             <input type="text" class="form-control" name="lastname"
                                     [(ngModel)]="user.lastname" #userLastname="ngModel" minlength="2"
                                     required placeholder="Last name">
-                            <div *ngIf="userLastname.errors?.required && userLastname.touched" class="alert alert-danger">
+                            <div *ngIf="userLastname.errors?.required && submitted" class="alert alert-danger">
                                 Please enter your last name
                             </div>
-                            <div *ngIf="userLastname.errors?.minlength && userLastname.touched" class="alert alert-danger">
+                            <div *ngIf="userLastname.errors?.minlength && userLastname.dirty && userLastname.touched" class="alert alert-danger">
                                 Last name must contain at least 2 characters
                             </div>
                         </div>
@@ -72,13 +72,13 @@
                             <br>
                             <input type="text" class="form-control" name="ID" [(ngModel)]="user.id"
                                     #userID="ngModel" minlength="9" maxlength="9" required placeholder="ID" pattern="^[0-9]*$">
-                            <div *ngIf="userID.errors?.required && userID.touched" class="alert alert-danger">
+                            <div *ngIf="userID.errors?.required && submitted" class="alert alert-danger">
                                 Please enter your ID
                             </div>
-                            <div *ngIf="userID.errors?.minlength && userID.touched" class="alert alert-danger">
+                            <div *ngIf="userID.errors?.minlength && userID.dirty && userID.touched" class="alert alert-danger">
                                 ID must contain at least 9 digits
                             </div>
-                            <div *ngIf="userID.errors?.pattern && userID.touched" class="alert alert-danger">
+                            <div *ngIf="userID.errors?.pattern && userID.dirty && userID.touched" class="alert alert-danger">
                                 ID must contain only digits
                             </div>
                         </div>
@@ -91,7 +91,7 @@
                             <label for="birthDate" class="fields">Date of birth</label>
                             <br>
                             <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="model" #birthdate="ngModel" required placeholder="Date of birth"></my-date-picker>
-                            <div *ngIf="birthdate.errors?.required && birthdate.touched" class="alert alert-danger">
+                            <div *ngIf="birthdate.errors?.required && submitted" class="alert alert-danger">
                                 Please enter your date of birth
                             </div>
                         </div>
@@ -117,6 +117,9 @@
                                 <option>Divorced</option>
                                 <option>Widower</option>
                             </select>
+                            <div *ngIf="maritalstatus.errors?.required && submitted" class="alert alert-danger">
+                                Please enter your date of birth
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-4">
@@ -127,7 +130,7 @@
                             <input type="text" class="form-control" name="currentjob"
                                     [(ngModel)]="user.occupation" #currentjob="ngModel" required
                                     placeholder="Current job">
-                            <div *ngIf="currentjob.errors?.required && currentjob.touched" class="alert alert-danger">
+                            <div *ngIf="currentjob.errors?.required && submitted" class="alert alert-danger">
                                 Please enter your current job
                             </div>
                         </div>
@@ -145,4 +148,3 @@
 </div>
 <br>
 <br>
-

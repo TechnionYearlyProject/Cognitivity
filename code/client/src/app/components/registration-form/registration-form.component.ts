@@ -33,6 +33,11 @@ export class registrationFormComponent implements OnInit {
   }
 
   /*
+   * flag that symbolize whether the form has been submitted
+   */
+  submitted : boolean = false
+
+  /*
   function for enforcing the validation of the fields in the form.
   */
   async onSubmit({value,valid}){
@@ -49,12 +54,13 @@ export class registrationFormComponent implements OnInit {
       console.log(newUser);
 
       // here we will save the in the db the data on the subject, and get his id from db
-      let user = await this.subjectService.saveTestSubject(newUser);   
+      let user = await this.subjectService.saveTestSubject(newUser);
 
       this.complete.emit(user);
     }
     else{
       console.log('Not valid');
+      this.submitted = true;
     }
   }
 }
