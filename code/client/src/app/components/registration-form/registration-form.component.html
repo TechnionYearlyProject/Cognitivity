@@ -71,12 +71,15 @@
                             <label for="ID" class="fields">ID</label>
                             <br>
                             <input type="text" class="form-control" name="ID" [(ngModel)]="user.id"
-                                    #userID="ngModel" minlength="9" required placeholder="ID">
+                                    #userID="ngModel" minlength="9" maxlength="9" required placeholder="ID" pattern="^[0-9]*$">
                             <div *ngIf="userID.errors?.required && userID.touched" class="alert alert-danger">
                                 Please enter your ID
                             </div>
                             <div *ngIf="userID.errors?.minlength && userID.touched" class="alert alert-danger">
                                 ID must contain at least 9 digits
+                            </div>
+                            <div *ngIf="userID.errors?.pattern && userID.touched" class="alert alert-danger">
+                                ID must contain only digits
                             </div>
                         </div>
                     </div>
