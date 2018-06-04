@@ -223,8 +223,6 @@ export class EditTestComponent implements OnInit {
     let test: Test =
     {
       name: this.titleTest,
-      project: this.projectTest.trim(),
-      notes: this.notesTest.trim(),
       blocks: blocksToDB,
       state: 0,
       numberOfQuestions: totalQuestionNum,
@@ -239,6 +237,8 @@ export class EditTestComponent implements OnInit {
     this.test.numberOfFiledCopies = 0;
     this.test.numberOfSubjects = 0;
     this.test.testManager = this.manager;
+    this.test.project = this.projectTest.trim();
+    this.test.notes = this.notesTest.trim();
     console.log(await this.testService.updateCognitiveTest(this.test));
     this.router.navigate(['/dashboard']);
 
