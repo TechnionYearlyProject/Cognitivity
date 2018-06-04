@@ -44,12 +44,12 @@ export class EditTestComponent implements OnInit {
   blockListFromDB: Block[];
 
   indexBlock: number = -1;
-  //default constructor 
+  //default constructor
   constructor(
     private router:Router,
     private route: ActivatedRoute,
     public questionDataService:SessionService,
-    private testService: TestService, 
+    private testService: TestService,
     private authService: AuthService,
     private managerService: TestManagerService
   ) {}
@@ -76,7 +76,7 @@ export class EditTestComponent implements OnInit {
 
     this.titleTest = this.test.name;
     this.blockListFromDB = this.test.blocks;
-    
+
   }
 
   //this function adds a block to out list using the iterator.
@@ -95,7 +95,7 @@ export class EditTestComponent implements OnInit {
       if (this.blockListFromDB[currentIndex]) {
         let removedBlock = this.blockListFromDB.splice(currentIndex, 1);
         this.blockListFromDB.splice(currentIndex - 1, 0, removedBlock[0]);
-      } 
+      }
     }
   }
 
@@ -110,7 +110,7 @@ export class EditTestComponent implements OnInit {
       if (this.blockListFromDB[currentIndex]) {
         let removedBlock = this.blockListFromDB.splice(currentIndex, 1);
         this.blockListFromDB.splice(currentIndex + 1, 0, removedBlock[0]);
-      } 
+      }
     }
   }
 
@@ -135,7 +135,7 @@ export class EditTestComponent implements OnInit {
   regex = /[\ ]*([A-Za-z0-9)(]+[\ ]*)+/;
   /**
    * This function saves a test in the DB.
-   * It iterates over all of the questions of all of the blocks 
+   * It iterates over all of the questions of all of the blocks
    * and collects them to a test object
    */
   async saveTest() {
@@ -164,6 +164,8 @@ export class EditTestComponent implements OnInit {
       }
     }
 
+    this.test.project = this.test.project.trim();
+    this.test.notes = this.test.notes.trim();
 
     let blocks = this.blocks.toArray();
     console.log('what how is it  no blocks??' + this.blocks.length);
@@ -192,7 +194,7 @@ export class EditTestComponent implements OnInit {
 
       for (let questionInBlock of block.getQuestions()) {
 
-        let questionInDB: QuestionInDB = 
+        let questionInDB: QuestionInDB =
         {
           question: JSON.stringify(questionInBlock.question),
           questionPosition: questionInBlock.question.questionPosition,
@@ -204,7 +206,7 @@ export class EditTestComponent implements OnInit {
 
       totalQuestionNum += questions.length;
 
-      let blockInDB: Block = 
+      let blockInDB: Block =
       {
         questions: questions,
         numberOfQuestions: questions.length
@@ -214,7 +216,7 @@ export class EditTestComponent implements OnInit {
     }
     let date = Date.parse(new Date().toLocaleDateString());
     console.log(date, new Date(date).toLocaleDateString());
-    let test: Test = 
+    let test: Test =
     {
       name: this.titleTest,
       blocks: blocksToDB,
@@ -245,6 +247,6 @@ export class EditTestComponent implements OnInit {
       }
     }
   }
-  
+
 
 }
