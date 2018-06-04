@@ -32,6 +32,10 @@ export class EditTestComponent implements OnInit {
   iterator: Array<Object> = new Array();
   //the string to be shown on the test title.
   titleTest: string;
+  //the project string
+  projectTest: string;
+  //the notes string
+  notesTest: string;
   //The manager of the soon to be created test;
   manager: Manager = {id: -1, email: ''};
 
@@ -75,6 +79,8 @@ export class EditTestComponent implements OnInit {
     }
 
     this.titleTest = this.test.name;
+    this.projectTest = this.test.project;
+    this.notesTest = this.test.notes;
     this.blockListFromDB = this.test.blocks;
 
   }
@@ -164,8 +170,6 @@ export class EditTestComponent implements OnInit {
       }
     }
 
-    this.test.project = this.test.project.trim();
-    this.test.notes = this.test.notes.trim();
 
     let blocks = this.blocks.toArray();
     console.log('what how is it  no blocks??' + this.blocks.length);
@@ -219,6 +223,8 @@ export class EditTestComponent implements OnInit {
     let test: Test =
     {
       name: this.titleTest,
+      project: this.projectTest.trim(),
+      notes: this.notesTest.trim(),
       blocks: blocksToDB,
       state: 0,
       numberOfQuestions: totalQuestionNum,
