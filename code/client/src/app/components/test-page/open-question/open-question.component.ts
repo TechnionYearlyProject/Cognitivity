@@ -29,32 +29,25 @@ export class TestPageOpenQuestionComponent implements OnInit {
   isEdit:boolean;
 
 
-  // Event emitter to determine if the subject filled an answer
-  @Output() answered: EventEmitter<boolean> = new EventEmitter();
   //default constructor.
   constructor() {}
 
   //default initialization function.
   ngOnInit() {
     this.buildPositionOfQuestion();
-    this.answered.emit(false);
     this.isAnswered = false;
     this.isEdit = true;
   }
 
   onAnswerChange() {
-    if (this.currentAnswer == "") {
-      this.answered.emit(false);
-    }
-    else
-      this.answered.emit(true);
+      this.isAnswered = this.currentAnswer == "" ? false : true
   }
 
   submit_answer(){
     this.isAnswered = true;
     this.isEdit = false;
   }
-  
+
   //can also add future add-ons like distractions when changing an answer.
   change_answer(){
     this.isAnswered = false;
