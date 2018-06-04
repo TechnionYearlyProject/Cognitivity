@@ -28,19 +28,28 @@ export class TestPageOpenQuestionComponent implements OnInit {
   //to indicate if one can edit the text answer.
   isEdit:boolean;
 
-
+  // Event emitter to determine if the subject filled an answer
+  @Output() answered: EventEmitter<boolean> = new EventEmitter();
   //default constructor.
   constructor() {}
 
   //default initialization function.
   ngOnInit() {
     this.buildPositionOfQuestion();
+    this.answered.emit(false);
     this.isAnswered = false;
     this.isEdit = true;
   }
 
   onAnswerChange() {
-      this.isAnswered = this.currentAnswer == "" ? false : true
+      if (this.currentAnswer == "") {
+          this.answered.emit(false);
+          this.isAnswered = false;
+      }
+      else {
+          this.answered.emit(true);
+          this.isAnswered = true;
+      }
   }
 
   submit_answer(){
