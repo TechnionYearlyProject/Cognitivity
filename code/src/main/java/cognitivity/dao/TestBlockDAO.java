@@ -20,6 +20,16 @@ public interface TestBlockDAO {
     public long update(TestBlock data);
 
     /**
+     * Inserts a TestBlock without fetching the CognitiveTest from the database
+     *
+     * @param testBlock the new TestBlock to add the db
+     * @param cognitiveTestId the cognitiveTest id
+     * @return the id of the new added TestBlock
+     */
+    //todo: tests!!
+    public long add(TestBlock testBlock, Long cognitiveTestId);
+
+    /**
      * Get all the questions for a given block.
      *
      * @param blockID - The Id of the given block.

@@ -18,6 +18,20 @@ public interface TestAnswerDAO {
     public long add(TestAnswer data);
     public long update(TestAnswer data);
 
+
+    /**
+     * Inserts TestAnswer without fetching the foreign keys objects
+     *
+     * @param answer the new TestAnswer
+     * @param testSubjectId TestSubject foreign key
+     * @param testQuestionId TestQuestion foreign key
+     * @param cognitiveTestId CognitiveTest foreign key
+     * @return the id of the new added TestAnswer
+     */
+    //todo: tests!!
+    public long add(TestAnswer answer, Long testSubjectId, Long testQuestionId, Long cognitiveTestId);
+
+
     /**
      * Get all the test answers of a subject from a specific test.
      *

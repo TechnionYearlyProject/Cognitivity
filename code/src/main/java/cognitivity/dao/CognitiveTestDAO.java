@@ -21,6 +21,18 @@ public interface CognitiveTestDAO {
     public long update(CognitiveTest data);
 
     /**
+     *
+     * Inserts CognitiveTest without fetching the TestManager from the database
+     *
+     * @param cognitiveTest the CognitiveTest data without the testManager
+     * @param testManagerId the id of the TestManager of the test
+     * @return the allocated id of the new added CognitiveTest
+     *
+     */
+    //todo: tests!
+    public long add(CognitiveTest cognitiveTest, Long testManagerId);
+
+    /**
      * Return all questions in a given test
      *
      * @param testId - The cognitive test to which we want to get all questions.

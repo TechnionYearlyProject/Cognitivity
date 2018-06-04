@@ -21,9 +21,14 @@ public class TestQuestion extends AbstractEntity {
     @JoinColumn(name = "testBlockId", nullable = false)
     private TestBlock testBlock;
 
+    //todo: do we need this columns? ( CognitiveTest, TestManager )
     @ManyToOne
     @JoinColumn(name = "testId", nullable = false)
     private CognitiveTest cognitiveTest;
+
+    @ManyToOne
+    @JoinColumn(name = "testManagerId")
+    private TestManager testManager;
 
     public TestManager getTestManager() {
         return testManager;
@@ -32,10 +37,6 @@ public class TestQuestion extends AbstractEntity {
     public void setTestManager(TestManager testManager) {
         this.testManager = testManager;
     }
-
-    @ManyToOne
-    @JoinColumn(name = "testManagerId")
-    private TestManager testManager;
 
     public TestQuestion(String question, String pictureLink, TestBlock testBlock,
                         CognitiveTest cognitiveTest, TestManager testManager) {

@@ -1,6 +1,9 @@
 package cognitivity.dao;
 
+import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestAnswer;
+import cognitivity.entities.TestQuestion;
+import cognitivity.entities.TestSubject;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
@@ -17,6 +20,22 @@ import java.util.List;
  */
 @Repository
 public class TestAnswerDAOimpl extends AbstractDAO<TestAnswer> implements TestAnswerDAO {
+
+
+    public long add(TestAnswer answer, Long testSubjectId, Long testQuestionId, Long cognitiveTestId) {
+        Session session = sessionFactory.getCurrentSession();
+
+        TestSubject proxyTestSubject = session.load(TestSubject.class, testSubjectId);
+        TestQuestion proxyTestQuestion = session.load(TestQuestion.class, testQuestionId);
+        CognitiveTest proxyCognitiveTest = session.load(CognitiveTest.class, cognitiveTestId);
+
+        answer.setTestSubject(proxyTestSubject);
+        answer.setQuestion(proxyTestQuestion);
+        answer.setCognitiveTest(proxyCognitiveTest);
+
+        session.save(answer);
+        return answer.getId();
+    }
 
     public TestAnswer get(Long id) {
         return super.get(id, TestAnswer.class);

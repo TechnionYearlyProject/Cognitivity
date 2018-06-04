@@ -13,13 +13,26 @@ import java.util.List;
 
 /**
  * Created by Guy on 20/1/18.
- *
+ * <p>
  * Data Access Object for TestBlock object
- * @Note! API documentation is in the Interfaces
  *
+ * @Note! API documentation is in the Interfaces
  */
 @Repository
 public class TestBlockDAOimpl extends AbstractDAO<TestBlock> implements TestBlockDAO {
+
+
+    public long add(TestBlock testBlock, Long cognitiveTestId) {
+        Session session = sessionFactory.getCurrentSession();
+
+        CognitiveTest proxyCognitiveTest = session.load(CognitiveTest.class, cognitiveTestId);
+
+        testBlock.setCognitiveTest(proxyCognitiveTest);
+
+        session.save(testBlock);
+        return testBlock.getId();
+    }
+
 
     public TestBlock get(Long id) {
         return super.get(id, TestBlock.class);

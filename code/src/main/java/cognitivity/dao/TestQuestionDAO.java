@@ -20,6 +20,18 @@ public interface TestQuestionDAO {
     public long update(TestQuestion data);
 
     /**
+     * Inserts TestQuestion without fetching the foreign keys objects from the database
+     *
+     * @param testQuestion the testQuestion without foreign keys
+     * @param testBlockId the TestBlock foreign key
+     * @param cognitiveTestId the CognitiveTest foreign key
+     * @param testManagerId the TestManager foreign key
+     * @return the allocated id of the new added TestQuestion
+     */
+    //todo: tests!
+    public long add(TestQuestion testQuestion, Long testBlockId, Long cognitiveTestId, Long testManagerId);
+
+    /**
      * Get all test questions from a given manager.
      *
      * @param manager - The manager from which we want to get the questions

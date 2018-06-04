@@ -2,6 +2,7 @@ package cognitivity.dao;
 
 import cognitivity.entities.CognitiveTest;
 import cognitivity.entities.TestBlock;
+import cognitivity.entities.TestManager;
 import cognitivity.entities.TestQuestion;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -20,6 +21,17 @@ import java.util.List;
 @Repository
 @Transactional
 public class CognitiveTestDAOimpl extends AbstractDAO<CognitiveTest> implements CognitiveTestDAO {
+
+    public long add(CognitiveTest cognitiveTest, Long testManagerId){
+        Session session = sessionFactory.getCurrentSession();
+
+        TestManager proxyManager = session.load(TestManager.class, testManagerId);
+
+        cognitiveTest.setManager(proxyManager);
+
+        session.save(cognitiveTest);
+        return cognitiveTest.getId();
+    }
 
     public CognitiveTest get(Long id) {
         return super.get(id, CognitiveTest.class);
