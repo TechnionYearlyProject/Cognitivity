@@ -46,21 +46,16 @@ export class TestPageComponent implements OnInit {
   }
 
   async ngOnInit() {
-    let email// = this.authService.getCurrentManagerEmail();
     let testId = this.route.snapshot.params['testId'];
     if (isNaN(testId) || testId == '') {
-      //Here we will navigate to a 404 page
-      //this.router.navigate(['/dashboard']);
+      this.router.navigate(['/404']);
+      testId = -1;
     }
     this.testId = testId;
     this.test = await this.testService.findCognitiveTestById(testId);
     if (this.test == null) {
-      //Here we will navigate to a 404 page
-      //this.router.navigate(['/dashboard']);
+      this.router.navigate(['/404']);
     }
-
-    //console.log(this.test);
-
     this.blocks = this.test.blocks;
     this.blocksLength = this.blocks.length;
     this.blocksAnswers = new Array<BlockAnswers>(this.blocksLength);
@@ -86,7 +81,6 @@ export class TestPageComponent implements OnInit {
   }
 
   async finishTest() {
-    //console.log(this.blocksAnswers);
     for (let i = 0; i < this.blocksAnswers.length; i++) {
       for (let j = 0; j < this.blocksAnswers[i].answers.length; j++) {
         let questionAnswerForDB: QuestionAnswerForDB = {
@@ -96,7 +90,6 @@ export class TestPageComponent implements OnInit {
           question: this.test.blocks[i].questions[j]
 
         };
-        //console.log(questionAnswerForDB);
         await this.answerService.saveTestAnswer(questionAnswerForDB);
       }
     }

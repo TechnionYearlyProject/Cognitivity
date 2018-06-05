@@ -55,6 +55,7 @@ import { ResultsPageComponent } from './components/results-page/results-page.com
 import { TestPageComponent } from './components/test-page/test-page.component';
 import { TestFinishComponent } from './components/test-page/test-finish/test-finish.component';
 import { TestPageGuard } from './services/test-page-service/test-page-guard';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 
 
@@ -113,7 +114,8 @@ const PROVIDED_SERVICES = [
     TestPageMultipleChoiceQuestionComponent,
     TestPageOpenQuestionComponent,
     TestPageRateQuestionComponent,
-    TestFinishComponent
+    TestFinishComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
