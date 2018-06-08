@@ -54,9 +54,7 @@ export interface Question {
   type: TypeQuestion;
   questionPosition?: QuestionPosition;
   showConfidenceBar?: boolean;
-
-  // list of given tags by the user
-  tags?: string[];
+  showDistractions?: boolean;
 }
 
 /*

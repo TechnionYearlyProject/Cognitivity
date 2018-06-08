@@ -19,6 +19,8 @@
                      type="text" class="form-control" maxLength="256"
                      placeholder="Question text" style="max-width: 100%;" required maxLength="256">
                 <br>
+                <input  type="checkbox"  [checked]="showDistractions" (click)="toggleDistractions()" style="color: white">
+                <span style="font-family:Arial;  color: white"> Enable distractions</span><br>
             </div>
             <div class="container">
                 <div class="dropdown">

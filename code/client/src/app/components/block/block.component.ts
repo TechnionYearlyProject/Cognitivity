@@ -165,37 +165,5 @@ export class BlockComponent implements OnInit {
   }
 
     
-  /**
-   * Author: Ben
-   * This function gets a tag to add to the tags list of the current displayed question.
-   * @param givenTag 
-   * @param questionIndex 
-   */
-  addQuestionTag(givenTag:string, questionIndex:number){
-    console.log("the index: "+questionIndex);
-    if(this.questionList[questionIndex].question.tags!=null){
-     this.questionList[questionIndex].question.tags.push(givenTag);
-       //for DEBUGGING
-    console.log("pushing to question with id: "+this.questionList[questionIndex].id+" the tag: "+givenTag);
-    }
-   }
 
-  /**
-   * Author: Ben
-   * This function removes a given tag from a question's tags list.
-   * if the tag is not found, does nothing.
-   * @param givenTag 
-   * @param questionIndex 
-   */
-  removeQuestionTag(givenTag:string, questionIndex:number){
-    let tmpQuestion = this.questionList[questionIndex];
-    if(tmpQuestion.question.tags!=null){
-      let tagIndex = tmpQuestion.question.tags.indexOf(givenTag);
-      if(tagIndex != -1){
-        tmpQuestion.question.tags.splice(tagIndex,1);
-        //for DEBUGGING 
-        console.log("found and removed the tag: "+givenTag);
-     }
-  }
-  }
 }
