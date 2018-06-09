@@ -55,6 +55,7 @@ export interface Question {
   questionPosition?: QuestionPosition;
   showConfidenceBar?: boolean;
   showDistractions?: boolean;
+  distractionsDelay?:number;
 }
 
 /*

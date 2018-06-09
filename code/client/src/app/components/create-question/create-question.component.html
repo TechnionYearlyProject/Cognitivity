@@ -21,6 +21,12 @@
                 <br>
                 <input  type="checkbox"  [checked]="showDistractions" (click)="toggleDistractions()" style="color: white">
                 <span style="font-family:Arial;  color: white"> Enable distractions</span><br>
+                <form #f="ngForm">
+                <span style="font-family:Arial;  color: white"> Current distractions delay: {{getDistractionDelay()}}</span><br>
+                <span style="font-family:Arial;  color: white"> Change delay to </span>
+                <input type="number" #delay name="quantity"  min="0" max="60" [value]="getDistractionDelay()">
+               <input type="submit" (click)="updateDistractionDelay(delay.value)">
+                <span style="font-family:Arial;  color: white"> seconds</span></form>
             </div>
             <div class="container">
                 <div class="dropdown">
