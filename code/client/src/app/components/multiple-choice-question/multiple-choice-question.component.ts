@@ -19,8 +19,8 @@ export class MultipleChoiceQuestionComponent implements OnInit {
   positionMiddle: any;
   positionButtom: any;
 
-  //is answered var, so we can view the confidence bar
-  isAnswered:boolean;
+  //number of questions that currently marked, so we can view the confidence bar
+  answeredQuestions:number;
 
   //slider value
   range_value: number = 50;
@@ -46,7 +46,7 @@ export class MultipleChoiceQuestionComponent implements OnInit {
     if(this.answerOrganization == TypeMultipleQuestion.Matrix){
       this.constructMatrix();
     }
-    this.isAnswered = false;
+    this.answeredQuestions = 0;
   }
 
   /*
@@ -123,22 +123,17 @@ export class MultipleChoiceQuestionComponent implements OnInit {
     if(secondary_index == -1){
       for(let i = 0; i < this.question.answers.length; i++){
         if(i == main_index){
-          this.markedAnswers[i] = true;
-          this.isAnswered = true;
-        }else{
-          this.markedAnswers[i] = false;
-          this.isAnswered = false;
+          this.markedAnswers[i] = !this.markedAnswers[i];
+          // if we marked another question, we would like the add 1 to the marked questions, else we should remove one
+          this.answeredQuestions += this.markedAnswers[i] ? 1 : -1;
         }
       }
     }else{
       for(let i = 0; i < this.dimMatrix; i++){
         for(let j = 0; j < this.dimMatrix; j++){
           if(i == main_index && j == secondary_index){
-            this.markedAnswersMatrix[i][j] = true;
-            this.isAnswered = true;
-          }else{
-            this.markedAnswersMatrix[i][j] = false;
-            this.isAnswered = false;
+            this.markedAnswersMatrix[i][j] = !this.markedAnswersMatrix[i][j];
+            this.answeredQuestions += this.markedAnswersMatrix[i][j] ? 1 : -1;
           }
         }
       }
@@ -218,14 +213,14 @@ export class MultipleChoiceQuestionComponent implements OnInit {
     return this.dimMatrix > 4;
   }
 
-  //this function will return the isAnswered field to indicate if we need to show the confidence bar
+  //this function will return the if there any question marked to indicate if we need to show the confidence bar
   get_is_answered():boolean{
-    return this.isAnswered;
+    return this.answeredQuestions > 0;
   }
 
   /*
    *
-   * A function that returns the answer of the subject 
+   * A function that returns the answer of the subject
    */
   returnAnswers(){
     let answerIndex = -1;
@@ -235,7 +230,7 @@ export class MultipleChoiceQuestionComponent implements OnInit {
           if(this.markedAnswersMatrix[i][j]){
             answerIndex = j*this.dimMatrix + i;
           }
-          
+
         }
       }
     }else{
