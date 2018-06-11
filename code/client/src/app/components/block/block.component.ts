@@ -20,6 +20,7 @@ in the structure of the whole test.
 */
 export class BlockComponent implements OnInit {
   //to specify the number of the block in the blocks list.
+  @Input() blockInfo;
   @Input() blockNumber:number;
   //to collapse and uncollapse the block.
   hidden: boolean = true;
@@ -48,6 +49,16 @@ export class BlockComponent implements OnInit {
 
   //default ngOnInit() function.
   ngOnInit() {
+    console.log('block info: ')
+    console.log(this.blockInfo);
+    if(this.blockInfo != null){
+      for (let i = 0; i < this.blockInfo.questions.length; i++) {
+        this.questionList[i] = 
+        { 
+          question: JSON.parse(this.blockInfo.questions[i].question)
+        };
+      }
+    }
   }
 
   //this function is responsible for collapsing and uncollapsing the block.

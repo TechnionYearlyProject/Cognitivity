@@ -29,7 +29,7 @@ export class CreateTestComponent implements OnInit {
   //object of a test , so we can save and import tests.
   test: Test;
   //for iterating over the blocks. we want to keep a question related to it's current block object.
-  iterator: Array<Object> = new Array();
+  iterator: Array<any> = new Array();
   //the string to be shown on the test title.
   titleTest: string;
   //The manager of the soon to be created test;
@@ -48,7 +48,15 @@ export class CreateTestComponent implements OnInit {
 
   projectname:string;
   notes: string;
-
+  /*
+   * Information for importing block Author: Mark, Date: 11.6.18
+   */
+  testList: Test[];// The list of all the test to choose from 
+  testBlockList: Block[];//
+  chosenBlock: Block;
+  //Boooleans that represent the stage in the importing. chooseTest represnts that 
+  chooseTest: boolean = true;
+  chooseBlock = false;//
   //default constructor
   constructor(
     private router:Router,
@@ -72,11 +80,20 @@ export class CreateTestComponent implements OnInit {
     this.manager.id = managerId;
     console.log(this.test);
     this.notes = "";
+    try {
+      this.testList = await this.testService.findTestsForTestManager(managerId);
+      console.log('The tests are: ')
+      console.log(this.testList);
+
+    } catch(err) {
+      console.log(err);
+    }
   }
 
   //this function adds a block to out list using the iterator.
   addBlock(){
-    this.iterator.splice(this.iterator.length, 0, new Object());
+    let inputBlock = {block: null};
+    this.iterator.splice(this.iterator.length, 0, inputBlock);
   }
 
   /*
@@ -279,5 +296,25 @@ export class CreateTestComponent implements OnInit {
     }
   }
 
+  loadTests(){
+    this.chooseBlock = false;
+    this.chooseTest = true;
+  }
+
+  async clickTest(index: number){
+      this.chooseTest = false;
+      this.chooseBlock = true;
+      let testId = this.testList[index].id;
+      let test = await this.testService.findCognitiveTestById(testId);
+      this.testBlockList = test.blocks;
+      console.log('The block is: ')
+      console.log(this.testBlockList)
+  }
+  addImportedBlock(index: number){
+    let blockToAdd = this.testBlockList[index];
+    let inputBlock = {block: blockToAdd};
+    this.iterator.splice(this.iterator.length, 0, inputBlock);
+    //this.blocksList.splice(this.blocksList.length, this.testBlockList[index])
+  }
 
 }
