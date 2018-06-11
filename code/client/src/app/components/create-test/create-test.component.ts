@@ -29,7 +29,7 @@ export class CreateTestComponent implements OnInit {
   //object of a test , so we can save and import tests.
   test: Test;
   //for iterating over the blocks. we want to keep a question related to it's current block object.
-  iterator: Array<Object> = new Array();
+  iterator: Array<any> = new Array();
   //the string to be shown on the test title.
   titleTest: string;
   //The manager of the soon to be created test;
@@ -92,7 +92,8 @@ export class CreateTestComponent implements OnInit {
 
   //this function adds a block to out list using the iterator.
   addBlock(){
-    this.iterator.splice(this.iterator.length, 0, new Object());
+    let inputBlock = {block: null};
+    this.iterator.splice(this.iterator.length, 0, inputBlock);
   }
 
   /*
@@ -298,7 +299,6 @@ export class CreateTestComponent implements OnInit {
   loadTests(){
     this.chooseBlock = false;
     this.chooseTest = true;
-    console.log('Loading tests');
   }
 
   async clickTest(index: number){
@@ -309,6 +309,12 @@ export class CreateTestComponent implements OnInit {
       this.testBlockList = test.blocks;
       console.log('The block is: ')
       console.log(this.testBlockList)
+  }
+  addImportedBlock(index: number){
+    let blockToAdd = this.testBlockList[index];
+    let inputBlock = {block: blockToAdd};
+    this.iterator.splice(this.iterator.length, 0, inputBlock);
+    //this.blocksList.splice(this.blocksList.length, this.testBlockList[index])
   }
 
 }

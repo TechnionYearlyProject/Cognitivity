@@ -39,7 +39,7 @@
             <div *ngFor="let it of iterator; let i = index;">
                 <br>
                 <div class="card  bg-info border-dark mb-3">
-                    <app-block [blockNumber]="i" style="margin:1px;"> </app-block>
+                    <app-block [blockNumber]="i" [blockInfo] = "it.block" style="margin:1px;"> </app-block>
 
                     <div class="container">
                         <div class="column">
@@ -124,7 +124,7 @@
                     <div *ngIf="chooseBlock" >
                             <div *ngFor="let block of testBlockList; let i = index;">
                                   <div class="modal-footer">
-                                          <button style="width: 100%; height:100%; font-size: 20px;font-family: Arial;"class="btn btn-secondary btm-sm no-border"  (click)="addBlock(i)">{{ block.id }}</button>
+                                          <button style="width: 100%; height:100%; font-size: 20px;font-family: Arial;"class="btn btn-secondary btm-sm no-border" data-dismiss="modal" (click)="addImportedBlock(i)">{{ block.id }}</button>
                                   </div>
                             </div>
                               
