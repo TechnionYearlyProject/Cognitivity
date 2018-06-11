@@ -88,6 +88,11 @@ export class TestListComponent implements OnInit {
     return new Date(date).toLocaleDateString();
   }
 
+  // function for confirmation before calling to asynch function (which costs in page reload, even when confirmation fails)
+  // confirmation(message: string, func, params) {
+  //   if(confirm(message)) func(params);
+  //   else()
+  // }
   async deleteTest(id: number) {
     if (confirm('Are you sure you want to delete the test?')) {
       console.log('deleted');
@@ -175,6 +180,6 @@ export class TestListComponent implements OnInit {
     alert('The link for this test is: ' + 'localhost:4200/test/' + test.id)
     return false;
   }
-  
+
 
 }
