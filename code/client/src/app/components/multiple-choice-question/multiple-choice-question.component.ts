@@ -46,6 +46,7 @@ export class MultipleChoiceQuestionComponent implements OnInit {
     if(this.answerOrganization == TypeMultipleQuestion.Matrix){
       this.constructMatrix();
     }
+    
     this.answeredQuestions = 0;
   }
 

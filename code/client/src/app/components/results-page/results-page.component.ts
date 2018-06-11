@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ParsedQuestionAnswer, QuestionAnswerForDB} from '../../models/index';
+import {ParsedQuestionAnswer, QuestionAnswerForDB, TypeQuestion} from '../../models/index';
 import {TestAnswersService} from '../../services/database-service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GridOptions} from 'ag-grid/dist/lib/entities/gridOptions';
@@ -51,40 +51,56 @@ export class ResultsPageComponent implements OnInit {
       let typeQuestion = JSON.parse(questionAnswer.question.question).type;
       console.log(questionAnswer);
       let questionAnswerParsed;
-      if (typeQuestion != '3') {
-        questionAnswerParsed = {
-          question_id: questionAnswer.question.id,
-          subject_id: questionAnswer.testSubject.id,
-          name: questionAnswer.testSubject.name,
-          question_type: typeQuestion,
-          conf_value: answerObject.confidence,
-          is_time_distraction: false,
-          changes_of_answer: 0,
-          time: 0,
-          time_conf: 0,
-          answer: (parseInt(answerObject.answer) + 1)
-        };
-      } else {
-        let answerString;
-        if (answerObject.secnodaryAnswer == '-1') {
-          answerString = 'Main: ' + (parseInt(answerObject.primaryAnswer) + 1)
-        } else {
-          answerString = 'Main: ' + (parseInt(answerObject.primaryAnswer) + 1) + ' Secondary: ' + (parseInt(answerObject.secnodaryAnswer) + 1)
-        }
-        questionAnswerParsed = {
-          question_id: questionAnswer.question.id,
-          subject_id: questionAnswer.testSubject.id,
-          name: questionAnswer.testSubject.name,
-          question_type: typeQuestion,
-          conf_value: answerObject.confidence,
-          is_time_distraction: false,
-          changes_of_answer: 0,
-          time: 0,
-          time_conf: 0,
-          answer: answerString
-        }
+      switch(typeQuestion){
+          case TypeQuestion.MultipleChoice:
+              questionAnswerParsed = {
+                question_id: questionAnswer.question.id,
+                subject_id: questionAnswer.testSubject.id,
+                name: questionAnswer.testSubject.name,
+                question_type: typeQuestion,
+                conf_value: answerObject.confidence,
+                is_time_distraction: false,
+                changes_of_answer: 0,
+                time: 0,
+                time_conf: 0,
+                answer: (answerObject.answer.map(item => item + 1))
+              };
+              break;
+          case TypeQuestion.DrillDownQuestion:
+              let answerString;
+              if (answerObject.secnodaryAnswer == '-1') {
+                answerString = 'Main: ' + (parseInt(answerObject.primaryAnswer) + 1)
+              } else {
+                answerString = 'Main: ' + (parseInt(answerObject.primaryAnswer) + 1) + ' Secondary: ' + (parseInt(answerObject.secnodaryAnswer) + 1)
+              }
+              questionAnswerParsed = {
+                question_id: questionAnswer.question.id,
+                subject_id: questionAnswer.testSubject.id,
+                name: questionAnswer.testSubject.name,
+                question_type: typeQuestion,
+                conf_value: answerObject.confidence,
+                is_time_distraction: false,
+                changes_of_answer: 0,
+                time: 0,
+                time_conf: 0,
+                answer: answerString
+              }
+              break;
 
-
+          default:
+              questionAnswerParsed = {
+                question_id: questionAnswer.question.id,
+                subject_id: questionAnswer.testSubject.id,
+                name: questionAnswer.testSubject.name,
+                question_type: typeQuestion,
+                conf_value: answerObject.confidence,
+                is_time_distraction: false,
+                changes_of_answer: 0,
+                time: 0,
+                time_conf: 0,
+                answer: (parseInt(answerObject.answer) + 1)
+              };
+              break;
       }
       this.answers.push(questionAnswerParsed);
       console.log(this.answers);
@@ -116,5 +132,3 @@ export class ResultsPageComponent implements OnInit {
 //   { make: 'Ford', model: 'Mondeo', price: 32000 },
 //   { make: 'Porsche', model: 'Boxter', price: 72000 }
 // ];
-
-
