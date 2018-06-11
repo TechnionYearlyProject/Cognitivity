@@ -48,7 +48,15 @@ export class CreateTestComponent implements OnInit {
 
   projectname:string;
   notes: string;
-
+  /*
+   * Information for importing block Author: Mark, Date: 11.6.18
+   */
+  testList: Test[];// The list of all the test to choose from 
+  testBlockList: Block[];//
+  chosenBlock: Block;
+  //Boooleans that represent the stage in the importing. chooseTest represnts that 
+  chooseTest: boolean = true;
+  chooseBlock = false;//
   //default constructor
   constructor(
     private router:Router,
@@ -72,6 +80,14 @@ export class CreateTestComponent implements OnInit {
     this.manager.id = managerId;
     console.log(this.test);
     this.notes = "";
+    try {
+      this.testList = await this.testService.findTestsForTestManager(managerId);
+      console.log('The tests are: ')
+      console.log(this.testList);
+
+    } catch(err) {
+      console.log(err);
+    }
   }
 
   //this function adds a block to out list using the iterator.
@@ -279,5 +295,20 @@ export class CreateTestComponent implements OnInit {
     }
   }
 
+  loadTests(){
+    this.chooseBlock = false;
+    this.chooseTest = true;
+    console.log('Loading tests');
+  }
+
+  async clickTest(index: number){
+      this.chooseTest = false;
+      this.chooseBlock = true;
+      let testId = this.testList[index].id;
+      let test = await this.testService.findCognitiveTestById(testId);
+      this.testBlockList = test.blocks;
+      console.log('The block is: ')
+      console.log(this.testBlockList)
+  }
 
 }
