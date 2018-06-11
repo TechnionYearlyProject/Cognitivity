@@ -1,12 +1,12 @@
 <div class = "form-inline search-bar">
-    <select [(ngModel)]="filter.option" class="custom-select col-md-2">
+    <select [(ngModel)]="filter.option" class="custom-select col-md-2" data-toggle="tooltip" title="The column to filter by">
         <option selected value = ''>Column...</option>
         <option value = 'project'>Project</option>
         <option value = 'name'>Name</option>
         <option value = 'notes'>Notes</option>
     </select>
   <input type="text" placeholder="Filter By.." class="form-control col-md-8" [(ngModel)]="filter.text"
-         (keydown)="filterKeyDown($event)">
+         (keydown)="filterKeyDown($event)" data-toggle="tooltip" title="The substring to look for (in the chosen colunm)">
     <button class = "form-control btn btn-block btn-primary col-md-2"  (click) = "filterTests()">
         <i class= "fa fa-search"></i> Search
     </button>
