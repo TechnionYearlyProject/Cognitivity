@@ -25,6 +25,8 @@ public class TestQuestionDAOTest extends AbstractDaoTestClass {
 
     private TestQuestion testQuestion;
     private TestManager testManager;
+    private TestBlock testBlock;
+    private CognitiveTest cognitiveTest;
 
     /*
      * the initialization creates (before this class tests runs") the following objects:
@@ -38,10 +40,10 @@ public class TestQuestionDAOTest extends AbstractDaoTestClass {
         testManager =
                 new TestManager("onlyForTests TestManagernotarealpassword");
         testManagerDAO.add(testManager);
-        CognitiveTest cognitiveTest =
+        cognitiveTest =
                 new CognitiveTest("onlyForTests", testManager, 0, "notes", "project");
         cognitiveTestDAO.add(cognitiveTest);
-        TestBlock testBlock = new TestBlock(0,false, "testTag", cognitiveTest);
+        testBlock = new TestBlock(0,false, "testTag", cognitiveTest);
         testBlockDAO.add(testBlock);
         testQuestion = new TestQuestion("testQuestion","Stam link", testBlock, cognitiveTest, testManager);
     }
@@ -56,6 +58,7 @@ public class TestQuestionDAOTest extends AbstractDaoTestClass {
      *
      *  - Create : we call the add function and trying to add testQuestion to the db
      *      we check if we succeed by trying to fetch the testQuestion by id
+     *      we also check the add function with foreign keys and not full objects
      *  - Read : we call the get function with fue parameters,
      *      once, with id that don't exists, one with id that do exists
      *  - Update : we call the update function and check that the data in the db changed
@@ -81,6 +84,21 @@ public class TestQuestionDAOTest extends AbstractDaoTestClass {
                 question.equals(testQuestionDAO.get(testQuestion.getId()).getQuestion()));
         testQuestionDAO.delete(testQuestion.getId());
         assertNull("delete problem", testQuestionDAO.get(testQuestion.getId()));
+
+        testQuestion.setTestManager(null);
+        testQuestion.setTestBlock(null);
+        testQuestion.setCognitiveTest(null);
+        testQuestionDAO.add(testQuestion,  testBlock.getId(),
+                cognitiveTest.getId(), testManager.getId());
+        String errorMessage = "add testQuestion problem";
+        TestQuestion returnedTestQuestion = testQuestionDAO.get(testQuestion.getId());
+        assertNotNull(errorMessage, returnedTestQuestion);
+        assertEquals(errorMessage, returnedTestQuestion.getTestManager().getEmail(),
+                testManager.getEmail());
+        assertEquals(errorMessage, returnedTestQuestion.getTestBlock().getId(),
+                testBlock.getId());
+        assertEquals(errorMessage, returnedTestQuestion.getCognitiveTest().getId(),
+                cognitiveTest.getId());
     }
 
 

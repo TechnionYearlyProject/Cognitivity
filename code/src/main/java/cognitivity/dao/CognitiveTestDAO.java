@@ -29,7 +29,6 @@ public interface CognitiveTestDAO {
      * @return the allocated id of the new added CognitiveTest
      *
      */
-    //todo: tests!
     public long add(CognitiveTest cognitiveTest, Long testManagerId);
 
     /**

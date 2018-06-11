@@ -57,6 +57,7 @@ public class TestBlockDAOTest extends AbstractDaoTestClass {
      *
      *  - Create : we call the add function and trying to add block to the db
      *      we check if we succeed by trying to fetch the block by id
+     *      we also check the add function with foreign key and not full object
      *  - Read : we call the get function with fue parameters,
      *      once, with id that don't exists, one with id that do exists
      *  - Update : we call the update function and check that the data in the db changed
@@ -81,6 +82,14 @@ public class TestBlockDAOTest extends AbstractDaoTestClass {
                 numberOfQuestions == testBlockDAO.get(testBlock.getId()).getNumberOfQuestions());
         testBlockDAO.delete(testBlock.getId());
         assertNull("delete problem", testBlockDAO.get(testBlock.getId()));
+
+        testBlock.setCognitiveTest(null);
+        testBlockDAO.add(testBlock, cognitiveTest.getId());
+        TestBlock returnedTestBlock = testBlockDAO.get(testBlock.getId());
+        String message = "add testBlock with foreign keys problem";
+        assertNotNull(message, returnedTestBlock);
+        assertEquals(message, returnedTestBlock.getCognitiveTest().getManager().getEmail(),
+                cognitiveTest.getManager().getEmail());
     }
 
     @Test

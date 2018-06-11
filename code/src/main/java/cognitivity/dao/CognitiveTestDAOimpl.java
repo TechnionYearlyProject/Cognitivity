@@ -28,14 +28,11 @@ public class CognitiveTestDAOimpl extends AbstractDAO<CognitiveTest> implements 
         TestManager proxyManager = session.load(TestManager.class, testManagerId);
 
         cognitiveTest.setManager(proxyManager);
-
         session.save(cognitiveTest);
         return cognitiveTest.getId();
     }
 
-    public CognitiveTest get(Long id) {
-        return super.get(id, CognitiveTest.class);
-    }
+    public CognitiveTest get(Long id) { return super.get(id, CognitiveTest.class); }
 
     public void delete(Long id) {
         super.delete(id, CognitiveTest.class);

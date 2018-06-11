@@ -73,7 +73,8 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
      * This test will check only the basic CRUD functionality:
      *
      *  - Create : we call the add function and trying to add the answer to the db
-     *      we check if we succeed by trying to fetch the answer by id
+     *      we check if we succeed by trying to fetch the answer by id,
+     *      we also check adding with foreign keys (with proxy entities)
      *  - Read : we call the get function with fue parameters,
      *      once, with id that don't exists, one with id that do exists
      *  - Update : we call the update function and check that the data in the db changed
@@ -98,6 +99,17 @@ public class TestAnswerDAOTest extends AbstractDaoTestClass {
                 finalAnswer.equals(testAnswerDAO.get(testAnswer.getId()).getFinalAnswer()));
         testAnswerDAO.delete(testAnswer.getId());
         assertNull("delete problem", testAnswerDAO.get(testAnswer.getId()));
+        /* add by foreign keys */
+        testAnswer.setTestSubject(null);
+        testAnswer.setQuestion(null);
+        testAnswer.setCognitiveTest(null);
+        testAnswerDAO.add(testAnswer, testSubject.getId(), testQuestion.getId(), cognitiveTest.getId());
+        String errorMessage = "add testAnswer with foreign keys problem";
+        TestAnswer answerReturned = testAnswerDAO.get(testAnswer.getId());
+        assertNotNull(errorMessage, answerReturned);
+        assertEquals(errorMessage, answerReturned.getTestSubject().getBrowser(), testSubject.getBrowser());
+        assertEquals(errorMessage, answerReturned.getQuestion().getQuestion(), testQuestion.getQuestion());
+        assertEquals(errorMessage, answerReturned.getCognitiveTest().getName(), cognitiveTest.getName());
     }
 
     /*

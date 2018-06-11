@@ -28,7 +28,6 @@ public interface TestAnswerDAO {
      * @param cognitiveTestId CognitiveTest foreign key
      * @return the id of the new added TestAnswer
      */
-    //todo: tests!!
     public long add(TestAnswer answer, Long testSubjectId, Long testQuestionId, Long cognitiveTestId);
 
 

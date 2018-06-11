@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.List;
 
 import static org.junit.Assert.*;
+
 /**
  * Created by Guy on 20/1/18.
  */
@@ -65,7 +66,8 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
      * This test will check only the basic CRUD functionality:
      *
      *  - Create : we call the add function and trying to add cognitiveTest to the db
-     *      we check if we succeed by trying to fetch the answer by id
+     *      we check if we succeed by trying to fetch the answer by id,
+     *      we also check the add function with foreign key and not full object
      *  - Read : we call the get function with feu parameters,
      *      once, with id that don't exists, one with id that do exists
      *  - Update : we call the update function and check that the data in the db changed
@@ -85,7 +87,7 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
                 assertNotNull("add cognitiveTest problem",
                         cognitiveTestDAO.get(cognitiveTest.getId()));
                 String name = cognitiveTest.getName();
-                assertTrue("state incorrect",
+                assertTrue("name incorrect",
                         name.equals(cognitiveTestDAO.get(cognitiveTest.getId()).getName()));
                 String newState = "2";
                 cognitiveTest.setName(newState);
@@ -96,6 +98,31 @@ public class CognitiveTestDAOTest extends AbstractDaoTestClass {
                 cognitiveTestDAO.update(cognitiveTest);
                 assertTrue("state update incorrect",
                         name.equals(cognitiveTestDAO.get(cognitiveTest.getId()).getName()));
+
+            }
+        }
+
+        for (int i = 0; i < numOfTestManagers; i++) {
+            for (int j = 0; j < numOfTestsPerManager; j++) {
+                cognitiveTestDAO.delete(cognitiveTestsPerManager[i][j].getId());
+                assertNull("delete problem",
+                        cognitiveTestDAO.get(cognitiveTestsPerManager[i][j].getId()));
+
+            }
+        }
+
+        for (int i = 0; i < numOfTestManagers; i++) {
+            for (int j = 0; j < numOfTestsPerManager; j++) {
+                CognitiveTest cognitiveTest = cognitiveTestsPerManager[i][j];
+                TestManager testManager = cognitiveTest.getManager();
+                cognitiveTest.setManager(null);
+                cognitiveTestDAO.add(cognitiveTest, testManager.getId());
+                assertNotNull("add cognitiveTest problem",
+                        cognitiveTestDAO.get(cognitiveTest.getId()));
+                String managerEmail = cognitiveTestDAO.get(cognitiveTest.getId()).getManager().getEmail();
+                String email = testManager.getEmail();
+                assertTrue("email incorrect",
+                        email.equals(managerEmail));
 
             }
         }

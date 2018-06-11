@@ -26,7 +26,6 @@ public interface TestBlockDAO {
      * @param cognitiveTestId the cognitiveTest id
      * @return the id of the new added TestBlock
      */
-    //todo: tests!!
     public long add(TestBlock testBlock, Long cognitiveTestId);
 
     /**

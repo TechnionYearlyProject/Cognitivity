@@ -4,8 +4,8 @@ import javax.persistence.*;
 
 /**
  * Created by Guy on 20/1/18.
- * <p>
- * <p>
+ *
+ *
  * The Test Question persistent (JPA) representation (tables).
  */
 @Entity
@@ -21,7 +21,6 @@ public class TestQuestion extends AbstractEntity {
     @JoinColumn(name = "testBlockId", nullable = false)
     private TestBlock testBlock;
 
-    //todo: do we need this columns? ( CognitiveTest, TestManager )
     @ManyToOne
     @JoinColumn(name = "testId", nullable = false)
     private CognitiveTest cognitiveTest;

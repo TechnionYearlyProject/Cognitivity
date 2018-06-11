@@ -28,7 +28,6 @@ public interface TestQuestionDAO {
      * @param testManagerId the TestManager foreign key
      * @return the allocated id of the new added TestQuestion
      */
-    //todo: tests!
     public long add(TestQuestion testQuestion, Long testBlockId, Long cognitiveTestId, Long testManagerId);
 
     /**
