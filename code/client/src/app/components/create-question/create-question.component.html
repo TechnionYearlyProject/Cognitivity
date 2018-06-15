@@ -126,27 +126,6 @@
                 Please enter at least one answer
             </div>
         </div>
-        <!--<div class="centered" *ngIf="(secondaryAnswerMode || editionQuestionSecondary) && !editionModeSecondary">
-            <button *ngIf="!editionQuestionSecondary" class="btn  btn-primary" (click)="finishSecondaryQuestion()">Add secondary question</button>
-            <button *ngIf="editionQuestionSecondary" class="btn  btn-primary" (click)="finishSecondaryQuestion()">Apply changes</button>
-            <button class="btn btn-primary" style="margin:1em 0em;" (click)="undoSecondary()">
-                <span class="fa fa-undo"></span> Cancel secondary question</button>
-            <button *ngIf="editionQuestionSecondary" class="btn btn-primary" (click)="backToView()">Undo changes</button>
-            <div *ngIf="submitSecondaryQuestion && emptySecondary()" Style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
-                Please enter a question and at least 2 characters
-            </div>
-            <div *ngIf="submitSecondaryQuestion && !hasSecondaryAnswer()" Style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
-                Please enter at least one answer
-            </div>
-        </div>
-        <div *ngIf="(secondaryAnswerMode || editionQuestionSecondary) && editionModeSecondary">
-            <div class="centered">
-                <button class="btn  btn-primary" (click)="applySecondaryEdit()">Apply change</button>
-                <button class="btn btn-primary" style="margin:1em 0em;" (click)="undoSecondaryEdit()">
-                    <span class="fa fa-undo"></span> Undo edit</button>
-            </div>
-
-        </div>-->
         <br>
         <div  class="centered" *ngIf="(questionText == '' || questionText == null || isSpacePrefix(questionText)) && submit" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
             A question is required

@@ -103,7 +103,8 @@ export class CreateDrillDownQuestionComponent implements OnInit {
         this.answerExistsInArray = true;
         return;
       }
-      this.mainAnswers.push(this.currentMainAnswer);
+
+      this.mainAnswers.push(this.replaceSpacesByOneSpace(this.currentMainAnswer));
       this.markedMainCorrectAnswer.push(false);
       this.currentMainAnswer = '';
       this.submitSecondaryQuestion = false;
@@ -412,12 +413,17 @@ export class CreateDrillDownQuestionComponent implements OnInit {
     return this.currentSecondaryQuestion == null || this.currentSecondaryQuestion.length < 2 || this.isSpacePrefix(this.currentSecondaryQuestion);
   }
 
+  replaceSpacesByOneSpace(str) : string{
+        return str.replace(/( )+/g," ");
+  }
+
   /*
     The function adds an answer to the secondary question
   */
   addSecondaryAnswer(){
     if(this.currentSecondaryAnswer != null && this.currentSecondaryAnswer.length >= 1 && !this.isSpacePrefix(this.currentSecondaryAnswer)){
-      this.secondaryAnswers.splice(this.secondaryAnswers.length, 0, this.currentSecondaryAnswer);
+      var answer = this.replaceSpacesByOneSpace(this.currentSecondaryAnswer)
+      this.secondaryAnswers.push(answer);
       this.markedSecondaryCorrectAnswer.splice(this.markedSecondaryCorrectAnswer.length, 0, false);
       this.currentSecondaryAnswer = '';
       this.typedSecondaryAnswer = false;
