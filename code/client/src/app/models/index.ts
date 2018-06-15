@@ -306,3 +306,8 @@ export interface ParsedQuestionAnswer {
   time_conf: number;
   answer: string;
 }
+
+export interface EmailsDist {
+  emails: string[];
+  link: string;
+}

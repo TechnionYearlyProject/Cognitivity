@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Test, Manager, Question, Block, QuestionAnswer, Error, QuestionAnswerForDB, TestSubject } from '../../models';
+import { Test, Manager, Question, Block, QuestionAnswer, Error, QuestionAnswerForDB, TestSubject, EmailsDist } from '../../models';
 import { Http, Headers } from '@angular/http'
 import { RequestOptionsArgs } from '@angular/http/src/interfaces';
 import {
@@ -297,6 +297,27 @@ export class SubjectService {
         return this.http.post(`${this.target}${this.base_mapping}/saveTestSubject`, JSON.stringify(testSubject), {headers : this.headers})
         .toPromise()
         .then(res => res.json() as TestSubject)
+        .catch(ErrorHandler.handleError);
+    }
+
+}
+
+@Injectable()
+export class EmailsService {
+    private target : string = HttpTarget.getHttpTaraget();
+    private headers = new Headers({'Content-Type': 'application/json'});
+    base_mapping = '/send-links';
+
+    //functions
+    constructor(private http: Http) {}
+    sendLinks(emails: EmailsDist): Promise<EmailsDist> {
+        console.log(JSON.stringify(emails.link));
+        console.log(emails.emails);
+        let request = `${this.target}${this.base_mapping}/sendLinksToSubjects?link=${emails.link}`;
+        console.log(request);
+        return this.http.post(request, emails.emails, {headers : this.headers})
+        .toPromise()
+        .then(res => null)
         .catch(ErrorHandler.handleError);
     }
 }

@@ -3,3 +3,8 @@
     border-bottom: 1px solid black;
     border-radius: 0;
 }
+
+.modal-dialog{
+    overflow-y: initial !important;
+    color: black;
+}
