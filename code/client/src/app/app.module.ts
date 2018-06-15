@@ -57,6 +57,7 @@ import { TestFinishComponent } from './components/test-page/test-finish/test-fin
 import { TestPageGuard } from './services/test-page-service/test-page-guard';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PreviewImportBlockComponent } from './components/preview-import-block/preview-import-block.component';
+import { FormUploadComponent } from './components/uploads/upload-form/upload-form.component';
 
 
 
@@ -117,7 +118,8 @@ const PROVIDED_SERVICES = [
     TestPageRateQuestionComponent,
     TestFinishComponent,
     NotFoundComponent,
-    PreviewImportBlockComponent
+    PreviewImportBlockComponent,
+    FormUploadComponent
   ],
   imports: [
     BrowserModule,
