@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Test } from '../../../models'
-import { TestService, TestManagerService } from '../../../services/database-service'
+import { Test, EmailsDist } from '../../../models'
+import { TestService, TestManagerService, EmailsService } from '../../../services/database-service'
 import { AuthService } from '../../../services/auth-service';
 
 
@@ -28,15 +28,19 @@ export class TestListComponent implements OnInit {
   //an object to represent the current manager. it hold the current logged in user's credentials.
   email;
   managerId;
-  file : File = null;
+  file : string[] = null;
+  link: string;
   //default constructor.
   constructor(
     private testService: TestService,
     private router: Router,
     private route: ActivatedRoute,
     private authService: AuthService,
-    private tmService: TestManagerService
-  ) {}
+    private tmService: TestManagerService,
+    private emailsService: EmailsService)
+      
+    
+   {}
 
   //default ngOnInit function, gets the user's credentials while initialized.
   async ngOnInit() {
@@ -177,26 +181,33 @@ export class TestListComponent implements OnInit {
       return;
   }
 
-  gen_link(test: Test){
-    alert('The link for this test is: ' + 'localhost:4200/test/' + test.id)
-    return false;
+  async gen_link(){
+    let emails: EmailsDist = {emails: this.file, link: this.link};
+    console.log(emails);
+    await this.emailsService.sendLinks(emails);
   }
-
+  genLinkForTest(test: Test){
+    this.link = "http://localhost:4200/test/" + test.id;
+  }
   updateFile(event){
+    console.log(event);
     if(event.target.files.length != 1){
         alert("only one file can be submitted each time");
         return;
     }
     let fullFile = event.target.files[0];
+    console.log(fullFile);
     var reader = new FileReader();
     reader.onload = (event) => {
         try {
               this.file = reader.result.split('\n').map(x => x.trim());
                   console.log("Received json: " + this.file);
+
         } catch (ex) {
         alert('exeption when trying to parse json = ' + ex);
     }
     };
     reader.readAsText(fullFile);
+
 }
 }
