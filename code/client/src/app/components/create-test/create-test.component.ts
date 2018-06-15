@@ -51,10 +51,10 @@ export class CreateTestComponent implements OnInit {
   /*
    * Information for importing block Author: Mark, Date: 11.6.18
    */
-  testList: Test[];// The list of all the test to choose from 
+  testList: Test[];// The list of all the test to choose from
   testBlockList: Block[];//
   chosenBlock: Block;
-  //Boooleans that represent the stage in the importing. chooseTest represnts that 
+  //Boooleans that represent the stage in the importing. chooseTest represnts that
   chooseTest: boolean = true;
   chooseBlock = false;//
   //default constructor
@@ -224,7 +224,7 @@ export class CreateTestComponent implements OnInit {
           question: JSON.stringify(questionInBlock.question),
           questionPosition: questionInBlock.question.questionPosition,
           type: questionInBlock.question.type,
-          
+
         }
 
         questions.push(questionInDB);
@@ -235,12 +235,13 @@ export class CreateTestComponent implements OnInit {
       let blockInDB: Block =
       {
         questions: questions,
-        numberOfQuestions: questions.length
+        numberOfQuestions: questions.length,
+        tag: JSON.stringify(block.getTags())
       }
 
       blocksToDB.push(blockInDB);
     }
-    
+
     let date = Date.parse(new Date().toLocaleDateString());
     console.log(date, new Date(date).toLocaleDateString());
     let test: Test =

@@ -25,7 +25,7 @@
                placeholder="Notes of the test"
                style="max-width: 50%;" maxLength="50">
           <br>
-          
+
         <div style="text-align: center;">
             <button class="btn btn-primary btn-sm" (click)="addBlock()">
                 <span class="fa fa-plus"></span> Create new block</button>
@@ -108,8 +108,8 @@
               <h4 class="modal-title text-muted">Import Block</h4>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-  
-  
+
+
             <!-- Modal body -->
             <div *ngIf="chooseTest" class="modal-body form-group">
 
@@ -127,15 +127,15 @@
                                           <button style="width: 100%; height:100%; font-size: 20px;font-family: Arial;"class="btn btn-secondary btm-sm no-border" data-dismiss="modal" (click)="addImportedBlock(i)">{{ block.id }}</button>
                                   </div>
                             </div>
-                              
+
                     </div>
             </div>
-  
+
             <!-- Modal footer -->
             <!--div class="modal-footer">
                 <button class="btn btn-block btn-primary col-md-12" data-dismiss="modal" (click)="importBlock()">Import block</button>
             </div-->
-  
+
           </div>
         </div>
       </div>

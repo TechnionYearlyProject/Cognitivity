@@ -93,8 +93,8 @@ export interface Block {
   questions: QuestionInDB[],
   randomize?: boolean,
   testId?: number,
-  numberOfQuestions?: number
-
+  numberOfQuestions?: number,
+  tag?: string
 }
 
 /*
@@ -227,7 +227,7 @@ export interface test_timing {
 }
 
 export interface TimeMeasurment {
-  // are those fileds in use?? by whom? 
+  // are those fileds in use?? by whom?
   timeForAnswering: number;
   numberOfAnswerChanges: number;
 
