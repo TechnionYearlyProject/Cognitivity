@@ -313,6 +313,14 @@
     </repositories>
 
     <build>
+        <resources>
+            <resource>
+                <directory>code/src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+        </resources>
         <sourceDirectory>code/src/main/java</sourceDirectory>
         <plugins>
             <plugin>
@@ -340,6 +348,23 @@
                         </program>
                     </programs>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>spring-boot</classifier>
+                            <mainClass>
+                                cognitivity.web.app.CognitivityApplication
+                            </mainClass>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
