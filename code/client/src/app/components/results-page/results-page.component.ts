@@ -54,6 +54,7 @@ export class ResultsPageComponent implements OnInit {
       switch(typeQuestion){
           case TypeQuestion.MultipleChoice:
               questionAnswerParsed = {
+                id: questionAnswer.id,
                 question_id: questionAnswer.question.id,
                 subject_id: questionAnswer.testSubject.id,
                 name: questionAnswer.testSubject.name,
@@ -74,6 +75,7 @@ export class ResultsPageComponent implements OnInit {
                 answerString = 'Main: ' + (parseInt(answerObject.primaryAnswer) + 1) + ' Secondary: ' + (parseInt(answerObject.secnodaryAnswer) + 1)
               }
               questionAnswerParsed = {
+                id: questionAnswer.id,
                 question_id: questionAnswer.question.id,
                 subject_id: questionAnswer.testSubject.id,
                 name: questionAnswer.testSubject.name,
@@ -89,6 +91,7 @@ export class ResultsPageComponent implements OnInit {
 
           default:
               questionAnswerParsed = {
+                id: questionAnswer.id,
                 question_id: questionAnswer.question.id,
                 subject_id: questionAnswer.testSubject.id,
                 name: questionAnswer.testSubject.name,
@@ -106,6 +109,14 @@ export class ResultsPageComponent implements OnInit {
       console.log(this.answers);
     }
   }
+
+  async deleteQuestionResult(answerId, questionId){
+      console.log("answer id : " + answerId);
+      console.log("question id : " + questionId);
+    await this.answerTestService.deleteTestAnswer(questionId, answerId);
+  }
+
+
 }
 
 /* Here we define a hard coded (for now) rows data */

@@ -21,7 +21,7 @@ export class TestPageComponent implements OnInit {
   blocksLength: number;
 
   testId: number;
-  
+
   subject: TestSubject;
 
 
@@ -70,7 +70,7 @@ export class TestPageComponent implements OnInit {
     //generating the blocks lengths array for constructing the results object in the timing class.
     this.blocksLengthArray = new Array<number>(this.test.blocks.length);
     for(let i=0;i<this.test.blocks.length;i++){
-      this.blocksLengthArray[i] = this.test.blocks[i].questions.length;  
+      this.blocksLengthArray[i] = this.test.blocks[i].questions.length;
     }
     this.timing = new TimeMeasurer(this.test.id,this.blocks.length,this.blocksLengthArray);
 
@@ -131,7 +131,7 @@ onFormCompletion(subject: TestSubject) {
     this.hideNextButton = false;
     //when finishing the block we want to stop the timing measurment for the block.
 
-    this.timing.timing_stopBlockMeasure(this.blocks[this.currIndex].id);  
+    this.timing.timing_stopBlockMeasure(this.blocks[this.currIndex].id);
   }
 
 

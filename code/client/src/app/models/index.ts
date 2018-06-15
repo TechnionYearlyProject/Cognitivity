@@ -294,6 +294,7 @@ export interface Error {
 }
 
 export interface ParsedQuestionAnswer {
+  id: number;
   question_id: number;
   subject_id: number;
   name?: string;

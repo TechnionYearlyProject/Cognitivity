@@ -32,7 +32,8 @@
             <td>{{ questionAnswer.is_time_distraction }}</td>
             <td>{{ questionAnswer.time }}</td>
             <td>{{ questionAnswer.answer }}</td>
-            <td><button type="button" class="btn btn-primary">Delete</button></td>
+            <td><button type="button" class="btn btn-primary"
+                (click) = "deleteQuestionResult(questionAnswer.id, questionAnswer.question_id)" >Delete</button></td>
           </tr>
         </tbody>
       </table>
