@@ -8,7 +8,7 @@ import { Question } from '../../models/index';
 })
 
 /*
-this class is responsible for previewing the block component. 
+this class is responsible for previewing the block component.
 when a test is being previewed, it triggers the block preview , that uses the sub
 question viewer code.
 One can think about this class as a screen, that each time presents a different block.
@@ -29,19 +29,19 @@ export class BlockPreviewComponent implements OnInit {
   //when the component is initialized. the current index is set to 0.
   ngOnInit() {
     this.currIndex = 0;
+    this.tickTick(9);
   }
 
   /*
   in the HTML file, each question is shown , only if the show question function returns true for it's index.
-  meaning the only question that'll get true is the function that it's index is identical to our 
+  meaning the only question that'll get true is the function that it's index is identical to our
   current index.
   Input - the index of some question in the list.
-  Output - if the question index is identical to our current index we return true , so the ngIf if the HTML 
+  Output - if the question index is identical to our current index we return true , so the ngIf if the HTML
   will get true and present the question.
   */
   showQuestion(index) {
-    
-    
+
     return index == this.currIndex;
   }
 
@@ -50,6 +50,7 @@ export class BlockPreviewComponent implements OnInit {
   if we did - it triggers an event to notify our caller that the preview of the block is done.
   */
   nextQuestion() {
+
    console.log('next question boiiii');
     this.currIndex++;
     if (this.currIndex == this.block.questions.length) {
@@ -64,4 +65,44 @@ export class BlockPreviewComponent implements OnInit {
     return JSON.parse(text);
   }
 
+  countdownCallback(){
+      console.log("countdown timer finished ! moving question");
+      this.nextQuestion();
+    }
+
+    seconds:string ="";
+    minutes:string ="";
+    clockDisplay:string=this.minutes + " : " + this.seconds;
+    // clockDisplay:number;
+    duration:number;
+    interval;
+
+
+    tickTick(duration) {
+      this.duration = duration;
+      if (this.duration > 0) {
+          this.interval = setInterval(() => {
+              this.duration--;
+
+              if (this.duration == 0) {
+                  clearInterval(this.interval);
+                  this.nextQuestion();
+              }
+             if (this.duration % 60 < 10) {
+                  this.seconds = "0" + this.duration % 60;
+              } else {
+                  this.seconds = (this.duration % 60).toString();
+              }
+
+              if (this.duration / 60 < 10) {
+                  this.minutes = "0" + parseInt("" + this.duration / 60, 10);
+              } else {
+                  this.minutes = "" + parseInt((this.duration / 60).toString(), 10);
+              }
+
+             this.clockDisplay = this.minutes + " : " + this.seconds
+          }, 1000);
+      }
+  }
+  return;
 }

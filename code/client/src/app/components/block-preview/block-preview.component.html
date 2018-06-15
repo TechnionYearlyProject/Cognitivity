@@ -1,5 +1,6 @@
 <div class=" container" >
 <div *ngFor="let question of block.questions; let i=index" class="form-group"  style="background-color:white;">
+    <div>{{clockDisplay}}</div>
   <app-question-preview *ngIf="showQuestion(i)" [question]="parseToQuestion(question.question)"></app-question-preview>
 </div>
 <br>

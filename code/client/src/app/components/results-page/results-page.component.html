@@ -19,6 +19,7 @@
             <th>Time Distraction</th>
             <th>Time for Answer</th>
             <th>Answer</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -31,6 +32,7 @@
             <td>{{ questionAnswer.is_time_distraction }}</td>
             <td>{{ questionAnswer.time }}</td>
             <td>{{ questionAnswer.answer }}</td>
+            <td><button type="button" class="btn btn-primary">Delete</button></td>
           </tr>
         </tbody>
       </table>
@@ -44,4 +46,3 @@
 <div class="container">
   <input type="submit" class="btn btn-primary btn-md" routerLink="/dashboard" value="Go to dashboard">
 </div>
-

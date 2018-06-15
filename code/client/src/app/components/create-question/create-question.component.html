@@ -15,18 +15,18 @@
                 <label for="Question text">
                     <span style="font-family:Arial; font-size: 25px; color: white">Enter the question:</span>
                 </label>
-              <input autocomplete="off" [(ngModel)]="questionText" name="question1" #question1="ngModel"
-                     type="text" class="form-control" maxLength="256"
-                     placeholder="Question text" style="max-width: 100%;" required maxLength="256">
-                <br>
-                <input  type="checkbox"  [checked]="showDistractions" (click)="toggleDistractions()" style="color: white">
-                <span style="font-family:Arial;  color: white"> Enable distractions</span><br>
-                <form #f="ngForm">
-                <span style="font-family:Arial;  color: white"> Current distractions delay: {{getDistractionDelay()}}</span><br>
-                <span style="font-family:Arial;  color: white"> Change delay to </span>
-                <input type="number" #delay name="quantity"  min="0" max="60" [value]="getDistractionDelay()">
-               <input type="submit" (click)="updateDistractionDelay(delay.value)">
-                <span style="font-family:Arial;  color: white"> seconds</span></form>
+                <input autocomplete="off" [(ngModel)]="questionText" name="question1" #question1="ngModel"
+                       type="text" class="form-control" maxLength="256"
+                       placeholder="Question text" style="max-width: 100%;" required maxLength="256">
+                       <br>
+                       <input  type="checkbox"  [checked]="showDistractions" (click)="toggleDistractions()" style="color: white">
+                       <span style="font-family:Arial;  color: white"> Enable distractions</span><br>
+                       <form #f="ngForm">
+                       <span style="font-family:Arial;  color: white"> Enter number of seconds for the countdown: </span>
+                       <input type="number" #seconds name="quantity"  min="0" max="60" [value]="getDistractionSeconds()">
+                       <span style="font-family:Arial;  color: white"> Enter number of Minutes for the countdown: </span>
+                       <input type="number" #minutes name="quantity"  min="0" max="60" [value]="getDistractionMinutes()">
+                      <input type="submit" (click)="updateDistractionCountdown(seconds.value,minutes.value)"></form>
             </div>
             <div class="container">
                 <div class="dropdown">
@@ -176,4 +176,3 @@
 <br>
 <br>
 </div>
-
