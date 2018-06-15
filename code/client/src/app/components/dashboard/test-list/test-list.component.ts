@@ -28,6 +28,7 @@ export class TestListComponent implements OnInit {
   //an object to represent the current manager. it hold the current logged in user's credentials.
   email;
   managerId;
+  file : File = null;
   //default constructor.
   constructor(
     private testService: TestService,
@@ -181,5 +182,21 @@ export class TestListComponent implements OnInit {
     return false;
   }
 
-
+  updateFile(event){
+    if(event.target.files.length != 1){
+        alert("only one file can be submitted each time");
+        return;
+    }
+    let fullFile = event.target.files[0];
+    var reader = new FileReader();
+    reader.onload = (event) => {
+        try {
+              this.file = reader.result.split('\n').map(x => x.trim());
+                  console.log("Received json: " + this.file);
+        } catch (ex) {
+        alert('exeption when trying to parse json = ' + ex);
+    }
+    };
+    reader.readAsText(fullFile);
+}
 }
