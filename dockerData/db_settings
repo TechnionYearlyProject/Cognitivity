@@ -19,11 +19,18 @@ Fields:
 @name - the name of the test subject.
 @ipAddress - the ip address of the computer from which the test was answered.
 @browser - the questionType of the browser from which the test was answered.
+@birthDate - The birth date of the test subject.
+@Occupation - the occupation of the subject.
+@martialStatus - The martial status of the test subject
 */
 CREATE TABLE testSubject(id INTEGER PRIMARY KEY AUTO_INCREMENT,
   name text,
   ipAddress text,
-  browser text
+  browser text,
+  birthDate text,
+  Occupation text,
+  martialStatus text,
+  email text
 );
 
 /*

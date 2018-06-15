@@ -26,11 +26,11 @@ export class BlockComponent implements OnInit {
   hidden: boolean = true;
   //the actual list of the questions.
   questionList: Array<QuestionInBlock> = new Array<QuestionInBlock>();
- 
+
   //default constructor.
   constructor(private dialog: MatDialog,private router:Router, private transferData: SessionService){this.tags=[]}
-  
-  //this function pops up the dialog for creating a question. 
+
+  //this function pops up the dialog for creating a question.
   openDialog(){
     this.transferData.setData({editMode: false, value: null});
     let dialogRef = this.dialog.open(CreateQuestionComponent, {
@@ -41,9 +41,9 @@ export class BlockComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       let question_object = this.transferData.getData();
       if(question_object != null){
-        this.questionList.splice(this.questionList.length, 0,{question: question_object, id:''});  
+        this.questionList.splice(this.questionList.length, 0,{question: question_object, id:''});
       }
-      
+
     });
   }
 
@@ -53,8 +53,8 @@ export class BlockComponent implements OnInit {
     console.log(this.blockInfo);
     if(this.blockInfo != null){
       for (let i = 0; i < this.blockInfo.questions.length; i++) {
-        this.questionList[i] = 
-        { 
+        this.questionList[i] =
+        {
           question: JSON.parse(this.blockInfo.questions[i].question)
         };
       }
@@ -74,7 +74,7 @@ export class BlockComponent implements OnInit {
   moveMeUp(currentIndex) {
     if(currentIndex != 0){
       let removed = this.questionList.splice(currentIndex,1);
-      this.questionList.splice(currentIndex - 1, 0, removed[0]);  
+      this.questionList.splice(currentIndex - 1, 0, removed[0]);
     }
     /*let arrayLastIndex = this.questionList.length - 1;
     if (currentIndex == 0) {
@@ -104,7 +104,7 @@ export class BlockComponent implements OnInit {
       let removed = this.questionList.splice(currentIndex, 1);
       this.questionList.splice(currentIndex + 1, 0 , removed[0]);
     }
- 
+
     /*let arrayLastIndex = this.questionList.length - 1;
     if (currentIndex == arrayLastIndex) {
       let tmpMe = this.questionList.pop();
@@ -126,7 +126,7 @@ export class BlockComponent implements OnInit {
   /*
   this function creates a new question.
   Input - the number of the current question to be created
-  Output - a question block is newly created. 
+  Output - a question block is newly created.
   */
   editQuestion(index: number){
     this.transferData.setData({editMode: true, value: this.questionList[index].question});
@@ -138,9 +138,9 @@ export class BlockComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       let question_object = this.transferData.getData();
       if(question_object != null){
-        this.questionList.splice(index, 1,{question: question_object, id:''});  
+        this.questionList.splice(index, 1,{question: question_object, id:''});
       }
-      
+
     });
   }
 
@@ -158,14 +158,21 @@ export class BlockComponent implements OnInit {
   */
   getQuestions(): Array<QuestionInBlock>{
     return this.questionList;
-  } 
+  }
+
+  /*
+   * returns the tags array
+   */
+   getTags(){
+       return this.tags.map(item => item.value);
+   }
 
  //this will hold all the tags for the block.
-  tags:string[];
+  tags:any[];
   //tags count
   tags_count = 0;
 
-//can add more functionality 
+//can add more functionality
   addTag(){
     this.tags_count++;
   }
@@ -175,6 +182,6 @@ export class BlockComponent implements OnInit {
     this.tags_count--;
   }
 
-    
+
 
 }

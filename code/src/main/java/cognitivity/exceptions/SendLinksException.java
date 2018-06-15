@@ -4,8 +4,30 @@ package cognitivity.exceptions;
  * Created by ophir on 26/5/18.
  */
 public class SendLinksException extends Throwable {
+
+    private final ErrorType type;
+
+    public enum ErrorType {
+        NOT_REGISTERED,
+        MESSAGE_FAILED_TO_SEND
+    }
+
+    public SendLinksException(ErrorType type) {
+        this.type = type;
+    }
+
     @Override
     public String getMessage() {
-        return "Some subjects were not registered";
+        String msg = "";
+        switch (type) {
+            case NOT_REGISTERED:
+                msg = "Failed to send emails to some of the links";
+                break;
+            case MESSAGE_FAILED_TO_SEND:
+                msg = "Some subjects were not registered";
+                break;
+        }
+
+        return msg;
     }
 }
