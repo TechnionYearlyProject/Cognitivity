@@ -50,7 +50,7 @@ export class BlockPreviewComponent implements OnInit {
   if we did - it triggers an event to notify our caller that the preview of the block is done.
   */
   nextQuestion() {
-   
+   console.log('next question boiiii');
     this.currIndex++;
     if (this.currIndex == this.block.questions.length) {
       this.finish = true;
