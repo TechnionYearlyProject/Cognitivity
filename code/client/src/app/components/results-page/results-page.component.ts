@@ -37,6 +37,7 @@ export class ResultsPageComponent implements OnInit {
     if (isNaN(testId) || testId == '') {
       this.router.navigate(['/dashboard']);
     }
+    this.test_id = parseInt(testId);
     console.log('over here');
     let answers = await this.answerTestService.findAllAnswersForTest(testId);
     this.flag = true;
@@ -46,6 +47,7 @@ export class ResultsPageComponent implements OnInit {
 
   /* Here we define the columns that will be presented. */
   parseAnswers(answers: QuestionAnswerForDB []) {
+    this.answers = [];
     for (let questionAnswer of answers) {
       let answerObject = JSON.parse(questionAnswer.finalAnswer);
       let typeQuestion = JSON.parse(questionAnswer.question.question).type;
@@ -111,9 +113,9 @@ export class ResultsPageComponent implements OnInit {
   }
 
   async deleteQuestionResult(answerId, questionId){
-      console.log("answer id : " + answerId);
-      console.log("question id : " + questionId);
     await this.answerTestService.deleteTestAnswer(questionId, answerId);
+    let answers = await this.answerTestService.findAllAnswersForTest(this.test_id);
+    this.parseAnswers(answers);
   }
 
 
