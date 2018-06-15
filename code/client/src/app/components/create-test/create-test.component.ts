@@ -54,9 +54,9 @@ export class CreateTestComponent implements OnInit {
   testList: Test[];// The list of all the test to choose from 
   testBlockList: Block[];//
   chosenBlock: Block;
-  //Boooleans that represent the stage in the importing. chooseTest represnts that 
-  chooseTest: boolean = true;
-  chooseBlock = false;//
+  testNameToImport: string = '';
+  blockPreview: boolean = false;
+  finished = false;
   //default constructor
   constructor(
     private router:Router,
@@ -296,25 +296,33 @@ export class CreateTestComponent implements OnInit {
     }
   }
 
-  loadTests(){
-    this.chooseBlock = false;
-    this.chooseTest = true;
-  }
 
   async clickTest(index: number){
-      this.chooseTest = false;
-      this.chooseBlock = true;
       let testId = this.testList[index].id;
       let test = await this.testService.findCognitiveTestById(testId);
       this.testBlockList = test.blocks;
+      this.testNameToImport = test.name;
       console.log('The block is: ')
       console.log(this.testBlockList)
   }
   addImportedBlock(index: number){
+    this.testNameToImport = '';
     let blockToAdd = this.testBlockList[index];
     let inputBlock = {block: blockToAdd};
     this.iterator.splice(this.iterator.length, 0, inputBlock);
     //this.blocksList.splice(this.blocksList.length, this.testBlockList[index])
+  }
+  previewBlock(index: number){
+    this.blockPreview = true;
+    let blockToAdd = this.testBlockList[index];
+    this.chosenBlock = blockToAdd;
+  }
+  isFinished(e) {
+    this.finished = e;
+    console.log('in is finished' + e);
+    if(this.finished){
+      this.blockPreview = false;
+    }
   }
 
 }

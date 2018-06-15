@@ -81,3 +81,16 @@ h4 {
   .no-border{
     border: none;
   }
+
+  .btn:focus{
+    outline: none;
+}
+
+.modal-dialog{
+  overflow-y: initial !important
+}
+.modal-body{
+  height: 500px;
+  width: 100%;
+  overflow-y: auto;
+}

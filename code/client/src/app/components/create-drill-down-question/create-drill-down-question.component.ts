@@ -49,7 +49,7 @@ export class CreateDrillDownQuestionComponent implements OnInit {
   viewSecondary: boolean = false;
   //answers of the secondary that is being viewd
   viewAnswers: Array<string> = new Array();
-  //answers of the secondary question that is being 
+  //answers of the secondary question that is being
   questionView: string = '';
   //secondaryAnswers?: Array<Array<string>>;
   editionModeMain?: boolean;
@@ -57,6 +57,8 @@ export class CreateDrillDownQuestionComponent implements OnInit {
   secondaryAnswerMode?: boolean = false;
   //index of the main answer to edit
   indexAnswerInEditMain: number = -1;
+  //true if answer already exists
+  answerExistsInArray: boolean = false;
 
   @Input() question: any;
   constructor() { }
@@ -89,20 +91,27 @@ export class CreateDrillDownQuestionComponent implements OnInit {
     }
   }
 
-    /*
+  /*
 
     The function adds an answer for the main question
   */
   addMainAnswer(){
-    if(this.currentMainAnswer != null && this.currentMainAnswer.length >= 1 && !this.isSpacePrefix(this.currentMainAnswer)){
-      this.mainAnswers.splice(this.mainAnswers.length, 0, this.currentMainAnswer);
-      this.markedMainCorrectAnswer.splice(this.markedMainCorrectAnswer.length, 0, false);
+    // answer already exists
+    if(this.currentMainAnswer != null && this.currentMainAnswer.length >= 1
+        && !this.isSpacePrefix(this.currentMainAnswer)){
+      if(-1 != this.mainAnswers.indexOf(this.currentMainAnswer)){
+        this.answerExistsInArray = true;
+        return;
+      }
+      this.mainAnswers.push(this.currentMainAnswer);
+      this.markedMainCorrectAnswer.push(false);
       this.currentMainAnswer = '';
       this.submitSecondaryQuestion = false;
       this.typedMainAnswer = false;
-    }else{
+    } else {
       this.typedMainAnswer = true;
     }
+    this.answerExistsInArray = false;
   }
   /*
     The function returns TRUE if there are answers to the main question,
@@ -134,7 +143,7 @@ export class CreateDrillDownQuestionComponent implements OnInit {
     this.markedSecondaryCorrectAnswer = new Array();
     this.secondaryAnswers = new Array();
 
-    
+
   }
   /*
     The function saves the answer that was marked as correct
@@ -146,7 +155,7 @@ export class CreateDrillDownQuestionComponent implements OnInit {
       }else{
         this.markedMainCorrectAnswer[i] = false;
       }
-    } 
+    }
   }
   /*
     Deletes an answer to the question
@@ -216,7 +225,7 @@ export class CreateDrillDownQuestionComponent implements OnInit {
     The function moves up the requested answer to the main question
   */
   goMainUp(index: number){
-    
+
     if(index != 0){
       for(let i = 0; i < this.secondaryQuestionList.length; i++){
         if(index - 1 == this.secondaryQuestionList[i].index){
@@ -250,7 +259,7 @@ export class CreateDrillDownQuestionComponent implements OnInit {
       this.mainAnswers.splice(index - 1, 0, removed[0]);
       this.markedMainCorrectAnswer.splice(index - 1, 0, removed_marked_correct[0]);
 
-    } 
+    }
   }
    /*
     The function moves down the requested answer to the main question
@@ -287,7 +296,7 @@ export class CreateDrillDownQuestionComponent implements OnInit {
       let removed_marked_correct = this.markedMainCorrectAnswer.splice(index, 1);
       this.mainAnswers.splice(index + 1, 0, removed[0]);
       this.markedMainCorrectAnswer.splice(index + 1, 0, removed_marked_correct[0]);
-      
+
     }
   }
   /*
@@ -302,7 +311,7 @@ export class CreateDrillDownQuestionComponent implements OnInit {
       }
     }
     let size = Math.max((max * 20), 300);
-    
+
     let returnedSize: string = (size.toString()) + 'px';
     return returnedSize;
   }
@@ -315,7 +324,7 @@ export class CreateDrillDownQuestionComponent implements OnInit {
     }else{
       this.secondaryAnswerMode = true;
     }
-    
+
   }
 
   /*
@@ -358,7 +367,7 @@ export class CreateDrillDownQuestionComponent implements OnInit {
         if(this.markedSecondaryCorrectAnswer[i]){
           correct_answer = i;
         }
-        
+
       }
 
       this.secondaryQuestionList.splice(this.secondaryQuestionList.length, 0, {
@@ -374,7 +383,7 @@ export class CreateDrillDownQuestionComponent implements OnInit {
       this.currentSecondaryQuestion = '';
       this.markedSecondaryCorrectAnswer = new Array();
     }
-    
+
     this.submitSecondaryQuestion = true;
     this.typedSecondaryAnswer = false;
   }
@@ -423,7 +432,7 @@ export class CreateDrillDownQuestionComponent implements OnInit {
   hasSecondaryAnswers(): boolean{
     return this.secondaryAnswers.length >= 1;
   }
-  
+
   /*
     The function marks the correct answer by the user
   */
@@ -434,7 +443,7 @@ export class CreateDrillDownQuestionComponent implements OnInit {
       }else{
         this.markedSecondaryCorrectAnswer[i] = false;
       }
-    } 
+    }
   }
   /*
     The function moves the requested secondary question up
@@ -456,7 +465,7 @@ export class CreateDrillDownQuestionComponent implements OnInit {
       let removed_marked_correct = this.markedSecondaryCorrectAnswer.splice(index, 1);
       this.secondaryAnswers.splice(index + 1, 0, removed[0]);
       this.markedSecondaryCorrectAnswer.splice(index + 1, 0, removed_marked_correct[0]);
-      
+
     }
   }
   /*
