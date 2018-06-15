@@ -29,7 +29,7 @@
         <div style="text-align: center;">
             <button class="btn btn-primary btn-sm" (click)="addBlock()">
                 <span class="fa fa-plus"></span> Create new block</button>
-            <button class="btn btn-success btn-sm" (click)="loadTests()" data-toggle="modal" data-target="#importBlockModal" data-backdrop="static" data-keyboard="false"><span class="fa fa-upload" ></span> Import block</button>
+            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#importTestModal" data-backdrop="static" data-keyboard="false"><span class="fa fa-upload" ></span> Import block</button>
         </div>
     </div>
 
@@ -100,36 +100,25 @@
       </div>
     </div>
 
-    <div class="modal fade" id="importBlockModal">
+    <div class="modal fade" id="importTestModal">
         <div class="modal-dialog">
           <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-              <h4 class="modal-title text-muted">Import Block</h4>
+              <h4 class="modal-title text-muted">Choose test</h4>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
 
             <!-- Modal body -->
-            <div *ngIf="chooseTest" class="modal-body form-group">
-
-                  <div *ngFor="let test of testList; let i = index;">
+            <div class="modal-body form-group">
+                <div *ngFor="let test of testList; let i = index;">
                         <div  class="modal-footer">
-                                <button style="width: 100%; height:100%; font-size: 20px;font-family: Arial;"class="btn btn-secondary btm-sm no-border"  (click)="clickTest(i)">{{ test.name }}</button>
+                                <button data-toggle="modal" data-target="#importBlockModal" data-backdrop="static" data-keyboard="false" style="width: 100%; height:100%; font-size: 20px;font-family: Arial;"class="btn btn-secondary btn-sm no-border"  data-dismiss="modal" (click)="clickTest(i)" >{{ test.name }}</button>
                         </div>
-                  </div>
-
+                </div>
             </div>
-            <div *ngIf="chooseBlock" class="modal-body form-group">
-                    <div *ngIf="chooseBlock" >
-                            <div *ngFor="let block of testBlockList; let i = index;">
-                                  <div class="modal-footer">
-                                          <button style="width: 100%; height:100%; font-size: 20px;font-family: Arial;"class="btn btn-secondary btm-sm no-border" data-dismiss="modal" (click)="addImportedBlock(i)">{{ block.id }}</button>
-                                  </div>
-                            </div>
 
-                    </div>
-            </div>
 
             <!-- Modal footer -->
             <!--div class="modal-footer">
@@ -139,3 +128,31 @@
           </div>
         </div>
       </div>
+      <div class="modal fade" id="importBlockModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <button type="button" class="btn btn-secondary btn-sm no-border" data-dismiss="modal" data-toggle="modal" data-target="#importTestModal" data-backdrop="static" data-keyboard="false"><span class="fa fa-arrow-left"></span></button>
+                  <h4 class="modal-title text-muted">Import Block from {{ testNameToImport }}</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body form-group">
+                    <div *ngIf="!blockPreview">
+                        <div  *ngFor="let block of testBlockList; let i = index;">
+                                <div class="modal-footer">
+                                    <button style="width: 100%; height:100%; font-size: 20px;font-family: Arial;" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="addImportedBlock(i)">{{ block.id }}</button>
+                                    <button class="btn btn-success btn-sm" style="height:100%;" (click)="previewBlock(i)">Preview Block</button>
+                                </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="blockPreview">
+                            <app-block-preview  [block]="chosenBlock" (finished)="isFinished($event)"></app-block-preview>
+                    </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>

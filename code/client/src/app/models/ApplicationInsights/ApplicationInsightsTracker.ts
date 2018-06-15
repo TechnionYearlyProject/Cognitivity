@@ -31,8 +31,6 @@ const instrumentation_key = 'bf85656a-0c3e-4a2d-a744-fdffa181700b';
  * */
 
 export class ApplicationInsightsTracker {
-  private appInsights: Microsoft.ApplicationInsights.IAppInsights;
-
   /**
    * Constructor and configuration.
    * */
