@@ -139,6 +139,9 @@
           <div *ngIf="typedMainAnswer && (currentMainAnswer == null || currentMainAnswer.length < 1 || isSpacePrefix(currentMainAnswer))" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
               Please enter an answer with at least one character and a proper answer text
           </div>
+          <div [hidden] = "!answerExistsInArray" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
+              This answer already exists
+          </div>
       </div>
   </div>
   <div *ngIf="editionModeMain && !secondaryAnswerMode && !viewSecondary && !editionQuestionSecondary">
