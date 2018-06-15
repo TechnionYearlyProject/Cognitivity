@@ -82,7 +82,7 @@ rating question, free text question, multiple choice question, drill down questi
 @answer - this field holds the correct answer for the question of the question is a multiple choice question or a drill down question. Otherwise it holds NULL.
 @project
 @block - a reference to the block in which the question is found
-@pictureLink - a link to a picture, if the question has one
+@PictureLink - a link to a picture, if the question has one
 */
 CREATE TABLE testQuestion(id INTEGER PRIMARY KEY AUTO_INCREMENT,
   question text NOT NULL,
@@ -95,6 +95,15 @@ CREATE TABLE testQuestion(id INTEGER PRIMARY KEY AUTO_INCREMENT,
   FOREIGN KEY (testBlockId) REFERENCES testBlock(id) ON DELETE CASCADE
 );
 
+/*
+  A table to hold all picture links.
+  Fields:
+  @id - The main key for the table
+  @link - The link for a specific picture in the Firebase Service.
+ */
+CREATE TABLE pictureLinks(id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  link text NOT NULL
+);
 
 /*
 testAnswer table holds the information about a specific answer to a question.
