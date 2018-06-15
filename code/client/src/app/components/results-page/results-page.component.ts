@@ -88,7 +88,21 @@ export class ResultsPageComponent implements OnInit {
                 answer: answerString
               }
               break;
-
+          case TypeQuestion.OpenQuestion:
+            questionAnswerParsed = {
+              id: questionAnswer.id,
+              question_id: questionAnswer.question.id,
+              subject_id: questionAnswer.testSubject.id,
+              name: questionAnswer.testSubject.name,
+              question_type: typeQuestion,
+              conf_value: answerObject.confidence,
+              is_time_distraction: false,
+              changes_of_answer: 0,
+              time: 0,
+              time_conf: 0,
+              answer: answerObject.answer
+            }
+            break;
           default:
               questionAnswerParsed = {
                 id: questionAnswer.id,
