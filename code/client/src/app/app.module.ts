@@ -58,6 +58,8 @@ import { TestPageGuard } from './services/test-page-service/test-page-guard';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PreviewImportBlockComponent } from './components/preview-import-block/preview-import-block.component';
 import { FormUploadComponent } from './components/uploads/upload-form/upload-form.component';
+import { GalleryComponent } from './components/gallery/gallery.component';
+import { Upload } from './components/uploads/upload-form/upload';
 
 
 
@@ -120,7 +122,9 @@ const PROVIDED_SERVICES = [
     TestFinishComponent,
     NotFoundComponent,
     PreviewImportBlockComponent,
-    FormUploadComponent
+    FormUploadComponent,
+    GalleryComponent,
+    Upload
   ],
   imports: [
     BrowserModule,
