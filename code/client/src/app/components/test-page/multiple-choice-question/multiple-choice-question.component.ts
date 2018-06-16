@@ -39,8 +39,8 @@ export class TestPageMultipleChoiceQuestionComponent implements OnInit {
   // Event emitter to determine if the subject filled an answer
   @Output() answered: EventEmitter<boolean> = new EventEmitter();
 
-  //number of questions that currently marked, so we can view the confidence bar
-  answeredQuestions:number;
+  //is answered var, so we can view the confidence bar
+  isAnswered: boolean;
 
   //default constructor.
   constructor(){}
@@ -54,7 +54,7 @@ export class TestPageMultipleChoiceQuestionComponent implements OnInit {
       this.constructMatrix();
     }
 
-    this.answeredQuestions = 0;
+    this.isAnswered = false;
   }
 
   /*
@@ -133,7 +133,10 @@ export class TestPageMultipleChoiceQuestionComponent implements OnInit {
         if(i == main_index){
           this.markedAnswers[i] = !this.markedAnswers[i];
           this.answered.emit(this.markedAnswers[i]);
-           this.answeredQuestions += this.markedAnswers[i] ? 1 : -1;
+          this.isAnswered = this.markedAnswers[i];
+        }
+        else {
+          this.markedAnswers[i] = false;
         }
       }
     }else{
@@ -142,7 +145,10 @@ export class TestPageMultipleChoiceQuestionComponent implements OnInit {
           if(i == main_index && j == secondary_index){
             this.markedAnswersMatrix[i][j] = !this.markedAnswersMatrix[i][j];
             this.answered.emit(this.markedAnswersMatrix[i][j]);
-             this.answeredQuestions += this.markedAnswersMatrix[i][j] ? 1 : -1;
+            this.isAnswered = this.markedAnswers[i][j];
+          }
+          else {
+            this.markedAnswersMatrix[i][j] = false;
           }
         }
       }
@@ -223,20 +229,24 @@ export class TestPageMultipleChoiceQuestionComponent implements OnInit {
   }
 
   returnAnswers(){
-    let answers = [];
+    let answerIndex = -1;
     if(this.answerOrganization == TypeMultipleQuestion.Matrix){
       for(let i = 0; i < this.dimMatrix; i++){
         for(let j = 0; j < this.dimMatrix; j++){
           if(this.markedAnswersMatrix[i][j]){
-            answers.push(j*this.dimMatrix + i);
+            answerIndex = j*this.dimMatrix + i;
           }
         }
       }
     }else{
-        answers = this.markedAnswers;
+      for(let i = 0; i < this.markedAnswers.length; i++){
+        if(this.markedAnswers[i]){
+          answerIndex = i;
+      }
     }
-    return answers;
+    return answerIndex;
   }
+}
 
 
   // function to return marked answer
@@ -257,7 +267,7 @@ export class TestPageMultipleChoiceQuestionComponent implements OnInit {
 
   //this function will return the if there any question marked to indicate if we need to show the confidence bar
   get_is_answered():boolean {
-    return this.answeredQuestions > 0;
+    return this.isAnswered;
   }
 
 }

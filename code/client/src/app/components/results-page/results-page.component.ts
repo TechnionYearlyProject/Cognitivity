@@ -54,21 +54,6 @@ export class ResultsPageComponent implements OnInit {
       console.log(questionAnswer);
       let questionAnswerParsed;
       switch(typeQuestion){
-          case TypeQuestion.MultipleChoice:
-              questionAnswerParsed = {
-                id: questionAnswer.id,
-                question_id: questionAnswer.question.id,
-                subject_id: questionAnswer.testSubject.id,
-                name: questionAnswer.testSubject.name,
-                question_type: typeQuestion,
-                conf_value: answerObject.confidence,
-                is_time_distraction: false,
-                changes_of_answer: 0,
-                time: 0,
-                time_conf: 0,
-                answer: (answerObject.answer.map(item => item + 1))
-              };
-              break;
           case TypeQuestion.DrillDownQuestion:
               let answerString;
               if (answerObject.secnodaryAnswer == '-1') {
