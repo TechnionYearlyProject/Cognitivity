@@ -40,7 +40,10 @@ export class TestPageOpenQuestionComponent implements OnInit {
     this.isAnswered = false;
     this.isEdit = true;
   }
-
+//return isEdit 
+is_edit_mode():boolean{
+  return this.isEdit;
+}
   onAnswerChange() {
       if (this.currentAnswer == "") {
           this.answered.emit(false);

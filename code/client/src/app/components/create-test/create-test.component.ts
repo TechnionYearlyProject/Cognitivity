@@ -330,7 +330,8 @@ export class CreateTestComponent implements OnInit {
       if(block.tag == '[]'){
         return 'Block no. ' + index + ' doesn\'t have tags';
       }
-      var tags = JSON.parse(block.tag);
+      let tags = JSON.parse(block.tag);
+      tags = tags.map(item => item.value);
       return tags.join(", ");
   }
 

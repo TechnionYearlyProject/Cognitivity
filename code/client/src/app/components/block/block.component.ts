@@ -58,6 +58,7 @@ export class BlockComponent implements OnInit {
           question: JSON.parse(this.blockInfo.questions[i].question)
         };
       }
+      this.tags = JSON.parse(this.blockInfo.tag);
     }
   }
 
@@ -164,7 +165,7 @@ export class BlockComponent implements OnInit {
    * returns the tags array
    */
    getTags(){
-       return this.tags.map(item => item.value);
+       return this.tags;
    }
 
  //this will hold all the tags for the block.

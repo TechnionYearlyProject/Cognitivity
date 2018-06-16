@@ -28,6 +28,7 @@
         <div style="text-align: center;">
             <button class="btn btn-primary btn-sm" (click)="addBlock()">
                 <span class="fa fa-plus"></span> Create new block</button>
+                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#importTestModal" data-backdrop="static" data-keyboard="false"><span class="fa fa-upload" ></span> Import block</button>
         </div>
     </div>
 
@@ -37,7 +38,7 @@
             <div *ngFor="let it of iterator; let i = index;">
                 <br>
                 <div class="card  bg-info border-dark mb-3">
-                    <app-edit-block [blockNumber]="i" [questionFromDBList]="blockListFromDB[i] ? blockListFromDB[i].questions : []" style="margin:1px;"> </app-edit-block>
+                    <app-edit-block [blockNumber]="i" [block]="it.block" style="margin:1px;"> </app-edit-block>
 
                     <div class="container">
                         <div class="column">
@@ -72,3 +73,60 @@
             Error: a test has no name
         </div>
     </div>
+    <div class="modal fade" id="importTestModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title text-muted">Choose test</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+
+            <!-- Modal body -->
+            <div class="modal-body form-group">
+                <div *ngFor="let test of testList; let i = index;">
+                        <div  class="modal-footer">
+                                <button data-toggle="modal" data-target="#importBlockModal" data-backdrop="static" data-keyboard="false" style="width: 100%; height:100%; font-size: 20px;font-family: Arial;"class="btn btn-secondary btn-sm no-border"  data-dismiss="modal" (click)="clickTest(i)" >{{ test.name }}</button>
+                        </div>
+                </div>
+            </div>
+
+
+            <!-- Modal footer -->
+            <!--div class="modal-footer">
+                <button class="btn btn-block btn-primary col-md-12" data-dismiss="modal" (click)="importBlock()">Import block</button>
+            </div-->
+
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="importBlockModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <button type="button" class="btn btn-secondary btn-sm no-border" data-dismiss="modal" data-toggle="modal" data-target="#importTestModal" data-backdrop="static" data-keyboard="false"><span class="fa fa-arrow-left"></span></button>
+                  <h4 class="modal-title text-muted">Import Block from {{ testNameToImport }}</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body form-group">
+                    <div *ngIf="!blockPreview">
+                        <div  *ngFor="let block of testBlockList; let i = index;">
+                                <div class="modal-footer">
+                                    <button style="width: 100%; height:100%; font-size: 20px;font-family: Arial;" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="addImportedBlock(i)">{{ prettifyTagList(block, i) }}</button>
+                                    <button class="btn btn-success btn-sm" style="height:100%;" (click)="previewBlock(i)">Preview Block</button>
+                                </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="blockPreview">
+                            <app-block-preview  [block]="chosenBlock" (finished)="isFinished($event)"></app-block-preview>
+                    </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+
