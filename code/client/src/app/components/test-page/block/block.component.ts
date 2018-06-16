@@ -35,6 +35,7 @@ export class TestPageBlockComponent implements OnInit {
   //array to indicate for every index , if the question in that index in the block's questions array was displayed.
   wasShownArr: boolean[];
 
+  showClock:boolean;
 
   //default constructor.
   constructor() { }
@@ -53,7 +54,58 @@ export class TestPageBlockComponent implements OnInit {
       this.wasShownArr[i] = false;
     }
     this.currIndex = 0;
+    let tmpFirstQuestion = this.parseToQuestion(this.questions[0]);
+    if(tmpFirstQuestion.showDistractions){
+      this.tickTick(tmpFirstQuestion.distractionsSeconds);
+      this.showClock = true;
+    }
+    else{
+      this.showClock = false;
+    }
   }
+
+  countdownCallback(){
+    console.log("countdown timer finished ! moving question");
+    
+    if (this.wasAllShown() > 0) {
+      this.nextQuestion();
+    }
+  }
+
+  seconds:string ="";
+  minutes:string ="";
+  clockDisplay:string=this.minutes + " : " + this.seconds;
+  // clockDisplay:number;
+  duration:number;
+  interval;
+
+  tickTick(duration) {
+    this.duration = duration;
+    if (this.duration > 0) {
+        this.interval = setInterval(() => {
+            this.duration--;
+
+            if (this.duration == 0) {
+                clearInterval(this.interval);
+                this.nextQuestion();
+            }
+           if (this.duration % 60 < 10) {
+                this.seconds = "0" + this.duration % 60;
+            } else {
+                this.seconds = (this.duration % 60).toString();
+            }
+
+            if (this.duration / 60 < 10) {
+                this.minutes = "0" + parseInt("" + this.duration / 60, 10);
+            } else {
+                this.minutes = "" + parseInt((this.duration / 60).toString(), 10);
+            }
+
+           this.clockDisplay = this.minutes + " : " + this.seconds
+        }, 1000);
+    }
+}
+
 
   /*
   in the HTML file, each question is shown , only if the show question function returns true for it's index.
@@ -113,6 +165,7 @@ export class TestPageBlockComponent implements OnInit {
 
   //console.log("### stopping timing for question "+this.block.questions[this.currIndex].id.toString()+" in block "+this.block.id.toString()+" ###");
   //finish the measurment for the current question.
+  clearInterval(this.interval);
   this.timing.timing_stopQuestionMeasure(this.block.questions[this.currIndex].id,this.block.id);
     ApplicationInsightsTracker.getInstance.trackNumberOfAnswersSwitches(
       this.question.answerSwitcher,
@@ -123,12 +176,20 @@ export class TestPageBlockComponent implements OnInit {
     this.questionAnswers[this.currIndex] = this.question.getAnswer();
     this.currIndex= this.generateRandomIndex();
     this.didAnswerQuestion = false;
-  
-
     if (this.wasAllShown()==0) {
       this.finish = true;
       this.finished.emit();
     }
+    else{
+    let tmpQuestion = this.parseToQuestion(this.questions[this.currIndex]);
+    if(tmpQuestion.showDistractions){
+      this.showClock = true;
+      this.tickTick(tmpQuestion.distractionsSeconds);
+    }
+    else{
+      this.showClock = false;
+    }
+  }
   }
 
   parseToQuestion(question: QuestionInDB): Question {

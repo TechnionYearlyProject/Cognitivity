@@ -123,8 +123,7 @@ const PROVIDED_SERVICES = [
     NotFoundComponent,
     PreviewImportBlockComponent,
     FormUploadComponent,
-    GalleryComponent,
-    Upload
+    GalleryComponent
   ],
   imports: [
     BrowserModule,

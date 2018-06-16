@@ -23,11 +23,9 @@
                        <span style="font-family:Arial;  color: white"> Enable distractions</span><br>
                        <form #f="ngForm">
                        <span style="font-family:Arial;  color: white"> Enter number of seconds for the countdown: </span>
-                       <input type="number" #seconds name="quantity"  min="0" max="60" [value]="getDistractionSeconds()">
-                       <span style="font-family:Arial;  color: white"> Enter number of Minutes for the countdown: </span>
-                       <input type="number" #minutes name="quantity"  min="0" max="60" [value]="getDistractionMinutes()">
-                      <input type="submit" (click)="updateDistractionCountdown(seconds.value,minutes.value)"></form>
-            </div>
+                       <input type="number" [disabled]="!showDistractions" #seconds name="quantity"  min="0" [value]="getDistractionSeconds()">
+                      <input type="submit" [disabled]="!showDistractions" (click)="updateDistractionCountdown(seconds.value)"></form>
+            </div><br>
             <div class="container">
                 <div class="dropdown">
                     <button class="dropbtn" [hidden]="editionMode">

@@ -1,5 +1,10 @@
 <div class=" container" >
   <div *ngFor="let question of block.questions; let i=index" class="form-group"  style="background-color:white;">
+    <div class="customLocation" *ngIf="showClock && showQuestion(i)">
+    
+      {{clockDisplay}}
+    
+    </div>
     <app-test-page-question *ngIf="showQuestion(i)" [timing]="timing" [testId]="testId" [fatherBlockID]="block.id" [question]="parseToQuestion(question)" (finished)="onQuestionFinish( $event)"></app-test-page-question>
   </div>
   <br>

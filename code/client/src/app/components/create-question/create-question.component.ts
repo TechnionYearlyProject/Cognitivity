@@ -50,7 +50,6 @@ export class CreateQuestionComponent implements OnInit {
   indexAnswerInEdit: number = -1;
   //show/hide distractions
   showDistractions:boolean = true;
-  distractionsMinutes:number = 0;
   distractionsSeconds:number=0;
 
   //The question that created and sent to the block component. Will be null in case the user exited the creation of the question before its completion
@@ -90,20 +89,16 @@ export class CreateQuestionComponent implements OnInit {
     console.log(this.showDistractions)
   }
 
-  updateDistractionCountdown(seconds:number,minutes:number){
+  updateDistractionCountdown(seconds:number){
     this.distractionsSeconds = seconds;
-    this.distractionsMinutes = minutes;
+
     console.log("set seconds -"+seconds);
-    console.log("set minutes -"+minutes);
   }
 
   getDistractionSeconds(){
     return this.distractionsSeconds;
   }
 
-  getDistractionMinutes(){
-      return this.distractionsMinutes;
-  }
 
   /*
     Closing the dialog between this component to the block component.
@@ -544,8 +539,7 @@ export class CreateQuestionComponent implements OnInit {
       answersForSecondary: secondary_question_answers,
       correctAnswerSecondary: secondary_correct_answers,
       showDistractions: this.showDistractions,
-      distractionsSeconds:this.distractionsSeconds,
-      distractionsMinutes:this.distractionsMinutes
+      distractionsSeconds:this.distractionsSeconds
     };
 
   }
@@ -567,8 +561,7 @@ export class CreateQuestionComponent implements OnInit {
       questionPosition: this.questionPosition,
       answerText: this.openQuestion.answerText,
       showDistractions: this.showDistractions,
-      distractionsSeconds:this.distractionsSeconds,
-      distractionsMinutes:this.distractionsMinutes
+      distractionsSeconds:this.distractionsSeconds
     }
   }
 
@@ -582,8 +575,7 @@ export class CreateQuestionComponent implements OnInit {
       questionPosition: this.questionPosition,
       heightOfRate: this.rateQuestion.rateSize,
       showDistractions: this.showDistractions,
-      distractionsSeconds:this.distractionsSeconds,
-      distractionsMinutes:this.distractionsMinutes
+      distractionsSeconds:this.distractionsSeconds
     }
   }
 
@@ -607,8 +599,7 @@ export class CreateQuestionComponent implements OnInit {
       correctAnswer: this.matrixQuestion.correctAnswer,
       typeMultipleQuestion: this.typeMultipleQuestion,
       showDistractions: this.showDistractions,
-      distractionsSeconds:this.distractionsSeconds,
-      distractionsMinutes:this.distractionsMinutes
+      distractionsSeconds:this.distractionsSeconds
     }
   }
 
@@ -627,8 +618,7 @@ export class CreateQuestionComponent implements OnInit {
       correctAnswer: this.verticalHrizontalQuestion.correctAnswer,
       typeMultipleQuestion: this.typeMultipleQuestion,
       showDistractions: this.showDistractions,
-      distractionsSeconds:this.distractionsSeconds,
-      distractionsMinutes:this.distractionsMinutes
+      distractionsSeconds:this.distractionsSeconds
     }
     if (this.verticalHrizontalQuestion.answers.indexOf("I don't know") == -1 && this.typeMultipleQuestion != TypeMultipleQuestion.Matrix) {
       this.verticalHrizontalQuestion.answers.splice(this.verticalHrizontalQuestion.answers.length, 0, "I don't know");
@@ -739,7 +729,6 @@ export class CreateQuestionComponent implements OnInit {
   editQuestion(question: any) {
     this.questionText = question.questionText;
     this.showDistractions = question.showDistractions;
-    this.distractionsMinutes = question.distractionsMinutes;
     this.distractionsSeconds = question.distractionsSeconds;
     this.typeQuestion = question.type;
     this.initializeTypeString();
