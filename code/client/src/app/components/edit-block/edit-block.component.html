@@ -34,6 +34,14 @@
               </button>
             </div>
           </div>
+                  <!--the tags will be stored in the items elements. and have the following features:
+         * editable
+         * maximum 5 tags
+         * indicate when inserting duplicated tag
+         TODO - validation
+        -->
+        <tag-input [(ngModel)]='tags' [editable]='true' [maxItems]='10' [blinkIfDupe]='true'
+        [ripple]='true' (onAdd)='addTag()' (onRemove)='removeTag()'></tag-input>
         </div>
         <div class="item">
         </div>
