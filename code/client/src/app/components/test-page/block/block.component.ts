@@ -35,7 +35,7 @@ export class TestPageBlockComponent implements OnInit {
   //array to indicate for every index , if the question in that index in the block's questions array was displayed.
   wasShownArr: boolean[];
 
-  showClock:boolean;
+  showClock:boolean = false;
 
   //default constructor.
   constructor() { }
@@ -57,9 +57,11 @@ export class TestPageBlockComponent implements OnInit {
     let tmpFirstQuestion = this.parseToQuestion(this.questions[0]);
     if(tmpFirstQuestion.showDistractions && (tmpFirstQuestion.distractionsSeconds > 0)){
       this.tickTick(tmpFirstQuestion.distractionsSeconds);
+      console.log("setting clock to true");
       this.showClock = true;
     }
     else{
+      console.log("setting clock to false");
       this.showClock = false;
     }
   }
@@ -184,9 +186,11 @@ export class TestPageBlockComponent implements OnInit {
     let tmpQuestion = this.parseToQuestion(this.questions[this.currIndex]);
     if(tmpQuestion.showDistractions && (tmpQuestion.distractionsSeconds > 0)){
       this.showClock = true;
+      console.log("setting clock to true");
       this.tickTick(tmpQuestion.distractionsSeconds);
     }
     else{
+      console.log("setting clock to false");
       this.showClock = false;
     }
   }
