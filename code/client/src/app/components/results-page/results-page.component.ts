@@ -57,9 +57,9 @@ export class ResultsPageComponent implements OnInit {
           case TypeQuestion.DrillDownQuestion:
               let answerString;
               if (answerObject.secnodaryAnswer == '-1') {
-                answerString = 'Main: ' + (parseInt(answerObject.primaryAnswer) + 1)
+                answerString = 'Main: ' + (parseInt(answerObject.finalAnswer.primaryAnswer) + 1)
               } else {
-                answerString = 'Main: ' + (parseInt(answerObject.primaryAnswer) + 1) + ' Secondary: ' + (parseInt(answerObject.secnodaryAnswer) + 1)
+                answerString = 'Main: ' + (parseInt(answerObject.finalAnswer.primaryAnswer) + 1) + ' Secondary: ' + (parseInt(answerObject.secnodaryAnswer) + 1)
               }
               questionAnswerParsed = {
                 id: questionAnswer.id,
@@ -67,7 +67,7 @@ export class ResultsPageComponent implements OnInit {
                 subject_id: questionAnswer.testSubject.id,
                 name: questionAnswer.testSubject.name,
                 question_type: typeQuestion,
-                conf_value: answerObject.confidence,
+                conf_value: answerObject.finalAnswer.confidence,
                 is_time_distraction: false,
                 changes_of_answer: 0,
                 time: 0,
@@ -82,12 +82,12 @@ export class ResultsPageComponent implements OnInit {
               subject_id: questionAnswer.testSubject.id,
               name: questionAnswer.testSubject.name,
               question_type: typeQuestion,
-              conf_value: answerObject.confidence,
+              conf_value: answerObject.finalAnswer.confidence,
               is_time_distraction: false,
               changes_of_answer: 0,
-              time: 0,
-              time_conf: 0,
-              answer: answerObject.answer
+              time: answerObject.answerTime / 1000,
+              time_conf: answerObject.confidenceTime / 1000,
+              answer: answerObject.finalAnswer.answer
             }
             break;
           default:
@@ -97,12 +97,12 @@ export class ResultsPageComponent implements OnInit {
                 subject_id: questionAnswer.testSubject.id,
                 name: questionAnswer.testSubject.name,
                 question_type: typeQuestion,
-                conf_value: answerObject.confidence,
+                conf_value: answerObject.finalAnswer.confidence,
                 is_time_distraction: false,
                 changes_of_answer: 0,
-                time: 0,
-                time_conf: 0,
-                answer: (parseInt(answerObject.answer) + 1)
+                time: answerObject.answerTime / 1000,
+              time_conf: answerObject.confidenceTime / 1000,
+                answer: (parseInt(answerObject.finalAnswer.answer) + 1)
               };
               break;
       }
