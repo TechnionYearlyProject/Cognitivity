@@ -326,8 +326,11 @@ export class CreateTestComponent implements OnInit {
     }
   }
 
-  prettifyTagList(tagsArrayAsString){
-      var tags = JSON.parse(tagsArrayAsString);
+  prettifyTagList(block, index){
+      if(block.tag == '[]'){
+        return 'Block no. ' + index + ' doesn\'t have tags';
+      }
+      var tags = JSON.parse(block.tag);
       return tags.join(", ");
   }
 

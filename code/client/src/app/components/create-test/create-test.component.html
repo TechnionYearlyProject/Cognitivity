@@ -141,7 +141,7 @@
                     <div *ngIf="!blockPreview">
                         <div  *ngFor="let block of testBlockList; let i = index;">
                                 <div class="modal-footer">
-                                    <button style="width: 100%; height:100%; font-size: 20px;font-family: Arial;" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="addImportedBlock(i)">{{ prettifyTagList(block.tag) }}</button>
+                                    <button style="width: 100%; height:100%; font-size: 20px;font-family: Arial;" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="addImportedBlock(i)">{{ prettifyTagList(block, i) }}</button>
                                     <button class="btn btn-success btn-sm" style="height:100%;" (click)="previewBlock(i)">Preview Block</button>
                                 </div>
                         </div>
