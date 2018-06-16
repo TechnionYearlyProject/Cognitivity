@@ -55,7 +55,7 @@ export class TestPageBlockComponent implements OnInit {
     }
     this.currIndex = 0;
     let tmpFirstQuestion = this.parseToQuestion(this.questions[0]);
-    if(tmpFirstQuestion.showDistractions){
+    if(tmpFirstQuestion.showDistractions && (tmpFirstQuestion.distractionsSeconds > 0)){
       this.tickTick(tmpFirstQuestion.distractionsSeconds);
       this.showClock = true;
     }
@@ -182,7 +182,7 @@ export class TestPageBlockComponent implements OnInit {
     }
     else{
     let tmpQuestion = this.parseToQuestion(this.questions[this.currIndex]);
-    if(tmpQuestion.showDistractions){
+    if(tmpQuestion.showDistractions && (tmpQuestion.distractionsSeconds > 0)){
       this.showClock = true;
       this.tickTick(tmpQuestion.distractionsSeconds);
     }
