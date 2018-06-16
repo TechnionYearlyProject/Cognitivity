@@ -28,7 +28,6 @@
             <version>1.4</version>
         </dependency>
 
-
         <!--    Azure Telemetry     -->
         <!-- https://mvnrepository.com/artifact/com.microsoft.azure/applicationinsights-web -->
         <dependency>
@@ -36,6 +35,16 @@
             <artifactId>applicationinsights-web</artifactId>
             <version>2.1.0</version>
         </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+        <!--
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+        -->
 
         <!-- https://mvnrepository.com/artifact/log4j/log4j -->
         <dependency>
@@ -122,7 +131,7 @@
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.8.4</version>
+            <version>2.8.2</version>
         </dependency>
 
 
@@ -273,7 +282,6 @@
             <version>8.0.11</version>
         </dependency>
 
-
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -305,7 +313,15 @@
     </repositories>
 
     <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>code/src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+        </resources>
+        <sourceDirectory>code/src/main/java</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -332,6 +348,23 @@
                         </program>
                     </programs>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>spring-boot</classifier>
+                            <mainClass>
+                                cognitivity.web.app.CognitivityApplication
+                            </mainClass>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

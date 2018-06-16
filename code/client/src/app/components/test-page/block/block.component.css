@@ -1,0 +1,9 @@
+.customLocation{
+    text-align: center;
+    font-size: 30px;
+    font-style: italic;
+    border-style: double;
+    border: 1px solid black;
+    outline-style: solid;
+    outline-color: red;
+}
