@@ -321,7 +321,7 @@
                 </includes>
             </resource>
         </resources>
-        <sourceDirectory>code/src/main/java</sourceDirectory>
+        <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>

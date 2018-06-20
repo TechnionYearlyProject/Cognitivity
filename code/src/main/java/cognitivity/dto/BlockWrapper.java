@@ -11,6 +11,10 @@ import java.util.List;
 /**
  * A wrapper class for test blocks.
  * Including the List of the questions they hold
+ *
+ *
+ * @Author - Pe'er
+ * @Date - 2.2.18
  */
 public class BlockWrapper {
 

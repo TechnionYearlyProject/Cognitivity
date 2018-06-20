@@ -1,11 +1,12 @@
 package cognitivity.services.mailing;
 
 import javax.mail.*;
-import javax.mail.internet.*;
-import java.util.Arrays;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import java.util.List;
 import java.util.Properties;
-import java.util.stream.Collectors;
 
 /**
  * Created by ophir on 15/06/18.
@@ -63,9 +64,10 @@ public class MailingClient {
         message.setFrom(new InternetAddress(from));
 
         // Create array of addresses
-        Address[] toAddress = new Address[to.size()];
+        InternetAddress[] toAddress = new InternetAddress[to.size()];
         for (int i = 0; i < to.size(); i++) {
             toAddress[i] = new InternetAddress(to.get(i));
+            toAddress[i].validate();
         }
         // Add recipients
         message.addRecipients(Message.RecipientType.TO,
