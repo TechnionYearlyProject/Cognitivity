@@ -12,7 +12,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,6 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static cognitivity.TestUtil.jsonData;
 import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Matchers.anyLong;
 
 /**
@@ -106,23 +106,23 @@ public class LoadFromFileServiceTest {
 
     @Test
     public void testFileContentOkay_ShouldFinishLoading() {
-        Mockito.when(testManagerDAO.managerWithIdExists(anyLong()))
-                .thenReturn(true);
-        Mockito.when(cognitiveTestDAO.testWithNameExists("test"))
-                .thenReturn(false);
-
-        service = new LoadFromFileService(
-                testQuestionDAO,
-                cognitiveTestDAO,
-                testBlockDAO,
-                testManagerDAO,
-                (s) -> new TestReader(jsonData)
-        );
-
-
         try {
+            Mockito.when(testManagerDAO.managerWithIdExists(anyLong()))
+                    .thenReturn(true);
+            Mockito.when(cognitiveTestDAO.testWithNameExists(anyString()))
+                    .thenReturn(false);
+
+            service = new LoadFromFileService(
+                    testQuestionDAO,
+                    cognitiveTestDAO,
+                    testBlockDAO,
+                    testManagerDAO,
+                    (s) -> new TestReader(jsonData)
+            );
+
+
             service.loadFromJSONFile(jsonData, 1L);
-        } catch (LoaderException | DBException e) {
+        } catch (Exception e) {
             fail();
         }
 
