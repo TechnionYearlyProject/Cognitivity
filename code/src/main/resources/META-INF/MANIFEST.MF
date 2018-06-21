@@ -1,2 +1,2 @@
 Manifest-Version: 1.0
-Main-Class: cognitivity.web.app.CognitivityApplication
+Main-Class: cognitivity.CognitivityApplication
