@@ -186,17 +186,17 @@
     </properties>
 
     <build>
-        <sourceDirectory>code/src/main/java</sourceDirectory>
+        <!--<sourceDirectory>code/src/main/java</sourceDirectory>-->
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <classifier>spring-boot</classifier>
-                    <mainClass>
-                        cognitivity.CognitivityApplication
-                    </mainClass>
-                </configuration>
+                <!--<configuration>-->
+                <!--<classifier>spring-boot</classifier>-->
+                <!--<mainClass>-->
+                <!--cognitivity.CognitivityApplication-->
+                <!--</mainClass>-->
+                <!--</configuration>-->
             </plugin>
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
@@ -208,6 +208,19 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <formats>
+                        <format>html</format>
+                        <format>xml</format>
+                    </formats>
+                    <check />
+                </configuration>
             </plugin>
         </plugins>
     </build>
