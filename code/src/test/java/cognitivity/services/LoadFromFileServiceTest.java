@@ -19,6 +19,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static cognitivity.TestUtil.jsonData;
+import static org.junit.Assert.fail;
+import static org.mockito.Matchers.anyLong;
 
 /**
  * Created by ophir on 25/05/18.
@@ -80,7 +82,7 @@ public class LoadFromFileServiceTest {
                         null
                 )
         );
-        Mockito.when(testManagerDAO.managerWithIdExists(Matchers.anyLong()))
+        Mockito.when(testManagerDAO.managerWithIdExists(anyLong()))
                 .thenReturn(true);
         Mockito.when(cognitiveTestDAO.testWithNameExists("test"))
                 .thenReturn(true);
@@ -92,7 +94,7 @@ public class LoadFromFileServiceTest {
 
     @Test
     public void testFileContentCorrupted_ShouldThrowLoaderException() throws DBException, LoaderException {
-        Mockito.when(testManagerDAO.managerWithIdExists(Matchers.anyLong()))
+        Mockito.when(testManagerDAO.managerWithIdExists(anyLong()))
                 .thenReturn(true);
         Mockito.when(cognitiveTestDAO.testWithNameExists("test"))
                 .thenReturn(false);
@@ -103,7 +105,12 @@ public class LoadFromFileServiceTest {
     }
 
     @Test
-    public void testFileContentOkay_ShouldFinishLoading() throws DBException, LoaderException {
+    public void testFileContentOkay_ShouldFinishLoading() {
+        Mockito.when(testManagerDAO.managerWithIdExists(anyLong()))
+                .thenReturn(true);
+        Mockito.when(cognitiveTestDAO.testWithNameExists("test"))
+                .thenReturn(false);
+
         service = new LoadFromFileService(
                 testQuestionDAO,
                 cognitiveTestDAO,
@@ -112,12 +119,12 @@ public class LoadFromFileServiceTest {
                 (s) -> new TestReader(jsonData)
         );
 
-        Mockito.when(testManagerDAO.managerWithIdExists(Matchers.anyLong()))
-                .thenReturn(true);
-        Mockito.when(cognitiveTestDAO.testWithNameExists("test"))
-                .thenReturn(false);
 
-        service.loadFromJSONFile(jsonData, 1L);
+        try {
+            service.loadFromJSONFile(jsonData, 1L);
+        } catch (LoaderException | DBException e) {
+            fail();
+        }
 
     }
 
