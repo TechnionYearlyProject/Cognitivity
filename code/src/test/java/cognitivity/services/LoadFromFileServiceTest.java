@@ -6,10 +6,8 @@ import cognitivity.dao.TestManagerDAO;
 import cognitivity.dao.TestQuestionDAO;
 import cognitivity.exceptions.*;
 import cognitivity.services.fileLoader.TestReader;
-import com.google.gson.JsonParser;
 import config.LoadFromFileDependencyBeanConfiguration;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -20,8 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import static cognitivity.TestUtil.jsonData;
 
 /**
  * Created by ophir on 25/05/18.
@@ -106,11 +103,7 @@ public class LoadFromFileServiceTest {
     }
 
     @Test
-    @Ignore
-    public void testFileContentOkay_ShouldFinishLoading() throws DBException, LoaderException, FileNotFoundException {
-        String jsonDataPath = System.getProperty("user.dir") + "/src/test/resources/test1.json";
-        String jsonData = new JsonParser().parse(new FileReader(jsonDataPath)).toString();
-
+    public void testFileContentOkay_ShouldFinishLoading() throws DBException, LoaderException {
         service = new LoadFromFileService(
                 testQuestionDAO,
                 cognitiveTestDAO,
