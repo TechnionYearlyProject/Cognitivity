@@ -4,19 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.Cognitivity.app</groupId>
-    <artifactId>Cognitivity</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
-
-    <name>Cognitivity Web Application</name>
-    <url>http://maven.apache.org</url>
-
-    <properties>
-        <!-- necessary for intellij to function -->
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
+    <groupId>com.cognitivity.app</groupId>
+    <artifactId>cognitivity</artifactId>
+    <version>1.0</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -94,7 +84,6 @@
         </dependency>
 
 
-
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
@@ -139,8 +128,6 @@
         </dependency>
 
 
-
-
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
@@ -170,11 +157,6 @@
         </dependency>
 
 
-
-
-
-
-
         <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
         <dependency>
             <groupId>org.springframework.security</groupId>
@@ -199,18 +181,11 @@
 
     </dependencies>
 
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+
     <build>
-        <resources>
-            <resource>
-                <directory>code/src/main/resources</directory>
-                <includes>
-                    <include>**/*.properties</include>
-                </includes>
-            </resource>
-        </resources>
-
-        <sourceDirectory>src/main/java</sourceDirectory>
-
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
