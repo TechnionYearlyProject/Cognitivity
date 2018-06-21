@@ -186,7 +186,7 @@
     </properties>
 
     <build>
-        <!--<sourceDirectory>code/src/main/java</sourceDirectory>-->
+        <sourceDirectory>code/src/main/java</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

@@ -186,16 +186,16 @@
     </properties>
 
     <build>
-        <!--<sourceDirectory>src/main/java</sourceDirectory>-->
+        <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <!--<configuration>-->
-                <!--<classifier>spring-boot</classifier>-->
-                <!--<mainClass>-->
-                <!--cognitivity.CognitivityApplication-->
-                <!--</mainClass>-->
+                    <!--<classifier>spring-boot</classifier>-->
+                    <!--<mainClass>-->
+                        <!--cognitivity.CognitivityApplication-->
+                    <!--</mainClass>-->
                 <!--</configuration>-->
             </plugin>
             <plugin>
@@ -219,7 +219,7 @@
                         <format>html</format>
                         <format>xml</format>
                     </formats>
-                    <check />
+                    <check/>
                 </configuration>
             </plugin>
         </plugins>
