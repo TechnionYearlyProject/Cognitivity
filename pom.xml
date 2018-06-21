@@ -186,6 +186,11 @@
     </properties>
 
     <build>
+        <resources>
+            <resource>
+                <directory>code/src/main/resources</directory>
+            </resource>
+        </resources>
         <sourceDirectory>code/src/main/java</sourceDirectory>
         <plugins>
             <plugin>
