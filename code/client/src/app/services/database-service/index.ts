@@ -14,7 +14,7 @@ import {
   import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/empty';
-import 'rxjs/add/operator/retry'; 
+import 'rxjs/add/operator/retry';
 import 'rxjs/add/operator/do';
 
 //The following code is meant to make the error handling more modular, please ignore it for now
@@ -47,7 +47,7 @@ import 'rxjs/add/operator/do';
 // }
 
 class HttpTarget{
-    private static deployedUrl : string = 'https://cognitivity.azurewebsites.net'; 
+    private static deployedUrl : string = 'https://cognitivity.azurewebsites.net';
     private static httpTarget : string = 'http://localhost:8181';
     static getHttpTaraget(): string{
         return this.deployedUrl;
@@ -56,13 +56,13 @@ class HttpTarget{
 // Error handler class, holds behavior when errors are returned from server
 class ErrorHandler {
     static handleError(error: any) {
-        
+
         let errorMessage = JSON.parse(error._body).message;
         alert("Error:\ncould not perform the last operation.\n"+errorMessage);
 
         return Promise.reject(error.message || error);
     }
-    
+
 
 }
 
@@ -163,7 +163,7 @@ export class TestService {
         return this.http.get(`${this.target}${this.base_mapping}/findCognitiveTestById?testId=${testId}`)
         .toPromise()
         .then(response => response.json() as Test)
-        .catch(ErrorHandler.handleError)
+        .catch(()=>{return null;})
     }
 
 
@@ -202,7 +202,7 @@ export class QuestionService {
         .catch(ErrorHandler.handleError);
     }
 
-    
+
 
 }
 
@@ -376,6 +376,6 @@ export class PictureLinkService {
         .catch(ErrorHandler.handleError);
     }
 
-    
+
 
 }
