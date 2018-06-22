@@ -323,7 +323,6 @@ export class EmailsService {
     }
 }
 
-<<<<<<< HEAD
 class STRING {
     body: string;
 }
@@ -343,7 +342,6 @@ export class CheckBackService {
     }
 }
 
-=======
 
 @Injectable()
 export class PictureLinkService {
@@ -381,4 +379,3 @@ export class PictureLinkService {
     
 
 }
->>>>>>> 639ffd14138100d33d6ad66dd51ac790d8fca88d
