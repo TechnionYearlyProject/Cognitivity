@@ -4,4 +4,3 @@
         - "code/src/test/**/*"
         - "code/src/main/java/cognitivity/web/app/*"
         - "code/src/main/java/cognitivity/services/DistributeTestLinkToSubjectService"
-        - "code/src/main/java/cognitivity/services/mailing/*"
