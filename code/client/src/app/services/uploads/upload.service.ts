@@ -39,13 +39,13 @@ export class UploadService {
       (): any => {
         upload.url = uploadTask.snapshot.downloadURL;
         upload.name = upload.file.name;
-        this.saveFileData(upload);
+        this.saveFileData(uploadTask.snapshot.downloadURL);
       }
     );
   }
   //Saving the link in the database
-  private saveFileData(upload: Upload) {
-    this.pictureLinkService.savePictureLink(upload.url);
-    console.log('File saved!: ' + upload.url);
+  private async saveFileData(upload: String) {
+    await this.pictureLinkService.savePictureLink(upload);
+    console.log('File saved!: ' + upload);
   }
 }

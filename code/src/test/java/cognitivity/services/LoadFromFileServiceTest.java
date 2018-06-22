@@ -106,6 +106,7 @@ public class LoadFromFileServiceTest {
     }
 
     @Test
+
     @Ignore
     public void testFileContentOkay_ShouldFinishLoading() {
         try {

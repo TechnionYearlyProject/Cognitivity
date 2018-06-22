@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -103,10 +104,15 @@ public class PictureLinkService {
      * @return - All picture links in the system.
      * @throws DBException - In case of DB error.
      */
-    public List<PictureLink> getAllPictureLinks() throws DBException{
+    public List<String> getAllPictureLinks() throws DBException{
         try{
-            List<PictureLink> toReturn = dao.getAllLinks();
+            List<PictureLink> links = dao.getAllLinks();
             logger.info("Successfully got all PictureLinks.");
+            List<String> toReturn = new ArrayList<String>();
+            for (PictureLink link : links){
+                toReturn.add(link.getLink());
+            }
+
             return toReturn;
         }catch (org.hibernate.HibernateException e) {
             logger.error("Failed to get all PictureLinks.");
