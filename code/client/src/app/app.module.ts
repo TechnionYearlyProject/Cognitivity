@@ -8,6 +8,7 @@ import { AngularFireDatabase, AngularFireDatabaseModule } from 'angularfire2/dat
 import {AngularFireAuthModule } from 'angularfire2/auth';
 import { TagInputModule } from 'ngx-chips';
 import { AgGridModule } from 'ag-grid-angular';
+import * as firebase from 'firebase';
 
 
 /* Components */
@@ -26,7 +27,11 @@ import { TestPageRateQuestionComponent } from './components/test-page/rate-quest
 import { TestPageMultipleChoiceQuestionComponent } from './components/test-page/multiple-choice-question/multiple-choice-question.component';
 import { TestPageQuestionComponent } from './components/test-page/question/question.component';
 /* Services */
-import { TestManagerService, TestAnswerService, TestService, SubjectService, QuestionService, FileUploadService, TestAnswersService, EmailsService, CheckBackService } from './services/database-service';
+<<<<<<< HEAD
+import { TestManagerService, TestAnswerService, TestService, SubjectService, QuestionService, FileUploadService, TestAnswersService, EmailsService, CheckBackService, PictureLinkService } from './services/database-service';
+=======
+import { TestManagerService, TestAnswerService, TestService, SubjectService, QuestionService, FileUploadService, TestAnswersService, EmailsService, PictureLinkService } from './services/database-service';
+>>>>>>> 639ffd14138100d33d6ad66dd51ac790d8fca88d
 import { RateQuestionComponent } from './components/rate-question/rate-question.component';
 import { AuthService } from './services/auth-service';
 import { LocalStorageService } from './services/local-storage';
@@ -57,9 +62,12 @@ import { TestFinishComponent } from './components/test-page/test-finish/test-fin
 import { TestPageGuard } from './services/test-page-service/test-page-guard';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PreviewImportBlockComponent } from './components/preview-import-block/preview-import-block.component';
-import { FormUploadComponent } from './components/uploads/upload-form/upload-form.component';
+import { UploadComponent } from './components/uploads/upload.component';
 import { GalleryComponent } from './components/gallery/gallery.component';
-import { Upload } from './components/uploads/upload-form/upload';
+import { Upload } from './components/uploads/upload';
+import { ImageService } from './services/image/image.service';
+import { UploadService } from './services/uploads/upload.service';
+import { ImageDetailComponent } from './components/image-detail/image-detail.component';
 
 
 
@@ -87,6 +95,9 @@ const PROVIDED_SERVICES = [
   TestPageGuard, 
   EmailsService,
   CheckBackService
+  ImageService,
+  UploadService,
+  PictureLinkService
 ];
 
 @NgModule({
@@ -123,8 +134,9 @@ const PROVIDED_SERVICES = [
     TestFinishComponent,
     NotFoundComponent,
     PreviewImportBlockComponent,
-    FormUploadComponent,
-    GalleryComponent
+    UploadComponent,
+    GalleryComponent,
+    ImageDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -133,7 +145,7 @@ const PROVIDED_SERVICES = [
     MyDatePickerModule,
     HttpModule,
     AngularFireAuthModule,
-    AngularFireModule.initializeApp(environment.firebase,'Cognitivity'),
+    AngularFireModule.initializeApp(environment.firebase),
     MatDialogModule,
     BrowserAnimationsModule,
     TagInputModule,

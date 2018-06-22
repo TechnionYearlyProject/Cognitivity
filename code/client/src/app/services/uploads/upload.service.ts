@@ -1,61 +1,51 @@
-import {Injectable} from '@angular/core';
-import {AngularFireDatabase} from 'angularfire2/database';
-import * as firebase from 'firebase';
- 
-import {Upload} from '../../components/uploads/upload-form/upload';
- 
+import { Injectable } from '@angular/core';
+import { AngularFireModule } from 'angularfire2';
+import { GalleryImage } from '../../models/galleryImage/galleryImage.model';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { FirebaseListObservable, FirebaseObjectObservable } from  'angularfire2/database-deprecated'
+import { Upload } from '../../components/uploads/upload';
+import { PictureLinkService } from '../database-service'
+import * as  firebase from 'firebase';
+
+
 @Injectable()
 export class UploadService {
- 
-  constructor(private db: AngularFireDatabase) {}
- 
+
   private basePath = '/uploads';
- 
-  pushFileToStorage(fileUpload: Upload, progress: {percentage: number}) {
+  private uploads: FirebaseListObservable<GalleryImage[]>;
+
+  constructor(private ngFire: AngularFireModule, private db: AngularFireDatabase, private pictureLinkService: PictureLinkService) { }
+
+  uploadFile(upload: Upload) {
+    //firebase.initializeApp(environment.firebase,'Cognitivity1');
     const storageRef = firebase.storage().ref();
-    const uploadTask = storageRef.child(`${this.basePath}/${fileUpload.file.name}`).put(fileUpload.file);
- 
+    const uploadTask = storageRef.child(`${this.basePath}/${upload.file.name}`)
+      .put(upload.file);
+
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+      // three observers
+      // 1.) state_changed observer
       (snapshot) => {
-        // in progress
-        const snap = snapshot as firebase.storage.UploadTaskSnapshot
-        progress.percentage = Math.round((snap.bytesTransferred / snap.totalBytes) * 100)
+        // upload in progress
+        upload.progress = (uploadTask.snapshot.bytesTransferred / uploadTask.snapshot.totalBytes) * 100;
+        console.log(upload.progress);
       },
+      // 2.) error observer
       (error) => {
-        // fail
-        alert("Could no upload file.\nPlease try again later.");
-        console.log(error)
+        // upload failed
+        console.log(error);
       },
-      () => {
-        // success
-        fileUpload.url = uploadTask.snapshot.downloadURL
-        fileUpload.name = fileUpload.file.name
-        this.saveFileData(fileUpload)
+      // 3.) success observer
+      (): any => {
+        upload.url = uploadTask.snapshot.downloadURL;
+        upload.name = upload.file.name;
+        this.saveFileData(upload);
       }
     );
   }
-
-  deleteUpload(upload: Upload) {
-    this.deleteFileData(upload.$key)
-    .then( () => {
-      this.deleteFileStorage(upload.name)
-    })
-    .catch(error => console.log(error))
-  }
-
-    // Deletes the file details from the realtime db
-    private deleteFileData(key: string) {
-      return this.db.list(`${this.basePath}/`).remove(key);
-    }
-
-      // Firebase files must have unique names in their respective storage dir
-  // So the name serves as a unique key
-  private deleteFileStorage(name:string) {
-    let storageRef = firebase.storage().ref();
-    storageRef.child(`${this.basePath}/${name}`).delete()
-  }
- 
-  private saveFileData(fileUpload: Upload) {
-    this.db.list(`${this.basePath}/`).push(fileUpload);
+  //Saving the link in the database
+  private saveFileData(upload: Upload) {
+    this.pictureLinkService.savePictureLink(upload.url);
+    console.log('File saved!: ' + upload.url);
   }
 }
