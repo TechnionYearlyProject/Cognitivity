@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static cognitivity.controllers.AbstractRestController.crossOriginLocal;
+import static cognitivity.controllers.AbstractRestController.crossOriginRemote;
 import static cognitivity.controllers.TestAnswerController.baseMapping;
 
 /**
@@ -20,8 +22,8 @@ import static cognitivity.controllers.TestAnswerController.baseMapping;
 @RequestMapping(value = baseMapping,
         produces = "application/json;charset=UTF-8")
 @CrossOrigin(origins = {
-        "http://localhost:4200",
-        "https/cognitivityfrontend.azurewebsites.net"
+        crossOriginLocal,
+        crossOriginRemote
 })
 public class TestAnswerController extends AbstractRestController<TestAnswerService> {
 

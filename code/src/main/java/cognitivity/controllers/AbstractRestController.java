@@ -8,10 +8,9 @@ import cognitivity.web.app.CognitivityApplicationInsights;
  */
 public abstract class AbstractRestController<ServiceType> {
 
-    protected static final String[] crossOrigin = new String[]{
-            "http://localhost:4200",
-            "https/cognitivityfrontend.azurewebsites.net"
-    };
+    protected static final String crossOriginLocal = "http://localhost:4200";
+    protected static final String crossOriginRemote = "https://cognitivityfrontend.azurewebsites.net";
+
     protected final ServiceType service;
     protected CognitivityApplicationInsights applicationInsights = CognitivityApplicationInsights.getInstance();
 

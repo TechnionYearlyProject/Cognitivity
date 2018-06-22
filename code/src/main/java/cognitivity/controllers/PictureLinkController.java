@@ -22,7 +22,7 @@ import static cognitivity.controllers.PictureLinkController.baseMapping;
         produces = "application/json;charset=UTF-8")
 @CrossOrigin(origins = {
         "http://localhost:4200",
-        "https/cognitivityfrontend.azurewebsites.net"
+        "https://cognitivityfrontend.azurewebsites.net"
 })
 public class PictureLinkController extends AbstractRestController<PictureLinkService> {
 
