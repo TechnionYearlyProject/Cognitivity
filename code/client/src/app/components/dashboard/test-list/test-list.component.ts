@@ -30,6 +30,8 @@ export class TestListComponent implements OnInit {
   managerId;
   file : string[] = null;
   link: string;
+
+  loaded: boolean = false;
   //default constructor.
   constructor(
     private testService: TestService,
@@ -44,11 +46,17 @@ export class TestListComponent implements OnInit {
     try {
       this.email = this.authService.getCurrentManagerEmail();
       this.managerId = await this.tmService.getManagerId(this.email);
-      this.testList = await this.testService.findTestsForTestManager(this.managerId);
-      this.filteredTestList = [];
-      this.testList.forEach((test) => {
+      //this.testList = await this.testService.findTestsForTestManager(this.managerId);
+      this.testService.findTestsForTestManager(this.managerId).then(testList => {
+        this.loaded = true;
+        this.testList = testList;
+        console.log(this.testList[0]);
+        this.filteredTestList = [];
+        this.testList.forEach((test) => {
           this.filteredTestList.push(test);
+        });
       });
+      
 
     } catch(err) {
       console.log(err);
@@ -180,7 +188,7 @@ export class TestListComponent implements OnInit {
     await this.emailsService.sendLinks(emails);
   }
   genLinkForTest(test: Test){
-    this.link = "http://localhost:4200/test/" + test.id;
+    this.link = "https://cognitivitywebsite.azurewebsites.net//test/" + test.id;
   }
   updateFile(event){
     if(event.target.files.length != 1){

@@ -76,7 +76,8 @@
       </div>
 <ng-template #noTests>
   <hr>
-  <h5>There are no tests in the system... Click <a href="#" routerLink="/create-test" >here</a> to add a test</h5>
+  <h5 *ngIf="loaded">There are no tests in the system... Click <a href="#" routerLink="/create-test" >here</a> to add a test</h5>
+  <h5 *ngIf="!loaded">Loading tests, please wait....</h5>
 </ng-template>
 <ng-template #noMatchingTests>
   <hr>
