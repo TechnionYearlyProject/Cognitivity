@@ -492,6 +492,7 @@ export class CreateQuestionComponent implements OnInit {
               this.closeDialog();
             }
           }
+          //Mark onSumit
         }
 
 
