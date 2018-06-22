@@ -26,6 +26,9 @@ export class EditTestComponent implements OnInit {
   @ViewChildren(EditBlockComponent) blocks: QueryList<EditBlockComponent>;
   //the actual list of the blocks.
   blocksList = []
+
+  loaded: boolean = false;
+  
   //object of a test , so we can save and import tests.
   test: Test;
   //for iterating over the blocks. we want to keep a question related to it's current block object.
@@ -81,16 +84,18 @@ export class EditTestComponent implements OnInit {
     if (isNaN(testId) || testId == '') {
       this.router.navigate(['/dashboard']);
     }
-    this.test = await this.testService.findCognitiveTestById(testId);
-    console.log(this.test);
-    for (let i = 0; i < this.test.blocks.length; i++) {
-      this.addEditBlock(this.test.blocks[i]);
-    }
-
-    this.titleTest = this.test.name;
-    this.projectTest = this.test.project;
-    this.notesTest = this.test.notes;
-    this.blockListFromDB = this.test.blocks;
+    this.testService.findCognitiveTestById(testId).then((test) => {
+        this.test = test;
+        console.log(this.test);
+        for (let i = 0; i < this.test.blocks.length; i++) {
+            this.addEditBlock(this.test.blocks[i]);
+        }
+        this.loaded = true;
+        this.titleTest = this.test.name;
+        this.projectTest = this.test.project;
+        this.notesTest = this.test.notes;
+        this.blockListFromDB = this.test.blocks;
+    });
 
     try {
       this.testList = await this.testService.findTestsForTestManager(managerId);

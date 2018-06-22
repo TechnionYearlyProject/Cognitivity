@@ -50,13 +50,12 @@ export class TestListComponent implements OnInit {
       this.testService.findTestsForTestManager(this.managerId).then(testList => {
         this.loaded = true;
         this.testList = testList;
-        console.log(this.testList[0]);
         this.filteredTestList = [];
         this.testList.forEach((test) => {
           this.filteredTestList.push(test);
         });
       });
-      
+
 
     } catch(err) {
       console.log(err);
