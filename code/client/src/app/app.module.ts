@@ -23,7 +23,6 @@ import {TestPageRateQuestionComponent} from './components/test-page/rate-questio
 import {TestPageMultipleChoiceQuestionComponent} from './components/test-page/multiple-choice-question/multiple-choice-question.component';
 import {TestPageQuestionComponent} from './components/test-page/question/question.component';
 /* Services */
-<<<<<<< HEAD
 import { TestManagerService, TestAnswerService, TestService, SubjectService, QuestionService, FileUploadService, TestAnswersService, EmailsService, CheckBackService, PictureLinkService } from './services/database-service';
 import { RateQuestionComponent } from './components/rate-question/rate-question.component';
 import { AuthService } from './services/auth-service';
@@ -34,29 +33,6 @@ import { MultipleChoiceQuestionComponent } from './components/multiple-choice-qu
 import { SessionService } from './services/session-service';
 import { AuthGuard, LoginGuard } from './services/auth-service/auth-guard';
 import { environment } from '../environments/environment';
-=======
-import {
-  CheckBackService,
-  EmailsService,
-  FileUploadService,
-  PictureLinkService,
-  QuestionService,
-  SubjectService,
-  TestAnswerService,
-  TestAnswersService,
-  TestManagerService,
-  TestService
-} from './services/database-service';
-import {RateQuestionComponent} from './components/rate-question/rate-question.component';
-import {AuthService} from './services/auth-service';
-import {LocalStorageService} from './services/local-storage';
-import {CreateTestComponent} from './components/create-test/create-test.component';
-import {CreateQuestionComponent} from './components/create-question/create-question.component';
-import {MultipleChoiceQuestionComponent} from './components/multiple-choice-question/multiple-choice-question.component';
-import {SessionService} from './services/session-service';
-import {AuthGuard, LoginGuard} from './services/auth-service/auth-guard';
-import {environment} from '../environments/environment';
->>>>>>> fc8ea78bee0aef04b26b920c7de765d4519fa185
 
 
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
