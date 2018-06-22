@@ -4,6 +4,8 @@ ignore:
   - "code/src/main/java/cognitivity/web/app"
   - "code/src/main/java/cognitivity/services/DistributeTestLinkToSubjectService.java"
   - "code/src/main/java/cognitivity/services/mailing"
-
+  - "code/src/main/java/cognitivity/CognitivityApplication.java"
+  - "code/src/main/java/cognitivity/security"
+  
 codecov:
   strict_yaml_branch: master
