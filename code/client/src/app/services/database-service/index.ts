@@ -47,9 +47,10 @@ import 'rxjs/add/operator/do';
 // }
 
 class HttpTarget{
+    private static deployedUrl : string = 'https://cognitivity.azurewebsites.net'; 
     private static httpTarget : string = 'http://localhost:8181';
     static getHttpTaraget(): string{
-        return this.httpTarget;
+        return this.deployedUrl;
     }
 }
 // Error handler class, holds behavior when errors are returned from server
@@ -321,3 +322,23 @@ export class EmailsService {
         .catch(ErrorHandler.handleError);
     }
 }
+
+class STRING {
+    body: string;
+}
+@Injectable()
+export class CheckBackService {
+    private target : string = HttpTarget.getHttpTaraget();
+    private headers = new Headers({"Content-Type": "application/json"});
+    private base_mapping = '/send-links';
+
+    //functions
+    constructor(private http: Http) {}
+    checkBackEnd() : Promise<string> {
+        return this.http.get(`${this.target}${this.base_mapping}/hi`, {headers: this.headers})
+        .toPromise()
+        .then(response => response.text() )
+        .catch(ErrorHandler.handleError)
+    }
+}
+
