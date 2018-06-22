@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth-service';
+import { CheckBackService } from '../../services/database-service/index';
 
 @Component({
   selector: 'app-login-page',
@@ -33,10 +34,14 @@ export class LoginPageComponent implements OnInit {
   REGEX_PASSWORD_NO_SPACE = /^\S*$/;
 
   //default constructor.
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router, private authService: AuthService,private checkService: CheckBackService) { }
 
   //default initialization function.
-  ngOnInit() {
+  async ngOnInit() {
+    //console.log('hIIIIIII');
+    let str = await this.checkService.checkBackEnd();
+    console.log(str);
+    //console.log(await this.checkService.checkBackEnd())
   }
 
   /*

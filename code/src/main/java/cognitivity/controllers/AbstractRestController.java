@@ -8,12 +8,14 @@ import cognitivity.web.app.CognitivityApplicationInsights;
  */
 public abstract class AbstractRestController<ServiceType> {
 
-    protected CognitivityApplicationInsights applicationInsights = CognitivityApplicationInsights.getInstance();
-
-    protected static final String crossOrigin = "http://localhost:4200";
+    protected static final String crossOriginLocal = "http://localhost:4200";
+    protected static final String crossOriginRemote = "https://cognitivitywebsite.azurewebsites.net";
 
     protected final ServiceType service;
+    protected CognitivityApplicationInsights applicationInsights = CognitivityApplicationInsights.getInstance();
 
-    public AbstractRestController(ServiceType service) { this.service = service; }
+    public AbstractRestController(ServiceType service) {
+        this.service = service;
+    }
 
 }

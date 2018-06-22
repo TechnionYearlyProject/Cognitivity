@@ -14,7 +14,7 @@ import {
   import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/empty';
-import 'rxjs/add/operator/retry'; 
+import 'rxjs/add/operator/retry';
 import 'rxjs/add/operator/do';
 import { GalleryImage } from '../../models/galleryImage/galleryImage.model'
 
@@ -48,21 +48,22 @@ import { GalleryImage } from '../../models/galleryImage/galleryImage.model'
 // }
 
 class HttpTarget{
+    private static deployedUrl : string = 'https://cognitivity.azurewebsites.net';
     private static httpTarget : string = 'http://localhost:8181';
     static getHttpTaraget(): string{
-        return this.httpTarget;
+        return this.deployedUrl;
     }
 }
 // Error handler class, holds behavior when errors are returned from server
 class ErrorHandler {
     static handleError(error: any) {
-        
+
         let errorMessage = JSON.parse(error._body).message;
         alert("Error:\ncould not perform the last operation.\n"+errorMessage);
 
         return Promise.reject(error.message || error);
     }
-    
+
 
 }
 
@@ -163,7 +164,7 @@ export class TestService {
         return this.http.get(`${this.target}${this.base_mapping}/findCognitiveTestById?testId=${testId}`)
         .toPromise()
         .then(response => response.json() as Test)
-        .catch(ErrorHandler.handleError)
+        .catch(()=>{return null;})
     }
 
 
@@ -202,7 +203,7 @@ export class QuestionService {
         .catch(ErrorHandler.handleError);
     }
 
-    
+
 
 }
 
@@ -323,6 +324,25 @@ export class EmailsService {
     }
 }
 
+class STRING {
+    body: string;
+}
+@Injectable()
+export class CheckBackService {
+    private target : string = HttpTarget.getHttpTaraget();
+    private headers = new Headers({"Content-Type": "application/json"});
+    private base_mapping = '/send-links';
+
+    //functions
+    constructor(private http: Http) {}
+    checkBackEnd() : Promise<string> {
+        return this.http.get(`${this.target}${this.base_mapping}/hi`, {headers: this.headers})
+        .toPromise()
+        .then(response => response.text() )
+        .catch(ErrorHandler.handleError)
+    }
+}
+
 
 @Injectable()
 export class PictureLinkService {
@@ -357,6 +377,6 @@ export class PictureLinkService {
         .catch(ErrorHandler.handleError);
     }
 
-    
+
 
 }

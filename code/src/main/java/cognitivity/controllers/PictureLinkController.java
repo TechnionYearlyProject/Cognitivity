@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static cognitivity.controllers.AbstractRestController.crossOrigin;
 import static cognitivity.controllers.PictureLinkController.baseMapping;
 
 /**
@@ -21,7 +20,10 @@ import static cognitivity.controllers.PictureLinkController.baseMapping;
 @RestController
 @RequestMapping(value = baseMapping,
         produces = "application/json;charset=UTF-8")
-@CrossOrigin(origins = crossOrigin)
+@CrossOrigin(origins = {
+        "http://localhost:4200",
+        "https://cognitivityfrontend.azurewebsites.net"
+})
 public class PictureLinkController extends AbstractRestController<PictureLinkService> {
 
     public static final String baseMapping = "/picture-links";
@@ -39,8 +41,8 @@ public class PictureLinkController extends AbstractRestController<PictureLinkSer
      */
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET, value = "/savePictureLink")
-    public PictureLink savePictureLink(@RequestParam String link) throws DBException {
+    @RequestMapping(method = RequestMethod.POST, value = "/savePictureLink")
+    public PictureLink savePictureLink(@RequestBody String link) throws DBException {
         return service.createPictureLink(link);
     }
 
@@ -90,7 +92,7 @@ public class PictureLinkController extends AbstractRestController<PictureLinkSer
      */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findAllPictureLinksInTheSystem")
-    public List<String> findAllPictureLinksInTheSystem() throws DBException {
+    public List<PictureLink> findAllPictureLinksInTheSystem() throws DBException {
         return service.getAllPictureLinks();
     }
 

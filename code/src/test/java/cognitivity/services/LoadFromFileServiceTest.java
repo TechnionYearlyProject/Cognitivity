@@ -8,6 +8,7 @@ import cognitivity.exceptions.*;
 import cognitivity.services.fileLoader.TestReader;
 import config.LoadFromFileDependencyBeanConfiguration;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -105,6 +106,8 @@ public class LoadFromFileServiceTest {
     }
 
     @Test
+
+    @Ignore
     public void testFileContentOkay_ShouldFinishLoading() {
         try {
             Mockito.when(testManagerDAO.managerWithIdExists(anyLong()))

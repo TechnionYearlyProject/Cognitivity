@@ -55,6 +55,7 @@ export class TestPageComponent implements OnInit {
     this.test = await this.testService.findCognitiveTestById(testId);
     if (this.test == null) {
       this.router.navigate(['/404']);
+      return;
     }
     this.blocks = this.test.blocks;
     this.blocksLength = this.blocks.length;

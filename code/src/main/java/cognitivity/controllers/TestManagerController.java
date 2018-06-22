@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import static cognitivity.controllers.AbstractRestController.crossOrigin;
+import static cognitivity.controllers.AbstractRestController.crossOriginLocal;
+import static cognitivity.controllers.AbstractRestController.crossOriginRemote;
 import static cognitivity.controllers.TestManagerController.baseMapping;
 
 /**
@@ -18,7 +19,10 @@ import static cognitivity.controllers.TestManagerController.baseMapping;
 @RestController
 @RequestMapping(value = baseMapping,
         produces = "application/json;charset=UTF-8")
-@CrossOrigin(origins = crossOrigin)
+@CrossOrigin(origins = {
+        crossOriginLocal,
+        crossOriginRemote
+})
 public class TestManagerController extends AbstractRestController<TestManagerService> {
 
     public static final String baseMapping = "/test-managers";
