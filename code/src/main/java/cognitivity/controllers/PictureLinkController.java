@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static cognitivity.controllers.AbstractRestController.crossOrigin;
-import static cognitivity.controllers.TestSubjectController.baseMapping;
+import static cognitivity.controllers.PictureLinkController.baseMapping;
 
 /**
  * Created by peers on 15/06/2018.
