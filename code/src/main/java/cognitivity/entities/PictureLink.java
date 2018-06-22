@@ -10,11 +10,15 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "pictureLink")
+@Table(name = "pictureLinks")
 public class PictureLink extends AbstractEntity{
 
     @Column(name = "link")
     private String link;
+
+    public PictureLink() {
+    }
+
 
     public PictureLink(String link) {
         this.link = link;

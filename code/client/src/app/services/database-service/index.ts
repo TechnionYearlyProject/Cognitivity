@@ -16,6 +16,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/empty';
 import 'rxjs/add/operator/retry'; 
 import 'rxjs/add/operator/do';
+import { GalleryImage } from '../../models/galleryImage/galleryImage.model'
 
 //The following code is meant to make the error handling more modular, please ignore it for now
 
@@ -335,10 +336,10 @@ export class PictureLinkService {
 
 
 
-    savePictureLink(url:String): Promise<String> {
-        return this.http.post(`${this.target}${this.base_mapping}/savePictureLink`, JSON.stringify(url), {headers : this.headers})
+    savePictureLink(link: String): Promise<void> {
+        return this.http.get(`${this.target}${this.base_mapping}/savePictureLink?link=${link}`)
         .toPromise()
-        .then(res => res.json() as String)
+        .then(()=>null)
         .catch(ErrorHandler.handleError);
     }
 

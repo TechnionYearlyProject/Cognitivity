@@ -3,6 +3,7 @@ import { ImageService } from '../../services/image/image.service';
 import { GalleryImage } from '../../models/galleryImage/galleryImage.model';
 import { Observable } from 'rxjs/Observable';
 import { PictureLinkService } from '../../services/database-service'
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-gallery',

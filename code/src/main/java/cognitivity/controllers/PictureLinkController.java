@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static cognitivity.controllers.AbstractRestController.crossOrigin;
-import static cognitivity.controllers.TestSubjectController.baseMapping;
+import static cognitivity.controllers.PictureLinkController.baseMapping;
 
 /**
  * Created by peers on 15/06/2018.
@@ -39,8 +39,8 @@ public class PictureLinkController extends AbstractRestController<PictureLinkSer
      */
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.POST, value = "/savePictureLink")
-    public PictureLink savePictureLink(@RequestBody String link) throws DBException {
+    @RequestMapping(method = RequestMethod.GET, value = "/savePictureLink")
+    public PictureLink savePictureLink(@RequestParam String link) throws DBException {
         return service.createPictureLink(link);
     }
 
@@ -90,7 +90,7 @@ public class PictureLinkController extends AbstractRestController<PictureLinkSer
      */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findAllPictureLinksInTheSystem")
-    public List<PictureLink> findAllPictureLinksInTheSystem() throws DBException {
+    public List<String> findAllPictureLinksInTheSystem() throws DBException {
         return service.getAllPictureLinks();
     }
 
