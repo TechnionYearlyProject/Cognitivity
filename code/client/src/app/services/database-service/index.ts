@@ -321,3 +321,41 @@ export class EmailsService {
         .catch(ErrorHandler.handleError);
     }
 }
+
+
+@Injectable()
+export class PictureLinkService {
+    //functions
+    base_mapping = '/picture-links';
+    private target = HttpTarget.getHttpTaraget();
+    private headers = new Headers({'Content-Type': 'application/json'});
+
+
+    constructor(private http: Http) {}
+
+
+
+    savePictureLink(url:String): Promise<String> {
+        return this.http.post(`${this.target}${this.base_mapping}/savePictureLink`, JSON.stringify(url), {headers : this.headers})
+        .toPromise()
+        .then(res => res.json() as String)
+        .catch(ErrorHandler.handleError);
+    }
+
+    findAllPictureLinks(): Promise<String[]> {
+        return this.http.get(`${this.target}${this.base_mapping}//findAllPictureLinksInTheSystem`, {headers: this.headers})
+        .toPromise()
+        .then(res => res.json() as String[])
+        .catch(ErrorHandler.handleError);
+    }
+
+    deletePictureLink(LinkId: number): Promise<void> {
+        return this.http.delete(`${this.target}${this.base_mapping}/deletePictureLink?questionId=${LinkId}`, {headers: this.headers})
+        .toPromise()
+        .then(() => null)
+        .catch(ErrorHandler.handleError);
+    }
+
+    
+
+}

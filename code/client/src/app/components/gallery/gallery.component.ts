@@ -2,6 +2,7 @@ import { Component, OnInit, OnChanges } from '@angular/core';
 import { ImageService } from '../../services/image/image.service';
 import { GalleryImage } from '../../models/galleryImage/galleryImage.model';
 import { Observable } from 'rxjs/Observable';
+import { PictureLinkService } from '../../services/database-service'
 
 @Component({
   selector: 'app-gallery',
@@ -9,15 +10,15 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./gallery.component.css']
 })
 export class GalleryComponent implements OnInit, OnChanges {
-  images: Observable<GalleryImage[]>;
+  images: Observable<String[]>;
 
-  constructor(private imageService: ImageService) { }
+  constructor(private pictureLinkService: PictureLinkService) { }
 
   ngOnInit() {
-    this.images = this.imageService.getImages();
+    this.images = Observable.fromPromise(this.pictureLinkService.findAllPictureLinks());
   }
 
   ngOnChanges() {
-    this.images = this.imageService.getImages();
+    this.images = Observable.fromPromise(this.pictureLinkService.findAllPictureLinks());
   }
 }

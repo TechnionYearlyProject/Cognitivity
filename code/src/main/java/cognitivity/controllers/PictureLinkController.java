@@ -54,7 +54,7 @@ public class PictureLinkController extends AbstractRestController<PictureLinkSer
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findPictureLinkById")
-    public PictureLink findCognitiveTestById(
+    public PictureLink findPictureLinkById(
             @RequestParam(value = "linkID") long linkID) throws DBException {
         return service.findPictureLinkById(linkID);
     }
