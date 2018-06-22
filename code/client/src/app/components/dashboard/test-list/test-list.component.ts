@@ -39,10 +39,7 @@ export class TestListComponent implements OnInit {
     private route: ActivatedRoute,
     private authService: AuthService,
     private tmService: TestManagerService,
-    private emailsService: EmailsService)
-      
-    
-   {}
+    private emailsService: EmailsService){}
 
   //default ngOnInit function, gets the user's credentials while initialized.
   async ngOnInit() {
@@ -107,7 +104,6 @@ export class TestListComponent implements OnInit {
   // }
   async deleteTest(id: number) {
     if (confirm('Are you sure you want to delete the test?')) {
-      console.log('deleted');
       console.log(await this.testService.deleteCognitiveTest(id));
       for (let i = 0; i < this.testList.length; i++) {
         if (this.testList[i].id == id) {
@@ -134,7 +130,6 @@ export class TestListComponent implements OnInit {
       alert('A bad name. Please choose a name with only letters and numbers');
       return;
     }
-    console.log(newName.trim().replace(/\s\s+/g, ' '));
     for (let test of this.testList) {
       if (test.name.trim() == newName.trim().replace(/\s\s+/g, ' ')) {
         alert('Name already taken!');
@@ -190,29 +185,24 @@ export class TestListComponent implements OnInit {
 
   async gen_link(){
     let emails: EmailsDist = {emails: this.file, link: this.link};
-    console.log(emails);
     await this.emailsService.sendLinks(emails);
   }
   genLinkForTest(test: Test){
     this.link = "http://localhost:4200/test/" + test.id;
   }
   updateFile(event){
-    console.log(event);
     if(event.target.files.length != 1){
         alert("only one file can be submitted each time");
         return;
     }
     let fullFile = event.target.files[0];
-    console.log(fullFile);
     var reader = new FileReader();
     reader.onload = (event) => {
         try {
-              this.file = reader.result.split('\n').map(x => x.trim());
-                  console.log("Received json: " + this.file);
-
+              this.file = reader.result.split('\n').map(x => x.trim()).filter(x => x.length > 0);
         } catch (ex) {
-        alert('exeption when trying to parse json = ' + ex);
-    }
+            alert('exeption when trying to parse json = ' + ex);
+        }
     };
     reader.readAsText(fullFile);
 
