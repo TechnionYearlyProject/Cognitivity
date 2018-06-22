@@ -186,46 +186,11 @@
     </properties>
 
     <build>
-        <resources>
-            <resource>
-                <directory>code/src/main/resources</directory>
-                <includes>
-                    <include>**/*.properties</include>
-                </includes>
-            </resource>
-        </resources>
         <sourceDirectory>code/src/main/java</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                        <configuration>
-                            <classifier>spring-boot</classifier>
-                            <mainClass>
-                                cognitivity.CognitivityApplication
-                            </mainClass>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>appassembler-maven-plugin</artifactId>
-                <version>1.10</version>
-                <configuration>
-                    <programs>
-                        <program>
-                            <mainClass>cognitivity.CognitivityApplication</mainClass>
-                            <id>cognitivity</id>
-                        </program>
-                    </programs>
-                </configuration>
             </plugin>
 
             <plugin>
