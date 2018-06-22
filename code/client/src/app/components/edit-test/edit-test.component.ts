@@ -29,7 +29,7 @@ export class EditTestComponent implements OnInit {
   //object of a test , so we can save and import tests.
   test: Test;
   //for iterating over the blocks. we want to keep a question related to it's current block object.
-  iterator: Array<Object> = new Array();
+  iterator: Array<any> = new Array();
   //the string to be shown on the test title.
   titleTest: string;
   //the project string
@@ -48,6 +48,15 @@ export class EditTestComponent implements OnInit {
   blockListFromDB: Block[];
 
   indexBlock: number = -1;
+    /*
+   * Information for importing block Author: Mark, Date: 11.6.18
+   */
+  testList: Test[];// The list of all the test to choose from
+  testBlockList: Block[];//
+  chosenBlock: Block;
+  testNameToImport: string = '';
+  blockPreview: boolean = false;
+  finished = false;
   //default constructor
   constructor(
     private router:Router,
@@ -75,7 +84,7 @@ export class EditTestComponent implements OnInit {
     this.test = await this.testService.findCognitiveTestById(testId);
     console.log(this.test);
     for (let i = 0; i < this.test.blocks.length; i++) {
-      this.addBlock();
+      this.addEditBlock(this.test.blocks[i]);
     }
 
     this.titleTest = this.test.name;
@@ -83,11 +92,25 @@ export class EditTestComponent implements OnInit {
     this.notesTest = this.test.notes;
     this.blockListFromDB = this.test.blocks;
 
+    try {
+      this.testList = await this.testService.findTestsForTestManager(managerId);
+      console.log('The tests are: ')
+      console.log(this.testList);
+
+    } catch(err) {
+      console.log(err);
+    }
   }
 
   //this function adds a block to out list using the iterator.
   addBlock(){
-    this.iterator.splice(this.iterator.length, 0, new Object());
+    let blockToAdd = {block: null}
+    this.iterator.splice(this.iterator.length, 0, blockToAdd);
+  }
+
+  addEditBlock(block){
+    let blockToAdd = {block: block};
+    this.iterator.splice(this.iterator.length, 0, blockToAdd);
   }
 
   /*
@@ -172,6 +195,8 @@ export class EditTestComponent implements OnInit {
 
 
     let blocks = this.blocks.toArray();
+    console.log('blocks areeeeee')
+    console.log(blocks);
     console.log('what how is it  no blocks??' + this.blocks.length);
     if (blocks.length == 0) {
       this.emptyTest = true;
@@ -213,7 +238,8 @@ export class EditTestComponent implements OnInit {
       let blockInDB: Block =
       {
         questions: questions,
-        numberOfQuestions: questions.length
+        numberOfQuestions: questions.length,
+        tag: JSON.stringify(block.getTags())
       }
 
       blocksToDB.push(blockInDB);
@@ -254,5 +280,41 @@ export class EditTestComponent implements OnInit {
     }
   }
 
+  async clickTest(index: number){
+    let testId = this.testList[index].id;
+    let test = await this.testService.findCognitiveTestById(testId);
+    this.testBlockList = test.blocks;
+    this.testNameToImport = test.name;
+    console.log('The block is: ')
+    console.log(this.testBlockList)
+}
+addImportedBlock(index: number){
+  this.testNameToImport = '';
+  let blockToAdd = this.testBlockList[index];
+  let inputBlock = {block: blockToAdd};
+  this.iterator.splice(this.iterator.length, 0, inputBlock);
+  //this.blocksList.splice(this.blocksList.length, this.testBlockList[index])
+}
+previewBlock(index: number){
+  this.blockPreview = true;
+  let blockToAdd = this.testBlockList[index];
+  this.chosenBlock = blockToAdd;
+}
+isFinished(e) {
+  this.finished = e;
+  console.log('in is finished' + e);
+  if(this.finished){
+    this.blockPreview = false;
+  }
+}
+
+prettifyTagList(block, index){
+    if(block.tag == '[]'){
+      return 'Block no. ' + index + ' doesn\'t have tags';
+    }
+    let tags = JSON.parse(block.tag);
+    tags = tags.map(item => item.value);
+    return tags.join(", ");
+}
 
 }

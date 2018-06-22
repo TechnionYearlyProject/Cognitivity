@@ -20,7 +20,7 @@ in the structure of the whole test.
 export class EditBlockComponent implements OnInit {
   //to specify the number of the block in the blocks list.
   @Input() blockNumber:number;
-  @Input() questionFromDBList: Array<QuestionInDB>;
+  @Input() block: any;
   //to collapse and uncollapse the block.
   hidden: boolean = true;
   //the actual list of the questions.
@@ -52,11 +52,17 @@ export class EditBlockComponent implements OnInit {
 
   //default ngOnInit() function.
   ngOnInit() {
-    for (let i = 0; i < this.questionFromDBList.length; i++) {
-      this.questionList[i] = 
-      { 
-        question: JSON.parse(this.questionFromDBList[i].question)
-      };
+    if (this.block != null){
+      for (let i = 0; i < this.block.questions.length; i++) {
+        this.questionList[i] = 
+        { 
+          question: JSON.parse(this.block.questions[i].question)
+        };
+      }
+      console.log('block in edit');
+      console.log(this.block);
+      this.tags = JSON.parse(this.block.tag);
+  
     }
   }
 
@@ -129,33 +135,29 @@ export class EditBlockComponent implements OnInit {
   }
 
   
-  /**
-   * Author: Ben
-   * This function gets a tag to add to the tags list of the current displayed question.
-   * @param givenTag 
-   * @param questionIndex 
-   */
-  addQuestionTag(givenTag:string, questionIndex:number){
-    this.questionFromDBList[questionIndex].tags.push(givenTag);
-    //for DEBUGGING
-    console.log("pushing to question with id: "+this.questionFromDBList[questionIndex].id+" the tag: "+givenTag);
-  }
 
-  /**
-   * Author: Ben
-   * This function removes a given tag from a question's tags list.
-   * if the tag is not found, does nothing.
-   * @param givenTag 
-   * @param questionIndex 
+
+
+    /*
+   * returns the tags array
    */
-  removeQuestionTag(givenTag:string, questionIndex:number){
-    let tmpQuestion = this.questionFromDBList[questionIndex];
-    let tagIndex = tmpQuestion.tags.indexOf(givenTag);
-    if(tagIndex != -1){
-      tmpQuestion.tags.splice(tagIndex,1);
-      //for DEBUGGING 
-      console.log("found and removed the tag: "+givenTag);
-    }
-  }
+  getTags(){
+    return this.tags;
+}
+
+//this will hold all the tags for the block.
+tags:any[];
+//tags count
+tags_count = 0;
+
+//can add more functionality
+addTag(){
+ this.tags_count++;
+}
+
+////can add more functionality
+removeTag(){
+ this.tags_count--;
+}
 }
 

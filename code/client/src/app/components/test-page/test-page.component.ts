@@ -81,10 +81,19 @@ export class TestPageComponent implements OnInit {
   }
 
   async finishTest() {
+    this.timingResults = this.timing.getFullResults();
     for (let i = 0; i < this.blocksAnswers.length; i++) {
       for (let j = 0; j < this.blocksAnswers[i].answers.length; j++) {
+        let timingOfQuestion = this.timingResults.resultArr[i].questionTimes[j].qTotTS;
+        let timingOfQuestionConfidence = this.timingResults.resultArr[i].questionTimes[j].qConBarTotTS;
+        let finalAnswer = JSON.parse(this.blocksAnswers[i].answers[j].finalAnswer);
+        let finalAnswerWithTimes = {
+          finalAnswer: finalAnswer,
+          answerTime: timingOfQuestion,
+          confidenceTime: timingOfQuestionConfidence
+        }
         let questionAnswerForDB: QuestionAnswerForDB = {
-          finalAnswer: this.blocksAnswers[i].answers[j].finalAnswer,
+          finalAnswer: /*this.blocksAnswers[i].answers[j].finalAnswer*/JSON.stringify(finalAnswerWithTimes),
           testSubject: this.subject,
           cognitiveTest: this.test,
           question: this.test.blocks[i].questions[j]

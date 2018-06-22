@@ -61,7 +61,7 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
     /**
      * Creating a cognitive test with list of blocks with or without questions
      */
-    private TestWrapper createCognitiveTestWrapper(boolean withQuestions, long id) throws Exception {
+    private TestWrapper createCognitiveTestWrapper(boolean withQuestions, long id) {
         manager = createTestManager(id, "email5");
         cognitiveTest = AbstractResourceIntegrationTest.createCognitiveTest(manager);
         cognitiveTest.setId(77L);
@@ -159,7 +159,7 @@ public class CognitiveTestResourceIntegrationTest extends AbstractResourceIntegr
         deleteTestManager(String.valueOf(managerId), objectMapper, testManagerMvc);
     }
 
-    public static long saveCognitiveTest(TestWrapper testWrapper, ObjectMapper objectMapper, MockMvc mockMvc) throws Exception {
+    static long saveCognitiveTest(TestWrapper testWrapper, ObjectMapper objectMapper, MockMvc mockMvc) throws Exception {
         return gson.fromJson(
                 mockMvc.perform(post("/tests/saveCognitiveTest")
                         .contentType(TestUtil.APPLICATION_JSON_UTF8)

@@ -43,4 +43,12 @@ public class DistributeTestLinkToSubjectController extends AbstractRestControlle
                                     @RequestParam(value = "link") String link) throws SendLinksException {
         service.sendLinksToSubjects(subjectsEmails, link);
     }
+
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.GET, value = "/hi", produces = "text/plain")
+    public String sendLinksToSubjects() {
+        return "Oh hi Mark!";
+    }
 }

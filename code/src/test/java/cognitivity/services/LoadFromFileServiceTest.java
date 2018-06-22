@@ -6,21 +6,21 @@ import cognitivity.dao.TestManagerDAO;
 import cognitivity.dao.TestQuestionDAO;
 import cognitivity.exceptions.*;
 import cognitivity.services.fileLoader.TestReader;
-import com.google.gson.JsonParser;
 import config.LoadFromFileDependencyBeanConfiguration;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import static cognitivity.TestUtil.jsonData;
+import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Matchers.anyLong;
 
 /**
  * Created by ophir on 25/05/18.
@@ -82,7 +82,7 @@ public class LoadFromFileServiceTest {
                         null
                 )
         );
-        Mockito.when(testManagerDAO.managerWithIdExists(Matchers.anyLong()))
+        Mockito.when(testManagerDAO.managerWithIdExists(anyLong()))
                 .thenReturn(true);
         Mockito.when(cognitiveTestDAO.testWithNameExists("test"))
                 .thenReturn(true);
@@ -94,7 +94,7 @@ public class LoadFromFileServiceTest {
 
     @Test
     public void testFileContentCorrupted_ShouldThrowLoaderException() throws DBException, LoaderException {
-        Mockito.when(testManagerDAO.managerWithIdExists(Matchers.anyLong()))
+        Mockito.when(testManagerDAO.managerWithIdExists(anyLong()))
                 .thenReturn(true);
         Mockito.when(cognitiveTestDAO.testWithNameExists("test"))
                 .thenReturn(false);
@@ -105,24 +105,26 @@ public class LoadFromFileServiceTest {
     }
 
     @Test
-    public void testFileContentOkay_ShouldFinishLoading() throws DBException, LoaderException, FileNotFoundException {
-        String jsonDataPath = System.getProperty("user.dir") + "/src/test/resources/test1.json";
-        String jsonData = new JsonParser().parse(new FileReader(jsonDataPath)).toString();
+    public void testFileContentOkay_ShouldFinishLoading() {
+        try {
+            Mockito.when(testManagerDAO.managerWithIdExists(anyLong()))
+                    .thenReturn(true);
+            Mockito.when(cognitiveTestDAO.testWithNameExists(anyString()))
+                    .thenReturn(false);
 
-        service = new LoadFromFileService(
-                testQuestionDAO,
-                cognitiveTestDAO,
-                testBlockDAO,
-                testManagerDAO,
-                (s) -> new TestReader(jsonData)
-        );
+            service = new LoadFromFileService(
+                    testQuestionDAO,
+                    cognitiveTestDAO,
+                    testBlockDAO,
+                    testManagerDAO,
+                    (s) -> new TestReader(jsonData)
+            );
 
-        Mockito.when(testManagerDAO.managerWithIdExists(Matchers.anyLong()))
-                .thenReturn(true);
-        Mockito.when(cognitiveTestDAO.testWithNameExists("test"))
-                .thenReturn(false);
 
-        service.loadFromJSONFile(jsonData, 1L);
+            service.loadFromJSONFile(jsonData, 1L);
+        } catch (Exception e) {
+            fail();
+        }
 
     }
 

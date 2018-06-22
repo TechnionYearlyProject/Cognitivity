@@ -1,6 +1,6 @@
-
-    ignore:
-        - "code/src/main/java/cognitivity/dao/*"
-        - "code/src/test/**/*"
-        - "code/src/main/java/cognitivity/web/app/*"
-        - "code/src/main/java/cognitivity/services/DistributeTestLinkToSubjectService"
+ignore:
+  - "code/src/main/java/cognitivity/dao"
+  - "code/src/test/**/*"
+  - "code/src/main/java/cognitivity/web/app"
+  - "code/src/main/java/cognitivity/services/DistributeTestLinkToSubjectService.java"
+  - "code/src/main/java/cognitivity/services/mailing"

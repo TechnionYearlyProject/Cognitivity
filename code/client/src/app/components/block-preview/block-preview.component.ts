@@ -24,12 +24,14 @@ export class BlockPreviewComponent implements OnInit {
   currIndex: number;
 
   //default constructor.
-  constructor() { }
+  constructor() { 
+
+  }
 
   //when the component is initialized. the current index is set to 0.
   ngOnInit() {
     this.currIndex = 0;
-    this.tickTick(9);
+
   }
 
   /*
@@ -57,6 +59,7 @@ export class BlockPreviewComponent implements OnInit {
       this.finish = true;
       this.finished.emit(true);
     } else {
+
       this.finished.emit(false);
     }
   }
@@ -64,7 +67,13 @@ export class BlockPreviewComponent implements OnInit {
   parseToQuestion(text: string): Question {
     return JSON.parse(text);
   }
-
+/*
+  this.tickTick(6);
+  console.log(this.block.questions[0].showDistractions);
+  if(this.block.questions[0].showDistractions){
+    console.log("first question has distractions!!");
+    this.tickTick(parseInt(this.block.questions[0].seconds));
+  }
   countdownCallback(){
       console.log("countdown timer finished ! moving question");
       this.nextQuestion();
@@ -103,6 +112,6 @@ export class BlockPreviewComponent implements OnInit {
              this.clockDisplay = this.minutes + " : " + this.seconds
           }, 1000);
       }
-  }
-  return;
+  }*/
+
 }
