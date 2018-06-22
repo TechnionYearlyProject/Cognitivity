@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.List;
 
-import static cognitivity.controllers.AbstractRestController.crossOrigin;
+import static cognitivity.controllers.AbstractRestController.crossOriginLocal;
+import static cognitivity.controllers.AbstractRestController.crossOriginRemote;
 import static cognitivity.controllers.TestSubjectController.baseMapping;
 
 /**
@@ -22,7 +23,10 @@ import static cognitivity.controllers.TestSubjectController.baseMapping;
 @RestController
 @RequestMapping(value = baseMapping,
         produces = "application/json;charset=UTF-8")
-@CrossOrigin(origins = crossOrigin)
+@CrossOrigin(origins = {
+        crossOriginLocal,
+        crossOriginRemote
+})
 public class TestSubjectController extends AbstractRestController<TestSubjectService> {
 
     public static final String baseMapping = "/test-subjects";

@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static cognitivity.controllers.AbstractRestController.crossOrigin;
+import static cognitivity.controllers.AbstractRestController.crossOriginLocal;
+import static cognitivity.controllers.AbstractRestController.crossOriginRemote;
 import static cognitivity.controllers.DistributeTestLinkToSubjectController.baseMapping;
 
 /**
@@ -19,7 +20,10 @@ import static cognitivity.controllers.DistributeTestLinkToSubjectController.base
 @RestController
 @RequestMapping(value = baseMapping,
         produces = "application/json;charset=UTF-8")
-@CrossOrigin(origins = crossOrigin)
+@CrossOrigin(origins = {
+        crossOriginLocal,
+        crossOriginRemote
+})
 public class DistributeTestLinkToSubjectController extends AbstractRestController<DistributeTestLinkToSubjectService> {
 
     public static final String baseMapping = "/send-links";
