@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import static cognitivity.controllers.AbstractRestController.crossOrigin;
 import static cognitivity.controllers.LoadFromFileController.baseMapping;
 
 /**
@@ -19,7 +18,10 @@ import static cognitivity.controllers.LoadFromFileController.baseMapping;
 @RestController
 @RequestMapping(value = baseMapping,
         produces = "application/json;charset=UTF-8")
-@CrossOrigin(origins = crossOrigin)
+@CrossOrigin(origins = {
+        "http://localhost:4200",
+        "https/cognitivityfrontend.azurewebsites.net"
+})
 public class LoadFromFileController extends AbstractRestController<LoadFromFileService> {
 
     public static final String baseMapping = "/load-from-file";
