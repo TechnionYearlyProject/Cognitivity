@@ -58,11 +58,14 @@ public class CognitivityMvcConfiguration {
     @Value("${db.password}")
     String password;
 
+    @Value("${db.host_name}")
+    String serverName;
+
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:" + serverPort + "/" + databaseName + "?serverTimezone=UTC&useSSL=false");
+        dataSource.setUrl("jdbc:mysql://" + serverName + ":" + serverPort + "/" + databaseName + "?serverTimezone=UTC&useSSL=false&requireSSL=false");
         dataSource.setUsername(userName);
         dataSource.setPassword(password);
         return dataSource;
