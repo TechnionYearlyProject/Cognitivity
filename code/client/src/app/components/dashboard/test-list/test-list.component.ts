@@ -187,7 +187,7 @@ export class TestListComponent implements OnInit {
     await this.emailsService.sendLinks(emails);
   }
   genLinkForTest(test: Test){
-    this.link = "http://localhost:4200/test/" + test.id;
+    this.link = "https://cognitivitywebsite.azurewebsites.net//test/" + test.id;
   }
   updateFile(event){
     console.log(event);
