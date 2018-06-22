@@ -20,7 +20,7 @@ export class registrationFormComponent implements OnInit {
     birthDate:'',
     martialStatus:''
   }
-
+  lastname : string;
   @Output() complete: EventEmitter<TestSubject> = new EventEmitter();
 
   //default constructor.
