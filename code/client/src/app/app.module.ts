@@ -2,6 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
+import { SharedModule } from './components/shared-module/shared-module.module';
 import {HttpModule} from '@angular/http';
 import {AngularFireModule} from 'angularfire2';
 import {AngularFireDatabase, AngularFireDatabaseModule} from 'angularfire2/database';
@@ -135,7 +136,8 @@ const PROVIDED_SERVICES = [
     BrowserAnimationsModule,
     TagInputModule,
     ReactiveFormsModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+    SharedModule
   ],
   providers: [
     ...PROVIDED_SERVICES

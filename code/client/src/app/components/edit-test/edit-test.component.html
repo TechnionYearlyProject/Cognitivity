@@ -6,7 +6,7 @@
 <br>
 <br>
 <div class="container-fluid" *ngIf="!loaded">
-    <h4>Loading test, please wait...</h4>
+    <app-loading loading_value="test"></app-loading>
 </div>
 <div class="form-group" *ngIf="loaded">
     <div class="centered">
@@ -95,12 +95,6 @@
                         </div>
                 </div>
             </div>
-
-
-            <!-- Modal footer -->
-            <!--div class="modal-footer">
-                <button class="btn btn-block btn-primary col-md-12" data-dismiss="modal" (click)="importBlock()">Import block</button>
-            </div-->
 
           </div>
         </div>
