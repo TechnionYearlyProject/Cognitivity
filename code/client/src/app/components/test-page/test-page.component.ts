@@ -24,12 +24,8 @@ export class TestPageComponent implements OnInit {
 
   subject: TestSubject;
 
-<<<<<<< HEAD
   loaded: boolean = false;
 
-=======
-  loaded: boolean;
->>>>>>> 2ae56bbbb4374b8741f1854252e6bc204a7f8a4e
   //the current test's index in the tests list.
   currIndex: number;
   //variable to indicate if we should hide the following button in the creation.
@@ -118,8 +114,8 @@ export class TestPageComponent implements OnInit {
     this.loaded = true;
     this.router.navigate(['test-finish']);
     //when stopping the test, call timing_stopTestMeasure() to end the test measuring.
-    
-    
+
+
     //the results of the timing class sits in ----------this.timingMeasurment.testObject--------------
   }
 
