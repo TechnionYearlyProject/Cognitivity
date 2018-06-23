@@ -6,7 +6,11 @@
   </div>
   <br>
   <br>
-  <div *ngIf = "flag" class=" container" >
+  <div *ngIf = "!loaded" class="container">
+      <app-loading loading_value="test" color="White"></app-loading>
+  </div>
+
+  <div *ngIf = "loaded" class="container" >
     <ng-container *ngIf="answers?.length > 0; else noAnswers">
       <table  class="table table-striped">
         <thead class="thead-invers">

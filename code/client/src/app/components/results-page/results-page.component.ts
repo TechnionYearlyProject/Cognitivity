@@ -29,7 +29,7 @@ export class ResultsPageComponent implements OnInit {
   columnDefs: any; //The definition of the table that hold all the information on the results
   answers: Array<ParsedQuestionAnswer> = new Array();
   private gridOptions: GridOptions;
-  flag: boolean = false;
+  loaded: boolean = false;
 
   async ngOnInit() {
     let testId = this.route.snapshot.params['testId'];
@@ -40,7 +40,7 @@ export class ResultsPageComponent implements OnInit {
     this.test_id = parseInt(testId);
     console.log('over here');
     let answers = await this.answerTestService.findAllAnswersForTest(testId);
-    this.flag = true;
+    this.loaded = true;
     this.parseAnswers(answers);
     console.log(answers);
   }
