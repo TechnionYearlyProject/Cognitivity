@@ -104,12 +104,8 @@ export class TestListComponent implements OnInit {
   async deleteTest(id: number) {
     if (confirm('Are you sure you want to delete the test?')) {
       console.log(await this.testService.deleteCognitiveTest(id));
-      for (let i = 0; i < this.testList.length; i++) {
-        if (this.testList[i].id == id) {
-          this.testList.splice(i, 1);
-          break;
-        }
-      }
+      this.testList = this.testList.filter((item) => item.id != id);
+      this.filterTests()
     }
   }
 
