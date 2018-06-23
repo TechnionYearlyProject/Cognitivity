@@ -63,7 +63,7 @@ export class TestPageComponent implements OnInit {
     this.blocksAnswers = new Array<BlockAnswers>(this.blocksLength);
     this.currIndex = -1;
 
-    // document.body.classList.add('background-white');
+    document.body.classList.add('background-white');
 
 
     //initializing the timing class
