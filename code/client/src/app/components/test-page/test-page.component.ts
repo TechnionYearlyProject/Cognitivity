@@ -47,7 +47,6 @@ export class TestPageComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.loaded = true;
     let testId = this.route.snapshot.params['testId'];
     if (isNaN(testId) || testId == '') {
       this.router.navigate(['/404']);
