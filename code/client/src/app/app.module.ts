@@ -59,7 +59,7 @@ import {UploadComponent} from './components/uploads/upload.component';
 import {GalleryComponent} from './components/gallery/gallery.component';
 import {ImageService} from './services/image/image.service';
 import {UploadService} from './services/uploads/upload.service';
-import {ImageDetailComponent} from './components/image-detail/image-detail.component';
+import { PicturePreviewComponent } from './components/picture-preview/picture-preview.component';
 
 
 const PROVIDED_SERVICES = [
@@ -122,7 +122,7 @@ const PROVIDED_SERVICES = [
     PreviewImportBlockComponent,
     UploadComponent,
     GalleryComponent,
-    ImageDetailComponent,
+    PicturePreviewComponent,
   ],
   imports: [
     BrowserModule,

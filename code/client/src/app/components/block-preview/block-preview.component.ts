@@ -23,6 +23,8 @@ export class BlockPreviewComponent implements OnInit {
   //the current index of the question in block.
   currIndex: number;
 
+  parsedQuestion: Question;
+
   //default constructor.
   constructor() { 
 
@@ -53,7 +55,6 @@ export class BlockPreviewComponent implements OnInit {
   */
   nextQuestion() {
 
-   console.log('next question boiiii');
     this.currIndex++;
     if (this.currIndex == this.block.questions.length) {
       this.finish = true;
@@ -65,7 +66,9 @@ export class BlockPreviewComponent implements OnInit {
   }
 
   parseToQuestion(text: string): Question {
-    return JSON.parse(text);
+    this.parsedQuestion = JSON.parse(text);
+    return this.parsedQuestion;
+
   }
 /*
   this.tickTick(6);

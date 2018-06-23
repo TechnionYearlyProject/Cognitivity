@@ -56,6 +56,7 @@ export interface Question {
   showConfidenceBar?: boolean;
   showDistractions?: boolean;
   distractionsSeconds?:number;
+  pictureLink?:string;
 }
 
 /*

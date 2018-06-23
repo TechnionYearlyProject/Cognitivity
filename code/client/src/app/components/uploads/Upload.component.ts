@@ -1,3 +1,9 @@
+/*
+Author: Pe'er Sagiv
+Date: 16.6.18
+A class to handle all the pictrue uploads to the system
+*/
+
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UploadService } from '../../services/uploads/upload.service';
 import { Upload } from './upload';
