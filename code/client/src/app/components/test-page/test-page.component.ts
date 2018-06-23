@@ -24,7 +24,7 @@ export class TestPageComponent implements OnInit {
 
   subject: TestSubject;
 
-
+  loaded: boolean;
   //the current test's index in the tests list.
   currIndex: number;
   //variable to indicate if we should hide the following button in the creation.
@@ -46,6 +46,7 @@ export class TestPageComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.loaded = true;
     let testId = this.route.snapshot.params['testId'];
     if (isNaN(testId) || testId == '') {
       this.router.navigate(['/404']);
@@ -82,6 +83,7 @@ export class TestPageComponent implements OnInit {
   }
 
   async finishTest() {
+    this.loaded = false;
     this.timingResults = this.timing.getFullResults();
     for (let i = 0; i < this.blocksAnswers.length; i++) {
       for (let j = 0; j < this.blocksAnswers[i].answers.length; j++) {
@@ -103,7 +105,7 @@ export class TestPageComponent implements OnInit {
         await this.answerService.saveTestAnswer(questionAnswerForDB);
       }
     }
-
+    this.loaded = true;
     this.router.navigate(['test-finish']);
     //when stopping the test, call timing_stopTestMeasure() to end the test measuring.
     this.timing.timing_stopTestMeasure();

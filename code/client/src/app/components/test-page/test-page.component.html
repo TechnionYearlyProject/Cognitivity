@@ -8,7 +8,8 @@
   <app-test-page-block *ngIf="showBlock(i)" [timing]="timing" [block]="block" [testId]="testId" (finished)="onBlockFinish()"></app-test-page-block>
 </div>
 <div style="text-align:center">
-  <input type="submit" class="btn btn-primary" [hidden]="hideNextButton" (click)="nextBlock()"
+  <input *ngIf="loaded" type="submit" class="btn btn-primary" [hidden]="hideNextButton" (click)="nextBlock()"
          [value]=" currIndex >= blocksLength - 1 ? 'Finish Test' : 'Next Section'">
+  <app-loading *ngIf="!loaded" loading_value="answers to server" color="Black"></app-loading>
 </div>
 </div>
