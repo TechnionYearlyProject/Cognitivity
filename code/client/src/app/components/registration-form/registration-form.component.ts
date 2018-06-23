@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SubjectService } from '../../services/database-service/index';
 import { TestSubject } from '../../models/index';
-
+import {IMyDpOptions} from 'mydatepicker';
 
 @Component({
   selector: 'app-registration-form',
@@ -20,6 +20,10 @@ export class registrationFormComponent implements OnInit {
     birthDate:'',
     martialStatus:''
   }
+
+  options: IMyDpOptions = {
+    disableSince: {day: 0, month: 0, year: 0}
+  };
   lastname : string;
   @Output() complete: EventEmitter<TestSubject> = new EventEmitter();
 
@@ -30,6 +34,9 @@ export class registrationFormComponent implements OnInit {
 
   //default initialization function.
   ngOnInit() {
+    let d: Date = new Date();
+    d.setDate(d.getDate() + 1);
+    this.options.disableSince = {day: d.getDate(), month: d.getMonth() + 1, year: d.getFullYear()};
   }
 
   /*
