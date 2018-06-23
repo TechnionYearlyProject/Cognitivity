@@ -3,16 +3,18 @@ package cognitivity.exceptions;
 /**
  * Created by ophir on 26/5/18.
  */
-public class SendLinksException extends Throwable {
+public class SendLinksException extends CognitivityException {
 
     private final ErrorType type;
 
     public enum ErrorType {
         NOT_REGISTERED,
-        MESSAGE_FAILED_TO_SEND
+        MESSAGE_FAILED_TO_SEND,
+        EMPTY_EMAILS
     }
 
     public SendLinksException(ErrorType type) {
+        super("");
         this.type = type;
     }
 
@@ -25,6 +27,9 @@ public class SendLinksException extends Throwable {
                 break;
             case MESSAGE_FAILED_TO_SEND:
                 msg = "Some subjects were not registered";
+                break;
+            case EMPTY_EMAILS:
+                msg = "No emails were supplied";
                 break;
         }
 
