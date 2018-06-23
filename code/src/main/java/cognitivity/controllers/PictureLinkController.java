@@ -92,7 +92,7 @@ public class PictureLinkController extends AbstractRestController<PictureLinkSer
      */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findAllPictureLinksInTheSystem")
-    public List<String> findAllPictureLinksInTheSystem() throws DBException {
+    public List<PictureLink> findAllPictureLinksInTheSystem() throws DBException {
         return service.getAllPictureLinks();
     }
 
