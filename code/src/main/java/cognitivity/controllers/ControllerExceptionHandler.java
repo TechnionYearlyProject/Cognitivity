@@ -1,9 +1,7 @@
 package cognitivity.controllers;
 
-import cognitivity.exceptions.DBException;
+import cognitivity.exceptions.*;
 import cognitivity.exceptions.Error;
-import cognitivity.exceptions.ErrorClass;
-import cognitivity.exceptions.LoaderException;
 import cognitivity.web.app.CognitivityApplicationInsights;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * This controller is designed to handle all the errors that may rise to the rest of the controllers.
+ *
  * @author - Pe'er
  * @Date - 2.2.18
  */
@@ -35,8 +34,8 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(DBException.class)
     public ResponseEntity<Error> handleDBException(DBException e) {
         CognitivityApplicationInsights.getInstance().trackFailure(e);
-        Error error = new Error(ErrorClass.DB,e.getMessage(),e.getType());
-        return new ResponseEntity<Error>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+        Error error = new Error(ErrorClass.DB, e.getMessage(), e.getType());
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     /**
@@ -53,8 +52,8 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(EmptyResultDataAccessException.class)
     public ResponseEntity<Error> handleEmptyResultException(EmptyResultDataAccessException e) {
         CognitivityApplicationInsights.getInstance().trackFailure(e);
-        Error error = new Error(ErrorClass.EMPTY_RESULT, "The query in the database has given no results",null);
-        return new ResponseEntity<Error>(error, HttpStatus.BAD_GATEWAY);
+        Error error = new Error(ErrorClass.EMPTY_RESULT, "The query in the database has given no results", null);
+        return new ResponseEntity<>(error, HttpStatus.BAD_GATEWAY);
     }
 
 
@@ -71,11 +70,29 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(LoaderException.class)
     public ResponseEntity<Error> handleLoaderException(LoaderException e) {
         CognitivityApplicationInsights.getInstance().trackFailure(e);
-        Error error = new Error(ErrorClass.LOAD,"There has been a load error in the system. Error was: "+e.getMessage()+
-                "\nFor more information please refer to the log.",null);
-        return new ResponseEntity<Error>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+        Error error = new Error(ErrorClass.LOAD, "There has been a load error in the system. Error was: " + e.getMessage() +
+                "\nFor more information please refer to the log.", null);
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    /**
+     * Exception handler for exceptions in test loader.
+     * Whenever an error in the test loader accours,
+     * this method catches them and sends the relevant data to the front end.
+     *
+     * @param e - The caught exception.
+     * @return - An object containing the information about the error that is required to the front end.
+     */
+    @ResponseBody
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(SendLinksException.class)
+    public ResponseEntity<Error> handleSendLinksException(SendLinksException e) {
+        Error error = new Error(ErrorClass.SEND_LINKS,
+                "There was an error when attempting to send links to subjects." +
+                        " Error was: " + e.getMessage() +
+                        "\nFor more information please refer to the log.", null);
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
 
     /**
@@ -91,9 +108,9 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Error> handleRuntimeException(RuntimeException e) {
         CognitivityApplicationInsights.getInstance().trackFailure(e);
-        Error error =  new Error(ErrorClass.RUNTIME,"There has been a runtime error in the system. Error was: "+e.getMessage()+
-                "\nType is:"+e.getClass().getName()+"\nFor more information please refer to the log.",null);
-        return new ResponseEntity<Error>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+        Error error = new Error(ErrorClass.RUNTIME, "There has been a runtime error in the system. Error was: " + e.getMessage() +
+                "\nType is:" + e.getClass().getName() + "\nFor more information please refer to the log.", null);
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     /**
@@ -109,8 +126,8 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Error> handleAnyException(Exception e) {
         CognitivityApplicationInsights.getInstance().trackFailure(e);
-        Error error = new Error(ErrorClass.RUNTIME,"There has been an error in the system. Error was: "+e.getMessage()+
-                "\nType is:"+e.getClass().getName()+"\nFor more information please refer to the log.",null);
-        return new ResponseEntity<Error>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+        Error error = new Error(ErrorClass.RUNTIME, "There has been an error in the system. Error was: " + e.getMessage() +
+                "\nType is:" + e.getClass().getName() + "\nFor more information please refer to the log.", null);
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
