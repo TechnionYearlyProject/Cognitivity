@@ -42,8 +42,8 @@ public class PictureLinkController extends AbstractRestController<PictureLinkSer
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/savePictureLink")
-    public PictureLink savePictureLink(@RequestBody String link) throws DBException {
-        return service.createPictureLink(link);
+    public void savePictureLink(@RequestBody PictureLink link) throws DBException {
+        service.createPictureLink(link);
     }
 
 

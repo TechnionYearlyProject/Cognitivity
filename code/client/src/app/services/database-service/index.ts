@@ -356,8 +356,9 @@ export class PictureLinkService {
 
 
 
-    savePictureLink(link: String): Promise<void> {
-        return this.http.get(`${this.target}${this.base_mapping}/savePictureLink?link=${link}`)
+    savePictureLink(link: String,name:String): Promise<void> {
+        let PLink = {link: link, name: name};
+        return this.http.post(`${this.target}${this.base_mapping}/savePictureLink?link=${name}`,JSON.stringify(PLink), {headers : this.headers})
         .toPromise()
         .then(()=>null)
         .catch(ErrorHandler.handleError);

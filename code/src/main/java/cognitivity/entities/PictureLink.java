@@ -16,12 +16,24 @@ public class PictureLink extends AbstractEntity{
     @Column(name = "link")
     private String link;
 
+    @Column(name = "name")
+    private String name;
+
     public PictureLink() {
     }
 
-
-    public PictureLink(String link) {
+    public PictureLink(String link, String name) {
         this.link = link;
+        this.name = name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+
+        return name;
     }
 
     public String getLink() {
