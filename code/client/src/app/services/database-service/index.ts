@@ -41,7 +41,7 @@ class HttpTarget {
   private static httpTarget: string = 'http://localhost:8181';
 
   static getHttpTaraget(): string {
-    return this.httpTarget;
+    return this.deployedUrl;
   }
 }
 

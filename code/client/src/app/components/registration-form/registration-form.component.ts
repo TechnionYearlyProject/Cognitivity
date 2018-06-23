@@ -15,6 +15,7 @@ This component represents the registration form for the subject.
 export class registrationFormComponent implements OnInit {
   //defines the subjects field that we'll get from the form.
   user : TestSubject = {
+    privateId:'',
     name:'',
     occupation :'',
     birthDate:'',
@@ -50,10 +51,11 @@ export class registrationFormComponent implements OnInit {
   async onSubmit({value,valid}){
     if(valid){
       let newUser = {
-        name: value.name.trim() + ' ' + value.lastname.trim(),
-        occupation: value.currentjob.trim(),
-        birthDate: value.mydate.formatted.trim(),
-        martialStatus: value.maritalState.trim()
+          privateId: value.userID.trim(),
+          name: value.name.trim() + ' ' + value.lastname.trim(),
+          occupation: value.currentjob.trim(),
+          birthDate: value.mydate.formatted.trim(),
+          martialStatus: value.maritalState.trim()
       };
 
       // here we will save the in the db the data on the subject, and get his id from db

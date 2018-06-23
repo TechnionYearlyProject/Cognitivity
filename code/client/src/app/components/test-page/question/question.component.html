@@ -1,5 +1,9 @@
-
-<app-test-page-multiple-choice-question *ngIf="question.type==0" [question]="question" [testId]="testId" (answered)="onAnswering($event)"></app-test-page-multiple-choice-question>
-<app-test-page-rate-question *ngIf="question.type==1" [question]="question" [testId]="testId" (answered)="onAnswering($event)" ></app-test-page-rate-question>
-<app-test-page-open-question *ngIf="question.type==2" [question]="question" [testId]="testId" (answered)="onAnswering($event)"></app-test-page-open-question>
-<app-test-page-drill-down-question *ngIf="question.type==3" [question]="question" [testId]="testId" (answered)="onAnswering($event)"></app-test-page-drill-down-question>
+<div class="container">
+    <img [src]="picture" class= "rounded mx-auto d-block" *ngIf ="picture">
+</div>
+<div class="container">
+    <app-test-page-multiple-choice-question *ngIf="question.type==0" [question]="question" [testId]="testId" (answered)="onAnswering($event)"></app-test-page-multiple-choice-question>
+    <app-test-page-rate-question *ngIf="question.type==1" [question]="question" [testId]="testId" (answered)="onAnswering($event)" ></app-test-page-rate-question>
+    <app-test-page-open-question *ngIf="question.type==2" [question]="question" [testId]="testId" (answered)="onAnswering($event)"></app-test-page-open-question>
+    <app-test-page-drill-down-question *ngIf="question.type==3" [question]="question" [testId]="testId" (answered)="onAnswering($event)"></app-test-page-drill-down-question>
+</div>

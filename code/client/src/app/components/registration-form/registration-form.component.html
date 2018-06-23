@@ -57,7 +57,7 @@
                                 Last name must contain at least 2 characters
                             </div>
                             <div *ngIf="userLastname.errors?.pattern && userLastname.dirty && userLastname.touched" class="alert alert-danger">
-                                Enter more then only spaces
+                                Must contains at least one character and no digits
                             </div>
                         </div>
                         <br>
