@@ -26,12 +26,16 @@
                             <label for="firstName" class="fields">First Name</label>
                             <br>
                             <input type="text" class="form-control" name="name" [(ngModel)]="user.name"
-                                    #userName="ngModel" minlength="2" placeholder="First name" required>
+                                    #userName="ngModel" minlength="2" placeholder="First name" required
+                                     pattern="[ a-zA-Z]*[a-zA-Z]+[ a-zA-Z]*">
                             <div *ngIf="userName.errors?.required && submitted" class="alert alert-danger">
                                 Please enter your first name
                             </div>
                             <div *ngIf="userName.errors?.minlength && userName.dirty && userName.touched" class="alert alert-danger">
                                 First name must contain at least 2 characters
+                            </div>
+                            <div *ngIf="userName.errors?.pattern && userLastname.dirty && userLastname.touched" class="alert alert-danger">
+                                Enter more then only spaces
                             </div>
                         </div>
                         <br>
@@ -45,12 +49,15 @@
                             <br>
                             <input type="text" class="form-control" name="lastname"
                                     [(ngModel)]="lastname" #userLastname="ngModel" minlength="2"
-                                    required placeholder="Last name">
+                                    required placeholder="Last name" pattern="[ a-zA-Z]*[a-zA-Z]+[ a-zA-Z]*">
                             <div *ngIf="userLastname.errors?.required && submitted" class="alert alert-danger">
                                 Please enter your last name
                             </div>
                             <div *ngIf="userLastname.errors?.minlength && userLastname.dirty && userLastname.touched" class="alert alert-danger">
                                 Last name must contain at least 2 characters
+                            </div>
+                            <div *ngIf="userLastname.errors?.pattern && userLastname.dirty && userLastname.touched" class="alert alert-danger">
+                                Enter more then only spaces
                             </div>
                         </div>
                         <br>
@@ -118,7 +125,7 @@
                                 <option>Widower</option>
                             </select>
                             <div *ngIf="maritalstatus.errors?.required && submitted" class="alert alert-danger">
-                                Please enter your date of birth
+                                Please enter your marital status
                             </div>
                         </div>
                     </div>
@@ -129,9 +136,12 @@
                             <label for="job" class="fields">Current job</label>
                             <input type="text" class="form-control" name="currentjob"
                                     [(ngModel)]="user.occupation" #currentjob="ngModel" required
-                                    placeholder="Current job">
+                                    placeholder="Current job"  pattern="[ a-zA-Z]*[a-zA-Z]+[ a-zA-Z]*">
                             <div *ngIf="currentjob.errors?.required && submitted" class="alert alert-danger">
                                 Please enter your current job
+                            </div>
+                            <div *ngIf="currentjob.errors?.pattern && userLastname.dirty && userLastname.touched" class="alert alert-danger">
+                                Enter more then only spaces
                             </div>
                         </div>
                     </div>

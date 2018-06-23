@@ -24,6 +24,7 @@ export class TestPageComponent implements OnInit {
 
   subject: TestSubject;
 
+  loaded: boolean = false;
 
   //the current test's index in the tests list.
   currIndex: number;
@@ -62,7 +63,7 @@ export class TestPageComponent implements OnInit {
     this.blocksAnswers = new Array<BlockAnswers>(this.blocksLength);
     this.currIndex = -1;
 
-    document.body.classList.add('background-white');
+    // document.body.classList.add('background-white');
 
 
     //initializing the timing class
@@ -78,7 +79,7 @@ export class TestPageComponent implements OnInit {
 
     //after initializing the class we want to start the test measuring with timing_startTestMeasure() method
     this.timing.timing_startTestMeasure();
-
+    this.loaded = true;
   }
 
   async finishTest() {

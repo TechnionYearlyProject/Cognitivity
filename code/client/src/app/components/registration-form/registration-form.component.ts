@@ -42,16 +42,12 @@ export class registrationFormComponent implements OnInit {
   */
   async onSubmit({value,valid}){
     if(valid){
-      console.log('this is my valuessssss');
-      console.log(value);
       let newUser = {
-        name: value.name + ' ' + value.lastname,
-        occupation: value.currentjob,
-        birthDate: value.mydate.formatted,
-        martialStatus: value.maritalState
+        name: value.name.trim() + ' ' + value.lastname.trim(),
+        occupation: value.currentjob.trim(),
+        birthDate: value.mydate.formatted.trim(),
+        martialStatus: value.maritalState.trim()
       };
-      console.log('user is:::::');
-      console.log(newUser);
 
       // here we will save the in the db the data on the subject, and get his id from db
       let user = await this.subjectService.saveTestSubject(newUser);
@@ -63,4 +59,6 @@ export class registrationFormComponent implements OnInit {
       this.submitted = true;
     }
   }
+
+
 }

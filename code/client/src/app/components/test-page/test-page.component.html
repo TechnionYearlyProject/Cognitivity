@@ -1,14 +1,17 @@
-<div class="background">
-<br>
-<br>
-<div *ngIf="currIndex == -1" style="text-align:center">
-  <app-registration-form (complete)="onFormCompletion($event)"></app-registration-form>
+<div class = "container" *ngIf="!loaded">
+    <app-loading loading_value="test" color="White"></app-loading>
 </div>
-<div *ngFor="let block of blocks; let i=index">
-  <app-test-page-block *ngIf="showBlock(i)" [timing]="timing" [block]="block" [testId]="testId" (finished)="onBlockFinish()"></app-test-page-block>
-</div>
-<div style="text-align:center">
-  <input type="submit" class="btn btn-primary" [hidden]="hideNextButton" (click)="nextBlock()"
-         [value]=" currIndex >= blocksLength - 1 ? 'Finish Test' : 'Next Section'">
-</div>
+<div class="background" *ngIf="loaded">
+    <br>
+    <br>
+    <div *ngIf="currIndex == -1" style="text-align:center">
+      <app-registration-form (complete)="onFormCompletion($event)"></app-registration-form>
+    </div>
+    <div *ngFor="let block of blocks; let i=index">
+      <app-test-page-block *ngIf="showBlock(i)" [timing]="timing" [block]="block" [testId]="testId" (finished)="onBlockFinish()"></app-test-page-block>
+    </div>
+    <div style="text-align:center">
+      <input type="submit" class="btn btn-primary" [hidden]="hideNextButton" (click)="nextBlock()"
+             [value]=" currIndex >= blocksLength - 1 ? 'Finish Test' : 'Next Section'">
+    </div>
 </div>
