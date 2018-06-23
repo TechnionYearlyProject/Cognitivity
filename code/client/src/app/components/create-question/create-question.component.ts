@@ -124,6 +124,7 @@ export class CreateQuestionComponent implements OnInit {
    Setting the type of the created question, to multiple choice question
   */
   setMultipleQuestion() {
+    this.question_object = null;
     this.submit = false;
     this.typedMultipleAnswer = false;
     this.typedSecondaryAnswer = false;
@@ -143,6 +144,7 @@ export class CreateQuestionComponent implements OnInit {
    Setting the type of the created question, to rate question
   */
   setRateQuestion() {
+    this.question_object = null;
     this.submit = false;
     this.typedMultipleAnswer = false;
     this.typedSecondaryAnswer = false;
@@ -179,6 +181,7 @@ export class CreateQuestionComponent implements OnInit {
    Setting the type of the created question, to open question
   */
   setOpenQuestion() {
+    this.question_object = null;
     this.submit = false;
     this.typedMultipleAnswer = false;
     this.submitSecondaryQuestion = false;
@@ -197,6 +200,7 @@ export class CreateQuestionComponent implements OnInit {
    Setting the type of the created question, to drill down question
   */
   setDrillDownQuestion() {
+    this.question_object = null;
     this.submit = false;
     this.submitSecondaryQuestion = false;
     this.typedMultipleAnswer = false;
@@ -396,6 +400,7 @@ export class CreateQuestionComponent implements OnInit {
    Matrix type
   */
   setMatrixType() {
+    this.question_object = null;
     this.submit = false;
     this.typedMultipleAnswer = false;
     if (this.typeMultipleQuestion == TypeMultipleQuestion.Matrix) {
@@ -415,6 +420,7 @@ export class CreateQuestionComponent implements OnInit {
    Vertical type
   */
   setVerticalType() {
+    this.question_object = null;
     this.submit = false;
     this.typedMultipleAnswer = false;
     if (this.typeMultipleQuestion == TypeMultipleQuestion.Vertical) {
@@ -434,6 +440,7 @@ export class CreateQuestionComponent implements OnInit {
    Horizontal type
   */
   setHorizontalType() {
+    this.question_object = null;
     this.submit = false;
     this.typedMultipleAnswer = false;
     if (this.typeMultipleQuestion == TypeMultipleQuestion.Horizontal) {
@@ -677,6 +684,7 @@ export class CreateQuestionComponent implements OnInit {
   Control flow function which returns TRUE if there are missing answers in the matrix and FALSE other wise.
 */
   missingAnswers(): boolean {
+    console.log()
     if (this.matrixQuestion != null) {
       for (let i = 0; i < this.matrixQuestion.dimSize; i++) {
         for (let j = 0; j < this.matrixQuestion.dimSize; j++) {

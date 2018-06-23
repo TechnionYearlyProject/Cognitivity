@@ -41,7 +41,7 @@ class HttpTarget {
   private static httpTarget: string = 'http://localhost:8181';
 
   static getHttpTaraget(): string {
-    return this.deployedUrl;
+    return this.httpTarget;
   }
 }
 
@@ -334,9 +334,7 @@ export class EmailsService {
   }
 }
 
-class STRING {
-  body: string;
-}
+
 
 @Injectable()
 export class CheckBackService {
