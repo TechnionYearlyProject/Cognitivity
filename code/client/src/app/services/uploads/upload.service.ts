@@ -1,3 +1,8 @@
+/*
+Author: Pe'er Sagiv
+Date: 6.6.18
+*/
+
 import { Injectable } from '@angular/core';
 import { AngularFireModule } from 'angularfire2';
 import { GalleryImage } from '../../models/galleryImage/galleryImage.model';
@@ -17,7 +22,6 @@ export class UploadService {
   constructor(private ngFire: AngularFireModule, private db: AngularFireDatabase, private pictureLinkService: PictureLinkService) { }
 
   uploadFile(upload: Upload) {
-    //firebase.initializeApp(environment.firebase,'Cognitivity1');
     const storageRef = firebase.storage().ref();
     const uploadTask = storageRef.child(`${this.basePath}/${upload.file.name}`)
       .put(upload.file);
@@ -39,13 +43,31 @@ export class UploadService {
       (): any => {
         upload.url = uploadTask.snapshot.downloadURL;
         upload.name = upload.file.name;
-        this.saveFileData(uploadTask.snapshot.downloadURL);
+        this.saveFileData(upload);
       }
     );
   }
   //Saving the link in the database
-  private async saveFileData(upload: String) {
-    await this.pictureLinkService.savePictureLink(upload);
+  private async saveFileData(upload: Upload) {
+    await this.pictureLinkService.savePictureLink(upload.url,upload.name);
+    console.log(upload);
     console.log('File saved!: ' + upload);
+  }
+
+  deleteFileUpload(upload: string) {
+    this.deleteFileDatabase(upload)
+      .then(() => {
+        this.deleteFileStorage(upload);
+      })
+      .catch(error => console.log(error));
+  }
+ 
+  private deleteFileDatabase(name: string) {
+    return this.pictureLinkService.deletePictureLink(name);
+  }
+ 
+  private deleteFileStorage(name: string) {
+    const storageRef = firebase.storage().ref();
+    storageRef.child(`${this.basePath}/${name}`).delete();
   }
 }

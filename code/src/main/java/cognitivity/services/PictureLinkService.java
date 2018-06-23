@@ -35,12 +35,10 @@ public class PictureLinkService {
      * @return - The created picture Link
      * @throws DBException - In case of DB error.
      */
-    public PictureLink createPictureLink(String link) throws DBException{
+    public void createPictureLink(PictureLink link) throws DBException{
         try {
-            PictureLink res = new PictureLink(link);
-            dao.add(res);
-            logger.info("Successfully added PictureLink. PictureLinkID: " + res.getId());
-            return res;
+            long id = dao.add(link);
+            logger.info("Successfully added PictureLink. PictureLinkID: " + id);
         } catch (org.hibernate.HibernateException e) {
             logger.info("Failed to add PictureLink.",e);
             throw new DBException(ErrorType.SAVE, null);
@@ -86,16 +84,16 @@ public class PictureLinkService {
 
     /**
      * Delete a picture link from the system.
-     * @param linkId - the Link OID to be deleted.
+     * @param link - the Link name to be deleted.
      * @throws DBException - In case of DB error.
      */
-    public void deletePictureLink(long linkId) throws DBException {
+    public void deletePictureLink(String link) throws DBException {
         try {
-            dao.delete(linkId);
-            logger.info("Successfully deleted PictureLink. PictureLinkID: " + linkId);
+            dao.deleteLinkByName(link);
+            logger.info("Successfully deleted PictureLink. PictureLink: " + link);
         } catch (org.hibernate.HibernateException e) {
-            logger.error("Failed to delete a PictureLink. PictureLinkID: " + linkId,e);
-            throw new DBException(ErrorType.DELETE, linkId);
+            logger.error("Failed to delete a PictureLink. PictureLink: " + link,e);
+            throw new DBException(ErrorType.DELETE, null);
         }
     }
 

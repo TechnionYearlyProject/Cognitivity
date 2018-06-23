@@ -2,8 +2,8 @@
   <h2>LLatest Photos</h2>
   <ul id="thumbnailsList">
       <li *ngFor="let image of images | async" class="img">
-          <a [routerLink]="['/image']">
-          <img src="{{image}}" class="tn">
+          <a [routerLink]="['/image', image.name]">
+          <img src="{{image.link}}" class="tn">
           </a>
       </li>
   </ul>

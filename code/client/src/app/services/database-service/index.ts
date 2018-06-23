@@ -14,8 +14,10 @@ import {
   import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/empty';
-import 'rxjs/add/operator/retry'; 
+import 'rxjs/add/operator/retry';
 import 'rxjs/add/operator/do';
+import { GalleryImage } from '../../models/galleryImage/galleryImage.model'
+import { GalleryComponent } from '../../components/gallery/gallery.component';
 
 //The following code is meant to make the error handling more modular, please ignore it for now
 
@@ -47,22 +49,22 @@ import 'rxjs/add/operator/do';
 // }
 
 class HttpTarget{
-    private static deployedUrl : string = 'https://cognitivity.azurewebsites.net'; 
+    private static deployedUrl : string = 'https://cognitivity.azurewebsites.net';
     private static httpTarget : string = 'http://localhost:8181';
     static getHttpTaraget(): string{
-        return this.httpTarget;
+        return this.deployedUrl;
     }
 }
 // Error handler class, holds behavior when errors are returned from server
 class ErrorHandler {
     static handleError(error: any) {
-        
+
         let errorMessage = JSON.parse(error._body).message;
         alert("Error:\ncould not perform the last operation.\n"+errorMessage);
 
         return Promise.reject(error.message || error);
     }
-    
+
 
 }
 
@@ -163,7 +165,7 @@ export class TestService {
         return this.http.get(`${this.target}${this.base_mapping}/findCognitiveTestById?testId=${testId}`)
         .toPromise()
         .then(response => response.json() as Test)
-        .catch(ErrorHandler.handleError)
+        .catch(()=>{return null;})
     }
 
 
@@ -202,7 +204,7 @@ export class QuestionService {
         .catch(ErrorHandler.handleError);
     }
 
-    
+
 
 }
 
@@ -323,7 +325,9 @@ export class EmailsService {
     }
 }
 
-
+class STRING {
+    body: string;
+}
 @Injectable()
 export class CheckBackService {
     private target : string = HttpTarget.getHttpTaraget();
@@ -353,27 +357,28 @@ export class PictureLinkService {
 
 
 
-    savePictureLink(url:String): Promise<String> {
-        return this.http.post(`${this.target}${this.base_mapping}/savePictureLink`, JSON.stringify(url), {headers : this.headers})
+    savePictureLink(link: String,name:String): Promise<void> {
+        let PLink = {link: link, name: name};
+        return this.http.post(`${this.target}${this.base_mapping}/savePictureLink?link=${name}`,JSON.stringify(PLink), {headers : this.headers})
         .toPromise()
-        .then(res => res.json() as String)
+        .then(()=>null)
         .catch(ErrorHandler.handleError);
     }
 
-    findAllPictureLinks(): Promise<String[]> {
+    findAllPictureLinks(): Promise<GalleryImage[]> {
         return this.http.get(`${this.target}${this.base_mapping}//findAllPictureLinksInTheSystem`, {headers: this.headers})
         .toPromise()
-        .then(res => res.json() as String[])
+        .then(res => res.json() as GalleryImage[])
         .catch(ErrorHandler.handleError);
     }
 
-    deletePictureLink(LinkId: number): Promise<void> {
-        return this.http.delete(`${this.target}${this.base_mapping}/deletePictureLink?questionId=${LinkId}`, {headers: this.headers})
+    deletePictureLink(name: String): Promise<void> {
+        return this.http.delete(`${this.target}${this.base_mapping}/deletePictureLink?PictureLinkName=${name}`, {headers: this.headers})
         .toPromise()
         .then(() => null)
         .catch(ErrorHandler.handleError);
     }
 
-    
+
 
 }

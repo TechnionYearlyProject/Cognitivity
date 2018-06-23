@@ -11,7 +11,7 @@ import { forEach } from '@angular/router/src/utils/collection';
   styleUrls: ['./gallery.component.css']
 })
 export class GalleryComponent implements OnInit, OnChanges {
-  images: Observable<String[]>;
+  images: Observable<GalleryImage[]>;
 
   constructor(private pictureLinkService: PictureLinkService) { }
 

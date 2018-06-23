@@ -4,27 +4,30 @@
 
     <div class="container">
 
-        <div style="font-family: Arial; margin: 0em 1em; font-size: 30px; color: white">
-            <span class=" fa fa-plus-square" style="color: white; margin: 1em;"></span>Create a new question
+        <div class="font" style=" margin: 0em 1em; font-size: 30px;">
+            <span class=" fa fa-plus-square" style="margin: 1em;"></span>Create a new question
         </div>
     </div>
     <br>
-    <form #f="ngForm">
+    <form #f="ngForm" class="container-fluid">
         <div class="form-group">
-            <div class="centered">
+            <div class="font centered">
                 <label for="Question text">
-                    <span style="font-family:Arial; font-size: 25px; color: white">Enter the question:</span>
+                    Enter the question:
                 </label>
                 <input autocomplete="off" [(ngModel)]="questionText" name="question1" #question1="ngModel"
                        type="text" class="form-control" maxLength="256"
                        placeholder="Question text" style="max-width: 100%;" required maxLength="256">
-                       <br>
-                       <input  type="checkbox"  [checked]="showDistractions" (click)="toggleDistractions()" style="color: white">
-                       <span style="font-family:Arial;  color: white"> Enable distractions</span><br>
-                       <form #f="ngForm">
-                       <span style="font-family:Arial;  color: white"> Enter number of seconds for the countdown: </span>
-                       <input type="number" [disabled]="!showDistractions" #seconds name="quantity"  min="0" [value]="getDistractionSeconds()">
-                      <input type="submit" [disabled]="!showDistractions" (click)="updateDistractionCountdown(seconds.value)"></form>
+                <br>
+                <form #f="ngForm">
+                    <div class="checkbox">
+                        <input id="distractionsCheckBox" type="checkbox"  [checked]="showDistractions" (click)="toggleDistractions()">
+                        <label for="distractionsCheckBox">Enable distractions</label>
+                    </div>
+                    <label for="distractionsSeconds"> Enter number of seconds for the countdown: </label>
+                    <input id="distractionsSeconds" class="form-control" type="number" [disabled]="!showDistractions" #seconds  min="0"
+                    (onchange)="updateDistractionCountdown(seconds.value)" value="0">
+                </form>
             </div><br>
             <div class="container">
                 <div class="dropdown">
@@ -84,11 +87,11 @@
             </div>
             <div class="centered">
                 <br>
-                <div *ngIf="(didChosetype() && !didChoseDrillDownQuestion() ) && !didChoseQuestionPosition() && !didChoseDrillDownQuestion() && submit" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
+                <div *ngIf="(didChosetype() && !didChoseDrillDownQuestion() ) && !didChoseQuestionPosition() && !didChoseDrillDownQuestion() && submit" style="color: rgb(255, 55, 98);font-size:20px;">
                     Please choose Position for your question
                 </div>
-                <br>
-                <div *ngIf="didChoseMultipleQuestion() && !didChoseMultipleChoiceType() && submit" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
+                <div *ngIf="didChoseMultipleQuestion() && !didChoseMultipleChoiceType() && submit" style="color: rgb(255, 55, 98);font-size:20px;">
+                  <br>
                   Please choose type for your multiple choice question
                 </div>
             </div>
@@ -102,15 +105,14 @@
         <div *ngIf="didChoseMultipleQuestion() && (didChoseVerticalType() || didChoseHorizontalType())">
             <app-create-vertical-horizontal-multiple [question] = "question_object" ></app-create-vertical-horizontal-multiple>
             <div class="centered">
-                <div *ngIf="!haveAnswers() && submit" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
+                <div *ngIf="!haveAnswers() && submit" style="color: rgb(255, 55, 98);font-size:20px;">
                     Please enter at least one answer
                 </div>
             </div>
-            <br>
         </div>
         <div *ngIf="didChoseMultipleQuestion() && didChoseMatrixType()">
             <app-create-matrix-multiple-question [question] = "question_object" ></app-create-matrix-multiple-question>
-            <div *ngIf="missingAnswers() && submit" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;" class="centered">
+            <div *ngIf="missingAnswers() && submit" style="color: rgb(255, 55, 98);font-size:20px;" class="centered">
                 Please enter all answers, and at least 2 characters to an answer
 
             </div>
@@ -120,12 +122,11 @@
         </div>
         <div *ngIf="didChoseDrillDownQuestion()">
             <app-create-drill-down-question [question]="question_object"></app-create-drill-down-question>
-            <div class="centered" *ngIf="submit && !haveMainAnswers()" Style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
+            <div class="centered" *ngIf="submit && !haveMainAnswers()" Style="color: rgb(255, 55, 98);font-size:20px;">
                 Please enter at least one answer
             </div>
         </div>
-        <br>
-        <div  class="centered" *ngIf="(questionText == '' || questionText == null || isSpacePrefix(questionText)) && submit" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
+        <div  class="centered" *ngIf="(questionText == '' || questionText == null || isSpacePrefix(questionText)) && submit" style="color: rgb(255, 55, 98);font-size:20px;">
             A question is required
         </div>
         <div class="container" style="max-width: 30%;">

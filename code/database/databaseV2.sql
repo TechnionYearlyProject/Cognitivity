@@ -102,7 +102,8 @@ CREATE TABLE testQuestion(id INTEGER PRIMARY KEY AUTO_INCREMENT,
   @link - The link for a specific picture in the Firebase Service.
  */
 CREATE TABLE pictureLinks(id INTEGER PRIMARY KEY AUTO_INCREMENT,
-  link text NOT NULL
+  link text NOT NULL,
+  name text NOT NULL
 );
 
 /*
