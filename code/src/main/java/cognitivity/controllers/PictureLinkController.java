@@ -96,6 +96,4 @@ public class PictureLinkController extends AbstractRestController<PictureLinkSer
         return service.getAllPictureLinks();
     }
 
-
-
 }
