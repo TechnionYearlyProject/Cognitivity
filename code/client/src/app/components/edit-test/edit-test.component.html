@@ -5,7 +5,10 @@
 <div class="titleBoi">Cognitivity</div>
 <br>
 <br>
-<div class="form-group">
+<div class="container-fluid" *ngIf="!loaded">
+    <app-loading loading_value="test"></app-loading>
+</div>
+<div class="form-group" *ngIf="loaded">
     <div class="centered">
         <h1>
             <span class="fa fa-sticky-note-o"></span> Edit Test "{{titleTest}}"</h1>
@@ -31,8 +34,9 @@
                 <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#importTestModal" data-backdrop="static" data-keyboard="false"><span class="fa fa-upload" ></span> Import block</button>
         </div>
     </div>
+</div>
 
-    <div class="centered">
+    <div class="centered" *ngIf="loaded">
         <div class="column">
 
             <div *ngFor="let it of iterator; let i = index;">
@@ -92,12 +96,6 @@
                 </div>
             </div>
 
-
-            <!-- Modal footer -->
-            <!--div class="modal-footer">
-                <button class="btn btn-block btn-primary col-md-12" data-dismiss="modal" (click)="importBlock()">Import block</button>
-            </div-->
-
           </div>
         </div>
       </div>
@@ -129,4 +127,3 @@
               </div>
             </div>
           </div>
-

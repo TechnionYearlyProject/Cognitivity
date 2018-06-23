@@ -84,7 +84,7 @@
           </div>
       </div>
   </div>
-  <div *ngIf="(secondaryAnswerMode || editionQuestionSecondary) && !editionSecondary">
+  <div *ngIf="(secondaryAnswerMode || editionQuestionSecondary)">
       <div class="centered">
           <div *ngIf="hasSecondaryAnswers()">
               <div class="centered">
@@ -159,10 +159,13 @@
           <div *ngIf="typedMainAnswer && (currentMainAnswer == null || currentMainAnswer.length < 1 || isSpacePrefix(currentMainAnswer))" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
               Please enter an answer with at least 2 characters, and a proper answer
           </div>
+          <div [hidden] = "!answerExistsInArray" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
+              This answer already exists
+          </div>
       </div>
   </div>
   <div class="centered">
-      <div *ngIf="!haveMainAnswers() && submit" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
+      <div *ngIf="!haveMainAnswers()" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
           Please enter at least one answer
       </div>
   </div>

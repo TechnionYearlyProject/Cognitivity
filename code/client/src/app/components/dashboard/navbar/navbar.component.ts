@@ -13,7 +13,6 @@ This component class creates the navigation bar in the upper section of out proj
 */
 export class NavbarComponent implements OnInit {
   //the given manager id 
-  @Input() managerId: string;
   //variable to show/hide the registeration option.
   showRegister = true;
   //variable to indicate if the user is logged in.

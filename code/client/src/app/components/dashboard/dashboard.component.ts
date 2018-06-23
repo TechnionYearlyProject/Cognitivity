@@ -6,7 +6,7 @@ import { Manager } from '../../models/index';
 @Component({
     selector: 'app-dashboard',
     template: `<div class="body" [style.backgroundSize]="'cover'">
-                <app-navbar [managerId]="managerId"></app-navbar>
+                <app-navbar></app-navbar>
                 <div class="container">
                     <router-outlet></router-outlet>
                 </div>

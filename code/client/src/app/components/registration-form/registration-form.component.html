@@ -44,7 +44,7 @@
                             <label for="lastName" class="fields">Last Name</label>
                             <br>
                             <input type="text" class="form-control" name="lastname"
-                                    [(ngModel)]="user.lastname" #userLastname="ngModel" minlength="2"
+                                    [(ngModel)]="lastname" #userLastname="ngModel" minlength="2"
                                     required placeholder="Last name">
                             <div *ngIf="userLastname.errors?.required && submitted" class="alert alert-danger">
                                 Please enter your last name
@@ -90,7 +90,7 @@
                         <div class="card-body">
                             <label for="birthDate" class="fields">Date of birth</label>
                             <br>
-                            <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="model" #birthdate="ngModel" required placeholder="Date of birth"></my-date-picker>
+                            <my-date-picker name="mydate" [(ngModel)]="user.birthDate" #birthdate="ngModel" required placeholder="Date of birth"></my-date-picker>
                             <div *ngIf="birthdate.errors?.required && submitted" class="alert alert-danger">
                                 Please enter your date of birth
                             </div>
@@ -109,8 +109,8 @@
                         <!-- defines the left column -->
                         <!-- Here we define the family state field -->
                         <div class="card-body">
-                            <label for="maritalStatus" class="fields">Marital Status</label>
-                            <select class="custom-select form-control form-control-md" name="maritalState" [(ngModel)]="user.maritalstatus" #maritalstatus="ngModel"
+                            <label  for="maritalStatus" class="fields">Marital Status</label>
+                            <select id="maritalStatus" class="custom-select form-control form-control-md" name="maritalState" [(ngModel)]="user.martialStatus" #maritalstatus="ngModel"
                                 required>
                                 <option>Single</option>
                                 <option>Married</option>
