@@ -181,9 +181,12 @@ export class TestPageBlockComponent implements OnInit {
     if (this.wasAllShown()==0) {
       this.finish = true;
       this.finished.emit();
+      console.log('Was all shownnnnn');
     }
     else{
     let tmpQuestion = this.parseToQuestion(this.questions[this.currIndex]);
+    console.log('tmpQuestion.showDistractions' + tmpQuestion.showDistractions);
+    console.log('tmpQuestion.distractionsSeconds' + tmpQuestion.distractionsSeconds);
     if(tmpQuestion.showDistractions && (tmpQuestion.distractionsSeconds > 0)){
       this.showClock = true;
       console.log("setting clock to true");

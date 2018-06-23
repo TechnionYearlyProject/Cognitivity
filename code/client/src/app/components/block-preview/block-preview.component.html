@@ -4,10 +4,9 @@
     <div>{{clockDisplay}}</div>
     </div>
 
-    <app-picture-preview *ngIf="question.pictureLink!=finish"  [picture]="question.pictureLink" ></app-picture-preview>
+    <app-picture-preview *ngIf="!finish"  [picture]="question.pictureLink" ></app-picture-preview>
 
-      <div class="column">  <app-question-preview *ngIf="showQuestion(i)" [question]="parseToQuestion(question.question)"></app-question-preview>
-    </div>
+    <app-question-preview *ngIf="showQuestion(i)" [question]="parseToQuestion(question.question)"></app-question-preview>
 
     
       
