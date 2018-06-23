@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
-import { SharedModule } from '../shared-module/shared-module.module';
+//import { SharedModule } from '../shared-module/shared-module.module';
 import { FormsModule } from '@angular/forms';
 
 
@@ -14,8 +14,7 @@ import { TestListComponent } from './test-list/test-list.component';
     imports: [
         DashboardRoutingModule,
         CommonModule,
-        FormsModule,
-        SharedModule
+        FormsModule
     ],
     declarations: [
         DashboardComponent,
