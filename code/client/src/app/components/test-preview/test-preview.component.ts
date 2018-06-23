@@ -41,6 +41,8 @@ export class TestPreviewComponent implements OnInit {
   //variable that hold the blocks array length
   blocksLength: number;
 
+  loaded: boolean = false;
+
   //default initialization function.
   async ngOnInit() {
    
@@ -57,6 +59,7 @@ export class TestPreviewComponent implements OnInit {
     this.blocksLength = this.blocks.length;
     console.log(this.test);
     this.currIndex = 0;
+    this.loaded = true;
   }
 
   /*
