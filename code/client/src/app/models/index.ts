@@ -241,6 +241,7 @@ export interface TimeMeasurment {
 
 export interface TestSubject {
   id?: number;
+  privateId: string;
   name: string;
   ipAddress?: string;
   browser?: string;

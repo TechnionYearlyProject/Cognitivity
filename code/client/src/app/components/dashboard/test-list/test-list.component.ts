@@ -141,7 +141,7 @@ export class TestListComponent implements OnInit {
       this.filteredTestList = this.testList;
       this.loaded = true;
     });
-    
+
   }
 
   getNumberOfTestsWithSameName(name: string) {
@@ -155,31 +155,39 @@ export class TestListComponent implements OnInit {
     return count;
   }
 
+
+chooseCategory : boolean = true;
+
   filterKeyDown(event){
       if(event.key === "Enter")
         this.filterTests();
   }
 
   filterTests(){
-      this.filteredTestList = [];
-      this.testList.forEach((test) => {
-          let checkBy : string = '';
-          switch(this.filter.option){
-              case 'project':
+    if(!this.filter.option){
+        this.chooseCategory = false;
+        return;
+    }
+    this.chooseCategory = true;
+    this.filteredTestList = [];
+    this.testList.forEach((test) => {
+        let checkBy : string = '';
+        switch(this.filter.option){
+            case 'project':
                 checkBy = test.project;
-              break;
-              case 'name':
+                break;
+            case 'name':
                 checkBy = test.name;
-              break;
-              case 'notes':
+                break;
+            case 'notes':
                 checkBy = test.notes
-              break;
-          }
-          if(checkBy.includes(this.filter.text.trim())){
-              this.filteredTestList.push(test);
-          }
-      });
-      return;
+                break;
+            }
+            if(!this.filter.text.trim() || (checkBy && checkBy.includes(this.filter.text.trim()))){
+                this.filteredTestList.push(test);
+            }
+        });
+        return;
   }
 
   async gen_link(){

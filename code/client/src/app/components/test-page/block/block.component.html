@@ -5,15 +5,7 @@
       {{clockDisplay}}
 
     </div>
-    <div class="row">
-        <div class="column" width="%80"><app-test-page-question *ngIf="showQuestion(i)" [timing]="timing" [testId]="testId" [fatherBlockID]="block.id" [question]="parseToQuestion(question)" (finished)="onQuestionFinish($event)"></app-test-page-question></div>
-    
-        <div class="column" width="%20">
-       
-            <div class="row"><app-picture-preview *ngIf="question.pictureLink!=undefined" [picture]="question.pictureLink" ></app-picture-preview></div>
-        </div>
-        </div>
-  </div>
+  <app-test-page-question *ngIf="showQuestion(i)" [timing]="timing" [testId]="testId" [fatherBlockID]="block.id" [question]="parseToQuestion(question)" [picture]="question.pictureLink" (finished)="onQuestionFinish($event)"></app-test-page-question>
   <br>
   <div  style="text-align:right;">
     <input *ngIf="!finish && didAnswerQuestion" type="submit" class="btn btn-primary ml-auto" (click)="nextQuestion()"

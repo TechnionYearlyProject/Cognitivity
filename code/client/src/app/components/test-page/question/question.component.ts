@@ -24,7 +24,7 @@ export class TestPageQuestionComponent implements OnInit {
 
 //we get the question as a passed input, thats the question we'll preview.
   @Input() question: any;
-
+  @Input() picture: string;
   @Input() testId: number;
 
 //we need to get the timing object from the block
@@ -35,7 +35,7 @@ export class TestPageQuestionComponent implements OnInit {
 // Output event that emits the time took answering the question
   @Output() finished: EventEmitter<any> = new EventEmitter();
 
-  
+
 //Answer switch counter instance
   answerSwitcher: SwitchCounterTracker;
   appInsightsTrackerIns: ApplicationInsightsTracker;
@@ -60,7 +60,7 @@ export class TestPageQuestionComponent implements OnInit {
   onQuestionFinish() {
 
     var questionAnswer: QuestionAnswer;
-    
+
     switch (this.question.type) {
       case TypeQuestion.OpenQuestion:
         questionAnswer = this.openQuestion.buildAnswer();
@@ -104,16 +104,14 @@ export class TestPageQuestionComponent implements OnInit {
 
   onAnswering(didAnswer: boolean) {
     //meaning we're gonna show the conf bar, so we can start timing it.
-    //console.log("### starting conf bar timing for question "+this.question.id.toString()+" in block "+this.fatherBlockID.toString()+"###");       
+    //console.log("### starting conf bar timing for question "+this.question.id.toString()+" in block "+this.fatherBlockID.toString()+"###");
     this.timing.timing_startConfidenceMeasure(this.question.id,this.fatherBlockID);
     this.finished.emit(didAnswer);
     //Should be called every time a subject changes an answer.
     this.answerSwitcher.switchAnswer();
-    
 
-            
+
+
   }
 
 }
-
-
