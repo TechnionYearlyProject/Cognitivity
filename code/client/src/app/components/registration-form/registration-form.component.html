@@ -97,7 +97,7 @@
                         <div class="card-body">
                             <label for="birthDate" class="fields">Date of birth</label>
                             <br>
-                            <my-date-picker name="mydate" [(ngModel)]="user.birthDate" #birthdate="ngModel" required placeholder="Date of birth"></my-date-picker>
+                            <my-date-picker [options]="options" name="mydate" [(ngModel)]="user.birthDate" #birthdate="ngModel" required placeholder="Date of birth"></my-date-picker>
                             <div *ngIf="birthdate.errors?.required && submitted" class="alert alert-danger">
                                 Please enter your date of birth
                             </div>

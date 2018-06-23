@@ -70,14 +70,13 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(LoaderException.class)
     public ResponseEntity<Error> handleLoaderException(LoaderException e) {
         CognitivityApplicationInsights.getInstance().trackFailure(e);
-        Error error = new Error(ErrorClass.LOAD, "There has been a load error in the system. Error was: " + e.getMessage() +
-                "\nFor more information please refer to the log.", null);
+        Error error = new Error(ErrorClass.LOAD, "There has been a load error in the system. Error was: " + e.getMessage(), null);
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     /**
-     * Exception handler for exceptions in test loader.
-     * Whenever an error in the test loader accours,
+     * Exception handler for exceptions in emails sender.
+     * Whenever an error in the email distributor occurs,
      * this method catches them and sends the relevant data to the front end.
      *
      * @param e - The caught exception.
@@ -89,8 +88,7 @@ public class ControllerExceptionHandler {
     public ResponseEntity<Error> handleSendLinksException(SendLinksException e) {
         Error error = new Error(ErrorClass.SEND_LINKS,
                 "There was an error when attempting to send links to subjects." +
-                        " Error was: " + e.getMessage() +
-                        "\nFor more information please refer to the log.", null);
+                        " Error was: " + e.getMessage(), null);
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -109,7 +107,7 @@ public class ControllerExceptionHandler {
     public ResponseEntity<Error> handleRuntimeException(RuntimeException e) {
         CognitivityApplicationInsights.getInstance().trackFailure(e);
         Error error = new Error(ErrorClass.RUNTIME, "There has been a runtime error in the system. Error was: " + e.getMessage() +
-                "\nType is:" + e.getClass().getName() + "\nFor more information please refer to the log.", null);
+                "\nType is:" + e.getClass().getName(), null);
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -127,7 +125,7 @@ public class ControllerExceptionHandler {
     public ResponseEntity<Error> handleAnyException(Exception e) {
         CognitivityApplicationInsights.getInstance().trackFailure(e);
         Error error = new Error(ErrorClass.RUNTIME, "There has been an error in the system. Error was: " + e.getMessage() +
-                "\nType is:" + e.getClass().getName() + "\nFor more information please refer to the log.", null);
+                "\nType is:" + e.getClass().getName(), null);
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
