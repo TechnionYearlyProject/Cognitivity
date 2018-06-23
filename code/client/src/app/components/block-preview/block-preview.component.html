@@ -1,15 +1,16 @@
 <div class=" container" >
 <div *ngFor="let question of block.questions; let i=index" class="form-group"  style="background-color:white;">
+   <div class="row">
     <div>{{clockDisplay}}</div>
-
-    <div class="row">
-      <div class="column" width="%80">  <app-question-preview *ngIf="showQuestion(i)" [question]="parseToQuestion(question.question)"></app-question-preview></div>
-      <div class="column" width="%20">
-       
-          <div class="row"><app-picture-preview *ngIf="question.pictureLink!=undefined" [picture]="question.pictureLink" ></app-picture-preview></div>
-       
-      </div>
     </div>
+
+    <app-picture-preview *ngIf="question.pictureLink!=finish"  [picture]="question.pictureLink" ></app-picture-preview>
+
+      <div class="column">  <app-question-preview *ngIf="showQuestion(i)" [question]="parseToQuestion(question.question)"></app-question-preview>
+    </div>
+
+    
+      
 
 
   

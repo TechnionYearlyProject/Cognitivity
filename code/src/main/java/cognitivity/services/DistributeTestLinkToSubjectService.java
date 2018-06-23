@@ -7,11 +7,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import javax.mail.MessagingException;
 import java.util.List;
-import java.util.Properties;
 
 /**
  * Business service for sending test links to subjects
@@ -31,14 +28,6 @@ public class DistributeTestLinkToSubjectService {
         this.testSubjectDAO = testSubjectDAO;
     }
 
-    private void checkSubjectsAreRegistered(List<String> subjects) throws SendLinksException {
-        if (subjects.stream()
-                .anyMatch(e -> !testSubjectDAO.doesSubjectWithEmailExist(e))) {
-            logger.error("Some subjects were not registered");
-            throw new SendLinksException(SendLinksException.ErrorType.NOT_REGISTERED);
-        }
-    }
-
 
     /**
      * Sends the email with the link to all subjects.
@@ -47,7 +36,10 @@ public class DistributeTestLinkToSubjectService {
      * @param link     - the link to send.
      */
     public void sendLinksToSubjects(List<String> subjects, String link) throws SendLinksException {
-        // checkSubjectsAreRegistered(subjects);
+        if (subjects.isEmpty()) {
+            logger.error("No emails were supplied");
+            throw new SendLinksException(SendLinksException.ErrorType.EMPTY_EMAILS);
+        }
         try {
             MailingClient.SendLink(subjects, link);
         } catch (MessagingException e) {
