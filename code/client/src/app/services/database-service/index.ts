@@ -17,6 +17,7 @@ import 'rxjs/add/observable/empty';
 import 'rxjs/add/operator/retry';
 import 'rxjs/add/operator/do';
 import { GalleryImage } from '../../models/galleryImage/galleryImage.model'
+import { GalleryComponent } from '../../components/gallery/gallery.component';
 
 //The following code is meant to make the error handling more modular, please ignore it for now
 
@@ -364,15 +365,15 @@ export class PictureLinkService {
         .catch(ErrorHandler.handleError);
     }
 
-    findAllPictureLinks(): Promise<String[]> {
+    findAllPictureLinks(): Promise<GalleryImage[]> {
         return this.http.get(`${this.target}${this.base_mapping}//findAllPictureLinksInTheSystem`, {headers: this.headers})
         .toPromise()
-        .then(res => res.json() as String[])
+        .then(res => res.json() as GalleryImage[])
         .catch(ErrorHandler.handleError);
     }
 
-    deletePictureLink(LinkId: number): Promise<void> {
-        return this.http.delete(`${this.target}${this.base_mapping}/deletePictureLink?questionId=${LinkId}`, {headers: this.headers})
+    deletePictureLink(name: String): Promise<void> {
+        return this.http.delete(`${this.target}${this.base_mapping}/deletePictureLink?PictureLinkName=${name}`, {headers: this.headers})
         .toPromise()
         .then(() => null)
         .catch(ErrorHandler.handleError);

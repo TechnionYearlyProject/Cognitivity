@@ -22,7 +22,6 @@ export class UploadService {
   constructor(private ngFire: AngularFireModule, private db: AngularFireDatabase, private pictureLinkService: PictureLinkService) { }
 
   uploadFile(upload: Upload) {
-    //firebase.initializeApp(environment.firebase,'Cognitivity1');
     const storageRef = firebase.storage().ref();
     const uploadTask = storageRef.child(`${this.basePath}/${upload.file.name}`)
       .put(upload.file);
@@ -63,8 +62,8 @@ export class UploadService {
       .catch(error => console.log(error));
   }
  
-  private deleteFileDatabase(key: string) {
-    return this.db.list(`${this.basePath}/`).remove(key);
+  private deleteFileDatabase(name: string) {
+    return this.pictureLinkService.deletePictureLink(name);
   }
  
   private deleteFileStorage(name: string) {
