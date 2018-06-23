@@ -7,5 +7,6 @@ public enum ErrorClass {
     RUNTIME,
     DB,
     EMPTY_RESULT,
-    LOAD
+    LOAD,
+    SEND_LINKS
 }
