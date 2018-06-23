@@ -1,4 +1,7 @@
 <br>
+<div *ngIf="!loaded">
+    <app-loading loading_value="preview" color="White"></app-loading>
+  </div>
 <div class="container">
   <input type="submit" class="btn btn-primary btn-sm" (click)="finishPreview()" value="Finish preview">
 </div>
