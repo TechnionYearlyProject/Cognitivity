@@ -40,7 +40,6 @@ public class PictureLinkController extends AbstractRestController<PictureLinkSer
      * @return - The saved picture link.
      * @throws DBException - In case of DB error.
      */
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, value = "/savePictureLink")
     public void savePictureLink(@RequestBody PictureLink link) throws DBException {
