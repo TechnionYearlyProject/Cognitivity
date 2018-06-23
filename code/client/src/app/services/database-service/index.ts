@@ -371,8 +371,8 @@ export class PictureLinkService {
         .catch(ErrorHandler.handleError);
     }
 
-    deletePictureLink(LinkId: number): Promise<void> {
-        return this.http.delete(`${this.target}${this.base_mapping}/deletePictureLink?questionId=${LinkId}`, {headers: this.headers})
+    deletePictureLink(LinkName: string): Promise<void> {
+        return this.http.delete(`${this.target}${this.base_mapping}/deletePictureLink?PictureLinkName=${LinkName}`, {headers: this.headers})
         .toPromise()
         .then(() => null)
         .catch(ErrorHandler.handleError);
