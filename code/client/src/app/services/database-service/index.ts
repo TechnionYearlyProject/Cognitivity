@@ -14,9 +14,8 @@ import {
   import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/empty';
-import 'rxjs/add/operator/retry';
+import 'rxjs/add/operator/retry'; 
 import 'rxjs/add/operator/do';
-import { GalleryImage } from '../../models/galleryImage/galleryImage.model'
 
 //The following code is meant to make the error handling more modular, please ignore it for now
 
@@ -48,22 +47,22 @@ import { GalleryImage } from '../../models/galleryImage/galleryImage.model'
 // }
 
 class HttpTarget{
-    private static deployedUrl : string = 'https://cognitivity.azurewebsites.net';
+    private static deployedUrl : string = 'https://cognitivity.azurewebsites.net'; 
     private static httpTarget : string = 'http://localhost:8181';
     static getHttpTaraget(): string{
-        return this.deployedUrl;
+        return this.httpTarget;
     }
 }
 // Error handler class, holds behavior when errors are returned from server
 class ErrorHandler {
     static handleError(error: any) {
-
+        
         let errorMessage = JSON.parse(error._body).message;
         alert("Error:\ncould not perform the last operation.\n"+errorMessage);
 
         return Promise.reject(error.message || error);
     }
-
+    
 
 }
 
@@ -164,7 +163,7 @@ export class TestService {
         return this.http.get(`${this.target}${this.base_mapping}/findCognitiveTestById?testId=${testId}`)
         .toPromise()
         .then(response => response.json() as Test)
-        .catch(()=>{return null;})
+        .catch(ErrorHandler.handleError)
     }
 
 
@@ -203,7 +202,7 @@ export class QuestionService {
         .catch(ErrorHandler.handleError);
     }
 
-
+    
 
 }
 
@@ -324,9 +323,7 @@ export class EmailsService {
     }
 }
 
-class STRING {
-    body: string;
-}
+
 @Injectable()
 export class CheckBackService {
     private target : string = HttpTarget.getHttpTaraget();
@@ -356,10 +353,10 @@ export class PictureLinkService {
 
 
 
-    savePictureLink(link: String): Promise<void> {
-        return this.http.get(`${this.target}${this.base_mapping}/savePictureLink?link=${link}`)
+    savePictureLink(url:String): Promise<String> {
+        return this.http.post(`${this.target}${this.base_mapping}/savePictureLink`, JSON.stringify(url), {headers : this.headers})
         .toPromise()
-        .then(()=>null)
+        .then(res => res.json() as String)
         .catch(ErrorHandler.handleError);
     }
 
@@ -377,6 +374,6 @@ export class PictureLinkService {
         .catch(ErrorHandler.handleError);
     }
 
-
+    
 
 }

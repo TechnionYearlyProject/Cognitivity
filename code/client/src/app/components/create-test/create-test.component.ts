@@ -24,6 +24,10 @@ including the block creation and sub question creation.
 export class CreateTestComponent implements OnInit {
   //this component helps us to get variables from the sub objects.
   @ViewChildren(BlockComponent) blocks: QueryList<BlockComponent>;
+
+  //loaded flag
+  loaded_tests: boolean = false;
+  loaded_blocks : boolean = false;
   //the actual list of the blocks.
   blocksList = []
   //object of a test , so we can save and import tests.
@@ -81,7 +85,9 @@ export class CreateTestComponent implements OnInit {
     console.log(this.test);
     this.notes = "";
     try {
+      this.loaded_tests = true;
       this.testList = await this.testService.findTestsForTestManager(managerId);
+      this.loaded_tests = false;
       console.log('The tests are: ')
       console.log(this.testList);
 
@@ -300,7 +306,9 @@ export class CreateTestComponent implements OnInit {
 
   async clickTest(index: number){
       let testId = this.testList[index].id;
+      this.loaded_blocks = true;
       let test = await this.testService.findCognitiveTestById(testId);
+      this.loaded_blocks = false;
       this.testBlockList = test.blocks;
       this.testNameToImport = test.name;
       console.log('The block is: ')
