@@ -84,16 +84,16 @@ public class PictureLinkService {
 
     /**
      * Delete a picture link from the system.
-     * @param linkId - the Link OID to be deleted.
+     * @param link - the Link name to be deleted.
      * @throws DBException - In case of DB error.
      */
-    public void deletePictureLink(long linkId) throws DBException {
+    public void deletePictureLink(String link) throws DBException {
         try {
-            dao.delete(linkId);
-            logger.info("Successfully deleted PictureLink. PictureLinkID: " + linkId);
+            dao.deleteLinkByName(link);
+            logger.info("Successfully deleted PictureLink. PictureLink: " + link);
         } catch (org.hibernate.HibernateException e) {
-            logger.error("Failed to delete a PictureLink. PictureLinkID: " + linkId,e);
-            throw new DBException(ErrorType.DELETE, linkId);
+            logger.error("Failed to delete a PictureLink. PictureLink: " + link,e);
+            throw new DBException(ErrorType.DELETE, null);
         }
     }
 
@@ -102,15 +102,10 @@ public class PictureLinkService {
      * @return - All picture links in the system.
      * @throws DBException - In case of DB error.
      */
-    public List<String> getAllPictureLinks() throws DBException{
+    public List<PictureLink> getAllPictureLinks() throws DBException{
         try{
-            List<PictureLink> links = dao.getAllLinks();
+            List<PictureLink> toReturn = dao.getAllLinks();
             logger.info("Successfully got all PictureLinks.");
-            List<String> toReturn = new ArrayList<String>();
-            for (PictureLink link : links){
-                toReturn.add(link.getLink());
-            }
-
             return toReturn;
         }catch (org.hibernate.HibernateException e) {
             logger.error("Failed to get all PictureLinks.");

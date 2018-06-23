@@ -76,13 +76,13 @@ public class PictureLinkController extends AbstractRestController<PictureLinkSer
 
     /**
      * Deleting a picture link from the system.
-     * @param pictureLinkID - The picture link ID to be deleted.
+     * @param PictureLinkName - The picture link name to be deleted.
      * @throws DBException - In case of DB error.
      */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.DELETE, value = "/deletePictureLink")
-    public void deletePictureLink(@RequestParam(value = "PictureLinkID") long pictureLinkID) throws DBException {
-        service.deletePictureLink(pictureLinkID);
+    public void deletePictureLink(@RequestParam(value = "PictureLinkName") String PictureLinkName) throws DBException {
+        service.deletePictureLink(PictureLinkName);
     }
 
     /**
@@ -92,7 +92,7 @@ public class PictureLinkController extends AbstractRestController<PictureLinkSer
      */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findAllPictureLinksInTheSystem")
-    public List<String> findAllPictureLinksInTheSystem() throws DBException {
+    public List<PictureLink> findAllPictureLinksInTheSystem() throws DBException {
         return service.getAllPictureLinks();
     }
 

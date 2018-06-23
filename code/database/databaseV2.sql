@@ -103,7 +103,7 @@ CREATE TABLE testQuestion(id INTEGER PRIMARY KEY AUTO_INCREMENT,
  */
 CREATE TABLE pictureLinks(id INTEGER PRIMARY KEY AUTO_INCREMENT,
   link text NOT NULL,
-  name text NOT NULL UNIQUE
+  name text NOT NULL
 );
 
 /*

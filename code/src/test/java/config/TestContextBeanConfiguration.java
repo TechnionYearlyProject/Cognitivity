@@ -64,6 +64,11 @@ public class TestContextBeanConfiguration {
     }
 
     @Bean
+    public PictureLinkDAO pictureLinkDAO(){
+        return Mockito.mock(PictureLinkDAO.class);
+    }
+
+    @Bean
     public TestAnswerDAO testAnswerDAO() {
         return Mockito.mock(TestAnswerDAO.class);
     }

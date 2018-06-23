@@ -8,9 +8,25 @@ import { Input } from '@angular/core';
 })
 export class LoadingComponent implements OnInit {
   @Input() loading_value: string;
-  constructor() { }
+  @Input() color: string;
+  colors : any;
+  constructor() {
 
+
+   }
+
+  isWhiteColor(){
+    return this.color == 'White';
+  }
+  isBlackColor(){
+    return this.color == 'Black';
+  }
   ngOnInit() {
+    console.log('color is: ' + this.color);
+    this.colors = {
+      'white' : this.isWhiteColor(),
+      'black' : this.isBlackColor()
+    };
   }
 
 }
