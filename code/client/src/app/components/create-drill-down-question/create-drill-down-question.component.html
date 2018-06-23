@@ -164,11 +164,6 @@
           </div>
       </div>
   </div>
-  <div class="centered">
-      <div *ngIf="!haveMainAnswers()" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
-          Please enter at least one answer
-      </div>
-  </div>
 </div>
 <div class="centered" *ngIf="(secondaryAnswerMode || editionQuestionSecondary) && !editionModeSecondary">
   <button *ngIf="!editionQuestionSecondary" class="btn  btn-primary" (click)="finishSecondaryQuestion()">Add secondary question</button>
