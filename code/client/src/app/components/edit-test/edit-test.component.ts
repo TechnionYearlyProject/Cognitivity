@@ -28,7 +28,7 @@ export class EditTestComponent implements OnInit {
   blocksList = []
 
   loaded: boolean = false;
-  
+
   //object of a test , so we can save and import tests.
   test: Test;
   //for iterating over the blocks. we want to keep a question related to it's current block object.
@@ -233,6 +233,7 @@ export class EditTestComponent implements OnInit {
           question: JSON.stringify(questionInBlock.question),
           questionPosition: questionInBlock.question.questionPosition,
           type: questionInBlock.question.type,
+          pictureLink: questionInBlock.pictureLink
         }
 
         questions.push(questionInDB);

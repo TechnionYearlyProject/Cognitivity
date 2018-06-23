@@ -73,12 +73,10 @@ export class BlockComponent implements OnInit {
   }
 
   async loadImages(){
-      console.log("hehy")
       this.pictureLinks = await this.pictureLinkService.findAllPictureLinks();
   }
 
   loadNewImage(event){
-      console.log('event is: ' + event);
       this.pictureLinks.push(event);
   }
 

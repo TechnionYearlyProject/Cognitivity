@@ -5,7 +5,10 @@ import { Router } from '@angular/router';
 import {Question,  QuestionInBlock, QuestionInDB} from '../../models'
 import { QuestionComponent } from '../question/question.component';
 import { Input } from '@angular/core/';
+
 import { SessionService } from '../../services/session-service/index';
+import { PictureLinkService } from "../../services/database-service/index";
+
 @Component({
   selector: 'app-edit-block',
   templateUrl: './edit-block.component.html',
@@ -25,13 +28,20 @@ export class EditBlockComponent implements OnInit {
   hidden: boolean = true;
   //the actual list of the questions.
   questionList: Array<QuestionInBlock> = new Array<QuestionInBlock>();
-  //tags 
+  //tags
   questionTags: string[];
 
+  pictureLinks: string[] = [];
+
+  questionIndexImage : number;
+
   //default constructor.
-  constructor(private dialog: MatDialog,private router:Router, private transferData: SessionService){}
-  
-  //this function pops up the dialog for creating a question. 
+  constructor(private dialog: MatDialog,
+              private router:Router,
+              private transferData: SessionService,
+              private pictureLinkService : PictureLinkService){}
+
+  //this function pops up the dialog for creating a question.
   openDialog(){
     this.transferData.setData({editMode: false, value: null});
     let dialogRef = this.dialog.open(CreateQuestionComponent, {
@@ -44,9 +54,9 @@ export class EditBlockComponent implements OnInit {
       console.log('data is:::');
       console.log(question_object);
       if(question_object != null){
-        this.questionList.splice(this.questionList.length, 0,{question: question_object, id:''});  
+        this.questionList.splice(this.questionList.length, 0,{question: question_object, id:''});
       }
-      
+
     });
   }
 
@@ -54,16 +64,24 @@ export class EditBlockComponent implements OnInit {
   ngOnInit() {
     if (this.block != null){
       for (let i = 0; i < this.block.questions.length; i++) {
-        this.questionList[i] = 
-        { 
+        this.questionList[i] =
+        {
           question: JSON.parse(this.block.questions[i].question)
         };
       }
       console.log('block in edit');
       console.log(this.block);
       this.tags = JSON.parse(this.block.tag);
-  
     }
+    this.loadImages();
+  }
+
+  async loadImages(){
+      this.pictureLinks = await this.pictureLinkService.findAllPictureLinks();
+  }
+
+  loadNewImage(event){
+      this.pictureLinks.push(event);
   }
 
   //this function is responsible for collapsing and uncollapsing the block.
@@ -79,7 +97,7 @@ export class EditBlockComponent implements OnInit {
   moveMeUp(currentIndex) {
     if(currentIndex != 0){
       let removed = this.questionList.splice(currentIndex,1);
-      this.questionList.splice(currentIndex - 1, 0, removed[0]);  
+      this.questionList.splice(currentIndex - 1, 0, removed[0]);
     }
   }
 
@@ -100,7 +118,7 @@ export class EditBlockComponent implements OnInit {
   /*
   this function creates a new question.
   Input - the number of the current question to be created
-  Output - a question block is newly created. 
+  Output - a question block is newly created.
   */
   editQuestion(index: number){
     this.transferData.setData({editMode: true, value: this.questionList[index].question});
@@ -112,9 +130,9 @@ export class EditBlockComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       let question_object = this.transferData.getData();
       if(question_object != null){
-        this.questionList.splice(index, 1,{question: question_object, id:''});  
+        this.questionList.splice(index, 1,{question: question_object, id:''});
       }
-      
+
     });
   }
 
@@ -134,7 +152,7 @@ export class EditBlockComponent implements OnInit {
     return this.questionList;
   }
 
-  
+
 
 
 
@@ -159,5 +177,13 @@ addTag(){
 removeTag(){
  this.tags_count--;
 }
+
+saveLinkForQuestion(index: number){
+    this.questionIndexImage = index;
+}
+addPictureToQuestion(picLink: string){
+    this.questionList[this.questionIndexImage].pictureLink = picLink;
 }
 
+
+}
