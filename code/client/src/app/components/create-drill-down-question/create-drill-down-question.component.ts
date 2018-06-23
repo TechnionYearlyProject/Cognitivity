@@ -212,12 +212,21 @@ export class CreateDrillDownQuestionComponent implements OnInit {
     applies changes of an answer of the main question
   */
   applyEditMain(){
-    if(this.currentMainAnswer != null && this.currentMainAnswer.length >= 1 && !this.isSpacePrefix(this.currentMainAnswer)){
+    if(this.currentMainAnswer != null
+        && this.currentMainAnswer.length >= 1
+        && !this.isSpacePrefix(this.currentMainAnswer)){
+            if(-1 != this.mainAnswers.findIndex((item, index) => {
+                return item == this.currentMainAnswer && index != this.indexAnswerInEditMain;
+            })){
+                this.answerExistsInArray = true;
+                return;
+            }
       this.mainAnswers.splice(this.indexAnswerInEditMain, 1,  this.currentMainAnswer)
       this.editionModeMain = false;
       this.indexAnswerInEditMain = -1;
       this.currentMainAnswer = '';
       this.typedMainAnswer = false;
+      this.answerExistsInArray = false;
     }else{
       this.typedMainAnswer = true;
     }
