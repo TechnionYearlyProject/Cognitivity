@@ -1912,3 +1912,149 @@ org.hibernate.HibernateException:
 	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+2018-06-23 13:48:47 INFO  CognitiveTestService:73 - Successfully added test. testId = 7
+2018-06-23 13:48:47 INFO  TestBlockService:47 - Successfully added TestBlock. TestBlockID: null
+2018-06-23 13:48:47 INFO  TestBlockService:47 - Successfully added TestBlock. TestBlockID: null
+2018-06-23 13:48:47 INFO  TestBlockService:47 - Successfully added TestBlock. TestBlockID: null
+2018-06-23 13:48:47 INFO  TestBlockService:47 - Successfully added TestBlock. TestBlockID: null
+2018-06-23 13:48:47 INFO  CognitiveTestService:145 - Successfully found test. testId = 7
+2018-06-23 13:48:47 INFO  CognitiveTestService:116 - Successfully deleted test. testId = 7
+2018-06-23 13:48:47 INFO  CognitiveTestService:73 - Successfully added test. testId = 7
+2018-06-23 13:48:47 INFO  CognitiveTestService:145 - Successfully found test. testId = 7
+2018-06-23 13:48:47 INFO  CognitiveTestService:237 - Successfully found all tests for a given notes. notes: notes
+2018-06-23 13:48:47 INFO  CognitiveTestService:255 - Successfully found all tests for a given project. Project: project1
+2018-06-23 13:48:47 INFO  CognitiveTestService:273 - Successfully found all tests for a given manager, without questions. ManagerID: 9
+2018-06-23 13:48:47 INFO  CognitiveTestService:145 - Successfully found test. testId = 8
+2018-06-23 13:48:47 INFO  CognitiveTestService:145 - Successfully found test. testId = 9
+2018-06-23 13:48:47 INFO  CognitiveTestService:145 - Successfully found test. testId = 7
+2018-06-23 13:48:47 INFO  CognitiveTestService:145 - Successfully found test. testId = 10
+2018-06-23 13:48:47 INFO  CognitiveTestService:145 - Successfully found test. testId = 11
+2018-06-23 13:48:47 INFO  CognitiveTestService:170 - Successfully found tests for test manager. testId = 9
+2018-06-23 13:48:47 INFO  CognitiveTestService:197 - Successfully found all test blocks for a test. testID: 7
+2018-06-23 13:48:47 INFO  QuestionService:54 - Successfully added TestQuestion. TestQuestionId: null
+2018-06-23 13:48:47 INFO  QuestionService:54 - Successfully added TestQuestion. TestQuestionId: null
+2018-06-23 13:48:47 INFO  QuestionService:54 - Successfully added TestQuestion. TestQuestionId: null
+2018-06-23 13:48:47 INFO  CognitiveTestService:219 - Successfully found all test questions for a test. testID: 7
+2018-06-23 13:48:47 INFO  CognitiveTestService:116 - Successfully deleted test. testId = 7
+2018-06-23 13:48:47 INFO  TestBlockService:110 - Successfully deleted TestBlock. TestBlockID: 15
+2018-06-23 13:48:47 INFO  TestBlockService:110 - Successfully deleted TestBlock. TestBlockID: 16
+2018-06-23 13:48:47 INFO  TestBlockService:110 - Successfully deleted TestBlock. TestBlockID: 17
+2018-06-23 13:48:47 INFO  TestBlockService:110 - Successfully deleted TestBlock. TestBlockID: 18
+2018-06-23 13:48:47 INFO  QuestionService:93 - Successfully deleted TestQuestion. TestQuestionId: 19
+2018-06-23 13:48:47 INFO  QuestionService:93 - Successfully deleted TestQuestion. TestQuestionId: 20
+2018-06-23 13:48:47 INFO  QuestionService:93 - Successfully deleted TestQuestion. TestQuestionId: 21
+2018-06-23 13:48:47 INFO  CognitiveTestService:73 - Successfully added test. testId = 7
+2018-06-23 13:48:47 INFO  CognitiveTestService:116 - Successfully deleted test. testId = 7
+2018-06-23 13:48:47 INFO  CognitiveTestService:73 - Successfully added test. testId = 7
+2018-06-23 13:48:47 INFO  CognitiveTestService:145 - Successfully found test. testId = 18
+2018-06-23 13:48:48 WARN  LoadFromFileService:66 - Test with this name (test) already exists in the DB
+2018-06-23 13:48:48 WARN  LoadFromFileService:54 - Manager with this id (1) does not exist in the DB
+2018-06-23 13:48:48 ERROR LoadFromFileService:62 - Error when trying to parse test content
+2018-06-23 13:48:48 INFO  CognitiveTestService:73 - Successfully added test. testId = 0
+2018-06-23 13:48:48 INFO  QuestionService:54 - Successfully added TestQuestion. TestQuestionId: null
+2018-06-23 13:48:48 INFO  QuestionService:113 - Successfully found a TestQuestion. TestQuestionId: 1
+2018-06-23 13:48:48 INFO  QuestionService:72 - Successfully updated TestQuestion. TestQuestionId: null
+2018-06-23 13:48:48 INFO  QuestionService:113 - Successfully found a TestQuestion. TestQuestionId: 1
+2018-06-23 13:48:48 INFO  TestBlockService:47 - Successfully added TestBlock. TestBlockID: null
+2018-06-23 13:48:48 INFO  QuestionService:54 - Successfully added TestQuestion. TestQuestionId: null
+2018-06-23 13:48:48 INFO  QuestionService:54 - Successfully added TestQuestion. TestQuestionId: null
+2018-06-23 13:48:48 INFO  QuestionService:54 - Successfully added TestQuestion. TestQuestionId: null
+2018-06-23 13:48:48 INFO  QuestionService:157 - Successfully found all test questions from test ID. Test ID: 2
+2018-06-23 13:48:48 INFO  CognitiveTestService:73 - Successfully added test. testId = 0
+2018-06-23 13:48:48 INFO  QuestionService:54 - Successfully added TestQuestion. TestQuestionId: null
+2018-06-23 13:48:48 INFO  QuestionService:54 - Successfully added TestQuestion. TestQuestionId: null
+2018-06-23 13:48:48 INFO  QuestionService:54 - Successfully added TestQuestion. TestQuestionId: null
+2018-06-23 13:48:48 INFO  QuestionService:179 - Successfully found all test questions from test manager ID. Test manager ID: 3
+2018-06-23 13:48:48 INFO  QuestionService:200 - Successfully found picture link for a picture. Test question ID: 1
+2018-06-23 13:48:48 INFO  TestSubjectService:43 - Successfully added TestSubject. TestSubjectID: null
+2018-06-23 13:48:48 INFO  TestAnswerService:43 - Successfully added TestAnswer. TestAnswerId: null
+2018-06-23 13:48:48 INFO  TestAnswerService:43 - Successfully added TestAnswer. TestAnswerId: null
+2018-06-23 13:48:48 INFO  TestAnswerService:43 - Successfully added TestAnswer. TestAnswerId: null
+2018-06-23 13:48:48 INFO  TestAnswerService:43 - Successfully added TestAnswer. TestAnswerId: null
+2018-06-23 13:48:48 INFO  QuestionService:135 - Successfully found test answers a TestQuestion. TestQuestionId: 1
+2018-06-23 13:48:48 INFO  QuestionService:93 - Successfully deleted TestQuestion. TestQuestionId: 1
+2018-06-23 13:48:48 INFO  QuestionService:93 - Successfully deleted TestQuestion. TestQuestionId: 4
+2018-06-23 13:48:48 INFO  QuestionService:93 - Successfully deleted TestQuestion. TestQuestionId: 5
+2018-06-23 13:48:48 INFO  QuestionService:93 - Successfully deleted TestQuestion. TestQuestionId: 6
+2018-06-23 13:48:48 INFO  QuestionService:93 - Successfully deleted TestQuestion. TestQuestionId: 7
+2018-06-23 13:48:48 INFO  QuestionService:93 - Successfully deleted TestQuestion. TestQuestionId: 8
+2018-06-23 13:48:48 INFO  QuestionService:93 - Successfully deleted TestQuestion. TestQuestionId: 9
+2018-06-23 13:48:48 INFO  TestManagerService:84 - Successfully deleted TestManager. TestManagerID: 2
+2018-06-23 13:48:48 INFO  TestBlockService:110 - Successfully deleted TestBlock. TestBlockID: 3
+2018-06-23 13:48:48 INFO  QuestionService:54 - Successfully added TestQuestion. TestQuestionId: null
+2018-06-23 13:48:48 INFO  QuestionService:54 - Successfully added TestQuestion. TestQuestionId: null
+2018-06-23 13:48:48 INFO  TestAnswerService:43 - Successfully added TestAnswer. TestAnswerId: null
+2018-06-23 13:48:48 INFO  TestAnswerService:119 - Successfully found a test answers by ID. TestAnswer ID: 1
+2018-06-23 13:48:48 INFO  TestAnswerService:61 - Successfully updated TestAnswer. TestAnswerID: null
+2018-06-23 13:48:48 INFO  TestAnswerService:119 - Successfully found a test answers by ID. TestAnswer ID: 1
+2018-06-23 13:48:48 INFO  TestAnswerService:43 - Successfully added TestAnswer. TestAnswerId: null
+2018-06-23 13:48:48 INFO  TestAnswerService:43 - Successfully added TestAnswer. TestAnswerId: null
+2018-06-23 13:48:48 INFO  TestAnswerService:43 - Successfully added TestAnswer. TestAnswerId: null
+2018-06-23 13:48:48 INFO  TestAnswerService:184 - Successfully found all test answers for a question. Test question ID: 1
+2018-06-23 13:48:48 INFO  TestAnswerService:43 - Successfully added TestAnswer. TestAnswerId: null
+2018-06-23 13:48:48 INFO  TestAnswerService:43 - Successfully added TestAnswer. TestAnswerId: null
+2018-06-23 13:48:48 INFO  TestAnswerService:43 - Successfully added TestAnswer. TestAnswerId: null
+2018-06-23 13:48:48 INFO  TestAnswerService:165 - Successfully found test answers by subject in test. Test subject ID: 2. Test ID: 3
+2018-06-23 13:48:48 INFO  TestAnswerService:141 - Successfully found test answers by subject. Test subject ID: 2
+2018-06-23 13:48:48 INFO  TestAnswerService:78 - Successfully deleted TestAnswer. TestAnswerID: 1
+2018-06-23 13:48:48 INFO  TestAnswerService:98 - Successfully deleted all test answers for TestQuestionID: 1
+2018-06-23 13:48:48 INFO  TestAnswerService:98 - Successfully deleted all test answers for TestQuestionID: 4
+2018-06-23 13:48:48 INFO  TestAnswerService:98 - Successfully deleted all test answers for TestQuestionID: 5
+2018-06-23 13:48:48 INFO  TestManagerService:84 - Successfully deleted TestManager. TestManagerID: 6
+2018-06-23 13:48:48 INFO  TestBlockService:110 - Successfully deleted TestBlock. TestBlockID: 9
+2018-06-23 13:48:48 INFO  TestSubjectService:80 - Successfully deleted TestSubject. TestSubjectID: 2
+2018-06-23 13:48:48 INFO  TestAnswerService:203 - Successfully found all test answers for a test. Test ID: 7
+2018-06-23 13:48:48 INFO  TestBlockService:47 - Successfully added TestBlock. TestBlockID: null
+2018-06-23 13:48:48 INFO  TestBlockService:94 - Successfully got all questions from a TestBlock. TestBlockID: 1
+2018-06-23 13:48:48 INFO  TestBlockService:110 - Successfully deleted TestBlock. TestBlockID: 1
+2018-06-23 13:48:48 INFO  TestManagerService:84 - Successfully deleted TestManager. TestManagerID: 2
+2018-06-23 13:48:48 INFO  TestBlockService:75 - Successfully updated TestBlock. TestBlockID: null
+2018-06-23 13:48:48 INFO  TestManagerService:49 - Successfully added TestManager. TestManagerID: null
+2018-06-23 13:48:48 INFO  TestManagerService:105 - Successfully found TestManager. TestManagerID: 1
+2018-06-23 13:48:48 INFO  TestManagerService:67 - Successfully updated TestManager. TestManagerID: null
+2018-06-23 13:48:48 INFO  TestManagerService:105 - Successfully found TestManager. TestManagerID: 1
+2018-06-23 13:48:48 INFO  TestManagerService:129 - Successfully found Test manager by test ID. TestID: 2
+2018-06-23 13:48:48 INFO  TestManagerService:162 - Successfully found Tests for test manager. TestManagerID: 1
+2018-06-23 13:48:48 INFO  TestManagerService:84 - Successfully deleted TestManager. TestManagerID: 1
+2018-06-23 13:48:48 INFO  CognitiveTestService:116 - Successfully deleted test. testId = 2
+2018-06-23 13:48:48 INFO  TestManagerService:140 - Successfully found Test manager by email. Email: WachedEmail@MashehuMetoraf!
+2018-06-23 13:48:48 INFO  TestSubjectService:43 - Successfully added TestSubject. TestSubjectID: null
+2018-06-23 13:48:48 INFO  TestSubjectService:102 - Successfully found TestSubject. TestSubjectID: 1
+2018-06-23 13:48:48 INFO  TestSubjectService:62 - Successfully updated TestSubject. TestSubjectID: null
+2018-06-23 13:48:48 INFO  TestSubjectService:102 - Successfully found TestSubject. TestSubjectID: 1
+2018-06-23 13:48:48 INFO  TestBlockService:47 - Successfully added TestBlock. TestBlockID: null
+2018-06-23 13:48:48 INFO  QuestionService:54 - Successfully added TestQuestion. TestQuestionId: null
+2018-06-23 13:48:48 INFO  TestSubjectService:43 - Successfully added TestSubject. TestSubjectID: null
+2018-06-23 13:48:48 INFO  TestSubjectService:43 - Successfully added TestSubject. TestSubjectID: null
+2018-06-23 13:48:48 INFO  TestSubjectService:43 - Successfully added TestSubject. TestSubjectID: null
+2018-06-23 13:48:48 INFO  TestSubjectService:43 - Successfully added TestSubject. TestSubjectID: null
+2018-06-23 13:48:48 INFO  TestSubjectService:43 - Successfully added TestSubject. TestSubjectID: null
+2018-06-23 13:48:48 INFO  TestSubjectService:43 - Successfully added TestSubject. TestSubjectID: null
+2018-06-23 13:48:48 INFO  TestSubjectService:43 - Successfully added TestSubject. TestSubjectID: null
+2018-06-23 13:48:48 INFO  TestSubjectService:43 - Successfully added TestSubject. TestSubjectID: null
+2018-06-23 13:48:48 INFO  TestSubjectService:43 - Successfully added TestSubject. TestSubjectID: null
+2018-06-23 13:48:48 INFO  TestSubjectService:43 - Successfully added TestSubject. TestSubjectID: null
+2018-06-23 13:48:48 INFO  TestAnswerService:43 - Successfully added TestAnswer. TestAnswerId: null
+2018-06-23 13:48:48 INFO  TestAnswerService:43 - Successfully added TestAnswer. TestAnswerId: null
+2018-06-23 13:48:48 INFO  TestAnswerService:43 - Successfully added TestAnswer. TestAnswerId: null
+2018-06-23 13:48:48 INFO  TestAnswerService:43 - Successfully added TestAnswer. TestAnswerId: null
+2018-06-23 13:48:48 INFO  TestSubjectService:145 - Successfully found all TestSubjects who participated in a test. TestID: 9
+2018-06-23 13:48:48 INFO  TestAnswerService:43 - Successfully added TestAnswer. TestAnswerId: null
+2018-06-23 13:48:48 INFO  TestAnswerService:43 - Successfully added TestAnswer. TestAnswerId: null
+2018-06-23 13:48:48 INFO  TestAnswerService:43 - Successfully added TestAnswer. TestAnswerId: null
+2018-06-23 13:48:48 INFO  TestSubjectService:125 - Successfully found all TestSubjects' answers. TestSubjectID: 8
+2018-06-23 13:48:48 INFO  TestSubjectService:163 - Successfully found all TestSubjects in the system.
+2018-06-23 13:48:48 INFO  TestSubjectService:80 - Successfully deleted TestSubject. TestSubjectID: 1
+2018-06-23 13:48:48 INFO  TestSubjectService:80 - Successfully deleted TestSubject. TestSubjectID: 2
+2018-06-23 13:48:48 INFO  TestSubjectService:80 - Successfully deleted TestSubject. TestSubjectID: 3
+2018-06-23 13:48:48 INFO  TestSubjectService:80 - Successfully deleted TestSubject. TestSubjectID: 4
+2018-06-23 13:48:48 INFO  TestManagerService:84 - Successfully deleted TestManager. TestManagerID: 5
+2018-06-23 13:48:48 INFO  TestBlockService:110 - Successfully deleted TestBlock. TestBlockID: 7
+2018-06-23 13:48:48 INFO  QuestionService:93 - Successfully deleted TestQuestion. TestQuestionId: 8
+2018-06-23 13:48:48 INFO  TestAnswerService:98 - Successfully deleted all test answers for TestQuestionID: 9
+2018-06-23 13:48:48 INFO  TestAnswerService:98 - Successfully deleted all test answers for TestQuestionID: 10
+2018-06-23 13:48:48 INFO  TestAnswerService:98 - Successfully deleted all test answers for TestQuestionID: 11
+2018-06-23 13:48:48 INFO  TestAnswerService:98 - Successfully deleted all test answers for TestQuestionID: 12
+2018-06-23 13:48:48 INFO  TestAnswerService:98 - Successfully deleted all test answers for TestQuestionID: 13
+2018-06-23 13:48:48 INFO  TestAnswerService:98 - Successfully deleted all test answers for TestQuestionID: 14
+2018-06-23 13:48:48 INFO  TestAnswerService:98 - Successfully deleted all test answers for TestQuestionID: 15

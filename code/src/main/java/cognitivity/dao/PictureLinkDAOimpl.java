@@ -36,4 +36,11 @@ public class PictureLinkDAOimpl extends AbstractDAO<PictureLink>  implements Pic
         return query.getResultList();
     }
 
+    public void deleteLinkByName(String name){
+        Session session = sessionFactory.getCurrentSession();
+        String queryString = "delete from PictureLink where name = :name";
+        Query<PictureLink> query = session.createQuery(queryString, PictureLink.class);
+        query.setParameter("name", name);
+    }
+
 }

@@ -35,12 +35,10 @@ public class PictureLinkService {
      * @return - The created picture Link
      * @throws DBException - In case of DB error.
      */
-    public PictureLink createPictureLink(String link) throws DBException{
+    public void createPictureLink(PictureLink link) throws DBException{
         try {
-            PictureLink res = new PictureLink(link);
-            dao.add(res);
-            logger.info("Successfully added PictureLink. PictureLinkID: " + res.getId());
-            return res;
+            long id = dao.add(link);
+            logger.info("Successfully added PictureLink. PictureLinkID: " + id);
         } catch (org.hibernate.HibernateException e) {
             logger.info("Failed to add PictureLink.",e);
             throw new DBException(ErrorType.SAVE, null);

@@ -16,9 +16,15 @@ public interface PictureLinkDAO {
     public long update(PictureLink data);
 
     /**
-     * get all picture links in the system.
+     * Get all picture links in the system.
      * @return
      */
     public List<PictureLink> getAllLinks();
+
+    /**
+     * Delete a picture link by its name
+     * @param name - The name of the picture
+     */
+    public void deleteLinkByName(String name);
 
 }

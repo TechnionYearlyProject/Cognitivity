@@ -12,6 +12,7 @@ import { forEach } from '@angular/router/src/utils/collection';
 })
 export class GalleryComponent implements OnInit, OnChanges {
   images: Observable<String[]>;
+  base: string= 'https://firebasestorage.googleapis.com/v0/b/cognitivity-f042d.appspot.com/o/uploads%2';
 
   constructor(private pictureLinkService: PictureLinkService) { }
 
