@@ -67,6 +67,7 @@ export class QuestionInBlock {
   question: Question;
   indexInBlock?: number;
   id?: string;
+  pictureLink?: string;
 }
 
 /*
@@ -156,7 +157,7 @@ export interface QuestionInDB {
   tag?: string;
   type?: number;
   questionPosition?: number;
-
+  pictureLink?: string;
   // list of given tags by the user
   tags?: string[];
 }

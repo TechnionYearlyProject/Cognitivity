@@ -356,18 +356,18 @@ export class PictureLinkService {
 
 
 
-    savePictureLink(link: String,name:String): Promise<void> {
+    savePictureLink(link: string,name:string): Promise<void> {
         let PLink = {link: link, name: name};
-        return this.http.post(`${this.target}${this.base_mapping}/savePictureLink?link=${name}`,JSON.stringify(PLink), {headers : this.headers})
+        return this.http.post(`${this.target}${this.base_mapping}/savePictureLink`,JSON.stringify(PLink), {headers : this.headers})
         .toPromise()
         .then(()=>null)
         .catch(ErrorHandler.handleError);
     }
 
-    findAllPictureLinks(): Promise<String[]> {
-        return this.http.get(`${this.target}${this.base_mapping}//findAllPictureLinksInTheSystem`, {headers: this.headers})
+    findAllPictureLinks(): Promise<string[]> {
+        return this.http.get(`${this.target}${this.base_mapping}/findAllPictureLinksInTheSystem`, {headers: this.headers})
         .toPromise()
-        .then(res => res.json() as String[])
+        .then(res => res.json() as string[])
         .catch(ErrorHandler.handleError);
     }
 

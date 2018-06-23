@@ -19,9 +19,11 @@ export class UploadService {
   private basePath = '/uploads';
   private uploads: FirebaseListObservable<GalleryImage[]>;
 
-  constructor(private ngFire: AngularFireModule, private db: AngularFireDatabase, private pictureLinkService: PictureLinkService) { }
+  constructor(private ngFire: AngularFireModule,
+            private db: AngularFireDatabase,
+            private pictureLinkService: PictureLinkService) { }
 
-  uploadFile(upload: Upload) {
+  uploadFile(upload: Upload, callback) {
     //firebase.initializeApp(environment.firebase,'Cognitivity1');
     const storageRef = firebase.storage().ref();
     const uploadTask = storageRef.child(`${this.basePath}/${upload.file.name}`)
@@ -41,12 +43,11 @@ export class UploadService {
         console.log(error);
       },
       // 3.) success observer
-      (): any => {
-        upload.url = uploadTask.snapshot.downloadURL;
-        upload.name = upload.file.name;
-        this.saveFileData(upload);
-      }
-    );
+      () => {
+            upload.url = uploadTask.snapshot.downloadURL;
+            upload.name = upload.file.name;
+            this.saveFileData(upload);
+      });
   }
   //Saving the link in the database
   private async saveFileData(upload: Upload) {
@@ -62,11 +63,11 @@ export class UploadService {
       })
       .catch(error => console.log(error));
   }
- 
+
   private deleteFileDatabase(key: string) {
     return this.db.list(`${this.basePath}/`).remove(key);
   }
- 
+
   private deleteFileStorage(name: string) {
     const storageRef = firebase.storage().ref();
     storageRef.child(`${this.basePath}/${name}`).delete();

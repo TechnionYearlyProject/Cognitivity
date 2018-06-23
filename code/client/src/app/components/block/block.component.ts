@@ -5,7 +5,10 @@ import { Router } from '@angular/router';
 import {Question,  QuestionInBlock} from '../../models'
 import { QuestionComponent } from '../question/question.component';
 import { Input } from '@angular/core/';
+
 import { SessionService } from '../../services/session-service/index';
+import { PictureLinkService } from "../../services/database-service/index";
+
 import { forEach } from '@angular/router/src/utils/collection';
 @Component({
   selector: 'app-block',
@@ -22,13 +25,19 @@ export class BlockComponent implements OnInit {
   //to specify the number of the block in the blocks list.
   @Input() blockInfo;
   @Input() blockNumber:number;
+
+  pictureLinks: string[] = [];
   //to collapse and uncollapse the block.
   hidden: boolean = true;
+  questionIndexImage: number = -1;
   //the actual list of the questions.
   questionList: Array<QuestionInBlock> = new Array<QuestionInBlock>();
 
   //default constructor.
-  constructor(private dialog: MatDialog,private router:Router, private transferData: SessionService){this.tags=[]}
+  constructor(private dialog: MatDialog,
+              private router:Router,
+              private transferData: SessionService,
+              private pictureLinkService : PictureLinkService){this.tags=[]}
 
   //this function pops up the dialog for creating a question.
   openDialog(){
@@ -60,6 +69,17 @@ export class BlockComponent implements OnInit {
       }
       this.tags = JSON.parse(this.blockInfo.tag);
     }
+    this.loadImages();
+  }
+
+  async loadImages(){
+      console.log("hehy")
+      this.pictureLinks = await this.pictureLinkService.findAllPictureLinks();
+  }
+
+  loadNewImage(event){
+      console.log('event is: ' + event);
+      this.pictureLinks.push(event);
   }
 
   //this function is responsible for collapsing and uncollapsing the block.
@@ -183,6 +203,12 @@ export class BlockComponent implements OnInit {
     this.tags_count--;
   }
 
+  saveLinkForQuestion(index: number){
+      this.questionIndexImage = index;
+  }
+  addPictureToQuestion(picLink: string){
+      this.questionList[this.questionIndexImage].pictureLink = picLink;
+  }
 
 
 }

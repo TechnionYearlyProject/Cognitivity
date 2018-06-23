@@ -224,7 +224,7 @@ export class CreateTestComponent implements OnInit {
           question: JSON.stringify(questionInBlock.question),
           questionPosition: questionInBlock.question.questionPosition,
           type: questionInBlock.question.type,
-
+          pictureLink: questionInBlock.pictureLink
         }
 
         questions.push(questionInDB);

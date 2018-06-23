@@ -28,7 +28,9 @@
                     <input id="distractionsSeconds" class="form-control" type="number" [disabled]="!showDistractions" #seconds  min="0"
                     (onchange)="updateDistractionCountdown(seconds.value)" value="0">
                 </form>
+
             </div><br>
+            <br>
             <div class="container">
                 <div class="dropdown">
                     <button class="dropbtn" [hidden]="editionMode">

@@ -1,7 +1,10 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {QuestionPosition, TypeMultipleQuestion, TypeQuestion} from "../../models";
 import {MatDialogRef} from "@angular/material";
+
 import {SessionService} from "../../services/session-service";
+
+
 import {CreateRateQuestionComponent} from "../create-rate-question/create-rate-question.component";
 import {CreateOpenQuestionComponent} from "../create-open-question/create-open-question.component";
 import {CreateVerticalHorizontalMultipleComponent} from "../create-vertical-horizontal-multiple/create-vertical-horizontal-multiple.component";
@@ -32,6 +35,7 @@ export class CreateQuestionComponent implements OnInit {
   questionPosition: QuestionPosition;
   typeMultipleQuestion?: TypeMultipleQuestion;
   typedMultipleAnswer: boolean = false;
+
 
 
   /*
@@ -69,9 +73,8 @@ export class CreateQuestionComponent implements OnInit {
     transferData - Injected service for transfering the object that describes the
    question that the user has created to the block component.
   */
-  constructor(public dialogRef: MatDialogRef<CreateQuestionComponent>, private transferData: SessionService) {
-
-  }
+  constructor(public dialogRef: MatDialogRef<CreateQuestionComponent>,
+      private transferData: SessionService) {}
 
 
   ngOnInit() {
@@ -81,7 +84,11 @@ export class CreateQuestionComponent implements OnInit {
       this.editQuestion(this.question_object);
     }
     this.transferData.clearData();
+
   }
+
+
+
 
   toggleDistractions(){
     console.log("toggling distractions...")

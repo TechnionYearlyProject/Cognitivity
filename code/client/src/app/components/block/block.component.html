@@ -21,9 +21,10 @@
 
 
                 <button class="btn btn-sm btn-danger" (click)="deleteQuestion(i)">
-                  <span class="fa fa-trash"></span> Delete question</button>
+                <span class="fa fa-trash"></span> Delete question</button>
                 <button class="btn btn-sm btn-primary" (click)="editQuestion(i)">
-                  <span class="fa fa-cog"></span> Edit question</button>
+                <span class="fa fa-cog"></span> Edit question</button>
+                <button class="btn btn-sm btn-primary" (click)="saveLinkForQuestion(i)" data-toggle="modal" data-target="#imageDistruction">Upload distruction image</button>
               </div>
             </div>
           </div>
@@ -46,5 +47,26 @@
       <div class="item">
       </div>
     </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div id="imageDistruction" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <app-upload class="modal-title" (finished)="loadNewImage($event)"></app-upload>
+      </div>
+      <div class="modal-body" *ngFor='let picLink of pictureLinks'>
+        <img src="{{ picLink }}" class="img-thumbnail" (click)="addPictureToQuestion(picLink)" data-dismiss="modal">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
   </div>
 </div>
