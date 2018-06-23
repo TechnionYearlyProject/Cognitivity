@@ -54,6 +54,7 @@ export class TestListComponent implements OnInit {
         this.testList.forEach((test) => {
           this.filteredTestList.push(test);
         });
+        this.loaded = true;
       });
 
 
@@ -96,16 +97,13 @@ export class TestListComponent implements OnInit {
     return new Date(date).toLocaleDateString();
   }
 
-  // function for confirmation before calling to asynch function (which costs in page reload, even when confirmation fails)
-  // confirmation(message: string, func, params) {
-  //   if(confirm(message)) func(params);
-  //   else()
-  // }
   async deleteTest(id: number) {
     if (confirm('Are you sure you want to delete the test?')) {
+      this.loaded = false;
       console.log(await this.testService.deleteCognitiveTest(id));
       this.testList = this.testList.filter((item) => item.id != id);
       this.filterTests()
+      this.loaded = true;
     }
   }
 

@@ -19,7 +19,7 @@
     </div>
 </div>
 <br>
-<ng-container *ngIf="testList?.length > 0; else noTests">
+<ng-container *ngIf="loaded && testList?.length > 0; else noTests">
     <table *ngIf="filteredTestList?.length > 0; else noMatchingTests" class="table table-striped">
       <thead class="thead-invers">
         <tr>
