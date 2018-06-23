@@ -1,5 +1,4 @@
 .centered {
-    
      text-align: left;
      width: 800px;
      margin: 0 auto;
@@ -13,7 +12,7 @@
   }
 
  .cover {
-   background: url(https://static1.squarespace.com/static/57b21595d482e91442e5e990/t/586d659b197aeaa9095692d3/1483564444304/Fotolia_100000042_Subscription_Monthly_M.jpg?format=1500w) no-repeat fixed; 
+   background: url(https://static1.squarespace.com/static/57b21595d482e91442e5e990/t/586d659b197aeaa9095692d3/1483564444304/Fotolia_100000042_Subscription_Monthly_M.jpg?format=1500w) no-repeat fixed;
 
    background-size: cover;
  }
@@ -128,19 +127,27 @@ hr {
   .one_col{
     margin:0% 0% 0% 45%;
   }
-  
+
   .two_col{
     margin:0% 0% 0% 35%;
   }
-  
+
   .three_col {
     margin: 0% 0% 0% 25%;
   }
-  
+
   .four_col {
     margin: 0px 200px 0px 200px;
   }
-  
+
   .higherThanFour{
     margin: 0% 0% 0% 0% 10%;
+  }
+
+  .font {
+      color: white;
+  }
+
+  label {
+      font-size: 20px;
   }
