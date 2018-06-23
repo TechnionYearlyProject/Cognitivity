@@ -1,3 +1,8 @@
+/*
+Autor: Pe'er Sagiv
+Date: 16.6.28
+A class for gathering all pictures from the DB.
+*/
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { ImageService } from '../../services/image/image.service';
 import { GalleryImage } from '../../models/galleryImage/galleryImage.model';

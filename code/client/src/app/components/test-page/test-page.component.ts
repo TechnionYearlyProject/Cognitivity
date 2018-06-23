@@ -24,8 +24,12 @@ export class TestPageComponent implements OnInit {
 
   subject: TestSubject;
 
+<<<<<<< HEAD
   loaded: boolean = false;
 
+=======
+  loaded: boolean;
+>>>>>>> 2ae56bbbb4374b8741f1854252e6bc204a7f8a4e
   //the current test's index in the tests list.
   currIndex: number;
   //variable to indicate if we should hide the following button in the creation.
@@ -47,6 +51,7 @@ export class TestPageComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.loaded = true;
     let testId = this.route.snapshot.params['testId'];
     if (isNaN(testId) || testId == '') {
       this.router.navigate(['/404']);
@@ -83,12 +88,15 @@ export class TestPageComponent implements OnInit {
   }
 
   async finishTest() {
+    this.loaded = false;
     this.timingResults = this.timing.getFullResults();
     for (let i = 0; i < this.blocksAnswers.length; i++) {
       for (let j = 0; j < this.blocksAnswers[i].answers.length; j++) {
         let timingOfQuestion = this.timingResults.resultArr[i].questionTimes[j].qTotTS;
         let timingOfQuestionConfidence = this.timingResults.resultArr[i].questionTimes[j].qConBarTotTS;
+        console.log('finalAnswer: ' + this.blocksAnswers[i].answers[j].finalAnswer);
         let finalAnswer = JSON.parse(this.blocksAnswers[i].answers[j].finalAnswer);
+        console.log('time is: ' + timingOfQuestion);
         let finalAnswerWithTimes = {
           finalAnswer: finalAnswer,
           answerTime: timingOfQuestion,
@@ -101,14 +109,17 @@ export class TestPageComponent implements OnInit {
           question: this.test.blocks[i].questions[j]
 
         };
+        console.log(questionAnswerForDB);
         await this.answerService.saveTestAnswer(questionAnswerForDB);
       }
     }
-
+    this.timing.timing_stopTestMeasure();
+    console.log(this.timing.getFullResults());
+    this.loaded = true;
     this.router.navigate(['test-finish']);
     //when stopping the test, call timing_stopTestMeasure() to end the test measuring.
-    this.timing.timing_stopTestMeasure();
-   // console.log(this.timing.getFullResults());
+    
+    
     //the results of the timing class sits in ----------this.timingMeasurment.testObject--------------
   }
 

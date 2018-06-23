@@ -129,13 +129,19 @@ export class TestListComponent implements OnInit {
         return;
       }
     }
-    let expandedTest = await this.testService.findCognitiveTestById(test.id);
-    let newTest = JSON.parse(JSON.stringify(expandedTest));
-    newTest.name = newName.trim().replace(/\s\s+/g, ' ');
-    newTest.lastModified = Date.parse(new Date().toLocaleDateString());
-    newTest.lastAnswered = null;
-    console.log(await this.testService.saveCognitiveTest(newTest));
-    this.testList = await this.testService.findTestsForTestManager(this.managerId);
+    this.loaded = false;
+    let expandedTest = await this.testService.findCognitiveTestById(test.id)
+    .then(async test => {
+      let newTest = JSON.parse(JSON.stringify(test));
+      newTest.name = newName.trim().replace(/\s\s+/g, ' ');
+      newTest.lastModified = Date.parse(new Date().toLocaleDateString());
+      newTest.lastAnswered = null;
+      console.log(await this.testService.saveCognitiveTest(newTest));
+      this.testList = await this.testService.findTestsForTestManager(this.managerId);
+      this.filteredTestList = this.testList;
+      this.loaded = true;
+    });
+    
   }
 
   getNumberOfTestsWithSameName(name: string) {

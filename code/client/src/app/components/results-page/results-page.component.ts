@@ -59,7 +59,8 @@ export class ResultsPageComponent implements OnInit {
               if (answerObject.secnodaryAnswer == '-1') {
                 answerString = 'Main: ' + (parseInt(answerObject.finalAnswer.primaryAnswer) + 1)
               } else {
-                answerString = 'Main: ' + (parseInt(answerObject.finalAnswer.primaryAnswer) + 1) + ' Secondary: ' + (parseInt(answerObject.secnodaryAnswer) + 1)
+                console.log(answerObject);
+                answerString = 'Main: ' + (parseInt(answerObject.finalAnswer.primaryAnswer) + 1) + ' Secondary: ' + (parseInt(answerObject.finalAnswer.secnodaryAnswer) + 1)
               }
               questionAnswerParsed = {
                 id: questionAnswer.id,
@@ -70,8 +71,8 @@ export class ResultsPageComponent implements OnInit {
                 conf_value: answerObject.finalAnswer.confidence,
                 is_time_distraction: false,
                 changes_of_answer: 0,
-                time: 0,
-                time_conf: 0,
+                time: answerObject.answerTime / 1000,
+                time_conf: answerObject.confidenceTime / 1000,
                 answer: answerString
               }
               break;

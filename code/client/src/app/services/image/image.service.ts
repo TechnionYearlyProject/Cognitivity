@@ -1,3 +1,8 @@
+/*
+Author: Pe'er Sagiv
+Date: 16.6.18
+A class to get all the images from the system
+*/
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { AngularFireAuth } from 'angularfire2/auth';
