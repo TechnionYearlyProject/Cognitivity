@@ -13,7 +13,7 @@ import static cognitivity.controllers.PictureLinkController.baseMapping;
 
 /**
  * Created by peers on 15/06/2018.
- *
+ * <p>
  * A REST controller for all the picture links in the system.
  */
 
@@ -35,6 +35,7 @@ public class PictureLinkController extends AbstractRestController<PictureLinkSer
 
     /**
      * Saving in a picture link in the system.
+     *
      * @param link - The link to be saved.
      * @return - The saved picture link.
      * @throws DBException - In case of DB error.
@@ -49,6 +50,7 @@ public class PictureLinkController extends AbstractRestController<PictureLinkSer
 
     /**
      * Getting a picture link from the system given its ID.
+     *
      * @param linkID - The picture link ID.
      * @return - The picture link if it exists in the system, null if not.
      * @throws DBException - In case of DB error.
@@ -63,6 +65,7 @@ public class PictureLinkController extends AbstractRestController<PictureLinkSer
 
     /**
      * Updating a picture link.
+     *
      * @param link - The link to be updated.
      * @throws DBException - In case of DB error.
      */
@@ -76,6 +79,7 @@ public class PictureLinkController extends AbstractRestController<PictureLinkSer
 
     /**
      * Deleting a picture link from the system.
+     *
      * @param PictureLinkName - The picture link name to be deleted.
      * @throws DBException - In case of DB error.
      */
@@ -87,9 +91,11 @@ public class PictureLinkController extends AbstractRestController<PictureLinkSer
 
     /**
      * Getting all picture links in the system
+     *
      * @return - All picture links in the system.
      * @throws DBException - In case of DB error.
      */
+    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "/findAllPictureLinksInTheSystem")
     public List<String> findAllPictureLinksInTheSystem() throws DBException {
