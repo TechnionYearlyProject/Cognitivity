@@ -21,6 +21,7 @@ export class CreateMatrixMultipleQuestionComponent implements OnInit {
     this.answers = new Array();
     this.constructMatrix();
     if(this.question != null){
+      console.log('HEHEEEEEEE');
       this.constructMatrixInEdit();
     }
   }
