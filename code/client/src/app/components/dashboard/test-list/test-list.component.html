@@ -1,6 +1,6 @@
 <div class = "form-inline search-bar">
-    <select [(ngModel)]="filter.option" class="custom-select col-md-2" data-toggle="tooltip" title="The column to filter by">
-        <option selected value = ''>Column...</option>
+    <select [(ngModel)]="filter.option" class="custom-select col-md-2" data-toggle="tooltip" title="The column to filter by" (change)="chooseCategory=true">
+        <option selected value = 'empty'>Column...</option>
         <option value = 'project'>Project</option>
         <option value = 'name'>Name</option>
         <option value = 'notes'>Notes</option>
