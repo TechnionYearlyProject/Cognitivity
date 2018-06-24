@@ -204,9 +204,14 @@ export class BlockComponent implements OnInit {
   saveLinkForQuestion(index: number){
       this.questionIndexImage = index;
   }
+
   addPictureToQuestion(picLink: string){
       this.questionList[this.questionIndexImage].pictureLink = picLink;
   }
 
-
+  isTheChosenPicture(picLink : string){
+      if(!this.questionList[this.questionIndexImage]) return "unmarked-picture";
+      return this.questionList[this.questionIndexImage].pictureLink == picLink
+      ? "marked-picture" : "unmarked-picture";
+  }
 }

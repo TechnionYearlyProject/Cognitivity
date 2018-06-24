@@ -47,6 +47,7 @@ export class UploadService {
             upload.url = uploadTask.snapshot.downloadURL;
             upload.name = upload.file.name;
             this.saveFileData(upload);
+            callback(upload);
       });
   }
   //Saving the link in the database

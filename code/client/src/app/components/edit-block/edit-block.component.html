@@ -59,10 +59,18 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-          <app-upload class="modal-title" (finished)="loadNewImage($event)"></app-upload>
+            <button type="button" class="btn btn-success" data-dismiss="modal">Finish</button>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-        <div class="modal-body" *ngFor='let picLink of pictureLinks'>
-          <img src="{{ picLink }}" class="img-thumbnail" (click)="addPictureToQuestion(picLink)" data-dismiss="modal">
+        <div class="modal-body">
+          <app-upload class="modal-title" (finished)="loadNewImage($event)"></app-upload>
+
+          <hr>
+          <h3>Choose existing image</h3>
+          <ng-container  *ngFor='let picLink of pictureLinks.reverse()'>
+              <img src="{{ picLink }}" class="img-thumbnail rounded mx-auto d-block"
+               (click)="addPictureToQuestion(picLink)" [ngClass] = "isTheChosenPicture(picLink)">
+          </ng-container>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

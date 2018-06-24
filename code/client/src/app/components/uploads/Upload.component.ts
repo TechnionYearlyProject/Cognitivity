@@ -4,7 +4,7 @@ Date: 16.6.18
 A class to handle all the pictrue uploads to the system
 */
 
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { UploadService } from '../../services/uploads/upload.service';
 import { Upload } from './upload';
 import * as _ from 'lodash';
@@ -19,9 +19,13 @@ export class UploadComponent {
 
   files: FileList;
   upload: Upload;
-
+  noChoosenImages: boolean = true;
   // Output event that emits the time took answering the question
   @Output() finished: EventEmitter<any> = new EventEmitter();
+
+
+  @ViewChild('filesInput')
+  filesComponent: any;
 
   constructor(private uploadService: UploadService) {}
 
@@ -29,7 +33,10 @@ export class UploadComponent {
   }
 
   handleFiles(event) {
-    this.files = event.target.files;
+      if(event.target.files.length != 0){
+          this.files = event.target.files;
+          this.noChoosenImages = false;
+      }
   }
 
   uploadFiles() {
@@ -42,5 +49,8 @@ export class UploadComponent {
             this.finished.emit(upload.url);
       });
     });
+    this.filesComponent.nativeElement.value="";
+    this.noChoosenImages = true;
+    setTimeout(() => this.upload = null, 3000)
   }
 }

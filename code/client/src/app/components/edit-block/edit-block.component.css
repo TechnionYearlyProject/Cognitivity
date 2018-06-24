@@ -1,3 +1,8 @@
 .form {
   background-color: transparent;
 }
+
+.marked-picture {
+    border-color: blue;
+    border-width: 3px;
+}

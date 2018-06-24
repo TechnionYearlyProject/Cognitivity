@@ -1,15 +1,14 @@
-<div class="container">
-  <div class="container">
-    <h2 class="heading">Upload New Images</h2>
-    <input type="file"
-    (change)="handleFiles($event)" multiple>
-    <button class="btn btn-primary"
-    (click)="uploadFiles()">Upload Images</button>
-  </div>
-  <div *ngIf="upload">
-      <div class="progress">
-          <div class="progress-bar progress-bar-animated"
-          [ngStyle]="{ 'width': upload?.progress + '%' }"></div>
-      </div>
-  </div>
+<h2>Upload New Image</h2>
+<form>
+<input #filesInput type="file"
+(change)="handleFiles($event)" multiple>
+<button class="btn btn-primary"
+(click)="uploadFiles();" [disabled] = "noChoosenImages">Upload Image</button>
+</form>
+<div *ngIf="upload">
+    <br>
+    <div class="progress">
+        <div class="progress-bar progress-bar-animated"
+        [ngStyle]="{ 'width': upload?.progress + '%' }"></div>
+    </div>
 </div>
