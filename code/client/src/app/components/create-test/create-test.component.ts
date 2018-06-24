@@ -276,10 +276,10 @@ export class CreateTestComponent implements OnInit {
       var reader = new FileReader();
       reader.onload = (event) => {
           try {
-            		this.file = JSON.parse(reader.result);
-                    console.log("Received json: " + JSON.stringify(this.file));
+            		this.file = reader.result; // JSON.parse(reader.result);
+                console.log("Received file: " + this.file);
           } catch (ex) {
-    			alert('exeption when trying to parse json = ' + ex);
+    			alert('exception when trying to parse json = ' + ex);
 		  }
       };
       reader.readAsText(fullFile);
@@ -288,7 +288,7 @@ export class CreateTestComponent implements OnInit {
   async uploadTest() {
     if(!this.file)
         return;
-    console.log("Uploaded json: " + JSON.stringify(this.file));
+    console.log("Uploaded file: " + this.file);
     console.log(await this.fileUploadService.uploadCognitiveTest(this.file, this.manager.id));
     this.router.navigate(['/dashboard']);
   }
