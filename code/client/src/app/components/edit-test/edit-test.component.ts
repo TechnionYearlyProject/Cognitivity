@@ -22,6 +22,7 @@ this main component is responsible to show the whole page of the test creation.
 including the block creation and sub question creation.
 */
 export class EditTestComponent implements OnInit {
+
   //this component helps us to get variables from the sub objects.
   @ViewChildren(EditBlockComponent) blocks: QueryList<EditBlockComponent>;
   //the actual list of the blocks.
@@ -31,7 +32,8 @@ export class EditTestComponent implements OnInit {
   loaded : boolean = false;
   // true when the save test happens
   savingTest : boolean = false;
-
+  // true if the testList has been loaded
+  loaded_tests: boolean;
   //object of a test , so we can save and import tests.
   test: Test;
   //for iterating over the blocks. we want to keep a question related to it's current block object.
@@ -99,7 +101,9 @@ export class EditTestComponent implements OnInit {
     });
 
     try {
+      this.loaded_tests = false;
       this.testList = await this.testService.findTestsForTestManager(managerId);
+      this.loaded_tests = true;
     } catch(err) {
       console.log(err);
     }
@@ -203,8 +207,12 @@ export class EditTestComponent implements OnInit {
       return;
     }
 
-    let testList = await this.testService.findTestsForTestManager(this.manager.id);
-    for (let test of testList) {
+    if(!this.loaded_tests){
+        let interval = setInterval(() => {
+            if(this.loaded_tests) clearInterval(interval);
+        }, 1000);
+    }
+    for (let test of this.testList) {
       if (test.name.trim() == this.titleTest.trim().replace(/\s\s+/g, ' ') && this.test.id != test.id) {
         alert('Name already taken!');
         return;
