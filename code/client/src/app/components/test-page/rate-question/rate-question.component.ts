@@ -20,7 +20,7 @@ export class TestPageRateQuestionComponent implements OnInit {
   //an array to indicate what answers are currently marked.
   markedAnswers: Array<boolean>;
   //the final marked answer
-  markedAnswer : number;
+  markedAnswer : number = -1;
   //slider value.
   range_value : number = 50;
   /*
@@ -56,10 +56,14 @@ export class TestPageRateQuestionComponent implements OnInit {
   markAnswer(index: number){
     for (let i = 0; i < this.answers.length; i++) {
       if(i == index){
-        this.markedAnswers[i] = true;
-        this.markedAnswer = i;
-        this.answered.emit(true);
-
+        let wasMarked = this.markedAnswers[i];
+        this.answered.emit(!wasMarked);
+        this.markedAnswers[i] = !wasMarked;
+        if (wasMarked) {
+          this.markedAnswer = -1;
+        } else {
+          this.markedAnswer = i;
+        }
       }else{
         this.markedAnswers[i] = false;
       }

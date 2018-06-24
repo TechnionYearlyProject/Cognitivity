@@ -83,6 +83,10 @@ export class ResultsPageComponent implements OnInit {
               }
               break;
           case TypeQuestion.OpenQuestion:
+            let text = answerObject.finalAnswer.answer;
+            if (text == "") {
+              text = "Empty";
+            }
             questionAnswerParsed = {
               id: questionAnswer.id,
               question_id: questionAnswer.question.id,
@@ -94,7 +98,7 @@ export class ResultsPageComponent implements OnInit {
               changes_of_answer: 0,
               time: answerObject.answerTime / 1000,
               time_conf: answerObject.confidenceTime / 1000,
-              answer: answerObject.finalAnswer.answer
+              answer: text
             }
             break;
           default:
@@ -118,7 +122,7 @@ export class ResultsPageComponent implements OnInit {
     }
   }
 
-  async deleteQuestionResult(answerId, questionId){
+  async deleteQuestionResult(answerId, questionId) {
     await this.answerTestService.deleteTestAnswer(questionId, answerId);
     let answers = await this.answerTestService.findAllAnswersForTest(this.test_id);
     this.parseAnswers(answers);
