@@ -72,7 +72,7 @@
 
           <hr>
           <h3>Choose existing image</h3>
-          <ng-container  *ngFor='let picLink of pictureLinks.reverse()'>
+          <ng-container  *ngFor='let picLink of pictureLinks'>
               <img src="{{ picLink }}" class="img-thumbnail rounded mx-auto d-block"
                (click)="addPictureToQuestion(picLink)" [ngClass] = "isTheChosenPicture(picLink)">
           </ng-container>

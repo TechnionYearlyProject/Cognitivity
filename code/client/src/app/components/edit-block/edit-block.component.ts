@@ -77,7 +77,7 @@ export class EditBlockComponent implements OnInit {
   }
 
   async loadImages(){
-      this.pictureLinks = await this.pictureLinkService.findAllPictureLinks();
+      this.pictureLinks = (await this.pictureLinkService.findAllPictureLinks()).reverse();
   }
 
   loadNewImage(event){
