@@ -1,7 +1,10 @@
 <div class = "container" *ngIf="!loaded">
-    <app-loading loading_value="test" color="Black"></app-loading>
+    <app-loading loading_value="test" color="White"></app-loading>
 </div>
-<div class="background" *ngIf="loaded">
+<div class = "container" *ngIf="finished">
+    <app-loading loading_value="" color="Black"></app-loading>
+</div>
+<div class="background" *ngIf="loaded && !finished">
     <br>
     <br>
     <div *ngIf="currIndex == -1" style="text-align:center">

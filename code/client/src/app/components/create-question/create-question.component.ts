@@ -467,6 +467,10 @@ export class CreateQuestionComponent implements OnInit {
    and transfering the question object via the SessionService service.
   */
   onSubmit() {
+    if(this.distractionsSeconds < 1 || this.distractionsSeconds > 300){
+        alert('Please input a value between 1 and 300 seconds');
+        return;
+    }
     if (this.questionText != null) {
       if (this.questionText != '' && !this.isSpacePrefix(this.questionText)) {
         if (this.didChosetype()) {

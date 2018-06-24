@@ -239,7 +239,6 @@ export class CreateTestComponent implements OnInit {
       let questions: QuestionInDB[] = [];
 
       for (let questionInBlock of block.getQuestions()) {
-
         let questionInDB: QuestionInDB =
         {
           question: JSON.stringify(questionInBlock.question),

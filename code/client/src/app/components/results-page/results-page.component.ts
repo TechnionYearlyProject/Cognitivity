@@ -57,8 +57,8 @@ export class ResultsPageComponent implements OnInit {
       let name = name_and_id.name;
       let id = name_and_id.p_id;
 
-      console.log(questionAnswer);
       let questionAnswerParsed;
+      console.log("before question parse")
       switch(typeQuestion){
           case TypeQuestion.DrillDownQuestion:
               let answerString;
@@ -75,7 +75,7 @@ export class ResultsPageComponent implements OnInit {
                 name: name,
                 question_type: typeQuestion,
                 conf_value: answerObject.finalAnswer.confidence,
-                is_time_distraction: false,
+                is_time_distraction: JSON.parse(questionAnswer.question.question).showDistractions,
                 changes_of_answer: 0,
                 time: answerObject.answerTime / 1000,
                 time_conf: answerObject.confidenceTime / 1000,
@@ -94,7 +94,7 @@ export class ResultsPageComponent implements OnInit {
               name: name,
               question_type: typeQuestion,
               conf_value: answerObject.finalAnswer.confidence,
-              is_time_distraction: false,
+              is_time_distraction: JSON.parse(questionAnswer.question.question).showDistractions,
               changes_of_answer: 0,
               time: answerObject.answerTime / 1000,
               time_conf: answerObject.confidenceTime / 1000,
@@ -109,7 +109,7 @@ export class ResultsPageComponent implements OnInit {
                 name: name,
                 question_type: typeQuestion,
                 conf_value: answerObject.finalAnswer.confidence,
-                is_time_distraction: false,
+                is_time_distraction: JSON.parse(questionAnswer.question.question).showDistractions,
                 changes_of_answer: 0,
                 time: answerObject.answerTime / 1000,
               time_conf: answerObject.confidenceTime / 1000,

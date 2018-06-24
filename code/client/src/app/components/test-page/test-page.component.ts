@@ -24,7 +24,9 @@ export class TestPageComponent implements OnInit {
 
   subject: TestSubject;
 
+  //flags for loading the animation components
   loaded: boolean = false;
+  finished: boolean = false;
 
   //the current test's index in the tests list.
   currIndex: number;
@@ -83,7 +85,7 @@ export class TestPageComponent implements OnInit {
   }
 
   async finishTest() {
-    this.loaded = false;
+    this.finished = true;
     this.timingResults = this.timing.getFullResults();
     for (let i = 0; i < this.blocksAnswers.length; i++) {
       for (let j = 0; j < this.blocksAnswers[i].answers.length; j++) {

@@ -52,8 +52,6 @@ export class EditBlockComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       let question_object = this.transferData.getData();
-      console.log('data is:::');
-      console.log(question_object);
       if(question_object != null){
         this.questionList.splice(this.questionList.length, 0,{question: question_object, id:''});
       }
@@ -130,8 +128,12 @@ export class EditBlockComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       let question_object = this.transferData.getData();
       if(question_object != null){
-        question_object.pictureLink = this.questionList[index].question.pictureLink;
-        this.questionList.splice(index, 1,{question: question_object, id:''});
+        question_object.pictureLink = this.questionList[index].pictureLink;
+        this.questionList.splice(index, 1,{
+            question: question_object,
+            id:'',
+            pictureLink: this.questionList[index].pictureLink
+        });
       }
 
     });
@@ -183,7 +185,11 @@ saveLinkForQuestion(index: number){
     this.questionIndexImage = index;
 }
 addPictureToQuestion(picLink: string){
-    this.questionList[this.questionIndexImage].pictureLink = picLink;
+    if(this.questionList[this.questionIndexImage].pictureLink == picLink){
+        this.questionList[this.questionIndexImage].pictureLink = null;
+    } else {
+        this.questionList[this.questionIndexImage].pictureLink = picLink;
+    }
 }
 isTheChosenPicture(picLink : string){
     if(!this.questionList[this.questionIndexImage]) return "unmarked-picture";
