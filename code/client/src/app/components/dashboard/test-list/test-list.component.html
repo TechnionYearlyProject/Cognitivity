@@ -37,14 +37,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let test of filteredTestList">
+        <tr *ngFor="let test of filteredTestList; let i = index">
           <td>{{ test.name }}</td>
           <td>{{ test.numberOfQuestions }}</td>
           <td>{{ test.project }}</td>
           <td>{{ test.notes }}</td>
           <td><a class="btn btn-secondary btn-sm" href="#" (click)="$event.preventDefault(); deleteTest(test.id);"><i class="fa fa-times"></i> Delete</a></td>
           <td><a [routerLink]="['/test-preview/'+test.id]" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-window-maximize"></i> Preview</a></td>
-          <td><a [routerLink]="['/edit-test/'+test.id]" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-arrow-circle-o-right"></i> Edit</a></td>
+          <td><a  class="btn btn-secondary btn-sm" (click)="will_edit(i)"><i class="fa fa-arrow-circle-o-right"></i> Edit</a></td>
           <td><a (click)="$event.preventDefault(); copyTest(test);" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-file-powerpoint-o "></i> Copy</a></td>
           <td><a [routerLink]="['/test-results/'+test.id + '/' + test.name]" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-address-book "></i> Results</a></td>
           <td><a  (click)="genLinkForTest(test)"class="btn btn-secondary btn-sm" href="#" data-toggle="modal" data-target="#uploadEmails"><i class="fa fa-link "></i>Link</a></td>
