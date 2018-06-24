@@ -25,7 +25,7 @@
                         <label for="distractionsCheckBox">Enable distractions</label>
                     </div>
                     <label for="distractionsSeconds"> Enter number of seconds for the countdown: </label>
-                    <input id="distractionsSeconds" class="form-control" type="number" [disabled]="!showDistractions" #seconds  min="0"
+                    <input id="distractionsSeconds" class="form-control" pattern="^[0-9]*$" max="300" type="number" [disabled]="!showDistractions" #seconds  min="0"
                     (input)="updateDistractionCountdown(seconds.value)" [value]="distractionsSeconds">
                 </form>
 
