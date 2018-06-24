@@ -22,7 +22,6 @@ export class LoadingComponent implements OnInit {
     return this.color == 'Black';
   }
   ngOnInit() {
-    console.log('color is: ' + this.color);
     this.colors = {
       'white' : this.isWhiteColor(),
       'black' : this.isBlackColor()

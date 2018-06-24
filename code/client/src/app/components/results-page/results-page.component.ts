@@ -51,65 +51,71 @@ export class ResultsPageComponent implements OnInit {
     for (let questionAnswer of answers) {
       let answerObject = JSON.parse(questionAnswer.finalAnswer);
       let typeQuestion = JSON.parse(questionAnswer.question.question).type;
+      let testSubject = questionAnswer.testSubject;
+      console.log(testSubject);
+      let name_and_id = JSON.parse(testSubject.name);
+      let name = name_and_id.name;
+      let id = name_and_id.p_id;
+
       console.log(questionAnswer);
       let questionAnswerParsed;
-      switch (typeQuestion) {
-        case TypeQuestion.DrillDownQuestion:
-          let answerString;
-          if (answerObject.secnodaryAnswer == '-1') {
-            answerString = 'Main: ' + (parseInt(answerObject.finalAnswer.primaryAnswer) + 1)
-          } else {
-            console.log(answerObject);
-            answerString = 'Main: ' + (parseInt(answerObject.finalAnswer.primaryAnswer) + 1) + ' Secondary: ' + (parseInt(answerObject.finalAnswer.secnodaryAnswer) + 1)
-          }
-          questionAnswerParsed = {
-            id: questionAnswer.id,
-            question_id: questionAnswer.question.id,
-            subject_id: questionAnswer.testSubject.id,
-            name: questionAnswer.testSubject.name,
-            question_type: typeQuestion,
-            conf_value: answerObject.finalAnswer.confidence,
-            is_time_distraction: false,
-            changes_of_answer: 0,
-            time: answerObject.answerTime / 1000,
-            time_conf: answerObject.confidenceTime / 1000,
-            answer: answerString
-          }
-          break;
-        case TypeQuestion.OpenQuestion:
-          let text = answerObject.finalAnswer.answer;
-          if (text = "") {
-            text = "Empty";
-          }
-          questionAnswerParsed = {
-            id: questionAnswer.id,
-            question_id: questionAnswer.question.id,
-            subject_id: questionAnswer.testSubject.id,
-            name: questionAnswer.testSubject.name,
-            question_type: typeQuestion,
-            conf_value: answerObject.finalAnswer.confidence,
-            is_time_distraction: false,
-            changes_of_answer: 0,
-            time: answerObject.answerTime / 1000,
-            time_conf: answerObject.confidenceTime / 1000,
-            answer: text
-          };
-          break;
-        default:
-          questionAnswerParsed = {
-            id: questionAnswer.id,
-            question_id: questionAnswer.question.id,
-            subject_id: questionAnswer.testSubject.id,
-            name: questionAnswer.testSubject.name,
-            question_type: typeQuestion,
-            conf_value: answerObject.finalAnswer.confidence,
-            is_time_distraction: false,
-            changes_of_answer: 0,
-            time: answerObject.answerTime / 1000,
-            time_conf: answerObject.confidenceTime / 1000,
-            answer: (parseInt(answerObject.finalAnswer.answer) + 1)
-          };
-          break;
+      switch(typeQuestion){
+          case TypeQuestion.DrillDownQuestion:
+              let answerString;
+              if (answerObject.secnodaryAnswer == '-1') {
+                answerString = 'Main: ' + (parseInt(answerObject.finalAnswer.primaryAnswer) + 1)
+              } else {
+                console.log(answerObject);
+                answerString = 'Main: ' + (parseInt(answerObject.finalAnswer.primaryAnswer) + 1) + ' Secondary: ' + (parseInt(answerObject.finalAnswer.secnodaryAnswer) + 1)
+              }
+              questionAnswerParsed = {
+                id: questionAnswer.id,
+                question_id: questionAnswer.question.id,
+                subject_id: id,
+                name: name,
+                question_type: typeQuestion,
+                conf_value: answerObject.finalAnswer.confidence,
+                is_time_distraction: false,
+                changes_of_answer: 0,
+                time: answerObject.answerTime / 1000,
+                time_conf: answerObject.confidenceTime / 1000,
+                answer: answerString
+              }
+              break;
+          case TypeQuestion.OpenQuestion:
+            let text = answerObject.finalAnswer.answer;
+            if (text == "") {
+              text = "Empty";
+            }
+            questionAnswerParsed = {
+              id: questionAnswer.id,
+              question_id: questionAnswer.question.id,
+              subject_id: id,
+              name: name,
+              question_type: typeQuestion,
+              conf_value: answerObject.finalAnswer.confidence,
+              is_time_distraction: false,
+              changes_of_answer: 0,
+              time: answerObject.answerTime / 1000,
+              time_conf: answerObject.confidenceTime / 1000,
+              answer: text
+            }
+            break;
+          default:
+              questionAnswerParsed = {
+                id: questionAnswer.id,
+                question_id: questionAnswer.question.id,
+                subject_id: id,
+                name: name,
+                question_type: typeQuestion,
+                conf_value: answerObject.finalAnswer.confidence,
+                is_time_distraction: false,
+                changes_of_answer: 0,
+                time: answerObject.answerTime / 1000,
+              time_conf: answerObject.confidenceTime / 1000,
+                answer: (parseInt(answerObject.finalAnswer.answer) + 1)
+              };
+              break;
       }
       this.answers.push(questionAnswerParsed);
       console.log(this.answers);

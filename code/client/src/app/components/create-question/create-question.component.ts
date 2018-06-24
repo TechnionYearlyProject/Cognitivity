@@ -80,7 +80,6 @@ export class CreateQuestionComponent implements OnInit {
   ngOnInit() {
     if (this.transferData.getData().editMode == true) {//Which mean we are in edition mode of the question
       this.question_object = this.transferData.getData().value;
-      console.log(this.question_object);
       this.editQuestion(this.question_object);
     }
     this.transferData.clearData();
