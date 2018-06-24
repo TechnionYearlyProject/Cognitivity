@@ -173,6 +173,23 @@ export class EditTestComponent implements OnInit {
       this.noTitle = false;
     }
 
+    let blocks = this.blocks.toArray();
+    if (blocks.length == 0) {
+      this.emptyTest = true;
+      return;
+    } else {
+      this.emptyTest = false;
+    }
+    for(let i = 0; i < blocks.length; i++){
+      if(blocks[i].getQuestions().length == 0){
+        this.emptyBlock = true;
+        this.indexBlock = i + 1;
+        return;
+      } else {
+        this.emptyBlock = false;
+      }
+    }
+
     if (this.titleTest == null || this.titleTest == '' || !this.regex.test(this.titleTest)) {
       alert('A bad name. Please choose a name with only letters and numbers');
       return;
@@ -192,22 +209,7 @@ export class EditTestComponent implements OnInit {
     }
 
 
-    let blocks = this.blocks.toArray();
-    if (blocks.length == 0) {
-      this.emptyTest = true;
-      return;
-    } else {
-      this.emptyTest = false;
-    }
-    for(let i = 0; i < blocks.length; i++){
-      if(blocks[i].getQuestions().length == 0){
-        this.emptyBlock = true;
-        this.indexBlock = i + 1;
-        return;
-      } else {
-        this.emptyBlock = false;
-      }
-    }
+
     let blocksToDB: Block[] = [];
     let totalQuestionNum: number = 0;
     for (let block of blocks) {
