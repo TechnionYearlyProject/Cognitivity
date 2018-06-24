@@ -53,7 +53,7 @@ export class CreateQuestionComponent implements OnInit {
   //index of answer to edit
   indexAnswerInEdit: number = -1;
   //show/hide distractions
-  showDistractions:boolean = true;
+  showDistractions:boolean = false;
   distractionsSeconds:number=0;
 
   //The question that created and sent to the block component. Will be null in case the user exited the creation of the question before its completion
