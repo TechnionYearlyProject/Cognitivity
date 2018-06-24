@@ -8,33 +8,37 @@
 <div class="container-fluid" *ngIf="!loaded">
     <app-loading loading_value="test" color="White"></app-loading>
 </div>
-<div class="form-group" *ngIf="loaded">
-    <div class="centered">
-        <h1>
-            <span class="fa fa-sticky-note-o"></span> Edit Test "{{titleTest}}"</h1>
-        <br><br><br>
-        <h4>Enter title for the test: </h4>
-      <input [(ngModel)]="titleTest" name="title" #title="ngModel" type="text" class="form-control"
-             placeholder="Title of the test"
-             style="max-width: 100%;" maxLength="16">
-        <br>
-        <h4>Enter the project's name: </h4>
-        <input [(ngModel)]="projectTest" name="projectname" #title="ngModel" type="text" class="form-control"
-               placeholder="projects name"
-               style="max-width: 50%;" maxLength="50">
-          <br>
-        <h4>Enter notes for the test: </h4>
-        <input [(ngModel)]="notesTest" name="notes" #title="ngModel" type="text" class="form-control"
-               placeholder="Notes of the test"
-               style="max-width: 50%;" maxLength="50">
-          <br>
-        <div style="text-align: center;">
-            <button class="btn btn-primary btn-sm" (click)="addBlock()">
-            <span class="fa fa-plus"></span> Create new block</button>
-            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#importTestModal" data-backdrop="static" data-keyboard="false"><span class="fa fa-upload" ></span> Import block</button>
+<div class="container-fluid" *ngIf="savingTest">
+    <app-loading loading_value="save test" color="White"></app-loading>
+</div>
+<ng-container *ngIf="loaded && !savingTest">
+    <div class="form-group">
+        <div class="centered">
+            <h1>
+                <span class="fa fa-sticky-note-o"></span> Edit Test "{{titleTest}}"</h1>
+            <br><br><br>
+            <h4>Enter title for the test: </h4>
+          <input [(ngModel)]="titleTest" name="title" #title="ngModel" type="text" class="form-control"
+                 placeholder="Title of the test"
+                 style="max-width: 100%;" maxLength="16">
+            <br>
+            <h4>Enter the project's name: </h4>
+            <input [(ngModel)]="projectTest" name="projectname" #title="ngModel" type="text" class="form-control"
+                   placeholder="projects name"
+                   style="max-width: 50%;" maxLength="50">
+              <br>
+            <h4>Enter notes for the test: </h4>
+            <input [(ngModel)]="notesTest" name="notes" #title="ngModel" type="text" class="form-control"
+                   placeholder="Notes of the test"
+                   style="max-width: 50%;" maxLength="50">
+              <br>
+            <div style="text-align: center;">
+                <button class="btn btn-primary btn-sm" (click)="addBlock()">
+                <span class="fa fa-plus"></span> Create new block</button>
+                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#importTestModal" data-backdrop="static" data-keyboard="false"><span class="fa fa-upload" ></span> Import block</button>
+            </div>
         </div>
     </div>
-</div>
 
     <div class="centered" *ngIf="loaded">
         <div class="column">
@@ -127,3 +131,5 @@
               </div>
             </div>
           </div>
+
+</ng-container>

@@ -29,6 +29,9 @@ export class CreateTestComponent implements OnInit {
   //loaded flag
   loaded_tests: boolean = false;
   loaded_blocks : boolean = false;
+
+  savingTest: boolean = false;
+
   //the actual list of the blocks.
   blocksList = []
   //object of a test , so we can save and import tests.
@@ -53,7 +56,7 @@ export class CreateTestComponent implements OnInit {
 
   projectname:string;
   notes: string;
-  chosen_file : boolean = false; 
+  chosen_file : boolean = false;
   @ViewChild('inputFile') myInputFile : any;
   /*
    * Information for importing block Author: Mark, Date: 11.6.18
@@ -163,8 +166,13 @@ export class CreateTestComponent implements OnInit {
         alert(badName);
         return false;
       }
-      let testList = await this.testService.findTestsForTestManager(this.manager.id);
-      for (let test of testList) {
+      // in case the asyncronical request didn't finished
+      if(!this.loaded_tests){
+          let interval = setInterval(() => {
+              if(this.loaded_tests) clearInterval(interval);
+          }, 1000);
+      }
+      for (let test of this.testList) {
         if (test.name.trim() == testName.trim().replace(/\s\s+/g, ' ')) {
           alert(nameAlreadyTaken);
           return false;
@@ -212,8 +220,12 @@ export class CreateTestComponent implements OnInit {
         alert(badName);
         return;
       }
-      let testList = await this.testService.findTestsForTestManager(this.manager.id);
-      for (let test of testList) {
+      if(!this.loaded_tests){
+          let interval = setInterval(() => {
+              if(this.loaded_tests) clearInterval(interval);
+          }, 1000);
+      }
+      for (let test of this.testList) {
         if (test.name.trim() == this.titleTest.trim().replace(/\s\s+/g, ' ')) {
           alert(nameAlreadyTaken);
           return;
@@ -267,6 +279,7 @@ export class CreateTestComponent implements OnInit {
       numberOfSubjects: 0,
       testManager: this.manager
     }
+    this.savingTest = true;
     console.log(await this.testService.saveCognitiveTest(test));
     this.router.navigate(['/dashboard']);
 
@@ -302,6 +315,7 @@ export class CreateTestComponent implements OnInit {
       return;
     }
     console.log("Uploaded file: " + this.file);
+    this.savingTest = true;
     console.log(await this.fileUploadService.uploadCognitiveTest(this.file, this.manager.id));
     this.router.navigate(['/dashboard']);
   }
