@@ -26,7 +26,11 @@ export class registrationFormComponent implements OnInit {
   options: IMyDpOptions = {
     disableSince: {day: 0, month: 0, year: 0}
   };
+
   lastname : string;
+
+  loaded : boolean = false;
+
   @Output() complete: EventEmitter<TestSubject> = new EventEmitter();
 
   //default constructor.
@@ -39,6 +43,7 @@ export class registrationFormComponent implements OnInit {
     let d: Date = new Date();
     d.setDate(d.getDate() + 1);
     this.options.disableSince = {day: d.getDate(), month: d.getMonth() + 1, year: d.getFullYear()};
+    this.loaded = true;
   }
 
   /*
@@ -50,6 +55,7 @@ export class registrationFormComponent implements OnInit {
   function for enforcing the validation of the fields in the form.
   */
   async onSubmit({value,valid}){
+      this.loaded = false;
     if(valid){
       let full_name = value.name.trim() + ' ' + value.lastname.trim();
       let id = value.userID.trim();
@@ -72,6 +78,7 @@ export class registrationFormComponent implements OnInit {
       console.log('Not valid');
       this.submitted = true;
     }
+    this.loaded = true;
   }
 
 
