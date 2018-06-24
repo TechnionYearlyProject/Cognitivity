@@ -35,7 +35,6 @@ export class UploadService {
       (snapshot) => {
         // upload in progress
         upload.progress = (uploadTask.snapshot.bytesTransferred / uploadTask.snapshot.totalBytes) * 100;
-        console.log(upload.progress);
       },
       // 2.) error observer
       (error) => {
@@ -53,8 +52,6 @@ export class UploadService {
   //Saving the link in the database
   private async saveFileData(upload: Upload) {
     await this.pictureLinkService.savePictureLink(upload.url,upload.name);
-    console.log(upload);
-    console.log('File saved!: ' + upload);
   }
 
   deleteFileUpload(upload: string) {

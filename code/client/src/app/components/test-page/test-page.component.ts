@@ -91,9 +91,7 @@ export class TestPageComponent implements OnInit {
       for (let j = 0; j < this.blocksAnswers[i].answers.length; j++) {
         let timingOfQuestion = this.timingResults.resultArr[i].questionTimes[j].qTotTS;
         let timingOfQuestionConfidence = this.timingResults.resultArr[i].questionTimes[j].qConBarTotTS;
-        console.log('finalAnswer: ' + this.blocksAnswers[i].answers[j].finalAnswer);
         let finalAnswer = JSON.parse(this.blocksAnswers[i].answers[j].finalAnswer);
-        console.log('time is: ' + timingOfQuestion);
         let finalAnswerWithTimes = {
           finalAnswer: finalAnswer,
           answerTime: timingOfQuestion,
@@ -106,12 +104,10 @@ export class TestPageComponent implements OnInit {
           question: this.test.blocks[i].questions[j]
 
         };
-        console.log(questionAnswerForDB);
         await this.answerService.saveTestAnswer(questionAnswerForDB);
       }
     }
     this.timing.timing_stopTestMeasure();
-    console.log(this.timing.getFullResults());
     this.loaded = true;
     this.router.navigate(['test-finish']);
     //when stopping the test, call timing_stopTestMeasure() to end the test measuring.

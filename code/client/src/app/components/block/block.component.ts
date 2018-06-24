@@ -57,8 +57,6 @@ export class BlockComponent implements OnInit {
 
   //default ngOnInit() function.
   ngOnInit() {
-    console.log('block info: ')
-    console.log(this.blockInfo);
     if(this.blockInfo != null){
       for (let i = 0; i < this.blockInfo.questions.length; i++) {
         this.questionList[i] =

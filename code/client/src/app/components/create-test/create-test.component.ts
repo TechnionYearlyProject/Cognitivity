@@ -84,18 +84,14 @@ export class CreateTestComponent implements OnInit {
   */
   async ngOnInit() {
     let user = this.authService.getCurrentManagerEmail();
-    console.log(user);
     let managerId = await this.managerService.getManagerId(user);
     this.manager.email = user;
     this.manager.id = managerId;
-    console.log(this.test);
     this.notes = "";
     try {
       this.loaded_tests = true;
       this.testList = await this.testService.findTestsForTestManager(managerId);
       this.loaded_tests = false;
-      console.log('The tests are: ')
-      console.log(this.testList);
 
     } catch(err) {
       console.log(err);
@@ -135,7 +131,6 @@ export class CreateTestComponent implements OnInit {
   */
   getQuestions(index: number){
     this.blocksList = this.blocks.toArray();
-    console.log(this.blocksList[index].getQuestions());
   }
 
   /*
@@ -143,7 +138,6 @@ export class CreateTestComponent implements OnInit {
   Output - the block is removed from the list.
   */
   deleteBlock(index: number){
-    console.log('In delete');
     this.iterator.splice(index,1);
   }
 
@@ -265,7 +259,6 @@ export class CreateTestComponent implements OnInit {
     }
 
     let date = Date.parse(new Date().toLocaleDateString());
-    console.log(date, new Date(date).toLocaleDateString());
     let test: Test =
     {
       name: this.titleTest,
@@ -279,7 +272,7 @@ export class CreateTestComponent implements OnInit {
       testManager: this.manager
     }
     this.savingTest = true;
-    console.log(await this.testService.saveCognitiveTest(test));
+    await this.testService.saveCognitiveTest(test);
     this.router.navigate(['/dashboard']);
 
   }
@@ -300,7 +293,6 @@ export class CreateTestComponent implements OnInit {
       reader.onload = (event) => {
           try {
             		this.file = reader.result; // JSON.parse(reader.result);
-                console.log("Received file: " + this.file);
           } catch (ex) {
     			alert('exception when trying to parse json = ' + ex);
 		  }
@@ -313,9 +305,8 @@ export class CreateTestComponent implements OnInit {
       alert('Bad file! Exiting...');
       return;
     }
-    console.log("Uploaded file: " + this.file);
     this.savingTest = true;
-    console.log(await this.fileUploadService.uploadCognitiveTest(this.file, this.manager.id));
+    await this.fileUploadService.uploadCognitiveTest(this.file, this.manager.id);
     this.router.navigate(['/dashboard']);
   }
 
@@ -337,8 +328,6 @@ export class CreateTestComponent implements OnInit {
       this.loaded_blocks = false;
       this.testBlockList = test.blocks;
       this.testNameToImport = test.name;
-      console.log('The block is: ')
-      console.log(this.testBlockList)
   }
   addImportedBlock(index: number){
     this.testNameToImport = '';
@@ -354,7 +343,6 @@ export class CreateTestComponent implements OnInit {
   }
   isFinished(e) {
     this.finished = e;
-    console.log('in is finished' + e);
     if(this.finished){
       this.blockPreview = false;
     }

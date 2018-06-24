@@ -272,7 +272,7 @@ export class EditTestComponent implements OnInit {
     this.test.project = this.projectTest ? this.projectTest.trim() : null;
     this.test.notes = this.notesTest ? this.notesTest.trim() : null;
     this.savingTest = true;
-    console.log(await this.testService.updateCognitiveTest(this.test));
+    await this.testService.updateCognitiveTest(this.test);
     this.router.navigate(['/dashboard']);
 
   }

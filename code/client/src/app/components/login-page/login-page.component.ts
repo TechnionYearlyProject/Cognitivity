@@ -38,10 +38,7 @@ export class LoginPageComponent implements OnInit {
 
   //default initialization function.
   async ngOnInit() {
-    //console.log('hIIIIIII');
     let str = await this.checkService.checkBackEnd();
-    console.log(str);
-    //console.log(await this.checkService.checkBackEnd())
   }
 
   /*

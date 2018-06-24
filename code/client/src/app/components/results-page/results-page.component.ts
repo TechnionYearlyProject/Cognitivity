@@ -38,11 +38,9 @@ export class ResultsPageComponent implements OnInit {
       this.router.navigate(['/dashboard']);
     }
     this.test_id = parseInt(testId);
-    console.log('over here');
     let answers = await this.answerTestService.findAllAnswersForTest(testId);
     this.loaded = true;
     this.parseAnswers(answers);
-    console.log(answers);
   }
 
   /* Here we define the columns that will be presented. */
@@ -52,20 +50,17 @@ export class ResultsPageComponent implements OnInit {
       let answerObject = JSON.parse(questionAnswer.finalAnswer);
       let typeQuestion = JSON.parse(questionAnswer.question.question).type;
       let testSubject = questionAnswer.testSubject;
-      console.log(testSubject);
       let name_and_id = JSON.parse(testSubject.name);
       let name = name_and_id.name;
       let id = name_and_id.p_id;
 
       let questionAnswerParsed;
-      console.log("before question parse")
       switch(typeQuestion){
           case TypeQuestion.DrillDownQuestion:
               let answerString;
               if (answerObject.secnodaryAnswer == '-1') {
                 answerString = 'Main: ' + (parseInt(answerObject.finalAnswer.primaryAnswer) + 1)
               } else {
-                console.log(answerObject);
                 answerString = 'Main: ' + (parseInt(answerObject.finalAnswer.primaryAnswer) + 1) + ' Secondary: ' + (parseInt(answerObject.finalAnswer.secnodaryAnswer) + 1)
               }
               questionAnswerParsed = {
@@ -118,7 +113,6 @@ export class ResultsPageComponent implements OnInit {
               break;
       }
       this.answers.push(questionAnswerParsed);
-      console.log(this.answers);
     }
   }
 

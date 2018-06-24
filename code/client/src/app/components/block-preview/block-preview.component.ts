@@ -26,7 +26,7 @@ export class BlockPreviewComponent implements OnInit {
   parsedQuestion: Question;
 
   //default constructor.
-  constructor() { 
+  constructor() {
 
   }
 
@@ -70,51 +70,5 @@ export class BlockPreviewComponent implements OnInit {
     return this.parsedQuestion;
 
   }
-/*
-  this.tickTick(6);
-  console.log(this.block.questions[0].showDistractions);
-  if(this.block.questions[0].showDistractions){
-    console.log("first question has distractions!!");
-    this.tickTick(parseInt(this.block.questions[0].seconds));
-  }
-  countdownCallback(){
-      console.log("countdown timer finished ! moving question");
-      this.nextQuestion();
-    }
-
-    seconds:string ="";
-    minutes:string ="";
-    clockDisplay:string=this.minutes + " : " + this.seconds;
-    // clockDisplay:number;
-    duration:number;
-    interval;
-
-
-    tickTick(duration) {
-      this.duration = duration;
-      if (this.duration > 0) {
-          this.interval = setInterval(() => {
-              this.duration--;
-
-              if (this.duration == 0) {
-                  clearInterval(this.interval);
-                  this.nextQuestion();
-              }
-             if (this.duration % 60 < 10) {
-                  this.seconds = "0" + this.duration % 60;
-              } else {
-                  this.seconds = (this.duration % 60).toString();
-              }
-
-              if (this.duration / 60 < 10) {
-                  this.minutes = "0" + parseInt("" + this.duration / 60, 10);
-              } else {
-                  this.minutes = "" + parseInt((this.duration / 60).toString(), 10);
-              }
-
-             this.clockDisplay = this.minutes + " : " + this.seconds
-          }, 1000);
-      }
-  }*/
 
 }

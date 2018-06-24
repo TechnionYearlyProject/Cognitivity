@@ -20,8 +20,6 @@ export class QuestionPreviewComponent implements OnInit {
   @Input() picture: string;
 
   //default initialization function.
-    ngOnInit() {
-        console.log(this.picture);
-    }
+    ngOnInit() {}
 
 }

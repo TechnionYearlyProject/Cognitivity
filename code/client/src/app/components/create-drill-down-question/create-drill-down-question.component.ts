@@ -64,7 +64,6 @@ export class CreateDrillDownQuestionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.question);
     if(this.question != null){
       this.mainAnswers = Object.assign([], this.question.answersForMain);
       this.markedMainCorrectAnswer = new Array(this.mainAnswers.length);

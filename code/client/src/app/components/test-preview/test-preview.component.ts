@@ -17,8 +17,8 @@ this component takes place when the preview button is fired (to preview the whol
 it uses the block viewer and indirectly the question viewer to view the whole test.
 */
 export class TestPreviewComponent implements OnInit {
-  
-  //default constructor 
+
+  //default constructor
   constructor(
     private localStorageService: LocalStorageService,
     private authService: AuthService,
@@ -45,7 +45,7 @@ export class TestPreviewComponent implements OnInit {
 
   //default initialization function.
   async ngOnInit() {
-   
+
     let email = this.authService.getCurrentManagerEmail();
     let testId = this.route.snapshot.params['testId'];
     if (isNaN(testId) || testId == '') {
@@ -57,15 +57,14 @@ export class TestPreviewComponent implements OnInit {
     }
     this.blocks = this.test.blocks;
     this.blocksLength = this.blocks.length;
-    console.log(this.test);
     this.currIndex = 0;
     this.loaded = true;
   }
 
   /*
   Input - an index of a specific block
-  Output - returns a boolean result if the called block's id (from the HTML form) is the current id 
-  were viewing. 
+  Output - returns a boolean result if the called block's id (from the HTML form) is the current id
+  were viewing.
   */
   showBlock(index) {
     return index == this.currIndex;

@@ -323,10 +323,7 @@ export class EmailsService {
   }
 
   sendLinks(emails: EmailsDist): Promise<EmailsDist> {
-    console.log(JSON.stringify(emails.link));
-    console.log(emails.emails);
     let request = `${this.target}${this.base_mapping}/sendLinksToSubjects?link=${emails.link}`;
-    console.log(request);
     return this.http.post(request, emails.emails, {headers: this.headers})
       .toPromise()
       .then(res => null)

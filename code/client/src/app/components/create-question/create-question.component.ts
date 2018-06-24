@@ -90,15 +90,11 @@ export class CreateQuestionComponent implements OnInit {
 
 
   toggleDistractions(){
-    console.log("toggling distractions...")
     this.showDistractions = !this.showDistractions;
-    console.log(this.showDistractions)
   }
 
   updateDistractionCountdown(seconds:number){
     this.distractionsSeconds = seconds;
-
-    console.log("set seconds -"+seconds);
   }
 
   getDistractionSeconds(){
@@ -687,7 +683,6 @@ export class CreateQuestionComponent implements OnInit {
   Control flow function which returns TRUE if there are missing answers in the matrix and FALSE other wise.
 */
   missingAnswers(): boolean {
-    console.log()
     if (this.matrixQuestion != null) {
       for (let i = 0; i < this.matrixQuestion.dimSize; i++) {
         for (let j = 0; j < this.matrixQuestion.dimSize; j++) {

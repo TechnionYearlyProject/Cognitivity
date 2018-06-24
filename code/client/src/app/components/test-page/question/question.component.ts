@@ -51,7 +51,6 @@ export class TestPageQuestionComponent implements OnInit {
     this.answerSwitcher = new SwitchCounterTracker(0);
     this.appInsightsTrackerIns = ApplicationInsightsTracker.getInstance;
     //start the time measurment for the first question
-    //console.log("### starting timing for question "+this.question.id.toString()+" in block "+this.fatherBlockID.toString()+" ###");
     this.timing.timing_startQuestionMeasure(this.fatherBlockID,this.question.id);
   }
 
@@ -104,7 +103,6 @@ export class TestPageQuestionComponent implements OnInit {
 
   onAnswering(didAnswer: boolean) {
     //meaning we're gonna show the conf bar, so we can start timing it.
-    //console.log("### starting conf bar timing for question "+this.question.id.toString()+" in block "+this.fatherBlockID.toString()+"###");
     this.timing.timing_startConfidenceMeasure(this.question.id,this.fatherBlockID);
     this.finished.emit(didAnswer);
     //Should be called every time a subject changes an answer.

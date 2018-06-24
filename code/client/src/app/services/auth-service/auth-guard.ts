@@ -18,7 +18,6 @@ export class AuthGuard implements CanActivate {
   canActivate() {
     return this.afAuth.authState.map(auth => {
       if (!auth) {
-        //console.log(this.afAuth.auth.currentUser.email);
           this.router.navigate(['/login']);
           return false;
       } else {
@@ -26,11 +25,11 @@ export class AuthGuard implements CanActivate {
       }
   });
   }
-  
+
 }
 
 /*
-were using the angularFireAuth server 
+were using the angularFireAuth server
 */
 @Injectable()
 export class LoginGuard implements CanActivate {
@@ -44,5 +43,5 @@ export class LoginGuard implements CanActivate {
       return true;
     })
   }
-  
+
 }

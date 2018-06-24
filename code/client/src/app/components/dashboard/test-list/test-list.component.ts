@@ -136,7 +136,7 @@ export class TestListComponent implements OnInit {
       newTest.name = newName.trim().replace(/\s\s+/g, ' ');
       newTest.lastModified = Date.parse(new Date().toLocaleDateString());
       newTest.lastAnswered = null;
-      console.log(await this.testService.saveCognitiveTest(newTest));
+      await this.testService.saveCognitiveTest(newTest);
       this.testList = await this.testService.findTestsForTestManager(this.managerId);
       this.filteredTestList = this.testList;
       this.loaded = true;
@@ -166,7 +166,6 @@ chooseCategory : boolean = true;
 
   // calledFromSubmit : whether the function called from the html file or not (filterKeyDown is a call from the html)
   filterTests(calledFromSubmit : boolean = true){
-    console.log("in here");
     if(calledFromSubmit && this.filter.option == 'empty'){
         this.chooseCategory = false;
         return;

@@ -21,7 +21,6 @@ export class CreateMatrixMultipleQuestionComponent implements OnInit {
     this.answers = new Array();
     this.constructMatrix();
     if(this.question != null){
-      console.log('HEHEEEEEEE');
       this.constructMatrixInEdit();
     }
   }
@@ -51,7 +50,7 @@ export class CreateMatrixMultipleQuestionComponent implements OnInit {
     for(let i = 0; i < this.dimSize; i++){
       this.markedAnswersMatrix[i] = new Array<boolean>(this.dimSize);
       this.matrixAnswers[i] = new Array<string>(this.dimSize);
-      this.iteratorArray[i] = new Array<null>(this.dimSize); 
+      this.iteratorArray[i] = new Array<null>(this.dimSize);
       for(let j = 0; j < this.dimSize; j++){
         this.markedAnswersMatrix[i][j] = false;
         this.matrixAnswers[i][j] = '';
@@ -72,7 +71,7 @@ export class CreateMatrixMultipleQuestionComponent implements OnInit {
     for(let i = 0; i < this.dimSize; i++){
       this.markedAnswersMatrix[i] = new Array<boolean>(this.dimSize);
       this.matrixAnswers[i] = new Array<string>(this.dimSize);
-      this.iteratorArray[i] = new Array<null>(this.dimSize); 
+      this.iteratorArray[i] = new Array<null>(this.dimSize);
       for(let j = 0; j < this.dimSize; j++){
         if(this.question.correctAnswer == this.dimSize*j + i){
           this.markedAnswersMatrix[i][j] = true;
@@ -87,7 +86,7 @@ export class CreateMatrixMultipleQuestionComponent implements OnInit {
       'three_col' : this.dimSize == 3,
       'four_col' : this.dimSize == 4
     };
-    
+
   }
 
 
@@ -113,7 +112,7 @@ export class CreateMatrixMultipleQuestionComponent implements OnInit {
     }
     return str.charAt(0) == ' ';
   }
-  
+
   markAnswer(index_row: number, index_col: number){
     for(let i = 0; i < this.dimSize; i++){
       for(let j = 0; j < this.dimSize; j++){
@@ -125,7 +124,7 @@ export class CreateMatrixMultipleQuestionComponent implements OnInit {
       }
     }
   }
-  
+
 
 
 }

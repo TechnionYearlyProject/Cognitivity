@@ -99,7 +99,7 @@ export class TimeMeasurer {
   //setting the initial required fields for measuring a test
   constructor( given_tID: number, given_tBlocksNum: number,blocksLengthArray:number[]) {
     this.nextFreeBlock = 0;
-    //initializing my results object - 
+    //initializing my results object -
     this.myTestObj = {tID:given_tID, tBlocksNum:given_tBlocksNum, tIsMeasured:false, tStartTS:0, tEndTS:0, tTotTS:0,resultArr:null }
     this.myTestObj.resultArr = new Array<block_timing>(this.myTestObj.tBlocksNum);
     for(let i=0;i<this.myTestObj.tBlocksNum;i++){
@@ -150,7 +150,7 @@ export class TimeMeasurer {
   timing_startBlockMeasure(given_bID: number, given_bQuestionNum: number): void {
     let myCurrBlock:block_timing = this.myTestObj.resultArr[this.nextFreeBlock];
     this.nextFreeBlock++;
-    
+
 
     //initialize the block object.
     this.initialize_block_timing(given_bID, given_bQuestionNum, myCurrBlock);
@@ -224,7 +224,6 @@ export class TimeMeasurer {
   timing_startQuestionMeasure(given_bID: number, given_qID: number): boolean {
     //find the first place with a question object with id != -1
     let myBlockIndex = this.findBlock(given_bID);
-   // console.log("##TIMING CLASS## - for given question ID: "+given_qID.toString()+" and given block ID: "+given_bID.toString()+" found block index: "+myBlockIndex.toString());
     if (myBlockIndex > -1) {
       for (let i = 0; i < this.myTestObj.resultArr[myBlockIndex].bQuestionsNum; i++) {
         if (this.myTestObj.resultArr[myBlockIndex].questionTimes[i].qID == -1) {
@@ -297,9 +296,6 @@ export class TimeMeasurer {
    */
   timing_startConfidenceMeasure(given_qID: number, given_bID: number): boolean {
     let myCurrQuestion = this.findQuestion(given_qID, given_bID);
-   // console.log("~~~~~~~~for question id: "+given_qID.toString()+" and block: "+given_bID.toString()+" found question:");
-   // console.log(myCurrQuestion);
-   // console.log("~~~~~~~~~");
     if (myCurrQuestion != null) {
       myCurrQuestion.qConBarStartTS = performance.now();
       return true;

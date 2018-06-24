@@ -97,11 +97,7 @@ export class TestPageDrillDownQuestionComponent implements OnInit {
             this.secondaryQuestionMode = false;
           }
         }
-
-      //  console.log('whadmgkfdglfkgkf')
-
         this.markedAnswersMain[i] = !this.markedAnswersMain[i];
-        //console.log(i, this.markedAnswersMain[i]);
 
       }else{
         this.markedAnswersMain[i] = false;
@@ -131,8 +127,6 @@ export class TestPageDrillDownQuestionComponent implements OnInit {
     let mainAnswerIndex = -1, secondAnswerIndex = -1;
     for(let i = 0; i < this.markedAnswersMain.length; i++){
       if (this.markedAnswersMain[i]) {
-       // console.log('In the return answer');
-       // console.log(i);
         mainAnswerIndex = i;
         break;
       }
@@ -144,7 +138,6 @@ export class TestPageDrillDownQuestionComponent implements OnInit {
         }
       }
     }
- //   console.log('whhhhhattttt');
     return {mainAnswer : mainAnswerIndex, secondAnswer: secondAnswerIndex};
 
   }

@@ -58,10 +58,8 @@ export class TestPageBlockComponent implements OnInit {
     }
     this.currIndex = 0;
     let tmpFirstQuestion = this.parseToQuestion(this.questions[0]);
-    console.log(tmpFirstQuestion);
     if(tmpFirstQuestion.showDistractions && (tmpFirstQuestion.distractionsSeconds > 0)){
       this.tickTick(tmpFirstQuestion.distractionsSeconds);
-      console.log("setting clock to true");
       if (this.duration / 60 < 10) {
         this.minutes = "0" + parseInt("" + this.duration / 60, 10);
       } else {
@@ -71,17 +69,15 @@ export class TestPageBlockComponent implements OnInit {
       this.clockDisplay = this.minutes + " : " + this.seconds;
       this.showClock = true;
 
-      
+
     }
     else{
-      console.log("setting clock to false");
       this.showClock = false;
     }
   }
 
   countdownCallback(){
-    console.log("countdown timer finished ! moving question");
-    
+
     if (this.wasAllShown() > 0) {
       this.nextQuestion();
     }
@@ -109,7 +105,7 @@ export class TestPageBlockComponent implements OnInit {
     if (this.duration > 0) {
         this.interval = setInterval(() => {
             this.duration--;
-            
+
             if (this.duration == 0) {
                 clearInterval(this.interval);
                 this.nextQuestion();
@@ -192,7 +188,6 @@ export class TestPageBlockComponent implements OnInit {
     this.clockDisplay = this.minutes + ":" + this.seconds;
     this.percentBar = 0;
 
-  //console.log("### stopping timing for question "+this.block.questions[this.currIndex].id.toString()+" in block "+this.block.id.toString()+" ###");
   //finish the measurment for the current question.
   clearInterval(this.interval);
   this.timing.timing_stopQuestionMeasure(this.block.questions[this.currIndex].id,this.block.id);
@@ -208,24 +203,19 @@ export class TestPageBlockComponent implements OnInit {
     } else {
       this.currIndex++;
     }
-    
+
     this.didAnswerQuestion = false;
     if (this.wasAllShown()==0) {
       this.finish = true;
       this.finished.emit();
-      console.log('Was all shownnnnn');
     }
     else{
     let tmpQuestion = this.parseToQuestion(this.questions[this.currIndex]);
-    console.log('tmpQuestion.showDistractions' + tmpQuestion.showDistractions);
-    console.log('tmpQuestion.distractionsSeconds' + tmpQuestion.distractionsSeconds);
     if(tmpQuestion.showDistractions && (tmpQuestion.distractionsSeconds > 0)){
       this.showClock = true;
-      console.log("setting clock to true");
       this.tickTick(tmpQuestion.distractionsSeconds);
     }
     else{
-      console.log("setting clock to false");
       this.showClock = false;
     }
   }
@@ -239,7 +229,7 @@ export class TestPageBlockComponent implements OnInit {
 
   onQuestionFinish(didFinish: boolean) {
     this.didAnswerQuestion = didFinish;
-         
+
   }
 
   getQuestionAnswers() {

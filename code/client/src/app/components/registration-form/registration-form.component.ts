@@ -75,7 +75,6 @@ export class registrationFormComponent implements OnInit {
       this.complete.emit(user);
     }
     else{
-      console.log('Not valid');
       this.submitted = true;
     }
     this.loaded = true;
