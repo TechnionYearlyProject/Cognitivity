@@ -1,4 +1,7 @@
-<div class="container col-lg-8">
+<div class = "container" *ngIf="!loaded">
+    <app-loading loading_value="test" color="Black"></app-loading>
+</div>
+<div class="container col-lg-8" *ngIf="loaded">
     <div class="card bg-light">
         <div class="card-body">
             <form class="form-group" novalidate  #f="ngForm" (ngSubmit)="onSubmit(f)">
@@ -26,7 +29,7 @@
                             <label for="firstName" class="fields">First Name</label>
                             <br>
                             <input type="text" class="form-control" name="name" [(ngModel)]="user.name"
-                                    #userName="ngModel" minlength="2" placeholder="First name" required
+                                    #userName="ngModel" minlength="2" maxlength="25" placeholder="First name" required
                                      pattern="[ a-zA-Z]*[a-zA-Z]+[ a-zA-Z]*">
                             <div *ngIf="userName.errors?.required && submitted" class="alert alert-danger">
                                 Please enter your first name
@@ -48,7 +51,7 @@
                             <label for="lastName" class="fields">Last Name</label>
                             <br>
                             <input type="text" class="form-control" name="lastname"
-                                    [(ngModel)]="lastname" #userLastname="ngModel" minlength="2"
+                                    [(ngModel)]="lastname" #userLastname="ngModel" minlength="2" maxlength="25"
                                     required placeholder="Last name" pattern="[ a-zA-Z]*[a-zA-Z]+[ a-zA-Z]*">
                             <div *ngIf="userLastname.errors?.required && submitted" class="alert alert-danger">
                                 Please enter your last name
@@ -134,7 +137,7 @@
                         <!-- Here we define the current job -->
                         <div class="card-body">
                             <label for="job" class="fields">Current job</label>
-                            <input type="text" class="form-control" name="currentjob"
+                            <input type="text" class="form-control" name="currentjob" maxlength="25"
                                     [(ngModel)]="user.occupation" #currentjob="ngModel" required
                                     placeholder="Current job"  pattern="[ a-zA-Z]*[a-zA-Z]+[ a-zA-Z]*">
                             <div *ngIf="currentjob.errors?.required && submitted" class="alert alert-danger">

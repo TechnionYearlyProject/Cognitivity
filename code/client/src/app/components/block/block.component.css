@@ -8,7 +8,7 @@
 .accordion, .active {
     border-radius: 10px;
     box-shadow: 0 0 7px rgb(0, 0, 0);
-    margin: 2em 0em; 
+    margin: 2em 0em;
     background-color: #eee;
     color: #444;
     cursor: pointer;
@@ -52,7 +52,7 @@
 .question-box {
     border-radius: 10px;
     box-shadow: 0 0 7px rgb(0, 0, 0);
-    margin: 2em 0em; 
+    margin: 2em 0em;
     background-color: rgb(255, 253, 253);
     color: rgb(0, 0, 0);
     padding: 50px;
@@ -72,7 +72,7 @@
 }
 
 .questionBG{
- background-color:#66ffcc;   
+ background-color:#66ffcc;
 }
 
 .editQ{
@@ -85,4 +85,10 @@
 
 .arrowbg{
     background-color: silver;
+}
+
+
+.marked-picture {
+    border-color: blue;
+    border-width: 3px;
 }
