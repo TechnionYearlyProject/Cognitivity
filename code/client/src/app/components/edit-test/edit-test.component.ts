@@ -22,13 +22,18 @@ this main component is responsible to show the whole page of the test creation.
 including the block creation and sub question creation.
 */
 export class EditTestComponent implements OnInit {
+
   //this component helps us to get variables from the sub objects.
   @ViewChildren(EditBlockComponent) blocks: QueryList<EditBlockComponent>;
   //the actual list of the blocks.
   blocksList = []
 
-  loaded: boolean = false;
-
+  // true if the page has loaded
+  loaded : boolean = false;
+  // true when the save test happens
+  savingTest : boolean = false;
+  // true if the testList has been loaded
+  loaded_tests: boolean;
   //object of a test , so we can save and import tests.
   test: Test;
   //for iterating over the blocks. we want to keep a question related to it's current block object.
@@ -96,7 +101,9 @@ export class EditTestComponent implements OnInit {
     });
 
     try {
+      this.loaded_tests = false;
       this.testList = await this.testService.findTestsForTestManager(managerId);
+      this.loaded_tests = true;
     } catch(err) {
       console.log(err);
     }
@@ -173,25 +180,6 @@ export class EditTestComponent implements OnInit {
       this.noTitle = false;
     }
 
-    if (this.titleTest == null || this.titleTest == '' || !this.regex.test(this.titleTest)) {
-      alert('A bad name. Please choose a name with only letters and numbers');
-      return;
-    }
-    let arr = this.regex.exec(this.titleTest);
-    if (arr[0] != this.titleTest) {
-      alert('A bad name. Please choose a name with only letters and numbers');
-      return;
-    }
-
-    let testList = await this.testService.findTestsForTestManager(this.manager.id);
-    for (let test of testList) {
-      if (test.name.trim() == this.titleTest.trim().replace(/\s\s+/g, ' ') && this.test.id != test.id) {
-        alert('Name already taken!');
-        return;
-      }
-    }
-
-
     let blocks = this.blocks.toArray();
     if (blocks.length == 0) {
       this.emptyTest = true;
@@ -208,6 +196,31 @@ export class EditTestComponent implements OnInit {
         this.emptyBlock = false;
       }
     }
+
+    if (this.titleTest == null || this.titleTest == '' || !this.regex.test(this.titleTest)) {
+      alert('A bad name. Please choose a name with only letters and numbers');
+      return;
+    }
+    let arr = this.regex.exec(this.titleTest);
+    if (arr[0] != this.titleTest) {
+      alert('A bad name. Please choose a name with only letters and numbers');
+      return;
+    }
+
+    if(!this.loaded_tests){
+        let interval = setInterval(() => {
+            if(this.loaded_tests) clearInterval(interval);
+        }, 1000);
+    }
+    for (let test of this.testList) {
+      if (test.name.trim() == this.titleTest.trim().replace(/\s\s+/g, ' ') && this.test.id != test.id) {
+        alert('Name already taken!');
+        return;
+      }
+    }
+
+
+
     let blocksToDB: Block[] = [];
     let totalQuestionNum: number = 0;
     for (let block of blocks) {
@@ -231,7 +244,8 @@ export class EditTestComponent implements OnInit {
       {
         questions: questions,
         numberOfQuestions: questions.length,
-        tag: JSON.stringify(block.getTags())
+        tag: JSON.stringify(block.getTags()),
+        randomize: block.randomize
       }
 
       blocksToDB.push(blockInDB);
@@ -256,6 +270,7 @@ export class EditTestComponent implements OnInit {
     this.test.testManager = this.manager;
     this.test.project = this.projectTest ? this.projectTest.trim() : null;
     this.test.notes = this.notesTest ? this.notesTest.trim() : null;
+    this.savingTest = true;
     console.log(await this.testService.updateCognitiveTest(this.test));
     this.router.navigate(['/dashboard']);
 

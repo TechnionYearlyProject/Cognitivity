@@ -37,14 +37,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let test of filteredTestList">
+        <tr *ngFor="let test of filteredTestList; let i = index">
           <td>{{ test.name }}</td>
           <td>{{ test.numberOfQuestions }}</td>
           <td>{{ test.project }}</td>
           <td>{{ test.notes }}</td>
           <td><a class="btn btn-secondary btn-sm" href="#" (click)="$event.preventDefault(); deleteTest(test.id);"><i class="fa fa-times"></i> Delete</a></td>
           <td><a [routerLink]="['/test-preview/'+test.id]" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-window-maximize"></i> Preview</a></td>
-          <td><a [routerLink]="['/edit-test/'+test.id]" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-arrow-circle-o-right"></i> Edit</a></td>
+          <td><a  class="btn btn-secondary btn-sm" (click)="will_edit(i)"><i class="fa fa-arrow-circle-o-right"></i> Edit</a></td>
           <td><a (click)="$event.preventDefault(); copyTest(test);" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-file-powerpoint-o "></i> Copy</a></td>
           <td><a [routerLink]="['/test-results/'+test.id + '/' + test.name]" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-address-book "></i> Results</a></td>
           <td><a  (click)="genLinkForTest(test)"class="btn btn-secondary btn-sm" href="#" data-toggle="modal" data-target="#uploadEmails"><i class="fa fa-link "></i>Link</a></td>
@@ -52,7 +52,7 @@
       </tbody>
     </table>
 </ng-container>
-    <div class="modal fade" id="uploadEmails">
+    <div class="modal fade" id="uploadEmails" #uploadEmails>
         <div class="modal-dialog">
           <div class="modal-content">
             <!-- Modal Header -->
@@ -64,12 +64,25 @@
 
             <!-- Modal body -->
             <div class="modal-body form-group">
+                  <h6>
+                    The test can be reached in <a href="{{ link }}">this</a> link.
+                    <br>
+                    <br>
+                    You can send it to a list of emails from a txt file.
+                    File format:
+                    <br>
+                    <br>
+                    user@host.com
+                    <br>
+                    user2@host2.com
+                  </h6>
+                  <br>
                   <input  #inputFile type = "file" class = "form-control-file" name="file" accept=".txt" (change)="updateFile($event)"/>
             </div>
 
             <!-- Modal footer -->
             <div class="modal-footer">
-              <button [disabled]="!chosen_file" class="btn btn-block btn-primary col-md-12" data-dismiss="modal" (click)="gen_link()">Send link to
+              <button [disabled]="!chosen_file" class="btn btn-block btn-primary col-md-12" data-dismiss='modal' (click)="gen_link()">Send link to
                 emails
               </button>
             </div>

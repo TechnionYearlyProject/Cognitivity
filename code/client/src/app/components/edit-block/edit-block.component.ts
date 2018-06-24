@@ -35,6 +35,7 @@ export class EditBlockComponent implements OnInit {
 
   questionIndexImage : number;
 
+  randomize: boolean = false;
   //default constructor.
   constructor(private dialog: MatDialog,
               private router:Router,
@@ -190,5 +191,8 @@ isTheChosenPicture(picLink : string){
     ? "marked-picture" : "unmarked-picture";
 }
 
-
+changeRandomization(): boolean {
+  this.randomize = !this.randomize;
+  return this.randomize;
+}
 }

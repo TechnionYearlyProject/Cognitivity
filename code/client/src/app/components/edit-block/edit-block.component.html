@@ -34,6 +34,11 @@
               <button class="btn btn-primary btn-sm" (click)="openDialog()">
                 <span class="fa fa-plus"></span> Create new question
               </button>
+              <button   *ngIf="!randomize" class="btn btn-danger btn-sm" (click)="changeRandomization()" >
+                <span style="font-family:Arial;  color: white"> Randomization disabled</span></button>
+              <button *ngIf="randomize" class="btn btn-success btn-sm" (click)="changeRandomization()" >
+                  <span style="font-family:Arial;  color: white"> Randomization enabled</span>
+              </button>
             </div>
           </div>
                   <!--the tags will be stored in the items elements. and have the following features:

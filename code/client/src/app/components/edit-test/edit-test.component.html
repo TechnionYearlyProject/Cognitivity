@@ -6,139 +6,130 @@
 <br>
 <br>
 <div class="container-fluid" *ngIf="!loaded">
-  <app-loading loading_value="test" color="White"></app-loading>
+    <app-loading loading_value="test" color="White"></app-loading>
 </div>
-<div class="form-group" *ngIf="loaded">
-  <div class="centered">
-    <h1>
-      <span class="fa fa-sticky-note-o"></span> Edit Test "{{titleTest}}"</h1>
-    <br><br><br>
-    <h4>Enter title for the test: </h4>
-    <input [(ngModel)]="titleTest" name="title" #title="ngModel" type="text" class="form-control"
-           placeholder="Title of the test"
-           style="max-width: 100%;" maxLength="16">
-    <br>
-    <h4>Enter the project's name: </h4>
-    <input [(ngModel)]="projectTest" name="projectname" #title="ngModel" type="text" class="form-control"
-           placeholder="projects name"
-           style="max-width: 50%;" maxLength="50">
-    <br>
-    <h4>Enter notes for the test: </h4>
-    <input [(ngModel)]="notesTest" name="notes" #title="ngModel" type="text" class="form-control"
-           placeholder="Notes of the test"
-           style="max-width: 50%;" maxLength="50">
-    <br>
-    <div style="text-align: center;">
-      <button class="btn btn-primary btn-sm" (click)="addBlock()">
-        <span class="fa fa-plus"></span> Create new block
-      </button>
-      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#importTestModal" data-backdrop="static"
-              data-keyboard="false"><span class="fa fa-upload"></span> Import block
-      </button>
-    </div>
-  </div>
+<div class="container-fluid" *ngIf="savingTest">
+    <app-loading loading_value="save test" color="White"></app-loading>
 </div>
-
-<div class="centered" *ngIf="loaded">
-  <div class="column">
-
-    <div *ngFor="let it of iterator; let i = index;">
-      <br>
-      <div class="card  bg-info border-dark mb-3">
-        <app-edit-block [blockNumber]="i" [block]="it.block" style="margin:1px;"></app-edit-block>
-
-        <div class="container">
-          <div class="column">
-            <button class="btn btn-danger btn-sm" (click)="deleteBlock(i)">
-              <span class="fa fa-trash"></span> Delete block
-            </button>
+<ng-container *ngIf="loaded && !savingTest">
+    <div class="form-group">
+        <div class="centered">
+            <h1>
+                <span class="fa fa-sticky-note-o"></span> Edit Test "{{titleTest}}"</h1>
+            <br><br><br>
+            <h4>Enter title for the test: </h4>
+          <input [(ngModel)]="titleTest" name="title" #title="ngModel" type="text" class="form-control"
+                 placeholder="Title of the test"
+                 style="max-width: 100%;" maxLength="16">
             <br>
-          </div>
-          <div class="row" style="margin:0px 0px 0px 1px;">
-            <div class="column">
-              <button class="btn btn-secondary btn-sm fa fa-arrow-up" (click)="moveMeUp(i)"></button>
+            <h4>Enter the project's name: </h4>
+            <input [(ngModel)]="projectTest" name="projectname" #title="ngModel" type="text" class="form-control"
+                   placeholder="projects name"
+                   style="max-width: 50%;" maxLength="50">
+              <br>
+            <h4>Enter notes for the test: </h4>
+            <input [(ngModel)]="notesTest" name="notes" #title="ngModel" type="text" class="form-control"
+                   placeholder="Notes of the test"
+                   style="max-width: 50%;" maxLength="50">
+              <br>
+            <div style="text-align: center;">
+                <button class="btn btn-primary btn-sm" (click)="addBlock()">
+                <span class="fa fa-plus"></span> Create new block</button>
+                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#importTestModal" data-backdrop="static" data-keyboard="false"><span class="fa fa-upload" ></span> Import block</button>
             </div>
-            <div class="column">
-              <button class="btn btn-secondary btn-sm fa fa-arrow-down" (click)="moveMeDown(i)"
-                      style="margin: 0px 0px 0px 5px"></button>
+        </div>
+    </div>
+
+    <div class="centered" *ngIf="loaded">
+        <div class="column">
+
+            <div *ngFor="let it of iterator; let i = index;">
+                <br>
+                <div class="card  bg-info border-dark mb-3">
+                    <app-edit-block [blockNumber]="i" [block]="it.block" style="margin:1px;"> </app-edit-block>
+
+                    <div class="container">
+                        <div class="column">
+                            <button class="btn btn-danger btn-sm" (click)="deleteBlock(i)">
+                                <span class="fa fa-trash"></span> Delete block</button>
+                            <br>
+                        </div>
+                        <div class="row" style="margin:0px 0px 0px 1px;">
+                            <div class="column">
+                                <button class="btn btn-secondary btn-sm fa fa-arrow-up" (click)="moveMeUp(i)"></button>
+                            </div>
+                            <div class="column">
+                                <button class="btn btn-secondary btn-sm fa fa-arrow-down" (click)="moveMeDown(i)" style="margin: 0px 0px 0px 5px"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="centered">
+            <button class="btn btn-md btn-primary" (click)="saveTest()" style="width: 100%;">Update Test</button>
+        </div>
+        <div *ngIf = "emptyBlock" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
+            Please fill with at least one question or delete block number {{ indexBlock }}
+        </div>
+        <div *ngIf = "emptyTest" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
+            Please fill with at least one block with at least one question
+        </div>
+        <div *ngIf = "noTitle" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
+            Error: a test has no name
+        </div>
+    </div>
+    <div class="modal fade" id="importTestModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title text-muted">Choose test</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+
+            <!-- Modal body -->
+            <div class="modal-body form-group">
+                <div *ngFor="let test of testList; let i = index;">
+                        <div  class="modal-footer">
+                                <button data-toggle="modal" data-target="#importBlockModal" data-backdrop="static" data-keyboard="false" style="width: 100%; height:100%; font-size: 20px;font-family: Arial;"class="btn btn-secondary btn-sm no-border"  data-dismiss="modal" (click)="clickTest(i)" >{{ test.name }}</button>
+                        </div>
+                </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="importBlockModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <button type="button" class="btn btn-secondary btn-sm no-border" data-dismiss="modal" data-toggle="modal" data-target="#importTestModal" data-backdrop="static" data-keyboard="false"><span class="fa fa-arrow-left"></span></button>
+                  <h4 class="modal-title text-muted">Import Block from {{ testNameToImport }}</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body form-group">
+                    <div *ngIf="!blockPreview">
+                        <div  *ngFor="let block of testBlockList; let i = index;">
+                                <div class="modal-footer">
+                                    <button style="width: 100%; height:100%; font-size: 20px;font-family: Arial;" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="addImportedBlock(i)">{{ prettifyTagList(block, i) }}</button>
+                                    <button class="btn btn-success btn-sm" style="height:100%;" (click)="previewBlock(i)">Preview Block</button>
+                                </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="blockPreview">
+                            <app-block-preview  [block]="chosenBlock" (finished)="isFinished($event)"></app-block-preview>
+                    </div>
+                </div>
+
+
+              </div>
             </div>
           </div>
-        </div>
 
-      </div>
-    </div>
-  </div>
-  <br>
-  <div class="centered">
-    <button class="btn btn-md btn-primary" (click)="saveTest()" style="width: 100%;">Update Test</button>
-  </div>
-  <div *ngIf="emptyBlock" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
-    Please fill with at least one question or delete block number {{ indexBlock }}
-  </div>
-  <div *ngIf="emptyTest" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
-    Please fill with at least one block with at least one question
-  </div>
-  <div *ngIf="noTitle" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
-    Error: a test has no name
-  </div>
-</div>
-<div class="modal fade" id="importTestModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title text-muted">Choose test</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-
-
-      <!-- Modal body -->
-      <div class="modal-body form-group">
-        <div *ngFor="let test of testList; let i = index;">
-          <div class="modal-footer">
-            <button data-toggle="modal" data-target="#importBlockModal" data-backdrop="static" data-keyboard="false"
-                    style="width: 100%; height:100%; font-size: 20px;font-family: Arial;"
-                    class="btn btn-secondary btn-sm no-border" data-dismiss="modal" (click)="clickTest(i)">{{ test.name
-              }}
-            </button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="importBlockModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <button type="button" class="btn btn-secondary btn-sm no-border" data-dismiss="modal" data-toggle="modal"
-                data-target="#importTestModal" data-backdrop="static" data-keyboard="false"><span
-          class="fa fa-arrow-left"></span></button>
-        <h4 class="modal-title text-muted">Import Block from {{ testNameToImport }}</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <div class="modal-body form-group">
-        <div *ngIf="!blockPreview">
-          <div *ngFor="let block of testBlockList; let i = index;">
-            <div class="modal-footer">
-              <button style="width: 100%; height:100%; font-size: 20px;font-family: Arial;"
-                      class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="addImportedBlock(i)">{{
-                prettifyTagList(block, i) }}
-              </button>
-              <button class="btn btn-success btn-sm" style="height:100%;" (click)="previewBlock(i)">Preview Block
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div *ngIf="blockPreview">
-          <app-block-preview [block]="chosenBlock" (finished)="isFinished($event)"></app-block-preview>
-        </div>
-      </div>
-
-
-    </div>
-  </div>
-</div>
+</ng-container>
