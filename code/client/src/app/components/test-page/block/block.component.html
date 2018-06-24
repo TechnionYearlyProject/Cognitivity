@@ -1,14 +1,20 @@
-<div class=" container" >
+<div class="container" >
   <div *ngFor="let question of block.questions; let i=index" class="form-group"  style="background-color:white;">
-    <div class="customLocation" *ngIf="showClock && showQuestion(i)">
-
-      {{clockDisplay}}
+    <div  *ngIf="showClock && showQuestion(i)">
+      <div style="font-size:30px;"><i class="fa fa-hourglass-start"></i>  {{ clockDisplay}}</div> 
+      <div class="progress">
+        <div class="progress-bar progress-bar-animated" 
+        [ngStyle]="{ 'width': percentBar + '%' }"></div>
+      </div>
+      
+     
 
     </div>
   <app-test-page-question *ngIf="showQuestion(i)" [timing]="timing" [testId]="testId" [fatherBlockID]="block.id" [question]="parseToQuestion(question)" [picture]="question.pictureLink" (finished)="onQuestionFinish($event)"></app-test-page-question>
   <br>
+  </div>
   <div  style="text-align:right;">
-    <input *ngIf="!finish && didAnswerQuestion" type="submit" class="btn btn-primary ml-auto" (click)="nextQuestion()"
-           [value]=" wasAllShown()==1 ? 'Finish Section' : 'Next Question'">
-  </div>
-  </div>
+      <input *ngIf="!finish && didAnswerQuestion" type="submit" class="btn btn-primary ml-auto" (click)="nextQuestion()"
+             [value]=" wasAllShown()==1 ? 'Finish Section' : 'Next Question'">
+    </div>
+</div>

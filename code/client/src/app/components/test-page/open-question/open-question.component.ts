@@ -14,7 +14,7 @@ export class TestPageOpenQuestionComponent implements OnInit {
 
   @Input() testId: number;
   //the current answer that the subject fills up.
-  currentAnswer: string;
+  currentAnswer: string = "";
   //slider value.
   range_value: number = 50;
   /*
@@ -44,7 +44,7 @@ export class TestPageOpenQuestionComponent implements OnInit {
 is_edit_mode():boolean{
   return this.isEdit;
 }
-  onAnswerChange() {
+onAnswerChange() {
       if (this.currentAnswer == "") {
           this.answered.emit(false);
           this.isAnswered = false;
@@ -53,16 +53,19 @@ is_edit_mode():boolean{
           this.answered.emit(true);
           this.isAnswered = true;
       }
-  }
+}
 
   submit_answer(){
+    this.answered.emit(true);
     this.isAnswered = true;
     this.isEdit = false;
   }
 
   //can also add future add-ons like distractions when changing an answer.
   change_answer(){
+    
     this.isAnswered = false;
+    this.answered.emit(false);
     this.isEdit = true;
   }
 

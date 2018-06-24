@@ -37,6 +37,7 @@ export class TestPageBlockComponent implements OnInit {
 
   showClock:boolean = false;
 
+  percentBar: number = 0;
   //default constructor.
   constructor() { }
 
@@ -59,7 +60,16 @@ export class TestPageBlockComponent implements OnInit {
     if(tmpFirstQuestion.showDistractions && (tmpFirstQuestion.distractionsSeconds > 0)){
       this.tickTick(tmpFirstQuestion.distractionsSeconds);
       console.log("setting clock to true");
+      if (this.duration / 60 < 10) {
+        this.minutes = "0" + parseInt("" + this.duration / 60, 10);
+      } else {
+          this.minutes = "" + parseInt((this.duration / 60).toString(), 10);
+      }
+      this.percentBar = 0;
+      this.clockDisplay = this.minutes + " : " + this.seconds;
       this.showClock = true;
+
+      
     }
     else{
       console.log("setting clock to false");
@@ -75,19 +85,29 @@ export class TestPageBlockComponent implements OnInit {
     }
   }
 
-  seconds:string ="";
-  minutes:string ="";
+  seconds:string ="00";
+  minutes:string ="00";
   clockDisplay:string=this.minutes + " : " + this.seconds;
   // clockDisplay:number;
   duration:number;
   interval;
 
   tickTick(duration) {
+    this.percentBar = 0
+    let totalDuration = duration;
     this.duration = duration;
+    if (this.duration / 60 < 10) {
+      this.minutes = "0" + parseInt("" + this.duration / 60, 10);
+    } else {
+        this.minutes = "" + parseInt((this.duration / 60).toString(), 10);
+    }
+    this.percentBar = (1- (this.duration / totalDuration)) * 100;
+    this.clockDisplay = this.minutes + " : " + this.seconds;
+
     if (this.duration > 0) {
         this.interval = setInterval(() => {
             this.duration--;
-
+            
             if (this.duration == 0) {
                 clearInterval(this.interval);
                 this.nextQuestion();
@@ -103,8 +123,8 @@ export class TestPageBlockComponent implements OnInit {
             } else {
                 this.minutes = "" + parseInt((this.duration / 60).toString(), 10);
             }
-
-           this.clockDisplay = this.minutes + " : " + this.seconds
+            this.percentBar = (1- (this.duration / totalDuration)) * 100;
+           this.clockDisplay = this.minutes + " : " + this.seconds;
         }, 1000);
     }
 }
@@ -165,6 +185,10 @@ export class TestPageBlockComponent implements OnInit {
   if we did - it triggers an event to notify our caller that the preview of the block is done.
   */
   nextQuestion() {
+    this.minutes = "00";
+    this.seconds = "00";
+    this.clockDisplay = this.minutes + ":" + this.seconds;
+    this.percentBar = 0;
 
   //console.log("### stopping timing for question "+this.block.questions[this.currIndex].id.toString()+" in block "+this.block.id.toString()+" ###");
   //finish the measurment for the current question.
