@@ -64,6 +64,19 @@
 
             <!-- Modal body -->
             <div class="modal-body form-group">
+                  <h6>
+                    The test can be reached in <a href="{{ link }}">this</a> link.
+                    <br>
+                    <br>
+                    You can send it to a list of emails from a txt file.
+                    File format:
+                    <br>
+                    <br>
+                    user@host.com
+                    <br>
+                    user2@host2.com
+                  </h6>
+                  <br>
                   <input  #inputFile type = "file" class = "form-control-file" name="file" accept=".txt" (change)="updateFile($event)"/>
             </div>
 
