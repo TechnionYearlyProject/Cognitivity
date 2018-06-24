@@ -76,7 +76,6 @@ export class EditTestComponent implements OnInit {
   */
   async ngOnInit() {
     let user = this.authService.getCurrentManagerEmail();
-    console.log(user);
     let managerId = await this.managerService.getManagerId(user);
     this.manager.email = user;
     this.manager.id = managerId;
@@ -86,7 +85,6 @@ export class EditTestComponent implements OnInit {
     }
     this.testService.findCognitiveTestById(testId).then((test) => {
         this.test = test;
-        console.log(this.test);
         for (let i = 0; i < this.test.blocks.length; i++) {
             this.addEditBlock(this.test.blocks[i]);
         }
@@ -99,9 +97,6 @@ export class EditTestComponent implements OnInit {
 
     try {
       this.testList = await this.testService.findTestsForTestManager(managerId);
-      console.log('The tests are: ')
-      console.log(this.testList);
-
     } catch(err) {
       console.log(err);
     }
@@ -153,7 +148,6 @@ export class EditTestComponent implements OnInit {
   */
   getQuestions(index: number){
     this.blocksList = this.blocks.toArray();
-    console.log(this.blocksList[index].getQuestions());
   }
 
   /*
@@ -161,7 +155,6 @@ export class EditTestComponent implements OnInit {
   Output - the block is removed from the list.
   */
   deleteBlock(index: number){
-    console.log('In delete');
     this.iterator.splice(index,1);
     this.blockListFromDB.splice(index, 1);
   }
@@ -200,9 +193,6 @@ export class EditTestComponent implements OnInit {
 
 
     let blocks = this.blocks.toArray();
-    console.log('blocks areeeeee')
-    console.log(blocks);
-    console.log('what how is it  no blocks??' + this.blocks.length);
     if (blocks.length == 0) {
       this.emptyTest = true;
       return;
@@ -210,9 +200,7 @@ export class EditTestComponent implements OnInit {
       this.emptyTest = false;
     }
     for(let i = 0; i < blocks.length; i++){
-      console.log('here')
       if(blocks[i].getQuestions().length == 0){
-        console.log('but also here')
         this.emptyBlock = true;
         this.indexBlock = i + 1;
         return;
@@ -227,15 +215,13 @@ export class EditTestComponent implements OnInit {
       let questions: QuestionInDB[] = [];
 
       for (let questionInBlock of block.getQuestions()) {
-
         let questionInDB: QuestionInDB =
         {
           question: JSON.stringify(questionInBlock.question),
           questionPosition: questionInBlock.question.questionPosition,
           type: questionInBlock.question.type,
-          pictureLink: questionInBlock.pictureLink
+          pictureLink: questionInBlock.question.pictureLink
         }
-
         questions.push(questionInDB);
       }
 
@@ -251,7 +237,6 @@ export class EditTestComponent implements OnInit {
       blocksToDB.push(blockInDB);
     }
     let date = Date.parse(new Date().toLocaleDateString());
-    console.log(date, new Date(date).toLocaleDateString());
     let test: Test =
     {
       name: this.titleTest,
@@ -291,8 +276,6 @@ export class EditTestComponent implements OnInit {
     let test = await this.testService.findCognitiveTestById(testId);
     this.testBlockList = test.blocks;
     this.testNameToImport = test.name;
-    console.log('The block is: ')
-    console.log(this.testBlockList)
 }
 addImportedBlock(index: number){
   this.testNameToImport = '';
@@ -308,7 +291,6 @@ previewBlock(index: number){
 }
 isFinished(e) {
   this.finished = e;
-  console.log('in is finished' + e);
   if(this.finished){
     this.blockPreview = false;
   }

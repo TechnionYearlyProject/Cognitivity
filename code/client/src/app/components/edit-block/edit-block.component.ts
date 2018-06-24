@@ -66,11 +66,10 @@ export class EditBlockComponent implements OnInit {
       for (let i = 0; i < this.block.questions.length; i++) {
         this.questionList[i] =
         {
-          question: JSON.parse(this.block.questions[i].question)
+          question: JSON.parse(this.block.questions[i].question),
+          pictureLink: this.block.questions[i].pictureLink
         };
       }
-      console.log('block in edit');
-      console.log(this.block);
       this.tags = JSON.parse(this.block.tag);
     }
     this.loadImages();
@@ -130,6 +129,7 @@ export class EditBlockComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       let question_object = this.transferData.getData();
       if(question_object != null){
+        question_object.pictureLink = this.questionList[index].question.pictureLink;
         this.questionList.splice(index, 1,{question: question_object, id:''});
       }
 

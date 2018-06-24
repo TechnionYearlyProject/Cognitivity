@@ -1,5 +1,5 @@
 <div class="container">
-    <img [src]="picture" class= "rounded mx-auto d-block" *ngIf ="picture">
+    <img [src]="picture" class= "img-thumbnail rounded mx-auto d-block" *ngIf ="picture">
 </div>
 <div class="container">
     <app-test-page-multiple-choice-question *ngIf="question.type==0" [question]="question" [testId]="testId" (answered)="onAnswering($event)"></app-test-page-multiple-choice-question>
