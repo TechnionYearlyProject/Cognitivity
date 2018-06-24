@@ -7,6 +7,7 @@ import { SessionService } from '../../services/session-service/index';
 import { TestService, TestManagerService, FileUploadService } from '../../services/database-service/index';
 import { AuthService } from '../../services/auth-service/index';
 import { QueryList, ViewChildren  } from '@angular/core';
+import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-create-test',
@@ -52,6 +53,8 @@ export class CreateTestComponent implements OnInit {
 
   projectname:string;
   notes: string;
+  chosen_file : boolean = false; 
+  @ViewChild('inputFile') myInputFile : any;
   /*
    * Information for importing block Author: Mark, Date: 11.6.18
    */
@@ -268,10 +271,16 @@ export class CreateTestComponent implements OnInit {
   }
 
   updateFile(event){
+      if (event.target.files == null || event.target.files.length == 0){
+        this.chosen_file = false;
+        return;
+      }
       if(event.target.files.length != 1){
+        this.chosen_file = false;
           alert("only one file can be submitted each time");
           return;
       }
+      this.chosen_file = true;
       let fullFile = event.target.files[0];
       var reader = new FileReader();
       reader.onload = (event) => {
@@ -341,6 +350,11 @@ export class CreateTestComponent implements OnInit {
       let tags = JSON.parse(block.tag);
       tags = tags.map(item => item.value);
       return tags.join(", ");
+  }
+
+  uploadTestFile(){
+    this.chosen_file = false;
+    this.myInputFile.nativeElement.value = "";
   }
 
 }

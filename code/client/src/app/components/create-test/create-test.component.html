@@ -62,7 +62,7 @@
         </div>
         <br>
         <div class="centered">
-            <button class="btn btn-block btn-success col-md-12" data-toggle="modal" data-target="#uploadTestModal">Upload Test</button>
+            <button class="btn btn-block btn-success col-md-12" data-toggle="modal" data-target="#uploadTestModal" (click)="uploadTestFile()">Upload Test</button>
             <button class="btn btn-block btn-primary col-md-12" (click)="saveTest()">Save Test</button>
         </div>
         <div *ngIf = "emptyBlock" style="color: rgb(255, 55, 98);font-size:20px;font-family: Arial;">
@@ -88,12 +88,12 @@
 
           <!-- Modal body -->
           <div class="modal-body form-group">
-                <input type = "file" class = "form-control-file" name="file" accept=".json" (change)="updateFile($event)"/>
+                <input #inputFile type = "file" class = "form-control-file" name="file" accept=".json" (change)="updateFile($event)"/>
           </div>
 
           <!-- Modal footer -->
           <div class="modal-footer">
-              <button class="btn btn-block btn-primary col-md-12" data-dismiss="modal" (click)="uploadTest()">Upload Test</button>
+              <button [disabled]="!chosen_file" class="btn btn-block btn-primary col-md-12" data-dismiss="modal" (click)="uploadTest()">Upload Test</button>
           </div>
 
         </div>

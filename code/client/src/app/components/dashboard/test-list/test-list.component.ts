@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Test, EmailsDist } from '../../../models'
 import { TestService, TestManagerService, EmailsService } from '../../../services/database-service'
 import { AuthService } from '../../../services/auth-service';
+import { ViewChild } from '@angular/core';
 
 
 
@@ -30,8 +31,9 @@ export class TestListComponent implements OnInit {
   managerId;
   file : string[] = null;
   link: string;
-
+  chosen_file: boolean = false;
   loaded: boolean = false;
+  @ViewChild('inputFile') myInputFile : any;
   //default constructor.
   constructor(
     private testService: TestService,
@@ -195,13 +197,22 @@ chooseCategory : boolean = true;
     await this.emailsService.sendLinks(emails);
   }
   genLinkForTest(test: Test){
+    this.myInputFile.nativeElement.value = "";
+    this.chosen_file = false;
     this.link = "https://cognitivitywebsite.azurewebsites.net//test/" + test.id;
   }
   updateFile(event){
+    if (event.target.files == null || event.target.files.length == 0){
+      this.chosen_file = false;
+      return;
+    }
+    
     if(event.target.files.length != 1){
+        this.chosen_file = false;
         alert("only one file can be submitted each time");
         return;
     }
+    this.chosen_file = true;
     let fullFile = event.target.files[0];
     var reader = new FileReader();
     reader.onload = (event) => {
