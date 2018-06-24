@@ -15,11 +15,11 @@
               <div class="card-body border-primary">
                 <a class="btn arrowbg btn-sm fa fa-arrow-up" (click)="moveMeUp(i)"></a>
                 <a class="btn arrowbg btn-sm fa fa-arrow-down" (click)="moveMeDown(i)"></a>
+                <br>
 
+                <app-question [myData]="currQuestion" [index]="i"></app-question>
 
-                  <app-question [myData]="currQuestion" [index]="i"></app-question>
-
-
+                <br>
                 <button class="btn btn-sm btn-danger" (click)="deleteQuestion(i)">
                 <span class="fa fa-trash"></span> Delete question</button>
                 <button class="btn btn-sm btn-primary" (click)="editQuestion(i)">
