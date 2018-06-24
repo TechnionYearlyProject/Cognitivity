@@ -194,14 +194,21 @@ chooseCategory : boolean = true;
   }
 
   async gen_link(){
+    var email_regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(this.file.some((element) => !email_regex.test(element))){
+        alert("Error! unvalid email list");
+        return;
+    }
     let emails: EmailsDist = {emails: this.file, link: this.link};
     await this.emailsService.sendLinks(emails);
   }
+
   genLinkForTest(test: Test){
     this.myInputFile.nativeElement.value = "";
     this.chosen_file = false;
     this.link = "https://cognitivitywebsite.azurewebsites.net//test/" + test.id;
   }
+
   updateFile(event){
     if (event.target.files == null || event.target.files.length == 0){
       this.chosen_file = false;

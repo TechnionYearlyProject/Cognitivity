@@ -52,7 +52,7 @@
       </tbody>
     </table>
 </ng-container>
-    <div class="modal fade" id="uploadEmails">
+    <div class="modal fade" id="uploadEmails" #uploadEmails>
         <div class="modal-dialog">
           <div class="modal-content">
             <!-- Modal Header -->
@@ -82,7 +82,7 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
-              <button [disabled]="!chosen_file" class="btn btn-block btn-primary col-md-12" data-dismiss="modal" (click)="gen_link()">Send link to
+              <button [disabled]="!chosen_file" class="btn btn-block btn-primary col-md-12" data-dismiss='modal' (click)="gen_link()">Send link to
                 emails
               </button>
             </div>
