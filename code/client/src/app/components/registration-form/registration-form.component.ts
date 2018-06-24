@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SubjectService } from '../../services/database-service/index';
 import { TestSubject } from '../../models/index';
 import {IMyDpOptions} from 'mydatepicker';
+import { stringify } from 'NG2TableView/node_modules/@angular/core/src/util';
 
 @Component({
   selector: 'app-registration-form',
@@ -50,9 +51,13 @@ export class registrationFormComponent implements OnInit {
   */
   async onSubmit({value,valid}){
     if(valid){
+      let full_name = value.name.trim() + ' ' + value.lastname.trim();
+      let id = value.userID.trim();
+
+      let name_and_id = {name: full_name, p_id: id};
       let newUser = {
           privateId: value.userID.trim(),
-          name: value.name.trim() + ' ' + value.lastname.trim(),
+          name: JSON.stringify(name_and_id),
           occupation: value.currentjob.trim(),
           birthDate: value.mydate.formatted.trim(),
           martialStatus: value.maritalState.trim()

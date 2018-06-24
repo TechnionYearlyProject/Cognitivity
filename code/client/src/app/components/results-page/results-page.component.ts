@@ -51,6 +51,12 @@ export class ResultsPageComponent implements OnInit {
     for (let questionAnswer of answers) {
       let answerObject = JSON.parse(questionAnswer.finalAnswer);
       let typeQuestion = JSON.parse(questionAnswer.question.question).type;
+      let testSubject = questionAnswer.testSubject;
+      console.log(testSubject);
+      let name_and_id = JSON.parse(testSubject.name);
+      let name = name_and_id.name;
+      let id = name_and_id.p_id;
+
       console.log(questionAnswer);
       let questionAnswerParsed;
       switch(typeQuestion){
@@ -65,8 +71,8 @@ export class ResultsPageComponent implements OnInit {
               questionAnswerParsed = {
                 id: questionAnswer.id,
                 question_id: questionAnswer.question.id,
-                subject_id: questionAnswer.testSubject.id,
-                name: questionAnswer.testSubject.name,
+                subject_id: id,
+                name: name,
                 question_type: typeQuestion,
                 conf_value: answerObject.finalAnswer.confidence,
                 is_time_distraction: false,
@@ -80,8 +86,8 @@ export class ResultsPageComponent implements OnInit {
             questionAnswerParsed = {
               id: questionAnswer.id,
               question_id: questionAnswer.question.id,
-              subject_id: questionAnswer.testSubject.id,
-              name: questionAnswer.testSubject.name,
+              subject_id: id,
+              name: name,
               question_type: typeQuestion,
               conf_value: answerObject.finalAnswer.confidence,
               is_time_distraction: false,
@@ -95,8 +101,8 @@ export class ResultsPageComponent implements OnInit {
               questionAnswerParsed = {
                 id: questionAnswer.id,
                 question_id: questionAnswer.question.id,
-                subject_id: questionAnswer.testSubject.id,
-                name: questionAnswer.testSubject.name,
+                subject_id: id,
+                name: name,
                 question_type: typeQuestion,
                 conf_value: answerObject.finalAnswer.confidence,
                 is_time_distraction: false,
