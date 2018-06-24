@@ -226,4 +226,10 @@ chooseCategory : boolean = true;
     reader.readAsText(fullFile);
 
 }
+
+will_edit(index: number){
+  if(confirm('Note! Updating the test will erase the result from the database for this test')){
+    this.router.navigate(['/edit-test/'+this.filteredTestList[index].id]);
+  }
+}
 }
