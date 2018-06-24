@@ -8,7 +8,7 @@
   "blocks": [
     {
       "numberOfQuestions": 1,
-      "tag": "Rate Question Block",
+      "tag": "[]",
       "shuffle": true,
       "questions": [
         {

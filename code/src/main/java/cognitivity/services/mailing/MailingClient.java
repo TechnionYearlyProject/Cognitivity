@@ -15,7 +15,8 @@ import java.util.Properties;
  */
 public class MailingClient {
     private static final String SMTP_HOST_NAME = "smtp.sendgrid.net";
-    private static final String SMTP_AUTH_USER = "azure_0daff2c2a979962506b73af4b28ef4b3@azure.com";
+    // private static final String SMTP_AUTH_USER = "azure_0daff2c2a979962506b73af4b28ef4b3@azure.com"; // This is earlier service
+    private static final String SMTP_AUTH_USER = "azure_994ca27b7ac3e1e86025adfff07d1e8a@azure.com";
     private static final String SMTP_AUTH_PWD = "dev@cognitivity18";
 
     private static final String COGNITIVITY_EMAIL = "cognitivity.tests@gmail.com";

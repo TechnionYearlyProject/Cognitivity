@@ -46,5 +46,6 @@ public class DistributeTestLinkToSubjectService {
             logger.error("Was not able to send email correctly");
             throw new SendLinksException(SendLinksException.ErrorType.MESSAGE_FAILED_TO_SEND);
         }
+        logger.info("Sent emails to subjects");
     }
 }

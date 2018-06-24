@@ -91,6 +91,14 @@ h4 {
 }
 .modal-body{
   height: 500px;
-  width: 100%;
   overflow-y: auto;
+}
+
+.button_in_modal {
+  word-wrap:break-word;
+  
+  white-space: normal;
+}
+.scroll{
+  overflow: scroll;
 }

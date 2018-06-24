@@ -23,10 +23,10 @@ public class SendLinksException extends CognitivityException {
         String msg = "";
         switch (type) {
             case NOT_REGISTERED:
-                msg = "Failed to send emails to some of the links";
+                msg = "Failed to send link to some of the emails";
                 break;
             case MESSAGE_FAILED_TO_SEND:
-                msg = "Some subjects were not registered";
+                msg = "Failed to send link to some of the emails";
                 break;
             case EMPTY_EMAILS:
                 msg = "No emails were supplied";
