@@ -123,9 +123,9 @@ export class ResultsPageComponent implements OnInit {
   }
 
   async deleteQuestionResult(answerId, questionId) {
+    this.answers = this.answers.filter(answer => answer.question_id != questionId || answer.id != answerId)
     await this.answerTestService.deleteTestAnswer(questionId, answerId);
-    let answers = await this.answerTestService.findAllAnswersForTest(this.test_id);
-    this.parseAnswers(answers);
+
   }
 
 
