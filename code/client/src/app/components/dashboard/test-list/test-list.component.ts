@@ -200,7 +200,7 @@ chooseCategory : boolean = true;
   genLinkForTest(test: Test){
     this.myInputFile.nativeElement.value = "";
     this.chosen_file = false;
-    this.link = "https://cognitivitywebsite.azurewebsites.net//test/" + test.id;
+    this.link = "https://cognitivitywebsite.azurewebsites.net/test/" + test.id;
   }
   updateFile(event){
     if (event.target.files == null || event.target.files.length == 0){
