@@ -29,6 +29,9 @@ export class CreateTestComponent implements OnInit {
   //loaded flag
   loaded_tests: boolean = false;
   loaded_blocks : boolean = false;
+
+  savingTest: boolean = false;
+
   //the actual list of the blocks.
   blocksList = []
   //object of a test , so we can save and import tests.
@@ -53,7 +56,7 @@ export class CreateTestComponent implements OnInit {
 
   projectname:string;
   notes: string;
-  chosen_file : boolean = false; 
+  chosen_file : boolean = false;
   @ViewChild('inputFile') myInputFile : any;
   /*
    * Information for importing block Author: Mark, Date: 11.6.18
@@ -179,6 +182,7 @@ export class CreateTestComponent implements OnInit {
    * and collects them to a test object
    */
   async saveTest() {
+    this.savingTest = true;
     if (this.titleTest == '' || this.titleTest == null) {
       this.noTitle = true;
       return;
@@ -273,6 +277,7 @@ export class CreateTestComponent implements OnInit {
   }
 
   updateFile(event){
+      this.savingTest = true;
       if (event.target.files == null || event.target.files.length == 0){
         this.chosen_file = false;
         return;

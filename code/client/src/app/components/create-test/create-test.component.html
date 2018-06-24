@@ -5,7 +5,10 @@
 <div class="titleBoi">Cognitivity</div>
 <br>
 <br>
-<div class="form-group">
+<div *ngIf="savingTest">
+    <app-loading loading_value="save test" color="White"></app-loading>
+</div>
+<div class="form-group" *ngIf="!savingTest">
     <div class="centered">
         <h1>
             <span class="fa fa-sticky-note-o"></span> Create New Test</h1>
@@ -116,12 +119,12 @@
                                     <button data-toggle="modal" data-target="#importBlockModal" data-backdrop="static" data-keyboard="false" style="width: 100%; height:100%; font-size: 20px;font-family: Arial;"class="btn btn-secondary btn-sm no-border"  data-dismiss="modal" (click)="clickTest(i)" >{{ test.name }}</button>
                             </div>
                     </div>
-                </div>    
+                </div>
             </div>
             <div *ngIf="loaded_tests">
                 <app-loading loading_value="tests" color="Black"></app-loading>
             </div>
-            
+
             <!-- Modal body -->
 
 
@@ -152,11 +155,11 @@
                                     </div>
                             </div>
                         </div>
-    
+
                         <div *ngIf="blockPreview">
                                 <app-block-preview  [block]="chosenBlock" (finished)="isFinished($event)"></app-block-preview>
                         </div>
-                    </div>    
+                    </div>
                 </div>
                 <div *ngIf="loaded_blocks">
                     <app-loading loading_value="blocks" color="Black"></app-loading>
