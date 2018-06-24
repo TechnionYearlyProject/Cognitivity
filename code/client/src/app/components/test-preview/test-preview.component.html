@@ -2,14 +2,15 @@
 <div *ngIf="!loaded">
     <app-loading loading_value="preview" color="White"></app-loading>
   </div>
-<div class="container" *ngIf="loaded"></div>
-  <input type="submit" class="btn btn-primary btn-sm" (click)="finishPreview()" value="Finish preview">
-</div>
-<br>
-<div *ngFor="let block of blocks; let i=index">
-  <app-block-preview *ngIf="showBlock(i)" [block]="block" (finished)="isFinished($event)"></app-block-preview>
-</div>
-<div style="text-align:center">
-  <input type="submit" class="btn btn-primary" [hidden]="hideNextButton" (click)="nextBlock()"
-         [value]=" currIndex >= blocksLength - 1 ? 'Finish preview' : 'Next Block'">
+<div class="container" *ngIf="loaded">
+    <input type="submit" class="btn btn-primary btn-sm" (click)="finishPreview()" value="Finish preview">
+
+  <br>
+  <div *ngFor="let block of blocks; let i=index">
+    <app-block-preview *ngIf="showBlock(i)" [block]="block" (finished)="isFinished($event)"></app-block-preview>
+  </div>
+  <div style="text-align:center">
+    <input type="submit" class="btn btn-primary" [hidden]="hideNextButton" (click)="nextBlock()"
+          [value]=" currIndex >= blocksLength - 1 ? 'Finish preview' : 'Next Block'">
+  </div>
 </div>
