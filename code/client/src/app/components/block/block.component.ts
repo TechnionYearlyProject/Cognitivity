@@ -32,7 +32,7 @@ export class BlockComponent implements OnInit {
   questionIndexImage: number = -1;
   //the actual list of the questions.
   questionList: Array<QuestionInBlock> = new Array<QuestionInBlock>();
-
+  randomize: boolean = false;
   //default constructor.
   constructor(private dialog: MatDialog,
               private router:Router,
@@ -213,5 +213,10 @@ export class BlockComponent implements OnInit {
       if(!this.questionList[this.questionIndexImage]) return "unmarked-picture";
       return this.questionList[this.questionIndexImage].pictureLink == picLink
       ? "marked-picture" : "unmarked-picture";
+  }
+
+  changeRandomization(): boolean {
+    this.randomize = !this.randomize;
+    return this.randomize;
   }
 }

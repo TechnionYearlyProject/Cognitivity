@@ -231,7 +231,8 @@ export class EditTestComponent implements OnInit {
       {
         questions: questions,
         numberOfQuestions: questions.length,
-        tag: JSON.stringify(block.getTags())
+        tag: JSON.stringify(block.getTags()),
+        randomize: block.randomize
       }
 
       blocksToDB.push(blockInDB);

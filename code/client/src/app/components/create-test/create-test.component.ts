@@ -245,7 +245,9 @@ export class CreateTestComponent implements OnInit {
       {
         questions: questions,
         numberOfQuestions: questions.length,
-        tag: JSON.stringify(block.getTags())
+        tag: JSON.stringify(block.getTags()),
+        randomize: block.randomize
+
       }
 
       blocksToDB.push(blockInDB);
@@ -295,8 +297,10 @@ export class CreateTestComponent implements OnInit {
   }
 
   async uploadTest() {
-    if(!this.file)
-        return;
+    if(!this.file) {
+      alert('Bad file! Exiting...');
+      return;
+    }
     console.log("Uploaded file: " + this.file);
     console.log(await this.fileUploadService.uploadCognitiveTest(this.file, this.manager.id));
     this.router.navigate(['/dashboard']);

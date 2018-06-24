@@ -39,6 +39,8 @@ export class TestPageBlockComponent implements OnInit {
 
   percentBar: number = 0;
   //default constructor.
+
+  randomize: boolean;
   constructor() { }
 
 
@@ -47,7 +49,7 @@ export class TestPageBlockComponent implements OnInit {
     this.questionAnswers = new Array<QuestionAnswer>(this.block.questions.length); //Init array for time measurements for each question.
     this.questions = this.block.questions;
     //start to measure the current block
-
+    this.randomize = this.block.randomize;
     this.timing.timing_startBlockMeasure(this.block.id,this.block.numberOfQuestions);
 
     this.wasShownArr = new Array(this.block.numberOfQuestions);
@@ -201,7 +203,12 @@ export class TestPageBlockComponent implements OnInit {
     );
     this.wasShownArr[this.currIndex] = true;
     this.questionAnswers[this.currIndex] = this.question.getAnswer();
-    this.currIndex= this.generateRandomIndex();
+    if(this.randomize){
+      this.currIndex= this.generateRandomIndex();
+    } else {
+      this.currIndex++;
+    }
+    
     this.didAnswerQuestion = false;
     if (this.wasAllShown()==0) {
       this.finish = true;
