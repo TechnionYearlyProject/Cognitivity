@@ -166,8 +166,13 @@ export class CreateTestComponent implements OnInit {
         alert(badName);
         return false;
       }
-      let testList = await this.testService.findTestsForTestManager(this.manager.id);
-      for (let test of testList) {
+      // in case the asyncronical request didn't finished
+      if(!this.loaded_tests){
+          let interval = setInterval(() => {
+              if(this.loaded_tests) clearInterval(interval);
+          }, 1000);
+      }
+      for (let test of this.testList) {
         if (test.name.trim() == testName.trim().replace(/\s\s+/g, ' ')) {
           alert(nameAlreadyTaken);
           return false;
@@ -182,7 +187,6 @@ export class CreateTestComponent implements OnInit {
    * and collects them to a test object
    */
   async saveTest() {
-    this.savingTest = true;
     if (this.titleTest == '' || this.titleTest == null) {
       this.noTitle = true;
       return;
@@ -216,8 +220,12 @@ export class CreateTestComponent implements OnInit {
         alert(badName);
         return;
       }
-      let testList = await this.testService.findTestsForTestManager(this.manager.id);
-      for (let test of testList) {
+      if(!this.loaded_tests){
+          let interval = setInterval(() => {
+              if(this.loaded_tests) clearInterval(interval);
+          }, 1000);
+      }
+      for (let test of this.testList) {
         if (test.name.trim() == this.titleTest.trim().replace(/\s\s+/g, ' ')) {
           alert(nameAlreadyTaken);
           return;
@@ -271,13 +279,13 @@ export class CreateTestComponent implements OnInit {
       numberOfSubjects: 0,
       testManager: this.manager
     }
+    this.savingTest = true;
     console.log(await this.testService.saveCognitiveTest(test));
     this.router.navigate(['/dashboard']);
 
   }
 
   updateFile(event){
-      this.savingTest = true;
       if (event.target.files == null || event.target.files.length == 0){
         this.chosen_file = false;
         return;
@@ -307,6 +315,7 @@ export class CreateTestComponent implements OnInit {
       return;
     }
     console.log("Uploaded file: " + this.file);
+    this.savingTest = true;
     console.log(await this.fileUploadService.uploadCognitiveTest(this.file, this.manager.id));
     this.router.navigate(['/dashboard']);
   }

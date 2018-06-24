@@ -8,7 +8,10 @@
 <div class="container-fluid" *ngIf="!loaded">
     <app-loading loading_value="test" color="White"></app-loading>
 </div>
-<div class="form-group" *ngIf="loaded">
+<div class="container-fluid" *ngIf="savingTest">
+    <app-loading loading_value="save test" color="White"></app-loading>
+</div>
+<div class="form-group" *ngIf="loaded && !savingTest">
     <div class="centered">
         <h1>
             <span class="fa fa-sticky-note-o"></span> Edit Test "{{titleTest}}"</h1>

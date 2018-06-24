@@ -27,7 +27,10 @@ export class EditTestComponent implements OnInit {
   //the actual list of the blocks.
   blocksList = []
 
-  loaded: boolean = false;
+  // true if the page has loaded
+  loaded : boolean = false;
+  // true when the save test happens
+  savingTest : boolean = false;
 
   //object of a test , so we can save and import tests.
   test: Test;
@@ -259,6 +262,7 @@ export class EditTestComponent implements OnInit {
     this.test.testManager = this.manager;
     this.test.project = this.projectTest ? this.projectTest.trim() : null;
     this.test.notes = this.notesTest ? this.notesTest.trim() : null;
+    this.savingTest = true;
     console.log(await this.testService.updateCognitiveTest(this.test));
     this.router.navigate(['/dashboard']);
 
