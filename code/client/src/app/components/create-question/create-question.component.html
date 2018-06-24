@@ -89,8 +89,11 @@
             </div>
             <div class="centered">
                 <br>
+                <div *ngIf="!didChosetype() && submit" style="color: rgb(255, 55, 98);font-size:20px;">
+                    Please choose type for your question
+                </div>
                 <div *ngIf="(didChosetype() && !didChoseDrillDownQuestion() ) && !didChoseQuestionPosition() && !didChoseDrillDownQuestion() && submit" style="color: rgb(255, 55, 98);font-size:20px;">
-                    Please choose Position for your question
+                    Please choose position for your question
                 </div>
                 <div *ngIf="didChoseMultipleQuestion() && !didChoseMultipleChoiceType() && submit" style="color: rgb(255, 55, 98);font-size:20px;">
                   <br>

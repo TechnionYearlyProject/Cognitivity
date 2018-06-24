@@ -1,11 +1,11 @@
 <br>
+<div>
+  <input type="submit" class="btn btn-primary btn-sm" (click)="finishPreview()" value="Finish preview">
+</div>
 <div *ngIf="!loaded">
     <app-loading loading_value="preview" color="White"></app-loading>
-  </div>
-<div *ngIf="loaded">
-  <div class="container">
-    <input type="submit" class="btn btn-primary btn-sm" (click)="finishPreview()" value="Finish preview">
-  </div>
+</div>
+<div class="container" *ngIf="loaded">
   <br>
   <div *ngFor="let block of blocks; let i=index">
     <app-block-preview *ngIf="showBlock(i)" [block]="block" (finished)="isFinished($event)"></app-block-preview>

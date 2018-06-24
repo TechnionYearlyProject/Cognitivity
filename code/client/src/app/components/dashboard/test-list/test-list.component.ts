@@ -23,7 +23,7 @@ export class TestListComponent implements OnInit {
   testList: Test[];
   filteredTestList: Test[];
   filter = {
-    option: '',
+    option: 'empty',
     text: ''
   }
   //an object to represent the current manager. it hold the current logged in user's credentials.
@@ -101,11 +101,9 @@ export class TestListComponent implements OnInit {
 
   async deleteTest(id: number) {
     if (confirm('Are you sure you want to delete the test?')) {
-      this.loaded = false;
-      console.log(await this.testService.deleteCognitiveTest(id));
       this.testList = this.testList.filter((item) => item.id != id);
-      this.filterTests()
-      this.loaded = true;
+      this.filterTests(false)
+      await this.testService.deleteCognitiveTest(id);
     }
   }
 
@@ -165,8 +163,11 @@ chooseCategory : boolean = true;
         this.filterTests();
   }
 
-  filterTests(){
-    if(!this.filter.option){
+
+  // calledFromSubmit : whether the function called from the html file or not (filterKeyDown is a call from the html)
+  filterTests(calledFromSubmit : boolean = true){
+    console.log("in here");
+    if(calledFromSubmit && this.filter.option == 'empty'){
         this.chooseCategory = false;
         return;
     }
@@ -206,7 +207,7 @@ chooseCategory : boolean = true;
       this.chosen_file = false;
       return;
     }
-    
+
     if(event.target.files.length != 1){
         this.chosen_file = false;
         alert("only one file can be submitted each time");
