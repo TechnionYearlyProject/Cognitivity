@@ -55,6 +55,7 @@ export class TestPageBlockComponent implements OnInit {
     }
     this.currIndex = 0;
     let tmpFirstQuestion = this.parseToQuestion(this.questions[0]);
+    console.log(tmpFirstQuestion);
     if(tmpFirstQuestion.showDistractions && (tmpFirstQuestion.distractionsSeconds > 0)){
       this.tickTick(tmpFirstQuestion.distractionsSeconds);
       console.log("setting clock to true");

@@ -26,7 +26,7 @@
                     </div>
                     <label for="distractionsSeconds"> Enter number of seconds for the countdown: </label>
                     <input id="distractionsSeconds" class="form-control" type="number" [disabled]="!showDistractions" #seconds  min="0"
-                    (onchange)="updateDistractionCountdown(seconds.value)" value="0">
+                    (input)="updateDistractionCountdown(seconds.value)" [value]="distractionsSeconds">
                 </form>
 
             </div><br>
