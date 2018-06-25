@@ -6,7 +6,7 @@ Welcome to the Cognitivity wiki! Here you will find theoretical discussions, a u
 
 
 [![codecov](https://codecov.io/gh/TechnionYearlyProject/Cognitivity/branch/master/graph/badge.svg)](https://codecov.io/gh/TechnionYearlyProject/Cognitivity)
-
+Welcome to the Cognitivity wiki! Here you will find theoretical discussions, a user manual guide, and a developer manual guide.
 
 ## Getting Started
 * [What is Cognitivity?](https://github.com/TechnionYearlyProject/Cognitivity/wiki/Cognitivity---Overview)
@@ -31,6 +31,7 @@ Welcome to the Cognitivity wiki! Here you will find theoretical discussions, a u
 * [Creating a Test](https://github.com/TechnionYearlyProject/Cognitivity/wiki/Creating-a-test)
 * [Manager Test Options](https://github.com/TechnionYearlyProject/Cognitivity/wiki/Manager-Test-Options)
 * [Test Distribution](https://github.com/TechnionYearlyProject/Cognitivity/wiki/Cognitive-Test-Distribution)
+* [Test Manager Workflow](https://github.com/TechnionYearlyProject/Cognitivity/wiki/Manager-Workflow)
 
 
 ## Developer Manual
@@ -42,7 +43,9 @@ Welcome to the Cognitivity wiki! Here you will find theoretical discussions, a u
 * [Installation Instructions](https://github.com/TechnionYearlyProject/Cognitivity/wiki/Installation-Instructions-for-Developers)
 * [Backend Development](https://github.com/TechnionYearlyProject/Cognitivity/wiki/Backend-Development)
 * [Frontend Development](https://github.com/TechnionYearlyProject/Cognitivity/wiki/Front-End-Development)
+* [Frontend Project Structure for Developers](https://github.com/TechnionYearlyProject/Cognitivity/wiki/Frontend-Project-Structure-for-Development)
 * [Database Creation & Expansion](https://github.com/TechnionYearlyProject/Cognitivity/wiki/Database-Creation-and-Expansion)
+
 
 ***
 
