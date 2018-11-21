@@ -11,6 +11,7 @@ out/
 target/
 .classpath
 .project
+.vscode
 .settings
 src/main/webapp/META-INF
 .idea
